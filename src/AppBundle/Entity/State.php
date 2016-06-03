@@ -33,6 +33,13 @@ class State extends AbstractBase
     private $country;
 
     /**
+     * @var Customer
+     *
+     * @ORM\ManyToOne(targetEntity="Customer", inversedBy="states")
+     */
+    private $customer;
+
+    /**
      *
      *
      * Methods
@@ -74,6 +81,25 @@ class State extends AbstractBase
     public function setCountry($country)
     {
         $this->country = $country;
+
+        return $this;
+    }
+
+    /**
+     * @return Customer
+     */
+    public function getCustomer()
+    {
+        return $this->customer;
+    }
+
+    /**
+     * @param Customer $customer
+     * @return State
+     */
+    public function setCustomer($customer)
+    {
+        $this->customer = $customer;
 
         return $this;
     }
