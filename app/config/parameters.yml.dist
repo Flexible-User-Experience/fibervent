@@ -17,6 +17,9 @@ parameters:
     path_node: /usr/local/bin/node
     path_node_modules: /Users/anton/node_modules
 
+    private_admin_test_user: admin
+    private_admin_test_pass: admin
+
     # A secret key that's used to generate certain security-related tokens
     secret:            ThisTokenIsNotSoSecretChangeIt
 
