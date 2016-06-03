@@ -1,0 +1,24 @@
+# Country
+AppBundle\Entity\Country:
+  country{1..1}:
+    name: <country()>
+    customer: @customer<numberBetween(1, 3)>
+
+# State
+AppBundle\Entity\State:
+  state{1..2}:
+    name: <state()>
+    country: @country<numberBetween(1, 4)>
+    customer: @customer<numberBetween(1, 3)>
+
+# Customer
+AppBundle\Entity\Customer:
+  customer{1..3}:
+    name: <company()> <companySuffix()>
+    mail: <email()>
+    code: <numberBetween($min = 1000, $max = 9000)>
+    phone: <e164PhoneNumber()>
+    web: <url()>
+    address: <streetAddress()>
+    zip: <postcode()>
+    city: <city()>
