@@ -26,7 +26,7 @@ abstract class AbstractBase
     /**
      * @var \DateTime
      *
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      * @Gedmo\Timestampable(on="create")
      */
     protected $createdAt;

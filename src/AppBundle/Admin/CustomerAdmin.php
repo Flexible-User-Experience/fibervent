@@ -97,20 +97,20 @@ class CustomerAdmin extends AbstractBaseAdmin
                     'label' => 'Ciudad',
                 )
             )
-            ->add(
-                'state',
-                null,
-                array(
-                    'label' => 'Província',
-                )
-            )
-            ->add(
-                'country',
-                null,
-                array(
-                    'label' => 'País',
-                )
-            )
+//            ->add(
+//                'state',
+//                null,
+//                array(
+//                    'label' => 'Província',
+//                )
+//            )
+//            ->add(
+//                'country',
+//                null,
+//                array(
+//                    'label' => 'País',
+//                )
+//            )
             ->end()
             ->with('Controls', $this->getFormMdSuccessBoxArray(5))
             ->add(
@@ -185,20 +185,20 @@ class CustomerAdmin extends AbstractBaseAdmin
                     'label' => 'Ciudad',
                 )
             )
-            ->add(
-                'state',
-                null,
-                array(
-                    'label' => 'Província',
-                )
-            )
-            ->add(
-                'country',
-                null,
-                array(
-                    'label' => 'País',
-                )
-            )
+//            ->add(
+//                'state',
+//                null,
+//                array(
+//                    'label' => 'Província',
+//                )
+//            )
+//            ->add(
+//                'country',
+//                null,
+//                array(
+//                    'label' => 'País',
+//                )
+//            )
             ->add(
                 'enabled',
                 null,

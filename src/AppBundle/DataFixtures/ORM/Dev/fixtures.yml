@@ -15,7 +15,7 @@ AppBundle\Entity\State:
 AppBundle\Entity\Customer:
   customer{1..10}:
     name: <company()> <companySuffix()>
-    mail: <email()>
+    email: <email()>
     code: <numberBetween($min = 1000, $max = 9000)>
     phone: <e164PhoneNumber()>
     web: <url()>

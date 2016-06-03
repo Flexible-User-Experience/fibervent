@@ -8,14 +8,14 @@ AppBundle\Entity\Country:
 AppBundle\Entity\State:
   state{1..2}:
     name: <state()>
-    country: @country<numberBetween(1, 4)>
+    country: @country<numberBetween(1, 1)>
     customer: @customer<numberBetween(1, 3)>
 
 # Customer
 AppBundle\Entity\Customer:
   customer{1..3}:
     name: <company()> <companySuffix()>
-    mail: <email()>
+    email: <email()>
     code: <numberBetween($min = 1000, $max = 9000)>
     phone: <e164PhoneNumber()>
     web: <url()>
