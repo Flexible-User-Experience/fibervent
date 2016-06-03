@@ -12,5 +12,10 @@ web_profiler:
     toolbar: false
     intercept_redirects: false
 
+doctrine:
+    dbal:
+        driver: "pdo_sqlite"
+        path:   "%kernel.root_dir%/database/test.db3"
+
 swiftmailer:
     disable_delivery: true
