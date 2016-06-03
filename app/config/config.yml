@@ -51,6 +51,12 @@ assetic:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
+    form_themes:
+        - "bootstrap_3_layout.html.twig"
+        - "SonataCoreBundle:Form:datepicker.html.twig"
+    globals:
+        admin_tag_version:        "v0.0.1"
+        main_brand_title: "%project_web_title%"
 
 # Doctrine Configuration
 doctrine:
@@ -62,17 +68,50 @@ doctrine:
         user:     "%database_user%"
         password: "%database_password%"
         charset:  UTF8
-        # if using pdo_sqlite as your database driver:
-        #   1. add the path in parameters.yml
-        #     e.g. database_path: "%kernel.root_dir%/data/data.db3"
-        #   2. Uncomment database_path in parameters.yml.dist
-        #   3. Uncomment next line:
-        #     path:     "%database_path%"
 
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"
         naming_strategy: doctrine.orm.naming_strategy.underscore
         auto_mapping: true
+
+# Sonata
+sonata_block:
+    default_contexts: [ cms ]
+    blocks:
+        sonata.admin.block.admin_list:  ~
+        sonata.block.service.text:      ~
+
+# Admin
+sonata_admin:
+    title: "%project_web_title%"
+#    title_logo: "/bundles/app/img/logo-espai-kowo-backend.png"
+    options:
+        html5_validate: true
+        confirm_exit:   true
+        use_select2:    true
+        pager_links:    10
+    persist_filters: true
+    templates:
+        layout: "::Admin/layout.html.twig"
+#        show:   "::Admin/show.html.twig"
+    dashboard:
+        groups:
+            Customer:
+                icon: "<i class='fa fa-microphone' aria-hidden='true'></i>"
+        blocks:
+            -
+                position: top
+                type: sonata.block.service.text
+                class: col-md-12
+                settings:
+                    content: >
+                        <h1 style="margin-top:0">Fibervent</h1>
+            -
+                position: top
+                type: sonata.admin.block.admin_list
+                class: col-md-6
+                settings:
+                    groups: [ Customer ]
 
 # Swiftmailer Configuration
 swiftmailer:
