@@ -5,6 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -16,6 +17,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="AppBundle\Repository\CustomerRepository")
+ * @UniqueEntity("code")
  */
 class Customer extends AbstractBase
 {
@@ -37,7 +39,7 @@ class Customer extends AbstractBase
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=45)
+     * @ORM\Column(type="string", length=45, unique = true)
      */
     private $code;
 
@@ -78,16 +80,17 @@ class Customer extends AbstractBase
     private $city;
 
     /**
-     * @var ArrayCollection
-     * @ORM\OneToMany(targetEntity="Country", mappedBy="customer")
+     * @var State
+     *
+     * @ORM\ManyToOne(targetEntity="State", inversedBy="customers")
      */
-    private $countries;
+    private $state;
 
     /**
      * @var ArrayCollection
-     * @ORM\OneToMany(targetEntity="State", mappedBy="customer")
+     * @ORM\OneToMany(targetEntity="Windfarm", mappedBy="customer")
      */
-    private $states;
+    private $windfarms;
 
     /**
      *
@@ -99,13 +102,11 @@ class Customer extends AbstractBase
 
     /**
      * Customer constructor.
-     * @param ArrayCollection $countries
-     * @param ArrayCollection $states
+     * @param ArrayCollection $windfarms
      */
     public function __construct()
     {
-        $this->countries = new ArrayCollection();
-        $this->states    = new ArrayCollection();
+        $this->windfarms = new ArrayCollection();
     }
 
     /**
@@ -175,7 +176,6 @@ class Customer extends AbstractBase
 
     /**
      * @param string $phone
-     *
      * @return Customer
      */
     public function setPhone($phone)
@@ -195,7 +195,6 @@ class Customer extends AbstractBase
 
     /**
      * @param string $web
-     *
      * @return Customer
      */
     public function setWeb($web)
@@ -215,7 +214,6 @@ class Customer extends AbstractBase
 
     /**
      * @param string $address
-     *
      * @return Customer
      */
     public function setAddress($address)
@@ -235,7 +233,6 @@ class Customer extends AbstractBase
 
     /**
      * @param string $zip
-     *
      * @return Customer
      */
     public function setZip($zip)
@@ -255,7 +252,6 @@ class Customer extends AbstractBase
 
     /**
      * @param string $city
-     *
      * @return Customer
      */
     public function setCity($city)
@@ -266,20 +262,20 @@ class Customer extends AbstractBase
     }
 
     /**
-     * @return ArrayCollection
+     * @return State
      */
-    public function getCountries()
+    public function getState()
     {
-        return $this->countries;
+        return $this->state;
     }
 
     /**
-     * @param ArrayCollection $countries
+     * @param State $state
      * @return Customer
      */
-    public function setCountries(ArrayCollection $countries)
+    public function setState($state)
     {
-        $this->countries = $countries;
+        $this->state = $state;
 
         return $this;
     }
@@ -287,18 +283,18 @@ class Customer extends AbstractBase
     /**
      * @return ArrayCollection
      */
-    public function getStates()
+    public function getWindfarms()
     {
-        return $this->states;
+        return $this->windfarms;
     }
 
     /**
-     * @param ArrayCollection $states
+     * @param ArrayCollection $windfarms
      * @return Customer
      */
-    public function setStates(ArrayCollection $states)
+    public function setWindfarms(ArrayCollection $windfarms)
     {
-        $this->states = $states;
+        $this->windfarms = $windfarms;
 
         return $this;
     }
