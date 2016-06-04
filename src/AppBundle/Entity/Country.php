@@ -5,6 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -16,9 +17,17 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="AppBundle\Repository\CountryRepository")
+ * @UniqueEntity("code")
  */
 class Country extends AbstractBase
 {
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", length=2, unique = true)
+     */
+    private $code;
+
     /**
      * @var string
      *
@@ -31,13 +40,6 @@ class Country extends AbstractBase
      * @ORM\OneToMany(targetEntity="State", mappedBy="country")
      */
     private $states;
-
-    /**
-     * @var Customer
-     *
-     * @ORM\ManyToOne(targetEntity="Customer", inversedBy="countries")
-     */
-    private $customer;
 
     /**
      *
@@ -95,22 +97,21 @@ class Country extends AbstractBase
     }
 
     /**
-     * @return Customer
+     * @return string
      */
-    public function getCustomer()
+    public function getCode()
     {
-        return $this->customer;
+        return $this->code;
     }
 
     /**
-     * @param Customer $customer
+     * @param string $code
      * @return Country
      */
-    public function setCustomer($customer)
+    public function setCode($code)
     {
-        $this->customer = $customer;
+        $this->code = $code;
 
         return $this;
     }
-
 }
