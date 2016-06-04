@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -33,11 +34,10 @@ class State extends AbstractBase
     private $country;
 
     /**
-     * @var Customer
-     *
-     * @ORM\ManyToOne(targetEntity="Customer", inversedBy="states")
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="Customer", mappedBy="state")
      */
-    private $customer;
+    private $customers;
 
     /**
      *
@@ -46,6 +46,15 @@ class State extends AbstractBase
      *
      *
      */
+
+    /**
+     * State constructor.
+     * @param ArrayCollection $customers
+     */
+    public function __construct()
+    {
+        $this->customers = new ArrayCollection();
+    }
 
     /**
      * @return string
@@ -86,20 +95,20 @@ class State extends AbstractBase
     }
 
     /**
-     * @return Customer
+     * @return ArrayCollection
      */
-    public function getCustomer()
+    public function getCustomers()
     {
-        return $this->customer;
+        return $this->customers;
     }
 
     /**
-     * @param Customer $customer
+     * @param ArrayCollection $customers
      * @return State
      */
-    public function setCustomer($customer)
+    public function setCustomers(ArrayCollection $customers)
     {
-        $this->customer = $customer;
+        $this->customers = $customers;
 
         return $this;
     }
