@@ -1,24 +1,36 @@
 # Country
 AppBundle\Entity\Country:
   country{1..4}:
+    code(unique): <numberBetween($min = 10, $max = 99)>
     name: <country()>
-    customer: @customer<numberBetween(1, 10)>
 
 # State
 AppBundle\Entity\State:
-  state{1..10}:
+  state{1..8}:
     name: <state()>
     country: @country<numberBetween(1, 4)>
-    customer: @customer<numberBetween(1, 10)>
 
 # Customer
 AppBundle\Entity\Customer:
   customer{1..10}:
     name: <company()> <companySuffix()>
     email: <email()>
-    code: <numberBetween($min = 1000, $max = 9000)>
+    code(unique): <numberBetween($min = 1000, $max = 9000)>
     phone: <e164PhoneNumber()>
     web: <url()>
     address: <streetAddress()>
     zip: <postcode()>
     city: <city()>
+    state: @state<numberBetween(1, 8)>
+
+# Windfarm
+AppBundle\Entity\Windfarm:
+  windfarm{1..20}:
+    name: <catchPhrase()>
+    city: <city()>
+    gpsLatitude: <latitude($min = -90, $max = 90)>
+    gpsLongitude: <longitude($min = -180, $max = 180)>
+    power: <numberBetween($min = 10, $max = 5000 )>
+    year: <year()>
+    customer: @customer<numberBetween(1, 10)>
+    state: @state<numberBetween(1, 8)>
