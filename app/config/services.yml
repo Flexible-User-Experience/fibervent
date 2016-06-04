@@ -5,3 +5,8 @@ services:
         arguments: [ ~ , AppBundle\Entity\Customer , ~ ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Cliente", group: "Customer" }
+    admin.country:
+        class: AppBundle\Admin\CountryAdmin
+        arguments: [ ~ , AppBundle\Entity\Country , ~ ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "País", group: "Customer", show_in_dashboard: false }
