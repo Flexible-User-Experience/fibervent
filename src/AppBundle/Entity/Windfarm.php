@@ -233,4 +233,9 @@ class Windfarm extends AbstractBase
 
         return $this;
     }
+
+    public function __toString()
+    {
+        return $this->getName() ? $this->getName() : '---';
+    }
 }

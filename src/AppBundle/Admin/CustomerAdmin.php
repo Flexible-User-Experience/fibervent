@@ -19,8 +19,8 @@ class CustomerAdmin extends AbstractBaseAdmin
     protected $classnameLabel = 'Customer';
     protected $baseRoutePattern = 'customers/customer';
     protected $datagridValues = array(
-        '_sort_by'    => 'code',
-        '_sort_order' => 'desc',
+        '_sort_by'    => 'name',
+        '_sort_order' => 'asc',
     );
 
     /**
@@ -56,27 +56,6 @@ class CustomerAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'email',
-                null,
-                array(
-                    'label' => 'Correo electrónico',
-                )
-            )
-            ->add(
-                'phone',
-                null,
-                array(
-                    'label' => 'Teléfono',
-                )
-            )
-            ->add(
-                'web',
-                null,
-                array(
-                    'label' => 'Web',
-                )
-            )
-            ->add(
                 'address',
                 null,
                 array(
@@ -97,20 +76,20 @@ class CustomerAdmin extends AbstractBaseAdmin
                     'label' => 'Ciudad',
                 )
             )
-//            ->add(
-//                'state',
-//                null,
-//                array(
-//                    'label' => 'Província',
-//                )
-//            )
-//            ->add(
-//                'country',
-//                null,
-//                array(
-//                    'label' => 'País',
-//                )
-//            )
+            ->add(
+                'state',
+                null,
+                array(
+                    'label' => 'Província',
+                )
+            )
+            ->add(
+                'state.country',
+                null,
+                array(
+                    'label' => 'País',
+                )
+            )
             ->end()
             ->with('Controls', $this->getFormMdSuccessBoxArray(5))
             ->add(
@@ -119,6 +98,27 @@ class CustomerAdmin extends AbstractBaseAdmin
                 array(
                     'label'    => 'Actiu',
                     'required' => false,
+                )
+            )
+            ->add(
+                'email',
+                null,
+                array(
+                    'label' => 'Correo electrónico',
+                )
+            )
+            ->add(
+                'phone',
+                null,
+                array(
+                    'label' => 'Teléfono',
+                )
+            )
+            ->add(
+                'web',
+                null,
+                array(
+                    'label' => 'Web',
                 )
             )
             ->end();
@@ -185,20 +185,20 @@ class CustomerAdmin extends AbstractBaseAdmin
                     'label' => 'Ciudad',
                 )
             )
-//            ->add(
-//                'state',
-//                null,
-//                array(
-//                    'label' => 'Província',
-//                )
-//            )
-//            ->add(
-//                'country',
-//                null,
-//                array(
-//                    'label' => 'País',
-//                )
-//            )
+            ->add(
+                'state',
+                null,
+                array(
+                    'label' => 'Província',
+                )
+            )
+            ->add(
+                'state.country',
+                null,
+                array(
+                    'label' => 'País',
+                )
+            )
             ->add(
                 'enabled',
                 null,
@@ -216,14 +216,14 @@ class CustomerAdmin extends AbstractBaseAdmin
     {
         unset($this->listModes['mosaic']);
         $listMapper
-            ->add(
-                'code',
-                null,
-                array(
-                    'label' => 'Código',
-                    'editable' => true,
-                )
-            )
+//            ->add(
+//                'code',
+//                null,
+//                array(
+//                    'label' => 'Código',
+//                    'editable' => true,
+//                )
+//            )
             ->add(
                 'name',
                 null,
@@ -233,13 +233,37 @@ class CustomerAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'phone',
+                'city',
                 null,
                 array(
-                    'label' => 'Teléfono',
+                    'label' => 'Ciudad',
                     'editable' => true,
                 )
             )
+            ->add(
+                'state',
+                null,
+                array(
+                    'label' => 'Província',
+                    'editable' => true,
+                )
+            )
+//            ->add(
+//                'address',
+//                null,
+//                array(
+//                    'label' => 'Dirección',
+//                    'editable' => true,
+//                )
+//            )
+//            ->add(
+//                'phone',
+//                null,
+//                array(
+//                    'label' => 'Teléfono',
+//                    'editable' => true,
+//                )
+//            )
             ->add(
                 'enabled',
                 null,
