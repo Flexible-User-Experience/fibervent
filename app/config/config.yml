@@ -97,7 +97,9 @@ sonata_admin:
     dashboard:
         groups:
             Customer:
-                icon: "<i class='fa fa-microphone' aria-hidden='true'></i>"
+                icon: "<i class='fa fa-industry' aria-hidden='true'></i>"
+            Windfarm:
+                icon: "<i class='fa fa-bolt' aria-hidden='true'></i>"
         blocks:
             -
                 position: top
@@ -112,6 +114,12 @@ sonata_admin:
                 class: col-md-6
                 settings:
                     groups: [ Customer ]
+            -
+                position: top
+                type: sonata.admin.block.admin_list
+                class: col-md-6
+                settings:
+                    groups: [ Windfarm ]
 
 # Swiftmailer Configuration
 swiftmailer:

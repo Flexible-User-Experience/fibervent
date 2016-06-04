@@ -15,3 +15,8 @@ services:
         arguments: [ ~ , AppBundle\Entity\State , ~ ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Província", group: "Customer", show_in_dashboard: false }
+    admin.windfarm:
+        class: AppBundle\Admin\WindfarmAdmin
+        arguments: [ ~ , AppBundle\Entity\Windfarm , ~ ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Parque Eólico", group: "Windfarm" }
