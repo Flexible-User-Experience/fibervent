@@ -299,6 +299,29 @@ class Customer extends AbstractBase
         return $this;
     }
 
+    /* @param Windfarm $windfarm
+     *
+     * @return $this
+     */
+    public function addWindfarm(Windfarm $windfarm)
+    {
+        $windfarm->setCustomer($this);
+        $this->windfarm->add($windfarm);
+
+        return $this;
+    }
+
+    /* @param Windfarm $windfarm
+     *
+     * @return $this
+     */
+    public function removeWindfarm(Windfarm $windfarm)
+    {
+        $this->windfarm->removeElement($windfarm);
+
+        return $this;
+    }
+
     public function __toString()
     {
         return $this->getName() ? $this->getName() : '---';
