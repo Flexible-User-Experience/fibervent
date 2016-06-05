@@ -81,6 +81,21 @@ sonata_block:
         sonata.admin.block.admin_list:  ~
         sonata.block.service.text:      ~
 
+sonata_user:
+    security_acl: true
+    manager_type: orm
+
+# FOS User
+fos_user:
+    db_driver:      orm
+    firewall_name:  admin
+    user_class:     AppBundle\Entity\User
+    group:
+        group_class:   AppBundle\Entity\Group
+        group_manager: sonata.user.orm.group_manager
+    service:
+        user_manager: sonata.user.orm.user_manager
+
 # Admin
 sonata_admin:
     title: "%project_web_title%"
