@@ -9,14 +9,14 @@
 {% endblock %}
 
  {#custom top menu#}
-{#{% block sonata_top_nav_menu %}#}
-    {#<div class="navbar-custom-menu">#}
-        {#<ul class="nav navbar-nav navbar-right">#}
-            {#<li><a href="https://github.com/aserratorta"><i class="fa fa-home"></i></a></li>#}
-            {#<li><a href="{{ path('sonata_user_admin_security_logout') }}"><i class="fa fa-power-off text-success"></i></a></li>#}
-        {#</ul>#}
-    {#</div>#}
-{#{% endblock %}#}
+{% block sonata_top_nav_menu %}
+    <div class="navbar-custom-menu">
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="http://www.fibervent.com/"><i class="fa fa-home"></i></a></li>
+            <li><a href="{{ path('sonata_user_admin_security_logout') }}"><i class="fa fa-power-off text-success"></i></a></li>
+        </ul>
+    </div>
+{% endblock %}
 
 {# override javascript includes #}
 {#{% block javascripts %}#}

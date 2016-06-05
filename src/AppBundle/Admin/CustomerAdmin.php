@@ -97,7 +97,7 @@ class CustomerAdmin extends AbstractBaseAdmin
                 'email',
                 null,
                 array(
-                    'label' => 'Correu electrònic',
+                    'label' => 'Correu Electrònic',
                 )
             )
             ->add(
@@ -140,7 +140,7 @@ class CustomerAdmin extends AbstractBaseAdmin
                 'email',
                 null,
                 array(
-                    'label' => 'Correu electrònic',
+                    'label' => 'Correu Electrònic',
                 )
             )
             ->add(
