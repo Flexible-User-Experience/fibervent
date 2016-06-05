@@ -4,7 +4,7 @@ services:
         class: AppBundle\Admin\CustomerAdmin
         arguments: [ ~ , AppBundle\Entity\Customer , ~ ]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: "Cliente", group: "Customer" }
+            - { name: sonata.admin, manager_type: orm, label: "Client", group: "Customer" }
     admin.country:
         class: AppBundle\Admin\CountryAdmin
         arguments: [ ~ , AppBundle\Entity\Country , ~ ]
@@ -19,4 +19,9 @@ services:
         class: AppBundle\Admin\WindfarmAdmin
         arguments: [ ~ , AppBundle\Entity\Windfarm , ~ ]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: "Parque Eólico", group: "Windfarm" }
+            - { name: sonata.admin, manager_type: orm, label: "Parc Eòlic", group: "Windfarm" }
+    admin.user:
+        class: AppBundle\Admin\UserAdmin
+        arguments: [ ~, AppBundle\Entity\User, ~, "@fos_user.user_manager" ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Usuari", group: "Users" }

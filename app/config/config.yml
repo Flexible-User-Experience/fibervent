@@ -110,13 +110,15 @@ sonata_admin:
     persist_filters: true
     templates:
         layout: "::Admin/layout.html.twig"
-#        show:   "::Admin/show.html.twig"
+        show:   "::Admin/show.html.twig"
     dashboard:
         groups:
             Customer:
                 icon: "<i class='fa fa-industry' aria-hidden='true'></i>"
             Windfarm:
                 icon: "<i class='fa fa-bolt' aria-hidden='true'></i>"
+            Users:
+                icon: "<i class='fa fa-user'></i>"
         blocks:
             -
                 position: top
@@ -137,6 +139,12 @@ sonata_admin:
                 class: col-md-6
                 settings:
                     groups: [ Windfarm ]
+            -
+                position: top
+                type: sonata.admin.block.admin_list
+                class: col-md-6
+                settings:
+                    groups: [ Users ]
 
 # Swiftmailer Configuration
 swiftmailer:

@@ -74,7 +74,7 @@ class UserAdmin extends ParentUserAdmin
                 'firstname',
                 null,
                 array(
-                    'label'    => 'backend.admin.user.firstname',
+                    'label'    => 'Nom',
                     'required' => false,
                 )
             )
@@ -82,31 +82,31 @@ class UserAdmin extends ParentUserAdmin
                 'username',
                 null,
                 array(
-                    'label' => 'backend.admin.user.username',
+                    'label' => 'Nom Usuari',
                 )
             )
             ->add(
                 'email',
                 null,
                 array(
-                    'label' => 'backend.admin.user.email',
+                    'label' => 'Correu Electrònic',
                 )
             )
             ->add(
                 'plainPassword',
                 'text',
                 array(
-                    'label'    => 'backend.admin.user.plain_password',
+                    'label'    => 'Password',
                     'required' => (!$this->getSubject() || is_null($this->getSubject()->getId()))
                 )
             )
             ->end()
-            ->with('backend.admin.controls', array('class' => 'col-md-6'))
+            ->with('Controls', array('class' => 'col-md-6'))
             ->add(
                 'roles',
                 'choice',
                 array(
-                    'label'    => 'backend.admin.user.roles',
+                    'label'    => 'Rols',
                     'choices'  => UserRolesEnum::getEnumArray(),
                     'multiple' => true,
                     'expanded' => true
@@ -116,7 +116,7 @@ class UserAdmin extends ParentUserAdmin
                 'enabled',
                 'checkbox',
                 array(
-                    'label'    => 'backend.admin.enabled',
+                    'label'    => 'Actiu',
                     'required' => false,
                 )
             )
@@ -133,14 +133,14 @@ class UserAdmin extends ParentUserAdmin
                 'username',
                 null,
                 array(
-                    'label' => 'backend.admin.user.username',
+                    'label' => 'Nom Usuari',
                 )
             )
             ->add(
                 'email',
                 null,
                 array(
-                    'label' => 'backend.admin.user.email',
+                    'label' => 'Correu electrònic',
                 )
             )
 //            ->add(
@@ -155,7 +155,7 @@ class UserAdmin extends ParentUserAdmin
                 'enabled',
                 null,
                 array(
-                    'label' => 'backend.admin.enabled',
+                    'label' => 'Actiu',
                 )
             );
     }
@@ -171,7 +171,7 @@ class UserAdmin extends ParentUserAdmin
                 'username',
                 null,
                 array(
-                    'label'    => 'backend.admin.user.username',
+                    'label'    => 'Nom Usuari',
                     'editable' => true,
                 )
             )
@@ -179,7 +179,7 @@ class UserAdmin extends ParentUserAdmin
                 'email',
                 null,
                 array(
-                    'label'    => 'backend.admin.user.email',
+                    'label'    => 'Correu Electrònic',
                     'editable' => true,
                 )
             )
@@ -187,7 +187,7 @@ class UserAdmin extends ParentUserAdmin
                 'roles',
                 null,
                 array(
-                    'label'    => 'backend.admin.user.roles',
+                    'label'    => 'Rols',
                     'template' => '::Admin/Cells/list__cell_user_roles.html.twig',
                 )
             )
@@ -195,7 +195,7 @@ class UserAdmin extends ParentUserAdmin
                 'enabled',
                 null,
                 array(
-                    'label'    => 'backend.admin.enabled',
+                    'label'    => 'Actiu',
                     'editable' => true,
                 )
             )
@@ -203,7 +203,7 @@ class UserAdmin extends ParentUserAdmin
                 '_action',
                 'actions',
                 array(
-                    'label'   => 'backend.admin.actions',
+                    'label'   => 'Accions',
                     'actions' => array(
                         'edit'   => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
                         'delete' => array('template' => '::Admin/Buttons/list__action_delete_button.html.twig'),
