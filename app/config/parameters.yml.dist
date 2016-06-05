@@ -19,6 +19,8 @@ parameters:
 
     private_admin_test_user: admin
     private_admin_test_pass: admin
+    private_editor_test_user: user
+    private_editor_test_pass: user
 
     # A secret key that's used to generate certain security-related tokens
     secret:            ThisTokenIsNotSoSecretChangeIt
