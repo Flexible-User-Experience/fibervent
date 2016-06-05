@@ -63,13 +63,6 @@ class WindfarmAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'state.country',
-                null,
-                array(
-                    'label' => 'País',
-                )
-            )
-            ->add(
                 'year',
                 null,
                 array(

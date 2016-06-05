@@ -83,13 +83,6 @@ class CustomerAdmin extends AbstractBaseAdmin
                     'label' => 'Província',
                 )
             )
-            ->add(
-                'state.country',
-                null,
-                array(
-                    'label' => 'País',
-                )
-            )
             ->end()
             ->with('Controls', $this->getFormMdSuccessBoxArray(5))
             ->add(
