@@ -306,7 +306,7 @@ class Customer extends AbstractBase
     public function addWindfarm(Windfarm $windfarm)
     {
         $windfarm->setCustomer($this);
-        $this->windfarm->add($windfarm);
+        $this->windfarms->add($windfarm);
 
         return $this;
     }
@@ -317,7 +317,7 @@ class Customer extends AbstractBase
      */
     public function removeWindfarm(Windfarm $windfarm)
     {
-        $this->windfarm->removeElement($windfarm);
+        $this->windfarms->removeElement($windfarm);
 
         return $this;
     }
