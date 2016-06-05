@@ -45,35 +45,35 @@ class CustomerAdmin extends AbstractBaseAdmin
                 'code',
                 null,
                 array(
-                    'label' => 'Código',
+                    'label' => 'Codi',
                 )
             )
             ->add(
                 'name',
                 null,
                 array(
-                    'label' => 'Nombre',
+                    'label' => 'Nom',
                 )
             )
             ->add(
                 'address',
                 null,
                 array(
-                    'label' => 'Dirección',
+                    'label' => 'Adreça',
                 )
             )
             ->add(
                 'zip',
                 null,
                 array(
-                    'label' => 'CP',
+                    'label' => 'Codi Postal',
                 )
             )
             ->add(
                 'city',
                 null,
                 array(
-                    'label' => 'Ciudad',
+                    'label' => 'Ciutat',
                 )
             )
             ->add(
@@ -104,14 +104,14 @@ class CustomerAdmin extends AbstractBaseAdmin
                 'email',
                 null,
                 array(
-                    'label' => 'Correo electrónico',
+                    'label' => 'Correu electrònic',
                 )
             )
             ->add(
                 'phone',
                 null,
                 array(
-                    'label' => 'Teléfono',
+                    'label' => 'Telèfon',
                 )
             )
             ->add(
@@ -133,28 +133,28 @@ class CustomerAdmin extends AbstractBaseAdmin
                 'code',
                 null,
                 array(
-                    'label' => 'Código',
+                    'label' => 'Codi',
                 )
             )
             ->add(
                 'name',
                 null,
                 array(
-                    'label' => 'Nombre',
+                    'label' => 'Nom',
                 )
             )
             ->add(
                 'email',
                 null,
                 array(
-                    'label' => 'Correo electrónico',
+                    'label' => 'Correu electrònic',
                 )
             )
             ->add(
                 'phone',
                 null,
                 array(
-                    'label' => 'Teléfono',
+                    'label' => 'Telèfon',
                 )
             )
             ->add(
@@ -168,21 +168,21 @@ class CustomerAdmin extends AbstractBaseAdmin
                 'address',
                 null,
                 array(
-                    'label' => 'Dirección',
+                    'label' => 'Adreça',
                 )
             )
             ->add(
                 'zip',
                 null,
                 array(
-                    'label' => 'CP',
+                    'label' => 'Codi Postal',
                 )
             )
             ->add(
                 'city',
                 null,
                 array(
-                    'label' => 'Ciudad',
+                    'label' => 'Ciutat',
                 )
             )
             ->add(
@@ -220,7 +220,7 @@ class CustomerAdmin extends AbstractBaseAdmin
 //                'code',
 //                null,
 //                array(
-//                    'label' => 'Código',
+//                    'label' => 'Codi',
 //                    'editable' => true,
 //                )
 //            )
@@ -228,7 +228,7 @@ class CustomerAdmin extends AbstractBaseAdmin
                 'name',
                 null,
                 array(
-                    'label' => 'Nombre',
+                    'label' => 'Nom',
                     'editable' => true,
                 )
             )
@@ -236,7 +236,7 @@ class CustomerAdmin extends AbstractBaseAdmin
                 'city',
                 null,
                 array(
-                    'label' => 'Ciudad',
+                    'label' => 'Ciutat',
                     'editable' => true,
                 )
             )
@@ -252,7 +252,7 @@ class CustomerAdmin extends AbstractBaseAdmin
 //                'address',
 //                null,
 //                array(
-//                    'label' => 'Dirección',
+//                    'label' => 'Adreça',
 //                    'editable' => true,
 //                )
 //            )
@@ -260,7 +260,7 @@ class CustomerAdmin extends AbstractBaseAdmin
 //                'phone',
 //                null,
 //                array(
-//                    'label' => 'Teléfono',
+//                    'label' => 'Telèfon',
 //                    'editable' => true,
 //                )
 //            )

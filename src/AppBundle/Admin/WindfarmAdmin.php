@@ -45,14 +45,14 @@ class WindfarmAdmin extends AbstractBaseAdmin
                 'name',
                 null,
                 array(
-                    'label' => 'Nombre',
+                    'label' => 'Nom',
                 )
             )
             ->add(
                 'city',
                 null,
                 array(
-                    'label' => 'Ciudad',
+                    'label' => 'Ciutat',
                 )
             )
             ->add(
@@ -73,7 +73,7 @@ class WindfarmAdmin extends AbstractBaseAdmin
                 'year',
                 null,
                 array(
-                    'label' => 'Año',
+                    'label' => 'Any',
                 )
             )
             ->end()
@@ -90,7 +90,7 @@ class WindfarmAdmin extends AbstractBaseAdmin
                 'customer',
                 null,
                 array(
-                    'label' => 'Cliente',
+                    'label' => 'Client',
                 )
             )
             ->add(
@@ -111,7 +111,7 @@ class WindfarmAdmin extends AbstractBaseAdmin
                 'power',
                 null,
                 array(
-                    'label' => 'Potencia',
+                    'label' => 'Potència',
                 )
             )
             ->end();
@@ -126,35 +126,35 @@ class WindfarmAdmin extends AbstractBaseAdmin
                 'name',
                 null,
                 array(
-                    'label' => 'Nombre',
+                    'label' => 'Nom',
                 )
             )
             ->add(
                 'city',
                 null,
                 array(
-                    'label' => 'Ciudad',
+                    'label' => 'Ciutat',
                 )
             )
             ->add(
                 'power',
                 null,
                 array(
-                    'label' => 'Potencia',
+                    'label' => 'Potència',
                 )
             )
             ->add(
                 'year',
                 null,
                 array(
-                    'label' => 'Año',
+                    'label' => 'Any',
                 )
             )
             ->add(
                 'customer',
                 null,
                 array(
-                    'label' => 'Cliente',
+                    'label' => 'Client',
                 )
             )
             ->add(
@@ -192,7 +192,7 @@ class WindfarmAdmin extends AbstractBaseAdmin
                 'name',
                 null,
                 array(
-                    'label' => 'Nombre',
+                    'label' => 'Nom',
                     'editable' => true,
                 )
             )
@@ -200,7 +200,7 @@ class WindfarmAdmin extends AbstractBaseAdmin
                 'city',
                 null,
                 array(
-                    'label' => 'Ciudad',
+                    'label' => 'Ciutat',
                     'editable' => true,
                 )
             )
@@ -216,7 +216,7 @@ class WindfarmAdmin extends AbstractBaseAdmin
                 'customer',
                 null,
                 array(
-                    'label' => 'Cliente',
+                    'label' => 'Client',
                     'editable' => true,
                 )
             )

@@ -45,14 +45,14 @@ class CountryAdmin extends AbstractBaseAdmin
                 'code',
                 null,
                 array(
-                    'label' => 'Código',
+                    'label' => 'Codi',
                 )
             )
             ->add(
                 'name',
                 null,
                 array(
-                    'label' => 'Nombre',
+                    'label' => 'Nom',
                 )
             )
             ->end()
@@ -77,14 +77,14 @@ class CountryAdmin extends AbstractBaseAdmin
                 'code',
                 null,
                 array(
-                    'label' => 'Código',
+                    'label' => 'Codi',
                 )
             )
             ->add(
                 'name',
                 null,
                 array(
-                    'label' => 'Nombre',
+                    'label' => 'Nom',
                 )
             )
             ->add(
@@ -108,14 +108,14 @@ class CountryAdmin extends AbstractBaseAdmin
                 'code',
                 null,
                 array(
-                    'label' => 'Código',
+                    'label' => 'Codi',
                 )
             )
             ->add(
                 'name',
                 null,
                 array(
-                    'label' => 'Nombre',
+                    'label' => 'Nom',
                     'editable' => true,
                 )
             )

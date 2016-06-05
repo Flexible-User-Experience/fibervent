@@ -45,7 +45,7 @@ class StateAdmin extends AbstractBaseAdmin
                 'name',
                 null,
                 array(
-                    'label' => 'Nombre',
+                    'label' => 'Nom',
                 )
             )
             ->add(
@@ -77,7 +77,7 @@ class StateAdmin extends AbstractBaseAdmin
                 'name',
                 null,
                 array(
-                    'label' => 'Nombre',
+                    'label' => 'Nom',
                 )
             )
             ->add(
@@ -108,7 +108,7 @@ class StateAdmin extends AbstractBaseAdmin
                 'name',
                 null,
                 array(
-                    'label' => 'Nombre',
+                    'label' => 'Nom',
                     'editable' => true,
                 )
             )
