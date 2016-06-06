@@ -46,3 +46,6 @@
 
 /dbreset.sh
 /test.sh
+
+/Capfile
+/app/config/deploy.rb
