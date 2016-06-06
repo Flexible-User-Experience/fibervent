@@ -1,7 +1,7 @@
 # Country
 AppBundle\Entity\Country:
-  country{1..1}:
-    code(unique): <numberBetween($min = 10, $max = 99)>
+  country1:
+    code(unique): <languageCode()>
     name: <country()>
 
 # State
@@ -15,7 +15,7 @@ AppBundle\Entity\Customer:
   customer{1..3}:
     name: <company()> <companySuffix()>
     email: <email()>
-    code(unique): <numberBetween($min = 1000, $max = 9000)>
+    code(unique): <bothify('?#########')>
     phone: <e164PhoneNumber()>
     web: <url()>
     address: <streetAddress()>
@@ -46,30 +46,3 @@ AppBundle\Entity\User:
         enabled: true
         roles:
             - ROLE_SUPER_ADMIN
-    editor:
-        username: <{private_editor_test_user}>
-        plainPassword: <{private_editor_test_pass}>
-        email: <safeEmail()>
-        firstname: <name()>
-        lastname: <lastname()>
-        enabled: true
-        roles:
-            - ROLE_CMS
-    cms{1..4}:
-        username: <username()>
-        plainPassword: <password()>
-        email: <safeEmail()>
-        firstname: <name()>
-        lastname: <lastname()>
-        enabled: true
-        roles:
-            - ROLE_CMS
-    manager{1..2}:
-        username: <username()>
-        plainPassword: <password()>
-        email: <safeEmail()>
-        firstname: <name()>
-        lastname: <lastname()>
-        enabled: true
-        roles:
-            - ROLE_ADMIN

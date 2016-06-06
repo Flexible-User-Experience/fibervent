@@ -1,7 +1,7 @@
 # Country
 AppBundle\Entity\Country:
   country{1..4}:
-    code(unique): <numberBetween($min = 10, $max = 99)>
+    code(unique): <languageCode()>
     name: <country()>
 
 # State
@@ -15,7 +15,7 @@ AppBundle\Entity\Customer:
   customer{1..10}:
     name: <company()> <companySuffix()>
     email: <email()>
-    code(unique): <numberBetween($min = 1000, $max = 9000)>
+    code(unique): <bothify('?#########')>
     phone: <e164PhoneNumber()>
     web: <url()>
     address: <streetAddress()>

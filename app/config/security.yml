@@ -71,10 +71,6 @@ security:
                 path:   /admin/logout
                 target: /admin/login
             anonymous: true
-        frontend:
-            pattern: ^/(.*)
-            context: user
-            anonymous: true
     access_control:
         - { path: ^/admin/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }

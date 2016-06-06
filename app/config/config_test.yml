@@ -25,3 +25,9 @@ liip_functional_test:
     authentication:
         username: "%private_admin_test_user%"
         password: "%private_admin_test_pass%"
+
+security:
+    firewalls:
+        admin:
+            http_basic: ~
+
