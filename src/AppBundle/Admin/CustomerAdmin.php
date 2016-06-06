@@ -24,17 +24,6 @@ class CustomerAdmin extends AbstractBaseAdmin
     );
 
     /**
-     * Configure route collection
-     *
-     * @param RouteCollection $collection
-     */
-    protected function configureRoutes(RouteCollection $collection)
-    {
-        $collection
-            ->remove('batch');
-    }
-
-    /**
      * @param FormMapper $formMapper
      */
     protected function configureFormFields(FormMapper $formMapper)
@@ -45,7 +34,7 @@ class CustomerAdmin extends AbstractBaseAdmin
                 'code',
                 null,
                 array(
-                    'label' => 'Codi',
+                    'label' => 'CIF',
                 )
             )
             ->add(
@@ -130,7 +119,7 @@ class CustomerAdmin extends AbstractBaseAdmin
                 'code',
                 null,
                 array(
-                    'label' => 'Codi',
+                    'label' => 'CIF',
                 )
             )
             ->add(
@@ -213,14 +202,14 @@ class CustomerAdmin extends AbstractBaseAdmin
     {
         unset($this->listModes['mosaic']);
         $listMapper
-//            ->add(
-//                'code',
-//                null,
-//                array(
-//                    'label' => 'Codi',
-//                    'editable' => true,
-//                )
-//            )
+            ->add(
+                'code',
+                null,
+                array(
+                    'label' => 'CIF',
+                    'editable' => true,
+                )
+            )
             ->add(
                 'name',
                 null,
@@ -277,7 +266,7 @@ class CustomerAdmin extends AbstractBaseAdmin
                     'actions' => array(
                         'edit' => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
                         'delete' => array('template' => '::Admin/Buttons/list__action_delete_button.html.twig'),
-                        'show' => array('template' => '::Admin/Buttons/list__action_show_button.html.twig'),
+//                        'show' => array('template' => '::Admin/Buttons/list__action_show_button.html.twig'),
                     )
                 )
             );
