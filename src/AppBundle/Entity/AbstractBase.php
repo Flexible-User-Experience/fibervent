@@ -26,7 +26,7 @@ abstract class AbstractBase
     /**
      * @var \DateTime
      *
-     * @ORM\Column(type="datetime", nullable=true)
+     * @ORM\Column(type="datetime")
      * @Gedmo\Timestampable(on="create")
      */
     protected $createdAt;
@@ -34,7 +34,7 @@ abstract class AbstractBase
     /**
      * @var \DateTime
      *
-     * @ORM\Column(type="datetime", nullable=true)
+     * @ORM\Column(type="datetime")
      * @Gedmo\Timestampable(on="update")
      */
     protected $updatedAt;
@@ -42,7 +42,7 @@ abstract class AbstractBase
     /**
      * @var \DateTime
      *
-     * @ORM\Column(type="datetime", nullable=true)
+     * @ORM\Column(type="datetime", nullable = true)
      */
     protected $removedAt;
 

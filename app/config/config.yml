@@ -88,6 +88,18 @@ sonata_user:
     security_acl: true
     manager_type: orm
 
+# Stof Doctrine Extensions
+stof_doctrine_extensions:
+    default_locale: "%locale%"
+    orm:
+        default:
+            softdeleteable: true
+            timestampable:  true
+            sluggable:      true
+            translatable:   false
+            sortable:       false
+            tree:           false
+
 # FOS User
 fos_user:
     db_driver:      orm
