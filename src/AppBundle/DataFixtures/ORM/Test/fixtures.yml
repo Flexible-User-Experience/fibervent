@@ -2,7 +2,6 @@
 AppBundle\Entity\Country:
   country1:
     code(unique): <languageCode()>
-    name: <country()>
 
 # State
 AppBundle\Entity\State:

@@ -50,23 +50,16 @@ class StateAdmin extends AbstractBaseAdmin
             )
             ->add(
                 'country',
-                null,
+                'sonata_type_model_list',
                 array(
                     'label' => 'País',
-                )
-            )
-            ->end()
-            ->with('Controls', $this->getFormMdSuccessBoxArray(5))
-            ->add(
-                'enabled',
-                'checkbox',
-                array(
-                    'label'    => 'Actiu',
-                    'required' => false,
+                    'btn_add' => true,
+                    'btn_delete' => false,
                 )
             )
             ->end();
     }
+
     /**
      * @param DatagridMapper $datagridMapper
      */

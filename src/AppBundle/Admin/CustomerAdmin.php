@@ -19,7 +19,7 @@ class CustomerAdmin extends AbstractBaseAdmin
     protected $classnameLabel = 'Customer';
     protected $baseRoutePattern = 'customers/customer';
     protected $datagridValues = array(
-        '_sort_by'    => 'name',
+        '_sort_by' => 'name',
         '_sort_order' => 'asc',
     );
 
@@ -78,9 +78,12 @@ class CustomerAdmin extends AbstractBaseAdmin
             )
             ->add(
                 'state',
-                null,
+                'sonata_type_model_list',
                 array(
                     'label' => 'Província',
+                    'btn_add' => true,
+                    'btn_delete' => false,
+                    'required' => true,
                 )
             )
             ->end()
@@ -89,7 +92,7 @@ class CustomerAdmin extends AbstractBaseAdmin
                 'enabled',
                 'checkbox',
                 array(
-                    'label'    => 'Actiu',
+                    'label' => 'Actiu',
                     'required' => false,
                 )
             )
@@ -116,6 +119,7 @@ class CustomerAdmin extends AbstractBaseAdmin
             )
             ->end();
     }
+
     /**
      * @param DatagridMapper $datagridMapper
      */
@@ -269,9 +273,9 @@ class CustomerAdmin extends AbstractBaseAdmin
                 '_action',
                 'actions',
                 array(
-                    'label'   => 'Accions',
+                    'label' => 'Accions',
                     'actions' => array(
-                        'edit'   => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
+                        'edit' => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
                         'delete' => array('template' => '::Admin/Buttons/list__action_delete_button.html.twig'),
                         'show' => array('template' => '::Admin/Buttons/list__action_show_button.html.twig'),
                     )

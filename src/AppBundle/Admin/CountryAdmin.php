@@ -6,6 +6,8 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
+use Symfony\Component\Form\Extension\Core\Type\CountryType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 /**
  * Class CountryAdmin
@@ -43,30 +45,14 @@ class CountryAdmin extends AbstractBaseAdmin
             ->with('General', $this->getFormMdSuccessBoxArray(7))
             ->add(
                 'code',
-                null,
+                CountryType::class,
                 array(
                     'label' => 'Codi',
                 )
             )
-            ->add(
-                'name',
-                null,
-                array(
-                    'label' => 'Nom',
-                )
-            )
-            ->end()
-            ->with('Controls', $this->getFormMdSuccessBoxArray(5))
-            ->add(
-                'enabled',
-                'checkbox',
-                array(
-                    'label'    => 'Actiu',
-                    'required' => false,
-                )
-            )
             ->end();
     }
+
     /**
      * @param DatagridMapper $datagridMapper
      */
@@ -78,13 +64,6 @@ class CountryAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'Codi',
-                )
-            )
-            ->add(
-                'name',
-                null,
-                array(
-                    'label' => 'Nom',
                 )
             )
             ->add(
@@ -109,22 +88,6 @@ class CountryAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'Codi',
-                )
-            )
-            ->add(
-                'name',
-                null,
-                array(
-                    'label' => 'Nom',
-                    'editable' => true,
-                )
-            )
-            ->add(
-                'enabled',
-                null,
-                array(
-                    'label' => 'Actiu',
-                    'editable' => true,
                 )
             )
             ->add(

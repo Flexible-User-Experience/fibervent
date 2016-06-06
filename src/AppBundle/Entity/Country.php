@@ -29,13 +29,6 @@ class Country extends AbstractBase
     private $code;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(type="string", length=255)
-     */
-    private $name;
-
-    /**
      * @var ArrayCollection
      * @ORM\OneToMany(targetEntity="State", mappedBy="country")
      */
@@ -59,25 +52,6 @@ class Country extends AbstractBase
     }
 
     /**
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * @param string $name
-     * @return Country
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    /**
      * @return ArrayCollection
      */
     public function getStates()
@@ -87,6 +61,7 @@ class Country extends AbstractBase
 
     /**
      * @param ArrayCollection $states
+     *
      * @return Country
      */
     public function setStates(ArrayCollection $states)
@@ -106,6 +81,7 @@ class Country extends AbstractBase
 
     /**
      * @param string $code
+     *
      * @return Country
      */
     public function setCode($code)
@@ -117,6 +93,6 @@ class Country extends AbstractBase
 
     public function __toString()
     {
-        return $this->getName() ? $this->getName() : '---';
+        return $this->getCode() ? $this->getCode() : '---';
     }
 }
