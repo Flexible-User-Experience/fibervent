@@ -115,6 +115,6 @@ class State extends AbstractBase
 
     public function __toString()
     {
-        return $this->getName() ? $this->getName() : '---';
+        return $this->getName() ? $this->getName() . ' (' . $this->getCountry() . ')' : '---';
     }
 }
