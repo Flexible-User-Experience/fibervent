@@ -9,6 +9,10 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use FOS\UserBundle\Model\UserManagerInterface;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 /**
  * Class UserAdmin
@@ -31,6 +35,14 @@ class UserAdmin extends ParentUserAdmin
         '_sort_order' => 'asc',
     );
 
+    /**
+     * UserAdmin constructor.
+     *
+     * @param string $code
+     * @param string $class
+     * @param string $baseControllerName
+     * @param $userManager
+     */
     public function __construct($code, $class, $baseControllerName, $userManager)
     {
         parent::__construct($code, $class, $baseControllerName);
@@ -69,7 +81,7 @@ class UserAdmin extends ParentUserAdmin
     {
         /** @var object $formMapper */
         $formMapper
-            ->with('backend.admin.general', array('class' => 'col-md-6'))
+            ->with('General', array('class' => 'col-md-6'))
             ->add(
                 'firstname',
                 null,
@@ -87,14 +99,14 @@ class UserAdmin extends ParentUserAdmin
             )
             ->add(
                 'email',
-                null,
+                EmailType::class,
                 array(
                     'label' => 'Correu Electrònic',
                 )
             )
             ->add(
                 'plainPassword',
-                'text',
+                TextType::class,
                 array(
                     'label'    => 'Password',
                     'required' => (!$this->getSubject() || is_null($this->getSubject()->getId()))
@@ -103,21 +115,29 @@ class UserAdmin extends ParentUserAdmin
             ->end()
             ->with('Controls', array('class' => 'col-md-6'))
             ->add(
+                'enabled',
+                CheckboxType::class,
+                array(
+                    'label'    => 'Actiu',
+                    'required' => false,
+                )
+            )
+            ->add(
+                'locked',
+                CheckboxType::class,
+                array(
+                    'label'    => 'Blocat',
+                    'required' => false,
+                )
+            )
+            ->add(
                 'roles',
-                'choice',
+                ChoiceType::class,
                 array(
                     'label'    => 'Rols',
                     'choices'  => UserRolesEnum::getEnumArray(),
                     'multiple' => true,
                     'expanded' => true
-                )
-            )
-            ->add(
-                'enabled',
-                'checkbox',
-                array(
-                    'label'    => 'Actiu',
-                    'required' => false,
                 )
             )
             ->end();

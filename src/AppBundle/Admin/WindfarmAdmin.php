@@ -5,7 +5,7 @@ namespace AppBundle\Admin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
-use Sonata\AdminBundle\Route\RouteCollection;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 /**
  * Class WindfarmAdmin
@@ -62,7 +62,7 @@ class WindfarmAdmin extends AbstractBaseAdmin
             ->with('Controls', $this->getFormMdSuccessBoxArray(5))
             ->add(
                 'enabled',
-                'checkbox',
+                CheckboxType::class,
                 array(
                     'label'    => 'Actiu',
                     'required' => false,
@@ -73,6 +73,7 @@ class WindfarmAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'Client',
+                    'required' => true,
                 )
             )
             ->add(
