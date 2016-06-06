@@ -1,5 +1,5 @@
 parameters:
-    database_driver:   pdo_sqlite
+    database_driver:   pdo_mysql
     database_host:     127.0.0.1
     database_port:     ~
     database_name:     symfony
@@ -13,7 +13,7 @@ parameters:
 
     path_java: /usr/bin/java
     path_node: /usr/local/bin/node
-    path_node_modules: /Users/anton/node_modules
+    path_node_modules: /Users/<USERNAME>/node_modules
 
     private_admin_test_user: admin
     private_admin_test_pass: admin

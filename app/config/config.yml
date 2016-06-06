@@ -3,9 +3,6 @@ imports:
     - { resource: security.yml }
     - { resource: services.yml }
 
-parameters:
-    locale: ca
-
 framework:
     #esi:             ~
     translator:      { fallbacks: ["%locale%"] }
