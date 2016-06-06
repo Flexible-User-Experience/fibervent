@@ -26,6 +26,9 @@ class AppKernel extends Kernel
             // vendors
             new FOS\UserBundle\FOSUserBundle(),
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
+            new Liip\ImagineBundle\LiipImagineBundle(),
+            new Oh\GoogleMapFormTypeBundle\OhGoogleMapFormTypeBundle(),
+            new Vich\UploaderBundle\VichUploaderBundle(),
             // app
             new AppBundle\AppBundle(),
         );
@@ -35,6 +38,7 @@ class AppKernel extends Kernel
             $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
             $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
             $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
+            $bundles[] = new Cypress\GitElephantBundle\CypressGitElephantBundle();
             $bundles[] = new Liip\FunctionalTestBundle\LiipFunctionalTestBundle();
             $bundles[] = new Hautelook\AliceBundle\HautelookAliceBundle();
         }

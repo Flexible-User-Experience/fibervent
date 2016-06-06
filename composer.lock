@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "709032e85958123ebf78c501078dca07",
-    "content-hash": "3418ec90424a45f0b0cee793f3d1468b",
+    "hash": "e79af2d0ad310d36f80073b972368713",
+    "content-hash": "bdc5f598a662856f0763f71bff0aeca3",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -2825,6 +2825,50 @@
             "time": "2015-08-09 04:28:19"
         },
         {
+            "name": "oh/google-map-form-type-bundle",
+            "version": "dev-master",
+            "target-dir": "Oh/GoogleMapFormTypeBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ollieLtd/OhGoogleMapFormTypeBundle.git",
+                "reference": "270d3fbdb5ba456f2c3313a6b3c69d1d3ba7d12b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ollieLtd/OhGoogleMapFormTypeBundle/zipball/270d3fbdb5ba456f2c3313a6b3c69d1d3ba7d12b",
+                "reference": "270d3fbdb5ba456f2c3313a6b3c69d1d3ba7d12b",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2",
+                "symfony/framework-bundle": "~2.1"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-0": {
+                    "Oh\\GoogleMapFormTypeBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ollie Harridge",
+                    "email": "code@oll.ie"
+                }
+            ],
+            "description": "Set latitude and longitude values on a form using Google Maps",
+            "homepage": "https://github.com/ollieLtd/OhGoogleMapFormTypeBundle",
+            "keywords": [
+                "form",
+                "google maps",
+                "symfony"
+            ],
+            "time": "2015-02-05 11:05:00"
+        },
+        {
             "name": "paragonie/random_compat",
             "version": "v2.0.2",
             "source": {
@@ -3170,16 +3214,16 @@
         },
         {
             "name": "sonata-project/admin-bundle",
-            "version": "3.1.0",
+            "version": "3.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataAdminBundle.git",
-                "reference": "53850de35eb88ebadeb21ad09487d9edfcd357ed"
+                "reference": "685f48a662df8ce3b5d00d338e1df79cb35c2357"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataAdminBundle/zipball/53850de35eb88ebadeb21ad09487d9edfcd357ed",
-                "reference": "53850de35eb88ebadeb21ad09487d9edfcd357ed",
+                "url": "https://api.github.com/repos/sonata-project/SonataAdminBundle/zipball/685f48a662df8ce3b5d00d338e1df79cb35c2357",
+                "reference": "685f48a662df8ce3b5d00d338e1df79cb35c2357",
                 "shasum": ""
             },
             "require": {
@@ -3213,6 +3257,7 @@
             },
             "require-dev": {
                 "jms/di-extra-bundle": "^1.7",
+                "jms/translation-bundle": "^1.2",
                 "sensio/generator-bundle": "^2.3 || ^3.0",
                 "sllh/php-cs-fixer-styleci-bridge": "^2.0",
                 "sonata-project/intl-bundle": "^2.2.4",
@@ -3259,7 +3304,7 @@
                 "bootstrap",
                 "sonata"
             ],
-            "time": "2016-05-16 23:39:58"
+            "time": "2016-06-04 15:30:52"
         },
         {
             "name": "sonata-project/block-bundle",
@@ -3394,16 +3439,16 @@
         },
         {
             "name": "sonata-project/core-bundle",
-            "version": "3.0.1",
+            "version": "3.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataCoreBundle.git",
-                "reference": "66e9d21f9b38cce824e3c43adf39b3f08b062505"
+                "reference": "68c19b011aee8717c23a97ae9eccf24219d96eaf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataCoreBundle/zipball/66e9d21f9b38cce824e3c43adf39b3f08b062505",
-                "reference": "66e9d21f9b38cce824e3c43adf39b3f08b062505",
+                "url": "https://api.github.com/repos/sonata-project/SonataCoreBundle/zipball/68c19b011aee8717c23a97ae9eccf24219d96eaf",
+                "reference": "68c19b011aee8717c23a97ae9eccf24219d96eaf",
                 "shasum": ""
             },
             "require": {
@@ -3425,6 +3470,7 @@
                 "jms/serializer-bundle": "0.11 - 0.13 || ^1.0",
                 "matthiasnoback/symfony-config-test": "^0.4 || ^1.0",
                 "matthiasnoback/symfony-dependency-injection-test": "^0.7",
+                "nelmio/api-doc-bundle": "^2.11",
                 "sensio/framework-extra-bundle": "^2.3 || ^3.0",
                 "sllh/php-cs-fixer-styleci-bridge": "^2.0",
                 "sonata-project/exporter": "^1.3",
@@ -3460,7 +3506,7 @@
             "keywords": [
                 "sonata"
             ],
-            "time": "2016-06-01 12:33:04"
+            "time": "2016-06-06 18:04:42"
         },
         {
             "name": "sonata-project/datagrid-bundle",
@@ -4712,16 +4758,16 @@
         },
         {
             "name": "symfony/symfony",
-            "version": "v2.8.6",
+            "version": "v2.8.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "8408816780215fae055599d100b5385d9a247151"
+                "reference": "663b2d6202c3149515b39cfe50a174a130acb8e2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/8408816780215fae055599d100b5385d9a247151",
-                "reference": "8408816780215fae055599d100b5385d9a247151",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/663b2d6202c3149515b39cfe50a174a130acb8e2",
+                "reference": "663b2d6202c3149515b39cfe50a174a130acb8e2",
                 "shasum": ""
             },
             "require": {
@@ -4842,7 +4888,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2016-05-09 21:45:54"
+            "time": "2016-06-06 16:05:37"
         },
         {
             "name": "twig/extensions",
@@ -5281,7 +5327,8 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "cypresslab/gitelephant-bundle": 20
+        "cypresslab/gitelephant-bundle": 20,
+        "oh/google-map-form-type-bundle": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

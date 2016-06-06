@@ -26,6 +26,7 @@
         "ircmaxell/password-compat": "~1.0",
         "liip/functional-test-bundle": "^1.0",
         "liip/imagine-bundle": "^1.0",
+        "oh/google-map-form-type-bundle": "dev-master",
         "php": ">=5.3.9",
         "sensio/distribution-bundle": "~5.0",
         "sensio/framework-extra-bundle": "^3.0.2",
