@@ -34,6 +34,14 @@ AppBundle\Entity\Windfarm:
     customer: @customer<numberBetween(1, 3)>
     state: @state<numberBetween(1, 2)>
 
+# Windmill
+AppBundle\Entity\Windmill:
+  windmill{1..50}:
+    code(unique): <bothify('???###??')>
+    gpsLatitude: <latitude($min = -90, $max = 90)>
+    gpsLongitude: <longitude($min = -180, $max = 180)>
+    windfarm: @windfarm<numberBetween(1, 4)>
+
 ## Users
 AppBundle\Entity\User:
     admin:
