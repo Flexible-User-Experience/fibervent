@@ -75,6 +75,13 @@ class Windfarm extends AbstractBase
     private $customer;
 
     /**
+     * @var User
+     *
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="windfarms")
+     */
+    private $manager;
+
+    /**
      *
      *
      * Methods
@@ -92,6 +99,7 @@ class Windfarm extends AbstractBase
 
     /**
      * @param string $name
+     *
      * @return Windfarm
      */
     public function setName($name)
@@ -111,6 +119,7 @@ class Windfarm extends AbstractBase
 
     /**
      * @param string $city
+     *
      * @return Windfarm
      */
     public function setCity($city)
@@ -130,6 +139,7 @@ class Windfarm extends AbstractBase
 
     /**
      * @param float $gpsLongitude
+     *
      * @return Windfarm
      */
     public function setGpsLongitude($gpsLongitude)
@@ -149,6 +159,7 @@ class Windfarm extends AbstractBase
 
     /**
      * @param float $gpsLatitude
+     *
      * @return Windfarm
      */
     public function setGpsLatitude($gpsLatitude)
@@ -168,6 +179,7 @@ class Windfarm extends AbstractBase
 
     /**
      * @param int $power
+     *
      * @return Windfarm
      */
     public function setPower($power)
@@ -187,6 +199,7 @@ class Windfarm extends AbstractBase
 
     /**
      * @param int $year
+     *
      * @return Windfarm
      */
     public function setYear($year)
@@ -206,6 +219,7 @@ class Windfarm extends AbstractBase
 
     /**
      * @param State $state
+     *
      * @return Windfarm
      */
     public function setState($state)
@@ -225,11 +239,32 @@ class Windfarm extends AbstractBase
 
     /**
      * @param Customer $customer
+     *
      * @return Windfarm
      */
     public function setCustomer($customer)
     {
         $this->customer = $customer;
+
+        return $this;
+    }
+
+    /**
+     * @return User
+     */
+    public function getManager()
+    {
+        return $this->manager;
+    }
+
+    /**
+     * @param User $manager
+     *
+     * @return Windfarm
+     */
+    public function setManager($manager)
+    {
+        $this->manager = $manager;
 
         return $this;
     }
