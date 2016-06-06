@@ -47,6 +47,13 @@ class Windmill extends AbstractBase
     private $windfarm;
 
     /**
+     * @var Turbine
+     *
+     * @ORM\ManyToOne(targetEntity="Turbine", inversedBy="windmills")
+     */
+    private $turbine;
+
+    /**
      *
      *
      * Methods
@@ -130,6 +137,26 @@ class Windmill extends AbstractBase
     public function setWindfarm($windfarm)
     {
         $this->windfarm = $windfarm;
+
+        return $this;
+    }
+
+    /**
+     * @return Turbine
+     */
+    public function getTurbine()
+    {
+        return $this->turbine;
+    }
+
+    /**
+     * @param Turbine $turbine
+     *
+     * @return Windmill
+     */
+    public function setTurbine($turbine)
+    {
+        $this->turbine = $turbine;
 
         return $this;
     }
