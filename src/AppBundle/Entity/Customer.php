@@ -54,7 +54,7 @@ class Customer extends AbstractBase
      * @var string
      *
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Assert\Email(strict = true, checkMX = true, checkHost = true)
+     * @Assert\Url(checkDNS = true)
      */
     private $web;
 
