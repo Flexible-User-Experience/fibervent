@@ -36,7 +36,7 @@ AppBundle\Entity\Windfarm:
 
 # Windmill
 AppBundle\Entity\Windmill:
-  windmill{1..50}:
+  windmill{1..8}:
     code(unique): <bothify('???###??')>
     gpsLatitude: <latitude($min = -90, $max = 90)>
     gpsLongitude: <longitude($min = -180, $max = 180)>
