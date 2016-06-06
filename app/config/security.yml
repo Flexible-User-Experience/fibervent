@@ -1,24 +1,78 @@
-# To get started with security, check out the documentation:
-# http://symfony.com/doc/current/book/security.html
 security:
-
-    # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
+    acl:
+        connection: default
+    role_hierarchy:
+        ROLE_SONATA_CMS:
+            - ROLE_ADMIN_CUSTOMER_LIST
+            - ROLE_ADMIN_CUSTOMER_VIEW
+            - ROLE_ADMIN_CUSTOMER_CREATE
+            - ROLE_ADMIN_CUSTOMER_EDIT
+            - ROLE_ADMIN_CUSTOMER_DELETE
+            - ROLE_ADMIN_CUSTOMER_EXPORT
+            - ROLE_ADMIN_WINDFARM_LIST
+            - ROLE_ADMIN_WINDFARM_VIEW
+            - ROLE_ADMIN_WINDFARM_CREATE
+            - ROLE_ADMIN_WINDFARM_EDIT
+            - ROLE_ADMIN_WINDFARM_DELETE
+            - ROLE_ADMIN_WINDFARM_EXPORT
+            - ROLE_ADMIN_COUNTRY_LIST
+            - ROLE_ADMIN_COUNTRY_VIEW
+            - ROLE_ADMIN_COUNTRY_CREATE
+            - ROLE_ADMIN_COUNTRY_EDIT
+            - ROLE_ADMIN_COUNTRY_DELETE
+            - ROLE_ADMIN_COUNTRY_EXPORT
+            - ROLE_ADMIN_STATE_LIST
+            - ROLE_ADMIN_STATE_VIEW
+            - ROLE_ADMIN_STATE_CREATE
+            - ROLE_ADMIN_STATE_EDIT
+            - ROLE_ADMIN_STATE_DELETE
+            - ROLE_ADMIN_STATE_EXPORT
+        ROLE_SONATA_MANAGER:
+            - ROLE_ADMIN_USER_LIST
+            - ROLE_ADMIN_USER_VIEW
+            - ROLE_ADMIN_USER_CREATE
+            - ROLE_ADMIN_USER_EDIT
+            - ROLE_ADMIN_USER_DELETE
+            - ROLE_ADMIN_USER_EXPORT
+        ROLE_CMS:
+            - ROLE_USER
+            - ROLE_SONATA_CMS
+            - ROLE_SONATA_ADMIN
+        ROLE_ADMIN:
+            - ROLE_CMS
+            - ROLE_SONATA_MANAGER
+        ROLE_SUPER_ADMIN:
+            - ROLE_ADMIN
+            - ROLE_ALLOWED_TO_SWITCH
+    access_decision_manager:
+        strategy: unanimous
     providers:
-        in_memory:
-            memory: ~
-
+        fos_userbundle:
+            id: fos_user.user_provider.username_email
+    encoders:
+        FOS\UserBundle\Model\UserInterface: bcrypt
     firewalls:
-        # disables authentication for assets and the profiler, adapt it according to your needs
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
-
-        main:
-            anonymous: ~
-            # activate different ways to authenticate
-
-            # http_basic: ~
-            # http://symfony.com/doc/current/book/security.html#a-configuring-how-your-users-will-authenticate
-
-            # form_login: ~
-            # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
+        admin:
+            pattern: /admin(.*)
+            context: user
+            form_login:
+                provider:                       fos_userbundle
+                login_path:                     /admin/login
+                use_forward:                    false
+                check_path:                     /admin/login_check
+                failure_path:                   /admin/login
+                default_target_path:            /admin/dashboard
+                always_use_default_target_path: true
+                use_referer:                    true
+            logout:
+                path:   /admin/logout
+                target: /admin/login
+            anonymous: true
+    access_control:
+        - { path: ^/admin/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin/, role: ROLE_USER }
+        - { path: ^/.*, role: IS_AUTHENTICATED_ANONYMOUSLY }

@@ -12,5 +12,22 @@ web_profiler:
     toolbar: false
     intercept_redirects: false
 
+doctrine:
+    dbal:
+        driver: "pdo_sqlite"
+        path:   "%kernel.root_dir%/database/test.db3"
+
 swiftmailer:
     disable_delivery: true
+
+liip_functional_test:
+    cache_sqlite_db: true
+    authentication:
+        username: "%private_admin_test_user%"
+        password: "%private_admin_test_pass%"
+
+security:
+    firewalls:
+        admin:
+            http_basic: ~
+
