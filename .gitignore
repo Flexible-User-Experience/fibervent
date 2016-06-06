@@ -43,3 +43,6 @@
 
 # PHPStorm
 /.idea/
+
+/dbreset.sh
+/test.sh
