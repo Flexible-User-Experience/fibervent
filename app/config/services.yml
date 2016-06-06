@@ -20,6 +20,11 @@ services:
         arguments: [ ~ , AppBundle\Entity\Windfarm , ~ ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Parc Eòlic", group: "Parc Eòlic" }
+    admin.windmill:
+        class: AppBundle\Admin\WindmillAdmin
+        arguments: [ ~ , AppBundle\Entity\Windmill , ~ ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Aerogenerador", group: "Parc Eòlic" }
     admin.user:
         class: AppBundle\Admin\UserAdmin
         arguments: [ ~, AppBundle\Entity\User, ~, "@fos_user.user_manager" ]

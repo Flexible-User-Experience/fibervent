@@ -41,21 +41,8 @@ class WindmillAdmin extends AbstractBaseAdmin
                 'windfarm',
                 null,
                 array(
-                    'label' => 'Parc Eòlic',
-                )
-            )
-//            ->add(
-//                'state',
-//                null,
-//                array(
-//                    'label' => 'Província',
-//                )
-//            )
-            ->add(
-                'windfarm.manager',
-                null,
-                array(
-                    'label' => 'Administrador',
+                    'label'    => 'Parc Eòlic',
+                    'required' => true,
                 )
             )
             ->end()
@@ -105,34 +92,20 @@ class WindmillAdmin extends AbstractBaseAdmin
                     'label' => 'Parc Eòlic',
                 )
             )
-//            ->add(
-//                'windfarm.manager',
-//                null,
-//                array(
-//                    'label' => 'Administrador',
-//                )
-//            )
-//            ->add(
-//                'windfarm.customer',
-//                null,
-//                array(
-//                    'label' => 'Client',
-//                )
-//            )
-//            ->add(
-//                'state',
-//                null,
-//                array(
-//                    'label' => 'Província',
-//                )
-//            )
-//            ->add(
-//                'state.country',
-//                null,
-//                array(
-//                    'label' => 'País',
-//                )
-//            )
+            ->add(
+                'windfarm.manager',
+                null,
+                array(
+                    'label' => 'Administrador',
+                )
+            )
+            ->add(
+                'windfarm.customer',
+                null,
+                array(
+                    'label' => 'Client',
+                )
+            )
             ->add(
                 'enabled',
                 null,
@@ -166,22 +139,22 @@ class WindmillAdmin extends AbstractBaseAdmin
                     'editable' => true,
                 )
             )
-            ->add(
-                'gpsLongitude',
-                null,
-                array(
-                    'label' => 'Longitud',
-                    'editable' => true,
-                )
-            )
-            ->add(
-                'gpsLatitude',
-                null,
-                array(
-                    'label' => 'Latitud',
-                    'editable' => true,
-                )
-            )
+//            ->add(
+//                'gpsLongitude',
+//                null,
+//                array(
+//                    'label' => 'Longitud',
+//                    'editable' => true,
+//                )
+//            )
+//            ->add(
+//                'gpsLatitude',
+//                null,
+//                array(
+//                    'label' => 'Latitud',
+//                    'editable' => true,
+//                )
+//            )
             ->add(
                 'enabled',
                 null,
