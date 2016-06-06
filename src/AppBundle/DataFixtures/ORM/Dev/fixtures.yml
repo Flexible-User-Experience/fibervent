@@ -185,6 +185,7 @@ AppBundle\Entity\Windfarm:
     year: <year()>
     customer: @customer<numberBetween(1, 10)>
     state: @state<numberBetween(1, 8)>
+    manager: @manager<numberBetween(1, 2)>
 
 ## Users
 AppBundle\Entity\User:

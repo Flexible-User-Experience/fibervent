@@ -52,6 +52,13 @@ class WindfarmAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
+                'manager',
+                null,
+                array(
+                    'label' => 'Administrador',
+                )
+            )
+            ->add(
                 'year',
                 null,
                 array(
@@ -135,6 +142,13 @@ class WindfarmAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
+                'manager',
+                null,
+                array(
+                    'label' => 'Administrador',
+                )
+            )
+            ->add(
                 'customer',
                 null,
                 array(
@@ -193,6 +207,14 @@ class WindfarmAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label'    => 'Província',
+                    'editable' => true,
+                )
+            )
+            ->add(
+                'manager',
+                null,
+                array(
+                    'label'    => 'Administrador',
                     'editable' => true,
                 )
             )
