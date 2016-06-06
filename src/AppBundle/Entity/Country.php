@@ -44,7 +44,6 @@ class Country extends AbstractBase
 
     /**
      * Country constructor.
-     * @param ArrayCollection $states
      */
     public function __construct()
     {
