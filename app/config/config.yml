@@ -123,12 +123,10 @@ sonata_admin:
         show:   "::Admin/show.html.twig"
     dashboard:
         groups:
-            Customer:
+            Client:
                 icon: "<i class='fa fa-industry' aria-hidden='true'></i>"
-            Windfarm:
+            Parc Eòlic:
                 icon: "<i class='fa fa-bolt' aria-hidden='true'></i>"
-            Users:
-                icon: "<i class='fa fa-user'></i>"
         blocks:
             -
                 position: top
@@ -142,19 +140,13 @@ sonata_admin:
                 type: sonata.admin.block.admin_list
                 class: col-md-6
                 settings:
-                    groups: [ Customer ]
+                    groups: [ Client ]
             -
                 position: top
                 type: sonata.admin.block.admin_list
                 class: col-md-6
                 settings:
-                    groups: [ Windfarm ]
-            -
-                position: top
-                type: sonata.admin.block.admin_list
-                class: col-md-6
-                settings:
-                    groups: [ Users ]
+                    groups: [ Parc Eòlic ]
 
 # Swiftmailer Configuration
 swiftmailer:
