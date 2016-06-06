@@ -105,6 +105,13 @@ class UserAdmin extends ParentUserAdmin
                 )
             )
             ->add(
+                'phone',
+                null,
+                array(
+                    'label' => 'Telèfon',
+                )
+            )
+            ->add(
                 'plainPassword',
                 TextType::class,
                 array(

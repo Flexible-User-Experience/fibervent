@@ -40,6 +40,7 @@ AppBundle\Entity\User:
         username: <{private_admin_test_user}>
         plainPassword: <{private_admin_test_pass}>
         email: <safeEmail()>
+        phone: <e164PhoneNumber()>
         firstname: <name()>
         lastname: <lastname()>
         enabled: true

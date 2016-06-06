@@ -192,6 +192,7 @@ AppBundle\Entity\User:
         username: <{private_admin_test_user}>
         plainPassword: <{private_admin_test_pass}>
         email: <safeEmail()>
+        phone: <e164PhoneNumber()>
         firstname: <name()>
         lastname: <lastname()>
         enabled: true
@@ -201,6 +202,7 @@ AppBundle\Entity\User:
         username: <{private_editor_test_user}>
         plainPassword: <{private_editor_test_pass}>
         email: <safeEmail()>
+        phone: <e164PhoneNumber()>
         firstname: <name()>
         lastname: <lastname()>
         enabled: true
@@ -210,6 +212,7 @@ AppBundle\Entity\User:
         username: <username()>
         plainPassword: <password()>
         email: <safeEmail()>
+        phone: <e164PhoneNumber()>
         firstname: <name()>
         lastname: <lastname()>
         enabled: true
@@ -219,6 +222,7 @@ AppBundle\Entity\User:
     manager{1..2}:
         username: <username()>
         plainPassword: <password()>
+        phone: <e164PhoneNumber()>
         email: <safeEmail()>
         firstname: <name()>
         lastname: <lastname()>
