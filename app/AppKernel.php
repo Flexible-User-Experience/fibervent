@@ -26,6 +26,7 @@ class AppKernel extends Kernel
             // vendors
             new FOS\UserBundle\FOSUserBundle(),
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
+            new Oh\GoogleMapFormTypeBundle\OhGoogleMapFormTypeBundle(),
             // app
             new AppBundle\AppBundle(),
         );

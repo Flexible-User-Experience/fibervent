@@ -42,6 +42,7 @@ twig:
     form_themes:
         - "bootstrap_3_layout.html.twig"
         - "SonataCoreBundle:Form:datepicker.html.twig"
+        - "::OhGoogleMaps/google_maps_form_widget.html.twig"
     globals:
         admin_tag_version: "v0.0.02"
         main_brand_title:  "%project_web_title%"
