@@ -306,6 +306,31 @@ class Windfarm extends AbstractBase
     }
 
     /**
+     * @param Windmill $windmill
+     *
+     * @return $this
+     */
+    public function addWindmill(Windmill $windmill)
+    {
+        $windmill->setWindfarm($this);
+        $this->windmills->add($windmill);
+
+        return $this;
+    }
+
+    /**
+     * @param Windmill $windmill
+     *
+     * @return $this
+     */
+    public function removeWindmill(Windmill $windmill)
+    {
+        $this->windmills->removeElement($windmill);
+
+        return $this;
+    }
+
+    /**
      * @return string
      */
     public function __toString()
