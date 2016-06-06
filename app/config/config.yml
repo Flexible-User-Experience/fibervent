@@ -3,8 +3,8 @@ imports:
     - { resource: security.yml }
     - { resource: services.yml }
 
+# Symfony Framework
 framework:
-    #esi:             ~
     translator:      { fallbacks: ["%locale%"] }
     secret:          "%secret%"
     router:
@@ -13,14 +13,12 @@ framework:
     form:            ~
     csrf_protection: ~
     validation:      { enable_annotations: true }
-    #serializer:      { enable_annotations: true }
     templating:
         engines: ['twig']
     default_locale:  "%locale%"
     trusted_hosts:   ~
     trusted_proxies: ~
     session:
-        # handler_id set to null will use default session handler from php.ini
         handler_id:  ~
     fragments:       ~
     http_method_override: true
@@ -36,13 +34,6 @@ assetic:
         less:
             node:       "%path_node%"
             node_paths: [ "%path_node_modules%" ]
-    assets:
-        mycss:
-            inputs:
-                - "@AppBundle/Resources/public/css/frontend.less"
-        myjs:
-            inputs:
-                - "%kernel.root_dir%/../vendor/components/jquery/jquery.js"
 
 # Twig Configuration
 twig:
@@ -52,8 +43,8 @@ twig:
         - "bootstrap_3_layout.html.twig"
         - "SonataCoreBundle:Form:datepicker.html.twig"
     globals:
-        admin_tag_version:        "v0.0.1"
-        main_brand_title: "%project_web_title%"
+        admin_tag_version: "v0.0.02"
+        main_brand_title:  "%project_web_title%"
 
 # Doctrine Configuration
 doctrine:
@@ -70,8 +61,8 @@ doctrine:
 
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"
-        naming_strategy: doctrine.orm.naming_strategy.underscore
-        auto_mapping: true
+        naming_strategy:             doctrine.orm.naming_strategy.underscore
+        auto_mapping:                true
 
 # Sonata
 sonata_block:
@@ -81,6 +72,7 @@ sonata_block:
         sonata.user.block.menu:         ~
         sonata.block.service.text:      ~
 
+# Sonata User
 sonata_user:
     security_acl: true
     manager_type: orm
@@ -120,7 +112,6 @@ sonata_admin:
     persist_filters: true
     templates:
         layout: "::Admin/layout.html.twig"
-        show:   "::Admin/show.html.twig"
     dashboard:
         groups:
             Client:
