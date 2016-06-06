@@ -30,6 +30,7 @@ class Country extends AbstractBase
 
     /**
      * @var ArrayCollection
+     *
      * @ORM\OneToMany(targetEntity="State", mappedBy="country")
      */
     private $states;

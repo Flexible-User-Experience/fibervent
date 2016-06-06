@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -82,12 +83,27 @@ class Windfarm extends AbstractBase
     private $manager;
 
     /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="Windmill", mappedBy="windfarm")
+     */
+    private $windmills;
+
+    /**
      *
      *
      * Methods
      *
      *
      */
+
+    /**
+     * Windfarm constructor.
+     */
+    public function __construct()
+    {
+        $this->windmills = new ArrayCollection;
+    }
 
     /**
      * @return string
@@ -269,6 +285,29 @@ class Windfarm extends AbstractBase
         return $this;
     }
 
+    /**
+     * @return ArrayCollection
+     */
+    public function getWindmills()
+    {
+        return $this->windmills;
+    }
+
+    /**
+     * @param ArrayCollection $windmills
+     *
+     * @return Windfarm
+     */
+    public function setWindmills(ArrayCollection $windmills)
+    {
+        $this->windmills = $windmills;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
     public function __toString()
     {
         return $this->getName() ? $this->getName() : '---';
