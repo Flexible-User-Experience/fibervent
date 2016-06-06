@@ -41,7 +41,7 @@ class UserAdmin extends ParentUserAdmin
      * @param string $code
      * @param string $class
      * @param string $baseControllerName
-     * @param $userManager
+     * @param        $userManager
      */
     public function __construct($code, $class, $baseControllerName, $userManager)
     {

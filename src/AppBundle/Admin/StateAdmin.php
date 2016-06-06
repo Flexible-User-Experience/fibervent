@@ -5,7 +5,6 @@ namespace AppBundle\Admin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
-use Sonata\AdminBundle\Route\RouteCollection;
 
 /**
  * Class StateAdmin
@@ -41,8 +40,8 @@ class StateAdmin extends AbstractBaseAdmin
                 'country',
                 'sonata_type_model_list',
                 array(
-                    'label' => 'País',
-                    'btn_add' => true,
+                    'label'      => 'País',
+                    'btn_add'    => true,
                     'btn_delete' => false,
                 )
             )
@@ -73,7 +72,7 @@ class StateAdmin extends AbstractBaseAdmin
                 'enabled',
                 null,
                 array(
-                    'label' => 'Actiu',
+                    'label'    => 'Actiu',
                     'editable' => true,
                 )
             );
@@ -90,7 +89,7 @@ class StateAdmin extends AbstractBaseAdmin
                 'name',
                 null,
                 array(
-                    'label' => 'Nom',
+                    'label'    => 'Nom',
                     'editable' => true,
                 )
             )
@@ -105,7 +104,7 @@ class StateAdmin extends AbstractBaseAdmin
                 'enabled',
                 null,
                 array(
-                    'label' => 'Actiu',
+                    'label'    => 'Actiu',
                     'editable' => true,
                 )
             )
