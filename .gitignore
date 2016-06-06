@@ -49,3 +49,5 @@
 
 /Capfile
 /app/config/deploy.rb
+
+!/.travis.yml
