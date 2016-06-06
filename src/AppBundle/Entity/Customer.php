@@ -88,9 +88,17 @@ class Customer extends AbstractBase
 
     /**
      * @var ArrayCollection
+     *
      * @ORM\OneToMany(targetEntity="Windfarm", mappedBy="customer")
      */
     private $windfarms;
+
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="User", mappedBy="customer")
+     */
+    private $contacts;
 
     /**
      *
@@ -102,11 +110,11 @@ class Customer extends AbstractBase
 
     /**
      * Customer constructor.
-     * @param ArrayCollection $windfarms
      */
     public function __construct()
     {
         $this->windfarms = new ArrayCollection();
+        $this->contacts = new ArrayCollection();
     }
 
     /**
@@ -119,6 +127,7 @@ class Customer extends AbstractBase
 
     /**
      * @param string $name
+     *
      * @return Customer
      */
     public function setName($name)
@@ -138,6 +147,7 @@ class Customer extends AbstractBase
 
     /**
      * @param string $email
+     *
      * @return Customer
      */
     public function setEmail($email)
@@ -157,6 +167,7 @@ class Customer extends AbstractBase
 
     /**
      * @param string $code
+     *
      * @return Customer
      */
     public function setCode($code)
@@ -176,6 +187,7 @@ class Customer extends AbstractBase
 
     /**
      * @param string $phone
+     *
      * @return Customer
      */
     public function setPhone($phone)
@@ -214,6 +226,7 @@ class Customer extends AbstractBase
 
     /**
      * @param string $address
+     *
      * @return Customer
      */
     public function setAddress($address)
@@ -233,6 +246,7 @@ class Customer extends AbstractBase
 
     /**
      * @param string $zip
+     *
      * @return Customer
      */
     public function setZip($zip)
@@ -252,6 +266,7 @@ class Customer extends AbstractBase
 
     /**
      * @param string $city
+     *
      * @return Customer
      */
     public function setCity($city)
@@ -271,6 +286,7 @@ class Customer extends AbstractBase
 
     /**
      * @param State $state
+     *
      * @return Customer
      */
     public function setState($state)
@@ -290,6 +306,7 @@ class Customer extends AbstractBase
 
     /**
      * @param ArrayCollection $windfarms
+     *
      * @return Customer
      */
     public function setWindfarms(ArrayCollection $windfarms)
@@ -299,7 +316,8 @@ class Customer extends AbstractBase
         return $this;
     }
 
-    /* @param Windfarm $windfarm
+    /**
+     * @param Windfarm $windfarm
      *
      * @return $this
      */
@@ -311,7 +329,8 @@ class Customer extends AbstractBase
         return $this;
     }
 
-    /* @param Windfarm $windfarm
+    /**
+     * @param Windfarm $windfarm
      *
      * @return $this
      */
@@ -322,6 +341,53 @@ class Customer extends AbstractBase
         return $this;
     }
 
+    /**
+     * @return ArrayCollection
+     */
+    public function getContacts()
+    {
+        return $this->contacts;
+    }
+
+    /**
+     * @param ArrayCollection $contacts
+     *
+     * @return Customer
+     */
+    public function setContacts(ArrayCollection $contacts)
+    {
+        $this->contacts = $contacts;
+        return $this;
+    }
+
+    /**
+     * @param User $contact
+     *
+     * @return $this
+     */
+    public function addContact(User $contact)
+    {
+        $contact->setCustomer($this);
+        $this->contacts->add($contact);
+
+        return $this;
+    }
+
+    /**
+     * @param User $contact
+     *
+     * @return $this
+     */
+    public function removeContact(User $contact)
+    {
+        $this->contacts->removeElement($contact);
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
     public function __toString()
     {
         return $this->getName() ? $this->getName() : '---';

@@ -13,7 +13,7 @@ use Sonata\UserBundle\Entity\BaseUser as BaseUser;
  * @author   David Romaní <david@flux.cat>
  *
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
- * @ORM\Table(name="admin_user")
+ * @ORM\Table()
  */
 class User extends BaseUser
 {
@@ -25,6 +25,13 @@ class User extends BaseUser
      * @ORM\Column(type="integer")
      */
     protected $id;
+
+    /**
+     * @var Customer
+     *
+     * @ORM\ManyToOne(targetEntity="Customer", inversedBy="contacts")
+     */
+    private $customer;
 
     /**
      *
@@ -42,5 +49,25 @@ class User extends BaseUser
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @return Customer
+     */
+    public function getCustomer()
+    {
+        return $this->customer;
+    }
+
+    /**
+     * @param Customer $customer
+     *
+     * @return User
+     */
+    public function setCustomer($customer)
+    {
+        $this->customer = $customer;
+
+        return $this;
     }
 }

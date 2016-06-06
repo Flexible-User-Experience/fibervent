@@ -61,6 +61,7 @@ AppBundle\Entity\User:
         firstname: <name()>
         lastname: <lastname()>
         enabled: true
+        customer: @customer<numberBetween(1, 10)>
         roles:
             - ROLE_CMS
     manager{1..2}:

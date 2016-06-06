@@ -35,6 +35,7 @@ class State extends AbstractBase
 
     /**
      * @var ArrayCollection
+     *
      * @ORM\OneToMany(targetEntity="Customer", mappedBy="state")
      */
     private $customers;
@@ -49,7 +50,6 @@ class State extends AbstractBase
 
     /**
      * State constructor.
-     * @param ArrayCollection $customers
      */
     public function __construct()
     {
