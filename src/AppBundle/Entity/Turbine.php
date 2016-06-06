@@ -169,4 +169,12 @@ class Turbine extends AbstractBase
 
         return $this;
     }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getModel() ? $this->getModel() : '---';
+    }
 }

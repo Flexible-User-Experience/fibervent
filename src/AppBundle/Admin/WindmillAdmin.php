@@ -45,6 +45,14 @@ class WindmillAdmin extends AbstractBaseAdmin
                     'required' => true,
                 )
             )
+            ->add(
+                'turbine',
+                null,
+                array(
+                    'label'    => 'Turbina',
+                    'required' => true,
+                )
+            )
             ->end()
             ->with('Controls', $this->getFormMdSuccessBoxArray(5))
             ->add(
@@ -93,6 +101,13 @@ class WindmillAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
+                'turbine',
+                null,
+                array(
+                    'label'    => 'Turbina',
+                )
+            )
+            ->add(
                 'windfarm.manager',
                 null,
                 array(
@@ -136,6 +151,14 @@ class WindmillAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label'    => 'Parc Eòlic',
+                    'editable' => true,
+                )
+            )
+            ->add(
+                'turbine',
+                null,
+                array(
+                    'label'    => 'Turbina',
                     'editable' => true,
                 )
             )

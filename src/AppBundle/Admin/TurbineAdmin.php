@@ -61,6 +61,7 @@ class TurbineAdmin extends AbstractBaseAdmin
                     'label' => 'Potència',
                 )
             )
+            ->end()
             ->with('Controls', $this->getFormMdSuccessBoxArray(5))
             ->add(
                 'enabled',
