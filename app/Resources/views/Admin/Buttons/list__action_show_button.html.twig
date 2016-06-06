@@ -1,0 +1,3 @@
+{% if admin.isGranted('VIEW', object) and admin.hasRoute('show') %}
+    <a href="{{ admin.generateObjectUrl('show', object) }}" class="btn btn-sm btn-default edit_link" title="{{ 'action_edit'|trans({}, 'action_show') }}"><i class="fa fa-search-plus"></i></a>
+{% endif %}

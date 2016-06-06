@@ -1,0 +1,75 @@
+# Country
+AppBundle\Entity\Country:
+  country{1..4}:
+    code(unique): <languageCode()>
+
+# State
+AppBundle\Entity\State:
+  state{1..8}:
+    name: <state()>
+    country: @country<numberBetween(1, 4)>
+
+# Customer
+AppBundle\Entity\Customer:
+  customer{1..10}:
+    name: <company()> <companySuffix()>
+    email: <email()>
+    code(unique): <bothify('?#########')>
+    phone: <e164PhoneNumber()>
+    web: <url()>
+    address: <streetAddress()>
+    zip: <postcode()>
+    city: <city()>
+    state: @state<numberBetween(1, 8)>
+
+# Windfarm
+AppBundle\Entity\Windfarm:
+  windfarm{1..20}:
+    name: <catchPhrase()>
+    city: <city()>
+    gpsLatitude: <latitude($min = -90, $max = 90)>
+    gpsLongitude: <longitude($min = -180, $max = 180)>
+    power: <numberBetween($min = 10, $max = 5000 )>
+    year: <year()>
+    customer: @customer<numberBetween(1, 10)>
+    state: @state<numberBetween(1, 8)>
+
+## Users
+AppBundle\Entity\User:
+    admin:
+        username: <{private_admin_test_user}>
+        plainPassword: <{private_admin_test_pass}>
+        email: <safeEmail()>
+        firstname: <name()>
+        lastname: <lastname()>
+        enabled: true
+        roles:
+            - ROLE_SUPER_ADMIN
+    editor:
+        username: <{private_editor_test_user}>
+        plainPassword: <{private_editor_test_pass}>
+        email: <safeEmail()>
+        firstname: <name()>
+        lastname: <lastname()>
+        enabled: true
+        roles:
+            - ROLE_CMS
+    cms{1..4}:
+        username: <username()>
+        plainPassword: <password()>
+        email: <safeEmail()>
+        firstname: <name()>
+        lastname: <lastname()>
+        enabled: true
+        customer: @customer<numberBetween(1, 10)>
+        roles:
+            - ROLE_CMS
+    manager{1..2}:
+        username: <username()>
+        plainPassword: <password()>
+        email: <safeEmail()>
+        firstname: <name()>
+        lastname: <lastname()>
+        enabled: true
+        roles:
+            - ROLE_ADMIN
