@@ -2,9 +2,11 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
+use Oh\GoogleMapFormTypeBundle\Validator\Constraints as OhAssert;
 
 /**
  * Windfarm
@@ -37,14 +39,14 @@ class Windfarm extends AbstractBase
      *
      * @ORM\Column(type="float", precision=20)
      */
-    private $gpsLongitude;
+    private $gpsLongitude = 0.716726;
 
     /**
      * @var float
      *
      * @ORM\Column(type="float", precision=20)
      */
-    private $gpsLatitude;
+    private $gpsLatitude = 40.881604;
 
     /**
      * @var integer
@@ -82,12 +84,27 @@ class Windfarm extends AbstractBase
     private $manager;
 
     /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="Windmill", mappedBy="windfarm")
+     */
+    private $windmills;
+
+    /**
      *
      *
      * Methods
      *
      *
      */
+
+    /**
+     * Windfarm constructor.
+     */
+    public function __construct()
+    {
+        $this->windmills = new ArrayCollection;
+    }
 
     /**
      * @return string
@@ -165,6 +182,37 @@ class Windfarm extends AbstractBase
     public function setGpsLatitude($gpsLatitude)
     {
         $this->gpsLatitude = $gpsLatitude;
+
+        return $this;
+    }
+
+    /**
+     * Get LatLng
+     *
+     * @Assert\NotBlank()
+     * @OhAssert\LatLng()
+     *
+     * @return array
+     */
+    public function getLatLng()
+    {
+        return array(
+            'lat' => $this->getGpsLatitude(),
+            'lng' => $this->getGpsLongitude(),
+        );
+    }
+
+    /**
+     * Set LatLng
+     *
+     * @param array $latlng
+     *
+     * @return $this
+     */
+    public function setLatLng($latlng)
+    {
+        $this->setGpsLatitude($latlng['lat']);
+        $this->setGpsLongitude($latlng['lng']);
 
         return $this;
     }
@@ -269,6 +317,54 @@ class Windfarm extends AbstractBase
         return $this;
     }
 
+    /**
+     * @return ArrayCollection
+     */
+    public function getWindmills()
+    {
+        return $this->windmills;
+    }
+
+    /**
+     * @param ArrayCollection $windmills
+     *
+     * @return Windfarm
+     */
+    public function setWindmills(ArrayCollection $windmills)
+    {
+        $this->windmills = $windmills;
+
+        return $this;
+    }
+
+    /**
+     * @param Windmill $windmill
+     *
+     * @return $this
+     */
+    public function addWindmill(Windmill $windmill)
+    {
+        $windmill->setWindfarm($this);
+        $this->windmills->add($windmill);
+
+        return $this;
+    }
+
+    /**
+     * @param Windmill $windmill
+     *
+     * @return $this
+     */
+    public function removeWindmill(Windmill $windmill)
+    {
+        $this->windmills->removeElement($windmill);
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
     public function __toString()
     {
         return $this->getName() ? $this->getName() : '---';

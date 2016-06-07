@@ -1,0 +1,6 @@
+services:
+    app.state_repository:
+        class: AppBundle\Repository\StateRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - AppBundle:State

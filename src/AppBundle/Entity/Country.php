@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Intl\Intl;
 
 /**
  * Country
@@ -29,7 +30,13 @@ class Country extends AbstractBase
     private $code;
 
     /**
+     * @var string
+     */
+    private $name;
+
+    /**
      * @var ArrayCollection
+     *
      * @ORM\OneToMany(targetEntity="State", mappedBy="country")
      */
     private $states;
@@ -44,7 +51,6 @@ class Country extends AbstractBase
 
     /**
      * Country constructor.
-     * @param ArrayCollection $states
      */
     public function __construct()
     {
@@ -91,8 +97,35 @@ class Country extends AbstractBase
         return $this;
     }
 
+    /**
+     * Get Name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return Intl::getRegionBundle()->getCountryName($this->getCode(), 'ES');
+    }
+
+    /**
+     * Set Name
+     *
+     * @param string $name
+     *
+     * @return $this
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
     public function __toString()
     {
-        return $this->getCode() ? $this->getCode() : '---';
+        return $this->getCode() ? $this->getName() : '---';
     }
 }

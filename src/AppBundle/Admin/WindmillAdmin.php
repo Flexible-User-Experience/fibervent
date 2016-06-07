@@ -8,18 +8,18 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 /**
- * Class WindfarmAdmin
+ * Class WindmillAdmin
  *
  * @category Admin
  * @package  AppBundle\Admin
  * @author   Anton Serra <aserratorta@gmail.com>
  */
-class WindfarmAdmin extends AbstractBaseAdmin
+class WindmillAdmin extends AbstractBaseAdmin
 {
-    protected $classnameLabel = 'Windfarm';
-    protected $baseRoutePattern = 'windfarms/windfarm';
+    protected $classnameLabel = 'Windmill';
+    protected $baseRoutePattern = 'windfarms/windmill';
     protected $datagridValues = array(
-        '_sort_by'    => 'name',
+        '_sort_by'    => 'code',
         '_sort_order' => 'asc',
     );
 
@@ -31,38 +31,26 @@ class WindfarmAdmin extends AbstractBaseAdmin
         $formMapper
             ->with('General', $this->getFormMdSuccessBoxArray(7))
             ->add(
-                'name',
+                'code',
                 null,
                 array(
-                    'label' => 'Nom',
+                    'label' => 'Codi',
                 )
             )
             ->add(
-                'city',
+                'windfarm',
                 null,
                 array(
-                    'label' => 'Ciutat',
+                    'label'    => 'Parc Eòlic',
+                    'required' => true,
                 )
             )
             ->add(
-                'state',
+                'turbine',
                 null,
                 array(
-                    'label' => 'Província',
-                )
-            )
-            ->add(
-                'manager',
-                null,
-                array(
-                    'label' => 'Administrador',
-                )
-            )
-            ->add(
-                'year',
-                null,
-                array(
-                    'label' => 'Any',
+                    'label'    => 'Turbina',
+                    'required' => true,
                 )
             )
             ->end()
@@ -76,23 +64,19 @@ class WindfarmAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'customer',
+                'gpsLongitude',
                 null,
                 array(
-                    'label'    => 'Client',
-                    'required' => true,
+                    'label' => 'Longitud',
                 )
             )
             ->add(
-                'power',
+                'gpsLatitude',
                 null,
                 array(
-                    'label' => 'Potència',
+                    'label' => 'Latitud',
                 )
             )
-            ->end()
-            ->with('Geolocalització', $this->getFormMdSuccessBoxArray(12))
-            ->add('latLng', 'oh_google_maps', array('label' => 'Mapa', 'required' => false))
             ->end();
     }
 
@@ -103,59 +87,38 @@ class WindfarmAdmin extends AbstractBaseAdmin
     {
         $datagridMapper
             ->add(
-                'name',
+                'code',
                 null,
                 array(
-                    'label' => 'Nom',
+                    'label' => 'Codi',
                 )
             )
             ->add(
-                'city',
+                'windfarm',
                 null,
                 array(
-                    'label' => 'Ciutat',
+                    'label' => 'Parc Eòlic',
                 )
             )
             ->add(
-                'power',
+                'turbine',
                 null,
                 array(
-                    'label' => 'Potència',
+                    'label'    => 'Turbina',
                 )
             )
             ->add(
-                'year',
-                null,
-                array(
-                    'label' => 'Any',
-                )
-            )
-            ->add(
-                'manager',
+                'windfarm.manager',
                 null,
                 array(
                     'label' => 'Administrador',
                 )
             )
             ->add(
-                'customer',
+                'windfarm.customer',
                 null,
                 array(
                     'label' => 'Client',
-                )
-            )
-            ->add(
-                'state',
-                null,
-                array(
-                    'label' => 'Província',
-                )
-            )
-            ->add(
-                'state.country',
-                null,
-                array(
-                    'label' => 'País',
                 )
             )
             ->add(
@@ -176,45 +139,45 @@ class WindfarmAdmin extends AbstractBaseAdmin
         unset($this->listModes['mosaic']);
         $listMapper
             ->add(
-                'name',
+                'code',
                 null,
                 array(
-                    'label'    => 'Nom',
+                    'label'    => 'Codi',
                     'editable' => true,
                 )
             )
             ->add(
-                'city',
+                'windfarm',
                 null,
                 array(
-                    'label'    => 'Ciutat',
+                    'label'    => 'Parc Eòlic',
                     'editable' => true,
                 )
             )
             ->add(
-                'state',
+                'turbine',
                 null,
                 array(
-                    'label'    => 'Província',
+                    'label'    => 'Turbina',
                     'editable' => true,
                 )
             )
-            ->add(
-                'manager',
-                null,
-                array(
-                    'label'    => 'Administrador',
-                    'editable' => true,
-                )
-            )
-            ->add(
-                'customer',
-                null,
-                array(
-                    'label'    => 'Client',
-                    'editable' => true,
-                )
-            )
+//            ->add(
+//                'gpsLongitude',
+//                null,
+//                array(
+//                    'label' => 'Longitud',
+//                    'editable' => true,
+//                )
+//            )
+//            ->add(
+//                'gpsLatitude',
+//                null,
+//                array(
+//                    'label' => 'Latitud',
+//                    'editable' => true,
+//                )
+//            )
             ->add(
                 'enabled',
                 null,

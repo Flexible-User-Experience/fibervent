@@ -207,6 +207,7 @@ class Customer extends AbstractBase
 
     /**
      * @param string $web
+     *
      * @return Customer
      */
     public function setWeb($web)
