@@ -161,88 +161,14 @@ AppBundle\Entity\State:
     name: 'Zamora'
     country: @country1
 
-# Customer
-AppBundle\Entity\Customer:
-  customer{1..10}:
-    name: <company()> <companySuffix()>
-    email: <email()>
-    code(unique): <bothify('?#########')>
-    phone: <e164PhoneNumber()>
-    web: <url()>
-    address: <streetAddress()>
-    zip: <postcode()>
-    city: <city()>
-    state: @state<numberBetween(1, 8)>
-
-# Windfarm
-AppBundle\Entity\Windfarm:
-  windfarm{1..20}:
-    name: <catchPhrase()>
-    city: <city()>
-    gpsLatitude: <latitude($min = -90, $max = 90)>
-    gpsLongitude: <longitude($min = -180, $max = 180)>
-    power: <numberBetween($min = 10, $max = 5000 )>
-    year: <year()>
-    customer: @customer<numberBetween(1, 10)>
-    state: @state<numberBetween(1, 8)>
-    manager: @manager<numberBetween(1, 2)>
-
-# Windmill
-AppBundle\Entity\Windmill:
-  windmill{1..50}:
-    code(unique): <bothify('???###??')>
-    gpsLatitude: <latitude($min = -90, $max = 90)>
-    gpsLongitude: <longitude($min = -180, $max = 180)>
-    windfarm: @windfarm<numberBetween(1, 20)>
-    turbine: @turbine<numberBetween(1, 5)>
-
-# Turbine
-AppBundle\Entity\Turbine:
-  turbine{1..5}:
-    model(unique): <bothify('?####?')>
-    towerHeight: <numberBetween($min = 30, $max = 100)>
-    rotorDiameter: <numberBetween($min = 20, $max = 140)>
-
 ## Users
 AppBundle\Entity\User:
     admin:
         username: <{private_admin_test_user}>
         plainPassword: <{private_admin_test_pass}>
         email: <safeEmail()>
-        phone: <e164PhoneNumber()>
         firstname: <name()>
         lastname: <lastname()>
         enabled: true
         roles:
             - ROLE_SUPER_ADMIN
-    editor:
-        username: <{private_editor_test_user}>
-        plainPassword: <{private_editor_test_pass}>
-        email: <safeEmail()>
-        phone: <e164PhoneNumber()>
-        firstname: <name()>
-        lastname: <lastname()>
-        enabled: true
-        roles:
-            - ROLE_CMS
-    cms{1..4}:
-        username: <username()>
-        plainPassword: <password()>
-        email: <safeEmail()>
-        phone: <e164PhoneNumber()>
-        firstname: <name()>
-        lastname: <lastname()>
-        enabled: true
-        customer: @customer<numberBetween(1, 10)>
-        roles:
-            - ROLE_CMS
-    manager{1..2}:
-        username: <username()>
-        plainPassword: <password()>
-        phone: <e164PhoneNumber()>
-        email: <safeEmail()>
-        firstname: <name()>
-        lastname: <lastname()>
-        enabled: true
-        roles:
-            - ROLE_ADMIN

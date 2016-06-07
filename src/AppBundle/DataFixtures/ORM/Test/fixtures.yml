@@ -1,7 +1,7 @@
 # Country
 AppBundle\Entity\Country:
   country1:
-    code(unique): <languageCode()>
+    code(unique): 'ES'
 
 # State
 AppBundle\Entity\State:
@@ -34,12 +34,29 @@ AppBundle\Entity\Windfarm:
     customer: @customer<numberBetween(1, 3)>
     state: @state<numberBetween(1, 2)>
 
+# Windmill
+AppBundle\Entity\Windmill:
+  windmill{1..8}:
+    code(unique): <bothify('???###??')>
+    gpsLatitude: <latitude($min = -90, $max = 90)>
+    gpsLongitude: <longitude($min = -180, $max = 180)>
+    windfarm: @windfarm<numberBetween(1, 4)>
+    turbine: @turbine<numberBetween(1, 2)>
+
+# Turbine
+AppBundle\Entity\Turbine:
+  turbine{1..2}:
+    model(unique): <bothify('?####?')>
+    towerHeight: <numberBetween($min = 30, $max = 100)>
+    rotorDiameter: <numberBetween($min = 20, $max = 140)>
+
 ## Users
 AppBundle\Entity\User:
     admin:
         username: <{private_admin_test_user}>
         plainPassword: <{private_admin_test_pass}>
         email: <safeEmail()>
+        phone: <e164PhoneNumber()>
         firstname: <name()>
         lastname: <lastname()>
         enabled: true

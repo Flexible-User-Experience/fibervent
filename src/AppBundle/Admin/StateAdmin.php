@@ -5,7 +5,6 @@ namespace AppBundle\Admin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
-use Sonata\AdminBundle\Route\RouteCollection;
 
 /**
  * Class StateAdmin
@@ -20,7 +19,7 @@ class StateAdmin extends AbstractBaseAdmin
     protected $baseRoutePattern = 'customers/state';
     protected $datagridValues = array(
         '_sort_by'    => 'name',
-        '_sort_order' => 'desc',
+        '_sort_order' => 'asc',
     );
 
     /**
@@ -29,7 +28,7 @@ class StateAdmin extends AbstractBaseAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->with('General', $this->getFormMdSuccessBoxArray(7))
+            ->with('General', $this->getFormMdSuccessBoxArray(4))
             ->add(
                 'name',
                 null,
@@ -39,10 +38,11 @@ class StateAdmin extends AbstractBaseAdmin
             )
             ->add(
                 'country',
-                'sonata_type_model_list',
+                'sonata_type_model',
                 array(
-                    'label' => 'País',
-                    'btn_add' => true,
+                    'label'      => 'País',
+                    'property'   => 'name',
+                    'btn_add'    => true,
                     'btn_delete' => false,
                 )
             )
@@ -73,7 +73,7 @@ class StateAdmin extends AbstractBaseAdmin
                 'enabled',
                 null,
                 array(
-                    'label' => 'Actiu',
+                    'label'    => 'Actiu',
                     'editable' => true,
                 )
             );
@@ -90,7 +90,7 @@ class StateAdmin extends AbstractBaseAdmin
                 'name',
                 null,
                 array(
-                    'label' => 'Nom',
+                    'label'    => 'Nom',
                     'editable' => true,
                 )
             )
@@ -99,14 +99,6 @@ class StateAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'País',
-                )
-            )
-            ->add(
-                'enabled',
-                null,
-                array(
-                    'label' => 'Actiu',
-                    'editable' => true,
                 )
             )
             ->add(

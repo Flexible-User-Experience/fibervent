@@ -5,7 +5,6 @@ namespace AppBundle\Admin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
-use Sonata\AdminBundle\Route\RouteCollection;
 
 /**
  * Class CustomerAdmin
@@ -19,7 +18,7 @@ class CustomerAdmin extends AbstractBaseAdmin
     protected $classnameLabel = 'Customer';
     protected $baseRoutePattern = 'customers/customer';
     protected $datagridValues = array(
-        '_sort_by' => 'name',
+        '_sort_by'    => 'name',
         '_sort_order' => 'asc',
     );
 
@@ -67,12 +66,13 @@ class CustomerAdmin extends AbstractBaseAdmin
             )
             ->add(
                 'state',
-                'sonata_type_model_list',
+                'sonata_type_model',
                 array(
-                    'label' => 'Província',
-                    'btn_add' => true,
+                    'label'      => 'Província',
+                    'btn_add'    => true,
                     'btn_delete' => false,
-                    'required' => true,
+                    'required'   => true,
+                    'query'      => $this->sr->findAllSortedByNameQ(),
                 )
             )
             ->end()
@@ -81,7 +81,7 @@ class CustomerAdmin extends AbstractBaseAdmin
                 'enabled',
                 'checkbox',
                 array(
-                    'label' => 'Actiu',
+                    'label'    => 'Actiu',
                     'required' => false,
                 )
             )
@@ -109,35 +109,26 @@ class CustomerAdmin extends AbstractBaseAdmin
             ->end();
         if ($this->id($this->getSubject())) { // is edit mode, disable on new subjects
             $formMapper
-                ->with('Contactes', $this->getFormMdSuccessBoxArray(12))
+                ->with('Contactes', $this->getFormMdSuccessBoxArray(6))
                 ->add(
                     'contacts',
-                    'sonata_type_collection',
+                    'sonata_type_model',
                     array(
                         'label'              => ' ',
+                        'property'           => 'lastname',
                         'required'           => false,
-                        'cascade_validation' => true,
-                    ),
-                    array(
-                        'edit'     => 'inline',
-                        'inline'   => 'table',
-                        'sortable' => 'position',
+                        'multiple'           => true,
                     )
                 )
                 ->end()
-                ->with('Parcs Eòlics', $this->getFormMdSuccessBoxArray(12))
+                ->with('Parcs Eòlics', $this->getFormMdSuccessBoxArray(6))
                 ->add(
                     'windfarms',
-                    'sonata_type_collection',
+                    'sonata_type_model',
                     array(
                         'label'              => ' ',
                         'required'           => false,
-                        'cascade_validation' => true,
-                    ),
-                    array(
-                        'edit'     => 'inline',
-                        'inline'   => 'table',
-                        'sortable' => 'position',
+                        'multiple'           => true,
                     )
                 )
                 ->end();
@@ -211,6 +202,7 @@ class CustomerAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'Província',
+                    'query' => $this->sr->findAllSortedByNameQ(),
                 )
             )
             ->add(
@@ -224,7 +216,7 @@ class CustomerAdmin extends AbstractBaseAdmin
                 'enabled',
                 null,
                 array(
-                    'label' => 'Actiu',
+                    'label'    => 'Actiu',
                     'editable' => true,
                 )
             );
@@ -241,7 +233,7 @@ class CustomerAdmin extends AbstractBaseAdmin
                 'code',
                 null,
                 array(
-                    'label' => 'CIF',
+                    'label'    => 'CIF',
                     'editable' => true,
                 )
             )
@@ -249,7 +241,7 @@ class CustomerAdmin extends AbstractBaseAdmin
                 'name',
                 null,
                 array(
-                    'label' => 'Nom',
+                    'label'    => 'Nom',
                     'editable' => true,
                 )
             )
@@ -257,7 +249,7 @@ class CustomerAdmin extends AbstractBaseAdmin
                 'city',
                 null,
                 array(
-                    'label' => 'Ciutat',
+                    'label'    => 'Ciutat',
                     'editable' => true,
                 )
             )
@@ -265,7 +257,7 @@ class CustomerAdmin extends AbstractBaseAdmin
                 'state',
                 null,
                 array(
-                    'label' => 'Província',
+                    'label'    => 'Província',
                     'editable' => true,
                 )
             )
@@ -289,7 +281,7 @@ class CustomerAdmin extends AbstractBaseAdmin
                 'enabled',
                 null,
                 array(
-                    'label' => 'Actiu',
+                    'label'    => 'Actiu',
                     'editable' => true,
                 )
             )
@@ -297,11 +289,10 @@ class CustomerAdmin extends AbstractBaseAdmin
                 '_action',
                 'actions',
                 array(
-                    'label' => 'Accions',
+                    'label'   => 'Accions',
                     'actions' => array(
-                        'edit' => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
+                        'edit'   => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
                         'delete' => array('template' => '::Admin/Buttons/list__action_delete_button.html.twig'),
-//                        'show' => array('template' => '::Admin/Buttons/list__action_show_button.html.twig'),
                     )
                 )
             );

@@ -66,6 +66,7 @@ class State extends AbstractBase
 
     /**
      * @param string $name
+     *
      * @return State
      */
     public function setName($name)
@@ -85,6 +86,7 @@ class State extends AbstractBase
 
     /**
      * @param Country $country
+     *
      * @return State
      */
     public function setCountry($country)
@@ -104,6 +106,7 @@ class State extends AbstractBase
 
     /**
      * @param ArrayCollection $customers
+     *
      * @return State
      */
     public function setCustomers(ArrayCollection $customers)
@@ -113,8 +116,11 @@ class State extends AbstractBase
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function __toString()
     {
-        return $this->getName() ? $this->getName() . ' (' . $this->getCountry() . ')' : '---';
+        return $this->getName() ? $this->getName() . ' (' . $this->getCountry()->getName() . ')' : '---';
     }
 }

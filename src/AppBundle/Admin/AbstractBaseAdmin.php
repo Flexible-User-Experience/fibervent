@@ -2,7 +2,8 @@
 
 namespace AppBundle\Admin;
 
-use Sonata\AdminBundle\Admin\Admin;
+use AppBundle\Repository\StateRepository;
+use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Liip\ImagineBundle\Imagine\Cache\CacheManager;
 use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
@@ -14,27 +15,38 @@ use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
  * @package  AppBundle\Admin
  * @author   David Romaní <david@flux.cat>
  */
-abstract class AbstractBaseAdmin extends Admin
+abstract class AbstractBaseAdmin extends AbstractAdmin
 {
-//    /** @var UploaderHelper */
-//    private $vus;
-//
-//    /** @var CacheManager */
-//    private $lis;
-//
-//    /**
-//     * @param string         $code
-//     * @param string         $class
-//     * @param string         $baseControllerName
-//     * @param UploaderHelper $vus
-//     * @param CacheManager   $lis
-//     */
-//    public function __construct($code, $class, $baseControllerName, UploaderHelper $vus, CacheManager $lis)
-//    {
-//        parent::__construct($code, $class, $baseControllerName);
-//        $this->vus = $vus;
-//        $this->lis = $lis;
-//    }
+    /**
+     * @var StateRepository
+     */
+    protected $sr;
+
+    /**
+     * @var UploaderHelper
+     */
+    protected $vus;
+
+    /**
+     * @var CacheManager
+     */
+    protected $lis;
+
+    /**
+     * @param string          $code
+     * @param string          $class
+     * @param string          $baseControllerName
+     * @param StateRepository $sr
+     * @param UploaderHelper  $vus
+     * @param CacheManager    $lis
+     */
+    public function __construct($code, $class, $baseControllerName, StateRepository $sr, UploaderHelper $vus, CacheManager $lis)
+    {
+        parent::__construct($code, $class, $baseControllerName);
+        $this->sr  = $sr;
+        $this->vus = $vus;
+        $this->lis = $lis;
+    }
 
     /**
      * @var array

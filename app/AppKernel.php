@@ -26,7 +26,9 @@ class AppKernel extends Kernel
             // vendors
             new FOS\UserBundle\FOSUserBundle(),
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
+            new Liip\ImagineBundle\LiipImagineBundle(),
             new Oh\GoogleMapFormTypeBundle\OhGoogleMapFormTypeBundle(),
+            new Vich\UploaderBundle\VichUploaderBundle(),
             // app
             new AppBundle\AppBundle(),
         );

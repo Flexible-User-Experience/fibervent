@@ -5,9 +5,7 @@ namespace AppBundle\Admin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
-use Sonata\AdminBundle\Route\RouteCollection;
 use Symfony\Component\Form\Extension\Core\Type\CountryType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 /**
  * Class CountryAdmin
@@ -22,7 +20,7 @@ class CountryAdmin extends AbstractBaseAdmin
     protected $baseRoutePattern = 'customers/country';
     protected $datagridValues = array(
         '_sort_by'    => 'name',
-        '_sort_order' => 'desc',
+        '_sort_order' => 'asc',
     );
 
     /**
@@ -31,7 +29,7 @@ class CountryAdmin extends AbstractBaseAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->with('General', $this->getFormMdSuccessBoxArray(7))
+            ->with('General', $this->getFormMdSuccessBoxArray(4))
             ->add(
                 'code',
                 CountryType::class,
@@ -59,7 +57,7 @@ class CountryAdmin extends AbstractBaseAdmin
                 'enabled',
                 null,
                 array(
-                    'label' => 'Actiu',
+                    'label'    => 'Actiu',
                     'editable' => true,
                 )
             );
@@ -77,6 +75,13 @@ class CountryAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'Codi',
+                )
+            )
+            ->add(
+                'name',
+                null,
+                array(
+                    'label' => 'Nom',
                 )
             )
             ->add(
