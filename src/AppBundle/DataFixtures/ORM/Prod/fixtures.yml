@@ -1,0 +1,174 @@
+# Country
+AppBundle\Entity\Country:
+  country1:
+    code(unique): 'ES'
+  country2:
+    code(unique): 'FR'
+  country3:
+    code(unique): 'GB'
+  country4:
+    code(unique): 'DE'
+  countryEs:
+    code(unique): 'PT'
+
+# State
+AppBundle\Entity\State:
+  state1:
+    name: 'La Coruña'
+    country: @country1
+  state2:
+    name: 'Álava'
+    country: @country1
+  state3:
+    name: 'Albacete'
+    country: @country1
+  state4:
+    name: 'Alicante'
+    country: @country1
+  state5:
+    name: 'Almería'
+    country: @country1
+  state6:
+    name: 'Asturias'
+    country: @country1
+  state7:
+    name: 'Ávila'
+    country: @country1
+  state8:
+    name: 'Badajoz'
+    country: @country1
+  state9:
+    name: 'Islas Baleares'
+    country: @country1
+  state10:
+    name: 'Barcelona'
+    country: @country1
+  state11:
+    name: 'Bizkaia'
+    country: @country1
+  state12:
+    name: 'Burgos'
+    country: @country1
+  state13:
+    name: 'Cáceres'
+    country: @country1
+  state14:
+    name: 'Cádiz'
+    country: @country1
+  state15:
+    name: 'Cantabria'
+    country: @country1
+  state16:
+    name: 'Castellón'
+    country: @country1
+  state17:
+    name: 'Ciudad Real'
+    country: @country1
+  state18:
+    name: 'Córdoba'
+    country: @country1
+  state19:
+    name: 'Cuenca'
+    country: @country1
+  state20:
+    name: 'Guipúzcoa'
+    country: @country1
+  state21:
+    name: 'Gerona'
+    country: @country1
+  state22:
+    name: 'Granada'
+    country: @country1
+  state23:
+    name: 'Guadalajara'
+    country: @country1
+  state24:
+    name: 'Huelva'
+    country: @country1
+  state25:
+    name: 'Huesca'
+    country: @country1
+  state26:
+    name: 'Jaén'
+    country: @country1
+  state27:
+    name: 'La Rioja'
+    country: @country1
+  state28:
+    name: 'Las Palmas'
+    country: @country1
+  state29:
+    name: 'León'
+    country: @country1
+  state30:
+    name: 'Lérida'
+    country: @country1
+  state31:
+    name: 'Lugo'
+    country: @country1
+  state32:
+    name: 'Madrid'
+    country: @country1
+  state33:
+    name: 'Málaga'
+    country: @country1
+  state34:
+    name: 'Múrcia'
+    country: @country1
+  state35:
+    name: 'Navarra'
+    country: @country1
+  state36:
+    name: 'Orense'
+    country: @country1
+  state37:
+    name: 'Palencia'
+    country: @country1
+  state38:
+    name: 'Pontevedra'
+    country: @country1
+  state39:
+    name: 'Salamanca'
+    country: @country1
+  state40:
+    name: 'Santa Cruz de Tenerife'
+    country: @country1
+  state41:
+    name: 'Segovia'
+    country: @country1
+  state42:
+    name: 'Sevilla'
+    country: @country1
+  state43:
+    name: 'Soria'
+    country: @country1
+  state44:
+    name: 'Tarragona'
+    country: @country1
+  state45:
+    name: 'Teruel'
+    country: @country1
+  state46:
+    name: 'Toledo'
+    country: @country1
+  state47:
+    name: 'Valencia'
+    country: @country1
+  state48:
+    name: 'Valladolid'
+    country: @country1
+  state49:
+    name: 'Zamora'
+    country: @country1
+
+## Users
+AppBundle\Entity\User:
+    admin:
+        username: <{private_admin_test_user}>
+        plainPassword: <{private_admin_test_pass}>
+        email: <safeEmail()>
+        firstname: <name()>
+        lastname: <lastname()>
+        enabled: true
+        roles:
+            - ROLE_SUPER_ADMIN
