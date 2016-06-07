@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Entity\Traits\GpsCoordenatesTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -20,6 +21,8 @@ use Oh\GoogleMapFormTypeBundle\Validator\Constraints as OhAssert;
  */
 class Windfarm extends AbstractBase
 {
+    use GpsCoordenatesTrait;
+
     /**
      * @var string
      *
@@ -33,20 +36,6 @@ class Windfarm extends AbstractBase
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $city;
-
-    /**
-     * @var float
-     *
-     * @ORM\Column(type="float", precision=20)
-     */
-    private $gpsLongitude = 0.716726;
-
-    /**
-     * @var float
-     *
-     * @ORM\Column(type="float", precision=20)
-     */
-    private $gpsLatitude = 40.881604;
 
     /**
      * @var integer
@@ -142,77 +131,6 @@ class Windfarm extends AbstractBase
     public function setCity($city)
     {
         $this->city = $city;
-
-        return $this;
-    }
-
-    /**
-     * @return float
-     */
-    public function getGpsLongitude()
-    {
-        return $this->gpsLongitude;
-    }
-
-    /**
-     * @param float $gpsLongitude
-     *
-     * @return Windfarm
-     */
-    public function setGpsLongitude($gpsLongitude)
-    {
-        $this->gpsLongitude = $gpsLongitude;
-
-        return $this;
-    }
-
-    /**
-     * @return float
-     */
-    public function getGpsLatitude()
-    {
-        return $this->gpsLatitude;
-    }
-
-    /**
-     * @param float $gpsLatitude
-     *
-     * @return Windfarm
-     */
-    public function setGpsLatitude($gpsLatitude)
-    {
-        $this->gpsLatitude = $gpsLatitude;
-
-        return $this;
-    }
-
-    /**
-     * Get LatLng
-     *
-     * @Assert\NotBlank()
-     * @OhAssert\LatLng()
-     *
-     * @return array
-     */
-    public function getLatLng()
-    {
-        return array(
-            'lat' => $this->getGpsLatitude(),
-            'lng' => $this->getGpsLongitude(),
-        );
-    }
-
-    /**
-     * Set LatLng
-     *
-     * @param array $latlng
-     *
-     * @return $this
-     */
-    public function setLatLng($latlng)
-    {
-        $this->setGpsLatitude($latlng['lat']);
-        $this->setGpsLongitude($latlng['lng']);
 
         return $this;
     }
