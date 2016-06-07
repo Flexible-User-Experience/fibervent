@@ -2,11 +2,12 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Entity\Traits\CityTrait;
+use AppBundle\Entity\Traits\GpsCoordinatesTrait;
+use AppBundle\Entity\Traits\StateTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
-use Symfony\Component\Validator\Constraints as Assert;
-use Oh\GoogleMapFormTypeBundle\Validator\Constraints as OhAssert;
 
 /**
  * Windfarm
@@ -20,33 +21,16 @@ use Oh\GoogleMapFormTypeBundle\Validator\Constraints as OhAssert;
  */
 class Windfarm extends AbstractBase
 {
+    use StateTrait;
+    use CityTrait;
+    use GpsCoordinatesTrait;
+
     /**
      * @var string
      *
      * @ORM\Column(type="string", length=255)
      */
     private $name;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $city;
-
-    /**
-     * @var float
-     *
-     * @ORM\Column(type="float", precision=20)
-     */
-    private $gpsLongitude = 0.716726;
-
-    /**
-     * @var float
-     *
-     * @ORM\Column(type="float", precision=20)
-     */
-    private $gpsLatitude = 40.881604;
 
     /**
      * @var integer
@@ -65,7 +49,7 @@ class Windfarm extends AbstractBase
     /**
      * @var State
      *
-     * @ORM\ManyToOne(targetEntity="State", inversedBy="windfarms")
+     * @ORM\ManyToOne(targetEntity="State")
      */
     private $state;
 
@@ -79,7 +63,7 @@ class Windfarm extends AbstractBase
     /**
      * @var User
      *
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="windfarms")
+     * @ORM\ManyToOne(targetEntity="User")
      */
     private $manager;
 
@@ -103,7 +87,7 @@ class Windfarm extends AbstractBase
      */
     public function __construct()
     {
-        $this->windmills = new ArrayCollection;
+        $this->windmills = new ArrayCollection();
     }
 
     /**
@@ -122,97 +106,6 @@ class Windfarm extends AbstractBase
     public function setName($name)
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getCity()
-    {
-        return $this->city;
-    }
-
-    /**
-     * @param string $city
-     *
-     * @return Windfarm
-     */
-    public function setCity($city)
-    {
-        $this->city = $city;
-
-        return $this;
-    }
-
-    /**
-     * @return float
-     */
-    public function getGpsLongitude()
-    {
-        return $this->gpsLongitude;
-    }
-
-    /**
-     * @param float $gpsLongitude
-     *
-     * @return Windfarm
-     */
-    public function setGpsLongitude($gpsLongitude)
-    {
-        $this->gpsLongitude = $gpsLongitude;
-
-        return $this;
-    }
-
-    /**
-     * @return float
-     */
-    public function getGpsLatitude()
-    {
-        return $this->gpsLatitude;
-    }
-
-    /**
-     * @param float $gpsLatitude
-     *
-     * @return Windfarm
-     */
-    public function setGpsLatitude($gpsLatitude)
-    {
-        $this->gpsLatitude = $gpsLatitude;
-
-        return $this;
-    }
-
-    /**
-     * Get LatLng
-     *
-     * @Assert\NotBlank()
-     * @OhAssert\LatLng()
-     *
-     * @return array
-     */
-    public function getLatLng()
-    {
-        return array(
-            'lat' => $this->getGpsLatitude(),
-            'lng' => $this->getGpsLongitude(),
-        );
-    }
-
-    /**
-     * Set LatLng
-     *
-     * @param array $latlng
-     *
-     * @return $this
-     */
-    public function setLatLng($latlng)
-    {
-        $this->setGpsLatitude($latlng['lat']);
-        $this->setGpsLongitude($latlng['lng']);
 
         return $this;
     }
@@ -253,26 +146,6 @@ class Windfarm extends AbstractBase
     public function setYear($year)
     {
         $this->year = $year;
-
-        return $this;
-    }
-
-    /**
-     * @return State
-     */
-    public function getState()
-    {
-        return $this->state;
-    }
-
-    /**
-     * @param State $state
-     *
-     * @return Windfarm
-     */
-    public function setState($state)
-    {
-        $this->state = $state;
 
         return $this;
     }

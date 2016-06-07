@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Entity\Traits\ModelTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -19,12 +20,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Turbine extends AbstractBase
 {
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="string", length=255)
-     */
-    private $model;
+    use ModelTrait;
 
     /**
      * @var integer
@@ -68,26 +64,6 @@ class Turbine extends AbstractBase
     public function __construct()
     {
         $this->windmills = new ArrayCollection();
-    }
-
-    /**
-     * @return string
-     */
-    public function getModel()
-    {
-        return $this->model;
-    }
-
-    /**
-     * @param string $model
-     *
-     * @return Turbine
-     */
-    public function setModel($model)
-    {
-        $this->model = $model;
-
-        return $this;
     }
 
     /**

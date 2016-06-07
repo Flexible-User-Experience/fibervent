@@ -1,15 +1,15 @@
 # Country
 AppBundle\Entity\Country:
   country1:
-    code(unique): 'ES'
+    code: 'ES'
   country2:
-    code(unique): 'FR'
+    code: 'FR'
   country3:
-    code(unique): 'GB'
+    code: 'GB'
   country4:
-    code(unique): 'DE'
-  countryEs:
-    code(unique): 'PT'
+    code: 'DE'
+  country5:
+    code: 'PT'
 
 # State
 AppBundle\Entity\State:

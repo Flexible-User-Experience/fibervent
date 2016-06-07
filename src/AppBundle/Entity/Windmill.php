@@ -2,10 +2,12 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Entity\Traits\CodeTrait;
+use AppBundle\Entity\Traits\GpsCoordinatesTrait;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
-use Symfony\Component\Validator\Constraints as Assert;
-use Oh\GoogleMapFormTypeBundle\Validator\Constraints as OhAssert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Windmill
@@ -16,29 +18,19 @@ use Oh\GoogleMapFormTypeBundle\Validator\Constraints as OhAssert;
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="AppBundle\Repository\WindmillRepository")
+ * @UniqueEntity("code")
  */
 class Windmill extends AbstractBase
 {
+    use GpsCoordinatesTrait;
+    use CodeTrait;
+
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique = true)
      */
     private $code;
-
-    /**
-     * @var float
-     *
-     * @ORM\Column(type="float", precision=20)
-     */
-    private $gpsLongitude = 0.716726;
-
-    /**
-     * @var float
-     *
-     * @ORM\Column(type="float", precision=20)
-     */
-    private $gpsLatitude = 40.881604;
 
     /**
      * @var Windfarm
@@ -55,6 +47,20 @@ class Windmill extends AbstractBase
     private $turbine;
 
     /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="WindmillBlade", mappedBy="windmill")
+     */
+    private $windmillBlades;
+
+    /**
+     * @var Blade
+     *
+     * @ORM\ManyToOne(targetEntity="Blade")
+     */
+    private $bladeType;
+
+    /**
      *
      *
      * Methods
@@ -63,94 +69,11 @@ class Windmill extends AbstractBase
      */
 
     /**
-     * @return string
+     * Windmill constructor.
      */
-    public function getCode()
+    public function __construct()
     {
-        return $this->code;
-    }
-
-    /**
-     * @param string $code
-     *
-     * @return Windmill
-     */
-    public function setCode($code)
-    {
-        $this->code = $code;
-
-        return $this;
-    }
-
-    /**
-     * @return float
-     */
-    public function getGpsLongitude()
-    {
-        return $this->gpsLongitude;
-    }
-
-    /**
-     * @param float $gpsLongitude
-     *
-     * @return Windmill
-     */
-    public function setGpsLongitude($gpsLongitude)
-    {
-        $this->gpsLongitude = $gpsLongitude;
-
-        return $this;
-    }
-
-    /**
-     * @return float
-     */
-    public function getGpsLatitude()
-    {
-        return $this->gpsLatitude;
-    }
-
-    /**
-     * @param float $gpsLatitude
-     *
-     * @return Windmill
-     */
-    public function setGpsLatitude($gpsLatitude)
-    {
-        $this->gpsLatitude = $gpsLatitude;
-
-        return $this;
-    }
-
-    /**
-     * Get LatLng
-     *
-     * @Assert\NotBlank()
-     * @OhAssert\LatLng()
-     *
-     * @return array
-     */
-    public function getLatLng()
-    {
-        return array(
-            'lat' => $this->getGpsLatitude(),
-            'lng' => $this->getGpsLongitude(),
-        );
-    }
-
-    /**
-     * Set LatLng
-     *
-     * @param array $latlng
-     *
-     * @return $this
-     */
-    public function setLatLng($latlng)
-    {
-        $this->setGpsLatitude($latlng['lat']);
-        $this->setGpsLongitude($latlng['lng']);
-
-        return $this;
+        $this->windmillBlades = new ArrayCollection();
     }
 
     /**
@@ -189,6 +112,71 @@ class Windmill extends AbstractBase
     public function setTurbine($turbine)
     {
         $this->turbine = $turbine;
+
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getWindmillBlades()
+    {
+        return $this->windmillBlades;
+    }
+
+    /**
+     * @param ArrayCollection $windmillBlades
+     *
+     * @return Windmill
+     */
+    public function setWindmillBlades(ArrayCollection $windmillBlades)
+    {
+        $this->windmillBlades = $windmillBlades;
+
+        return $this;
+    }
+
+    /**
+     * @param WindmillBlade $windmillBlade
+     *
+     * @return $this
+     */
+    public function addWindmillBlade(WindmillBlade $windmillBlade)
+    {
+        $windmillBlade->setWindmill($this);
+        $this->windmillBlades->add($windmillBlade);
+
+        return $this;
+    }
+
+    /**
+     * @param WindmillBlade $windmillBlade
+     *
+     * @return $this
+     */
+    public function removeWindmillBlade(WindmillBlade $windmillBlade)
+    {
+        $this->windmillBlades->removeElement($windmillBlade);
+
+        return $this;
+    }
+
+    /**
+     * @return Blade
+     */
+    public function getBladeType()
+    {
+        return $this->bladeType;
+    }
+
+    /**
+     * @param Blade $bladeType
+     *
+     * @return Windmill
+     */
+    public function setBladeType(Blade $bladeType)
+    {
+        $this->bladeType = $bladeType;
 
         return $this;
     }
