@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use AppBundle\Entity\Traits\CodeTrait;
 use AppBundle\Entity\Traits\GpsCoordinatesTrait;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -46,12 +47,27 @@ class Windmill extends AbstractBase
     private $turbine;
 
     /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="WindmillBlade", mappedBy="windmill")
+     */
+    private $windmillBlades;
+
+    /**
      *
      *
      * Methods
      *
      *
      */
+
+    /**
+     * Windmill constructor.
+     */
+    public function __construct()
+    {
+        $this->windmillBlades = new ArrayCollection();
+    }
 
     /**
      * @return Windfarm
@@ -89,6 +105,51 @@ class Windmill extends AbstractBase
     public function setTurbine($turbine)
     {
         $this->turbine = $turbine;
+
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getWindmillBlades()
+    {
+        return $this->windmillBlades;
+    }
+
+    /**
+     * @param ArrayCollection $windmillBlades
+     *
+     * @return Windmill
+     */
+    public function setWindmillBlades(ArrayCollection $windmillBlades)
+    {
+        $this->windmillBlades = $windmillBlades;
+
+        return $this;
+    }
+
+    /**
+     * @param WindmillBlade $windmillBlade
+     *
+     * @return $this
+     */
+    public function addWindmillBlade(WindmillBlade $windmillBlade)
+    {
+        $windmillBlade->setWindmill($this);
+        $this->windmillBlades->add($windmillBlade);
+
+        return $this;
+    }
+
+    /**
+     * @param WindmillBlade $windmillBlade
+     *
+     * @return $this
+     */
+    public function removeWindmillBlade(WindmillBlade $windmillBlade)
+    {
+        $this->windmillBlades->removeElement($windmillBlade);
 
         return $this;
     }

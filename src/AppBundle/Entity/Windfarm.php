@@ -87,7 +87,7 @@ class Windfarm extends AbstractBase
      */
     public function __construct()
     {
-        $this->windmills = new ArrayCollection;
+        $this->windmills = new ArrayCollection();
     }
 
     /**
