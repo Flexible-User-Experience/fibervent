@@ -1,7 +1,7 @@
 # Country
 AppBundle\Entity\Country:
   country1:
-    code(unique): 'ES'
+    code: 'ES'
 
 # State
 AppBundle\Entity\State:
