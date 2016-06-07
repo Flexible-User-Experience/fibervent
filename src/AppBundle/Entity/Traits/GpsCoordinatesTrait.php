@@ -3,15 +3,17 @@
 namespace AppBundle\Entity\Traits;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Oh\GoogleMapFormTypeBundle\Validator\Constraints as OhAssert;
 
 /**
- * GpsCoordenates trait
+ * GpsCoordinates trait
  *
  * @category Trait
  * @package  AppBundle\Entity\Traits
  * @author   Anton Serra <aserratorta@gmail.com>
  */
-Trait GpsCoordenatesTrait
+Trait GpsCoordinatesTrait
 {
     /**
      * @var float
@@ -46,7 +48,7 @@ Trait GpsCoordenatesTrait
     /**
      * @param float $gpsLongitude
      *
-     * @return GpsCoordenatesTrait
+     * @return $this
      */
     public function setGpsLongitude($gpsLongitude)
     {
@@ -66,7 +68,7 @@ Trait GpsCoordenatesTrait
     /**
      * @param float $gpsLatitude
      *
-     * @return GpsCoordenatesTrait
+     * @return $this
      */
     public function setGpsLatitude($gpsLatitude)
     {

@@ -2,12 +2,10 @@
 
 namespace AppBundle\Entity;
 
-use AppBundle\Entity\Traits\GpsCoordenatesTrait;
+use AppBundle\Entity\Traits\GpsCoordinatesTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
-use Symfony\Component\Validator\Constraints as Assert;
-use Oh\GoogleMapFormTypeBundle\Validator\Constraints as OhAssert;
 
 /**
  * Windfarm
@@ -21,7 +19,7 @@ use Oh\GoogleMapFormTypeBundle\Validator\Constraints as OhAssert;
  */
 class Windfarm extends AbstractBase
 {
-    use GpsCoordenatesTrait;
+    use GpsCoordinatesTrait;
 
     /**
      * @var string
