@@ -109,35 +109,26 @@ class CustomerAdmin extends AbstractBaseAdmin
             ->end();
         if ($this->id($this->getSubject())) { // is edit mode, disable on new subjects
             $formMapper
-                ->with('Contactes', $this->getFormMdSuccessBoxArray(12))
+                ->with('Contactes', $this->getFormMdSuccessBoxArray(6))
                 ->add(
                     'contacts',
-                    'sonata_type_collection',
+                    'sonata_type_model',
                     array(
                         'label'              => ' ',
+                        'property'           => 'lastname',
                         'required'           => false,
-                        'cascade_validation' => true,
-                    ),
-                    array(
-                        'edit'     => 'inline',
-                        'inline'   => 'table',
-                        'sortable' => 'position',
+                        'multiple'           => true,
                     )
                 )
                 ->end()
-                ->with('Parcs Eòlics', $this->getFormMdSuccessBoxArray(12))
+                ->with('Parcs Eòlics', $this->getFormMdSuccessBoxArray(6))
                 ->add(
                     'windfarms',
-                    'sonata_type_collection',
+                    'sonata_type_model',
                     array(
                         'label'              => ' ',
                         'required'           => false,
-                        'cascade_validation' => true,
-                    ),
-                    array(
-                        'edit'     => 'inline',
-                        'inline'   => 'table',
-                        'sortable' => 'position',
+                        'multiple'           => true,
                     )
                 )
                 ->end();
@@ -211,6 +202,7 @@ class CustomerAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'Província',
+                    'query' => $this->sr->findAllSortedByNameQ(),
                 )
             )
             ->add(
