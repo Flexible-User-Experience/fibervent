@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Entity\Traits\CodeTrait;
 use AppBundle\Entity\Traits\GpsCoordinatesTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -21,6 +22,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 class Windmill extends AbstractBase
 {
     use GpsCoordinatesTrait;
+    use CodeTrait;
 
     /**
      * @var string
@@ -50,26 +52,6 @@ class Windmill extends AbstractBase
      *
      *
      */
-
-    /**
-     * @return string
-     */
-    public function getCode()
-    {
-        return $this->code;
-    }
-
-    /**
-     * @param string $code
-     *
-     * @return Windmill
-     */
-    public function setCode($code)
-    {
-        $this->code = $code;
-
-        return $this;
-    }
 
     /**
      * @return Windfarm

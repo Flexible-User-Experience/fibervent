@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use AppBundle\Entity\Traits\CityTrait;
+use AppBundle\Entity\Traits\CodeTrait;
 use AppBundle\Entity\Traits\StateTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -25,6 +26,7 @@ class Customer extends AbstractBase
 {
     use StateTrait;
     use CityTrait;
+    use CodeTrait;
 
     /**
      * @var string
@@ -151,26 +153,6 @@ class Customer extends AbstractBase
     public function setEmail($email)
     {
         $this->email = $email;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getCode()
-    {
-        return $this->code;
-    }
-
-    /**
-     * @param string $code
-     *
-     * @return Customer
-     */
-    public function setCode($code)
-    {
-        $this->code = $code;
 
         return $this;
     }
