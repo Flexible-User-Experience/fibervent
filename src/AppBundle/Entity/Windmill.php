@@ -5,6 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
+use Oh\GoogleMapFormTypeBundle\Validator\Constraints as OhAssert;
 
 /**
  * Windmill
@@ -30,14 +31,14 @@ class Windmill extends AbstractBase
      *
      * @ORM\Column(type="float", precision=20)
      */
-    private $gpsLongitude;
+    private $gpsLongitude = 0.716726;
 
     /**
      * @var float
      *
      * @ORM\Column(type="float", precision=20)
      */
-    private $gpsLatitude;
+    private $gpsLatitude = 40.881604;
 
     /**
      * @var Windfarm
@@ -117,6 +118,37 @@ class Windmill extends AbstractBase
     public function setGpsLatitude($gpsLatitude)
     {
         $this->gpsLatitude = $gpsLatitude;
+
+        return $this;
+    }
+
+    /**
+     * Get LatLng
+     *
+     * @Assert\NotBlank()
+     * @OhAssert\LatLng()
+     *
+     * @return array
+     */
+    public function getLatLng()
+    {
+        return array(
+            'lat' => $this->getGpsLatitude(),
+            'lng' => $this->getGpsLongitude(),
+        );
+    }
+
+    /**
+     * Set LatLng
+     *
+     * @param array $latlng
+     *
+     * @return $this
+     */
+    public function setLatLng($latlng)
+    {
+        $this->setGpsLatitude($latlng['lat']);
+        $this->setGpsLongitude($latlng['lng']);
 
         return $this;
     }

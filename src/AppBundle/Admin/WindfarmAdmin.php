@@ -84,26 +84,15 @@ class WindfarmAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'gpsLongitude',
-                null,
-                array(
-                    'label' => 'Longitud',
-                )
-            )
-            ->add(
-                'gpsLatitude',
-                null,
-                array(
-                    'label' => 'Latitud',
-                )
-            )
-            ->add(
                 'power',
                 null,
                 array(
                     'label' => 'Potència',
                 )
             )
+            ->end()
+            ->with('Geolocalització', $this->getFormMdSuccessBoxArray(12))
+            ->add('latLng', 'oh_google_maps', array('label' => 'Mapa', 'required' => false))
             ->end();
     }
 
