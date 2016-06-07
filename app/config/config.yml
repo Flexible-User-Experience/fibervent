@@ -46,7 +46,7 @@ twig:
         - "SonataCoreBundle:Form:datepicker.html.twig"
         - "::OhGoogleMaps/google_maps_form_widget.html.twig"
     globals:
-        admin_tag_version: "v0.0.04"
+        admin_tag_version: "v0.0.05"
         main_brand_title:  "%project_web_title%"
 
 # Doctrine Configuration
@@ -61,7 +61,6 @@ doctrine:
         charset:  UTF8
         types:
             json: Sonata\Doctrine\Types\JsonType
-
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"
         naming_strategy:             doctrine.orm.naming_strategy.underscore

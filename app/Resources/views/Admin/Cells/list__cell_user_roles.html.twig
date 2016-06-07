@@ -6,17 +6,23 @@
             {% if object.roles %}
                 {% for role in object.roles %}
                     {% if role == 'ROLE_USER' %}
-                        {% set status = 'info' %}
-                        {% set text = 'user' %}
-                    {% elseif role == 'ROLE_CMS' %}
-                        {% set status = 'warning' %}
-                        {% set text = 'editor' %}
-                    {% elseif role == 'ROLE_ADMIN' %}
+                        {% set status = 'default' %}
+                        {% set text = 'usuari' %}
+                    {% elseif role == 'ROLE_CUSTOMER' %}
                         {% set status = 'primary' %}
-                        {% set text = 'admin' %}
+                        {% set text = 'client' %}
+                    {% elseif role == 'ROLE_OPERATOR' %}
+                        {% set status = 'success' %}
+                        {% set text = 'operari' %}
+                    {% elseif role == 'ROLE_TECHNICIAN' %}
+                        {% set status = 'info' %}
+                        {% set text = 'tècnic' %}
+                    {% elseif role == 'ROLE_ADMIN' %}
+                        {% set status = 'warning' %}
+                        {% set text = 'administrador' %}
                     {% elseif role == 'ROLE_SUPER_ADMIN' %}
                         {% set status = 'danger' %}
-                        {% set text = 'super admin' %}
+                        {% set text = 'super administrador' %}
                     {% else %}
                         {% set status = 'success' %}
                         {% set text = '---' %}

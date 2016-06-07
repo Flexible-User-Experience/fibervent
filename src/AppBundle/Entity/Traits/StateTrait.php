@@ -1,0 +1,36 @@
+<?php
+
+namespace AppBundle\Entity\Traits;
+
+use AppBundle\Entity\State;
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * State trait
+ *
+ * @category Trait
+ * @package  AppBundle\Entity\Traits
+ * @author   Anton Serra <aserratorta@gmail.com>
+ */
+Trait StateTrait
+{
+    /**
+     * @return State
+     */
+    public function getState()
+    {
+        return $this->state;
+    }
+
+    /**
+     * @param State $state
+     *
+     * @return $this
+     */
+    public function setState(State $state)
+    {
+        $this->state = $state;
+
+        return $this;
+    }
+}
