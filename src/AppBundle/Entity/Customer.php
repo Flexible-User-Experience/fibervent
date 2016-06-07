@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Entity\Traits\CityTrait;
 use AppBundle\Entity\Traits\StateTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -23,6 +24,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Customer extends AbstractBase
 {
     use StateTrait;
+    use CityTrait;
 
     /**
      * @var string
@@ -74,13 +76,6 @@ class Customer extends AbstractBase
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $zip;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $city;
 
     /**
      * @var State
@@ -256,26 +251,6 @@ class Customer extends AbstractBase
     public function setZip($zip)
     {
         $this->zip = $zip;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getCity()
-    {
-        return $this->city;
-    }
-
-    /**
-     * @param string $city
-     *
-     * @return Customer
-     */
-    public function setCity($city)
-    {
-        $this->city = $city;
 
         return $this;
     }

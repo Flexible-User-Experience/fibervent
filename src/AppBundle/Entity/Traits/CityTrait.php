@@ -5,37 +5,37 @@ namespace AppBundle\Entity\Traits;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Name trait
+ * City trait
  *
  * @category Trait
  * @package  AppBundle\Entity\Traits
  * @author   Anton Serra <aserratorta@gmail.com>
  */
-Trait NameTrait
+Trait CityTrait
 {
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $name;
+    private $city;
 
     /**
      * @return string
      */
-    public function getName()
+    public function getCity()
     {
-        return $this->name;
+        return $this->city;
     }
 
     /**
-     * @param string $name
+     * @param string $city
      *
      * @return $this
      */
-    public function setName($name)
+    public function setCity($city)
     {
-        $this->name = $name;
+        $this->city = $city;
 
         return $this;
     }

@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Entity\Traits\CityTrait;
 use AppBundle\Entity\Traits\GpsCoordinatesTrait;
 use AppBundle\Entity\Traits\StateTrait;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -21,6 +22,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 class Windfarm extends AbstractBase
 {
     use StateTrait;
+    use CityTrait;
     use GpsCoordinatesTrait;
 
     /**
@@ -29,13 +31,6 @@ class Windfarm extends AbstractBase
      * @ORM\Column(type="string", length=255)
      */
     private $name;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $city;
 
     /**
      * @var integer
@@ -54,7 +49,7 @@ class Windfarm extends AbstractBase
     /**
      * @var State
      *
-     * @ORM\ManyToOne(targetEntity="State", inversedBy="windfarms")
+     * @ORM\ManyToOne(targetEntity="State")
      */
     private $state;
 
@@ -68,7 +63,7 @@ class Windfarm extends AbstractBase
     /**
      * @var User
      *
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="windfarms")
+     * @ORM\ManyToOne(targetEntity="User")
      */
     private $manager;
 
@@ -111,26 +106,6 @@ class Windfarm extends AbstractBase
     public function setName($name)
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getCity()
-    {
-        return $this->city;
-    }
-
-    /**
-     * @param string $city
-     *
-     * @return Windfarm
-     */
-    public function setCity($city)
-    {
-        $this->city = $city;
 
         return $this;
     }
