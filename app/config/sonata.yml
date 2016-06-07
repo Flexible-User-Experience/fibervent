@@ -21,6 +21,8 @@ sonata_admin:
         use_select2:    true
         pager_links:    10
     persist_filters: true
+    security:
+        handler: sonata.admin.security.handler.role
     templates:
         layout: "::Admin/layout.html.twig"
     dashboard:

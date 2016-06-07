@@ -2,7 +2,7 @@ security:
     acl:
         connection: default
     role_hierarchy:
-        ROLE_SONATA_CMS:
+        ROLE_SONATA_MANAGER:
             - ROLE_ADMIN_CUSTOMER_LIST
             - ROLE_ADMIN_CUSTOMER_VIEW
             - ROLE_ADMIN_CUSTOMER_CREATE
@@ -27,20 +27,24 @@ security:
             - ROLE_ADMIN_STATE_EDIT
             - ROLE_ADMIN_STATE_DELETE
             - ROLE_ADMIN_STATE_EXPORT
-        ROLE_SONATA_MANAGER:
             - ROLE_ADMIN_USER_LIST
             - ROLE_ADMIN_USER_VIEW
             - ROLE_ADMIN_USER_CREATE
             - ROLE_ADMIN_USER_EDIT
             - ROLE_ADMIN_USER_DELETE
             - ROLE_ADMIN_USER_EXPORT
-        ROLE_CMS:
+        ROLE_CUSTOMER:
             - ROLE_USER
-            - ROLE_SONATA_CMS
             - ROLE_SONATA_ADMIN
-        ROLE_ADMIN:
-            - ROLE_CMS
             - ROLE_SONATA_MANAGER
+        ROLE_OPERATOR:
+            - ROLE_CUSTOMER
+        ROLE_OPERATOR:
+            - ROLE_CUSTOMER
+        ROLE_TECHNICIAN:
+            - ROLE_OPERATOR
+        ROLE_ADMIN:
+            - ROLE_TECHNICIAN
         ROLE_SUPER_ADMIN:
             - ROLE_ADMIN
             - ROLE_ALLOWED_TO_SWITCH

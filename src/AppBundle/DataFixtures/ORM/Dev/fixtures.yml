@@ -185,7 +185,7 @@ AppBundle\Entity\Windfarm:
     year: <year()>
     customer: @customer<numberBetween(1, 10)>
     state: @state<numberBetween(1, 8)>
-    manager: @manager<numberBetween(1, 2)>
+    manager: @owner<numberBetween(1, 10)>
 
 # Windmill
 AppBundle\Entity\Windmill:
@@ -205,7 +205,7 @@ AppBundle\Entity\Turbine:
 
 ## Users
 AppBundle\Entity\User:
-    admin:
+    superadmin:
         username: <{private_admin_test_user}>
         plainPassword: <{private_admin_test_pass}>
         email: <safeEmail()>
@@ -215,7 +215,7 @@ AppBundle\Entity\User:
         enabled: true
         roles:
             - ROLE_SUPER_ADMIN
-    editor:
+    admin:
         username: <{private_editor_test_user}>
         plainPassword: <{private_editor_test_pass}>
         email: <safeEmail()>
@@ -224,25 +224,35 @@ AppBundle\Entity\User:
         lastname: <lastname()>
         enabled: true
         roles:
-            - ROLE_CMS
-    cms{1..4}:
+            - ROLE_ADMIN
+    technician{1..2}:
         username: <username()>
         plainPassword: <password()>
         email: <safeEmail()>
         phone: <e164PhoneNumber()>
+        firstname: <name()>
+        lastname: <lastname()>
+        enabled: true
+        roles:
+            - ROLE_TECHNICIAN
+    operator{1..4}:
+        username: <username()>
+        plainPassword: <password()>
+        phone: <e164PhoneNumber()>
+        email: <safeEmail()>
+        firstname: <name()>
+        lastname: <lastname()>
+        enabled: true
+        roles:
+            - ROLE_OPERATOR
+    owner{1..10}:
+        username: <username()>
+        plainPassword: <password()>
+        phone: <e164PhoneNumber()>
+        email: <safeEmail()>
         firstname: <name()>
         lastname: <lastname()>
         enabled: true
         customer: @customer<numberBetween(1, 10)>
         roles:
-            - ROLE_CMS
-    manager{1..2}:
-        username: <username()>
-        plainPassword: <password()>
-        phone: <e164PhoneNumber()>
-        email: <safeEmail()>
-        firstname: <name()>
-        lastname: <lastname()>
-        enabled: true
-        roles:
-            - ROLE_ADMIN
+            - ROLE_CUSTOMER
