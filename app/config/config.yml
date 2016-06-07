@@ -2,6 +2,7 @@ imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
     - { resource: services.yml }
+    - { resource: sonata.yml }
     - { resource: media.yml }
 
 # Symfony Framework
@@ -66,19 +67,6 @@ doctrine:
         naming_strategy:             doctrine.orm.naming_strategy.underscore
         auto_mapping:                true
 
-# Sonata
-sonata_block:
-    default_contexts: [ cms ]
-    blocks:
-        sonata.admin.block.admin_list:  ~
-        sonata.user.block.menu:         ~
-        sonata.block.service.text:      ~
-
-# Sonata User
-sonata_user:
-    security_acl: true
-    manager_type: orm
-
 # Stof Doctrine Extensions
 stof_doctrine_extensions:
     default_locale: "%locale%"
@@ -101,45 +89,6 @@ fos_user:
         group_manager: sonata.user.orm.group_manager
     service:
         user_manager: sonata.user.orm.user_manager
-
-# Admin
-sonata_admin:
-    title: "%project_web_title%"
-#    title_logo: "/bundles/app/img/logo-espai-kowo-backend.png"
-    options:
-        html5_validate: true
-        confirm_exit:   true
-        use_select2:    true
-        pager_links:    10
-    persist_filters: true
-    templates:
-        layout: "::Admin/layout.html.twig"
-    dashboard:
-        groups:
-            Client:
-                icon: "<i class='fa fa-industry' aria-hidden='true'></i>"
-            Parc Eòlic:
-                icon: "<i class='fa fa-bolt' aria-hidden='true'></i>"
-        blocks:
-            -
-                position: top
-                type: sonata.block.service.text
-                class: col-md-12
-                settings:
-                    content: >
-                        <h1 style="margin-top:0">Fibervent</h1>
-            -
-                position: top
-                type: sonata.admin.block.admin_list
-                class: col-md-6
-                settings:
-                    groups: [ Client ]
-            -
-                position: top
-                type: sonata.admin.block.admin_list
-                class: col-md-6
-                settings:
-                    groups: [ Parc Eòlic ]
 
 # Swiftmailer Configuration
 swiftmailer:

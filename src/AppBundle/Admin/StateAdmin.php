@@ -41,6 +41,7 @@ class StateAdmin extends AbstractBaseAdmin
                 'sonata_type_model',
                 array(
                     'label'      => 'País',
+                    'property'   => 'name',
                     'btn_add'    => true,
                     'btn_delete' => false,
                 )

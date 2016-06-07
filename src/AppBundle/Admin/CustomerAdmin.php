@@ -27,7 +27,6 @@ class CustomerAdmin extends AbstractBaseAdmin
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
-        $sr = $this->getConfigurationPool()->getContainer()->get('doctrine')->getRepository('AppBundle:State');
         $formMapper
             ->with('General', $this->getFormMdSuccessBoxArray(7))
             ->add(
@@ -73,7 +72,7 @@ class CustomerAdmin extends AbstractBaseAdmin
                     'btn_add'    => true,
                     'btn_delete' => false,
                     'required'   => true,
-                    'query'      => $sr->findAllSortedByNameQ(),
+                    'query'      => $this->sr->findAllSortedByNameQ(),
                 )
             )
             ->end()
