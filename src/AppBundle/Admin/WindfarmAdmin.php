@@ -2,6 +2,7 @@
 
 namespace AppBundle\Admin;
 
+use Oh\GoogleMapFormTypeBundle\Form\Type\GoogleMapType;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
@@ -19,7 +20,7 @@ class WindfarmAdmin extends AbstractBaseAdmin
     protected $classnameLabel = 'Windfarm';
     protected $baseRoutePattern = 'windfarms/windfarm';
     protected $datagridValues = array(
-        '_sort_by'    => 'name',
+        '_sort_by' => 'name',
         '_sort_order' => 'asc',
     );
 
@@ -92,7 +93,14 @@ class WindfarmAdmin extends AbstractBaseAdmin
             )
             ->end()
             ->with('Geolocalització', $this->getFormMdSuccessBoxArray(12))
-            ->add('latLng', 'oh_google_maps', array('label' => 'Mapa', 'required' => false))
+            ->add(
+                'latLng',
+                GoogleMapType::class,
+                array(
+                    'label'    => 'Mapa',
+                    'required' => false
+                )
+            )
             ->end();
     }
 
@@ -162,7 +170,7 @@ class WindfarmAdmin extends AbstractBaseAdmin
                 'enabled',
                 null,
                 array(
-                    'label'    => 'Actiu',
+                    'label' => 'Actiu',
                     'editable' => true,
                 )
             );
@@ -179,7 +187,7 @@ class WindfarmAdmin extends AbstractBaseAdmin
                 'name',
                 null,
                 array(
-                    'label'    => 'Nom',
+                    'label' => 'Nom',
                     'editable' => true,
                 )
             )
@@ -187,7 +195,7 @@ class WindfarmAdmin extends AbstractBaseAdmin
                 'city',
                 null,
                 array(
-                    'label'    => 'Ciutat',
+                    'label' => 'Ciutat',
                     'editable' => true,
                 )
             )
@@ -195,7 +203,7 @@ class WindfarmAdmin extends AbstractBaseAdmin
                 'state',
                 null,
                 array(
-                    'label'    => 'Província',
+                    'label' => 'Província',
                     'editable' => true,
                 )
             )
@@ -203,7 +211,7 @@ class WindfarmAdmin extends AbstractBaseAdmin
                 'manager',
                 null,
                 array(
-                    'label'    => 'Administrador',
+                    'label' => 'Administrador',
                     'editable' => true,
                 )
             )
@@ -211,7 +219,7 @@ class WindfarmAdmin extends AbstractBaseAdmin
                 'customer',
                 null,
                 array(
-                    'label'    => 'Client',
+                    'label' => 'Client',
                     'editable' => true,
                 )
             )
@@ -219,7 +227,7 @@ class WindfarmAdmin extends AbstractBaseAdmin
                 'enabled',
                 null,
                 array(
-                    'label'    => 'Actiu',
+                    'label' => 'Actiu',
                     'editable' => true,
                 )
             )
@@ -227,9 +235,9 @@ class WindfarmAdmin extends AbstractBaseAdmin
                 '_action',
                 'actions',
                 array(
-                    'label'   => 'Accions',
+                    'label' => 'Accions',
                     'actions' => array(
-                        'edit'   => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
+                        'edit' => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
                         'delete' => array('template' => '::Admin/Buttons/list__action_delete_button.html.twig'),
                     )
                 )
