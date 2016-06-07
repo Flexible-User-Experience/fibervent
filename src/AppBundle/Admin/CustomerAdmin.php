@@ -27,6 +27,7 @@ class CustomerAdmin extends AbstractBaseAdmin
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
+        $sr = $this->getConfigurationPool()->getContainer()->get('doctrine')->getRepository('AppBundle:State');
         $formMapper
             ->with('General', $this->getFormMdSuccessBoxArray(7))
             ->add(
@@ -66,12 +67,13 @@ class CustomerAdmin extends AbstractBaseAdmin
             )
             ->add(
                 'state',
-                'sonata_type_model_list',
+                'sonata_type_model',
                 array(
                     'label'      => 'Província',
                     'btn_add'    => true,
                     'btn_delete' => false,
                     'required'   => true,
+                    'query'      => $sr->findAllSortedByNameQ(),
                 )
             )
             ->end()

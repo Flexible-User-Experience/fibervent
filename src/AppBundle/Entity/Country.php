@@ -104,7 +104,7 @@ class Country extends AbstractBase
      */
     public function getName()
     {
-        return Intl::getRegionBundle()->getCountryName($this->getCode());
+        return Intl::getRegionBundle()->getCountryName($this->getCode(), 'ES');
     }
 
     /**
@@ -123,6 +123,6 @@ class Country extends AbstractBase
 
     public function __toString()
     {
-        return $this->getCode() ? $this->getCode() : '---';
+        return $this->getCode() ? $this->getName() : '---';
     }
 }

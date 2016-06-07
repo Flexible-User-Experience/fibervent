@@ -19,7 +19,7 @@ class StateAdmin extends AbstractBaseAdmin
     protected $baseRoutePattern = 'customers/state';
     protected $datagridValues = array(
         '_sort_by'    => 'name',
-        '_sort_order' => 'desc',
+        '_sort_order' => 'asc',
     );
 
     /**
@@ -28,7 +28,7 @@ class StateAdmin extends AbstractBaseAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->with('General', $this->getFormMdSuccessBoxArray(7))
+            ->with('General', $this->getFormMdSuccessBoxArray(4))
             ->add(
                 'name',
                 null,
@@ -38,7 +38,7 @@ class StateAdmin extends AbstractBaseAdmin
             )
             ->add(
                 'country',
-                'sonata_type_model_list',
+                'sonata_type_model',
                 array(
                     'label'      => 'País',
                     'btn_add'    => true,

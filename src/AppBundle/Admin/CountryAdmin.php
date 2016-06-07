@@ -20,7 +20,7 @@ class CountryAdmin extends AbstractBaseAdmin
     protected $baseRoutePattern = 'customers/country';
     protected $datagridValues = array(
         '_sort_by'    => 'name',
-        '_sort_order' => 'desc',
+        '_sort_order' => 'asc',
     );
 
     /**
@@ -29,7 +29,7 @@ class CountryAdmin extends AbstractBaseAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->with('General', $this->getFormMdSuccessBoxArray(7))
+            ->with('General', $this->getFormMdSuccessBoxArray(4))
             ->add(
                 'code',
                 CountryType::class,
