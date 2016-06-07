@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use AppBundle\Entity\Traits\GpsCoordinatesTrait;
+use AppBundle\Entity\Traits\StateTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -19,6 +20,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  */
 class Windfarm extends AbstractBase
 {
+    use StateTrait;
     use GpsCoordinatesTrait;
 
     /**
@@ -169,26 +171,6 @@ class Windfarm extends AbstractBase
     public function setYear($year)
     {
         $this->year = $year;
-
-        return $this;
-    }
-
-    /**
-     * @return State
-     */
-    public function getState()
-    {
-        return $this->state;
-    }
-
-    /**
-     * @param State $state
-     *
-     * @return Windfarm
-     */
-    public function setState($state)
-    {
-        $this->state = $state;
 
         return $this;
     }

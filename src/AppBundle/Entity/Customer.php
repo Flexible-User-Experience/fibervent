@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Entity\Traits\StateTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -21,6 +22,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Customer extends AbstractBase
 {
+    use StateTrait;
+
     /**
      * @var string
      *
@@ -273,26 +276,6 @@ class Customer extends AbstractBase
     public function setCity($city)
     {
         $this->city = $city;
-
-        return $this;
-    }
-
-    /**
-     * @return State
-     */
-    public function getState()
-    {
-        return $this->state;
-    }
-
-    /**
-     * @param State $state
-     *
-     * @return Customer
-     */
-    public function setState($state)
-    {
-        $this->state = $state;
 
         return $this;
     }
