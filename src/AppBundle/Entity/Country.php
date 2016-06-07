@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Intl\Intl;
 
 /**
  * Country
@@ -27,6 +28,11 @@ class Country extends AbstractBase
      * @ORM\Column(type="string", length=2, unique = true)
      */
     private $code;
+
+    /**
+     * @var string
+     */
+    private $name;
 
     /**
      * @var ArrayCollection
@@ -87,6 +93,30 @@ class Country extends AbstractBase
     public function setCode($code)
     {
         $this->code = $code;
+
+        return $this;
+    }
+
+    /**
+     * Get Name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return Intl::getRegionBundle()->getCountryName($this->getCode());
+    }
+
+    /**
+     * Set Name
+     *
+     * @param string $name
+     *
+     * @return $this
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
 
         return $this;
     }

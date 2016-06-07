@@ -78,6 +78,13 @@ class CountryAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
+                'name',
+                null,
+                array(
+                    'label' => 'Nom',
+                )
+            )
+            ->add(
                 '_action',
                 'actions',
                 array(
