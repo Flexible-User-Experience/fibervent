@@ -54,6 +54,13 @@ class Windmill extends AbstractBase
     private $windmillBlades;
 
     /**
+     * @var Blade
+     *
+     * @ORM\ManyToOne(targetEntity="Blade")
+     */
+    private $bladeType;
+
+    /**
      *
      *
      * Methods
@@ -150,6 +157,26 @@ class Windmill extends AbstractBase
     public function removeWindmillBlade(WindmillBlade $windmillBlade)
     {
         $this->windmillBlades->removeElement($windmillBlade);
+
+        return $this;
+    }
+
+    /**
+     * @return Blade
+     */
+    public function getBladeType()
+    {
+        return $this->bladeType;
+    }
+
+    /**
+     * @param Blade $bladeType
+     *
+     * @return Windmill
+     */
+    public function setBladeType(Blade $bladeType)
+    {
+        $this->bladeType = $bladeType;
 
         return $this;
     }
