@@ -29,7 +29,7 @@ sonata_admin:
         groups:
             Client:
                 icon: "<i class='fa fa-industry' aria-hidden='true'></i>"
-            Parc Eòlic:
+            Parc_Eòlic:
                 icon: "<i class='fa fa-bolt' aria-hidden='true'></i>"
         blocks:
             -
@@ -50,4 +50,4 @@ sonata_admin:
                 type: sonata.admin.block.admin_list
                 class: col-md-6
                 settings:
-                    groups: [ Parc Eòlic ]
+                    groups: [ Parc_Eòlic ]
