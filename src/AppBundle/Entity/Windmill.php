@@ -49,7 +49,7 @@ class Windmill extends AbstractBase
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="WindmillBlade", mappedBy="windmill")
+     * @ORM\OneToMany(targetEntity="WindmillBlade", mappedBy="windmill", cascade={"persist"})
      */
     private $windmillBlades;
 

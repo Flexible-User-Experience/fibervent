@@ -2,6 +2,8 @@
 
 namespace AppBundle\Admin;
 
+use AppBundle\Entity\Windmill;
+use AppBundle\Entity\WindmillBlade;
 use Oh\GoogleMapFormTypeBundle\Form\Type\GoogleMapType;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
@@ -229,5 +231,30 @@ class WindmillAdmin extends AbstractBaseAdmin
                     )
                 )
             );
+    }
+
+    /**
+     * Every new Windmill persist 3, and only 3 new linked blades
+     *
+     * @param Windmill $object
+     */
+    public function prePersist($object)
+    {
+        $blade1 = new WindmillBlade();
+        $blade1
+            ->setWindmill($object)
+            ->setCode($object->getCode() . '/1');
+        $blade2 = new WindmillBlade();
+        $blade2
+            ->setWindmill($object)
+            ->setCode($object->getCode() . '/2');
+        $blade3 = new WindmillBlade();
+        $blade3
+            ->setWindmill($object)
+            ->setCode($object->getCode() . '/3');
+        $object
+            ->addWindmillBlade($blade1)
+            ->addWindmillBlade($blade2)
+            ->addWindmillBlade($blade3);
     }
 }
