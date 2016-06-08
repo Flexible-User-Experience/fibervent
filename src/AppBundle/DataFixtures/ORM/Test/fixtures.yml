@@ -68,10 +68,10 @@ AppBundle\Entity\User:
     admin:
         username: <{private_admin_test_user}>
         plainPassword: <{private_admin_test_pass}>
-        email: <safeEmail()>
         phone: <e164PhoneNumber()>
-        firstname: <name()>
-        lastname: <lastname()>
+        email: <{private_admin_test_email}>
+        firstname: <{private_admin_test_name}>
+        lastname: <{private_admin_test_surname}>
         enabled: true
         roles:
             - ROLE_SUPER_ADMIN
