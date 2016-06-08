@@ -39,7 +39,7 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Tipus Pala", group: "Parc_Eolic", show_in_dashboard: false }
     admin.windmillblade:
-        class: AppBundle\Admin\WindmillAdmin
+        class: AppBundle\Admin\WindmillBladeAdmin
         arguments: [ ~, AppBundle\Entity\WindmillBlade, ~, "@app.country_repository", "@app.state_repository", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Pales", group: "Parc_Eolic", show_in_dashboard: false }

@@ -31,6 +31,7 @@ sonata_admin:
                 icon: "<i class='fa fa-industry' aria-hidden='true'></i>"
             Parc_Eolic:
                 icon: "<i class='fa fa-bolt' aria-hidden='true'></i>"
+                label: "Parc Eòlic"
         blocks:
             -
                 position: top
