@@ -18,7 +18,7 @@ use Symfony\Component\Form\Extension\Core\Type\UrlType;
  */
 class CustomerAdmin extends AbstractBaseAdmin
 {
-    protected $classnameLabel = 'Customer';
+    protected $classnameLabel = 'Client';
     protected $baseRoutePattern = 'customers/customer';
     protected $datagridValues = array(
         '_sort_by'    => 'name',

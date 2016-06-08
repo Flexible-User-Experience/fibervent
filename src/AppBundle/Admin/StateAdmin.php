@@ -15,7 +15,7 @@ use Sonata\AdminBundle\Form\FormMapper;
  */
 class StateAdmin extends AbstractBaseAdmin
 {
-    protected $classnameLabel = 'State';
+    protected $classnameLabel = 'Província';
     protected $baseRoutePattern = 'customers/state';
     protected $datagridValues = array(
         '_sort_by'    => 'name',

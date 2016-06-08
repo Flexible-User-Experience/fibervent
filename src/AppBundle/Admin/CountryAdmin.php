@@ -16,7 +16,7 @@ use Symfony\Component\Form\Extension\Core\Type\CountryType;
  */
 class CountryAdmin extends AbstractBaseAdmin
 {
-    protected $classnameLabel = 'Country';
+    protected $classnameLabel = 'País';
     protected $baseRoutePattern = 'customers/country';
     protected $datagridValues = array(
         '_sort_by'    => 'name',

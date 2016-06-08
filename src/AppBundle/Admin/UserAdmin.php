@@ -28,7 +28,7 @@ class UserAdmin extends ParentUserAdmin
      */
     protected $userManager;
 
-    protected $classnameLabel = 'User';
+    protected $classnameLabel = 'Usuari';
     protected $baseRoutePattern = 'users';
     protected $datagridValues = array(
         '_sort_by'    => 'username',
