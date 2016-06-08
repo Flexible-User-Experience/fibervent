@@ -56,6 +56,7 @@ class AuditWindmillBlade extends AbstractBase
     public function setAudit($audit)
     {
         $this->audit = $audit;
+
         return $this;
     }
 

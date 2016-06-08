@@ -256,6 +256,6 @@ class Audit extends AbstractBase
      */
     public function __toString()
     {
-        return $this->getType() ? $this->getType() : '---';
+        return $this->id ? '#' . $this->getId() . ' · ' . $this->getType() :  '---';
     }
 }
