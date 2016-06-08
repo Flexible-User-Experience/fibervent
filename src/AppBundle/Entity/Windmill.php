@@ -61,6 +61,13 @@ class Windmill extends AbstractBase
     private $bladeType;
 
     /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="Audit", mappedBy="windmill")
+     */
+    private $audits;
+
+    /**
      *
      *
      * Methods
@@ -74,6 +81,7 @@ class Windmill extends AbstractBase
     public function __construct()
     {
         $this->windmillBlades = new ArrayCollection();
+        $this->audits = new ArrayCollection();
     }
 
     /**
@@ -177,6 +185,51 @@ class Windmill extends AbstractBase
     public function setBladeType(Blade $bladeType)
     {
         $this->bladeType = $bladeType;
+
+        return $this;
+    }
+
+    /**
+     * @param Audit $audit
+     *
+     * @return $this
+     */
+    public function addAudit(Audit $audit)
+    {
+        $audit->setWindmill($this);
+        $this->audits->add($audit);
+
+        return $this;
+    }
+
+    /**
+     * @param Audit $audit
+     *
+     * @return $this
+     */
+    public function removeAudit(Audit $audit)
+    {
+        $this->audits->removeElement($audit);
+
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getAudits()
+    {
+        return $this->audits;
+    }
+
+    /**
+     * @param ArrayCollection $audits
+     *
+     * @return Windmill
+     */
+    public function setAudits(ArrayCollection $audits)
+    {
+        $this->audits = $audits;
 
         return $this;
     }
