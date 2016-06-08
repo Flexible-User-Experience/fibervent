@@ -2,6 +2,7 @@
 
 namespace AppBundle\Admin;
 
+use Oh\GoogleMapFormTypeBundle\Form\Type\GoogleMapType;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
@@ -63,21 +64,17 @@ class WindmillAdmin extends AbstractBaseAdmin
                     'required' => false,
                 )
             )
-            ->add(
-                'gpsLongitude',
-                null,
-                array(
-                    'label' => 'Longitud',
-                )
+            ->end()
+        ->with('Geolocalització', $this->getFormMdSuccessBoxArray(12))
+        ->add(
+            'latLng',
+            GoogleMapType::class,
+            array(
+                'label'    => 'Mapa',
+                'required' => false
             )
-            ->add(
-                'gpsLatitude',
-                null,
-                array(
-                    'label' => 'Latitud',
-                )
-            )
-            ->end();
+        )
+        ->end();
         if ($this->id($this->getSubject())) { // is edit mode, disable on new subjects
             $formMapper
                 ->with('Pales', $this->getFormMdSuccessBoxArray(6))
