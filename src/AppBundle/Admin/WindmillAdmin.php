@@ -78,6 +78,20 @@ class WindmillAdmin extends AbstractBaseAdmin
                 )
             )
             ->end();
+        if ($this->id($this->getSubject())) { // is edit mode, disable on new subjects
+            $formMapper
+                ->with('Pales', $this->getFormMdSuccessBoxArray(6))
+                ->add(
+                    'windmillBlades',
+                    'sonata_type_model',
+                    array(
+                        'label'              => ' ',
+                        'required'           => false,
+                        'multiple'           => true,
+                    )
+                )
+                ->end();
+        }
     }
 
     /**
