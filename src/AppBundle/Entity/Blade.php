@@ -63,6 +63,6 @@ class Blade extends AbstractBase
      */
     public function __toString()
     {
-        return $this->getModel() ? $this->getModel() : '---';
+        return $this->getModel() ? $this->getModel() . ' (' . $this->getLength() . ')' : '---';
     }
 }
