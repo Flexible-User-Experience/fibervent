@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use AppBundle\Entity\Traits\CityTrait;
 use AppBundle\Entity\Traits\CodeTrait;
+use AppBundle\Entity\Traits\NameTrait;
 use AppBundle\Entity\Traits\StateTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -24,16 +25,10 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Customer extends AbstractBase
 {
+    use NameTrait;
     use StateTrait;
     use CityTrait;
     use CodeTrait;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="string", length=255)
-     */
-    private $name;
 
     /**
      * @var string
@@ -115,26 +110,6 @@ class Customer extends AbstractBase
     {
         $this->windfarms = new ArrayCollection();
         $this->contacts = new ArrayCollection();
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * @param string $name
-     *
-     * @return Customer
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-
-        return $this;
     }
 
     /**
