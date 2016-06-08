@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -69,12 +70,27 @@ class Audit extends AbstractBase
     private $windmill;
 
     /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="AuditWindmillBlade", mappedBy="audit")
+     */
+    private $auditWindmillBlades;
+
+    /**
      *
      *
      * Methods
      *
      *
      */
+
+    /**
+     * Audit constructor.
+     */
+    public function __construct()
+    {
+        $this->auditWindmillBlades = new ArrayCollection();
+    }
 
     /**
      * @return \DateTime
@@ -211,6 +227,26 @@ class Audit extends AbstractBase
     public function setWindmill(Audit $windmill)
     {
         $this->windmill = $windmill;
+
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getAuditWindmillBlades()
+    {
+        return $this->auditWindmillBlades;
+    }
+
+    /**
+     * @param ArrayCollection $auditWindmillBlades
+     *
+     * @return Audit
+     */
+    public function setAuditWindmillBlades(ArrayCollection $auditWindmillBlades)
+    {
+        $this->auditWindmillBlades = $auditWindmillBlades;
 
         return $this;
     }
