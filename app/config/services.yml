@@ -22,27 +22,27 @@ services:
         class: AppBundle\Admin\WindfarmAdmin
         arguments: [ ~, AppBundle\Entity\Windfarm, ~, "@app.country_repository", "@app.state_repository", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: "Parc Eòlic", group: "Parc_Eòlic" }
+            - { name: sonata.admin, manager_type: orm, label: "Parc Eòlic", group: "Parc_Eolic" }
     admin.windmill:
         class: AppBundle\Admin\WindmillAdmin
         arguments: [ ~, AppBundle\Entity\Windmill, ~, "@app.country_repository", "@app.state_repository", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: "Aerogenerador", group: "Parc_Eòlic" }
+            - { name: sonata.admin, manager_type: orm, label: "Aerogenerador", group: "Parc_Eolic" }
     admin.turbine:
         class: AppBundle\Admin\TurbineAdmin
         arguments: [ ~, AppBundle\Entity\Turbine, ~, "@app.country_repository", "@app.state_repository", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: "Turbina", group: "Parc_Eòlic", show_in_dashboard: false }
+            - { name: sonata.admin, manager_type: orm, label: "Turbina", group: "Parc_Eolic", show_in_dashboard: false }
     admin.blade:
         class: AppBundle\Admin\BladeAdmin
         arguments: [ ~, AppBundle\Entity\Blade, ~, "@app.country_repository", "@app.state_repository", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: "Tipus Pala", group: "Parc_Eòlic", show_in_dashboard: false }
+            - { name: sonata.admin, manager_type: orm, label: "Tipus Pala", group: "Parc_Eolic", show_in_dashboard: false }
     admin.windmillblade:
         class: AppBundle\Admin\WindmillAdmin
         arguments: [ ~, AppBundle\Entity\WindmillBlade, ~, "@app.country_repository", "@app.state_repository", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: "Pales", group: "Parc_Eòlic", show_in_dashboard: false }
+            - { name: sonata.admin, manager_type: orm, label: "Pales", group: "Parc_Eolic", show_in_dashboard: false }
     admin.user:
         class: AppBundle\Admin\UserAdmin
         arguments: [ ~, AppBundle\Entity\User, ~, "@fos_user.user_manager" ]
