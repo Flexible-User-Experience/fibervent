@@ -137,7 +137,14 @@ class WindmillAdmin extends AbstractBaseAdmin
                 'turbine',
                 null,
                 array(
-                    'label'    => 'Turbina',
+                    'label' => 'Turbina',
+                )
+            )
+            ->add(
+                'bladeType',
+                null,
+                array(
+                    'label' => 'Tipus Pala',
                 )
             )
             ->add(
@@ -192,25 +199,17 @@ class WindmillAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label'    => 'Turbina',
-                    'editable' => true,
+                    'editable' => false,
                 )
             )
-//            ->add(
-//                'gpsLongitude',
-//                null,
-//                array(
-//                    'label' => 'Longitud',
-//                    'editable' => true,
-//                )
-//            )
-//            ->add(
-//                'gpsLatitude',
-//                null,
-//                array(
-//                    'label' => 'Latitud',
-//                    'editable' => true,
-//                )
-//            )
+            ->add(
+                'bladeType',
+                null,
+                array(
+                    'label'    => 'Tipus Pala',
+                    'editable' => false,
+                )
+            )
             ->add(
                 'enabled',
                 null,
