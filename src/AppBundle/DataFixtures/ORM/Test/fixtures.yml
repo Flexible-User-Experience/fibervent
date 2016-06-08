@@ -42,6 +42,7 @@ AppBundle\Entity\Windmill:
     gpsLongitude: <longitude($min = -180, $max = 180)>
     windfarm: @windfarm<numberBetween(1, 4)>
     turbine: @turbine<numberBetween(1, 2)>
+    bladetype: @bladetype<numberBetween(1, 2)>
 
 # Turbine
 AppBundle\Entity\Turbine:
@@ -49,6 +50,18 @@ AppBundle\Entity\Turbine:
     model(unique): <bothify('?####?')>
     towerHeight: <numberBetween($min = 30, $max = 100)>
     rotorDiameter: <numberBetween($min = 20, $max = 140)>
+
+# Blade
+AppBundle\Entity\Blade:
+  bladetype{1..2}:
+    model(unique): <bothify('####???')>
+    length: <numberBetween($min = 10, $max = 50)>
+
+# Windmill Blade
+AppBundle\Entity\WindmillBlade:
+  windmillblade{1..3}:
+    code(unique): <bothify('?###??')>
+    windmill: @windmill<numberBetween(1, 8)>
 
 ## Users
 AppBundle\Entity\User:

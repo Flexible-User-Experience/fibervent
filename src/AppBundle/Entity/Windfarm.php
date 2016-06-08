@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use AppBundle\Entity\Traits\CityTrait;
 use AppBundle\Entity\Traits\GpsCoordinatesTrait;
+use AppBundle\Entity\Traits\NameTrait;
 use AppBundle\Entity\Traits\StateTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -21,16 +22,10 @@ use Gedmo\Mapping\Annotation as Gedmo;
  */
 class Windfarm extends AbstractBase
 {
+    use NameTrait;
     use StateTrait;
     use CityTrait;
     use GpsCoordinatesTrait;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="string", length=255)
-     */
-    private $name;
 
     /**
      * @var integer
@@ -88,26 +83,6 @@ class Windfarm extends AbstractBase
     public function __construct()
     {
         $this->windmills = new ArrayCollection();
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * @param string $name
-     *
-     * @return Windfarm
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-
-        return $this;
     }
 
     /**

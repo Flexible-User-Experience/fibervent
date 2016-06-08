@@ -8,16 +8,16 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 /**
- * Class TurbineAdmin
+ * Class BladeAdmin
  *
  * @category Admin
  * @package  AppBundle\Admin
  * @author   Anton Serra <aserratorta@gmail.com>
  */
-class TurbineAdmin extends AbstractBaseAdmin
+class BladeAdmin extends AbstractBaseAdmin
 {
-    protected $classnameLabel = 'Turbine';
-    protected $baseRoutePattern = 'windfarms/turbine';
+    protected $classnameLabel = 'Blade';
+    protected $baseRoutePattern = 'windfarms/blade';
     protected $datagridValues = array(
         '_sort_by'    => 'model',
         '_sort_order' => 'desc',
@@ -39,26 +39,11 @@ class TurbineAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'towerHeight',
+                'length',
                 null,
                 array(
-                    'label'    => 'Alçada',
+                    'label'    => 'Longitud',
                     'required' => true,
-                )
-            )
-            ->add(
-                'rotorDiameter',
-                null,
-                array(
-                    'label'    => 'Diàmetre',
-                    'required' => true,
-                )
-            )
-            ->add(
-                'power',
-                null,
-                array(
-                    'label' => 'Potència',
                 )
             )
             ->end()
@@ -88,24 +73,10 @@ class TurbineAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'towerHeight',
+                'length',
                 null,
                 array(
-                    'label' => 'Alçada',
-                )
-            )
-            ->add(
-                'rotorDiameter',
-                null,
-                array(
-                    'label' => 'Diàmetre',
-                )
-            )
-            ->add(
-                'power',
-                null,
-                array(
-                    'label' => 'Potència',
+                    'label' => 'Longitud',
                 )
             )
             ->add(
@@ -134,26 +105,10 @@ class TurbineAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'towerHeight',
+                'length',
                 null,
                 array(
-                    'label'    => 'Alçada',
-                    'editable' => true,
-                )
-            )
-            ->add(
-                'rotorDiameter',
-                null,
-                array(
-                    'label'    => 'Diàmetre',
-                    'editable' => true,
-                )
-            )
-            ->add(
-                'power',
-                null,
-                array(
-                    'label'    => 'Potència',
+                    'label'    => 'Longitud',
                     'editable' => true,
                 )
             )

@@ -1,4 +1,9 @@
 services:
+    app.country_repository:
+        class: AppBundle\Repository\CountryRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - AppBundle:Country
     app.state_repository:
         class: AppBundle\Repository\StateRepository
         factory: [ "@doctrine", getRepository ]

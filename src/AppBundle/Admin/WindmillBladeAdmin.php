@@ -7,19 +7,19 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 
 /**
- * Class StateAdmin
+ * Class WindmillBladeAdmin
  *
  * @category Admin
  * @package  AppBundle\Admin
  * @author   Anton Serra <aserratorta@gmail.com>
  */
-class StateAdmin extends AbstractBaseAdmin
+class WindmillBladeAdmin extends AbstractBaseAdmin
 {
-    protected $classnameLabel = 'State';
-    protected $baseRoutePattern = 'customers/state';
+    protected $classnameLabel = 'WindmillBlade';
+    protected $baseRoutePattern = 'windfarms/windmillblade';
     protected $datagridValues = array(
-        '_sort_by'    => 'name',
-        '_sort_order' => 'asc',
+        '_sort_by'    => 'code',
+        '_sort_order' => 'desc',
     );
 
     /**
@@ -28,23 +28,13 @@ class StateAdmin extends AbstractBaseAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->with('General', $this->getFormMdSuccessBoxArray(4))
+            ->with('General', $this->getFormMdSuccessBoxArray(7))
             ->add(
-                'name',
+                'code',
                 null,
                 array(
-                    'label' => 'Nom',
-                )
-            )
-            ->add(
-                'country',
-                'sonata_type_model',
-                array(
-                    'label'      => 'Country',
-                    'btn_add'    => true,
-                    'btn_delete' => false,
-                    'required'   => true,
-                    'query'      => $this->cr->findAllSortedByCodeQ(),
+                    'label'    => 'Codi',
+                    'required' => true,
                 )
             )
             ->end();
@@ -57,17 +47,10 @@ class StateAdmin extends AbstractBaseAdmin
     {
         $datagridMapper
             ->add(
-                'name',
+                'code',
                 null,
                 array(
-                    'label' => 'Nom',
-                )
-            )
-            ->add(
-                'country',
-                null,
-                array(
-                    'label' => 'País',
+                    'label' => 'Codi',
                 )
             )
             ->add(
@@ -88,18 +71,11 @@ class StateAdmin extends AbstractBaseAdmin
         unset($this->listModes['mosaic']);
         $listMapper
             ->add(
-                'name',
+                'code',
                 null,
                 array(
-                    'label'    => 'Nom',
+                    'label'    => 'Code',
                     'editable' => true,
-                )
-            )
-            ->add(
-                'country',
-                null,
-                array(
-                    'label' => 'País',
                 )
             )
             ->add(
