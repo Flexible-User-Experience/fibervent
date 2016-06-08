@@ -2,6 +2,9 @@
 
 namespace AppBundle\Admin;
 
+use AppBundle\Entity\Windmill;
+use AppBundle\Entity\WindmillBlade;
+use Oh\GoogleMapFormTypeBundle\Form\Type\GoogleMapType;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
@@ -29,7 +32,7 @@ class WindmillAdmin extends AbstractBaseAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->with('General', $this->getFormMdSuccessBoxArray(7))
+            ->with('General', $this->getFormMdSuccessBoxArray(4))
             ->add(
                 'code',
                 null,
@@ -45,16 +48,28 @@ class WindmillAdmin extends AbstractBaseAdmin
                     'required' => true,
                 )
             )
+            ->end()
+            ->with('Controls', $this->getFormMdSuccessBoxArray(4))
             ->add(
                 'turbine',
-                null,
+                'sonata_type_model',
                 array(
-                    'label'    => 'Turbina',
-                    'required' => true,
+                    'label'      => 'Turbina',
+                    'btn_add'    => true,
+                    'btn_delete' => false,
+                    'required'   => true,
                 )
             )
-            ->end()
-            ->with('Controls', $this->getFormMdSuccessBoxArray(5))
+            ->add(
+                'bladeType',
+                'sonata_type_model',
+                array(
+                    'label'      => 'Tipus Pala',
+                    'btn_add'    => true,
+                    'btn_delete' => false,
+                    'required'   => true,
+                )
+            )
             ->add(
                 'enabled',
                 CheckboxType::class,
@@ -63,18 +78,38 @@ class WindmillAdmin extends AbstractBaseAdmin
                     'required' => false,
                 )
             )
-            ->add(
-                'gpsLongitude',
-                null,
-                array(
-                    'label' => 'Longitud',
+            ->end();
+        if ($this->id($this->getSubject())) { // is edit mode, disable on new subjects
+            $formMapper
+                ->with('Pales', $this->getFormMdSuccessBoxArray(4))
+                ->add(
+                    'windmillBlades',
+                    'sonata_type_collection',
+                    array(
+                        'label'              => ' ',
+                        'required'           => false,
+                        'btn_add'            => false,
+                        'cascade_validation' => true,
+                        'type_options'       => array(
+                            'delete' => false,
+                        )
+                    ),
+                    array(
+                        'edit'     => 'inline',
+                        'inline'   => 'table',
+                        'sortable' => 'position',
+                    )
                 )
-            )
+                ->end();
+        }
+        $formMapper
+            ->with('Geolocalització', $this->getFormMdSuccessBoxArray(12))
             ->add(
-                'gpsLatitude',
-                null,
+                'latLng',
+                GoogleMapType::class,
                 array(
-                    'label' => 'Latitud',
+                    'label'    => 'Mapa',
+                    'required' => false
                 )
             )
             ->end();
@@ -104,7 +139,14 @@ class WindmillAdmin extends AbstractBaseAdmin
                 'turbine',
                 null,
                 array(
-                    'label'    => 'Turbina',
+                    'label' => 'Turbina',
+                )
+            )
+            ->add(
+                'bladeType',
+                null,
+                array(
+                    'label' => 'Tipus Pala',
                 )
             )
             ->add(
@@ -159,25 +201,17 @@ class WindmillAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label'    => 'Turbina',
-                    'editable' => true,
+                    'editable' => false,
                 )
             )
-//            ->add(
-//                'gpsLongitude',
-//                null,
-//                array(
-//                    'label' => 'Longitud',
-//                    'editable' => true,
-//                )
-//            )
-//            ->add(
-//                'gpsLatitude',
-//                null,
-//                array(
-//                    'label' => 'Latitud',
-//                    'editable' => true,
-//                )
-//            )
+            ->add(
+                'bladeType',
+                null,
+                array(
+                    'label'    => 'Tipus Pala',
+                    'editable' => false,
+                )
+            )
             ->add(
                 'enabled',
                 null,
@@ -197,5 +231,30 @@ class WindmillAdmin extends AbstractBaseAdmin
                     )
                 )
             );
+    }
+
+    /**
+     * Every new Windmill persist 3, and only 3 new linked blades
+     *
+     * @param Windmill $object
+     */
+    public function prePersist($object)
+    {
+        $blade1 = new WindmillBlade();
+        $blade1
+            ->setWindmill($object)
+            ->setCode($object->getCode() . '/1');
+        $blade2 = new WindmillBlade();
+        $blade2
+            ->setWindmill($object)
+            ->setCode($object->getCode() . '/2');
+        $blade3 = new WindmillBlade();
+        $blade3
+            ->setWindmill($object)
+            ->setCode($object->getCode() . '/3');
+        $object
+            ->addWindmillBlade($blade1)
+            ->addWindmillBlade($blade2)
+            ->addWindmillBlade($blade3);
     }
 }

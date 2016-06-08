@@ -1629,16 +1629,16 @@
         },
         {
             "name": "hautelook/alice-bundle",
-            "version": "v1.3.0",
+            "version": "v1.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/hautelook/AliceBundle.git",
-                "reference": "96349ec02c273167c3722ff216edcefdf6314c0c"
+                "reference": "ecb649d1a53e75511e16c924797fb2676810d21d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hautelook/AliceBundle/zipball/96349ec02c273167c3722ff216edcefdf6314c0c",
-                "reference": "96349ec02c273167c3722ff216edcefdf6314c0c",
+                "url": "https://api.github.com/repos/hautelook/AliceBundle/zipball/ecb649d1a53e75511e16c924797fb2676810d21d",
+                "reference": "ecb649d1a53e75511e16c924797fb2676810d21d",
                 "shasum": ""
             },
             "require": {
@@ -1708,7 +1708,7 @@
                 "orm",
                 "symfony"
             ],
-            "time": "2016-06-06 21:40:36"
+            "time": "2016-06-07 20:46:56"
         },
         {
             "name": "imagine/imagine",

@@ -5,21 +5,22 @@ namespace AppBundle\Admin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 /**
- * Class StateAdmin
+ * Class BladeAdmin
  *
  * @category Admin
  * @package  AppBundle\Admin
  * @author   Anton Serra <aserratorta@gmail.com>
  */
-class StateAdmin extends AbstractBaseAdmin
+class BladeAdmin extends AbstractBaseAdmin
 {
-    protected $classnameLabel = 'State';
-    protected $baseRoutePattern = 'customers/state';
+    protected $classnameLabel = 'Blade';
+    protected $baseRoutePattern = 'windfarms/blade';
     protected $datagridValues = array(
-        '_sort_by'    => 'name',
-        '_sort_order' => 'asc',
+        '_sort_by'    => 'model',
+        '_sort_order' => 'desc',
     );
 
     /**
@@ -28,23 +29,31 @@ class StateAdmin extends AbstractBaseAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->with('General', $this->getFormMdSuccessBoxArray(4))
+            ->with('General', $this->getFormMdSuccessBoxArray(7))
             ->add(
-                'name',
+                'model',
                 null,
                 array(
-                    'label' => 'Nom',
+                    'label'    => 'Model',
+                    'required' => true,
                 )
             )
             ->add(
-                'country',
-                'sonata_type_model',
+                'length',
+                null,
                 array(
-                    'label'      => 'Country',
-                    'btn_add'    => true,
-                    'btn_delete' => false,
-                    'required'   => true,
-                    'query'      => $this->cr->findAllSortedByCodeQ(),
+                    'label'    => 'Longitud',
+                    'required' => true,
+                )
+            )
+            ->end()
+            ->with('Controls', $this->getFormMdSuccessBoxArray(5))
+            ->add(
+                'enabled',
+                CheckboxType::class,
+                array(
+                    'label'    => 'Actiu',
+                    'required' => false,
                 )
             )
             ->end();
@@ -57,17 +66,17 @@ class StateAdmin extends AbstractBaseAdmin
     {
         $datagridMapper
             ->add(
-                'name',
+                'model',
                 null,
                 array(
-                    'label' => 'Nom',
+                    'label'    => 'Model',
                 )
             )
             ->add(
-                'country',
+                'length',
                 null,
                 array(
-                    'label' => 'País',
+                    'label'    => 'Longitud',
                 )
             )
             ->add(
@@ -88,18 +97,19 @@ class StateAdmin extends AbstractBaseAdmin
         unset($this->listModes['mosaic']);
         $listMapper
             ->add(
-                'name',
+                'model',
                 null,
                 array(
-                    'label'    => 'Nom',
+                    'label'    => 'Model',
                     'editable' => true,
                 )
             )
             ->add(
-                'country',
+                'length',
                 null,
                 array(
-                    'label' => 'País',
+                    'label'    => 'Longitud',
+                    'editable' => true,
                 )
             )
             ->add(
