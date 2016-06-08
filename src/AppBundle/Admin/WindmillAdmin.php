@@ -46,16 +46,28 @@ class WindmillAdmin extends AbstractBaseAdmin
                     'required' => true,
                 )
             )
-            ->add(
-                'turbine',
-                null,
-                array(
-                    'label'    => 'Turbina',
-                    'required' => true,
-                )
-            )
             ->end()
             ->with('Controls', $this->getFormMdSuccessBoxArray(5))
+            ->add(
+                'turbine',
+                'sonata_type_model',
+                array(
+                    'label'      => 'Turbina',
+                    'btn_add'    => true,
+                    'btn_delete' => false,
+                    'required'   => true,
+                )
+            )
+            ->add(
+                'bladeType',
+                'sonata_type_model',
+                array(
+                    'label'      => 'Tipus Pala',
+                    'btn_add'    => true,
+                    'btn_delete' => false,
+                    'required'   => true,
+                )
+            )
             ->add(
                 'enabled',
                 CheckboxType::class,
@@ -65,26 +77,31 @@ class WindmillAdmin extends AbstractBaseAdmin
                 )
             )
             ->end()
-        ->with('Geolocalització', $this->getFormMdSuccessBoxArray(12))
-        ->add(
-            'latLng',
-            GoogleMapType::class,
-            array(
-                'label'    => 'Mapa',
-                'required' => false
+            ->with('Geolocalització', $this->getFormMdSuccessBoxArray(12))
+            ->add(
+                'latLng',
+                GoogleMapType::class,
+                array(
+                    'label'    => 'Mapa',
+                    'required' => false
+                )
             )
-        )
-        ->end();
+            ->end();
         if ($this->id($this->getSubject())) { // is edit mode, disable on new subjects
             $formMapper
                 ->with('Pales', $this->getFormMdSuccessBoxArray(6))
                 ->add(
                     'windmillBlades',
-                    'sonata_type_model',
+                    'sonata_type_collection',
                     array(
                         'label'              => ' ',
                         'required'           => false,
-                        'multiple'           => true,
+                        'cascade_validation' => true,
+                    ),
+                    array(
+                        'edit'     => 'inline',
+                        'inline'   => 'table',
+                        'sortable' => 'position',
                     )
                 )
                 ->end();
