@@ -17,8 +17,14 @@ parameters:
 
     private_admin_test_user: admin
     private_admin_test_pass: admin
+    private_admin_test_email: email@email.com
+    private_admin_test_name: firstname
+    private_admin_test_surname: lastname
     private_editor_test_user: user
     private_editor_test_pass: user
+    private_editor_test_email: email@email.com
+    private_editor_test_name: firstname
+    private_editor_test_surname: lastname
 
     # A secret key that's used to generate certain security-related tokens
     secret:            ThisTokenIsNotSoSecretChangeIt
