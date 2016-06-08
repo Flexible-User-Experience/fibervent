@@ -21,11 +21,11 @@ class CountryRepository extends EntityRepository
      *
      * @return QueryBuilder
      */
-    public function findAllSortedByNameQB($limit = null, $order = 'ASC')
+    public function findAllSortedByCodeQB($limit = null, $order = 'ASC')
     {
         $query = $this
             ->createQueryBuilder('c')
-            ->orderBy('c.name', $order);
+            ->orderBy('c.code', $order);
 
         if (!is_null($limit)) {
             $query->setMaxResults($limit);
@@ -40,9 +40,9 @@ class CountryRepository extends EntityRepository
      *
      * @return Query
      */
-    public function findAllSortedByNameQ($limit = null, $order = 'ASC')
+    public function findAllSortedByCodeQ($limit = null, $order = 'ASC')
     {
-        return $this->findAllSortedByNameQB($limit, $order)->getQuery();
+        return $this->findAllSortedByCodeQB($limit, $order)->getQuery();
     }
 
     /**
@@ -51,8 +51,8 @@ class CountryRepository extends EntityRepository
      *
      * @return array
      */
-    public function findAllSortedByName($limit = null, $order = 'ASC')
+    public function findAllSortedByCode($limit = null, $order = 'ASC')
     {
-        return $this->findAllSortedByNameQ($limit, $order)->getResult();
+        return $this->findAllSortedByCodeQ($limit, $order)->getResult();
     }
 }

@@ -44,7 +44,7 @@ class StateAdmin extends AbstractBaseAdmin
                     'btn_add'    => true,
                     'btn_delete' => false,
                     'required'   => true,
-                    'query'      => $this->cr->findAllSortedByNameQ(),
+                    'query'      => $this->cr->findAllSortedByCodeQ(),
                 )
             )
             ->end();
