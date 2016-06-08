@@ -30,7 +30,7 @@ class WindmillAdmin extends AbstractBaseAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->with('General', $this->getFormMdSuccessBoxArray(7))
+            ->with('General', $this->getFormMdSuccessBoxArray(4))
             ->add(
                 'code',
                 null,
@@ -47,7 +47,7 @@ class WindmillAdmin extends AbstractBaseAdmin
                 )
             )
             ->end()
-            ->with('Controls', $this->getFormMdSuccessBoxArray(5))
+            ->with('Controls', $this->getFormMdSuccessBoxArray(4))
             ->add(
                 'turbine',
                 'sonata_type_model',
@@ -76,7 +76,31 @@ class WindmillAdmin extends AbstractBaseAdmin
                     'required' => false,
                 )
             )
-            ->end()
+            ->end();
+        if ($this->id($this->getSubject())) { // is edit mode, disable on new subjects
+            $formMapper
+                ->with('Pales', $this->getFormMdSuccessBoxArray(4))
+                ->add(
+                    'windmillBlades',
+                    'sonata_type_collection',
+                    array(
+                        'label'              => ' ',
+                        'required'           => false,
+                        'btn_add'            => false,
+                        'cascade_validation' => true,
+                        'type_options'       => array(
+                            'delete' => false,
+                        )
+                    ),
+                    array(
+                        'edit'     => 'inline',
+                        'inline'   => 'table',
+                        'sortable' => 'position',
+                    )
+                )
+                ->end();
+        }
+        $formMapper
             ->with('Geolocalització', $this->getFormMdSuccessBoxArray(12))
             ->add(
                 'latLng',
@@ -87,25 +111,6 @@ class WindmillAdmin extends AbstractBaseAdmin
                 )
             )
             ->end();
-        if ($this->id($this->getSubject())) { // is edit mode, disable on new subjects
-            $formMapper
-                ->with('Pales', $this->getFormMdSuccessBoxArray(6))
-                ->add(
-                    'windmillBlades',
-                    'sonata_type_collection',
-                    array(
-                        'label'              => ' ',
-                        'required'           => false,
-                        'cascade_validation' => true,
-                    ),
-                    array(
-                        'edit'     => 'inline',
-                        'inline'   => 'table',
-                        'sortable' => 'position',
-                    )
-                )
-                ->end();
-        }
     }
 
     /**

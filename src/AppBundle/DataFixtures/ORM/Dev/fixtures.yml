@@ -214,7 +214,7 @@ AppBundle\Entity\Blade:
 AppBundle\Entity\WindmillBlade:
   windmillblade{1..3}:
     code(unique): <bothify('?###??')>
-    windmill: @windmill<numberBetween(1, 50)>
+    windmill: @windmill1
 
 ## Users
 AppBundle\Entity\User:
