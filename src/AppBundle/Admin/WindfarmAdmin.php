@@ -20,7 +20,7 @@ class WindfarmAdmin extends AbstractBaseAdmin
     protected $classnameLabel = 'Parc Eòlic';
     protected $baseRoutePattern = 'windfarms/windfarm';
     protected $datagridValues = array(
-        '_sort_by' => 'name',
+        '_sort_by'    => 'name',
         '_sort_order' => 'asc',
     );
 
@@ -49,7 +49,7 @@ class WindfarmAdmin extends AbstractBaseAdmin
                 'state',
                 null,
                 array(
-                    'label' => 'Província',
+                    'label'    => 'Província',
                     'required' => true,
                 )
             )
@@ -57,7 +57,7 @@ class WindfarmAdmin extends AbstractBaseAdmin
                 'manager',
                 null,
                 array(
-                    'label' => 'Administrador',
+                    'label'    => 'Administrador',
                     'required' => true,
                 )
             )
@@ -172,7 +172,7 @@ class WindfarmAdmin extends AbstractBaseAdmin
                 'enabled',
                 null,
                 array(
-                    'label' => 'Actiu',
+                    'label'    => 'Actiu',
                     'editable' => true,
                 )
             );
@@ -189,7 +189,7 @@ class WindfarmAdmin extends AbstractBaseAdmin
                 'name',
                 null,
                 array(
-                    'label' => 'Nom',
+                    'label'    => 'Nom',
                     'editable' => true,
                 )
             )
@@ -197,7 +197,7 @@ class WindfarmAdmin extends AbstractBaseAdmin
                 'customer',
                 null,
                 array(
-                    'label' => 'Client',
+                    'label'    => 'Client',
                     'editable' => true,
                 )
             )
@@ -205,7 +205,7 @@ class WindfarmAdmin extends AbstractBaseAdmin
                 'enabled',
                 null,
                 array(
-                    'label' => 'Actiu',
+                    'label'    => 'Actiu',
                     'editable' => true,
                 )
             )
@@ -213,9 +213,9 @@ class WindfarmAdmin extends AbstractBaseAdmin
                 '_action',
                 'actions',
                 array(
-                    'label' => 'Accions',
+                    'label'   => 'Accions',
                     'actions' => array(
-                        'edit' => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
+                        'edit'   => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
                         'delete' => array('template' => '::Admin/Buttons/list__action_delete_button.html.twig'),
                     )
                 )

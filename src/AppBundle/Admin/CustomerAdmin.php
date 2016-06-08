@@ -5,6 +5,9 @@ namespace AppBundle\Admin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
 
 /**
  * Class CustomerAdmin
@@ -79,7 +82,7 @@ class CustomerAdmin extends AbstractBaseAdmin
             ->with('Controls', $this->getFormMdSuccessBoxArray(5))
             ->add(
                 'enabled',
-                'checkbox',
+                CheckboxType::class,
                 array(
                     'label'    => 'Actiu',
                     'required' => false,
@@ -87,7 +90,7 @@ class CustomerAdmin extends AbstractBaseAdmin
             )
             ->add(
                 'email',
-                null,
+                EmailType::class,
                 array(
                     'label' => 'Correu Electrònic',
                 )
@@ -101,7 +104,7 @@ class CustomerAdmin extends AbstractBaseAdmin
             )
             ->add(
                 'web',
-                null,
+                UrlType::class,
                 array(
                     'label' => 'Web',
                 )
@@ -114,10 +117,10 @@ class CustomerAdmin extends AbstractBaseAdmin
                     'contacts',
                     'sonata_type_model',
                     array(
-                        'label'              => ' ',
-                        'property'           => 'lastname',
-                        'required'           => false,
-                        'multiple'           => true,
+                        'label'    => ' ',
+                        'property' => 'lastname',
+                        'required' => false,
+                        'multiple' => true,
                     )
                 )
                 ->end()
@@ -126,9 +129,9 @@ class CustomerAdmin extends AbstractBaseAdmin
                     'windfarms',
                     'sonata_type_model',
                     array(
-                        'label'              => ' ',
-                        'required'           => false,
-                        'multiple'           => true,
+                        'label'    => ' ',
+                        'required' => false,
+                        'multiple' => true,
                     )
                 )
                 ->end();
