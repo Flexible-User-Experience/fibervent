@@ -69,14 +69,14 @@ class BladeAdmin extends AbstractBaseAdmin
                 'model',
                 null,
                 array(
-                    'label'    => 'Model',
+                    'label' => 'Model',
                 )
             )
             ->add(
                 'length',
                 null,
                 array(
-                    'label'    => 'Longitud',
+                    'label' => 'Longitud',
                 )
             )
             ->add(
