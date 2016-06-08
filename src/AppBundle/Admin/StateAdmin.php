@@ -40,10 +40,11 @@ class StateAdmin extends AbstractBaseAdmin
                 'country',
                 'sonata_type_model',
                 array(
-                    'label'      => 'País',
-                    'property'   => 'name',
+                    'label'      => 'Country',
                     'btn_add'    => true,
                     'btn_delete' => false,
+                    'required'   => true,
+                    'query'      => $this->cr->findAllSortedByNameQ(),
                 )
             )
             ->end();

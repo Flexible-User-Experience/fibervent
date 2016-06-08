@@ -2,6 +2,7 @@
 
 namespace AppBundle\Admin;
 
+use AppBundle\Repository\CountryRepository;
 use AppBundle\Repository\StateRepository;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Route\RouteCollection;
@@ -17,6 +18,11 @@ use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
  */
 abstract class AbstractBaseAdmin extends AbstractAdmin
 {
+    /**
+     * @var CountryRepository
+     */
+    protected $cr;
+
     /**
      * @var StateRepository
      */
@@ -36,13 +42,15 @@ abstract class AbstractBaseAdmin extends AbstractAdmin
      * @param string          $code
      * @param string          $class
      * @param string          $baseControllerName
+     * @param CountryRepository $cr
      * @param StateRepository $sr
      * @param UploaderHelper  $vus
      * @param CacheManager    $lis
      */
-    public function __construct($code, $class, $baseControllerName, StateRepository $sr, UploaderHelper $vus, CacheManager $lis)
+    public function __construct($code, $class, $baseControllerName, CountryRepository $cr, StateRepository $sr, UploaderHelper $vus, CacheManager $lis)
     {
         parent::__construct($code, $class, $baseControllerName);
+        $this->cr  = $cr;
         $this->sr  = $sr;
         $this->vus = $vus;
         $this->lis = $lis;
