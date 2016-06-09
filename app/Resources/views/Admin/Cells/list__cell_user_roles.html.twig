@@ -5,10 +5,7 @@
         <div>
             {% if object.roles %}
                 {% for role in object.roles %}
-                    {% if role == 'ROLE_USER' %}
-                        {% set status = 'default' %}
-                        {% set text = 'usuari' %}
-                    {% elseif role == 'ROLE_CUSTOMER' %}
+                    {% if role == 'ROLE_CUSTOMER' %}
                         {% set status = 'primary' %}
                         {% set text = 'client' %}
                     {% elseif role == 'ROLE_OPERATOR' %}
@@ -23,11 +20,10 @@
                     {% elseif role == 'ROLE_SUPER_ADMIN' %}
                         {% set status = 'danger' %}
                         {% set text = 'super administrador' %}
-                    {% else %}
-                        {% set status = 'success' %}
-                        {% set text = '---' %}
                     {% endif %}
-                    <span class="label label-{{ status }}" style="margin-right:10px">{{ text }}</span>
+                    {% if role != 'ROLE_USER' %}
+                        <span class="label label-{{ status }}" style="margin-right:10px">{{ text }}</span>
+                    {% endif %}
                 {% endfor %}
             {% else %}
                 ---
