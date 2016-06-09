@@ -16,7 +16,7 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
  */
 class BladeAdmin extends AbstractBaseAdmin
 {
-    protected $classnameLabel = 'Blade';
+    protected $classnameLabel = 'Pala';
     protected $baseRoutePattern = 'windfarms/blade';
     protected $datagridValues = array(
         '_sort_by'    => 'model',

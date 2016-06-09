@@ -16,7 +16,7 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
  */
 class TurbineAdmin extends AbstractBaseAdmin
 {
-    protected $classnameLabel = 'Turbine';
+    protected $classnameLabel = 'Turbina';
     protected $baseRoutePattern = 'windfarms/turbine';
     protected $datagridValues = array(
         '_sort_by'    => 'model',

@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Intl\Intl;
 
 /**
  * State
@@ -27,11 +28,16 @@ class State extends AbstractBase
     private $name;
 
     /**
-     * @var Country
+     * @var string
      *
-     * @ORM\ManyToOne(targetEntity="Country", inversedBy="states")
+     * @ORM\Column(type="string", length=2)
      */
-    private $country;
+    private $countryCode;
+
+    /**
+     * @var string
+     */
+    private $countryName;
 
     /**
      * @var ArrayCollection
@@ -77,21 +83,49 @@ class State extends AbstractBase
     }
 
     /**
-     * @return Country
+     * Get CountryCode
+     *
+     * @return string
      */
-    public function getCountry()
+    public function getCountryCode()
     {
-        return $this->country;
+        return $this->countryCode;
     }
 
     /**
-     * @param Country $country
+     * Set CountryCode
      *
-     * @return State
+     * @param string $countryCode
+     *
+     * @return $this
      */
-    public function setCountry($country)
+    public function setCountryCode($countryCode)
     {
-        $this->country = $country;
+        $this->countryCode = $countryCode;
+
+        return $this;
+    }
+
+    /**
+     * Get CountryName
+     *
+     * @return string
+     */
+    public function getCountryName()
+    {
+        return Intl::getRegionBundle()->getCountryName($this->getCountryCode(), 'ES');
+    }
+
+    /**
+     * Set CountryName
+     *
+     * @param string $countryName
+     *
+     * @return $this
+     */
+    public function setCountryName($countryName)
+    {
+        $this->countryName = $countryName;
 
         return $this;
     }
@@ -121,6 +155,6 @@ class State extends AbstractBase
      */
     public function __toString()
     {
-        return $this->getName() ? $this->getName() . ' (' . $this->getCountry()->getName() . ')' : '---';
+        return $this->getName() ? $this->getName() . ' (' . $this->getCountryName() . ')' : '---';
     }
 }

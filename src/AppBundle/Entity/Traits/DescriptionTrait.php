@@ -5,37 +5,37 @@ namespace AppBundle\Entity\Traits;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Model trait
+ * Description trait
  *
  * @category Trait
  * @package  AppBundle\Entity\Traits
  * @author   Anton Serra <aserratorta@gmail.com>
  */
-Trait ModelTrait
+Trait DescriptionTrait
 {
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=255, unique=true)
+     * @ORM\Column(type="string", length=255)
      */
-    private $model;
+    private $description;
 
     /**
      * @return string
      */
-    public function getModel()
+    public function getDescription()
     {
-        return $this->model;
+        return $this->description;
     }
 
     /**
-     * @param string $model
+     * @param string $description
      *
      * @return $this
      */
-    public function setModel($model)
+    public function setDescription($description)
     {
-        $this->model = $model;
+        $this->description = $description;
 
         return $this;
     }

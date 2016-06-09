@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -18,7 +19,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Audit extends AbstractBase
 {
-
     /**
      * @var \DateTime
      *
@@ -36,14 +36,14 @@ class Audit extends AbstractBase
     /**
      * @var integer
      *
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="integer")
      */
     protected $status;
 
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $type;
 
@@ -69,12 +69,27 @@ class Audit extends AbstractBase
     private $windmill;
 
     /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="AuditWindmillBlade", mappedBy="audit", cascade={"persist"})
+     */
+    private $auditWindmillBlades;
+
+    /**
      *
      *
      * Methods
      *
      *
      */
+
+    /**
+     * Audit constructor.
+     */
+    public function __construct()
+    {
+        $this->auditWindmillBlades = new ArrayCollection();
+    }
 
     /**
      * @return \DateTime
@@ -89,7 +104,7 @@ class Audit extends AbstractBase
      *
      * @return Audit
      */
-    public function setBeginDate(Audit $beginDate)
+    public function setBeginDate(\DateTime $beginDate)
     {
         $this->beginDate = $beginDate;
 
@@ -109,7 +124,7 @@ class Audit extends AbstractBase
      *
      * @return Audit
      */
-    public function setEndDate(Audit $endDate)
+    public function setEndDate(\DateTime $endDate)
     {
         $this->endDate = $endDate;
 
@@ -126,9 +141,10 @@ class Audit extends AbstractBase
 
     /**
      * @param int $status
-     * @return Audit
+     *
+     * @return $this
      */
-    public function setStatus(Audit $status)
+    public function setStatus($status)
     {
         $this->status = $status;
 
@@ -146,9 +162,9 @@ class Audit extends AbstractBase
     /**
      * @param string $type
      *
-     * @return Audit
+     * @return $this
      */
-    public function setType(Audit $type)
+    public function setType($type)
     {
         $this->type = $type;
 
@@ -166,9 +182,9 @@ class Audit extends AbstractBase
     /**
      * @param string $tools
      *
-     * @return Audit
+     * @return $this
      */
-    public function setTools(Audit $tools)
+    public function setTools($tools)
     {
         $this->tools = $tools;
 
@@ -186,9 +202,9 @@ class Audit extends AbstractBase
     /**
      * @param string $observations
      *
-     * @return Audit
+     * @return $this
      */
-    public function setObservations(Audit $observations)
+    public function setObservations($observations)
     {
         $this->observations = $observations;
 
@@ -206,11 +222,56 @@ class Audit extends AbstractBase
     /**
      * @param Windmill $windmill
      *
-     * @return Audit
+     * @return $this
      */
-    public function setWindmill(Audit $windmill)
+    public function setWindmill(Windmill $windmill)
     {
         $this->windmill = $windmill;
+
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getAuditWindmillBlades()
+    {
+        return $this->auditWindmillBlades;
+    }
+
+    /**
+     * @param ArrayCollection $auditWindmillBlades
+     *
+     * @return $this
+     */
+    public function setAuditWindmillBlades(ArrayCollection $auditWindmillBlades)
+    {
+        $this->auditWindmillBlades = $auditWindmillBlades;
+
+        return $this;
+    }
+
+    /**
+     * @param AuditWindmillBlade $auditWindmillBlade
+     *
+     * @return $this
+     */
+    public function addAuditWindmillBlade(AuditWindmillBlade $auditWindmillBlade)
+    {
+        $auditWindmillBlade->setAudit($this);
+        $this->auditWindmillBlades->add($auditWindmillBlade);
+
+        return $this;
+    }
+
+    /**
+     * @param AuditWindmillBlade $auditWindmillBlade
+     *
+     * @return $this
+     */
+    public function removeAuditWindmillBlade(AuditWindmillBlade $auditWindmillBlade)
+    {
+        $this->auditWindmillBlades->removeElement($auditWindmillBlade);
 
         return $this;
     }
@@ -220,6 +281,6 @@ class Audit extends AbstractBase
      */
     public function __toString()
     {
-        return $this->getType() ? $this->getType() : '---';
+        return $this->id ? '#' . $this->getId() . ' · ' . $this->getType() :  '---';
     }
 }

@@ -5,21 +5,21 @@ namespace AppBundle\Admin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
-use Symfony\Component\Form\Extension\Core\Type\CountryType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 /**
- * Class CountryAdmin
+ * Class DamageAdmin
  *
  * @category Admin
  * @package  AppBundle\Admin
  * @author   Anton Serra <aserratorta@gmail.com>
  */
-class CountryAdmin extends AbstractBaseAdmin
+class DamageAdmin extends AbstractBaseAdmin
 {
-    protected $classnameLabel = 'Country';
-    protected $baseRoutePattern = 'customers/country';
+    protected $classnameLabel = 'Danys';
+    protected $baseRoutePattern = 'audits/damage';
     protected $datagridValues = array(
-        '_sort_by'    => 'name',
+        '_sort_by'    => 'code',
         '_sort_order' => 'asc',
     );
 
@@ -29,12 +29,39 @@ class CountryAdmin extends AbstractBaseAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->with('General', $this->getFormMdSuccessBoxArray(4))
+            ->with('General', $this->getFormMdSuccessBoxArray(7))
+            ->add(
+                'description',
+                null,
+                array(
+                    'label'    => 'Descripció',
+                    'required' => true,
+                )
+            )
+            ->end()
+            ->with('Controls', $this->getFormMdSuccessBoxArray(5))
+            ->add(
+                'section',
+                null,
+                array(
+                    'label'    => 'Secció',
+                    'required' => true,
+                )
+            )
             ->add(
                 'code',
-                CountryType::class,
+                null,
                 array(
-                    'label' => 'Codi',
+                    'label'    => 'Codi',
+                    'required' => true,
+                )
+            )
+            ->add(
+                'enabled',
+                CheckboxType::class,
+                array(
+                    'label'    => 'Actiu',
+                    'required' => false,
                 )
             )
             ->end();
@@ -47,10 +74,24 @@ class CountryAdmin extends AbstractBaseAdmin
     {
         $datagridMapper
             ->add(
+                'section',
+                null,
+                array(
+                    'label' => 'Secció',
+                )
+            )
+            ->add(
                 'code',
                 null,
                 array(
                     'label' => 'Codi',
+                )
+            )
+            ->add(
+                'description',
+                null,
+                array(
+                    'label' => 'Descripció',
                 )
             )
             ->add(
@@ -74,14 +115,16 @@ class CountryAdmin extends AbstractBaseAdmin
                 'code',
                 null,
                 array(
-                    'label' => 'Codi',
+                    'label'    => 'Codi',
+                    'editable' => true,
                 )
             )
             ->add(
-                'name',
+                'description',
                 null,
                 array(
-                    'label' => 'Nom',
+                    'label'    => 'Descripció',
+                    'editable' => true,
                 )
             )
             ->add(
