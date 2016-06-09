@@ -129,6 +129,14 @@ class DamageAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
+                'enabled',
+                null,
+                array(
+                    'label'    => 'Actiu',
+                    'editable' => true,
+                )
+            )
+            ->add(
                 '_action',
                 'actions',
                 array(
