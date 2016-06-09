@@ -28,7 +28,7 @@ class Windmill extends AbstractBase
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=255, unique = true)
+     * @ORM\Column(type="string", length=255, unique=true)
      */
     private $code;
 
@@ -232,5 +232,13 @@ class Windmill extends AbstractBase
         $this->audits = $audits;
 
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getCode() ? $this->getCode() : '---';
     }
 }

@@ -2,25 +2,24 @@
 
 namespace AppBundle\Admin;
 
-use Oh\GoogleMapFormTypeBundle\Form\Type\GoogleMapType;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 /**
- * Class WindfarmAdmin
+ * Class DamageCategoryAdmin
  *
  * @category Admin
  * @package  AppBundle\Admin
  * @author   Anton Serra <aserratorta@gmail.com>
  */
-class WindfarmAdmin extends AbstractBaseAdmin
+class DamageCategoryAdmin extends AbstractBaseAdmin
 {
-    protected $classnameLabel = 'Parc Eòlic';
-    protected $baseRoutePattern = 'windfarms/windfarm';
+    protected $classnameLabel = 'Categories de Dany';
+    protected $baseRoutePattern = 'audits/damage-category';
     protected $datagridValues = array(
-        '_sort_by'    => 'name',
+        '_sort_by'    => 'category',
         '_sort_order' => 'asc',
     );
 
@@ -32,40 +31,35 @@ class WindfarmAdmin extends AbstractBaseAdmin
         $formMapper
             ->with('General', $this->getFormMdSuccessBoxArray(7))
             ->add(
-                'name',
+                'category',
                 null,
                 array(
-                    'label' => 'Nom',
-                )
-            )
-            ->add(
-                'city',
-                null,
-                array(
-                    'label' => 'Ciutat',
-                )
-            )
-            ->add(
-                'state',
-                null,
-                array(
-                    'label'    => 'Província',
+                    'label'    => 'Categoria',
                     'required' => true,
                 )
             )
             ->add(
-                'manager',
+                'priority',
                 null,
                 array(
-                    'label'    => 'Administrador',
+                    'label'    => 'Prioritat',
                     'required' => true,
                 )
             )
             ->add(
-                'year',
+                'description',
                 null,
                 array(
-                    'label' => 'Any',
+                    'label'    => 'Descripció',
+                    'required' => true,
+                )
+            )
+            ->add(
+                'recommendedAction',
+                null,
+                array(
+                    'label'    => 'Acció Recomanada',
+                    'required' => true,
                 )
             )
             ->end()
@@ -78,31 +72,6 @@ class WindfarmAdmin extends AbstractBaseAdmin
                     'required' => false,
                 )
             )
-            ->add(
-                'customer',
-                null,
-                array(
-                    'label'    => 'Client',
-                    'required' => true,
-                )
-            )
-            ->add(
-                'power',
-                null,
-                array(
-                    'label' => 'Potència',
-                )
-            )
-            ->end()
-            ->with('Geolocalització', $this->getFormMdSuccessBoxArray(12))
-            ->add(
-                'latLng',
-                GoogleMapType::class,
-                array(
-                    'label'    => 'Mapa',
-                    'required' => false
-                )
-            )
             ->end();
     }
 
@@ -113,52 +82,31 @@ class WindfarmAdmin extends AbstractBaseAdmin
     {
         $datagridMapper
             ->add(
-                'name',
+                'category',
                 null,
                 array(
-                    'label' => 'Nom',
+                    'label'    => 'Categoria',
                 )
             )
             ->add(
-                'city',
+                'priority',
                 null,
                 array(
-                    'label' => 'Ciutat',
+                    'label'    => 'Prioritat',
                 )
             )
             ->add(
-                'power',
+                'description',
                 null,
                 array(
-                    'label' => 'Potència',
+                    'label'    => 'Descripció',
                 )
             )
             ->add(
-                'year',
+                'recommendedAction',
                 null,
                 array(
-                    'label' => 'Any',
-                )
-            )
-            ->add(
-                'manager',
-                null,
-                array(
-                    'label' => 'Administrador',
-                )
-            )
-            ->add(
-                'customer',
-                null,
-                array(
-                    'label' => 'Client',
-                )
-            )
-            ->add(
-                'state',
-                null,
-                array(
-                    'label' => 'Província',
+                    'label'    => 'Acció Recomanada',
                 )
             )
             ->add(
@@ -179,26 +127,34 @@ class WindfarmAdmin extends AbstractBaseAdmin
         unset($this->listModes['mosaic']);
         $listMapper
             ->add(
-                'name',
+                'category',
                 null,
                 array(
-                    'label'    => 'Nom',
+                    'label'    => 'Categoria',
                     'editable' => true,
                 )
             )
             ->add(
-                'customer',
+                'priority',
                 null,
                 array(
-                    'label'    => 'Client',
+                    'label'    => 'Prioritat',
                     'editable' => true,
                 )
             )
             ->add(
-                'enabled',
+                'description',
                 null,
                 array(
-                    'label'    => 'Actiu',
+                    'label'    => 'Descripció',
+                    'editable' => true,
+                )
+            )
+            ->add(
+                'recommendedAction',
+                null,
+                array(
+                    'label'    => 'Acció Recomanada',
                     'editable' => true,
                 )
             )

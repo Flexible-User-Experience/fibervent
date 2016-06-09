@@ -1,13 +1,8 @@
-# Country
-AppBundle\Entity\Country:
-  country1:
-    code: 'ES'
-
 # State
 AppBundle\Entity\State:
   state{1..2}:
     name: <state()>
-    country: @country<numberBetween(1, 1)>
+    countryCode: 'ES'
 
 # Customer
 AppBundle\Entity\Customer:
@@ -50,6 +45,7 @@ AppBundle\Entity\Turbine:
     model(unique): <bothify('?####?')>
     towerHeight: <numberBetween($min = 30, $max = 100)>
     rotorDiameter: <numberBetween($min = 20, $max = 140)>
+    power: <numberBetween($min = 1, $max = 7)>
 
 # Blade
 AppBundle\Entity\Blade:
@@ -62,6 +58,94 @@ AppBundle\Entity\WindmillBlade:
   windmillblade{1..3}:
     code(unique): <bothify('?###??')>
     windmill: @windmill<numberBetween(1, 8)>
+
+# Audit
+AppBundle\Entity\Audit:
+  audit{1..2}:
+    beginDate: <dateTimeThisMonth($max = 'now')>
+    endDate: <dateTimeThisMonth($max = 'now')>
+    status: <numberBetween(1, 5)>
+    type: <word()>
+    tools: <sentence()>
+    observations: <sentence()>
+    windmill: @windmill<numberBetween(1, 8)>
+
+# AuditWindmillBlade
+AppBundle\Entity\AuditWindmillBlade:
+  auditwindmillblade{1..3}:
+    audit: @audit<numberBetween(1, 2)>
+    windmillblade: @windmillblade<numberBetween(1, 3)>
+
+# Damage
+AppBundle\Entity\Damage:
+  damage1:
+    section: '1'
+    code: '1.1'
+    description: 'Grieta longitudinal en borde de ataque'
+  damage2:
+    section: '1'
+    code: '1.2'
+    description: 'Erosión leve con afectación al gel coat'
+  damage3:
+    section: '1'
+    code: '1.3'
+    description: 'Erosión moderada con afectación al laminado'
+  damage4:
+    section: '1'
+    code: '1.4'
+    description: 'Erosión fuerte con afectación al laminado'
+  damage5:
+    section: '1'
+    code: '1.5'
+    description: 'Desconche afectando a la capa de gel coat'
+
+# DamageCategory
+AppBundle\Entity\DamageCategory:
+  damageCategory1:
+    category: '1'
+    priority: 'Ninguna'
+    description: 'Pala en excelentes condiciones de operación'
+    recommendedAction: 'Ninguna acción es necesaria'
+  damageCategory2:
+    category: '2'
+    priority: 'Ninguna'
+    description: 'La pala presenta leves señales de posible daños/desgaste'
+    recommendedAction: 'Inspeccionar y re-categorizar dentro de un año'
+  damageCategory3:
+    category: '3'
+    priority: 'Baja'
+    description: 'Se aprecian signos de daños o desgaste reales en las palas'
+    recommendedAction: 'Inspeccionar y re-categorizar dentro 6 meses'
+  damageCategory4:
+    category: '4'
+    priority: 'Media'
+    description: 'Se reconocen en la pala avanzados signos de daños/desgaste'
+    recommendedAction: 'Reparar o Inspeccionar y re-categorizar en 3 meses'
+  damageCategory5:
+    category: '5'
+    priority: 'Alta'
+    description: 'La pala ha fallado o debe ser sacada de operación para prevenir daños mayores'
+    recommendedAction: 'Parar la turbina y reparar o reemplazar antes de estar nuevamente operativa'
+
+# Photo
+AppBundle\Entity\Photo:
+  photo{1..5}:
+    imageName: <current()>.jpg
+    gpsLatitude: <latitude($min = -90, $max = 90)>
+    gpsLongitude: <longitude($min = -180, $max = 180)>
+    bladeDamage: @bladeDamage<numberBetween(1, 5)>
+
+# BladeDamage
+AppBundle\Entity\BladeDamage:
+  bladeDamage{1..5}:
+    position: <numberBetween($min = 1, $max = 7)>
+    radius: <numberBetween($min = 1, $max = 7)>
+    distance: <numberBetween($min = 1, $max = 7)>
+    size: <numberBetween($min = 1, $max = 7)>
+    status: <numberBetween($min = 1, $max = 7)>
+    damage: @damage<numberBetween(1, 5)>
+    damageCategory: @damageCategory<numberBetween(1, 5)>
+    auditWindmillBlade: @auditwindmillblade<numberBetween(1, 3)>
 
 ## Users
 AppBundle\Entity\User:

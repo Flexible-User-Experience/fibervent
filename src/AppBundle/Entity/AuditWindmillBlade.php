@@ -18,20 +18,19 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class AuditWindmillBlade extends AbstractBase
 {
+    /**
+     * @var Audit
+     *
+     * @ORM\ManyToOne(targetEntity="Audit", inversedBy="auditWindmillBlades")
+     */
+    private $audit;
 
     /**
-     * @var string
+     * @var WindmillBlade
      *
-     * @ORM\Column(type="string", length=255, unique = true)
+     * @ORM\ManyToOne(targetEntity="WindmillBlade")
      */
-    private $code;
-
-    /**
-     * @var Windmill
-     *
-     * @ORM\ManyToOne(targetEntity="Windmill", inversedBy="windmillBlades")
-     */
-    private $windmill;
+    private $windmillBlade;
 
     /**
      *
@@ -42,21 +41,41 @@ class AuditWindmillBlade extends AbstractBase
      */
 
     /**
-     * @return Windmill
+     * @return Audit
      */
-    public function getWindmill()
+    public function getAudit()
     {
-        return $this->windmill;
+        return $this->audit;
     }
 
     /**
-     * @param Windmill $windmill
+     * @param Audit $audit
      *
+     * @return AuditWindmillBlade
+     */
+    public function setAudit($audit)
+    {
+        $this->audit = $audit;
+
+        return $this;
+    }
+
+    /**
      * @return WindmillBlade
      */
-    public function setWindmill(Windmill $windmill)
+    public function getWindmillBlade()
     {
-        $this->windmill = $windmill;
+        return $this->windmillBlade;
+    }
+
+    /**
+     * @param WindmillBlade $windmillBlade
+     *
+     * @return AuditWindmillBlade
+     */
+    public function setWindmillBlade($windmillBlade)
+    {
+        $this->windmillBlade = $windmillBlade;
 
         return $this;
     }
@@ -66,6 +85,6 @@ class AuditWindmillBlade extends AbstractBase
      */
     public function __toString()
     {
-        return $this->getCode() ? $this->getCode() : '---';
+        return $this->getId() ? $this->getId() : '---';
     }
 }

@@ -12,6 +12,7 @@ use FOS\UserBundle\Model\UserManagerInterface;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 /**
@@ -28,10 +29,10 @@ class UserAdmin extends ParentUserAdmin
      */
     protected $userManager;
 
-    protected $classnameLabel = 'User';
+    protected $classnameLabel = 'Usuari';
     protected $baseRoutePattern = 'users';
     protected $datagridValues = array(
-        '_sort_by'    => 'username',
+        '_sort_by'    => 'lastname',
         '_sort_order' => 'asc',
     );
 
@@ -83,6 +84,13 @@ class UserAdmin extends ParentUserAdmin
         $formMapper
             ->with('General', array('class' => 'col-md-6'))
             ->add(
+                'username',
+                null,
+                array(
+                    'label' => 'Nom Usuari',
+                )
+            )
+            ->add(
                 'firstname',
                 null,
                 array(
@@ -91,10 +99,11 @@ class UserAdmin extends ParentUserAdmin
                 )
             )
             ->add(
-                'username',
+                'lastname',
                 null,
                 array(
-                    'label' => 'Nom Usuari',
+                    'label'    => 'Cognom',
+                    'required' => false,
                 )
             )
             ->add(
@@ -113,14 +122,27 @@ class UserAdmin extends ParentUserAdmin
             )
             ->add(
                 'plainPassword',
-                TextType::class,
+                PasswordType::class,
                 array(
                     'label'    => 'Password',
                     'required' => (!$this->getSubject() || is_null($this->getSubject()->getId()))
                 )
             )
             ->end()
-            ->with('Controls', array('class' => 'col-md-6'))
+            ->with('Rols', array('class' => 'col-md-3'))
+            ->add(
+                'roles',
+                ChoiceType::class,
+                array(
+                    'label'    => 'Rol',
+                    'choices'  => UserRolesEnum::getEnumArray(),
+                    'multiple' => true,
+                    'expanded' => true,
+                    'required' => false,
+                )
+            )
+            ->end()
+            ->with('Controls', array('class' => 'col-md-3'))
             ->add(
                 'enabled',
                 CheckboxType::class,
@@ -135,16 +157,6 @@ class UserAdmin extends ParentUserAdmin
                 array(
                     'label'    => 'Blocat',
                     'required' => false,
-                )
-            )
-            ->add(
-                'roles',
-                ChoiceType::class,
-                array(
-                    'label'    => 'Rols',
-                    'choices'  => UserRolesEnum::getEnumArray(),
-                    'multiple' => true,
-                    'expanded' => true
                 )
             )
             ->end();
@@ -164,20 +176,53 @@ class UserAdmin extends ParentUserAdmin
                 )
             )
             ->add(
+                'firstname',
+                null,
+                array(
+                    'label' => 'Nom',
+                )
+            )
+            ->add(
+                'lastname',
+                null,
+                array(
+                    'label' => 'Cognom',
+                )
+            )
+            ->add(
                 'email',
                 null,
                 array(
                     'label' => 'Correu electrònic',
                 )
             )
+            ->add(
+                'phone',
+                null,
+                array(
+                    'label' => 'Telèfon',
+                )
+            )
 //            ->add(
 //                'roles',
-//                'doctrine_orm_string',
+//                null,
 //                array(
-//                    'choice',
-//                    array('choices' => UserRolesEnum::getEnumArray()),
+//                    'label' => 'Rols',
+//                ),
+//                'choice',
+//                array(
+//                    'expanded' => false,
+//                    'multiple' => true,
+//                    'choices'  => UserRolesEnum::getEnumArray(),
 //                )
 //            )
+            ->add(
+                'locked',
+                null,
+                array(
+                    'label' => 'Blocat',
+                )
+            )
             ->add(
                 'enabled',
                 null,
@@ -195,10 +240,18 @@ class UserAdmin extends ParentUserAdmin
         unset($this->listModes['mosaic']);
         $listMapper
             ->add(
-                'username',
+                'firstname',
                 null,
                 array(
-                    'label'    => 'Nom Usuari',
+                    'label'    => 'Nom',
+                    'editable' => true,
+                )
+            )
+            ->add(
+                'lastname',
+                null,
+                array(
+                    'label'    => 'Cognom',
                     'editable' => true,
                 )
             )
@@ -211,11 +264,27 @@ class UserAdmin extends ParentUserAdmin
                 )
             )
             ->add(
+                'phone',
+                null,
+                array(
+                    'label'    => 'Telèfon',
+                    'editable' => true,
+                )
+            )
+            ->add(
                 'roles',
                 null,
                 array(
                     'label'    => 'Rols',
                     'template' => '::Admin/Cells/list__cell_user_roles.html.twig',
+                )
+            )
+            ->add(
+                'locked',
+                null,
+                array(
+                    'label'    => 'Blocat',
+                    'editable' => true,
                 )
             )
             ->add(

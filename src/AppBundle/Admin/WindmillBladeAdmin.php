@@ -15,7 +15,7 @@ use Sonata\AdminBundle\Form\FormMapper;
  */
 class WindmillBladeAdmin extends AbstractBaseAdmin
 {
-    protected $classnameLabel = 'WindmillBlade';
+    protected $classnameLabel = 'Pales Aerogenerador';
     protected $baseRoutePattern = 'windfarms/windmillblade';
     protected $datagridValues = array(
         '_sort_by'    => 'code',
