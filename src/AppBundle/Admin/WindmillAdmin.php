@@ -8,6 +8,7 @@ use Oh\GoogleMapFormTypeBundle\Form\Type\GoogleMapType;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Route\RouteCollection;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 /**
@@ -25,6 +26,18 @@ class WindmillAdmin extends AbstractBaseAdmin
         '_sort_by'    => 'code',
         '_sort_order' => 'asc',
     );
+
+    /**
+     * Configure route collection
+     *
+     * @param RouteCollection $collection
+     */
+    protected function configureRoutes(RouteCollection $collection)
+    {
+        parent::configureRoutes($collection);
+        $collection
+            ->add('pdf', $this->getRouterIdParameter() . '/pdf');
+    }
 
     /**
      * @param FormMapper $formMapper
@@ -227,6 +240,7 @@ class WindmillAdmin extends AbstractBaseAdmin
                     'label'   => 'Accions',
                     'actions' => array(
                         'edit'   => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
+                        'pdf'    => array('template' => '::Admin/Cells/list__action_pdf.html.twig'),
                         'delete' => array('template' => '::Admin/Buttons/list__action_delete_button.html.twig'),
                     )
                 )
