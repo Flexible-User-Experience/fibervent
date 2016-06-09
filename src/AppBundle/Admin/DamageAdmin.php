@@ -16,6 +16,7 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
  */
 class DamageAdmin extends AbstractBaseAdmin
 {
+    protected $maxPerPage = 50;
     protected $classnameLabel = 'Danys';
     protected $baseRoutePattern = 'audits/damage';
     protected $datagridValues = array(
