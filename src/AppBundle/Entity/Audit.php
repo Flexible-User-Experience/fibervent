@@ -19,7 +19,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Audit extends AbstractBase
 {
-
     /**
      * @var \DateTime
      *
@@ -105,7 +104,7 @@ class Audit extends AbstractBase
      *
      * @return Audit
      */
-    public function setBeginDate($beginDate)
+    public function setBeginDate(\DateTime $beginDate)
     {
         $this->beginDate = $beginDate;
 
@@ -125,7 +124,7 @@ class Audit extends AbstractBase
      *
      * @return Audit
      */
-    public function setEndDate($endDate)
+    public function setEndDate(\DateTime $endDate)
     {
         $this->endDate = $endDate;
 
@@ -142,7 +141,8 @@ class Audit extends AbstractBase
 
     /**
      * @param int $status
-     * @return Audit
+     *
+     * @return $this
      */
     public function setStatus($status)
     {
@@ -162,7 +162,7 @@ class Audit extends AbstractBase
     /**
      * @param string $type
      *
-     * @return Audit
+     * @return $this
      */
     public function setType($type)
     {
@@ -182,7 +182,7 @@ class Audit extends AbstractBase
     /**
      * @param string $tools
      *
-     * @return Audit
+     * @return $this
      */
     public function setTools($tools)
     {
@@ -202,7 +202,7 @@ class Audit extends AbstractBase
     /**
      * @param string $observations
      *
-     * @return Audit
+     * @return $this
      */
     public function setObservations($observations)
     {
@@ -222,9 +222,9 @@ class Audit extends AbstractBase
     /**
      * @param Windmill $windmill
      *
-     * @return Audit
+     * @return $this
      */
-    public function setWindmill($windmill)
+    public function setWindmill(Windmill $windmill)
     {
         $this->windmill = $windmill;
 
@@ -242,7 +242,7 @@ class Audit extends AbstractBase
     /**
      * @param ArrayCollection $auditWindmillBlades
      *
-     * @return Audit
+     * @return $this
      */
     public function setAuditWindmillBlades(ArrayCollection $auditWindmillBlades)
     {

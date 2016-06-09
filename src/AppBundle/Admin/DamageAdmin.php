@@ -19,7 +19,7 @@ class DamageAdmin extends AbstractBaseAdmin
     protected $classnameLabel = 'Danys';
     protected $baseRoutePattern = 'audits/damage';
     protected $datagridValues = array(
-        '_sort_by'    => 'section',
+        '_sort_by'    => 'code',
         '_sort_order' => 'asc',
     );
 
