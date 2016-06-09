@@ -3,7 +3,7 @@
 namespace AppBundle\Entity;
 
 use AppBundle\Entity\Traits\CodeTrait;
-use Doctrine\Common\Collections\ArrayCollection;
+use AppBundle\Entity\Traits\DescriptionTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -22,6 +22,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 class Damage extends AbstractBase
 {
     use CodeTrait;
+    use DescriptionTrait;
 
     /**
      * @var integer
@@ -38,34 +39,12 @@ class Damage extends AbstractBase
     private $code;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(type="string", length=255)
-     */
-    private $description;
-
-//    /**
-//     * @var ArrayCollection
-//     *
-//     * @ORM\OneToMany(targetEntity="BladeDamages", mappedBy="damage")
-//     */
-//    private $bladeDamages;
-
-    /**
      *
      *
      * Methods
      *
      *
      */
-
-    /**
-     * Damage constructor.
-     */
-//    public function __construct()
-//    {
-//        $this->bladeDamages = new ArrayCollection();
-//    }
 
     /**
      * @return int
@@ -106,46 +85,6 @@ class Damage extends AbstractBase
 
         return $this;
     }
-
-    /**
-     * @return string
-     */
-    public function getDescription()
-    {
-        return $this->description;
-    }
-
-    /**
-     * @param string $description
-     *
-     * @return Damage
-     */
-    public function setDescription($description)
-    {
-        $this->description = $description;
-
-        return $this;
-    }
-
-//    /**
-//     * @return ArrayCollection
-//     */
-//    public function getBladeDamages()
-//    {
-//        return $this->bladeDamages;
-//    }
-//
-//    /**
-//     * @param ArrayCollection $bladeDamages
-//     *
-//     * @return Damage
-//     */
-//    public function setBladeDamages(ArrayCollection $bladeDamages)
-//    {
-//        $this->bladeDamages = $bladeDamages;
-//
-//        return $this;
-//    }
 
     /**
      * @return string
