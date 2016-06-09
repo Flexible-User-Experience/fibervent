@@ -212,7 +212,7 @@ class AuditAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label'    => 'Aerogenerador',
-                    'editable' => true,
+                    'editable' => false,
                 )
             )
             ->add(
