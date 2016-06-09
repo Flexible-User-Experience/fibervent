@@ -5,47 +5,42 @@ services:
 # Sonata Admin
     admin.customer:
         class: AppBundle\Admin\CustomerAdmin
-        arguments: [ ~, AppBundle\Entity\Customer, ~, "@app.country_repository", "@app.state_repository", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
+        arguments: [ ~, AppBundle\Entity\Customer, ~, "@app.state_repository", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Client", group: "Client" }
-    admin.country:
-        class: AppBundle\Admin\CountryAdmin
-        arguments: [ ~, AppBundle\Entity\Country, ~, "@app.country_repository", "@app.state_repository", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
-        tags:
-            - { name: sonata.admin, manager_type: orm, label: "País", group: "Customer", show_in_dashboard: false }
     admin.state:
         class: AppBundle\Admin\StateAdmin
-        arguments: [ ~, AppBundle\Entity\State, ~, "@app.country_repository", "@app.state_repository", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
+        arguments: [ ~, AppBundle\Entity\State, ~, "@app.state_repository", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Província", group: "Customer", show_in_dashboard: false }
     admin.windfarm:
         class: AppBundle\Admin\WindfarmAdmin
-        arguments: [ ~, AppBundle\Entity\Windfarm, ~, "@app.country_repository", "@app.state_repository", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
+        arguments: [ ~, AppBundle\Entity\Windfarm, ~, "@app.state_repository", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Parc Eòlic", group: "Parc_Eolic" }
     admin.windmill:
         class: AppBundle\Admin\WindmillAdmin
-        arguments: [ ~, AppBundle\Entity\Windmill, ~, "@app.country_repository", "@app.state_repository", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
+        arguments: [ ~, AppBundle\Entity\Windmill, ~, "@app.state_repository", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Aerogenerador", group: "Parc_Eolic" }
     admin.turbine:
         class: AppBundle\Admin\TurbineAdmin
-        arguments: [ ~, AppBundle\Entity\Turbine, ~, "@app.country_repository", "@app.state_repository", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
+        arguments: [ ~, AppBundle\Entity\Turbine, ~, "@app.state_repository", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Turbina", group: "Parc_Eolic", show_in_dashboard: false }
     admin.blade:
         class: AppBundle\Admin\BladeAdmin
-        arguments: [ ~, AppBundle\Entity\Blade, ~, "@app.country_repository", "@app.state_repository", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
+        arguments: [ ~, AppBundle\Entity\Blade, ~, "@app.state_repository", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Tipus Pala", group: "Parc_Eolic", show_in_dashboard: false }
     admin.windmillblade:
         class: AppBundle\Admin\WindmillBladeAdmin
-        arguments: [ ~, AppBundle\Entity\WindmillBlade, ~, "@app.country_repository", "@app.state_repository", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
+        arguments: [ ~, AppBundle\Entity\WindmillBlade, ~, "@app.state_repository", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Pales", group: "Parc_Eolic", show_in_dashboard: false }
     admin.audit:
         class: AppBundle\Admin\AuditAdmin
-        arguments: [ ~, AppBundle\Entity\Audit, ~, "@app.country_repository", "@app.state_repository", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
+        arguments: [ ~, AppBundle\Entity\Audit, ~, "@app.state_repository", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Auditoria", group: "Auditoria" }
     admin.user:

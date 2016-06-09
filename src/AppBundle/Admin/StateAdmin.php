@@ -5,6 +5,7 @@ namespace AppBundle\Admin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Symfony\Component\Form\Extension\Core\Type\CountryType;
 
 /**
  * Class StateAdmin
@@ -37,14 +38,10 @@ class StateAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'country',
-                'sonata_type_model',
+                'countryCode',
+                CountryType::class,
                 array(
                     'label'      => 'Country',
-                    'btn_add'    => true,
-                    'btn_delete' => false,
-                    'required'   => true,
-                    'query'      => $this->cr->findAllSortedByCodeQ(),
                 )
             )
             ->end();
@@ -64,7 +61,7 @@ class StateAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'country',
+                'countryCode',
                 null,
                 array(
                     'label' => 'País',
@@ -96,7 +93,7 @@ class StateAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'country',
+                'countryName',
                 null,
                 array(
                     'label' => 'País',
