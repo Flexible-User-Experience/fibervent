@@ -39,8 +39,6 @@ class DamageAdmin extends AbstractBaseAdmin
                     'required' => true,
                 )
             )
-            ->end()
-            ->with('Controls', $this->getFormMdSuccessBoxArray(5))
             ->add(
                 'section',
                 null,
@@ -57,6 +55,8 @@ class DamageAdmin extends AbstractBaseAdmin
                     'required' => true,
                 )
             )
+            ->end()
+            ->with('Controls', $this->getFormMdSuccessBoxArray(5))
             ->add(
                 'enabled',
                 CheckboxType::class,
