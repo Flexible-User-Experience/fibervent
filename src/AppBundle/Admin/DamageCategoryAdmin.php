@@ -3,7 +3,6 @@
 namespace AppBundle\Admin;
 
 use Sonata\AdminBundle\Datagrid\ListMapper;
-use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
@@ -73,50 +72,6 @@ class DamageCategoryAdmin extends AbstractBaseAdmin
                 )
             )
             ->end();
-    }
-
-    /**
-     * @param DatagridMapper $datagridMapper
-     */
-    protected function configureDatagridFilters(DatagridMapper $datagridMapper)
-    {
-        $datagridMapper
-            ->add(
-                'category',
-                null,
-                array(
-                    'label'    => 'Categoria',
-                )
-            )
-            ->add(
-                'priority',
-                null,
-                array(
-                    'label'    => 'Prioritat',
-                )
-            )
-            ->add(
-                'description',
-                null,
-                array(
-                    'label'    => 'Descripció',
-                )
-            )
-            ->add(
-                'recommendedAction',
-                null,
-                array(
-                    'label'    => 'Acció Recomanada',
-                )
-            )
-            ->add(
-                'enabled',
-                null,
-                array(
-                    'label'    => 'Actiu',
-                    'editable' => true,
-                )
-            );
     }
 
     /**
