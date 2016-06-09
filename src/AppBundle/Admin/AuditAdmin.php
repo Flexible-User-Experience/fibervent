@@ -5,6 +5,7 @@ namespace AppBundle\Admin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Route\RouteCollection;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
@@ -23,6 +24,18 @@ class AuditAdmin extends AbstractBaseAdmin
         '_sort_by'    => 'beginDate',
         '_sort_order' => 'desc',
     );
+
+    /**
+     * Configure route collection
+     *
+     * @param RouteCollection $collection
+     */
+    protected function configureRoutes(RouteCollection $collection)
+    {
+        parent::configureRoutes($collection);
+        $collection
+            ->add('pdf', $this->getRouterIdParameter() . '/pdf');
+    }
 
     /**
      * @param FormMapper $formMapper
@@ -200,6 +213,7 @@ class AuditAdmin extends AbstractBaseAdmin
                     'label'   => 'Accions',
                     'actions' => array(
                         'edit'   => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
+                        'pdf'    => array('template' => '::Admin/Buttons/list__action_pdf_button.html.twig'),
                         'delete' => array('template' => '::Admin/Buttons/list__action_delete_button.html.twig'),
                     )
                 )
