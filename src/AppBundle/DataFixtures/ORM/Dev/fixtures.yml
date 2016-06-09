@@ -2,151 +2,151 @@
 AppBundle\Entity\State:
   state1:
     name: 'La Coruña'
-    country: @country1
+    countryCode: 'ES'
   state2:
     name: 'Álava'
-    country: @country1
+    countryCode: 'ES'
   state3:
     name: 'Albacete'
-    country: @country1
+    countryCode: 'ES'
   state4:
     name: 'Alicante'
-    country: @country1
+    countryCode: 'ES'
   state5:
     name: 'Almería'
-    country: @country1
+    countryCode: 'ES'
   state6:
     name: 'Asturias'
-    country: @country1
+    countryCode: 'ES'
   state7:
     name: 'Ávila'
-    country: @country1
+    countryCode: 'ES'
   state8:
     name: 'Badajoz'
-    country: @country1
+    countryCode: 'ES'
   state9:
     name: 'Islas Baleares'
-    country: @country1
+    countryCode: 'ES'
   state10:
     name: 'Barcelona'
-    country: @country1
+    countryCode: 'ES'
   state11:
     name: 'Bizkaia'
-    country: @country1
+    countryCode: 'ES'
   state12:
     name: 'Burgos'
-    country: @country1
+    countryCode: 'ES'
   state13:
     name: 'Cáceres'
-    country: @country1
+    countryCode: 'ES'
   state14:
     name: 'Cádiz'
-    country: @country1
+    countryCode: 'ES'
   state15:
     name: 'Cantabria'
-    country: @country1
+    countryCode: 'ES'
   state16:
     name: 'Castellón'
-    country: @country1
+    countryCode: 'ES'
   state17:
     name: 'Ciudad Real'
-    country: @country1
+    countryCode: 'ES'
   state18:
     name: 'Córdoba'
-    country: @country1
+    countryCode: 'ES'
   state19:
     name: 'Cuenca'
-    country: @country1
+    countryCode: 'ES'
   state20:
     name: 'Guipúzcoa'
-    country: @country1
+    countryCode: 'ES'
   state21:
     name: 'Gerona'
-    country: @country1
+    countryCode: 'ES'
   state22:
     name: 'Granada'
-    country: @country1
+    countryCode: 'ES'
   state23:
     name: 'Guadalajara'
-    country: @country1
+    countryCode: 'ES'
   state24:
     name: 'Huelva'
-    country: @country1
+    countryCode: 'ES'
   state25:
     name: 'Huesca'
-    country: @country1
+    countryCode: 'ES'
   state26:
     name: 'Jaén'
-    country: @country1
+    countryCode: 'ES'
   state27:
     name: 'La Rioja'
-    country: @country1
+    countryCode: 'ES'
   state28:
     name: 'Las Palmas'
-    country: @country1
+    countryCode: 'ES'
   state29:
     name: 'León'
-    country: @country1
+    countryCode: 'ES'
   state30:
     name: 'Lérida'
-    country: @country1
+    countryCode: 'ES'
   state31:
     name: 'Lugo'
-    country: @country1
+    countryCode: 'ES'
   state32:
     name: 'Madrid'
-    country: @country1
+    countryCode: 'ES'
   state33:
     name: 'Málaga'
-    country: @country1
+    countryCode: 'ES'
   state34:
     name: 'Múrcia'
-    country: @country1
+    countryCode: 'ES'
   state35:
     name: 'Navarra'
-    country: @country1
+    countryCode: 'ES'
   state36:
     name: 'Orense'
-    country: @country1
+    countryCode: 'ES'
   state37:
     name: 'Palencia'
-    country: @country1
+    countryCode: 'ES'
   state38:
     name: 'Pontevedra'
-    country: @country1
+    countryCode: 'ES'
   state39:
     name: 'Salamanca'
-    country: @country1
+    countryCode: 'ES'
   state40:
     name: 'Santa Cruz de Tenerife'
-    country: @country1
+    countryCode: 'ES'
   state41:
     name: 'Segovia'
-    country: @country1
+    countryCode: 'ES'
   state42:
     name: 'Sevilla'
-    country: @country1
+    countryCode: 'ES'
   state43:
     name: 'Soria'
-    country: @country1
+    countryCode: 'ES'
   state44:
     name: 'Tarragona'
-    country: @country1
+    countryCode: 'ES'
   state45:
     name: 'Teruel'
-    country: @country1
+    countryCode: 'ES'
   state46:
     name: 'Toledo'
-    country: @country1
+    countryCode: 'ES'
   state47:
     name: 'Valencia'
-    country: @country1
+    countryCode: 'ES'
   state48:
     name: 'Valladolid'
-    country: @country1
+    countryCode: 'ES'
   state49:
     name: 'Zamora'
-    country: @country1
+    countryCode: 'ES'
 
 # Customer
 AppBundle\Entity\Customer:
