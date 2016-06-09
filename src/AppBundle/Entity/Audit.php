@@ -105,7 +105,7 @@ class Audit extends AbstractBase
      *
      * @return Audit
      */
-    public function setBeginDate(Audit $beginDate)
+    public function setBeginDate($beginDate)
     {
         $this->beginDate = $beginDate;
 
@@ -125,7 +125,7 @@ class Audit extends AbstractBase
      *
      * @return Audit
      */
-    public function setEndDate(Audit $endDate)
+    public function setEndDate($endDate)
     {
         $this->endDate = $endDate;
 
@@ -144,7 +144,7 @@ class Audit extends AbstractBase
      * @param int $status
      * @return Audit
      */
-    public function setStatus(Audit $status)
+    public function setStatus($status)
     {
         $this->status = $status;
 
@@ -164,7 +164,7 @@ class Audit extends AbstractBase
      *
      * @return Audit
      */
-    public function setType(Audit $type)
+    public function setType($type)
     {
         $this->type = $type;
 
@@ -184,7 +184,7 @@ class Audit extends AbstractBase
      *
      * @return Audit
      */
-    public function setTools(Audit $tools)
+    public function setTools($tools)
     {
         $this->tools = $tools;
 
@@ -204,7 +204,7 @@ class Audit extends AbstractBase
      *
      * @return Audit
      */
-    public function setObservations(Audit $observations)
+    public function setObservations($observations)
     {
         $this->observations = $observations;
 
@@ -224,7 +224,7 @@ class Audit extends AbstractBase
      *
      * @return Audit
      */
-    public function setWindmill(Audit $windmill)
+    public function setWindmill($windmill)
     {
         $this->windmill = $windmill;
 
