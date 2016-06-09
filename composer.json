@@ -28,6 +28,7 @@
         "liip/imagine-bundle": "^1.0",
         "oh/google-map-form-type-bundle": "dev-master",
         "php": ">=5.3.9",
+        "psliwa/pdf-bundle": "^1.0",
         "sensio/distribution-bundle": "~5.0",
         "sensio/framework-extra-bundle": "^3.0.2",
         "sonata-project/admin-bundle": "^3.0",
