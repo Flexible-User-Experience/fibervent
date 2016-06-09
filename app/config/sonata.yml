@@ -32,6 +32,8 @@ sonata_admin:
             Parc_Eolic:
                 icon: "<i class='fa fa-bolt' aria-hidden='true'></i>"
                 label: "Parc Eòlic"
+            Auditoria:
+                icon: "<i class='fa fa-list-alt' aria-hidden='true'></i>"
         blocks:
             -
                 position: top
@@ -52,3 +54,9 @@ sonata_admin:
                 class: col-md-6
                 settings:
                     groups: [ Parc_Eolic ]
+            -
+                position: top
+                type: sonata.admin.block.admin_list
+                class: col-md-6
+                settings:
+                    groups: [ Auditoria ]

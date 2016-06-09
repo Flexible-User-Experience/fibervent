@@ -43,6 +43,11 @@ services:
         arguments: [ ~, AppBundle\Entity\WindmillBlade, ~, "@app.country_repository", "@app.state_repository", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Pales", group: "Parc_Eolic", show_in_dashboard: false }
+    admin.audit:
+        class: AppBundle\Admin\AuditAdmin
+        arguments: [ ~, AppBundle\Entity\Audit, ~, "@app.country_repository", "@app.state_repository", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Auditoria", group: "Auditoria" }
     admin.user:
         class: AppBundle\Admin\UserAdmin
         arguments: [ ~, AppBundle\Entity\User, ~, "@fos_user.user_manager" ]

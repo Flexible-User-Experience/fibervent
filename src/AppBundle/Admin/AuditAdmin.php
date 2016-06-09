@@ -6,6 +6,7 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 /**
  * Class AuditAdmin
@@ -64,7 +65,7 @@ class AuditAdmin extends AbstractBaseAdmin
             )
             ->add(
                 'tools',
-                null,
+                textareatype::class,
                 array(
                     'label'    => 'Eines',
                     'required' => true,
@@ -72,7 +73,7 @@ class AuditAdmin extends AbstractBaseAdmin
             )
             ->add(
                 'observations',
-                null,
+                textareatype::class,
                 array(
                     'label'    => 'Observacions',
                     'required' => true,
@@ -80,6 +81,14 @@ class AuditAdmin extends AbstractBaseAdmin
             )
             ->end()
             ->with('Controls', $this->getFormMdSuccessBoxArray(5))
+            ->add(
+                'windmill',
+                null,
+                array(
+                    'label'    => 'Aerogenerador',
+                    'required' => true,
+                )
+            )
             ->add(
                 'enabled',
                 CheckboxType::class,
@@ -99,18 +108,18 @@ class AuditAdmin extends AbstractBaseAdmin
         $datagridMapper
             ->add(
                 'beginDate',
-                'date',
+                'doctrine_orm_date',
                 array(
                     'label'  => 'Data inici',
-                    'format' => 'd/m/Y H:i',
+                    'field_type' => 'sonata_type_date_picker',
                 )
             )
             ->add(
                 'endDate',
-                'date',
+                'doctrine_orm_date',
                 array(
                     'label'  => 'Data fi',
-                    'format' => 'd/m/Y H:i',
+                    'field_type' => 'sonata_type_date_picker',
                 )
             )
             ->add(
@@ -146,7 +155,7 @@ class AuditAdmin extends AbstractBaseAdmin
         $listMapper
             ->add(
                 'beginDate',
-                'date',
+                null,
                 array(
                     'label'  => 'Data inici',
                     'format' => 'd/m/Y'
@@ -154,7 +163,7 @@ class AuditAdmin extends AbstractBaseAdmin
             )
 //            ->add(
 //                'endDate',
-//                'date',
+//                null,
 //                array(
 //                    'label'  => 'Data fi',
 //                    'format' => 'd/m/Y'
@@ -173,6 +182,14 @@ class AuditAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label'    => 'Tipus',
+                    'editable' => true,
+                )
+            )
+            ->add(
+                'windmill.code',
+                null,
+                array(
+                    'label'    => 'Aerogenerador',
                     'editable' => true,
                 )
             )
