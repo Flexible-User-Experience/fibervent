@@ -34,14 +34,14 @@ class Customer extends AbstractBase
      * @var string
      *
      * @ORM\Column(type="string", length=255)
-     * @Assert\Email(strict = true, checkMX = true, checkHost = true)
+     * @Assert\Email(strict=true, checkMX=true, checkHost=true)
      */
     private $email;
 
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=45, unique = true)
+     * @ORM\Column(type="string", length=45, unique=true)
      */
     private $code;
 
@@ -56,7 +56,7 @@ class Customer extends AbstractBase
      * @var string
      *
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Assert\Url(checkDNS = true)
+     * @Assert\Url(checkDNS=true)
      */
     private $web;
 

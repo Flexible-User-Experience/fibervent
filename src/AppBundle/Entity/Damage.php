@@ -33,7 +33,7 @@ class Damage extends AbstractBase
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=45, unique = true)
+     * @ORM\Column(type="string", length=45, unique=true)
      */
     private $code;
 
