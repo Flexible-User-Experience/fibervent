@@ -77,7 +77,7 @@ class BladeDamage extends AbstractBase
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="Photo", mappedBy="BladeDamage")
+     * @ORM\OneToMany(targetEntity="Photo", mappedBy="bladeDamage")
      */
     private $photos;
 
@@ -210,7 +210,7 @@ class BladeDamage extends AbstractBase
      *
      * @return BladeDamage
      */
-    public function setDamage($damage)
+    public function setDamage(Damage $damage)
     {
         $this->damage = $damage;
 
@@ -230,7 +230,7 @@ class BladeDamage extends AbstractBase
      *
      * @return BladeDamage
      */
-    public function setDamageCategory($damageCategory)
+    public function setDamageCategory(DamageCategory $damageCategory)
     {
         $this->damageCategory = $damageCategory;
 
@@ -250,7 +250,7 @@ class BladeDamage extends AbstractBase
      *
      * @return BladeDamage
      */
-    public function setAuditWindmillBlade($auditWindmillBlade)
+    public function setAuditWindmillBlade(AuditWindmillBlade $auditWindmillBlade)
     {
         $this->auditWindmillBlade = $auditWindmillBlade;
 

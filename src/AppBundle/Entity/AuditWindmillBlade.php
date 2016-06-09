@@ -21,7 +21,7 @@ class AuditWindmillBlade extends AbstractBase
     /**
      * @var Audit
      *
-     * @ORM\ManyToOne(targetEntity="Audit", inversedBy="auditWndmillBlades")
+     * @ORM\ManyToOne(targetEntity="Audit", inversedBy="auditWindmillBlades")
      */
     private $audit;
 
