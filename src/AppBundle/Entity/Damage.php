@@ -44,12 +44,12 @@ class Damage extends AbstractBase
      */
     private $description;
 
-    /**
-     * @var ArrayCollection
-     *
-     * @ORM\OneToMany(targetEntity="BladeDamages", mappedBy="damage")
-     */
-    private $bladeDamages;
+//    /**
+//     * @var ArrayCollection
+//     *
+//     * @ORM\OneToMany(targetEntity="BladeDamages", mappedBy="damage")
+//     */
+//    private $bladeDamages;
 
     /**
      *
@@ -62,10 +62,10 @@ class Damage extends AbstractBase
     /**
      * Damage constructor.
      */
-    public function __construct()
-    {
-        $this->bladeDamages = new ArrayCollection();
-    }
+//    public function __construct()
+//    {
+//        $this->bladeDamages = new ArrayCollection();
+//    }
 
     /**
      * @return int
@@ -127,25 +127,25 @@ class Damage extends AbstractBase
         return $this;
     }
 
-    /**
-     * @return ArrayCollection
-     */
-    public function getBladeDamages()
-    {
-        return $this->bladeDamages;
-    }
-
-    /**
-     * @param ArrayCollection $bladeDamages
-     *
-     * @return Damage
-     */
-    public function setBladeDamages(ArrayCollection $bladeDamages)
-    {
-        $this->bladeDamages = $bladeDamages;
-
-        return $this;
-    }
+//    /**
+//     * @return ArrayCollection
+//     */
+//    public function getBladeDamages()
+//    {
+//        return $this->bladeDamages;
+//    }
+//
+//    /**
+//     * @param ArrayCollection $bladeDamages
+//     *
+//     * @return Damage
+//     */
+//    public function setBladeDamages(ArrayCollection $bladeDamages)
+//    {
+//        $this->bladeDamages = $bladeDamages;
+//
+//        return $this;
+//    }
 
     /**
      * @return string
