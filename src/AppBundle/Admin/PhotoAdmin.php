@@ -18,7 +18,7 @@ class PhotoAdmin extends AbstractBaseAdmin
 {
     protected $maxPerPage = 50;
     protected $classnameLabel = 'Foto';
-    protected $baseRoutePattern = 'audits/foto';
+    protected $baseRoutePattern = 'audits/photo';
     protected $datagridValues = array(
         '_sort_by'    => 'imageName',
         '_sort_order' => 'asc',

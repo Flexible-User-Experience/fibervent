@@ -31,20 +31,20 @@ class BladeDamageAdmin extends AbstractBaseAdmin
     {
         $formMapper
             ->with('General', $this->getFormMdSuccessBoxArray(7))
-            ->add(
-                'damage.code',
-                null,
-                array(
-                    'label' => 'Codi Dany',
-                )
-            )
-            ->add(
-                'damageCategory.priority',
-                null,
-                array(
-                    'label' => 'Prioritat Dany',
-                )
-            )
+//            ->add(
+//                'damage.code',
+//                null,
+//                array(
+//                    'label' => 'Codi Dany',
+//                )
+//            )
+//            ->add(
+//                'damageCategory.priority',
+//                null,
+//                array(
+//                    'label' => 'Prioritat Dany',
+//                )
+//            )
             ->end()
             ->with('Controls', $this->getFormMdSuccessBoxArray(5))
             ->add(
@@ -104,20 +104,20 @@ class BladeDamageAdmin extends AbstractBaseAdmin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add(
-                'damage.code',
-                null,
-                array(
-                    'label' => 'Codi Dany',
-                )
-            )
-            ->add(
-                'damageCategory.priority',
-                null,
-                array(
-                    'label' => 'Prioritat Dany',
-                )
-            )
+//            ->add(
+//                'damage.code',
+//                null,
+//                array(
+//                    'label' => 'Codi Dany',
+//                )
+//            )
+//            ->add(
+//                'damageCategory.priority',
+//                null,
+//                array(
+//                    'label' => 'Prioritat Dany',
+//                )
+//            )
             ->add(
                 'position',
                 null,
@@ -170,22 +170,22 @@ class BladeDamageAdmin extends AbstractBaseAdmin
     {
         unset($this->listModes['mosaic']);
         $listMapper
-            ->add(
-                'damage.code',
-                null,
-                array(
-                    'label'    => 'Codi Dany',
-                    'editable' => true,
-                )
-            )
-            ->add(
-                'damageCategory.priority',
-                null,
-                array(
-                    'label'    => 'Prioritat Dany',
-                    'editable' => true,
-                )
-            )
+//            ->add(
+//                'damage.code',
+//                null,
+//                array(
+//                    'label'    => 'Codi Dany',
+//                    'editable' => true,
+//                )
+//            )
+//            ->add(
+//                'damageCategory.priority',
+//                null,
+//                array(
+//                    'label'    => 'Prioritat Dany',
+//                    'editable' => true,
+//                )
+//            )
 //            ->add(
 //                'position',
 //                null,
