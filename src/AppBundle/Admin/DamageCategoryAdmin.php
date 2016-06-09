@@ -16,7 +16,7 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
  */
 class DamageCategoryAdmin extends AbstractBaseAdmin
 {
-    protected $classnameLabel = 'Categories de Dany';
+    protected $classnameLabel = 'Categoria Dany';
     protected $baseRoutePattern = 'audits/damage-category';
     protected $datagridValues = array(
         '_sort_by'    => 'category',
