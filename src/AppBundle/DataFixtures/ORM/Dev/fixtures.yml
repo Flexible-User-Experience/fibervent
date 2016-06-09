@@ -391,6 +391,34 @@ AppBundle\Entity\Damage:
     code: '7.7'
     description: 'Daños o falta de tapón de cámara de equilibrado'
 
+# DamageCategory
+AppBundle\Entity\DamageCategory:
+  damageCategory1:
+    category: '1'
+    priority: 'Ninguna'
+    description: 'Pala en excelentes condiciones de operación'
+    recommendedAction: 'Ninguna acción es necesaria'
+  damageCategory2:
+    category: '2'
+    priority: 'Ninguna'
+    description: 'La pala presenta leves señales de posible daños/desgaste'
+    recommendedAction: 'Inspeccionar y re-categorizar dentro de un año'
+  damageCategory3:
+    category: '3'
+    priority: 'Baja'
+    description: 'Se aprecian signos de daños o desgaste reales en las palas'
+    recommendedAction: 'Inspeccionar y re-categorizar dentro 6 meses'
+  damageCategory4:
+    category: '4'
+    priority: 'Media'
+    description: 'Se reconocen en la pala avanzados signos de daños/desgaste'
+    recommendedAction: 'Reparar o Inspeccionar y re-categorizar en 3 meses'
+  damageCategory5:
+    category: '5'
+    priority: 'Alta'
+    description: 'La pala ha fallado o debe ser sacada de operación para prevenir daños mayores'
+    recommendedAction: 'Parar la turbina y reparar o reemplazar antes de estar nuevamente operativa'
+
 ## Users
 AppBundle\Entity\User:
     superadmin:

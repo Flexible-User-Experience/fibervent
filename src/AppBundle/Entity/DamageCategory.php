@@ -2,13 +2,12 @@
 
 namespace AppBundle\Entity;
 
-use AppBundle\Entity\Traits\CodeTrait;
 use AppBundle\Entity\Traits\DescriptionTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * Damage
+ * DamageCategory
  *
  * @category Entity
  * @package  AppBundle\Entity
