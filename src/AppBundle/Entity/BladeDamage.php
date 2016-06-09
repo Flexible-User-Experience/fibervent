@@ -307,6 +307,6 @@ class BladeDamage extends AbstractBase
      */
     public function __toString()
     {
-        return $this->getPosition() ? $this->getPosition() : '---';
+        return $this->getDamage()->getCode() ? $this->getDamage()->getCode() : '---';
     }
 }

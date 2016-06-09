@@ -2,26 +2,26 @@
 
 namespace AppBundle\Admin;
 
-use Oh\GoogleMapFormTypeBundle\Form\Type\GoogleMapType;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 /**
- * Class WindfarmAdmin
+ * Class BladeDamageAdmin
  *
  * @category Admin
  * @package  AppBundle\Admin
  * @author   Anton Serra <aserratorta@gmail.com>
  */
-class WindfarmAdmin extends AbstractBaseAdmin
+class BladeDamageAdmin extends AbstractBaseAdmin
 {
-    protected $classnameLabel = 'Parc Eòlic';
-    protected $baseRoutePattern = 'windfarms/windfarm';
+    protected $maxPerPage = 50;
+    protected $classnameLabel = 'Dany Pala';
+    protected $baseRoutePattern = 'audits/blade-damage';
     protected $datagridValues = array(
-        '_sort_by'    => 'name',
-        '_sort_order' => 'asc',
+        '_sort_by'    => 'status',
+        '_sort_order' => 'desc',
     );
 
     /**
@@ -32,41 +32,17 @@ class WindfarmAdmin extends AbstractBaseAdmin
         $formMapper
             ->with('General', $this->getFormMdSuccessBoxArray(7))
             ->add(
-                'name',
+                'damage.code',
                 null,
                 array(
-                    'label' => 'Nom',
+                    'label' => 'Codi Dany',
                 )
             )
             ->add(
-                'city',
+                'damageCategory.priority',
                 null,
                 array(
-                    'label' => 'Ciutat',
-                )
-            )
-            ->add(
-                'state',
-                null,
-                array(
-                    'label'    => 'Província',
-                    'required' => true,
-                )
-            )
-            ->add(
-                'manager',
-                null,
-                array(
-                    'label'    => 'Administrador',
-                    'required' => true,
-                )
-            )
-            ->add(
-                'year',
-                null,
-                array(
-                    'label'    => 'Any',
-                    'required' => false
+                    'label' => 'Prioritat Dany',
                 )
             )
             ->end()
@@ -80,28 +56,43 @@ class WindfarmAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'customer',
+                'position',
                 null,
                 array(
-                    'label'    => 'Client',
+                    'label'    => 'Posició',
                     'required' => true,
                 )
             )
             ->add(
-                'power',
+                'radius',
                 null,
                 array(
-                    'label' => 'Potència',
+                    'label'    => 'Radi',
+                    'required' => true,
                 )
             )
-            ->end()
-            ->with('Geolocalització', $this->getFormMdSuccessBoxArray(12))
             ->add(
-                'latLng',
-                GoogleMapType::class,
+                'distance',
+                null,
                 array(
-                    'label'    => 'Mapa',
-                    'required' => false
+                    'label'    => 'Distància',
+                    'required' => true,
+                )
+            )
+            ->add(
+                'size',
+                null,
+                array(
+                    'label'    => 'Mesura',
+                    'required' => true,
+                )
+            )
+            ->add(
+                'status',
+                null,
+                array(
+                    'label'    => 'Estat',
+                    'required' => true,
                 )
             )
             ->end();
@@ -114,52 +105,52 @@ class WindfarmAdmin extends AbstractBaseAdmin
     {
         $datagridMapper
             ->add(
-                'name',
+                'damage.code',
                 null,
                 array(
-                    'label' => 'Nom',
+                    'label' => 'Codi Dany',
                 )
             )
             ->add(
-                'city',
+                'damageCategory.priority',
                 null,
                 array(
-                    'label' => 'Ciutat',
+                    'label' => 'Prioritat Dany',
                 )
             )
             ->add(
-                'power',
+                'position',
                 null,
                 array(
-                    'label' => 'Potència',
+                    'label' => 'Posició',
                 )
             )
             ->add(
-                'year',
+                'radius',
                 null,
                 array(
-                    'label' => 'Any',
+                    'label' => 'Radi',
                 )
             )
             ->add(
-                'manager',
+                'distance',
                 null,
                 array(
-                    'label' => 'Administrador',
+                    'label' => 'Distància',
                 )
             )
             ->add(
-                'customer',
+                'size',
                 null,
                 array(
-                    'label' => 'Client',
+                    'label' => 'Mesura',
                 )
             )
             ->add(
-                'state',
+                'status',
                 null,
                 array(
-                    'label' => 'Província',
+                    'label' => 'Estat',
                 )
             )
             ->add(
@@ -180,18 +171,58 @@ class WindfarmAdmin extends AbstractBaseAdmin
         unset($this->listModes['mosaic']);
         $listMapper
             ->add(
-                'name',
+                'damage.code',
                 null,
                 array(
-                    'label'    => 'Nom',
+                    'label'    => 'Codi Dany',
                     'editable' => true,
                 )
             )
             ->add(
-                'customer',
+                'damageCategory.priority',
                 null,
                 array(
-                    'label'    => 'Client',
+                    'label'    => 'Prioritat Dany',
+                    'editable' => true,
+                )
+            )
+//            ->add(
+//                'position',
+//                null,
+//                array(
+//                    'label'    => 'Posició',
+//                    'editable' => true,
+//                )
+//            )
+//            ->add(
+//                'radius',
+//                null,
+//                array(
+//                    'label'    => 'Radi',
+//                    'editable' => true,
+//                )
+//            )
+//            ->add(
+//                'distance',
+//                null,
+//                array(
+//                    'label'    => 'Distància',
+//                    'editable' => true,
+//                )
+//            )
+//            ->add(
+//                'size',
+//                null,
+//                array(
+//                    'label'    => 'Mesura',
+//                    'editable' => true,
+//                )
+//            )
+            ->add(
+                'status',
+                null,
+                array(
+                    'label'    => 'Estat',
                     'editable' => true,
                 )
             )
