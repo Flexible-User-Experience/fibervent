@@ -3,12 +3,6 @@ security:
         connection: default
     role_hierarchy:
         ROLE_SONATA_MANAGER:
-            - ROLE_ADMIN_COUNTRY_LIST
-            - ROLE_ADMIN_COUNTRY_VIEW
-            - ROLE_ADMIN_COUNTRY_CREATE
-            - ROLE_ADMIN_COUNTRY_EDIT
-            - ROLE_ADMIN_COUNTRY_DELETE
-            - ROLE_ADMIN_COUNTRY_EXPORT
             - ROLE_ADMIN_STATE_LIST
             - ROLE_ADMIN_STATE_VIEW
             - ROLE_ADMIN_STATE_CREATE
