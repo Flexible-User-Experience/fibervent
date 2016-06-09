@@ -48,6 +48,11 @@ services:
         arguments: [ ~, AppBundle\Entity\Damage, ~, "@app.state_repository", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Danys", group: "Auditoria" }
+    admin.damageCategory:
+        class: AppBundle\Admin\DamageCategoryAdmin
+        arguments: [ ~, AppBundle\Entity\DamageCategory, ~, "@app.state_repository", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Categoria", group: "Auditoria" }
     admin.user:
         class: AppBundle\Admin\UserAdmin
         arguments: [ ~, AppBundle\Entity\User, ~, "@fos_user.user_manager" ]
