@@ -1,16 +1,3 @@
-# Country
-AppBundle\Entity\Country:
-  country1:
-    code: 'ES'
-  country2:
-    code: 'FR'
-  country3:
-    code: 'GB'
-  country4:
-    code: 'DE'
-  country5:
-    code: 'PT'
-
 # State
 AppBundle\Entity\State:
   state1:
