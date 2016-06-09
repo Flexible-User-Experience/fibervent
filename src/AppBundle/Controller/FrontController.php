@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
  * Class FrontController
  *
  * @category Controller
- * @package  FinquesFarnos\AppBundle\Controller
+ * @package  AppBundle\Controller
  * @author   David Romaní <david@flux.cat>
  */
 class FrontController extends Controller
