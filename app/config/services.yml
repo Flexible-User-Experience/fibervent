@@ -40,7 +40,7 @@ services:
             - { name: sonata.admin, manager_type: orm, label: "Pales", group: "Parc_Eolic", show_in_dashboard: false }
     admin.audit:
         class: AppBundle\Admin\AuditAdmin
-        arguments: [ ~, AppBundle\Entity\Audit, ~, "@app.state_repository", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
+        arguments: [ ~, AppBundle\Entity\Audit, AppBundle:AuditAdmin, "@app.state_repository", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Auditoria", group: "Auditoria" }
     admin.damage:
