@@ -58,8 +58,9 @@ class AuditAdmin extends AbstractBaseAdmin
                 'endDate',
                 'sonata_type_date_picker',
                 array(
-                    'label'  => 'Data fi',
-                    'format' => 'd/M/y',
+                    'label'    => 'Data fi',
+                    'format'   => 'd/M/y',
+                    'required' => false,
                 )
             )
             ->add(
@@ -75,23 +76,29 @@ class AuditAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label'    => 'Tipus',
-                    'required' => true,
+                    'required' => false,
                 )
             )
             ->add(
                 'tools',
-                textareatype::class,
+                TextareaType::class,
                 array(
                     'label'    => 'Eines',
-                    'required' => true,
+                    'required' => false,
+                    'attr'     => array(
+                        'rows' => 8,
+                    )
                 )
             )
             ->add(
                 'observations',
-                textareatype::class,
+                TextareaType::class,
                 array(
                     'label'    => 'Observacions',
-                    'required' => true,
+                    'required' => false,
+                    'attr'     => array(
+                        'rows' => 8,
+                    )
                 )
             )
             ->end()
