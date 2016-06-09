@@ -3,7 +3,6 @@
 namespace AppBundle\Entity\Traits;
 
 use AppBundle\Entity\State;
-use Doctrine\ORM\Mapping as ORM;
 
 /**
  * State trait
