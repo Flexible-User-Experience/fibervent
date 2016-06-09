@@ -71,7 +71,7 @@ class Audit extends AbstractBase
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="AuditWindmillBlade", mappedBy="audit")
+     * @ORM\OneToMany(targetEntity="AuditWindmillBlade", mappedBy="audit", cascade={"persist"})
      */
     private $auditWindmillBlades;
 
@@ -247,6 +247,31 @@ class Audit extends AbstractBase
     public function setAuditWindmillBlades(ArrayCollection $auditWindmillBlades)
     {
         $this->auditWindmillBlades = $auditWindmillBlades;
+
+        return $this;
+    }
+
+    /**
+     * @param AuditWindmillBlade $auditWindmillBlade
+     *
+     * @return $this
+     */
+    public function addAuditWindmillBlade(AuditWindmillBlade $auditWindmillBlade)
+    {
+        $auditWindmillBlade->setAudit($this);
+        $this->auditWindmillBlades->add($auditWindmillBlade);
+
+        return $this;
+    }
+
+    /**
+     * @param AuditWindmillBlade $auditWindmillBlade
+     *
+     * @return $this
+     */
+    public function removeAuditWindmillBlade(AuditWindmillBlade $auditWindmillBlade)
+    {
+        $this->auditWindmillBlades->removeElement($auditWindmillBlade);
 
         return $this;
     }

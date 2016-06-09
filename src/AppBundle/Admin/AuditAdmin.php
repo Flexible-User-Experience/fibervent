@@ -2,6 +2,8 @@
 
 namespace AppBundle\Admin;
 
+use AppBundle\Entity\Audit;
+use AppBundle\Entity\AuditWindmillBlade;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
@@ -218,5 +220,30 @@ class AuditAdmin extends AbstractBaseAdmin
                     )
                 )
             );
+    }
+
+    /**
+     * @param Audit $object
+     */
+    public function prePersist($object)
+    {
+        $windmillBlades = $object->getWindmill()->getWindmillBlades();
+
+        $auditWindmillBlade1 = new AuditWindmillBlade();
+        $auditWindmillBlade1
+            ->setAudit($object)
+            ->setWindmillBlade($windmillBlades[0]);
+        $auditWindmillBlade2 = new AuditWindmillBlade();
+        $auditWindmillBlade2
+            ->setAudit($object)
+            ->setWindmillBlade($windmillBlades[1]);
+        $auditWindmillBlade3 = new AuditWindmillBlade();
+        $auditWindmillBlade3
+            ->setAudit($object)
+            ->setWindmillBlade($windmillBlades[2]);
+        $object
+            ->addAuditWindmillBlade($auditWindmillBlade1)
+            ->addAuditWindmillBlade($auditWindmillBlade2)
+            ->addAuditWindmillBlade($auditWindmillBlade3);
     }
 }

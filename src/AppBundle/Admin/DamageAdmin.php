@@ -123,7 +123,7 @@ class DamageAdmin extends AbstractBaseAdmin
                 'description',
                 null,
                 array(
-                    'label'    => 'Longitud',
+                    'label'    => 'Descripció',
                     'editable' => true,
                 )
             )
