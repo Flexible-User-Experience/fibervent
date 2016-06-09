@@ -33,6 +33,9 @@ sonata_admin:
             Parc_Eolic:
                 icon:  "<i class='fa fa-recycle' aria-hidden='true'></i>"
                 label: "Parc Eòlics"
+            Auditoria:
+                icon:  "<i class='fa fa-list-alt' aria-hidden='true'></i>"
+                label: "Auditories"
         blocks:
             -
                 position: top
@@ -53,3 +56,9 @@ sonata_admin:
                 class: col-md-6
                 settings:
                     groups: [ Parc_Eolic ]
+            -
+                position: top
+                type: sonata.admin.block.admin_list
+                class: col-md-6
+                settings:
+                    groups: [ Auditoria ]

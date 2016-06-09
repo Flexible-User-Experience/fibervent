@@ -222,7 +222,6 @@ AppBundle\Entity\Audit:
   audit{1..5}:
     beginDate: <dateTimeThisMonth($max = 'now')>
     endDate: <dateTimeThisMonth($max = 'now')>
-    length: <numberBetween($min = 1, $max = 5)>
     type: <word()>
     tools: <sentence()>
     observations: <sentence()>

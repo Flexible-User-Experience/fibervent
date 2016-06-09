@@ -64,6 +64,22 @@ AppBundle\Entity\WindmillBlade:
     code(unique): <bothify('?###??')>
     windmill: @windmill<numberBetween(1, 8)>
 
+# Audit
+AppBundle\Entity\Audit:
+  audit{1..2}:
+    beginDate: <dateTimeThisMonth($max = 'now')>
+    endDate: <dateTimeThisMonth($max = 'now')>
+    type: <word()>
+    tools: <sentence()>
+    observations: <sentence()>
+    windmill: @windmill<numberBetween(1, 8)>
+
+# AuditWindmillBlade
+AppBundle\Entity\AuditWindmillBlade:
+  auditwindmillblade{1..3}:
+    audit: @audit<numberBetween(1, 2)>
+    windmillblade: @windmillblade<numberBetween(1, 3)>
+
 ## Users
 AppBundle\Entity\User:
     admin:
