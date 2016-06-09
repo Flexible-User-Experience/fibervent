@@ -419,6 +419,26 @@ AppBundle\Entity\DamageCategory:
     description: 'La pala ha fallado o debe ser sacada de operación para prevenir daños mayores'
     recommendedAction: 'Parar la turbina y reparar o reemplazar antes de estar nuevamente operativa'
 
+# Photo
+AppBundle\Entity\Photo:
+  photo{1..5}:
+    imageName: <current()>.jpg
+    gpsLatitude: <latitude($min = -90, $max = 90)>
+    gpsLongitude: <longitude($min = -180, $max = 180)>
+    bladeDamage: @bladeDamage<numberBetween(1, 5)>
+
+# BladeDamage
+AppBundle\Entity\BladeDamage:
+  bladeDamage{1..5}:
+    position: <numberBetween($min = 1, $max = 7)>
+    radius: <numberBetween($min = 1, $max = 7)>
+    distance: <numberBetween($min = 1, $max = 7)>
+    size: <numberBetween($min = 1, $max = 7)>
+    status: <numberBetween($min = 1, $max = 7)>
+    damage: @damage<numberBetween(1, 42)>
+    damageCategory: @damageCategory<numberBetween(1, 5)>
+    auditWindmillBlade: @auditwindmillblade<numberBetween(1, 5)>
+
 ## Users
 AppBundle\Entity\User:
     superadmin:
