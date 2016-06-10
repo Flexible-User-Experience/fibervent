@@ -85,6 +85,6 @@ class AuditWindmillBlade extends AbstractBase
      */
     public function __toString()
     {
-        return $this->getId() ? $this->getId() : '---';
+        return $this->getId() ? $this->getAudit() . ' · ' . $this->getWindmillBlade()->getCode() : '---';
     }
 }

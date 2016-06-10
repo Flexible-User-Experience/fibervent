@@ -31,6 +31,15 @@ class BladeDamageAdmin extends AbstractBaseAdmin
     {
         $formMapper
             ->with('General', $this->getFormMdSuccessBoxArray(7))
+//            ->add(
+//                'imageFile',
+//                'file',
+//                array(
+//                    'label'    => 'Foto',
+//                    'help'     => $this->getImageHelperFormMapperWithThumbnail(),
+//                    'required' => false,
+//                )
+//            )
             ->add(
                 'number',
                 null,
@@ -87,14 +96,22 @@ class BladeDamageAdmin extends AbstractBaseAdmin
                     'required' => true,
                 )
             )
-//            ->add(
-//                'status',
-//                null,
-//                array(
-//                    'label'    => 'Estat',
-//                    'required' => true,
-//                )
-//            )
+            ->add(
+                'auditWindmillBlade',
+                null,
+                array(
+                    'label'    => 'Pala',
+                    'required' => true,
+                )
+            )
+            ->add(
+                'status',
+                null,
+                array(
+                    'label'    => 'Estat',
+                    'required' => true,
+                )
+            )
             ->end();
         if ($this->id($this->getSubject())) { // is edit mode, disable on new subjects
             $formMapper
