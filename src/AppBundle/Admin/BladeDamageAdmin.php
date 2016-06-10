@@ -31,15 +31,6 @@ class BladeDamageAdmin extends AbstractBaseAdmin
     {
         $formMapper
             ->with('General', $this->getFormMdSuccessBoxArray(7))
-//            ->add(
-//                'imageFile',
-//                'file',
-//                array(
-//                    'label'    => 'Foto',
-//                    'help'     => $this->getImageHelperFormMapperWithThumbnail(),
-//                    'required' => false,
-//                )
-//            )
             ->add(
                 'number',
                 null,
