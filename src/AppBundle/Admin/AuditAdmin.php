@@ -115,7 +115,7 @@ class AuditAdmin extends AbstractBaseAdmin
                 'operators',
                 null,
                 array(
-                    'label'    => 'Operaris',
+                    'label'    => 'Tècnics Inspecció',
                     'multiple' => true,
                     'required' => true,
                 )
@@ -146,25 +146,24 @@ class AuditAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'endDate',
-                'doctrine_orm_date',
+                'windmill.windfarm.customer',
+                null,
                 array(
-                    'label'  => 'Data fi',
-                    'field_type' => 'sonata_type_date_picker',
+                    'label' => 'Client',
                 )
             )
             ->add(
-                'status',
+                'windmill.windfarm',
                 null,
                 array(
-                    'label' => 'Estat',
+                    'label'    => 'Parc Eòlic',
                 )
             )
             ->add(
-                'type',
+                'windmill',
                 null,
                 array(
-                    'label' => 'Tipus',
+                    'label'    => 'Aerogenerador',
                 )
             )
             ->add(
@@ -192,36 +191,32 @@ class AuditAdmin extends AbstractBaseAdmin
                     'format' => 'd/m/Y'
                 )
             )
-//            ->add(
-//                'endDate',
-//                null,
-//                array(
-//                    'label'  => 'Data fi',
-//                    'format' => 'd/m/Y'
-//                )
-//            )
             ->add(
-                'status',
+                'windmill.windfarm.customer',
                 null,
                 array(
-                    'label'    => 'Estat',
-                    'editable' => true,
+                    'label'    => 'Client',
                 )
             )
             ->add(
-                'type',
+                'windmill.windfarm',
                 null,
                 array(
-                    'label'    => 'Tipus',
-                    'editable' => true,
+                    'label'    => 'Parc Eòlic',
                 )
             )
             ->add(
-                'windmill.code',
+                'windmill',
                 null,
                 array(
                     'label'    => 'Aerogenerador',
-                    'editable' => false,
+                )
+            )
+            ->add(
+                'operators',
+                null,
+                array(
+                    'label'    => 'Tècnics Inspecció',
                 )
             )
             ->add(
