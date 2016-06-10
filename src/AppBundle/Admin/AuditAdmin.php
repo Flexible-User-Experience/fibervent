@@ -112,6 +112,15 @@ class AuditAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
+                'operators',
+                null,
+                array(
+                    'label'    => 'Operaris',
+                    'multiple' => true,
+                    'required' => true,
+                )
+            )
+            ->add(
                 'enabled',
                 CheckboxType::class,
                 array(
