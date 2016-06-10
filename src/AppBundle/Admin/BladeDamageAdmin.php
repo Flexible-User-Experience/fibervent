@@ -31,28 +31,20 @@ class BladeDamageAdmin extends AbstractBaseAdmin
     {
         $formMapper
             ->with('General', $this->getFormMdSuccessBoxArray(7))
-//            ->add(
-//                'damage.code',
-//                null,
-//                array(
-//                    'label' => 'Codi Dany',
-//                )
-//            )
-//            ->add(
-//                'damageCategory.priority',
-//                null,
-//                array(
-//                    'label' => 'Prioritat Dany',
-//                )
-//            )
-            ->end()
-            ->with('Controls', $this->getFormMdSuccessBoxArray(5))
             ->add(
-                'enabled',
-                CheckboxType::class,
+                'number',
+                null,
                 array(
-                    'label'    => 'Actiu',
-                    'required' => false,
+                    'label'    => 'Num. Dany',
+                    'required' => true,
+                )
+            )
+            ->add(
+                'damage',
+                null,
+                array(
+                    'label'    => 'Codi',
+                    'required' => true,
                 )
             )
             ->add(
@@ -83,19 +75,49 @@ class BladeDamageAdmin extends AbstractBaseAdmin
                 'size',
                 null,
                 array(
-                    'label'    => 'Mesura',
+                    'label'    => 'Dimensió',
                     'required' => true,
                 )
             )
             ->add(
-                'status',
+                'damageCategory',
                 null,
                 array(
-                    'label'    => 'Estat',
+                    'label'    => 'Categoria',
                     'required' => true,
                 )
             )
+//            ->add(
+//                'status',
+//                null,
+//                array(
+//                    'label'    => 'Estat',
+//                    'required' => true,
+//                )
+//            )
             ->end();
+        if ($this->id($this->getSubject())) { // is edit mode, disable on new subjects
+            $formMapper
+                ->with('Fotos', $this->getFormMdSuccessBoxArray(12))
+                ->add(
+                    'photos',
+                    'sonata_type_collection',
+                    array(
+                        'label'              => ' ',
+                        'required'           => false,
+                        'cascade_validation' => true,
+                    ),
+                    array(
+                        'edit'     => 'inline',
+                        'inline'   => 'table',
+                        'sortable' => 'position',
+                    )
+                )
+                ->end()
+                ->setHelps(
+                    array('photos' => 'up to 10MB with format PNG, JPG or GIF. min. width 1200px.')
+                );
+        }
     }
 
     /**
@@ -104,20 +126,6 @@ class BladeDamageAdmin extends AbstractBaseAdmin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-//            ->add(
-//                'damage.code',
-//                null,
-//                array(
-//                    'label' => 'Codi Dany',
-//                )
-//            )
-//            ->add(
-//                'damageCategory.priority',
-//                null,
-//                array(
-//                    'label' => 'Prioritat Dany',
-//                )
-//            )
             ->add(
                 'position',
                 null,

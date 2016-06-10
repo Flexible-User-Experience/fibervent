@@ -19,6 +19,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="AppBundle\Repository\PhotoRepository")
+ * @Vich\Uploadable
  */
 class Photo extends AbstractBase
 {

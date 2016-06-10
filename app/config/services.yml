@@ -43,6 +43,11 @@ services:
         arguments: [ ~, AppBundle\Entity\Audit, AppBundle:AuditAdmin, "@app.state_repository", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Auditoria", group: "Auditoria" }
+    admin.bladeDamage:
+        class: AppBundle\Admin\BladeDamageAdmin
+        arguments: [ ~, AppBundle\Entity\BladeDamage, ~, "@app.state_repository", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Dany Pala", group: "Auditoria" }
     admin.damage:
         class: AppBundle\Admin\DamageAdmin
         arguments: [ ~, AppBundle\Entity\Damage, ~, "@app.state_repository", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
@@ -53,11 +58,6 @@ services:
         arguments: [ ~, AppBundle\Entity\DamageCategory, ~, "@app.state_repository", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Categoria Dany", group: "Auditoria" }
-    admin.bladeDamage:
-        class: AppBundle\Admin\BladeDamageAdmin
-        arguments: [ ~, AppBundle\Entity\BladeDamage, ~, "@app.state_repository", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
-        tags:
-            - { name: sonata.admin, manager_type: orm, label: "Dany Pala", group: "Auditoria" }
     admin.photo:
         class: AppBundle\Admin\PhotoAdmin
         arguments: [ ~, AppBundle\Entity\Photo, ~, "@app.state_repository", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]

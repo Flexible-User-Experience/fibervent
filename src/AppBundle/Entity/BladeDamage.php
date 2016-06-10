@@ -54,6 +54,13 @@ class BladeDamage extends AbstractBase
     protected $status;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(type="integer")
+     */
+    protected $number;
+
+    /**
      * @var Damage
      *
      * @ORM\ManyToOne(targetEntity="Damage")
@@ -213,6 +220,26 @@ class BladeDamage extends AbstractBase
     public function setDamage(Damage $damage)
     {
         $this->damage = $damage;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getNumber()
+    {
+        return $this->number;
+    }
+
+    /**
+     * @param int $number
+     *
+     * @return BladeDamage
+     */
+    public function setNumber($number)
+    {
+        $this->number = $number;
 
         return $this;
     }

@@ -32,11 +32,12 @@ class PhotoAdmin extends AbstractBaseAdmin
         $formMapper
             ->with('General', $this->getFormMdSuccessBoxArray(7))
             ->add(
-                'imageName',
-                null,
+                'imageFile',
+                'file',
                 array(
-                    'label'    => 'Nom',
-                    'required' => true,
+                    'label'    => 'Foto',
+                    'help'     => $this->getImageHelperFormMapperWithThumbnail(),
+                    'required' => false,
                 )
             )
             ->end()
