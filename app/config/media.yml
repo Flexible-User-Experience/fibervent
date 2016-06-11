@@ -4,8 +4,8 @@ vich_uploader:
     mappings:
         image:
             namer:              vich_uploader.namer_uniqid
-            uri_prefix:         /uploads/images
-            upload_destination: "%kernel.root_dir%/../web/uploads/images"
+            uri_prefix:         /uploads/images/image
+            upload_destination: "%kernel.root_dir%/../web/uploads/images/image"
 
 # Liip Imagine
 liip_imagine:

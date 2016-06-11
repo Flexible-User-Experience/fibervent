@@ -3,10 +3,10 @@
 namespace AppBundle\Entity;
 
 use AppBundle\Entity\Traits\GpsCoordinatesTrait;
+use AppBundle\Entity\Traits\ImageTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\HttpFoundation\File\File;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
@@ -24,6 +24,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 class Photo extends AbstractBase
 {
     use GpsCoordinatesTrait;
+    use ImageTrait;
 
     /**
      * @var File
@@ -36,13 +37,6 @@ class Photo extends AbstractBase
      * @Assert\Image(minWidth = 1200)
      */
     private $imageFile;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $imageName;
 
     /**
      * @var BladeDamage
@@ -58,55 +52,6 @@ class Photo extends AbstractBase
      *
      *
      */
-
-    /**
-     * @return File|UploadedFile
-     */
-    public function getImageFile()
-    {
-        return $this->imageFile;
-    }
-
-    /**
-     * @param File|UploadedFile $imageFile
-     *
-     * @return $this
-     */
-    public function setImageFile(File $imageFile = null)
-    {
-        $this->imageFile = $imageFile;
-        if ($imageFile) {
-            // It is required that at least one field changes if you are using doctrine
-            // otherwise the event listeners won't be called and the file is lost
-            $this->updatedAt = new \DateTime('now');
-        }
-
-        return $this;
-    }
-
-    /**
-     * Get ImageName
-     *
-     * @return string
-     */
-    public function getImageName()
-    {
-        return $this->imageName;
-    }
-
-    /**
-     * Set ImageName
-     *
-     * @param string $imageName
-     *
-     * @return $this
-     */
-    public function setImageName($imageName)
-    {
-        $this->imageName = $imageName;
-
-        return $this;
-    }
 
     /**
      * @return BladeDamage
