@@ -14,87 +14,10 @@ liip_imagine:
           web_path: ~
     filter_sets:
         cache: ~
-        2000x550:
-            quality: 80
-            filters:
-                thumbnail: { size: [ 2000, 550 ], mode: outbound }
-        2100xY:
-            quality: 80
-            filters:
-                thumbnail: { size: [ 2100, null ], mode: outbound }
-        1200xY:
-            quality: 80
-            filters:
-                thumbnail: { size: [ 1200, null ], mode: outbound }
-        1200x500:
-            quality: 95
-            filters:
-                thumbnail: { size: [ 1200, 500 ], mode: outbound }
-        1200x700:
-            quality: 95
-            filters:
-                thumbnail: { size: [ 1200, 700 ], mode: outbound }
-        700x200:
-            quality: 95
-            filters:
-                thumbnail: { size: [ 700, 200 ], mode: outbound }
-        700x400:
-            quality: 95
-            animated: true
-            filters:
-                thumbnail: { size: [ 700, 400 ], mode: inbound }
-        700x530:
-            quality: 95
-            filters:
-                thumbnail: { size: [ 700, 530 ], mode: inbound }
-        700x495:
-            quality: 95
-            filters:
-                thumbnail: { size: [ 700, 495 ], mode: inbound }
-        700xY:
-            quality: 95
-            filters:
-                thumbnail: { size: [ 700, null ], mode: outbound }
-        555x370:
-            quality: 95
-            filters:
-                thumbnail: { size: [ 555, 370 ], mode: outbound }
         480xY:
             quality: 95
             filters:
                 thumbnail: { size: [ 480, null ], mode: outbound }
-        Xx250:
-            quality: 95
-            filters:
-                thumbnail: { size: [ null, 250 ], mode: outbound }
-        Xx550:
-            quality: 95
-            filters:
-                thumbnail: { size: [ null, 550 ], mode: outbound }
-        256xY:
-            quality: 95
-            filters:
-                thumbnail: { size: [ 256, null ], mode: outbound }
-        Xx166:
-            quality: 95
-            filters:
-                thumbnail: { size: [ null, 166 ], mode: outbound }
-        336x182:
-            quality: 95
-            filters:
-                thumbnail: { size: [ 336, 182 ], mode: outbound }
-        165x89:
-            quality: 95
-            filters:
-                thumbnail: { size: [ 165, 89 ], mode: outbound }
-        138x75:
-            quality: 100
-            filters:
-                thumbnail: { size: [ 138, 75 ], mode: outbound }
-        128x128:
-            quality: 100
-            filters:
-                thumbnail: { size: [ 128, 128 ], mode: outbound }
         60x60:
             quality: 100
             filters:
