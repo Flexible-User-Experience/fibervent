@@ -13,7 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * Class UserAdmin
@@ -83,6 +83,15 @@ class UserAdmin extends ParentUserAdmin
         /** @var object $formMapper */
         $formMapper
             ->with('General', array('class' => 'col-md-6'))
+            ->add(
+                'imageFile',
+                'file',
+                array(
+                    'label'    => 'Foto',
+                    'sonata_help' => $this->getImageHelperFormMapperWithThumbnail(),
+                    'required' => false,
+                )
+            )
             ->add(
                 'username',
                 null,
@@ -239,6 +248,14 @@ class UserAdmin extends ParentUserAdmin
     {
         unset($this->listModes['mosaic']);
         $listMapper
+            ->add(
+                'image',
+                null,
+                array(
+                    'label'    => 'Foto',
+                    'template' => '::Admin/Cells/list__cell_image_field.html.twig'
+                )
+            )
             ->add(
                 'firstname',
                 null,

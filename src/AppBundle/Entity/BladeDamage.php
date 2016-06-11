@@ -84,7 +84,7 @@ class BladeDamage extends AbstractBase
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="Photo", mappedBy="bladeDamage")
+     * @ORM\OneToMany(targetEntity="Photo", mappedBy="bladeDamage", cascade={"persist", "remove"}, orphanRemoval=true))
      */
     private $photos;
 
