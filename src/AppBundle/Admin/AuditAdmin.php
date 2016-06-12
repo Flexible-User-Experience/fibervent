@@ -37,7 +37,7 @@ class AuditAdmin extends AbstractBaseAdmin
         parent::configureRoutes($collection);
         $collection
             ->add('pdf', $this->getRouterIdParameter() . '/pdf')
-            ->add('show');
+            ->add('show', $this->getRouterIdParameter() . '/pdf');
     }
 
     /**

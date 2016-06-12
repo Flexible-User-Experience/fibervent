@@ -67,7 +67,7 @@ class AuditAdminController extends Controller
         }
 
         return $this->render(
-            ':Admin/Audit:audit_form.html.twig',
+            ':Admin/Audit:show.html.twig',
             array(
                 'audit' => $object,
 //                'beginDate' => $object->getBeginDate()->format('d/m/Y'),
