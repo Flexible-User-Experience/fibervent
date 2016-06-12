@@ -4,7 +4,9 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Audit;
 use Sonata\AdminBundle\Controller\CRUDController as Controller;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Ps\PdfBundle\Annotation\Pdf;
 
@@ -41,5 +43,44 @@ class AuditAdminController extends Controller
                 'audit' => $object,
             )
         );
+    }
+
+    /**
+     * Custom show action redirect to public frontend view
+     *
+     * @param int|string|null $id
+     * @param Request         $request
+     *
+     * @return Response
+     * @throws NotFoundHttpException If the object does not exist
+     * @throws AccessDeniedHttpException If access is not granted
+     */
+    Public function showAction($id = null, Request $request = null )
+    {
+        $request = $this->resolveRequest($request);
+        $id = $request->get($this->admin->getIdParameter());
+
+        /** @var Audit $object */
+        $object = $this->admin->getObject($id);
+        if (!$object) {
+            throw $this->createNotFoundException(sprintf('Unable to find audit record with id : %s', $id));
+        }
+
+        return $this->render(
+            ':Admin/Audit:audit_form.html.twig',
+            array(
+                'audit' => $object,
+//                'beginDate' => $object->getBeginDate()->format('d/m/Y'),
+            )
+        );
+    }
+
+    private function resolveRequest(Request $request = null)
+    {
+        if (null === $request) {
+            return $this->getRequest();
+        }
+
+        return $request;
     }
 }
