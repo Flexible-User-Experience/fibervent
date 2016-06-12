@@ -88,7 +88,7 @@ class UserAdmin extends ParentUserAdmin
                 'file',
                 array(
                     'label'    => 'Foto',
-                    'sonata_help' => $this->getImageHelperFormMapperWithThumbnail(),
+//                    'help'     => $this->getImageHelperFormMapperWithThumbnail(),
                     'required' => false,
                 )
             )
@@ -153,18 +153,18 @@ class UserAdmin extends ParentUserAdmin
             ->end()
             ->with('Controls', array('class' => 'col-md-3'))
             ->add(
-                'enabled',
-                CheckboxType::class,
-                array(
-                    'label'    => 'Actiu',
-                    'required' => false,
-                )
-            )
-            ->add(
                 'locked',
                 CheckboxType::class,
                 array(
                     'label'    => 'Blocat',
+                    'required' => false,
+                )
+            )
+            ->add(
+                'enabled',
+                CheckboxType::class,
+                array(
+                    'label'    => 'Actiu',
                     'required' => false,
                 )
             )
