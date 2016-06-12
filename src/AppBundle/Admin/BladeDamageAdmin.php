@@ -118,13 +118,10 @@ class BladeDamageAdmin extends AbstractBaseAdmin
                     array(
                         'edit'     => 'inline',
                         'inline'   => 'table',
-                        'sortable' => 'position',
+//                        'sortable' => 'position',
                     )
                 )
-                ->end()
-                ->setHelps(
-                    array('photos' => 'up to 10MB with format PNG, JPG or GIF. min. width 1200px.')
-                );
+                ->end();
         }
     }
 

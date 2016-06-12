@@ -33,24 +33,33 @@ class PhotoAdmin extends AbstractBaseAdmin
         $formMapper
             ->with('General', $this->getFormMdSuccessBoxArray(7))
             ->add(
+                'bladeDamage',
+                null,
+                array(
+                    'attr' => array(
+                        'hidden' => true,
+                    ),
+                )
+            )
+            ->add(
                 'imageFile',
                 'file',
                 array(
-                    'label'    => 'Foto',
+                    'label'       => 'Foto',
                     'sonata_help' => $this->getImageHelperFormMapperWithThumbnail(),
-                    'required' => false,
+                    'required'    => false,
                 )
             )
-            ->end()
-            ->with('Geolocalització', $this->getFormMdSuccessBoxArray(12))
-            ->add(
-                'latLng',
-                GoogleMapType::class,
-                array(
-                    'label'    => 'Mapa',
-                    'required' => false
-                )
-            )
+//            ->end()
+//            ->with('Geolocalització', $this->getFormMdSuccessBoxArray(12))
+//            ->add(
+//                'latLng',
+//                GoogleMapType::class,
+//                array(
+//                    'label'    => 'Mapa',
+//                    'required' => false
+//                )
+//            )
             ->end();
     }
 

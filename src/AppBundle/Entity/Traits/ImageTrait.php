@@ -42,6 +42,7 @@ Trait ImageTrait
 
     /**
      * @param File|UploadedFile $imageFile
+     *
      * @return $this
      */
     public function setImageFile(File $imageFile = null)
@@ -70,6 +71,7 @@ Trait ImageTrait
      * Set ImageName
      *
      * @param string $imageName
+     *
      * @return $this
      */
     public function setImageName($imageName)

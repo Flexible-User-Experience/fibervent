@@ -64,9 +64,9 @@ class Photo extends AbstractBase
     /**
      * @param BladeDamage $bladeDamage
      *
-     * @return Photo
+     * @return $this
      */
-    public function setBladeDamage($bladeDamage)
+    public function setBladeDamage(BladeDamage $bladeDamage)
     {
         $this->bladeDamage = $bladeDamage;
 
