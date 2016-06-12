@@ -42,7 +42,7 @@ class User extends BaseUser
      *     maxSize = "10M",
      *     mimeTypes = {"image/jpg", "image/jpeg", "image/png", "image/gif"}
      * )
-     * @Assert\Image(minWidth = 1200)
+     * @Assert\Image(minWidth = 320)
      */
     private $imageFile;
 
