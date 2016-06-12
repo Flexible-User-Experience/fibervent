@@ -118,7 +118,6 @@ class BladeDamageAdmin extends AbstractBaseAdmin
                     array(
                         'edit'     => 'inline',
                         'inline'   => 'table',
-//                        'sortable' => 'position',
                     )
                 )
                 ->end();
