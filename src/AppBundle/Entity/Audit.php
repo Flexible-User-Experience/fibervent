@@ -76,6 +76,16 @@ class Audit extends AbstractBase
     private $auditWindmillBlades;
 
     /**
+     * @var ArrayCollection
+     *
+     * @ORM\ManyToMany(targetEntity="User")
+     * @ORM\JoinTable(name="audits_users",
+     *     joinColumns={@ORM\JoinColumn(name="audit_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")}
+     *      )     */
+    private $operators;
+
+    /**
      *
      *
      * Methods
@@ -89,6 +99,7 @@ class Audit extends AbstractBase
     public function __construct()
     {
         $this->auditWindmillBlades = new ArrayCollection();
+        $this->operators = new ArrayCollection();
     }
 
     /**
@@ -277,10 +288,54 @@ class Audit extends AbstractBase
     }
 
     /**
+     * @return ArrayCollection
+     */
+    public function getOperators()
+    {
+        return $this->operators;
+    }
+
+    /**
+     * @param ArrayCollection $operators
+     *
+     * @return Audit
+     */
+    public function setOperators(ArrayCollection $operators)
+    {
+        $this->operators = $operators;
+
+        return $this;
+    }
+
+    /**
+     * @param User $user
+     *
+     * @return $this
+     */
+    public function addOperator(User $user)
+    {
+        $this->operators->add($user);
+
+        return $this;
+    }
+
+    /**
+     * @param User $user
+     *
+     * @return $this
+     */
+    public function removeOperator(User $user)
+    {
+        $this->operators->removeElement($user);
+
+        return $this;
+    }
+
+    /**
      * @return string
      */
     public function __toString()
     {
-        return $this->id ? '#' . $this->getId() . ' · ' . $this->getType() :  '---';
+        return $this->id ? '#' . $this->getId() . ' · ' . $this->getBeginDate()->format('d/m/Y') . ' · ' . $this->getWindmill() :  '---';
     }
 }

@@ -143,6 +143,7 @@ AppBundle\Entity\BladeDamage:
     distance: <numberBetween($min = 1, $max = 7)>
     size: <numberBetween($min = 1, $max = 7)>
     status: <numberBetween($min = 1, $max = 7)>
+    number: <numberBetween($min = 1, $max = 7)>
     damage: @damage<numberBetween(1, 5)>
     damageCategory: @damageCategory<numberBetween(1, 5)>
     auditWindmillBlade: @auditwindmillblade<numberBetween(1, 3)>

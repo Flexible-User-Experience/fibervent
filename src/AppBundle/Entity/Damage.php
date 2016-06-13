@@ -91,6 +91,6 @@ class Damage extends AbstractBase
      */
     public function __toString()
     {
-        return $this->getCode() ? $this->getCode() : '---';
+        return $this->getCode() ? $this->getCode() . ' · ' . $this->getDescription() : '---';
     }
 }

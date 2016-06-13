@@ -3,22 +3,23 @@
 namespace AppBundle\Admin;
 
 use Sonata\AdminBundle\Datagrid\ListMapper;
+use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 /**
- * Class DamageCategoryAdmin
+ * Class PhotoAdmin
  *
  * @category Admin
  * @package  AppBundle\Admin
  * @author   Anton Serra <aserratorta@gmail.com>
  */
-class DamageCategoryAdmin extends AbstractBaseAdmin
+class PhotoAdmin extends AbstractBaseAdmin
 {
-    protected $classnameLabel = 'Categoria Dany';
-    protected $baseRoutePattern = 'audits/damage-category';
+    protected $maxPerPage = 50;
+    protected $classnameLabel = 'Foto';
+    protected $baseRoutePattern = 'audits/photo';
     protected $datagridValues = array(
-        '_sort_by'    => 'category',
+        '_sort_by'    => 'imageName',
         '_sort_order' => 'asc',
     );
 
@@ -30,48 +31,57 @@ class DamageCategoryAdmin extends AbstractBaseAdmin
         $formMapper
             ->with('General', $this->getFormMdSuccessBoxArray(7))
             ->add(
-                'category',
+                'bladeDamage',
                 null,
                 array(
-                    'label'    => 'Categoria',
-                    'required' => true,
+                    'attr' => array(
+                        'hidden' => true,
+                    ),
                 )
             )
             ->add(
-                'priority',
-                null,
+                'imageFile',
+                'file',
                 array(
-                    'label'    => 'Prioritat',
-                    'required' => true,
+                    'label'       => 'Foto',
+                    'sonata_help' => $this->getImageHelperFormMapperWithThumbnail(),
+                    'required'    => false,
                 )
             )
+//            ->end()
+//            ->with('Geolocalització', $this->getFormMdSuccessBoxArray(12))
+//            ->add(
+//                'latLng',
+//                GoogleMapType::class,
+//                array(
+//                    'label'    => 'Mapa',
+//                    'required' => false
+//                )
+//            )
+            ->end();
+    }
+
+    /**
+     * @param DatagridMapper $datagridMapper
+     */
+    protected function configureDatagridFilters(DatagridMapper $datagridMapper)
+    {
+        $datagridMapper
             ->add(
-                'description',
+                'imageName',
                 null,
                 array(
-                    'label'    => 'Descripció',
-                    'required' => true,
+                    'label' => 'Nom',
                 )
             )
-            ->add(
-                'recommendedAction',
-                null,
-                array(
-                    'label'    => 'Acció Recomanada',
-                    'required' => true,
-                )
-            )
-            ->end()
-            ->with('Controls', $this->getFormMdSuccessBoxArray(5))
             ->add(
                 'enabled',
-                CheckboxType::class,
+                null,
                 array(
                     'label'    => 'Actiu',
-                    'required' => false,
+                    'editable' => true,
                 )
-            )
-            ->end();
+            );
     }
 
     /**
@@ -82,34 +92,10 @@ class DamageCategoryAdmin extends AbstractBaseAdmin
         unset($this->listModes['mosaic']);
         $listMapper
             ->add(
-                'category',
+                'imageName',
                 null,
                 array(
-                    'label'    => 'Categoria',
-                    'editable' => true,
-                )
-            )
-            ->add(
-                'priority',
-                null,
-                array(
-                    'label'    => 'Prioritat',
-                    'editable' => true,
-                )
-            )
-            ->add(
-                'description',
-                null,
-                array(
-                    'label'    => 'Descripció',
-                    'editable' => true,
-                )
-            )
-            ->add(
-                'recommendedAction',
-                null,
-                array(
-                    'label'    => 'Acció Recomanada',
+                    'label'    => 'Nom',
                     'editable' => true,
                 )
             )

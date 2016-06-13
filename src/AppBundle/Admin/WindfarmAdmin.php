@@ -65,7 +65,8 @@ class WindfarmAdmin extends AbstractBaseAdmin
                 'year',
                 null,
                 array(
-                    'label' => 'Any',
+                    'label'    => 'Any',
+                    'required' => false
                 )
             )
             ->end()
