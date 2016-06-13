@@ -3,7 +3,6 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Audit;
-use Sonata\AdminBundle\Controller\CRUDController as Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
@@ -17,20 +16,24 @@ use Ps\PdfBundle\Annotation\Pdf;
  * @package  AppBundle\Controller
  * @author   David Romaní <david@flux.cat>
  */
-class AuditAdminController extends Controller
+class AuditAdminController extends AbstractBaseAdminController
 {
     /**
      * Export Audit in PDF format action
      *
      * @Pdf()
      *
-     * @param int $id
+     * @param Request         $request
      *
      * @return Response
      * @throws NotFoundHttpException If the object does not exist
+     * @throws AccessDeniedHttpException If access is not granted
      */
-    public function pdfAction($id)
+    public function pdfAction(Request $request = null)
     {
+        $request = $this->resolveRequest($request);
+        $id = $request->get($this->admin->getIdParameter());
+
         /** @var Audit $object */
         $object = $this->admin->getObject($id);
         if (!$object) {
@@ -48,14 +51,13 @@ class AuditAdminController extends Controller
     /**
      * Custom show action redirect to public frontend view
      *
-     * @param int|string|null $id
      * @param Request         $request
      *
      * @return Response
      * @throws NotFoundHttpException If the object does not exist
      * @throws AccessDeniedHttpException If access is not granted
      */
-    Public function showAction($id = null, Request $request = null )
+    public function showAction(Request $request = null)
     {
         $request = $this->resolveRequest($request);
         $id = $request->get($this->admin->getIdParameter());
@@ -73,14 +75,5 @@ class AuditAdminController extends Controller
                 'object' => $object,
             )
         );
-    }
-
-    private function resolveRequest(Request $request = null)
-    {
-        if (null === $request) {
-            return $this->getRequest();
-        }
-
-        return $request;
     }
 }
