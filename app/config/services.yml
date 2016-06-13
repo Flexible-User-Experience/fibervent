@@ -68,3 +68,11 @@ services:
         arguments: [ ~, AppBundle\Entity\User, ~, "@fos_user.user_manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Usuari", group: "Client" }
+# PDF service builders
+    app.audit_pdf_builder:
+        class: AppBundle\Service\AuditPdfBuilderService
+        arguments:
+            - "@white_october.tcpdf"
+            - "@liip_imagine.cache.manager"
+            - "@vich_uploader.templating.helper.uploader_helper"
+            - "%kernel.root_dir%"

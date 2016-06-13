@@ -29,8 +29,8 @@ class AppKernel extends Kernel
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
             new Liip\ImagineBundle\LiipImagineBundle(),
             new Oh\GoogleMapFormTypeBundle\OhGoogleMapFormTypeBundle(),
-            new Ps\PdfBundle\PsPdfBundle(),
             new Vich\UploaderBundle\VichUploaderBundle(),
+            new WhiteOctober\TCPDFBundle\WhiteOctoberTCPDFBundle(),
             // app
             new AppBundle\AppBundle(),
         );

@@ -28,6 +28,7 @@ AppBundle\Entity\Windfarm:
     year: <year()>
     customer: @customer<numberBetween(1, 3)>
     state: @state<numberBetween(1, 2)>
+    manager: @admin
 
 # Windmill
 AppBundle\Entity\Windmill:
@@ -69,6 +70,7 @@ AppBundle\Entity\Audit:
     tools: <sentence()>
     observations: <sentence()>
     windmill: @windmill<numberBetween(1, 8)>
+    operators: [ @admin ]
 
 # AuditWindmillBlade
 AppBundle\Entity\AuditWindmillBlade:
