@@ -52,7 +52,7 @@
                     bounds: true
                 });
                 windfarmsMatrix[i].info = new google.maps.InfoWindow({
-                    content: '<span class="span-gmap-info"><a href="' + windfarmsMatrix[i].url + '">' + windfarmsMatrix[i].marker.title + '</a><br>ft</span>'
+                    content: '<span class="span-gmap-info"><a href="' + windfarmsMatrix[i].url + '">' + windfarmsMatrix[i].marker.title + '</a></span>'
                 });
                 google.maps.event.addListener(windfarmsMatrix[i].marker, 'click', function (innerKey) {
                     return function () {
