@@ -2,23 +2,23 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\Customer;
+use AppBundle\Entity\Windfarm;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
- * Class CustomerAdminController
+ * Class WindfarmAdminController
  *
  * @category Controller
  * @package  AppBundle\Controller
  * @author   David Romaní <david@flux.cat>
  */
-class CustomerAdminController extends AbstractBaseAdminController
+class WindfarmAdminController extends AbstractBaseAdminController
 {
     /**
-     * Create windfarms map view
+     * Create windmills map view
      *
      * @param Request $request
      *
@@ -31,16 +31,16 @@ class CustomerAdminController extends AbstractBaseAdminController
         $request = $this->resolveRequest($request);
         $id = $request->get($this->admin->getIdParameter());
 
-        /** @var Customer $object */
+        /** @var Windfarm $object */
         $object = $this->admin->getObject($id);
         if (!$object) {
-            throw $this->createNotFoundException(sprintf('Unable to find customer record with id : %s', $id));
+            throw $this->createNotFoundException(sprintf('Unable to find windfarm record with id : %s', $id));
         }
 
         return $this->render(
             ':PDF:audit.pdf.twig', // TODO fix template
             array(
-                'customer' => $object,
+                'windfarm' => $object,
             )
         );
     }

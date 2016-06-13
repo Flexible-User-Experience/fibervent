@@ -3,11 +3,12 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Audit;
+use Ps\PdfBundle\Annotation\Pdf;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Ps\PdfBundle\Annotation\Pdf;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * Class AuditAdminController
@@ -51,15 +52,15 @@ class AuditAdminController extends AbstractBaseAdminController
     /**
      * Custom show action redirect to public frontend view
      *
-     * @param Request         $request
+     * @param null $id
      *
      * @return Response
      * @throws NotFoundHttpException If the object does not exist
-     * @throws AccessDeniedHttpException If access is not granted
+     * @throws AccessDeniedException If access is not granted
      */
-    public function showAction(Request $request = null)
+    public function showAction($id = null)
     {
-        $request = $this->resolveRequest($request);
+        $request = $this->resolveRequest();
         $id = $request->get($this->admin->getIdParameter());
 
         /** @var Audit $object */
