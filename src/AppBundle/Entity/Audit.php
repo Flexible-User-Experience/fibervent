@@ -19,7 +19,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Audit extends AbstractBase
 {
-
     /**
      * @var \DateTime
      *
@@ -37,14 +36,14 @@ class Audit extends AbstractBase
     /**
      * @var integer
      *
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="integer")
      */
     protected $status;
 
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $type;
 
@@ -72,9 +71,19 @@ class Audit extends AbstractBase
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="AuditWindmillBlade", mappedBy="audit")
+     * @ORM\OneToMany(targetEntity="AuditWindmillBlade", mappedBy="audit", cascade={"persist"})
      */
     private $auditWindmillBlades;
+
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\ManyToMany(targetEntity="User")
+     * @ORM\JoinTable(name="audits_users",
+     *     joinColumns={@ORM\JoinColumn(name="audit_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")}
+     *      )     */
+    private $operators;
 
     /**
      *
@@ -90,6 +99,7 @@ class Audit extends AbstractBase
     public function __construct()
     {
         $this->auditWindmillBlades = new ArrayCollection();
+        $this->operators = new ArrayCollection();
     }
 
     /**
@@ -105,7 +115,7 @@ class Audit extends AbstractBase
      *
      * @return Audit
      */
-    public function setBeginDate($beginDate)
+    public function setBeginDate(\DateTime $beginDate)
     {
         $this->beginDate = $beginDate;
 
@@ -125,7 +135,7 @@ class Audit extends AbstractBase
      *
      * @return Audit
      */
-    public function setEndDate($endDate)
+    public function setEndDate(\DateTime $endDate)
     {
         $this->endDate = $endDate;
 
@@ -142,7 +152,8 @@ class Audit extends AbstractBase
 
     /**
      * @param int $status
-     * @return Audit
+     *
+     * @return $this
      */
     public function setStatus($status)
     {
@@ -162,7 +173,7 @@ class Audit extends AbstractBase
     /**
      * @param string $type
      *
-     * @return Audit
+     * @return $this
      */
     public function setType($type)
     {
@@ -182,7 +193,7 @@ class Audit extends AbstractBase
     /**
      * @param string $tools
      *
-     * @return Audit
+     * @return $this
      */
     public function setTools($tools)
     {
@@ -202,7 +213,7 @@ class Audit extends AbstractBase
     /**
      * @param string $observations
      *
-     * @return Audit
+     * @return $this
      */
     public function setObservations($observations)
     {
@@ -222,9 +233,9 @@ class Audit extends AbstractBase
     /**
      * @param Windmill $windmill
      *
-     * @return Audit
+     * @return $this
      */
-    public function setWindmill($windmill)
+    public function setWindmill(Windmill $windmill)
     {
         $this->windmill = $windmill;
 
@@ -242,7 +253,7 @@ class Audit extends AbstractBase
     /**
      * @param ArrayCollection $auditWindmillBlades
      *
-     * @return Audit
+     * @return $this
      */
     public function setAuditWindmillBlades(ArrayCollection $auditWindmillBlades)
     {
@@ -252,10 +263,79 @@ class Audit extends AbstractBase
     }
 
     /**
+     * @param AuditWindmillBlade $auditWindmillBlade
+     *
+     * @return $this
+     */
+    public function addAuditWindmillBlade(AuditWindmillBlade $auditWindmillBlade)
+    {
+        $auditWindmillBlade->setAudit($this);
+        $this->auditWindmillBlades->add($auditWindmillBlade);
+
+        return $this;
+    }
+
+    /**
+     * @param AuditWindmillBlade $auditWindmillBlade
+     *
+     * @return $this
+     */
+    public function removeAuditWindmillBlade(AuditWindmillBlade $auditWindmillBlade)
+    {
+        $this->auditWindmillBlades->removeElement($auditWindmillBlade);
+
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getOperators()
+    {
+        return $this->operators;
+    }
+
+    /**
+     * @param ArrayCollection $operators
+     *
+     * @return Audit
+     */
+    public function setOperators(ArrayCollection $operators)
+    {
+        $this->operators = $operators;
+
+        return $this;
+    }
+
+    /**
+     * @param User $user
+     *
+     * @return $this
+     */
+    public function addOperator(User $user)
+    {
+        $this->operators->add($user);
+
+        return $this;
+    }
+
+    /**
+     * @param User $user
+     *
+     * @return $this
+     */
+    public function removeOperator(User $user)
+    {
+        $this->operators->removeElement($user);
+
+        return $this;
+    }
+
+    /**
      * @return string
      */
     public function __toString()
     {
-        return $this->id ? '#' . $this->getId() . ' · ' . $this->getType() :  '---';
+        return $this->id ? '#' . $this->getId() . ' · ' . $this->getBeginDate()->format('d/m/Y') . ' · ' . $this->getWindmill() :  '---';
     }
 }

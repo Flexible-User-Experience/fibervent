@@ -4,8 +4,12 @@ vich_uploader:
     mappings:
         image:
             namer:              vich_uploader.namer_uniqid
-            uri_prefix:         /uploads/images
-            upload_destination: "%kernel.root_dir%/../web/uploads/images"
+            uri_prefix:         /uploads/images/image
+            upload_destination: "%kernel.root_dir%/../web/uploads/images/image"
+        user:
+            namer:              vich_uploader.namer_uniqid
+            uri_prefix:         /uploads/images/user
+            upload_destination: "%kernel.root_dir%/../web/uploads/images/user"
 
 # Liip Imagine
 liip_imagine:
@@ -14,7 +18,15 @@ liip_imagine:
           web_path: ~
     filter_sets:
         cache: ~
-        60x60:
+        480xY:
             quality: 95
             filters:
-                thumbnail: { size: [60, 60], mode: outbound }
+                thumbnail: { size: [ 480, null ], mode: outbound }
+        60x60:
+            quality: 100
+            filters:
+                thumbnail: { size: [ 60, 60 ], mode: outbound }
+        17x17:
+            quality: 100
+            filters:
+                thumbnail: { size: [ 17, 17 ], mode: outbound }

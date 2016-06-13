@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -21,7 +22,7 @@ class AuditWindmillBlade extends AbstractBase
     /**
      * @var Audit
      *
-     * @ORM\ManyToOne(targetEntity="Audit", inversedBy="auditWndmillBlades")
+     * @ORM\ManyToOne(targetEntity="Audit", inversedBy="auditWindmillBlades")
      */
     private $audit;
 
@@ -33,12 +34,27 @@ class AuditWindmillBlade extends AbstractBase
     private $windmillBlade;
 
     /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="BladeDamage", mappedBy="auditWindmillBlade", cascade={"persist", "remove"}, orphanRemoval=true))
+     */
+    private $bladeDamages;
+
+    /**
      *
      *
      * Methods
      *
      *
      */
+
+    /**
+     * AuditWindmillBlade constructor.
+     */
+    public function __construct()
+    {
+        $this->bladeDamages = new ArrayCollection();
+    }
 
     /**
      * @return Audit
@@ -81,10 +97,30 @@ class AuditWindmillBlade extends AbstractBase
     }
 
     /**
+     * @return ArrayCollection
+     */
+    public function getBladeDamages()
+    {
+        return $this->bladeDamages;
+    }
+
+    /**
+     * @param ArrayCollection $bladeDamages
+     *
+     * @return AuditWindmillBlade
+     */
+    public function setBladeDamages(ArrayCollection $bladeDamages)
+    {
+        $this->bladeDamages = $bladeDamages;
+
+        return $this;
+    }
+
+    /**
      * @return string
      */
     public function __toString()
     {
-        return $this->getId() ? $this->getId() : '---';
+        return $this->getId() ? $this->getAudit() . ' · ' . $this->getWindmillBlade()->getCode() : '---';
     }
 }

@@ -5,7 +5,7 @@ namespace AppBundle\Admin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Sonata\AdminBundle\Route\RouteCollection;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 
@@ -24,6 +24,17 @@ class CustomerAdmin extends AbstractBaseAdmin
         '_sort_by'    => 'name',
         '_sort_order' => 'asc',
     );
+
+    /**
+     * Configure route collection
+     *
+     * @param RouteCollection $collection
+     */
+    protected function configureRoutes(RouteCollection $collection)
+    {
+        parent::configureRoutes($collection);
+        $collection->add('map', $this->getRouterIdParameter() . '/map');
+    }
 
     /**
      * @param FormMapper $formMapper
@@ -79,15 +90,7 @@ class CustomerAdmin extends AbstractBaseAdmin
                 )
             )
             ->end()
-            ->with('Controls', $this->getFormMdSuccessBoxArray(5))
-            ->add(
-                'enabled',
-                CheckboxType::class,
-                array(
-                    'label'    => 'Actiu',
-                    'required' => false,
-                )
-            )
+            ->with('Contacte', $this->getFormMdSuccessBoxArray(5))
             ->add(
                 'email',
                 EmailType::class,
@@ -106,7 +109,8 @@ class CustomerAdmin extends AbstractBaseAdmin
                 'web',
                 UrlType::class,
                 array(
-                    'label' => 'Web',
+                    'label'    => 'Web',
+                    'required' => false,
                 )
             )
             ->end();
@@ -121,6 +125,7 @@ class CustomerAdmin extends AbstractBaseAdmin
                         'property' => 'lastname',
                         'required' => false,
                         'multiple' => true,
+                        'btn_add'  => false,
                     )
                 )
                 ->end()
@@ -132,6 +137,7 @@ class CustomerAdmin extends AbstractBaseAdmin
                         'label'    => ' ',
                         'required' => false,
                         'multiple' => true,
+                        'btn_add'  => false,
                     )
                 )
                 ->end();
@@ -207,14 +213,6 @@ class CustomerAdmin extends AbstractBaseAdmin
                     'label' => 'Província',
                     'query' => $this->sr->findAllSortedByNameQ(),
                 )
-            )
-            ->add(
-                'enabled',
-                null,
-                array(
-                    'label'    => 'Actiu',
-                    'editable' => true,
-                )
             );
     }
 
@@ -242,6 +240,22 @@ class CustomerAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
+                'email',
+                null,
+                array(
+                    'label'    => 'Correu Electrònic',
+                    'editable' => true,
+                )
+            )
+            ->add(
+                'phone',
+                null,
+                array(
+                    'label'    => 'Telèfon',
+                    'editable' => true,
+                )
+            )
+            ->add(
                 'city',
                 null,
                 array(
@@ -253,32 +267,10 @@ class CustomerAdmin extends AbstractBaseAdmin
                 'state',
                 null,
                 array(
-                    'label'    => 'Província',
-                    'editable' => true,
-                )
-            )
-//            ->add(
-//                'address',
-//                null,
-//                array(
-//                    'label' => 'Adreça',
-//                    'editable' => true,
-//                )
-//            )
-//            ->add(
-//                'phone',
-//                null,
-//                array(
-//                    'label' => 'Telèfon',
-//                    'editable' => true,
-//                )
-//            )
-            ->add(
-                'enabled',
-                null,
-                array(
-                    'label'    => 'Actiu',
-                    'editable' => true,
+                    'label'                            => 'Província',
+                    'sortable'                         => true,
+                    'sort_field_mapping'               => array('fieldName' => 'name'),
+                    'sort_parent_association_mappings' => array(array('fieldName' => 'state')),
                 )
             )
             ->add(
@@ -288,6 +280,7 @@ class CustomerAdmin extends AbstractBaseAdmin
                     'label'   => 'Accions',
                     'actions' => array(
                         'edit'   => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
+                        'map'    => array('template' => '::Admin/Buttons/list__action_map_button.html.twig'),
                         'delete' => array('template' => '::Admin/Buttons/list__action_delete_button.html.twig'),
                     )
                 )

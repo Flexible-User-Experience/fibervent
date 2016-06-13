@@ -64,6 +64,7 @@ AppBundle\Entity\Audit:
   audit{1..2}:
     beginDate: <dateTimeThisMonth($max = 'now')>
     endDate: <dateTimeThisMonth($max = 'now')>
+    status: <numberBetween(0, 3)>
     type: <word()>
     tools: <sentence()>
     observations: <sentence()>
@@ -97,154 +98,55 @@ AppBundle\Entity\Damage:
     section: '1'
     code: '1.5'
     description: 'Desconche afectando a la capa de gel coat'
-  damage6:
-    section: '1'
-    code: '1.6'
-    description: 'Desconche dejando las fibras a la vista'
-  damage7:
-    section: '2'
-    code: '2.1'
-    description: 'Grieta longitudinal en borde de salida'
-  damage8:
-    section: '2'
-    code: '2.2'
-    description: 'Grieta transversal en borde de salida'
-  damage9:
-    section: '2'
-    code: '2.3'
-    description: 'Rotura del laminado en borde de salida'
-  damage10:
-    section: '2'
-    code: '2.4'
-    description: 'Erosión leve con afectación al gel coat'
-  damage11:
-    section: '2'
-    code: '2.5'
-    description: 'Desconche afectando a la capa de gel coat'
-  damage12:
-    section: '3'
-    code: '3.1'
-    description: 'Grieta transversal con afectación al laminado'
-  damage13:
-    section: '3'
-    code: '3.2'
-    description: 'Grieta longitudinal con afectación al laminado'
-  damage14:
-    section: '3'
-    code: '3.3'
-    description: 'Grieta diagonal con afectación al laminado'
-  damage15:
-    section: '3'
-    code: '3.4'
-    description: 'Grieta transversal con afectación al gel coat'
-  damage16:
-    section: '3'
-    code: '3.5'
-    description: 'Grieta longitudinal con afectación al gel coat'
-  damage17:
-    section: '3'
-    code: '3.6'
-    description: 'Grieta diagonal con afectación al gel coat'
-  damage18:
-    section: '3'
-    code: '3.7'
-    description: 'Desconche afectando a la capa de gel coat'
-  damage19:
-    section: '3'
-    code: '3.8'
-    description: 'Desconche dejando las fibras a la vista'
-  damage20:
-    section: '3'
-    code: '3.9'
-    description: 'Impacto de rayo sin afectación al laminado'
-  damage21:
-    section: '3'
-    code: '3.10'
-    description: 'Impacto de rayo con afectación al laminado'
-  damage22:
-    section: '3'
-    code: '3.11'
-    description: 'Impacto de rayo con posible afectación a la viga'
-  damage23:
-    section: '3'
-    code: '3.12'
-    description: 'Daño estructural grave en valva'
-  damage24:
-    section: '4'
-    code: '4.1'
-    description: 'Grieta transversal con afectación al laminado'
-  damage25:
-    section: '4'
-    code: '4.2'
-    description: 'Grieta longitudinal con afectación al laminado'
-  damage26:
-    section: '4'
-    code: '4.3'
-    description: 'Óxido o desconches en extender'
-  damage27:
-    section: '4'
-    code: '4.4'
-    description: 'Suciedad de grasa procedente del buje'
-  damage28:
-    section: '5'
-    code: '5.1'
-    description: 'Apertura de punta con separción de valvas'
-  damage29:
-    section: '5'
-    code: '5.2'
-    description: 'Impacto de rayo con afectación al receptor'
-  damage30:
-    section: '5'
-    code: '5.3'
-    description: 'Defecto de alineación en el cierre del aerofreno'
-  damage31:
-    section: '5'
-    code: '5.4'
-    description: 'Defecto en cono de cierre o en cazoleta de encaje'
-  damage32:
-    section: '6'
-    code: '6.1'
-    description: 'Manchas de grasa'
-  damage33:
-    section: '6'
-    code: '6.2'
-    description: 'Exceso de suciedad en superficie'
-  damage34:
-    section: '6'
-    code: '6.3'
-    description: 'Capeado o degradación del gel coat <10 x 10 cm'
-  damage35:
-    section: '6'
-    code: '6.4'
-    description: 'Capeado o degradación del gel coat >10 x 10 cm'
-  damage36:
-    section: '7'
-    code: '7.1'
-    description: 'Despegue o rotura de vortex generator'
-  damage37:
-    section: '7'
-    code: '7.2'
-    description: 'Despegue o rotura de flap'
-  damage38:
-    section: '7'
-    code: '7.3'
-    description: 'Despegue o rotura de stall strip'
-  damage39:
-    section: '7'
-    code: '7.4'
-    description: 'Despegue o rotura de diverter strip'
-  damage40:
-    section: '7'
-    code: '7.5'
-    description: 'Despegue o rotura de Dino Shell'
-  damage41:
-    section: '7'
-    code: '7.6'
-    description: 'Despegue o rotura de Dino Tail'
-  damage42:
-    section: '7'
-    code: '7.7'
-    description: 'Daños o falta de tapón de cámara de equilibrado'
+
+# DamageCategory
+AppBundle\Entity\DamageCategory:
+  damageCategory1:
+    category: '1'
+    priority: 'Ninguna'
+    description: 'Pala en excelentes condiciones de operación'
+    recommendedAction: 'Ninguna acción es necesaria'
+  damageCategory2:
+    category: '2'
+    priority: 'Ninguna'
+    description: 'La pala presenta leves señales de posible daños/desgaste'
+    recommendedAction: 'Inspeccionar y re-categorizar dentro de un año'
+  damageCategory3:
+    category: '3'
+    priority: 'Baja'
+    description: 'Se aprecian signos de daños o desgaste reales en las palas'
+    recommendedAction: 'Inspeccionar y re-categorizar dentro 6 meses'
+  damageCategory4:
+    category: '4'
+    priority: 'Media'
+    description: 'Se reconocen en la pala avanzados signos de daños/desgaste'
+    recommendedAction: 'Reparar o Inspeccionar y re-categorizar en 3 meses'
+  damageCategory5:
+    category: '5'
+    priority: 'Alta'
+    description: 'La pala ha fallado o debe ser sacada de operación para prevenir daños mayores'
+    recommendedAction: 'Parar la turbina y reparar o reemplazar antes de estar nuevamente operativa'
+
+# Photo
+AppBundle\Entity\Photo:
+  photo{1..5}:
+    imageName: <current()>.jpg
+    gpsLatitude: <latitude($min = -90, $max = 90)>
+    gpsLongitude: <longitude($min = -180, $max = 180)>
+    bladeDamage: @bladeDamage<numberBetween(1, 5)>
+
+# BladeDamage
+AppBundle\Entity\BladeDamage:
+  bladeDamage{1..5}:
+    position: <numberBetween($min = 1, $max = 7)>
+    radius: <numberBetween($min = 1, $max = 7)>
+    distance: <numberBetween($min = 1, $max = 7)>
+    size: <numberBetween($min = 1, $max = 7)>
+    status: <numberBetween($min = 1, $max = 7)>
+    number: <numberBetween($min = 1, $max = 7)>
+    damage: @damage<numberBetween(1, 5)>
+    damageCategory: @damageCategory<numberBetween(1, 5)>
+    auditWindmillBlade: @auditwindmillblade<numberBetween(1, 3)>
 
 ## Users
 AppBundle\Entity\User:

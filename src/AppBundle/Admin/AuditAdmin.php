@@ -2,11 +2,15 @@
 
 namespace AppBundle\Admin;
 
+use AppBundle\Entity\Audit;
+use AppBundle\Entity\AuditWindmillBlade;
+use AppBundle\Enum\AuditStatusEnum;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 /**
@@ -34,7 +38,8 @@ class AuditAdmin extends AbstractBaseAdmin
     {
         parent::configureRoutes($collection);
         $collection
-            ->add('pdf', $this->getRouterIdParameter() . '/pdf');
+            ->add('pdf', $this->getRouterIdParameter() . '/pdf')
+            ->add('show', $this->getRouterIdParameter() . '/show');
     }
 
     /**
@@ -44,6 +49,46 @@ class AuditAdmin extends AbstractBaseAdmin
     {
         $formMapper
             ->with('General', $this->getFormMdSuccessBoxArray(7))
+            ->add(
+                'windmill',
+                null,
+                array(
+                    'label'    => 'Aerogenerador',
+                    'required' => true,
+                )
+            )
+            ->add(
+                'type',
+                null,
+                array(
+                    'label'    => 'Tipus',
+                    'required' => false,
+                )
+            )
+            ->add(
+                'tools',
+                TextareaType::class,
+                array(
+                    'label'    => 'Eines',
+                    'required' => false,
+                    'attr'     => array(
+                        'rows' => 8,
+                    )
+                )
+            )
+            ->add(
+                'observations',
+                TextareaType::class,
+                array(
+                    'label'    => 'Observacions',
+                    'required' => false,
+                    'attr'     => array(
+                        'rows' => 8,
+                    )
+                )
+            )
+            ->end()
+            ->with('Controls', $this->getFormMdSuccessBoxArray(5))
             ->add(
                 'beginDate',
                 'sonata_type_date_picker',
@@ -56,58 +101,29 @@ class AuditAdmin extends AbstractBaseAdmin
                 'endDate',
                 'sonata_type_date_picker',
                 array(
-                    'label'  => 'Data fi',
-                    'format' => 'd/M/y',
+                    'label'    => 'Data fi',
+                    'format'   => 'd/M/y',
+                    'required' => false,
+                )
+            )
+            ->add(
+                'operators',
+                null,
+                array(
+                    'label'    => 'Tècnics Inspecció',
+                    'multiple' => true,
+                    'required' => true,
                 )
             )
             ->add(
                 'status',
-                null,
+                ChoiceType::class,
                 array(
                     'label'    => 'Estat',
+                    'choices'  => AuditStatusEnum::getEnumArray(),
+                    'multiple' => false,
+                    'expanded' => true,
                     'required' => true,
-                )
-            )
-            ->add(
-                'type',
-                null,
-                array(
-                    'label'    => 'Tipus',
-                    'required' => true,
-                )
-            )
-            ->add(
-                'tools',
-                textareatype::class,
-                array(
-                    'label'    => 'Eines',
-                    'required' => true,
-                )
-            )
-            ->add(
-                'observations',
-                textareatype::class,
-                array(
-                    'label'    => 'Observacions',
-                    'required' => true,
-                )
-            )
-            ->end()
-            ->with('Controls', $this->getFormMdSuccessBoxArray(5))
-            ->add(
-                'windmill',
-                null,
-                array(
-                    'label'    => 'Aerogenerador',
-                    'required' => true,
-                )
-            )
-            ->add(
-                'enabled',
-                CheckboxType::class,
-                array(
-                    'label'    => 'Actiu',
-                    'required' => false,
                 )
             )
             ->end();
@@ -128,11 +144,31 @@ class AuditAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'endDate',
-                'doctrine_orm_date',
+                'windmill.windfarm.customer',
+                null,
                 array(
-                    'label'  => 'Data fi',
-                    'field_type' => 'sonata_type_date_picker',
+                    'label' => 'Client',
+                )
+            )
+            ->add(
+                'windmill.windfarm',
+                null,
+                array(
+                    'label'    => 'Parc Eòlic',
+                )
+            )
+            ->add(
+                'windmill',
+                null,
+                array(
+                    'label'    => 'Aerogenerador',
+                )
+            )
+            ->add(
+                'operators',
+                null,
+                array(
+                    'label'    => 'Tècnics Inspecció',
                 )
             )
             ->add(
@@ -140,13 +176,33 @@ class AuditAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'Estat',
+                ),
+                'choice',
+                array(
+                    'expanded' => false,
+                    'multiple' => false,
+                    'choices'  => AuditStatusEnum::getEnumArray(),
                 )
             )
             ->add(
                 'type',
                 null,
                 array(
-                    'label' => 'Tipus',
+                    'label'    => 'Tipus',
+                )
+            )
+            ->add(
+                'tools',
+                null,
+                array(
+                    'label'    => 'Eines',
+                )
+            )
+            ->add(
+                'observations',
+                null,
+                array(
+                    'label'    => 'Observacions',
                 )
             )
             ->add(
@@ -174,36 +230,40 @@ class AuditAdmin extends AbstractBaseAdmin
                     'format' => 'd/m/Y'
                 )
             )
-//            ->add(
-//                'endDate',
-//                null,
-//                array(
-//                    'label'  => 'Data fi',
-//                    'format' => 'd/m/Y'
-//                )
-//            )
+            ->add(
+                'windmill.windfarm.customer',
+                null,
+                array(
+                    'label'    => 'Client',
+                )
+            )
+            ->add(
+                'windmill.windfarm',
+                null,
+                array(
+                    'label'    => 'Parc Eòlic',
+                )
+            )
+            ->add(
+                'windmill',
+                null,
+                array(
+                    'label'    => 'Aerogenerador',
+                )
+            )
+            ->add(
+                'operators',
+                null,
+                array(
+                    'label'    => 'Tècnics Inspecció',
+                )
+            )
             ->add(
                 'status',
                 null,
                 array(
                     'label'    => 'Estat',
-                    'editable' => true,
-                )
-            )
-            ->add(
-                'type',
-                null,
-                array(
-                    'label'    => 'Tipus',
-                    'editable' => true,
-                )
-            )
-            ->add(
-                'windmill.code',
-                null,
-                array(
-                    'label'    => 'Aerogenerador',
-                    'editable' => true,
+                    'template' => '::Admin/Cells/list__cell_audit_status.html.twig',
                 )
             )
             ->add(
@@ -213,10 +273,36 @@ class AuditAdmin extends AbstractBaseAdmin
                     'label'   => 'Accions',
                     'actions' => array(
                         'edit'   => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
+                        'show'   => array('template' => '::Admin/Buttons/list__action_show_button.html.twig'),
                         'pdf'    => array('template' => '::Admin/Buttons/list__action_pdf_button.html.twig'),
                         'delete' => array('template' => '::Admin/Buttons/list__action_delete_button.html.twig'),
                     )
                 )
             );
+    }
+
+    /**
+     * @param Audit $object
+     */
+    public function prePersist($object)
+    {
+        $windmillBlades = $object->getWindmill()->getWindmillBlades();
+
+        $auditWindmillBlade1 = new AuditWindmillBlade();
+        $auditWindmillBlade1
+            ->setAudit($object)
+            ->setWindmillBlade($windmillBlades[0]);
+        $auditWindmillBlade2 = new AuditWindmillBlade();
+        $auditWindmillBlade2
+            ->setAudit($object)
+            ->setWindmillBlade($windmillBlades[1]);
+        $auditWindmillBlade3 = new AuditWindmillBlade();
+        $auditWindmillBlade3
+            ->setAudit($object)
+            ->setWindmillBlade($windmillBlades[2]);
+        $object
+            ->addAuditWindmillBlade($auditWindmillBlade1)
+            ->addAuditWindmillBlade($auditWindmillBlade2)
+            ->addAuditWindmillBlade($auditWindmillBlade3);
     }
 }

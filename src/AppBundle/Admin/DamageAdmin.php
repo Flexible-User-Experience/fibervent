@@ -16,10 +16,11 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
  */
 class DamageAdmin extends AbstractBaseAdmin
 {
-    protected $classnameLabel = 'Danys';
+    protected $maxPerPage = 50;
+    protected $classnameLabel = 'Tipus Dany';
     protected $baseRoutePattern = 'audits/damage';
     protected $datagridValues = array(
-        '_sort_by'    => 'section',
+        '_sort_by'    => 'code',
         '_sort_order' => 'asc',
     );
 
@@ -38,8 +39,6 @@ class DamageAdmin extends AbstractBaseAdmin
                     'required' => true,
                 )
             )
-            ->end()
-            ->with('Controls', $this->getFormMdSuccessBoxArray(5))
             ->add(
                 'section',
                 null,
@@ -56,6 +55,8 @@ class DamageAdmin extends AbstractBaseAdmin
                     'required' => true,
                 )
             )
+            ->end()
+            ->with('Controls', $this->getFormMdSuccessBoxArray(5))
             ->add(
                 'enabled',
                 CheckboxType::class,
@@ -123,7 +124,15 @@ class DamageAdmin extends AbstractBaseAdmin
                 'description',
                 null,
                 array(
-                    'label'    => 'Longitud',
+                    'label'    => 'Descripció',
+                    'editable' => true,
+                )
+            )
+            ->add(
+                'enabled',
+                null,
+                array(
+                    'label'    => 'Actiu',
                     'editable' => true,
                 )
             )
