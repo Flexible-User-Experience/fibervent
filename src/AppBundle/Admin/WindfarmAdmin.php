@@ -6,6 +6,7 @@ use Oh\GoogleMapFormTypeBundle\Form\Type\GoogleMapType;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Route\RouteCollection;
 
 /**
  * Class WindfarmAdmin
@@ -22,6 +23,17 @@ class WindfarmAdmin extends AbstractBaseAdmin
         '_sort_by'    => 'name',
         '_sort_order' => 'asc',
     );
+
+    /**
+     * Configure route collection
+     *
+     * @param RouteCollection $collection
+     */
+    protected function configureRoutes(RouteCollection $collection)
+    {
+        parent::configureRoutes($collection);
+        $collection->add('map', $this->getRouterIdParameter() . '/map');
+    }
 
     /**
      * @param FormMapper $formMapper
@@ -217,6 +229,7 @@ class WindfarmAdmin extends AbstractBaseAdmin
                     'label'   => 'Accions',
                     'actions' => array(
                         'edit'   => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
+                        'map'    => array('template' => '::Admin/Buttons/list__action_map_button.html.twig'),
                         'delete' => array('template' => '::Admin/Buttons/list__action_delete_button.html.twig'),
                     )
                 )

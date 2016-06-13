@@ -46,8 +46,10 @@ twig:
         - "SonataCoreBundle:Form:datepicker.html.twig"
         - "::OhGoogleMaps/google_maps_form_widget.html.twig"
     globals:
-        admin_tag_version: "v0.0.13"
-        main_brand_title:  "%project_web_title%"
+        admin_tag_version:        "v0.0.14"
+        main_brand_title:         "%project_web_title%"
+        google_analytics_enabled: %google_analytics_enabled%
+        google_analytics_account: "%google_analytics_account%"
 
 # Doctrine Configuration
 doctrine:

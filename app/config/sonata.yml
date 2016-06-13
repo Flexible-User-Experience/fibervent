@@ -68,3 +68,10 @@ sonata_admin:
                 class: col-md-6
                 settings:
                     groups: [ Auditoria ]
+            -
+                position: bottom
+                type: sonata.block.service.text
+                class: col-md-12
+                settings:
+                    content: >
+                        <div><hr style="margin-top:40px;border-top:solid 1px #d2d6de"><p><i class="fa fa-info-circle"></i> Envia un correu <a href="mailto:suport@flux.cat?subject=AuditApp support" style="color:#000">aquí</a> per rebre suport tècnic.</p></div>
