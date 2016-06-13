@@ -25,7 +25,8 @@ class StateRepository extends EntityRepository
     {
         $query = $this
             ->createQueryBuilder('s')
-            ->orderBy('s.name', $order);
+            ->orderBy('s.countryCode', $order)
+            ->addOrderBy('s.name', $order);
 
         if (!is_null($limit)) {
             $query->setMaxResults($limit);
