@@ -39,6 +39,14 @@ class WindfarmAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
+                'customer',
+                null,
+                array(
+                    'label'    => 'Client',
+                    'required' => true,
+                )
+            )
+            ->add(
                 'city',
                 null,
                 array(
@@ -53,22 +61,6 @@ class WindfarmAdmin extends AbstractBaseAdmin
                     'required' => true,
                 )
             )
-            ->add(
-                'manager',
-                null,
-                array(
-                    'label'    => 'Administrador',
-                    'required' => true,
-                )
-            )
-            ->add(
-                'year',
-                null,
-                array(
-                    'label'    => 'Any',
-                    'required' => false
-                )
-            )
             ->end()
             ->with('Controls', $this->getFormMdSuccessBoxArray(5))
             ->add(
@@ -80,18 +72,27 @@ class WindfarmAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'customer',
+                'manager',
                 null,
                 array(
-                    'label'    => 'Client',
-                    'required' => true,
+                    'label'    => 'Administrador',
+                    'required' => false,
                 )
             )
             ->add(
                 'power',
                 null,
                 array(
-                    'label' => 'Potència',
+                    'label'    => 'Potència',
+                    'required' => false,
+                )
+            )
+            ->add(
+                'year',
+                null,
+                array(
+                    'label'    => 'Any',
+                    'required' => false
                 )
             )
             ->end()
@@ -192,7 +193,13 @@ class WindfarmAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label'    => 'Client',
-                    'editable' => true,
+                )
+            )
+            ->add(
+                'manager',
+                null,
+                array(
+                    'label'    => 'Administrador',
                 )
             )
             ->add(

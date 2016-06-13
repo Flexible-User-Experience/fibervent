@@ -168,6 +168,41 @@ class AuditAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
+                'operators',
+                null,
+                array(
+                    'label'    => 'Tècnics Inspecció',
+                )
+            )
+            ->add(
+                'status',
+                null,
+                array(
+                    'label'    => 'Estat',
+                )
+            )
+            ->add(
+                'type',
+                null,
+                array(
+                    'label'    => 'Tipus',
+                )
+            )
+            ->add(
+                'tools',
+                null,
+                array(
+                    'label'    => 'Eines',
+                )
+            )
+            ->add(
+                'observations',
+                null,
+                array(
+                    'label'    => 'Observacions',
+                )
+            )
+            ->add(
                 'enabled',
                 null,
                 array(
