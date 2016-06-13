@@ -113,6 +113,7 @@ class CustomerAdmin extends AbstractBaseAdmin
                         'property' => 'lastname',
                         'required' => false,
                         'multiple' => true,
+                        'btn_add'  => false,
                     )
                 )
                 ->end()
@@ -124,6 +125,7 @@ class CustomerAdmin extends AbstractBaseAdmin
                         'label'    => ' ',
                         'required' => false,
                         'multiple' => true,
+                        'btn_add'  => false,
                     )
                 )
                 ->end();
