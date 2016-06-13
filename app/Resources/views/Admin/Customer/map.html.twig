@@ -8,14 +8,28 @@
                     <div class="box-header with-border">
                         <h4 class="box-title">{{ object.name }} · Mapa Parcs Eòlics</h4>
                         <div class="box-body table-responsive no-padding">
-                            <table class="table">
-
-                            </table>
-                            <div class="alert alert-warning" role="alert"><i class="fa fa-warning"></i> en construcció</div>
+                            <div id="gmap"></div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://maps.googleapis.com/maps/api/js?key={{ google_maps_api_key }}&callback=initializeGooleMaps" async defer></script>
+    <script type="text/javascript">
+        function initializeGooleMaps() {
+            var mapOptions = {
+                zoom: 14,
+                center: new google.maps.LatLng(0, 0)
+            };
+            var map = new google.maps.Map(document.getElementById('gmap'), mapOptions);
+        }
+//        jQuery(document).ready(function() {
+//            console.log('hit');
+//        });
+    </script>
 {% endblock %}
