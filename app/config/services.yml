@@ -5,7 +5,7 @@ services:
 # Sonata Admin
     admin.customer:
         class: AppBundle\Admin\CustomerAdmin
-        arguments: [ ~, AppBundle\Entity\Customer, ~, "@app.state_repository", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
+        arguments: [ ~, AppBundle\Entity\Customer, AppBundle:CustomerAdmin, "@app.state_repository", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Client", group: "Client" }
     admin.state:
@@ -15,7 +15,7 @@ services:
             - { name: sonata.admin, manager_type: orm, label: "Província", group: "Customer", show_in_dashboard: false }
     admin.windfarm:
         class: AppBundle\Admin\WindfarmAdmin
-        arguments: [ ~, AppBundle\Entity\Windfarm, ~, "@app.state_repository", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
+        arguments: [ ~, AppBundle\Entity\Windfarm, AppBundle:WindfarmAdmin, "@app.state_repository", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Parc Eòlic", group: "Parc_Eolic" }
     admin.windmill:
