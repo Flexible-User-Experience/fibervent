@@ -129,15 +129,33 @@ class AuditPdfBuilderService
         $pdf->Write(0, 'FIBERVENT', '', 0, 'C', true, 0, false, false, 0);
 
         // main detail section
+        $pdf->Write(0, '------', '', 0, 'C', true, 0, false, false, 0);
         $pdf->Write(0, 'INSPECCIÓN DE PALAS DEL PARQUE EÓLICO ' . $windfarm->getName(), '', 0, 'C', true, 0, false, false, 0);
         $pdf->Write(0, 'INFORME INDIVIDUAL AEROGENERADOR ' . $windmill->getCode(), '', 0, 'C', true, 0, false, false, 0);
         $pdf->Write(0, $windfarm->getPdfLocationString() . '', '', 0, 'C', true, 0, false, false, 0);
 
         // table detail section
+        $pdf->Write(0, '------', '', 0, 'C', true, 0, false, false, 0);
         $pdf->Write(0, 'PAÍS/REGION: ' . $windfarm->getState()->getCountryName() . ' (' . $windfarm->getState()->getName() . ')' . '', '', 0, 'L', true, 0, false, false, 0);
         $pdf->Write(0, 'PARQUE EÓLICO: ' . $windfarm->getName(), '', 0, 'L', true, 0, false, false, 0);
         $pdf->Write(0, 'MODELO AEROGENERADOR: ' . $windmill->getPdfModelString(), '', 0, 'L', true, 0, false, false, 0);
+        $pdf->Write(0, 'MODELO PALA: ' . $windmill->getBladeType()->getModel(), '', 0, 'L', true, 0, false, false, 0);
+        $pdf->Write(0, 'TOTAL No. AG / Capacidad PE: ' . $windfarm->getPdfTotalPowerString(), '', 0, 'L', true, 0, false, false, 0);
+        $pdf->Write(0, 'Puesta en marcha (años del PE): ' . $windfarm->getPdfYearString(), '', 0, 'L', true, 0, false, false, 0);
+        $pdf->Write(0, 'O&M REGIONAL MANEGER: ' . $windfarm->getManager()->getFullname(), '', 0, 'L', true, 0, false, false, 0);
 
+        // revisions table section
+        $pdf->Write(0, '--- REVISIONES ---', '', 0, 'C', true, 0, false, false, 0);
+
+        // operators details
+        $pdf->Write(0, '------', '', 0, 'C', true, 0, false, false, 0);
+        $pdf->Write(0, 'TÉCNICOS INSPECCIÓN: ' . implode(', ', $audit->getOperators()->getValues()), '', 0, 'L', true, 0, false, false, 0);
+
+        // final details
+        $pdf->Write(0, '------', '', 0, 'C', true, 0, false, false, 0);
+        $pdf->Write(0, 'TIPO DE INSPECCIÓN: SUELO (Telescopio FIBERVENT)', '', 0, 'L', true, 0, false, false, 0);
+        $pdf->Write(0, 'FECHA DE INSPECCIÓN: ' . $audit->getBeginDate()->format('d/m/Y'), '', 0, 'L', true, 0, false, false, 0);
+        $pdf->Write(0, 'No. de AG / palas inspeccionadas: 1 AG / 3 palas', '', 0, 'L', true, 0, false, false, 0);
 
         return $pdf;
     }
