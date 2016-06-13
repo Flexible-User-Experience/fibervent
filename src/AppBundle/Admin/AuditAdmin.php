@@ -37,7 +37,7 @@ class AuditAdmin extends AbstractBaseAdmin
         parent::configureRoutes($collection);
         $collection
             ->add('pdf', $this->getRouterIdParameter() . '/pdf')
-            ->add('show', $this->getRouterIdParameter() . '/pdf');
+            ->add('show', $this->getRouterIdParameter() . '/show');
     }
 
     /**
@@ -227,8 +227,8 @@ class AuditAdmin extends AbstractBaseAdmin
                     'label'   => 'Accions',
                     'actions' => array(
                         'edit'   => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
-                        'pdf'    => array('template' => '::Admin/Buttons/list__action_pdf_button.html.twig'),
                         'show'   => array('template' => '::Admin/Buttons/list__action_show_button.html.twig'),
+                        'pdf'    => array('template' => '::Admin/Buttons/list__action_pdf_button.html.twig'),
                         'delete' => array('template' => '::Admin/Buttons/list__action_delete_button.html.twig'),
                     )
                 )
