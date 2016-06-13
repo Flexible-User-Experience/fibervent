@@ -8,14 +8,60 @@
                     <div class="box-header with-border">
                         <h4 class="box-title">{{ object.name }} · Mapa Parcs Eòlics</h4>
                         <div class="box-body table-responsive no-padding">
-                            <table class="table">
-
-                            </table>
-                            <div class="alert alert-warning" role="alert"><i class="fa fa-warning"></i> en construcció</div>
+                            {% if object.windfarms | length > 0 %}
+                                <div id="gmap"></div>
+                            {% else %}
+                                <div class="alert alert-warning" role="alert"><i class="fa fa-warning"></i> no s'ha trobat cap parc eòlic assignat a aquest client</div>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://maps.googleapis.com/maps/api/js?key={{ google_maps_api_key }}&callback=initializeGooleMaps" async defer></script>
+    <script type="text/javascript">
+        function initializeGooleMaps() {
+            var mapOptions = {
+                zoom: 14,
+                center: new google.maps.LatLng(0, 0)
+            };
+            var map = new google.maps.Map(document.getElementById('gmap'), mapOptions);
+            var bounds = new google.maps.LatLngBounds();
+            var windfarmsMatrix = [];
+            {% for windfarm in object.windfarms %}
+                windfarmsMatrix[{{ loop.index - 1 }}] = {
+                    id: {{ windfarm.id }},
+                    name: '{{ windfarm.name }}',
+                    url:  '{{ path('admin_app_windfarm_edit', {id: windfarm.id}) }}',
+                    lat: {{ windfarm.gpsLatitude }},
+                    lng: {{ windfarm.gpsLongitude }}
+                };
+            {% endfor %}
+            for (var i = 0; i < windfarmsMatrix.length; i++) {
+                windfarmsMatrix[i].position = new google.maps.LatLng(windfarmsMatrix[i].lat, windfarmsMatrix[i].lng);
+                windfarmsMatrix[i].marker = new google.maps.Marker({
+                    position: windfarmsMatrix[i].position,
+                    map: map,
+                    title: windfarmsMatrix[i].name,
+                    animation: google.maps.Animation.DROP,
+                    bounds: true
+                });
+                windfarmsMatrix[i].info = new google.maps.InfoWindow({
+                    content: '<span class="span-gmap-info"><a href="' + windfarmsMatrix[i].url + '">' + windfarmsMatrix[i].marker.title + '</a></span>'
+                });
+                google.maps.event.addListener(windfarmsMatrix[i].marker, 'click', function (innerKey) {
+                    return function () {
+                        windfarmsMatrix[innerKey].info.open(map, windfarmsMatrix[innerKey].marker);
+                    };
+                }(i));
+                bounds.extend(windfarmsMatrix[i].position);
+                map.fitBounds(bounds);
+            }
+        }
+    </script>
 {% endblock %}
