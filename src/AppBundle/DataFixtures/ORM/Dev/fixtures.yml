@@ -210,7 +210,7 @@ AppBundle\Entity\Audit:
     beginDate: <dateTimeThisMonth($max = 'now')>
     endDate: <dateTimeThisMonth($max = 'now')>
     type: <word()>
-    status: <numberBetween(1, 5)>
+    status: <numberBetween(0, 3)>
     tools: <sentence()>
     observations: <sentence()>
     windmill: @windmill<numberBetween(1, 50)>

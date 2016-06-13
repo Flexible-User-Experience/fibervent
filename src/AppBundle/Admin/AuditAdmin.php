@@ -4,11 +4,13 @@ namespace AppBundle\Admin;
 
 use AppBundle\Entity\Audit;
 use AppBundle\Entity\AuditWindmillBlade;
+use AppBundle\Enum\AuditStatusEnum;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 /**
@@ -48,27 +50,10 @@ class AuditAdmin extends AbstractBaseAdmin
         $formMapper
             ->with('General', $this->getFormMdSuccessBoxArray(7))
             ->add(
-                'beginDate',
-                'sonata_type_date_picker',
-                array(
-                    'label'  => 'Data inici',
-                    'format' => 'd/M/y',
-                )
-            )
-            ->add(
-                'endDate',
-                'sonata_type_date_picker',
-                array(
-                    'label'    => 'Data fi',
-                    'format'   => 'd/M/y',
-                    'required' => false,
-                )
-            )
-            ->add(
-                'status',
+                'windmill',
                 null,
                 array(
-                    'label'    => 'Estat',
+                    'label'    => 'Aerogenerador',
                     'required' => true,
                 )
             )
@@ -105,11 +90,20 @@ class AuditAdmin extends AbstractBaseAdmin
             ->end()
             ->with('Controls', $this->getFormMdSuccessBoxArray(5))
             ->add(
-                'windmill',
-                null,
+                'beginDate',
+                'sonata_type_date_picker',
                 array(
-                    'label'    => 'Aerogenerador',
-                    'required' => true,
+                    'label'  => 'Data inici',
+                    'format' => 'd/M/y',
+                )
+            )
+            ->add(
+                'endDate',
+                'sonata_type_date_picker',
+                array(
+                    'label'    => 'Data fi',
+                    'format'   => 'd/M/y',
+                    'required' => false,
                 )
             )
             ->add(
@@ -122,11 +116,14 @@ class AuditAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'enabled',
-                CheckboxType::class,
+                'status',
+                ChoiceType::class,
                 array(
-                    'label'    => 'Actiu',
-                    'required' => false,
+                    'label'    => 'Estat',
+                    'choices'  => AuditStatusEnum::getEnumArray(),
+                    'multiple' => false,
+                    'expanded' => true,
+                    'required' => true,
                 )
             )
             ->end();
@@ -178,7 +175,13 @@ class AuditAdmin extends AbstractBaseAdmin
                 'status',
                 null,
                 array(
-                    'label'    => 'Estat',
+                    'label' => 'Estat',
+                ),
+                'choice',
+                array(
+                    'expanded' => false,
+                    'multiple' => false,
+                    'choices'  => AuditStatusEnum::getEnumArray(),
                 )
             )
             ->add(
@@ -253,6 +256,14 @@ class AuditAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label'    => 'Tècnics Inspecció',
+                )
+            )
+            ->add(
+                'status',
+                null,
+                array(
+                    'label'    => 'Estat',
+                    'template' => '::Admin/Cells/list__cell_audit_status.html.twig',
                 )
             )
             ->add(
