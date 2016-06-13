@@ -30,7 +30,7 @@ class Windfarm extends AbstractBase
     /**
      * @var integer
      *
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="float", precision=2, nullable=true)
      */
     private $power;
 
@@ -208,6 +208,32 @@ class Windfarm extends AbstractBase
         $this->windmills->removeElement($windmill);
 
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPdfLocationString()
+    {
+        return $this->getCity() . ' (' . $this->getState()->getName() . '). ' . $this->getState()->getCountryName();
+    }
+
+    /**
+     * @return string
+     */
+    public function getPdfTotalPowerString()
+    {
+        return $this->getWindmills()->count() . ' aerogeneradores / ' . $this->getPower() . 'MW';
+    }
+
+    /**
+     * @return string
+     */
+    public function getPdfYearString()
+    {
+        $today = new \DateTime();
+        
+        return $this->getYear() . ' (' . ($today->format('Y') - $this->getYear()) . ' años)';
     }
 
     /**
