@@ -38,9 +38,10 @@ class WindfarmAdminController extends AbstractBaseAdminController
         }
 
         return $this->render(
-            ':PDF:audit.pdf.twig', // TODO fix template
+            ':Admin/Windfarm:map.html.twig',
             array(
-                'windfarm' => $object,
+                'action' => 'show',
+                'object' => $object,
             )
         );
     }

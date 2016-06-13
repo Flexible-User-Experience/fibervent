@@ -38,9 +38,10 @@ class CustomerAdminController extends AbstractBaseAdminController
         }
 
         return $this->render(
-            ':PDF:audit.pdf.twig', // TODO fix template
+            ':Admin/Customer:map.html.twig',
             array(
-                'customer' => $object,
+                'action' => 'show',
+                'object' => $object,
             )
         );
     }

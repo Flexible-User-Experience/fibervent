@@ -21,10 +21,9 @@ class AuditAdminController extends AbstractBaseAdminController
 {
     /**
      * Export Audit in PDF format action
-     *
      * @Pdf()
      *
-     * @param Request         $request
+     * @param Request $request
      *
      * @return Response
      * @throws NotFoundHttpException If the object does not exist
@@ -72,7 +71,7 @@ class AuditAdminController extends AbstractBaseAdminController
         return $this->render(
             ':Admin/Audit:show.html.twig',
             array(
-                'action'   => 'show',
+                'action' => 'show',
                 'object' => $object,
             )
         );
