@@ -107,6 +107,7 @@ class CustomerAdmin extends AbstractBaseAdmin
                 UrlType::class,
                 array(
                     'label' => 'Web',
+                    'required' => false,
                 )
             )
             ->end();
