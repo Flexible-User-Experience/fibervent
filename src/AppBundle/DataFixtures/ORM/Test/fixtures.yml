@@ -69,6 +69,7 @@ AppBundle\Entity\Audit:
     tools: <sentence()>
     observations: <sentence()>
     windmill: @windmill<numberBetween(1, 8)>
+    operators: [ @admin ]
 
 # AuditWindmillBlade
 AppBundle\Entity\AuditWindmillBlade:
