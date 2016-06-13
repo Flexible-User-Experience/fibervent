@@ -142,7 +142,7 @@ class AuditPdfBuilderService
         $pdf->Write(0, 'MODELO PALA: ' . $windmill->getBladeType()->getModel(), '', 0, 'L', true, 0, false, false, 0);
         $pdf->Write(0, 'TOTAL No. AG / Capacidad PE: ' . $windfarm->getPdfTotalPowerString(), '', 0, 'L', true, 0, false, false, 0);
         $pdf->Write(0, 'Puesta en marcha (años del PE): ' . $windfarm->getPdfYearString(), '', 0, 'L', true, 0, false, false, 0);
-        $pdf->Write(0, 'O&M REGIONAL MANEGER: ' . $windfarm->getManager()->getFullname(), '', 0, 'L', true, 0, false, false, 0);
+        $pdf->Write(0, 'O&M REGIONAL MANAGER: ' . $windfarm->getManager()->getFullname(), '', 0, 'L', true, 0, false, false, 0);
 
         // revisions table section
         $pdf->Write(0, '--- REVISIONES ---', '', 0, 'C', true, 0, false, false, 0);
