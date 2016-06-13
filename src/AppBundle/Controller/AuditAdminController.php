@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Audit;
+use AppBundle\Service\AuditPdfBuilderService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
@@ -38,12 +39,11 @@ class AuditAdminController extends AbstractBaseAdminController
             throw $this->createNotFoundException(sprintf('Unable to find audit record with id : %s', $id));
         }
 
-        return $this->render(
-            ':PDF:audit.pdf.twig',
-            array(
-                'audit' => $object,
-            )
-        );
+        /** @var AuditPdfBuilderService $apbs */
+        $apbs = $this->get('app.audit_pdf_builder');
+        $pdf = $apbs->build($object);
+
+        return new Response($pdf->Output('', 'S'), 200, array('Content-type' => 'application/pdf'));
     }
 
     /**
