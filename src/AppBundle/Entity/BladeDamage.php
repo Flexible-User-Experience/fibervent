@@ -77,7 +77,7 @@ class BladeDamage extends AbstractBase
     /**
      * @var AuditWindmillBlade
      *
-     * @ORM\ManyToOne(targetEntity="AuditWindmillBlade")
+     * @ORM\ManyToOne(targetEntity="AuditWindmillBlade", inversedBy="bladeDamages")
      */
     private $auditWindmillBlade;
 
