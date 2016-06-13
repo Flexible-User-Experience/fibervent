@@ -3,7 +3,6 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Audit;
-use Ps\PdfBundle\Annotation\Pdf;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
@@ -21,7 +20,6 @@ class AuditAdminController extends AbstractBaseAdminController
 {
     /**
      * Export Audit in PDF format action
-     * @Pdf()
      *
      * @param Request $request
      *
