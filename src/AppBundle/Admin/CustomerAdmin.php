@@ -5,6 +5,7 @@ namespace AppBundle\Admin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Route\RouteCollection;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 
@@ -23,6 +24,17 @@ class CustomerAdmin extends AbstractBaseAdmin
         '_sort_by'    => 'name',
         '_sort_order' => 'asc',
     );
+
+    /**
+     * Configure route collection
+     *
+     * @param RouteCollection $collection
+     */
+    protected function configureRoutes(RouteCollection $collection)
+    {
+        parent::configureRoutes($collection);
+        $collection->add('map', $this->getRouterIdParameter() . '/map');
+    }
 
     /**
      * @param FormMapper $formMapper
@@ -268,6 +280,7 @@ class CustomerAdmin extends AbstractBaseAdmin
                     'label'   => 'Accions',
                     'actions' => array(
                         'edit'   => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
+                        'map'    => array('template' => '::Admin/Buttons/list__action_map_button.html.twig'),
                         'delete' => array('template' => '::Admin/Buttons/list__action_delete_button.html.twig'),
                     )
                 )

@@ -32,3 +32,6 @@ parameters:
     locale: ca
 
     project_web_title: "Fibervent"
+
+    google_analytics_enabled:   false
+    google_analytics_account:   "UA-xxxxxxxx-x"
