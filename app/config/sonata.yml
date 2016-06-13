@@ -10,6 +10,12 @@ sonata_block:
 sonata_user:
     security_acl: true
     manager_type: orm
+    profile:
+        form:
+            type:               sonata_user_profile
+            handler:            sonata.user.profile.form.handler.default
+            name:               sonata_user_profile_form
+            validation_groups:  [ Profile ]
 
 # Admin
 sonata_admin:

@@ -1,0 +1,19 @@
+{% extends 'SonataAdminBundle:CRUD:base_list_field.html.twig' %}
+
+{% block field %}
+    {% spaceless %}
+        <div>
+            {% if object.status == 0 %}
+                <span class="label label-danger">Pendent</span>
+            {% elseif object.status == 1 %}
+                <span class="label label-warning">En procés</span>
+            {% elseif object.status == 2 %}
+                <span class="label label-info">Fet</span>
+            {% elseif object.status == 3 %}
+                <span class="label label-success">Facturat</span>
+            {% else %}
+                ---
+            {% endif %}
+        </div>
+    {% endspaceless %}
+{% endblock %}

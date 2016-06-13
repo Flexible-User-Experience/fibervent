@@ -1,5 +1,6 @@
 {
-    "name": "david/fibervent",
+    "name": "flux/fibervent",
+    "description": "Fibervent Symfony 2 Webapp",
     "license": "proprietary",
     "type": "project",
     "autoload": {

@@ -64,7 +64,7 @@ AppBundle\Entity\Audit:
   audit{1..2}:
     beginDate: <dateTimeThisMonth($max = 'now')>
     endDate: <dateTimeThisMonth($max = 'now')>
-    status: <numberBetween(1, 5)>
+    status: <numberBetween(0, 3)>
     type: <word()>
     tools: <sentence()>
     observations: <sentence()>
