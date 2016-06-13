@@ -43,7 +43,7 @@ class AuditAdminController extends AbstractBaseAdminController
         $apbs = $this->get('app.audit_pdf_builder');
         $pdf = $apbs->build($object);
 
-        return new Response($pdf->Output('', 'S'), 200, array('Content-type' => 'application/pdf'));
+        return new Response($pdf->Output('informe_auditoria_' . $object->getId() . '.pdf', 'I'), 200, array('Content-type' => 'application/pdf'));
     }
 
     /**

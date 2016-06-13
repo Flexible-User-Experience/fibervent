@@ -213,6 +213,14 @@ class Windfarm extends AbstractBase
     /**
      * @return string
      */
+    public function getPdfLocationString()
+    {
+        return $this->getCity() . ' (' . $this->getState()->getName() . '). ' . $this->getState()->getCountryName();
+    }
+
+    /**
+     * @return string
+     */
     public function __toString()
     {
         return $this->getName() ? $this->getName() : '---';
