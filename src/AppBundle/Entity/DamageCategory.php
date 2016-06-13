@@ -114,6 +114,6 @@ class DamageCategory extends AbstractBase
      */
     public function __toString()
     {
-        return $this->getCategory() ? $this->getCategory() . ' ' .$this->getDescription() . ' ' : '---';
+        return $this->getCategory() ? $this->getCategory() . ' · ' . $this->getPriority() . ' · '  . $this->getDescription() . ' ' : '---';
     }
 }

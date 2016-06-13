@@ -26,7 +26,8 @@
 
 # Assets and user uploads
 /web/bundles/
-/web/uploads/
+/web/uploads/*
+!/web/uploads/.gitkeep
 /web/media/*
 !/web/media/.gitkeep
 

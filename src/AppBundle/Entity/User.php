@@ -2,8 +2,13 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Entity\Traits\ImageTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Sonata\UserBundle\Entity\BaseUser as BaseUser;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Validator\Constraints as Assert;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * Class User
@@ -14,9 +19,12 @@ use Sonata\UserBundle\Entity\BaseUser as BaseUser;
  *
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
  * @ORM\Table(name="admin_user")
+ * @Vich\Uploadable
  */
 class User extends BaseUser
 {
+    use ImageTrait;
+
     /**
      * @var integer
      *
@@ -25,6 +33,18 @@ class User extends BaseUser
      * @ORM\Column(type="integer")
      */
     protected $id;
+
+    /**
+     * @var File
+     *
+     * @Vich\UploadableField(mapping="user", fileNameProperty="imageName")
+     * @Assert\File(
+     *     maxSize = "10M",
+     *     mimeTypes = {"image/jpg", "image/jpeg", "image/png", "image/gif"}
+     * )
+     * @Assert\Image(minWidth = 320)
+     */
+    private $imageFile;
 
     /**
      * @var Customer

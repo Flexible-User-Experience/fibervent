@@ -18,14 +18,14 @@ Trait GpsCoordinatesTrait
     /**
      * @var float
      *
-     * @ORM\Column(type="float", precision=20)
+     * @ORM\Column(type="float", precision=20, nullable=true)
      */
     private $gpsLongitude = 0.716726;
 
     /**
      * @var float
      *
-     * @ORM\Column(type="float", precision=20)
+     * @ORM\Column(type="float", precision=20, nullable=true)
      */
     private $gpsLatitude = 40.881604;
 

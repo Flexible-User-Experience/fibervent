@@ -41,7 +41,7 @@ class StateAdmin extends AbstractBaseAdmin
                 'countryCode',
                 CountryType::class,
                 array(
-                    'label'      => 'Country',
+                    'label' => 'País',
                 )
             )
             ->end();

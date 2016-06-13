@@ -54,6 +54,13 @@ class BladeDamage extends AbstractBase
     protected $status;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(type="integer")
+     */
+    protected $number;
+
+    /**
      * @var Damage
      *
      * @ORM\ManyToOne(targetEntity="Damage")
@@ -77,7 +84,7 @@ class BladeDamage extends AbstractBase
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="Photo", mappedBy="bladeDamage")
+     * @ORM\OneToMany(targetEntity="Photo", mappedBy="bladeDamage", cascade={"persist", "remove"}, orphanRemoval=true))
      */
     private $photos;
 
@@ -218,6 +225,26 @@ class BladeDamage extends AbstractBase
     }
 
     /**
+     * @return int
+     */
+    public function getNumber()
+    {
+        return $this->number;
+    }
+
+    /**
+     * @param int $number
+     *
+     * @return BladeDamage
+     */
+    public function setNumber($number)
+    {
+        $this->number = $number;
+
+        return $this;
+    }
+
+    /**
      * @return DamageCategory
      */
     public function getDamageCategory()
@@ -307,6 +334,6 @@ class BladeDamage extends AbstractBase
      */
     public function __toString()
     {
-        return $this->getPosition() ? $this->getPosition() : '---';
+        return $this->getDamage()->getCode() ? $this->getDamage()->getCode() : '---';
     }
 }

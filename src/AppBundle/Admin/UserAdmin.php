@@ -13,7 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * Class UserAdmin
@@ -84,6 +84,15 @@ class UserAdmin extends ParentUserAdmin
         $formMapper
             ->with('General', array('class' => 'col-md-6'))
             ->add(
+                'imageFile',
+                'file',
+                array(
+                    'label'    => 'Foto',
+//                    'help'     => $this->getImageHelperFormMapperWithThumbnail(),
+                    'required' => false,
+                )
+            )
+            ->add(
                 'username',
                 null,
                 array(
@@ -144,18 +153,18 @@ class UserAdmin extends ParentUserAdmin
             ->end()
             ->with('Controls', array('class' => 'col-md-3'))
             ->add(
-                'enabled',
-                CheckboxType::class,
-                array(
-                    'label'    => 'Actiu',
-                    'required' => false,
-                )
-            )
-            ->add(
                 'locked',
                 CheckboxType::class,
                 array(
                     'label'    => 'Blocat',
+                    'required' => false,
+                )
+            )
+            ->add(
+                'enabled',
+                CheckboxType::class,
+                array(
+                    'label'    => 'Actiu',
                     'required' => false,
                 )
             )
@@ -239,6 +248,14 @@ class UserAdmin extends ParentUserAdmin
     {
         unset($this->listModes['mosaic']);
         $listMapper
+            ->add(
+                'image',
+                null,
+                array(
+                    'label'    => 'Foto',
+                    'template' => '::Admin/Cells/list__cell_image_field.html.twig'
+                )
+            )
             ->add(
                 'firstname',
                 null,

@@ -36,7 +36,8 @@ class AuditAdmin extends AbstractBaseAdmin
     {
         parent::configureRoutes($collection);
         $collection
-            ->add('pdf', $this->getRouterIdParameter() . '/pdf');
+            ->add('pdf', $this->getRouterIdParameter() . '/pdf')
+            ->add('show', $this->getRouterIdParameter() . '/pdf');
     }
 
     /**
@@ -112,6 +113,15 @@ class AuditAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
+                'operators',
+                null,
+                array(
+                    'label'    => 'Tècnics Inspecció',
+                    'multiple' => true,
+                    'required' => true,
+                )
+            )
+            ->add(
                 'enabled',
                 CheckboxType::class,
                 array(
@@ -137,25 +147,24 @@ class AuditAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'endDate',
-                'doctrine_orm_date',
+                'windmill.windfarm.customer',
+                null,
                 array(
-                    'label'  => 'Data fi',
-                    'field_type' => 'sonata_type_date_picker',
+                    'label' => 'Client',
                 )
             )
             ->add(
-                'status',
+                'windmill.windfarm',
                 null,
                 array(
-                    'label' => 'Estat',
+                    'label'    => 'Parc Eòlic',
                 )
             )
             ->add(
-                'type',
+                'windmill',
                 null,
                 array(
-                    'label' => 'Tipus',
+                    'label'    => 'Aerogenerador',
                 )
             )
             ->add(
@@ -183,36 +192,32 @@ class AuditAdmin extends AbstractBaseAdmin
                     'format' => 'd/m/Y'
                 )
             )
-//            ->add(
-//                'endDate',
-//                null,
-//                array(
-//                    'label'  => 'Data fi',
-//                    'format' => 'd/m/Y'
-//                )
-//            )
             ->add(
-                'status',
+                'windmill.windfarm.customer',
                 null,
                 array(
-                    'label'    => 'Estat',
-                    'editable' => true,
+                    'label'    => 'Client',
                 )
             )
             ->add(
-                'type',
+                'windmill.windfarm',
                 null,
                 array(
-                    'label'    => 'Tipus',
-                    'editable' => true,
+                    'label'    => 'Parc Eòlic',
                 )
             )
             ->add(
-                'windmill.code',
+                'windmill',
                 null,
                 array(
                     'label'    => 'Aerogenerador',
-                    'editable' => true,
+                )
+            )
+            ->add(
+                'operators',
+                null,
+                array(
+                    'label'    => 'Tècnics Inspecció',
                 )
             )
             ->add(
@@ -223,6 +228,7 @@ class AuditAdmin extends AbstractBaseAdmin
                     'actions' => array(
                         'edit'   => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
                         'pdf'    => array('template' => '::Admin/Buttons/list__action_pdf_button.html.twig'),
+                        'show'   => array('template' => '::Admin/Buttons/list__action_show_button.html.twig'),
                         'delete' => array('template' => '::Admin/Buttons/list__action_delete_button.html.twig'),
                     )
                 )
