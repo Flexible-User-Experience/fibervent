@@ -2,8 +2,10 @@
 
 {% block field %}
     {% spaceless %}
-        <a href="{{ path('admin_app_user_edit', {id: object.manager.id}) }}">
-            {{ object.manager.lastname }}, {{ object.manager.firstname }}
-        </a>
+        {% if object.manager is not null %}
+            <a href="{{ path('admin_app_user_edit', {id: object.manager.id}) }}">
+                {{ object.manager.lastname }}, {{ object.manager.firstname }}
+            </a>
+        {% endif %}
     {% endspaceless %}
 {% endblock %}
