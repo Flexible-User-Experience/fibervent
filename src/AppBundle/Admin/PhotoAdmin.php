@@ -44,6 +44,7 @@ class PhotoAdmin extends AbstractBaseAdmin
                 'file',
                 array(
                     'label'       => 'Foto',
+                    'help'        => $this->getImageHelperFormMapperWithThumbnail(),
                     'sonata_help' => $this->getImageHelperFormMapperWithThumbnail(),
                     'required'    => false,
                 )

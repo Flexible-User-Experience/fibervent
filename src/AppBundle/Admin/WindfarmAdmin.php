@@ -6,7 +6,6 @@ use Oh\GoogleMapFormTypeBundle\Form\Type\GoogleMapType;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 /**
  * Class WindfarmAdmin
@@ -39,6 +38,14 @@ class WindfarmAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
+                'customer',
+                null,
+                array(
+                    'label'    => 'Client',
+                    'required' => true,
+                )
+            )
+            ->add(
                 'city',
                 null,
                 array(
@@ -53,12 +60,22 @@ class WindfarmAdmin extends AbstractBaseAdmin
                     'required' => true,
                 )
             )
+            ->end()
+            ->with('Controls', $this->getFormMdSuccessBoxArray(5))
             ->add(
                 'manager',
                 null,
                 array(
                     'label'    => 'Administrador',
-                    'required' => true,
+                    'required' => false,
+                )
+            )
+            ->add(
+                'power',
+                null,
+                array(
+                    'label'    => 'Potència',
+                    'required' => false,
                 )
             )
             ->add(
@@ -67,31 +84,6 @@ class WindfarmAdmin extends AbstractBaseAdmin
                 array(
                     'label'    => 'Any',
                     'required' => false
-                )
-            )
-            ->end()
-            ->with('Controls', $this->getFormMdSuccessBoxArray(5))
-            ->add(
-                'enabled',
-                CheckboxType::class,
-                array(
-                    'label'    => 'Actiu',
-                    'required' => false,
-                )
-            )
-            ->add(
-                'customer',
-                null,
-                array(
-                    'label'    => 'Client',
-                    'required' => true,
-                )
-            )
-            ->add(
-                'power',
-                null,
-                array(
-                    'label' => 'Potència',
                 )
             )
             ->end()
@@ -161,14 +153,6 @@ class WindfarmAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'Província',
                 )
-            )
-            ->add(
-                'enabled',
-                null,
-                array(
-                    'label'    => 'Actiu',
-                    'editable' => true,
-                )
             );
     }
 
@@ -188,19 +172,42 @@ class WindfarmAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'customer',
+                'city',
                 null,
                 array(
-                    'label'    => 'Client',
+                    'label'    => 'Ciutat',
                     'editable' => true,
                 )
             )
             ->add(
-                'enabled',
+                'state',
                 null,
                 array(
-                    'label'    => 'Actiu',
-                    'editable' => true,
+                    'label'                            => 'Província',
+                    'sortable'                         => true,
+                    'sort_field_mapping'               => array('fieldName' => 'name'),
+                    'sort_parent_association_mappings' => array(array('fieldName' => 'state')),
+                )
+            )
+            ->add(
+                'customer',
+                null,
+                array(
+                    'label'                            => 'Client',
+                    'sortable'                         => true,
+                    'sort_field_mapping'               => array('fieldName' => 'name'),
+                    'sort_parent_association_mappings' => array(array('fieldName' => 'customer')),
+                )
+            )
+            ->add(
+                'manager',
+                null,
+                array(
+                    'label'                            => 'Administrador',
+                    'sortable'                         => true,
+                    'sort_field_mapping'               => array('fieldName' => 'lastname'),
+                    'sort_parent_association_mappings' => array(array('fieldName' => 'manager')),
+                    'template'                         => '::Admin/Cells/list__windfarm_manager_fullname.html.twig',
                 )
             )
             ->add(

@@ -30,6 +30,8 @@
 !/web/uploads/.gitkeep
 /web/media/*
 !/web/media/.gitkeep
+/web/js/
+/web/css/
 
 # Assets managed by Bower
 /web/assets/vendor/
@@ -54,3 +56,4 @@
 /app/config/deploy.rb
 
 !/.travis.yml
+
