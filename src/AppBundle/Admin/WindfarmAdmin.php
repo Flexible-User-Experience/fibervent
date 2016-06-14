@@ -83,19 +83,21 @@ class WindfarmAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'power',
-                null,
-                array(
-                    'label'    => 'Potència',
-                    'required' => false,
-                )
-            )
-            ->add(
                 'year',
                 null,
                 array(
                     'label'    => 'Any',
                     'required' => false
+                )
+            )
+            ->add(
+                'power',
+                null,
+                array(
+                    'label'       => 'Potència',
+                    'required'    => false,
+                    'help'        => 'MW',
+                    'sonata_help' => 'MW',
                 )
             )
             ->end()
