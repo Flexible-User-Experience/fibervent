@@ -57,6 +57,8 @@ class CustomerAdmin extends AbstractBaseAdmin
                     'label' => 'Nom',
                 )
             )
+            ->end()
+            ->with('Dades Postals', $this->getFormMdSuccessBoxArray(7))
             ->add(
                 'address',
                 null,
