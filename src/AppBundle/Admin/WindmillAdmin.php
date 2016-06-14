@@ -34,10 +34,12 @@ class WindmillAdmin extends AbstractBaseAdmin
             ->with('General', $this->getFormMdSuccessBoxArray(4))
             ->add(
                 'windfarm',
-                null,
+                'sonata_type_model',
                 array(
                     'label'    => 'Parc Eòlic',
+                    'btn_add'  => false,
                     'required' => true,
+                    'query'    => $this->wfr->findAllSortedByNameQ()
                 )
             )
             ->add(
@@ -57,6 +59,7 @@ class WindmillAdmin extends AbstractBaseAdmin
                     'btn_add'    => true,
                     'btn_delete' => false,
                     'required'   => true,
+                    'query'      => $this->tr->findAllSortedByModelQ()
                 )
             )
             ->add(
@@ -67,6 +70,7 @@ class WindmillAdmin extends AbstractBaseAdmin
                     'btn_add'    => true,
                     'btn_delete' => false,
                     'required'   => true,
+                    'query'      => $this->br->findAllSortedByModelQ()
                 )
             )
             ->end();

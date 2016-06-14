@@ -2,7 +2,10 @@
 
 namespace AppBundle\Admin;
 
+use AppBundle\Repository\BladeRepository;
 use AppBundle\Repository\StateRepository;
+use AppBundle\Repository\TurbineRepository;
+use AppBundle\Repository\WindfarmRepository;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Liip\ImagineBundle\Imagine\Cache\CacheManager;
@@ -17,6 +20,21 @@ use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
  */
 abstract class AbstractBaseAdmin extends AbstractAdmin
 {
+    /**
+     * @var WindfarmRepository
+     */
+    protected $wfr;
+
+    /**
+     * @var BladeRepository
+     */
+    protected $br;
+
+    /**
+     * @var TurbineRepository
+     */
+    protected $tr;
+
     /**
      * @var StateRepository
      */
@@ -33,16 +51,22 @@ abstract class AbstractBaseAdmin extends AbstractAdmin
     protected $lis;
 
     /**
-     * @param string          $code
-     * @param string          $class
-     * @param string          $baseControllerName
-     * @param StateRepository $sr
-     * @param UploaderHelper  $vus
-     * @param CacheManager    $lis
+     * @param string             $code
+     * @param string             $class
+     * @param string             $baseControllerName
+     * @param WindfarmRepository $wfr
+     * @param BladeRepository    $br
+     * @param TurbineRepository  $tr
+     * @param StateRepository    $sr
+     * @param UploaderHelper     $vus
+     * @param CacheManager       $lis
      */
-    public function __construct($code, $class, $baseControllerName, StateRepository $sr, UploaderHelper $vus, CacheManager $lis)
+    public function __construct($code, $class, $baseControllerName, WindfarmRepository $wfr, BladeRepository $br, TurbineRepository $tr, StateRepository $sr, UploaderHelper $vus, CacheManager $lis)
     {
         parent::__construct($code, $class, $baseControllerName);
+        $this->wfr = $wfr;
+        $this->br  = $br;
+        $this->tr  = $tr;
         $this->sr  = $sr;
         $this->vus = $vus;
         $this->lis = $lis;
