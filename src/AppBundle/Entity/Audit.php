@@ -131,11 +131,11 @@ class Audit extends AbstractBase
     }
 
     /**
-     * @param \DateTime $endDate
+     * @param \DateTime|null $endDate
      *
      * @return Audit
      */
-    public function setEndDate(\DateTime $endDate)
+    public function setEndDate($endDate)
     {
         $this->endDate = $endDate;
 

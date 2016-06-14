@@ -1,0 +1,5 @@
+{% block action_button_widget %}
+    {% spaceless %}
+        <a href="{{ url }}" class="{{ css }}">{% if icon %}<i class="{{ icon }}"></i> {% endif %}{{ text }}</a>
+    {% endspaceless %}
+{% endblock %}

@@ -74,4 +74,33 @@ class AuditAdminController extends AbstractBaseAdminController
             )
         );
     }
+
+    /**
+     * Custom email action
+     *
+     * @param null $id
+     *
+     * @return Response
+     * @throws NotFoundHttpException If the object does not exist
+     * @throws AccessDeniedException If access is not granted
+     */
+    public function emailAction($id = null)
+    {
+        $request = $this->resolveRequest();
+        $id = $request->get($this->admin->getIdParameter());
+
+        /** @var Audit $object */
+        $object = $this->admin->getObject($id);
+        if (!$object) {
+            throw $this->createNotFoundException(sprintf('Unable to find audit record with id : %s', $id));
+        }
+
+        return $this->render(
+            ':Admin/Audit:email.html.twig',
+            array(
+                'action' => 'show',
+                'object' => $object,
+            )
+        );
+    }
 }

@@ -88,7 +88,7 @@ class UserAdmin extends ParentUserAdmin
                 'file',
                 array(
                     'label'    => 'Foto',
-//                    'help'     => $this->getImageHelperFormMapperWithThumbnail(),
+                    'help'     => $this->getImageHelperFormMapperWithThumbnail(),
                     'required' => false,
                 )
             )
@@ -212,19 +212,17 @@ class UserAdmin extends ParentUserAdmin
                     'label' => 'Telèfon',
                 )
             )
-//            ->add(
-//                'roles',
-//                null,
-//                array(
-//                    'label' => 'Rols',
-//                ),
-//                'choice',
-//                array(
-//                    'expanded' => false,
-//                    'multiple' => true,
-//                    'choices'  => UserRolesEnum::getEnumArray(),
-//                )
-//            )
+            ->add(
+                'roles',
+                'doctrine_orm_choice',
+                array(
+                    'label'         => 'Rols',
+                    'field_type'    => 'choice',
+                    'field_options' => array(
+                        'choices' => UserRolesEnum::getEnumArray(),
+                    ),
+                )
+            )
             ->add(
                 'locked',
                 null,
@@ -323,5 +321,21 @@ class UserAdmin extends ParentUserAdmin
                     ),
                 )
             );
+    }
+
+    /**
+     * Get image helper form mapper with thumbnail
+     *
+     * @return string
+     */
+    private function getImageHelperFormMapperWithThumbnail()
+    {
+        $lis = $this->getConfigurationPool()->getContainer()->get('liip_imagine.cache.manager');
+        $vus = $this->getConfigurationPool()->getContainer()->get('vich_uploader.templating.helper.uploader_helper');
+
+        return ($this->getSubject() ? $this->getSubject()->getImageName() ? '<img src="' . $lis->getBrowserPath(
+                $vus->asset($this->getSubject(), 'imageFile'),
+                '480xY'
+            ) . '" class="admin-preview img-responsive" alt="thumbnail"/>' : '' : '') . '<span style="width:100%;display:block;">Fins a 10MB amb format PNG, JPG or GIF. Amplada mínima 320px.</span>';
     }
 }
