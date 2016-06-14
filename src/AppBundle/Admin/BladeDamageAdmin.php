@@ -102,6 +102,9 @@ class BladeDamageAdmin extends AbstractBaseAdmin
                 array(
                     'label'    => 'Pala',
                     'required' => true,
+                    'attr'     => array(
+                        'hidden' => true,
+                    ),
                 )
             )
             ->add(
