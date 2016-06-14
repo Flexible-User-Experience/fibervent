@@ -4,3 +4,18 @@ services:
         factory: [ "@doctrine", getRepository ]
         arguments:
             - AppBundle:State
+    app.turbine_repository:
+        class: AppBundle\Repository\TurbineRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - AppBundle:Turbine
+    app.blade_repository:
+        class: AppBundle\Repository\BladeRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - AppBundle:Blade
+    app.windfarm_repository:
+        class: AppBundle\Repository\WindfarmRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - AppBundle:Windfarm

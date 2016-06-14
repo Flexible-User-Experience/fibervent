@@ -5,7 +5,7 @@
                 <div class="form-group">
                     <label for="{{ id }}_inut" class="control-label inline"></label>
                     <input type="text" class="form-control inline" id="{{ id }}_input" style="width:50%;margin-bottom:5px"/><button id="{{ id }}_search_button" class="btn btn-default" style="margin-top:-3px">Buscar al mapa</button>
-                    <div id="{{ id }}_map_canvas" class="gmap" style="width: 100%; height: 350px"></div>
+                    <div id="{{ id }}_map_canvas" class="gmap" style="width: 100%; height: 450px"></div>
                     <div id="{{ id }}_error"></div>
                 </div>
             </div>
@@ -16,7 +16,7 @@
             {% endfor %}
         {% endblock %}
         {% block oh_google_maps_javascripts %}
-            <script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=true&language=ca"></script>
+            <script src="https://maps.googleapis.com/maps/api/js?key={{ google_maps_api_key }}" defer></script>
             <script type="text/javascript" src="{{ asset('bundles/ohgooglemapformtype/js/jquery.ohgooglemaps.js') }}"></script>
         {% endblock %}
         {% block oh_google_maps_javascript %}

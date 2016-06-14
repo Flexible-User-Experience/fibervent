@@ -42,7 +42,7 @@ class CustomerAdmin extends AbstractBaseAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->with('General', $this->getFormMdSuccessBoxArray(7))
+            ->with('General', $this->getFormMdSuccessBoxArray(4))
             ->add(
                 'code',
                 null,
@@ -57,6 +57,34 @@ class CustomerAdmin extends AbstractBaseAdmin
                     'label' => 'Nom',
                 )
             )
+            ->end()
+            ->with('Contacte', $this->getFormMdSuccessBoxArray(4))
+            ->add(
+                'email',
+                EmailType::class,
+                array(
+                    'label' => 'Correu Electrònic',
+                )
+            )
+            ->add(
+                'phone',
+                null,
+                array(
+                    'label' => 'Telèfon',
+                )
+            )
+            ->add(
+                'web',
+                UrlType::class,
+                array(
+                    'label'       => 'Web',
+                    'required'    => false,
+                    'help'        => 'http://...',
+                    'sonata_help' => 'http://...',
+                )
+            )
+            ->end()
+            ->with('Dades Postals', $this->getFormMdSuccessBoxArray(4))
             ->add(
                 'address',
                 null,
@@ -87,32 +115,6 @@ class CustomerAdmin extends AbstractBaseAdmin
                     'btn_delete' => false,
                     'required'   => true,
                     'query'      => $this->sr->findAllSortedByNameQ(),
-                )
-            )
-            ->end()
-            ->with('Contacte', $this->getFormMdSuccessBoxArray(5))
-            ->add(
-                'email',
-                EmailType::class,
-                array(
-                    'label' => 'Correu Electrònic',
-                )
-            )
-            ->add(
-                'phone',
-                null,
-                array(
-                    'label' => 'Telèfon',
-                )
-            )
-            ->add(
-                'web',
-                UrlType::class,
-                array(
-                    'label'       => 'Web',
-                    'required'    => false,
-                    'help'        => 'http://...',
-                    'sonata_help' => 'http://...',
                 )
             )
             ->end();
@@ -263,16 +265,6 @@ class CustomerAdmin extends AbstractBaseAdmin
                 array(
                     'label'    => 'Ciutat',
                     'editable' => true,
-                )
-            )
-            ->add(
-                'state',
-                null,
-                array(
-                    'label'                            => 'Província',
-                    'sortable'                         => true,
-                    'sort_field_mapping'               => array('fieldName' => 'name'),
-                    'sort_parent_association_mappings' => array(array('fieldName' => 'state')),
                 )
             )
             ->add(

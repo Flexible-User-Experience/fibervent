@@ -2,11 +2,10 @@
 
 namespace AppBundle\Admin;
 
+use AppBundle\Entity\AuditWindmillBlade;
 use AppBundle\Form\Type\ActionButtonFormType;
 use Sonata\AdminBundle\Datagrid\ListMapper;
-use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
 /**
  * Class AuditWindmillBladeAdmin
@@ -69,44 +68,27 @@ class AuditWindmillBladeAdmin extends AbstractBaseAdmin
                 ->end();
         } else {
             // else is normal admin view
+            /** @var AuditWindmillBlade $awb */
+            $awb = $this->getSubject();
+            $text = $awb->getWindmillBlade() ? $awb->getWindmillBlade()->getCode() : '';
             $formMapper
-                ->with('General', $this->getFormMdSuccessBoxArray(12))
-                ->add(
-                    'audit',
-                    HiddenType::class,
-                    array(
-                        'label'    => 'Auditoria',
-                        'required' => true,
-                        'attr'     => array(
-                            'hidden' => true,
-                        ),
-                    )
-                )
-                ->add(
-                    'windmillBlade',
-                    HiddenType::class,
-                    array(
-                        'label'    => 'Pala',
-                        'required' => true,
-                        'disabled' => true,
-                    )
-                )
+                ->with('Situació i descripció dels danys · Pala ' . $text, $this->getFormMdSuccessBoxArray(12))
                 ->add(
                     'bladeDamages',
                     'sonata_type_collection',
                     array(
-                        'label'              => ' ',
-                        'required'           => false,
+                        'label'              => 'Danys',
+                        'required'           => true,
                         'cascade_validation' => true,
                     ),
                     array(
-                        'edit'   => 'inline',
-                        'inline' => 'table',
+                        'edit'     => 'inline',
+                        'inline'   => 'table',
+                        'sortable' => 'number',
                     )
                 )
                 ->end();
         }
-
     }
 
     /**

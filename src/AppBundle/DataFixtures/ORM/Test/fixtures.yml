@@ -75,7 +75,7 @@ AppBundle\Entity\Audit:
 # AuditWindmillBlade
 AppBundle\Entity\AuditWindmillBlade:
   auditwindmillblade{1..3}:
-    audit: @audit<numberBetween(1, 2)>
+    audit: @audit1
     windmillblade: @windmillblade<numberBetween(1, 3)>
 
 # Damage

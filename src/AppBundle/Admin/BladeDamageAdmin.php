@@ -4,6 +4,7 @@ namespace AppBundle\Admin;
 
 use AppBundle\Enum\BladeDamagePositionEnum;
 use AppBundle\Enum\BladeDamageStatusEnum;
+use AppBundle\Form\Type\ActionButtonFormType;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
@@ -32,13 +33,13 @@ class BladeDamageAdmin extends AbstractBaseAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->with('General', $this->getFormMdSuccessBoxArray(7))
+            ->with('General', $this->getFormMdSuccessBoxArray(3))
             ->add(
                 'number',
                 null,
                 array(
-                    'label'    => 'Num. Dany',
-                    'required' => true,
+                    'label'    => 'Núm.',
+                    'required' => false,
                 )
             )
             ->add(
@@ -64,8 +65,8 @@ class BladeDamageAdmin extends AbstractBaseAdmin
                 'radius',
                 null,
                 array(
-                    'label'    => 'Radi',
-                    'required' => true,
+                    'label'       => 'Radi',
+                    'required'    => true,
                     'help'        => 'm',
                     'sonata_help' => 'm',
                 )
@@ -85,14 +86,14 @@ class BladeDamageAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label'    => 'Dimensió',
-                    'required' => true,
+                    'required' => false,
                 )
             )
             ->add(
                 'damageCategory',
                 null,
                 array(
-                    'label'    => 'Categoria',
+                    'label'    => 'Cat.',
                     'required' => true,
                 )
             )
@@ -119,9 +120,25 @@ class BladeDamageAdmin extends AbstractBaseAdmin
                 )
             )
             ->end();
-        if ($this->id($this->getSubject())) { // is edit mode, disable on new subjects
+        if ($this->id($this->getSubject()) && $this->getRootCode() != $this->getCode()) {
+            // is edit mode, disable on new subjects and is children
             $formMapper
-                ->with('Fotos', $this->getFormMdSuccessBoxArray(12))
+                ->add(
+                    'fakeAction',
+                    ActionButtonFormType::class,
+                    array(
+                        'text'     => 'Pujar fotos',
+                        'url'      => $this->generateObjectUrl('edit', $this->getSubject()),
+                        'label'    => 'Accions',
+                        'mapped'   => false,
+                        'required' => false,
+                    )
+                )
+                ->end();
+        } else {
+            // is edit mode, disable on new subjects and is children
+            $formMapper
+                ->with('Fotos', $this->getFormMdSuccessBoxArray(9))
                 ->add(
                     'photos',
                     'sonata_type_collection',

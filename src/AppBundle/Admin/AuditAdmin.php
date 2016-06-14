@@ -36,11 +36,10 @@ class AuditAdmin extends AbstractBaseAdmin
      */
     protected function configureRoutes(RouteCollection $collection)
     {
-        parent::configureRoutes($collection);
         $collection
+            ->remove('batch')
             ->add('pdf', $this->getRouterIdParameter() . '/pdf')
-            ->add('email', $this->getRouterIdParameter() . '/email')
-            ->add('show', $this->getRouterIdParameter() . '/show');
+            ->add('email', $this->getRouterIdParameter() . '/email');
     }
 
     /**
@@ -84,7 +83,7 @@ class AuditAdmin extends AbstractBaseAdmin
                     'label'    => 'Observacions',
                     'required' => false,
                     'attr'     => array(
-                        'rows' => 8,
+                        'rows' => 10,
                     )
                 )
             )
@@ -113,7 +112,7 @@ class AuditAdmin extends AbstractBaseAdmin
                 array(
                     'label'    => 'Tècnics Inspecció',
                     'multiple' => true,
-                    'required' => true,
+                    'required' => false,
                 )
             )
             ->add(
@@ -123,7 +122,7 @@ class AuditAdmin extends AbstractBaseAdmin
                     'label'    => 'Estat',
                     'choices'  => AuditStatusEnum::getEnumArray(),
                     'multiple' => false,
-                    'expanded' => true,
+                    'expanded' => false,
                     'required' => true,
                 )
             )
@@ -151,8 +150,6 @@ class AuditAdmin extends AbstractBaseAdmin
                 ->end();
         }
     }
-
-    // http://fibervent.dev/app_dev.php/admin/audits/blade-damage/create?uniqid=s575fcf24a2cf8&code=admin.blade_damage&pcode=admin.audit_windmill_blade&puniqid=s575fcf24a345b
 
     /**
      * @param DatagridMapper $datagridMapper
@@ -273,7 +270,8 @@ class AuditAdmin extends AbstractBaseAdmin
                 'windmill',
                 null,
                 array(
-                    'label' => 'Aerogenerador',
+                    'label'               => 'Aerogenerador',
+                    'associated_property' => 'code',
                 )
             )
             ->add(
