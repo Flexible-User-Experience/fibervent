@@ -14,3 +14,8 @@ services:
         factory: [ "@doctrine", getRepository ]
         arguments:
             - AppBundle:Blade
+    app.windfarm_repository:
+        class: AppBundle\Repository\WindfarmRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - AppBundle:Windfarm

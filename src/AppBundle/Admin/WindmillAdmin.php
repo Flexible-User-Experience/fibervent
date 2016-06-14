@@ -30,16 +30,16 @@ class WindmillAdmin extends AbstractBaseAdmin
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
-        $br = $this->getConfigurationPool()->getContainer()->get('doctrine')->getRepository('AppBundle:Blade');
-        $tr = $this->getConfigurationPool()->getContainer()->get('doctrine')->getRepository('AppBundle:Turbine');
         $formMapper
             ->with('General', $this->getFormMdSuccessBoxArray(4))
             ->add(
                 'windfarm',
-                null,
+                'sonata_type_model',
                 array(
                     'label'    => 'Parc Eòlic',
+                    'btn_add'  => false,
                     'required' => true,
+                    'query'    => $this->wfr->findAllSortedByNameQ()
                 )
             )
             ->add(
@@ -59,7 +59,7 @@ class WindmillAdmin extends AbstractBaseAdmin
                     'btn_add'    => true,
                     'btn_delete' => false,
                     'required'   => true,
-                    'query'      => $tr->findAllSortedByModelQ()
+                    'query'      => $this->tr->findAllSortedByModelQ()
                 )
             )
             ->add(
@@ -70,7 +70,7 @@ class WindmillAdmin extends AbstractBaseAdmin
                     'btn_add'    => true,
                     'btn_delete' => false,
                     'required'   => true,
-                    'query'      => $br->findAllSortedByModelQ()
+                    'query'      => $this->br->findAllSortedByModelQ()
                 )
             )
             ->end();
