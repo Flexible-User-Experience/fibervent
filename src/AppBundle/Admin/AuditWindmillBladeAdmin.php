@@ -6,6 +6,7 @@ use AppBundle\Form\Type\ActionButtonFormType;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
 /**
  * Class AuditWindmillBladeAdmin
@@ -28,31 +29,31 @@ class AuditWindmillBladeAdmin extends AbstractBaseAdmin
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
-        $formMapper
-            ->with('General', $this->getFormMdSuccessBoxArray(3))
-            ->add(
-                'audit',
-                null,
-                array(
-                    'label'    => 'Auditoria',
-                    'required' => true,
-                    'attr'     => array(
-                        'hidden' => true,
-                    ),
-                )
-            )
-            ->add(
-                'windmillBlade',
-                null,
-                array(
-                    'label'    => 'Pala',
-                    'required' => true,
-                    'disabled' => true,
-                )
-            )
-            ->end();
-        if ($this->id($this->getSubject())) { // is edit mode, disable on new subjects
+        if ($this->id($this->getSubject()) && $this->getRootCode() != $this->getCode()) {
+            // is edit mode, disable on new subjects and is children
             $formMapper
+                ->with('General', $this->getFormMdSuccessBoxArray(3))
+                ->add(
+                    'audit',
+                    null,
+                    array(
+                        'label'    => 'Auditoria',
+                        'required' => true,
+                        'attr'     => array(
+                            'hidden' => true,
+                        ),
+                    )
+                )
+                ->add(
+                    'windmillBlade',
+                    null,
+                    array(
+                        'label'    => 'Pala',
+                        'required' => true,
+                        'disabled' => true,
+                    )
+                )
+                ->end()
                 ->with('Danys', $this->getFormMdSuccessBoxArray(3))
                 ->add(
                     'fakeAction',
@@ -66,7 +67,46 @@ class AuditWindmillBladeAdmin extends AbstractBaseAdmin
                     )
                 )
                 ->end();
+        } else {
+            // else is normal admin view
+            $formMapper
+                ->with('General', $this->getFormMdSuccessBoxArray(12))
+                ->add(
+                    'audit',
+                    HiddenType::class,
+                    array(
+                        'label'    => 'Auditoria',
+                        'required' => true,
+                        'attr'     => array(
+                            'hidden' => true,
+                        ),
+                    )
+                )
+                ->add(
+                    'windmillBlade',
+                    HiddenType::class,
+                    array(
+                        'label'    => 'Pala',
+                        'required' => true,
+                        'disabled' => true,
+                    )
+                )
+                ->add(
+                    'bladeDamages',
+                    'sonata_type_collection',
+                    array(
+                        'label'              => ' ',
+                        'required'           => false,
+                        'cascade_validation' => true,
+                    ),
+                    array(
+                        'edit'   => 'inline',
+                        'inline' => 'table',
+                    )
+                )
+                ->end();
         }
+
     }
 
     /**
