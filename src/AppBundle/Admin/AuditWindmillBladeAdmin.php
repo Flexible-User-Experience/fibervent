@@ -68,6 +68,7 @@ class AuditWindmillBladeAdmin extends AbstractBaseAdmin
         } else {
             // else is normal admin view
             $formMapper
+                ->with('General', $this->getFormMdSuccessBoxArray(12))
                 ->add(
                     'bladeDamages',
                     'sonata_type_collection',
@@ -77,8 +78,8 @@ class AuditWindmillBladeAdmin extends AbstractBaseAdmin
                         'cascade_validation' => true,
                     ),
                     array(
-                        'edit'   => 'inline',
-                        'inline' => 'table',
+                        'edit'     => 'inline',
+                        'inline'   => 'table',
                         'sortable' => 'number',
                     )
                 )
