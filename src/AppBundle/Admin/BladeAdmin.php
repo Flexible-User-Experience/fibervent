@@ -5,7 +5,6 @@ namespace AppBundle\Admin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 /**
  * Class BladeAdmin
@@ -42,18 +41,10 @@ class BladeAdmin extends AbstractBaseAdmin
                 'length',
                 null,
                 array(
-                    'label'    => 'Longitud',
-                    'required' => true,
-                )
-            )
-            ->end()
-            ->with('Controls', $this->getFormMdSuccessBoxArray(5))
-            ->add(
-                'enabled',
-                CheckboxType::class,
-                array(
-                    'label'    => 'Actiu',
-                    'required' => false,
+                    'label'       => 'Longitud',
+                    'required'    => true,
+                    'help'        => 'm',
+                    'sonata_help' => 'm',
                 )
             )
             ->end();
