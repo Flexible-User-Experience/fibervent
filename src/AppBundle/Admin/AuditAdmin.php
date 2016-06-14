@@ -272,8 +272,8 @@ class AuditAdmin extends AbstractBaseAdmin
                 'windmill',
                 null,
                 array(
-                    'label' => 'Aerogenerador',
-                    'code' => 'code',
+                    'label'               => 'Aerogenerador',
+                    'associated_property' => 'code',
                 )
             )
             ->add(
