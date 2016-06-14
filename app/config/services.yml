@@ -67,7 +67,7 @@ services:
         class: AppBundle\Admin\AuditWindmillBladeAdmin
         arguments: [ ~, AppBundle\Entity\AuditWindmillBlade, ~, "@app.state_repository", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: "Audit Dany Pala", group: "Auditoria", show_in_dashboard: false }
+            - { name: sonata.admin, manager_type: orm, label: "Audit Dany Pala", group: "Auditoria", show_in_dashboard: true }
     admin.user:
         class: AppBundle\Admin\UserAdmin
         arguments: [ ~, AppBundle\Entity\User, ~, "@fos_user.user_manager" ]
@@ -81,7 +81,6 @@ services:
             - "@liip_imagine.cache.manager"
             - "@vich_uploader.templating.helper.uploader_helper"
             - "%kernel.root_dir%"
-# Form types
 # Form types
     app.form_type_action_button:
         class: AppBundle\Form\Type\ActionButtonFormType

@@ -59,7 +59,7 @@ class AuditWindmillBladeAdmin extends AbstractBaseAdmin
                     ActionButtonFormType::class,
                     array(
                         'text'     => 'Editar danys',
-                        'url'      => 'http://www.flux.cat',
+                        'url'      => $this->generateObjectUrl('edit', $this->getSubject()),
                         'label'    => 'Accions',
                         'mapped'   => false,
                         'required' => false,
