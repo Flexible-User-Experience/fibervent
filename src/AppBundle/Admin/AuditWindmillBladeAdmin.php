@@ -70,8 +70,9 @@ class AuditWindmillBladeAdmin extends AbstractBaseAdmin
             // else is normal admin view
             /** @var AuditWindmillBlade $awb */
             $awb = $this->getSubject();
+            $text = $awb->getWindmillBlade() ? $awb->getWindmillBlade()->getCode() : '';
             $formMapper
-                ->with('Situació i descripció dels danys · Pala ' . $awb->getWindmillBlade()->getCode(), $this->getFormMdSuccessBoxArray(12))
+                ->with('Situació i descripció dels danys · Pala ' . $text, $this->getFormMdSuccessBoxArray(12))
                 ->add(
                     'bladeDamages',
                     'sonata_type_collection',
