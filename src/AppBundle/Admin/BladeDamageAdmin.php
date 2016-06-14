@@ -3,6 +3,7 @@
 namespace AppBundle\Admin;
 
 use AppBundle\Enum\BladeDamagePositionEnum;
+use AppBundle\Enum\BladeDamageStatusEnum;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
@@ -105,9 +106,12 @@ class BladeDamageAdmin extends AbstractBaseAdmin
             )
             ->add(
                 'status',
-                null,
+                ChoiceType::class,
                 array(
                     'label'    => 'Estat',
+                    'choices'  => BladeDamageStatusEnum::getEnumArray(),
+                    'multiple' => false,
+                    'expanded' => false,
                     'required' => true,
                 )
             )
