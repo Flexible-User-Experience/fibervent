@@ -61,14 +61,18 @@ class BladeDamageAdmin extends AbstractBaseAdmin
                 array(
                     'label'    => 'Radi',
                     'required' => true,
+                    'help'        => 'm',
+                    'sonata_help' => 'm',
                 )
             )
             ->add(
                 'distance',
                 null,
                 array(
-                    'label'    => 'Distància',
-                    'required' => true,
+                    'label'       => 'Distància',
+                    'required'    => true,
+                    'help'        => 'm',
+                    'sonata_help' => 'm',
                 )
             )
             ->add(
@@ -116,8 +120,8 @@ class BladeDamageAdmin extends AbstractBaseAdmin
                         'cascade_validation' => true,
                     ),
                     array(
-                        'edit'     => 'inline',
-                        'inline'   => 'table',
+                        'edit'   => 'inline',
+                        'inline' => 'table',
                     )
                 )
                 ->end();

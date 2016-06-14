@@ -46,6 +46,24 @@ class AuditWindmillBladeAdmin extends AbstractBaseAdmin
                 )
             )
             ->end();
+        if ($this->id($this->getSubject())) { // is edit mode, disable on new subjects
+            $formMapper
+                ->with('Danys', $this->getFormMdSuccessBoxArray(12))
+                ->add(
+                    'bladeDamages',
+                    'sonata_type_collection',
+                    array(
+                        'label'              => ' ',
+                        'required'           => false,
+                        'cascade_validation' => true,
+                    ),
+                    array(
+                        'edit'     => 'inline',
+                        'inline'   => 'table',
+                    )
+                )
+                ->end();
+        }
     }
 
     /**
