@@ -151,8 +151,6 @@ class AuditAdmin extends AbstractBaseAdmin
         }
     }
 
-    // http://fibervent.dev/app_dev.php/admin/audits/blade-damage/create?uniqid=s575fcf24a2cf8&code=admin.blade_damage&pcode=admin.audit_windmill_blade&puniqid=s575fcf24a345b
-
     /**
      * @param DatagridMapper $datagridMapper
      */

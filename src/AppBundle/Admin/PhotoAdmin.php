@@ -2,6 +2,8 @@
 
 namespace AppBundle\Admin;
 
+use AppBundle\Form\Type\ActionButtonFormType;
+use Oh\GoogleMapFormTypeBundle\Form\Type\GoogleMapType;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
@@ -28,38 +30,66 @@ class PhotoAdmin extends AbstractBaseAdmin
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
-        $formMapper
-            ->with('General', $this->getFormMdSuccessBoxArray(7))
-            ->add(
-                'bladeDamage',
-                null,
-                array(
-                    'attr' => array(
-                        'hidden' => true,
-                    ),
+        if ($this->id($this->getSubject()) && $this->getRootCode() != $this->getCode()) {
+            // is edit mode, disable on new subjects and is children
+            $formMapper
+                ->with('General', $this->getFormMdSuccessBoxArray(3))
+                ->add(
+                    'bladeDamage',
+                    null,
+                    array(
+                        'attr' => array(
+                            'hidden' => true,
+                        ),
+                    )
                 )
-            )
-            ->add(
-                'imageFile',
-                'file',
-                array(
-                    'label'       => 'Foto',
-                    'help'        => $this->getImageHelperFormMapperWithThumbnail(),
-                    'sonata_help' => $this->getImageHelperFormMapperWithThumbnail(),
-                    'required'    => false,
+                ->add(
+                    'fakeAction',
+                    ActionButtonFormType::class,
+                    array(
+                        'text'     => 'Editar danys',
+                        'url'      => $this->generateObjectUrl('edit', $this->getSubject()),
+                        'label'    => 'Accions',
+                        'mapped'   => false,
+                        'required' => false,
+                    )
                 )
-            )
-//            ->end()
-//            ->with('Geolocalització', $this->getFormMdSuccessBoxArray(12))
-//            ->add(
-//                'latLng',
-//                GoogleMapType::class,
-//                array(
-//                    'label'    => 'Mapa',
-//                    'required' => false
+                ->end();
+        } else {
+            // else is normal admin view
+            $formMapper
+                ->with('General', $this->getFormMdSuccessBoxArray(7))
+                ->add(
+                    'bladeDamage',
+                    null,
+                    array(
+                        'attr' => array(
+                            'hidden' => true,
+                        ),
+                    )
+                )
+                ->add(
+                    'imageFile',
+                    'file',
+                    array(
+                        'label'       => 'Foto',
+                        'help'        => $this->getImageHelperFormMapperWithThumbnail(),
+                        'sonata_help' => $this->getImageHelperFormMapperWithThumbnail(),
+                        'required'    => false,
+                    )
+                )
+//                ->end()
+//                ->with('Geolocalització', $this->getFormMdSuccessBoxArray(12))
+//                ->add(
+//                    'latLng',
+//                    GoogleMapType::class,
+//                    array(
+//                        'label'    => 'Mapa',
+//                        'required' => false
+//                    )
 //                )
-//            )
-            ->end();
+                ->end();
+        }
     }
 
     /**
