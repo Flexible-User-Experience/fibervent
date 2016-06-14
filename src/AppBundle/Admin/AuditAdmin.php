@@ -130,7 +130,7 @@ class AuditAdmin extends AbstractBaseAdmin
             ->end();
         if ($this->id($this->getSubject())) { // is edit mode, disable on new subjects
             $formMapper
-                ->with('Pales auditades', $this->getFormMdSuccessBoxArray(12))
+                ->with('Pales auditades', $this->getFormMdSuccessBoxArray(5))
                 ->add(
                     'auditWindmillBlades',
                     'sonata_type_collection',

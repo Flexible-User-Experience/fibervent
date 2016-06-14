@@ -81,3 +81,9 @@ services:
             - "@liip_imagine.cache.manager"
             - "@vich_uploader.templating.helper.uploader_helper"
             - "%kernel.root_dir%"
+# Form types
+# Form types
+    app.form_type_action_button:
+        class: AppBundle\Form\Type\ActionButtonFormType
+        tags:
+            - { name: form.type, alias: action_button }

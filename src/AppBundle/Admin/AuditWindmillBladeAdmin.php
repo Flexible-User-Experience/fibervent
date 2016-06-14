@@ -2,6 +2,7 @@
 
 namespace AppBundle\Admin;
 
+use AppBundle\Form\Type\ActionButtonFormType;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
@@ -52,20 +53,18 @@ class AuditWindmillBladeAdmin extends AbstractBaseAdmin
             ->end();
         if ($this->id($this->getSubject())) { // is edit mode, disable on new subjects
             $formMapper
-                ->with('Danys', $this->getFormMdSuccessBoxArray(9))
-//                ->add(
-//                    'bladeDamages',
-//                    'sonata_type_collection',
-//                    array(
-//                        'label'              => 'Danys',
-//                        'required'           => false,
-//                        'cascade_validation' => true,
-//                    ),
-//                    array(
-//                        'edit'   => 'inline',
-//                        'inline' => 'table',
-//                    )
-//                )
+                ->with('Danys', $this->getFormMdSuccessBoxArray(3))
+                ->add(
+                    'fakeAction',
+                    ActionButtonFormType::class,
+                    array(
+                        'text'     => 'Editar danys',
+                        'url'      => 'http://www.flux.cat',
+                        'label'    => 'Accions',
+                        'mapped'   => false,
+                        'required' => false,
+                    )
+                )
                 ->end();
         }
     }
