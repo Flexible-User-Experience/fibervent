@@ -1,0 +1,3 @@
+{% if admin.isGranted('EDIT', object) and admin.hasRoute('email') %}
+    <a href="{{ admin.generateObjectUrl('email', object) }}" class="btn btn-sm btn-default edit_link" title="Email"><i class="fa fa-envelope"></i></a>
+{% endif %}

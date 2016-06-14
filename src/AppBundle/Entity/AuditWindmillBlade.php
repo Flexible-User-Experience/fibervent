@@ -117,6 +117,31 @@ class AuditWindmillBlade extends AbstractBase
     }
 
     /**
+     * @param BladeDamage $bladeDamage
+     *
+     * @return $this
+     */
+    public function addBladeDamage(BladeDamage $bladeDamage)
+    {
+        $bladeDamage->setAuditWindmillBlade($this);
+        $this->bladeDamages->add($bladeDamage);
+
+        return $this;
+    }
+
+    /**
+     * @param BladeDamage $bladeDamage
+     *
+     * @return $this
+     */
+    public function removeBladeDamage(BladeDamage $bladeDamage)
+    {
+        $this->bladeDamages->removeElement($bladeDamage);
+
+        return $this;
+    }
+
+    /**
      * @return string
      */
     public function __toString()
