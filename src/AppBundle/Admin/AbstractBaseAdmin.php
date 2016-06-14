@@ -2,6 +2,7 @@
 
 namespace AppBundle\Admin;
 
+use AppBundle\Repository\BladeRepository;
 use AppBundle\Repository\StateRepository;
 use AppBundle\Repository\TurbineRepository;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
@@ -18,6 +19,11 @@ use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
  */
 abstract class AbstractBaseAdmin extends AbstractAdmin
 {
+    /**
+     * @var BladeRepository
+     */
+    protected $br;
+
     /**
      * @var TurbineRepository
      */
@@ -39,17 +45,19 @@ abstract class AbstractBaseAdmin extends AbstractAdmin
     protected $lis;
 
     /**
-     * @param string          $code
-     * @param string          $class
-     * @param string          $baseControllerName
+     * @param string            $code
+     * @param string            $class
+     * @param string            $baseControllerName
+     * @param BladeRepository   $br
      * @param TurbineRepository $tr
-     * @param StateRepository $sr
-     * @param UploaderHelper  $vus
-     * @param CacheManager    $lis
+     * @param StateRepository   $sr
+     * @param UploaderHelper    $vus
+     * @param CacheManager      $lis
      */
-    public function __construct($code, $class, $baseControllerName, TurbineRepository $tr, StateRepository $sr, UploaderHelper $vus, CacheManager $lis)
+    public function __construct($code, $class, $baseControllerName, BladeRepository $br, TurbineRepository $tr, StateRepository $sr, UploaderHelper $vus, CacheManager $lis)
     {
         parent::__construct($code, $class, $baseControllerName);
+        $this->br  = $br;
         $this->tr  = $tr;
         $this->sr  = $sr;
         $this->vus = $vus;

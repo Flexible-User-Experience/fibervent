@@ -30,6 +30,7 @@ class WindmillAdmin extends AbstractBaseAdmin
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
+        $br = $this->getConfigurationPool()->getContainer()->get('doctrine')->getRepository('AppBundle:Blade');
         $tr = $this->getConfigurationPool()->getContainer()->get('doctrine')->getRepository('AppBundle:Turbine');
         $formMapper
             ->with('General', $this->getFormMdSuccessBoxArray(4))
@@ -69,6 +70,7 @@ class WindmillAdmin extends AbstractBaseAdmin
                     'btn_add'    => true,
                     'btn_delete' => false,
                     'required'   => true,
+                    'query'      => $br->findAllSortedByModelQ()
                 )
             )
             ->end();

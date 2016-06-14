@@ -9,3 +9,8 @@ services:
         factory: [ "@doctrine", getRepository ]
         arguments:
             - AppBundle:Turbine
+    app.blade_repository:
+        class: AppBundle\Repository\BladeRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - AppBundle:Blade
