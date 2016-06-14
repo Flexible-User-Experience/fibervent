@@ -128,7 +128,31 @@ class AuditAdmin extends AbstractBaseAdmin
                 )
             )
             ->end();
+        if ($this->id($this->getSubject())) { // is edit mode, disable on new subjects
+            $formMapper
+                ->with('Pales auditades', $this->getFormMdSuccessBoxArray(12))
+                ->add(
+                    'auditWindmillBlades',
+                    'sonata_type_collection',
+                    array(
+                        'label'              => ' ',
+                        'required'           => false,
+                        'btn_add'            => false,
+                        'cascade_validation' => true,
+                        'type_options'       => array(
+                            'delete' => false,
+                        )
+                    ),
+                    array(
+                        'edit'   => 'inline',
+                        'inline' => 'table',
+                    )
+                )
+                ->end();
+        }
     }
+
+    // http://fibervent.dev/app_dev.php/admin/audits/blade-damage/create?uniqid=s575fcf24a2cf8&code=admin.blade_damage&pcode=admin.audit_windmill_blade&puniqid=s575fcf24a345b
 
     /**
      * @param DatagridMapper $datagridMapper
@@ -140,7 +164,7 @@ class AuditAdmin extends AbstractBaseAdmin
                 'beginDate',
                 'doctrine_orm_date',
                 array(
-                    'label'  => 'Data inici',
+                    'label'      => 'Data inici',
                     'field_type' => 'sonata_type_date_picker',
                 )
             )
@@ -155,21 +179,21 @@ class AuditAdmin extends AbstractBaseAdmin
                 'windmill.windfarm',
                 null,
                 array(
-                    'label'    => 'Parc Eòlic',
+                    'label' => 'Parc Eòlic',
                 )
             )
             ->add(
                 'windmill',
                 null,
                 array(
-                    'label'    => 'Aerogenerador',
+                    'label' => 'Aerogenerador',
                 )
             )
             ->add(
                 'operators',
                 null,
                 array(
-                    'label'    => 'Tècnics Inspecció',
+                    'label' => 'Tècnics Inspecció',
                 )
             )
             ->add(
@@ -189,21 +213,21 @@ class AuditAdmin extends AbstractBaseAdmin
                 'type',
                 null,
                 array(
-                    'label'    => 'Tipus',
+                    'label' => 'Tipus',
                 )
             )
             ->add(
                 'tools',
                 null,
                 array(
-                    'label'    => 'Eines',
+                    'label' => 'Eines',
                 )
             )
             ->add(
                 'observations',
                 null,
                 array(
-                    'label'    => 'Observacions',
+                    'label' => 'Observacions',
                 )
             )
             ->add(
@@ -235,28 +259,28 @@ class AuditAdmin extends AbstractBaseAdmin
                 'windmill.windfarm.customer',
                 null,
                 array(
-                    'label'    => 'Client',
+                    'label' => 'Client',
                 )
             )
             ->add(
                 'windmill.windfarm',
                 null,
                 array(
-                    'label'    => 'Parc Eòlic',
+                    'label' => 'Parc Eòlic',
                 )
             )
             ->add(
                 'windmill',
                 null,
                 array(
-                    'label'    => 'Aerogenerador',
+                    'label' => 'Aerogenerador',
                 )
             )
             ->add(
                 'operators',
                 null,
                 array(
-                    'label'    => 'Tècnics Inspecció',
+                    'label' => 'Tècnics Inspecció',
                 )
             )
             ->add(

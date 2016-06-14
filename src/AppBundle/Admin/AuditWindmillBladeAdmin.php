@@ -28,13 +28,16 @@ class AuditWindmillBladeAdmin extends AbstractBaseAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->with('General', $this->getFormMdSuccessBoxArray(7))
+            ->with('General', $this->getFormMdSuccessBoxArray(3))
             ->add(
                 'audit',
                 null,
                 array(
                     'label'    => 'Auditoria',
                     'required' => true,
+                    'attr'     => array(
+                        'hidden' => true,
+                    ),
                 )
             )
             ->add(
@@ -43,25 +46,26 @@ class AuditWindmillBladeAdmin extends AbstractBaseAdmin
                 array(
                     'label'    => 'Pala',
                     'required' => true,
+                    'disabled' => true,
                 )
             )
             ->end();
         if ($this->id($this->getSubject())) { // is edit mode, disable on new subjects
             $formMapper
-                ->with('Danys', $this->getFormMdSuccessBoxArray(12))
-                ->add(
-                    'bladeDamages',
-                    'sonata_type_collection',
-                    array(
-                        'label'              => ' ',
-                        'required'           => false,
-                        'cascade_validation' => true,
-                    ),
-                    array(
-                        'edit'     => 'inline',
-                        'inline'   => 'table',
-                    )
-                )
+                ->with('Danys', $this->getFormMdSuccessBoxArray(9))
+//                ->add(
+//                    'bladeDamages',
+//                    'sonata_type_collection',
+//                    array(
+//                        'label'              => 'Danys',
+//                        'required'           => false,
+//                        'cascade_validation' => true,
+//                    ),
+//                    array(
+//                        'edit'   => 'inline',
+//                        'inline' => 'table',
+//                    )
+//                )
                 ->end();
         }
     }
