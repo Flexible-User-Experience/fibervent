@@ -33,7 +33,7 @@ class BladeDamageAdmin extends AbstractBaseAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->with('General', $this->getFormMdSuccessBoxArray(5))
+            ->with('General', $this->getFormMdSuccessBoxArray(3))
             ->add(
                 'number',
                 null,
@@ -138,7 +138,7 @@ class BladeDamageAdmin extends AbstractBaseAdmin
         } else {
             // is edit mode, disable on new subjects and is children
             $formMapper
-                ->with('Fotos', $this->getFormMdSuccessBoxArray(7))
+                ->with('Fotos', $this->getFormMdSuccessBoxArray(9))
                 ->add(
                     'photos',
                     'sonata_type_collection',
