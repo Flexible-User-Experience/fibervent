@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use AppBundle\Entity\Traits\ModelTrait;
+use AppBundle\Entity\Traits\PowerTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -21,6 +22,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Turbine extends AbstractBase
 {
     use ModelTrait;
+    use PowerTrait;
 
     /**
      * @var integer
@@ -35,13 +37,6 @@ class Turbine extends AbstractBase
      * @ORM\Column(type="integer")
      */
     private $rotorDiameter;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(type="integer", nullable = true)
-     */
-    private $power;
 
     /**
      * @var ArrayCollection
@@ -102,26 +97,6 @@ class Turbine extends AbstractBase
     public function setRotorDiameter($rotorDiameter)
     {
         $this->rotorDiameter = $rotorDiameter;
-
-        return $this;
-    }
-
-    /**
-     * @return int
-     */
-    public function getPower()
-    {
-        return $this->power;
-    }
-
-    /**
-     * @param int $power
-     *
-     * @return Turbine
-     */
-    public function setPower($power)
-    {
-        $this->power = $power;
 
         return $this;
     }

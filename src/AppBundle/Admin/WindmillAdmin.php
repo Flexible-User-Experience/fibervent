@@ -8,7 +8,6 @@ use Oh\GoogleMapFormTypeBundle\Form\Type\GoogleMapType;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 /**
  * Class WindmillAdmin
@@ -68,14 +67,6 @@ class WindmillAdmin extends AbstractBaseAdmin
                     'btn_add'    => true,
                     'btn_delete' => false,
                     'required'   => true,
-                )
-            )
-            ->add(
-                'enabled',
-                CheckboxType::class,
-                array(
-                    'label'    => 'Actiu',
-                    'required' => false,
                 )
             )
             ->end();
@@ -162,14 +153,6 @@ class WindmillAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'Client',
                 )
-            )
-            ->add(
-                'enabled',
-                null,
-                array(
-                    'label'    => 'Actiu',
-                    'editable' => true,
-                )
             );
     }
 
@@ -210,14 +193,6 @@ class WindmillAdmin extends AbstractBaseAdmin
                 array(
                     'label'    => 'Tipus Pala',
                     'editable' => false,
-                )
-            )
-            ->add(
-                'enabled',
-                null,
-                array(
-                    'label'    => 'Actiu',
-                    'editable' => true,
                 )
             )
             ->add(

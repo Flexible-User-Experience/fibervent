@@ -5,6 +5,7 @@ namespace AppBundle\Entity;
 use AppBundle\Entity\Traits\CityTrait;
 use AppBundle\Entity\Traits\GpsCoordinatesTrait;
 use AppBundle\Entity\Traits\NameTrait;
+use AppBundle\Entity\Traits\PowerTrait;
 use AppBundle\Entity\Traits\StateTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -26,13 +27,7 @@ class Windfarm extends AbstractBase
     use StateTrait;
     use CityTrait;
     use GpsCoordinatesTrait;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(type="float", precision=2, nullable=true)
-     */
-    private $power;
+    use PowerTrait;
 
     /**
      * @var integer
@@ -83,26 +78,6 @@ class Windfarm extends AbstractBase
     public function __construct()
     {
         $this->windmills = new ArrayCollection();
-    }
-
-    /**
-     * @return int
-     */
-    public function getPower()
-    {
-        return $this->power;
-    }
-
-    /**
-     * @param int $power
-     *
-     * @return Windfarm
-     */
-    public function setPower($power)
-    {
-        $this->power = $power;
-
-        return $this;
     }
 
     /**

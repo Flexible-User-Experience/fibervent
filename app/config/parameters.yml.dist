@@ -33,5 +33,6 @@ parameters:
 
     project_web_title: "Fibervent"
 
-    google_analytics_enabled:   false
-    google_analytics_account:   "UA-xxxxxxxx-x"
+    google_analytics_enabled: false
+    google_analytics_account: "UA-xxxxxxxx-x"
+    google_maps_api_key:      "<YOUR-GMAP-API-KEY>"
