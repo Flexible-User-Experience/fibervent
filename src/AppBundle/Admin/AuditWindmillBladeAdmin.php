@@ -2,6 +2,7 @@
 
 namespace AppBundle\Admin;
 
+use AppBundle\Entity\AuditWindmillBlade;
 use AppBundle\Form\Type\ActionButtonFormType;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
@@ -67,8 +68,10 @@ class AuditWindmillBladeAdmin extends AbstractBaseAdmin
                 ->end();
         } else {
             // else is normal admin view
+            /** @var AuditWindmillBlade $awb */
+            $awb = $this->getSubject();
             $formMapper
-                ->with('General', $this->getFormMdSuccessBoxArray(12))
+                ->with('Situació i descripció dels danys · Pala ' . $awb->getWindmillBlade()->getCode(), $this->getFormMdSuccessBoxArray(12))
                 ->add(
                     'bladeDamages',
                     'sonata_type_collection',
