@@ -38,7 +38,7 @@ class BladeDamageAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label'    => 'Núm.',
-                    'required' => true,
+                    'required' => false,
                 )
             )
             ->add(
