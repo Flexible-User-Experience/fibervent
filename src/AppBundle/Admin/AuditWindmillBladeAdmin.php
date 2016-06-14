@@ -7,18 +7,18 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 
 /**
- * Class BladeAdmin
+ * Class AuditWindmillBladeAdmin
  *
  * @category Admin
  * @package  AppBundle\Admin
- * @author   Anton Serra <aserratorta@gmail.com>
+ * @author   David Romaní <david@flux.cat>
  */
-class BladeAdmin extends AbstractBaseAdmin
+class AuditWindmillBladeAdmin extends AbstractBaseAdmin
 {
-    protected $classnameLabel = 'Pala';
-    protected $baseRoutePattern = 'windfarms/blade';
+    protected $classnameLabel = 'Auditoria Pala Aerogenerador';
+    protected $baseRoutePattern = 'audits/audit-windmill-blade';
     protected $datagridValues = array(
-        '_sort_by'    => 'model',
+        '_sort_by'    => 'audit',
         '_sort_order' => 'desc',
     );
 
@@ -30,54 +30,40 @@ class BladeAdmin extends AbstractBaseAdmin
         $formMapper
             ->with('General', $this->getFormMdSuccessBoxArray(7))
             ->add(
-                'model',
+                'audit',
                 null,
                 array(
-                    'label'    => 'Model',
+                    'label'    => 'Auditoria',
                     'required' => true,
                 )
             )
             ->add(
-                'length',
+                'windmillBlade',
                 null,
                 array(
-                    'label'       => 'Longitud',
-                    'required'    => true,
-                    'help'        => 'm',
-                    'sonata_help' => 'm',
+                    'label'    => 'Pala',
+                    'required' => true,
                 )
             )
             ->end();
-    }
-
-    /**
-     * @param DatagridMapper $datagridMapper
-     */
-    protected function configureDatagridFilters(DatagridMapper $datagridMapper)
-    {
-        $datagridMapper
-            ->add(
-                'model',
-                null,
-                array(
-                    'label' => 'Model',
+        if ($this->id($this->getSubject())) { // is edit mode, disable on new subjects
+            $formMapper
+                ->with('Danys', $this->getFormMdSuccessBoxArray(12))
+                ->add(
+                    'bladeDamages',
+                    'sonata_type_collection',
+                    array(
+                        'label'              => ' ',
+                        'required'           => false,
+                        'cascade_validation' => true,
+                    ),
+                    array(
+                        'edit'     => 'inline',
+                        'inline'   => 'table',
+                    )
                 )
-            )
-            ->add(
-                'length',
-                null,
-                array(
-                    'label' => 'Longitud',
-                )
-            )
-            ->add(
-                'enabled',
-                null,
-                array(
-                    'label'    => 'Actiu',
-                    'editable' => true,
-                )
-            );
+                ->end();
+        }
     }
 
     /**
@@ -88,18 +74,18 @@ class BladeAdmin extends AbstractBaseAdmin
         unset($this->listModes['mosaic']);
         $listMapper
             ->add(
-                'model',
+                'audit',
                 null,
                 array(
-                    'label'    => 'Model',
+                    'label'    => 'Auditoria',
                     'editable' => true,
                 )
             )
             ->add(
-                'length',
+                'windmillBlade',
                 null,
                 array(
-                    'label'    => 'Longitud',
+                    'label'    => 'Pala',
                     'editable' => true,
                 )
             )

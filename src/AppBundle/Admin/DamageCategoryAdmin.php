@@ -4,7 +4,6 @@ namespace AppBundle\Admin;
 
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 /**
  * Class DamageCategoryAdmin
@@ -61,16 +60,6 @@ class DamageCategoryAdmin extends AbstractBaseAdmin
                     'required' => true,
                 )
             )
-            ->end()
-            ->with('Controls', $this->getFormMdSuccessBoxArray(5))
-            ->add(
-                'enabled',
-                CheckboxType::class,
-                array(
-                    'label'    => 'Actiu',
-                    'required' => false,
-                )
-            )
             ->end();
     }
 
@@ -110,14 +99,6 @@ class DamageCategoryAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label'    => 'Acció Recomanada',
-                    'editable' => true,
-                )
-            )
-            ->add(
-                'enabled',
-                null,
-                array(
-                    'label'    => 'Actiu',
                     'editable' => true,
                 )
             )

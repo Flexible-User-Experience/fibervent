@@ -113,6 +113,14 @@ class DamageAdmin extends AbstractBaseAdmin
         unset($this->listModes['mosaic']);
         $listMapper
             ->add(
+                'section',
+                null,
+                array(
+                    'label'    => 'Secció',
+                    'editable' => true,
+                )
+            )
+            ->add(
                 'code',
                 null,
                 array(

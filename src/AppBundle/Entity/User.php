@@ -90,4 +90,12 @@ class User extends BaseUser
 
         return $this;
     }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getUsername() ? $this->getFullname() : '---';
+    }
 }

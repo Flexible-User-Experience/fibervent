@@ -1,1 +1,14 @@
 textarea { resize: vertical; }
+
+#gmap {
+    margin-top: 40px;
+    height: 450px;
+}
+
+#profile_image {
+    width: 30px;
+    height: 30px;
+    float: left;
+    margin-right: 10px;
+    margin-top: -5px;
+}
