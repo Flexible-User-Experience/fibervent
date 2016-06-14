@@ -3,7 +3,6 @@
 namespace AppBundle\Admin;
 
 use Sonata\AdminBundle\Datagrid\ListMapper;
-use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
@@ -30,7 +29,7 @@ class DamageAdmin extends AbstractBaseAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->with('General', $this->getFormMdSuccessBoxArray(7))
+            ->with('General', $this->getFormMdSuccessBoxArray(6))
             ->add(
                 'description',
                 null,
@@ -55,54 +54,7 @@ class DamageAdmin extends AbstractBaseAdmin
                     'required' => true,
                 )
             )
-            ->end()
-            ->with('Controls', $this->getFormMdSuccessBoxArray(5))
-            ->add(
-                'enabled',
-                CheckboxType::class,
-                array(
-                    'label'    => 'Actiu',
-                    'required' => false,
-                )
-            )
             ->end();
-    }
-
-    /**
-     * @param DatagridMapper $datagridMapper
-     */
-    protected function configureDatagridFilters(DatagridMapper $datagridMapper)
-    {
-        $datagridMapper
-            ->add(
-                'section',
-                null,
-                array(
-                    'label' => 'Secció',
-                )
-            )
-            ->add(
-                'code',
-                null,
-                array(
-                    'label' => 'Codi',
-                )
-            )
-            ->add(
-                'description',
-                null,
-                array(
-                    'label' => 'Descripció',
-                )
-            )
-            ->add(
-                'enabled',
-                null,
-                array(
-                    'label'    => 'Actiu',
-                    'editable' => true,
-                )
-            );
     }
 
     /**
@@ -133,14 +85,6 @@ class DamageAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label'    => 'Descripció',
-                    'editable' => true,
-                )
-            )
-            ->add(
-                'enabled',
-                null,
-                array(
-                    'label'    => 'Actiu',
                     'editable' => true,
                 )
             )
