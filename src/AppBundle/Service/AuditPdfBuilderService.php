@@ -9,6 +9,7 @@ use AppBundle\Entity\Windmill;
 use WhiteOctober\TCPDFBundle\Controller\TCPDFController;
 use Liip\ImagineBundle\Imagine\Cache\CacheManager;
 use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
+use Symfony\Bundle\FrameworkBundle\Templating\Helper\AssetsHelper;
 
 /**
  * Class abstract base test
@@ -19,6 +20,11 @@ use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
  */
 class AuditPdfBuilderService
 {
+    const PDF_MARGIN_LEFT   = 25;
+    const PDF_MARGIN_RIGHT  = 20;
+    const PDF_MARGIN_TOP    = 20;
+    const PDF_MARGIN_BOTTOM = 10;
+
     /**
      * @var TCPDFController
      */
@@ -35,9 +41,17 @@ class AuditPdfBuilderService
     private $uh;
 
     /**
+     * @var AssetsHelper $tha
+     */
+    private $tha;
+
+    /**
      * @var string $krd Kernel Root Dir
      */
     private $krd;
+
+    /** @var array */
+    private $colorBlue;
 
     /**
      * AuditPdfBuilderService constructor
@@ -45,14 +59,19 @@ class AuditPdfBuilderService
      * @param TCPDFController $tcpdf
      * @param CacheManager    $cm
      * @param UploaderHelper  $uh
+     * @param AssetsHelper    $tha
      * @param string          $krd
      */
-    public function __construct(TCPDFController $tcpdf, CacheManager $cm, UploaderHelper $uh, $krd)
+    public function __construct(TCPDFController $tcpdf, CacheManager $cm, UploaderHelper $uh, AssetsHelper $tha, $krd)
     {
         $this->tcpdf = $tcpdf;
-        $this->cm = $cm;
-        $this->uh = $uh;
-        $this->krd = $krd;
+        $this->cm    = $cm;
+        $this->uh    = $uh;
+        $this->tha   = $tha;
+        $this->krd   = $krd;
+        $this->colorBlueLight = array('red' => 143, 'green' => 171, 'blue' => 217);
+        $this->colorBlue      = array('red' => 50,  'green' => 118, 'blue' => 179);
+        $this->colorBlueDark  = array('red' => 217, 'green' => 226, 'blue' => 242);
     }
 
     /**
@@ -108,25 +127,20 @@ class AuditPdfBuilderService
         $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
 
         // set margins
-        $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
-
-        // set auto page breaks
-        $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+        $pdf->SetMargins(self::PDF_MARGIN_LEFT, self::PDF_MARGIN_TOP, self::PDF_MARGIN_RIGHT);
+        $pdf->SetAutoPageBreak(TRUE, self::PDF_MARGIN_BOTTOM);
 
         // set image scale factor
         $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
 
         // Set font
-        // dejavusans is a UTF-8 Unicode font, if you only need to
-        // print standard ASCII chars, you can use core fonts like
-        // helvetica or times to reduce file size.
-        $pdf->SetFont('dejavusans', '', 14, '', true);
+        $this->setFont($pdf);
 
         // Add start page
         $pdf->startPage(PDF_PAGE_ORIENTATION, PDF_PAGE_FORMAT);
 
-        // title
-        $pdf->Write(0, 'FIBERVENT', '', 0, 'C', true, 0, false, false, 0);
+        // logo
+        $pdf->Image($this->tha->getUrl('/bundles/app/images/fibervent_logo_white_landscape.jpg'), 30, 45);
 
         // main detail section
         $pdf->Write(0, '------', '', 0, 'C', true, 0, false, false, 0);
@@ -157,6 +171,47 @@ class AuditPdfBuilderService
         $pdf->Write(0, 'FECHA DE INSPECCIÓN: ' . $audit->getBeginDate()->format('d/m/Y'), '', 0, 'L', true, 0, false, false, 0);
         $pdf->Write(0, 'No. de AG / palas inspeccionadas: 1 AG / 3 palas', '', 0, 'L', true, 0, false, false, 0);
 
+        // footer
+        $y = 245;
+        $this->setFont($pdf, null, null, 8); $this->setBlueText($pdf);
+        $pdf->Text(self::PDF_MARGIN_LEFT, $y, 'Fibervent, SL'); $y = $y + 4; $this->setBlackText($pdf);
+        $pdf->Text(self::PDF_MARGIN_LEFT, $y, 'CIF: B55572580'); $y = $y + 4;
+        $pdf->Text(self::PDF_MARGIN_LEFT, $y, 'Pol. Industrial Pla de Solans, Parcela 2'); $y = $y + 4;
+        $pdf->Text(self::PDF_MARGIN_LEFT, $y, '43519 El Perelló (Tarragona)'); $y = $y + 4;
+        $pdf->Text(self::PDF_MARGIN_LEFT, $y, 'Tel. +34 977 490 713'); $y = $y + 4;
+        $pdf->Text(self::PDF_MARGIN_LEFT, $y, 'info@fibervent.com'); $y = $y + 4;
+        $pdf->Text(self::PDF_MARGIN_LEFT, $y, 'www.fibervent.com');
+
         return $pdf;
+    }
+
+    /**
+     * @param \TCPDF $pdf
+     * @param string $font
+     * @param string $style
+     * @param int    $size
+     */
+    private function setFont(\TCPDF $pdf, $font = 'dejavusans', $style = '', $size = 12)
+    {
+        // dejavusans is a UTF-8 Unicode font, if you only need to
+        // print standard ASCII chars, you can use core fonts like
+        // helvetica or times to reduce file size.
+        $pdf->SetFont($font, $style, $size, '', true);
+    }
+
+    /**
+     * @param \TCPDF $pdf
+     */
+    private function setBlueText(\TCPDF $pdf)
+    {
+        $pdf->SetTextColor($this->colorBlue['red'], $this->colorBlue['green'], $this->colorBlue['blue'], 100);
+    }
+
+    /**
+     * @param \TCPDF $pdf
+     */
+    private function setBlackText(\TCPDF $pdf)
+    {
+        $pdf->SetTextColor(0, 0, 0, 100);
     }
 }
