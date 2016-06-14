@@ -2,10 +2,11 @@
 
 namespace AppBundle\Admin;
 
+use AppBundle\Enum\BladeDamagePositionEnum;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 /**
  * Class BladeDamageAdmin
@@ -49,9 +50,12 @@ class BladeDamageAdmin extends AbstractBaseAdmin
             )
             ->add(
                 'position',
-                null,
+                ChoiceType::class,
                 array(
                     'label'    => 'Posició',
+                    'choices'  => BladeDamagePositionEnum::getEnumArray(),
+                    'multiple' => false,
+                    'expanded' => false,
                     'required' => true,
                 )
             )
