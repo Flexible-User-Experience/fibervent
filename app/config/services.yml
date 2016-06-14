@@ -33,7 +33,7 @@ services:
         arguments: [ ~, AppBundle\Entity\Blade, ~, "@app.state_repository", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Tipus Pala", group: "Parc_Eolic", show_in_dashboard: false }
-    admin.windmillblade:
+    admin.windmill_blade:
         class: AppBundle\Admin\WindmillBladeAdmin
         arguments: [ ~, AppBundle\Entity\WindmillBlade, ~, "@app.state_repository", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
@@ -43,7 +43,7 @@ services:
         arguments: [ ~, AppBundle\Entity\Audit, AppBundle:AuditAdmin, "@app.state_repository", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Auditoria", group: "Auditoria" }
-    admin.bladeDamage:
+    admin.blade_damage:
         class: AppBundle\Admin\BladeDamageAdmin
         arguments: [ ~, AppBundle\Entity\BladeDamage, ~, "@app.state_repository", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
@@ -53,7 +53,7 @@ services:
         arguments: [ ~, AppBundle\Entity\Damage, ~, "@app.state_repository", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Tipus Dany", group: "Auditoria" }
-    admin.damageCategory:
+    admin.damage_category:
         class: AppBundle\Admin\DamageCategoryAdmin
         arguments: [ ~, AppBundle\Entity\DamageCategory, ~, "@app.state_repository", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
@@ -63,6 +63,9 @@ services:
         arguments: [ ~, AppBundle\Entity\Photo, ~, "@app.state_repository", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Foto", group: "Auditoria", show_in_dashboard: false }
+    admin.audit_windmill_blade:
+        class: AppBundle\Admin\AuditWindmillBladeAdmin
+        arguments: [ ~, AppBundle\Entity\AuditWindmillBlade, ~, "@app.state_repository", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
     admin.user:
         class: AppBundle\Admin\UserAdmin
         arguments: [ ~, AppBundle\Entity\User, ~, "@fos_user.user_manager" ]

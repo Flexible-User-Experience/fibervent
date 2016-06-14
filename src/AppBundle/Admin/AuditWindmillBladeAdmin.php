@@ -7,18 +7,18 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 
 /**
- * Class WindmillBladeAdmin
+ * Class AuditWindmillBladeAdmin
  *
  * @category Admin
  * @package  AppBundle\Admin
- * @author   Anton Serra <aserratorta@gmail.com>
+ * @author   David Romaní <david@flux.cat>
  */
-class WindmillBladeAdmin extends AbstractBaseAdmin
+class AuditWindmillBladeAdmin extends AbstractBaseAdmin
 {
-    protected $classnameLabel = 'Pales Aerogenerador';
-    protected $baseRoutePattern = 'windfarms/windmill-blade';
+    protected $classnameLabel = 'Auditoria Pala Aerogenerador';
+    protected $baseRoutePattern = 'audits/audit-windmill-blade';
     protected $datagridValues = array(
-        '_sort_by'    => 'code',
+        '_sort_by'    => 'audit',
         '_sort_order' => 'desc',
     );
 
@@ -30,37 +30,22 @@ class WindmillBladeAdmin extends AbstractBaseAdmin
         $formMapper
             ->with('General', $this->getFormMdSuccessBoxArray(7))
             ->add(
-                'code',
+                'audit',
                 null,
                 array(
-                    'label'    => 'Codi',
+                    'label'    => 'Auditoria',
+                    'required' => true,
+                )
+            )
+            ->add(
+                'windmillBlade',
+                null,
+                array(
+                    'label'    => 'Pala',
                     'required' => true,
                 )
             )
             ->end();
-    }
-
-    /**
-     * @param DatagridMapper $datagridMapper
-     */
-    protected function configureDatagridFilters(DatagridMapper $datagridMapper)
-    {
-        $datagridMapper
-            ->add(
-                'code',
-                null,
-                array(
-                    'label' => 'Codi',
-                )
-            )
-            ->add(
-                'enabled',
-                null,
-                array(
-                    'label'    => 'Actiu',
-                    'editable' => true,
-                )
-            );
     }
 
     /**
@@ -71,10 +56,18 @@ class WindmillBladeAdmin extends AbstractBaseAdmin
         unset($this->listModes['mosaic']);
         $listMapper
             ->add(
-                'code',
+                'audit',
                 null,
                 array(
-                    'label'    => 'Code',
+                    'label'    => 'Auditoria',
+                    'editable' => true,
+                )
+            )
+            ->add(
+                'windmillBlade',
+                null,
+                array(
+                    'label'    => 'Pala',
                     'editable' => true,
                 )
             )
