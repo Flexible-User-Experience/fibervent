@@ -31,6 +31,7 @@ sonata_admin:
         handler: sonata.admin.security.handler.role
     templates:
         layout: "::Admin/layout.html.twig"
+        edit:   "::Admin/edit.html.twig"
     dashboard:
         groups:
             Client:
