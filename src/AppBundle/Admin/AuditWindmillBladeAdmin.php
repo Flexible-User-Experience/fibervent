@@ -4,9 +4,7 @@ namespace AppBundle\Admin;
 
 use AppBundle\Form\Type\ActionButtonFormType;
 use Sonata\AdminBundle\Datagrid\ListMapper;
-use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
 /**
  * Class AuditWindmillBladeAdmin
@@ -70,27 +68,6 @@ class AuditWindmillBladeAdmin extends AbstractBaseAdmin
         } else {
             // else is normal admin view
             $formMapper
-                ->with('General', $this->getFormMdSuccessBoxArray(12))
-                ->add(
-                    'audit',
-                    HiddenType::class,
-                    array(
-                        'label'    => 'Auditoria',
-                        'required' => true,
-                        'attr'     => array(
-                            'hidden' => true,
-                        ),
-                    )
-                )
-                ->add(
-                    'windmillBlade',
-                    HiddenType::class,
-                    array(
-                        'label'    => 'Pala',
-                        'required' => true,
-                        'disabled' => true,
-                    )
-                )
                 ->add(
                     'bladeDamages',
                     'sonata_type_collection',
@@ -106,7 +83,6 @@ class AuditWindmillBladeAdmin extends AbstractBaseAdmin
                 )
                 ->end();
         }
-
     }
 
     /**
