@@ -2,10 +2,12 @@
 
 namespace AppBundle\Admin;
 
+use AppBundle\Enum\BladeDamagePositionEnum;
+use AppBundle\Enum\BladeDamageStatusEnum;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 /**
  * Class BladeDamageAdmin
@@ -49,9 +51,12 @@ class BladeDamageAdmin extends AbstractBaseAdmin
             )
             ->add(
                 'position',
-                null,
+                ChoiceType::class,
                 array(
                     'label'    => 'Posició',
+                    'choices'  => BladeDamagePositionEnum::getEnumArray(),
+                    'multiple' => false,
+                    'expanded' => false,
                     'required' => true,
                 )
             )
@@ -61,14 +66,18 @@ class BladeDamageAdmin extends AbstractBaseAdmin
                 array(
                     'label'    => 'Radi',
                     'required' => true,
+                    'help'        => 'm',
+                    'sonata_help' => 'm',
                 )
             )
             ->add(
                 'distance',
                 null,
                 array(
-                    'label'    => 'Distància',
-                    'required' => true,
+                    'label'       => 'Distància',
+                    'required'    => true,
+                    'help'        => 'm',
+                    'sonata_help' => 'm',
                 )
             )
             ->add(
@@ -97,9 +106,12 @@ class BladeDamageAdmin extends AbstractBaseAdmin
             )
             ->add(
                 'status',
-                null,
+                ChoiceType::class,
                 array(
                     'label'    => 'Estat',
+                    'choices'  => BladeDamageStatusEnum::getEnumArray(),
+                    'multiple' => false,
+                    'expanded' => false,
                     'required' => true,
                 )
             )
@@ -116,8 +128,8 @@ class BladeDamageAdmin extends AbstractBaseAdmin
                         'cascade_validation' => true,
                     ),
                     array(
-                        'edit'     => 'inline',
-                        'inline'   => 'table',
+                        'edit'   => 'inline',
+                        'inline' => 'table',
                     )
                 )
                 ->end();

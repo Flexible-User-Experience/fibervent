@@ -109,8 +109,10 @@ class CustomerAdmin extends AbstractBaseAdmin
                 'web',
                 UrlType::class,
                 array(
-                    'label'    => 'Web',
-                    'required' => false,
+                    'label'       => 'Web',
+                    'required'    => false,
+                    'help'        => 'http://...',
+                    'sonata_help' => 'http://...',
                 )
             )
             ->end();

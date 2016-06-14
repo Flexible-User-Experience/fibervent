@@ -5,7 +5,6 @@ namespace AppBundle\Admin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 /**
  * Class TurbineAdmin
@@ -42,33 +41,29 @@ class TurbineAdmin extends AbstractBaseAdmin
                 'towerHeight',
                 null,
                 array(
-                    'label'    => 'Alçada',
-                    'required' => true,
+                    'label'       => 'Alçada',
+                    'required'    => true,
+                    'help'        => 'm',
+                    'sonata_help' => 'm',
                 )
             )
             ->add(
                 'rotorDiameter',
                 null,
                 array(
-                    'label'    => 'Diàmetre',
-                    'required' => true,
+                    'label'       => 'Diàmetre',
+                    'required'    => true,
+                    'help'        => 'm',
+                    'sonata_help' => 'm',
                 )
             )
             ->add(
                 'power',
                 null,
                 array(
-                    'label' => 'Potència',
-                )
-            )
-            ->end()
-            ->with('Controls', $this->getFormMdSuccessBoxArray(5))
-            ->add(
-                'enabled',
-                CheckboxType::class,
-                array(
-                    'label'    => 'Actiu',
-                    'required' => false,
+                    'label'       => 'Potència',
+                    'help'        => 'MW',
+                    'sonata_help' => 'MW',
                 )
             )
             ->end();
@@ -106,14 +101,6 @@ class TurbineAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'Potència',
-                )
-            )
-            ->add(
-                'enabled',
-                null,
-                array(
-                    'label'    => 'Actiu',
-                    'editable' => true,
                 )
             );
     }
