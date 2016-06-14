@@ -83,7 +83,7 @@ class AuditAdmin extends AbstractBaseAdmin
                     'label'    => 'Observacions',
                     'required' => false,
                     'attr'     => array(
-                        'rows' => 8,
+                        'rows' => 10,
                     )
                 )
             )
@@ -112,7 +112,7 @@ class AuditAdmin extends AbstractBaseAdmin
                 array(
                     'label'    => 'Tècnics Inspecció',
                     'multiple' => true,
-                    'required' => true,
+                    'required' => false,
                 )
             )
             ->add(
@@ -150,8 +150,6 @@ class AuditAdmin extends AbstractBaseAdmin
                 ->end();
         }
     }
-
-    // http://fibervent.dev/app_dev.php/admin/audits/blade-damage/create?uniqid=s575fcf24a2cf8&code=admin.blade_damage&pcode=admin.audit_windmill_blade&puniqid=s575fcf24a345b
 
     /**
      * @param DatagridMapper $datagridMapper
