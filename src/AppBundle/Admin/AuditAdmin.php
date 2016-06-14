@@ -83,7 +83,7 @@ class AuditAdmin extends AbstractBaseAdmin
                     'label'    => 'Observacions',
                     'required' => false,
                     'attr'     => array(
-                        'rows' => 8,
+                        'rows' => 10,
                     )
                 )
             )
@@ -112,7 +112,7 @@ class AuditAdmin extends AbstractBaseAdmin
                 array(
                     'label'    => 'Tècnics Inspecció',
                     'multiple' => true,
-                    'required' => true,
+                    'required' => false,
                 )
             )
             ->add(

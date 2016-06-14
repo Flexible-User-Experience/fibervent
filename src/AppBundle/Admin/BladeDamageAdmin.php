@@ -37,7 +37,7 @@ class BladeDamageAdmin extends AbstractBaseAdmin
                 'number',
                 null,
                 array(
-                    'label'    => 'Num. Dany',
+                    'label'    => 'Núm.',
                     'required' => true,
                 )
             )
@@ -64,8 +64,8 @@ class BladeDamageAdmin extends AbstractBaseAdmin
                 'radius',
                 null,
                 array(
-                    'label'    => 'Radi',
-                    'required' => true,
+                    'label'       => 'Radi',
+                    'required'    => true,
                     'help'        => 'm',
                     'sonata_help' => 'm',
                 )
@@ -85,14 +85,14 @@ class BladeDamageAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label'    => 'Dimensió',
-                    'required' => true,
+                    'required' => false,
                 )
             )
             ->add(
                 'damageCategory',
                 null,
                 array(
-                    'label'    => 'Categoria',
+                    'label'    => 'Cat.',
                     'required' => true,
                 )
             )

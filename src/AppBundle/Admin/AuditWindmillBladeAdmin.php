@@ -95,8 +95,8 @@ class AuditWindmillBladeAdmin extends AbstractBaseAdmin
                     'bladeDamages',
                     'sonata_type_collection',
                     array(
-                        'label'              => ' ',
-                        'required'           => false,
+                        'label'              => 'Danys',
+                        'required'           => true,
                         'cascade_validation' => true,
                     ),
                     array(
