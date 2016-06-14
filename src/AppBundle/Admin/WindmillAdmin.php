@@ -33,18 +33,18 @@ class WindmillAdmin extends AbstractBaseAdmin
         $formMapper
             ->with('General', $this->getFormMdSuccessBoxArray(4))
             ->add(
-                'code',
-                null,
-                array(
-                    'label' => 'Codi',
-                )
-            )
-            ->add(
                 'windfarm',
                 null,
                 array(
                     'label'    => 'Parc Eòlic',
                     'required' => true,
+                )
+            )
+            ->add(
+                'code',
+                null,
+                array(
+                    'label' => 'Codi',
                 )
             )
             ->end()
@@ -113,10 +113,10 @@ class WindmillAdmin extends AbstractBaseAdmin
     {
         $datagridMapper
             ->add(
-                'code',
+                'windfarm.customer',
                 null,
                 array(
-                    'label' => 'Codi',
+                    'label' => 'Client',
                 )
             )
             ->add(
@@ -124,6 +124,13 @@ class WindmillAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'Parc Eòlic',
+                )
+            )
+            ->add(
+                'code',
+                null,
+                array(
+                    'label' => 'Codi',
                 )
             )
             ->add(
@@ -146,13 +153,6 @@ class WindmillAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'Administrador',
                 )
-            )
-            ->add(
-                'windfarm.customer',
-                null,
-                array(
-                    'label' => 'Client',
-                )
             );
     }
 
@@ -164,18 +164,18 @@ class WindmillAdmin extends AbstractBaseAdmin
         unset($this->listModes['mosaic']);
         $listMapper
             ->add(
-                'code',
-                null,
-                array(
-                    'label'    => 'Codi',
-                    'editable' => true,
-                )
-            )
-            ->add(
                 'windfarm',
                 null,
                 array(
                     'label'    => 'Parc Eòlic',
+                    'editable' => true,
+                )
+            )
+            ->add(
+                'code',
+                null,
+                array(
+                    'label'    => 'Codi',
                     'editable' => true,
                 )
             )

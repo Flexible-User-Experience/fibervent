@@ -43,18 +43,18 @@ class WindfarmAdmin extends AbstractBaseAdmin
         $formMapper
             ->with('General', $this->getFormMdSuccessBoxArray(7))
             ->add(
-                'name',
-                null,
-                array(
-                    'label' => 'Nom',
-                )
-            )
-            ->add(
                 'customer',
                 null,
                 array(
                     'label'    => 'Client',
                     'required' => true,
+                )
+            )
+            ->add(
+                'name',
+                null,
+                array(
+                    'label' => 'Nom',
                 )
             )
             ->add(
@@ -120,6 +120,13 @@ class WindfarmAdmin extends AbstractBaseAdmin
     {
         $datagridMapper
             ->add(
+                'customer',
+                null,
+                array(
+                    'label' => 'Client',
+                )
+            )
+            ->add(
                 'name',
                 null,
                 array(
@@ -134,6 +141,13 @@ class WindfarmAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
+                'manager',
+                null,
+                array(
+                    'label' => 'Administrador',
+                )
+            )
+            ->add(
                 'power',
                 null,
                 array(
@@ -145,20 +159,6 @@ class WindfarmAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'Any',
-                )
-            )
-            ->add(
-                'manager',
-                null,
-                array(
-                    'label' => 'Administrador',
-                )
-            )
-            ->add(
-                'customer',
-                null,
-                array(
-                    'label' => 'Client',
                 )
             )
             ->add(
@@ -178,6 +178,16 @@ class WindfarmAdmin extends AbstractBaseAdmin
         unset($this->listModes['mosaic']);
         $listMapper
             ->add(
+                'customer',
+                null,
+                array(
+                    'label'                            => 'Client',
+                    'sortable'                         => true,
+                    'sort_field_mapping'               => array('fieldName' => 'name'),
+                    'sort_parent_association_mappings' => array(array('fieldName' => 'customer')),
+                )
+            )
+            ->add(
                 'name',
                 null,
                 array(
@@ -191,26 +201,6 @@ class WindfarmAdmin extends AbstractBaseAdmin
                 array(
                     'label'    => 'Ciutat',
                     'editable' => true,
-                )
-            )
-            ->add(
-                'state',
-                null,
-                array(
-                    'label'                            => 'Província',
-                    'sortable'                         => true,
-                    'sort_field_mapping'               => array('fieldName' => 'name'),
-                    'sort_parent_association_mappings' => array(array('fieldName' => 'state')),
-                )
-            )
-            ->add(
-                'customer',
-                null,
-                array(
-                    'label'                            => 'Client',
-                    'sortable'                         => true,
-                    'sort_field_mapping'               => array('fieldName' => 'name'),
-                    'sort_parent_association_mappings' => array(array('fieldName' => 'customer')),
                 )
             )
             ->add(

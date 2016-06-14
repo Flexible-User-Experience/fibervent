@@ -1,0 +1,3 @@
+{% if admin.hasroute('map') and admin.id(object) %}
+    <a class="sonata-action-element" href="{{ admin.generateObjectUrl('map', object) }}"><i class="fa fa-map-marker"></i> Mapa</a>
+{% endif %}

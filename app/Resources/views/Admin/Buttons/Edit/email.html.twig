@@ -1,0 +1,3 @@
+{% if admin.hasroute('email') and admin.id(object) %}
+    <a class="sonata-action-element" href="{{ admin.generateObjectUrl('email', object) }}"><i class="fa fa-envelope"></i> Email</a>
+{% endif %}

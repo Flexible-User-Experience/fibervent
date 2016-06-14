@@ -266,16 +266,6 @@ class CustomerAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'state',
-                null,
-                array(
-                    'label'                            => 'Província',
-                    'sortable'                         => true,
-                    'sort_field_mapping'               => array('fieldName' => 'name'),
-                    'sort_parent_association_mappings' => array(array('fieldName' => 'state')),
-                )
-            )
-            ->add(
                 '_action',
                 'actions',
                 array(
