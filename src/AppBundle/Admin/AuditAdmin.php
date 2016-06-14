@@ -36,11 +36,10 @@ class AuditAdmin extends AbstractBaseAdmin
      */
     protected function configureRoutes(RouteCollection $collection)
     {
-        parent::configureRoutes($collection);
         $collection
+            ->remove('batch')
             ->add('pdf', $this->getRouterIdParameter() . '/pdf')
-            ->add('email', $this->getRouterIdParameter() . '/email')
-            ->add('show', $this->getRouterIdParameter() . '/show');
+            ->add('email', $this->getRouterIdParameter() . '/email');
     }
 
     /**
@@ -123,7 +122,7 @@ class AuditAdmin extends AbstractBaseAdmin
                     'label'    => 'Estat',
                     'choices'  => AuditStatusEnum::getEnumArray(),
                     'multiple' => false,
-                    'expanded' => true,
+                    'expanded' => false,
                     'required' => true,
                 )
             )
@@ -274,6 +273,7 @@ class AuditAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'Aerogenerador',
+                    'code' => 'code',
                 )
             )
             ->add(
