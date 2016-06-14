@@ -51,10 +51,13 @@ class AuditAdmin extends AbstractBaseAdmin
             ->with('General', $this->getFormMdSuccessBoxArray(7))
             ->add(
                 'windmill',
-                null,
+                'sonata_type_model',
                 array(
                     'label'    => 'Aerogenerador',
-                    'required' => true,
+                    'btn_add'    => false,
+                    'btn_delete' => false,
+                    'required'   => true,
+                    'query'      => $this->wmr->findAllSortedByCustomerWindfarmTurbineQ()
                 )
             )
             ->add(
