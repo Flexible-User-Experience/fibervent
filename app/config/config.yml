@@ -25,7 +25,7 @@ framework:
     fragments:       ~
     http_method_override: true
 
-# Assetic Configuration
+# Assetic
 assetic:
     debug:          "%kernel.debug%"
     use_controller: false
@@ -37,7 +37,7 @@ assetic:
             node:       "%path_node%"
             node_paths: [ "%path_node_modules%" ]
 
-# Twig Configuration
+# Twig
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
@@ -47,13 +47,13 @@ twig:
         - "::Admin/Form/action_button_from_template.html.twig"
         - "::OhGoogleMaps/google_maps_form_widget.html.twig"
     globals:
-        admin_tag_version:        "v1.0.04"
+        admin_tag_version:        "v1.0.05"
         main_brand_title:         "%project_web_title%"
         google_analytics_enabled: %google_analytics_enabled%
         google_analytics_account: "%google_analytics_account%"
         google_maps_api_key:      "%google_maps_api_key%"
 
-# Doctrine Configuration
+# Doctrine
 doctrine:
     dbal:
         driver:   "%database_driver%"
@@ -99,10 +99,14 @@ fos_user:
             name:               fos_user_profile_form
             validation_groups:  [ Authentication ]
 
-# Swiftmailer Configuration
+# Swiftmailer
 swiftmailer:
     transport: "%mailer_transport%"
     host:      "%mailer_host%"
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+
+# TCPDF
+white_october_tcpdf:
+    class: 'AppBundle\Pdf\CustomTcpdf'
