@@ -87,13 +87,27 @@ class AuditPdfBuilderService
         $pdf = $this->doInitialConfig($audit, $windmill, $windfarm, $customer);
 
         // Add a page
-        // This method has several options, check the source code documentation for more information.
         $pdf->AddPage(PDF_PAGE_ORIENTATION, PDF_PAGE_FORMAT, true, true);
 
-        // set text shadow effect
-        $pdf->setTextShadow(array('enabled'=>true, 'depth_w'=>0.2, 'depth_h'=>0.2, 'color'=>array(196, 196, 196), 'opacity'=>1, 'blend_mode'=>'Normal'));
-
-        $pdf->Write(0, 'HitMe!', '', 0, 'C', true, 0, false, false, 0);
+        // Introduction page
+        $pdf->SetXY(self::PDF_MARGIN_LEFT, 20);
+        $this->setBlackText($pdf);
+        $this->setFont($pdf, null, 'B', 11);
+        $pdf->Write(0, '1. INTRODUCCIÓN', '', 0, 'L', true, 0, false, false, 0);
+        $this->setFont($pdf, null, '', 9);
+        $pdf->Write(0, 'Este informe es resultado de la inspección visual realizada con telescopio desde suelo realizada en el Parque Eólico ' . $windfarm->getName() . ' entre el ' . $audit->getPdfBeginDateString() . ' y el ' . $audit->getPdfEndDateString(), '', 0, 'L', true, 0, false, false, 0);
+        $pdf->Write(0, 'El equipo, propiedad de FIBERVENT, y utilizado para la inspección es el siguiente:', '', 0, 'L', true, 0, false, false, 0);
+        // TODO items table
+        $this->setFont($pdf, null, 'B', 11);
+        $pdf->Write(0, '2. CATALOGACIÓN DE DAÑOS', '', 0, 'L', true, 0, false, false, 0);
+        $this->setFont($pdf, null, '', 9);
+        $pdf->Write(0, 'Los daños encontrados se han categorizado según los siguientes criterios:', '', 0, 'L', true, 0, false, false, 0);
+        // TODO damage category table
+        $this->setFont($pdf, null, 'B', 11);
+        $pdf->Write(0, '3. DESCRIPCIÓN DE LA INSPECCIÓN', '', 0, 'L', true, 0, false, false, 0);
+        $this->setFont($pdf, null, '', 9);
+        $pdf->Write(0, 'El esquema en la numeración de palas (1, 2, 3) se describe en la siguiente imagen:', '', 0, 'L', true, 0, false, false, 0);
+        // TODO windmill schema
 
         return $pdf;
     }
@@ -182,8 +196,7 @@ class AuditPdfBuilderService
         $this->setFont($pdf, null, '', 10); $this->setWhiteBackground($pdf);
         $pdf->Cell(0, 6, $windfarm->getManager()->getFullname(), 'TB', 1, 'C', true);
 
-        // revisions table section
-//        $pdf->Write(0, '--- REVISIONES ---', '', 0, 'C', true, 0, false, false, 0);
+        // TODO revisions table section
 
         // operators details
         $pdf->SetXY(self::PDF_MARGIN_LEFT, $pdf->GetY() + 10);
@@ -201,7 +214,7 @@ class AuditPdfBuilderService
         $this->setFont($pdf, null, 'B', 10); $this->setBlueBackground($pdf);
         $pdf->Cell(70, 6, 'FECHA DE INSPECCIÓN', 'TB', 0, 'C', true);
         $this->setFont($pdf, null, '', 10); $this->setWhiteBackground($pdf);
-        $pdf->Cell(0, 6, $audit->getBeginDate()->format('d/m/Y'), 'TB', 1, 'C', true);
+        $pdf->Cell(0, 6, $audit->getPdfBeginDateString(), 'TB', 1, 'C', true);
         $this->setFont($pdf, null, 'B', 10); $this->setBlueBackground($pdf);
         $pdf->Cell(70, 6, 'No. de AG / palas inspeccionadas', 'TB', 0, 'C', true);
         $this->setFont($pdf, null, '', 10); $this->setWhiteBackground($pdf);
