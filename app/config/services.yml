@@ -74,12 +74,17 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Usuari", group: "Client" }
 # PDF service builders
+    app.custom_tcpdf:
+        class: AppBundle\Pdf\CustomTcpdf
+        arguments:
+            - "@templating.helper.assets"
     app.audit_pdf_builder:
         class: AppBundle\Service\AuditPdfBuilderService
         arguments:
             - "@white_october.tcpdf"
             - "@liip_imagine.cache.manager"
             - "@vich_uploader.templating.helper.uploader_helper"
+            - "@templating.helper.assets"
             - "%kernel.root_dir%"
 # Form types
     app.form_type_action_button:

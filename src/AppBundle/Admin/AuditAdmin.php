@@ -9,7 +9,6 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
@@ -169,6 +168,14 @@ class AuditAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
+                'endDate',
+                'doctrine_orm_date',
+                array(
+                    'label'      => 'Data fi',
+                    'field_type' => 'sonata_type_date_picker',
+                )
+            )
+            ->add(
                 'windmill.windfarm.customer',
                 null,
                 array(
@@ -228,14 +235,6 @@ class AuditAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'Observacions',
-                )
-            )
-            ->add(
-                'enabled',
-                null,
-                array(
-                    'label'    => 'Actiu',
-                    'editable' => true,
                 )
             );
     }
