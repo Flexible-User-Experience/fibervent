@@ -111,6 +111,14 @@ class Audit extends AbstractBase
     }
 
     /**
+     * @return string
+     */
+    public function getPdfBeginDateString()
+    {
+        return $this->getBeginDate()->format('d/m/Y');
+    }
+
+    /**
      * @param \DateTime $beginDate
      *
      * @return Audit
@@ -128,6 +136,14 @@ class Audit extends AbstractBase
     public function getEndDate()
     {
         return $this->endDate;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPdfEndDateString()
+    {
+        return $this->getEndDate()->format('d/m/Y');
     }
 
     /**
