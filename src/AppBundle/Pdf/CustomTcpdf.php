@@ -2,6 +2,8 @@
 
 namespace AppBundle\Pdf;
 
+use Symfony\Bundle\FrameworkBundle\Templating\Helper\AssetsHelper;
+
 /**
  * Class CustomTcpdf
  *
@@ -13,19 +15,45 @@ class CustomTcpdf extends \TCPDF
 {
     const PDF_MARGIN_LEFT   = 25;
     const PDF_MARGIN_RIGHT  = 20;
-    const PDF_MARGIN_TOP    = 20;
+    const PDF_MARGIN_TOP    = 30;
     const PDF_MARGIN_BOTTOM = 10;
     
     private $colorBlueLight = array('red' => 143, 'green' => 171, 'blue' => 217);
     private $colorBlue      = array('red' => 50,  'green' => 118, 'blue' => 179);
     private $colorBlueDark  = array('red' => 217, 'green' => 226, 'blue' => 242);
-    
+
+    /**
+     * @var AssetsHelper $tha
+     */
+    private $tha;
+
+    /**
+     * 
+     * 
+     * Methods
+     * 
+     * 
+     */
+
+    /**
+     * CustomTcpdf constructor
+     *
+     * @param AssetsHelper $tha
+     */
+    public function __construct(AssetsHelper $tha)
+    {
+        parent::__construct();
+        $this->tha = $tha;
+    }
+
     /**
      * Page header
      */
     public function Header()
     {
-        $this->SetXY(self::PDF_MARGIN_LEFT, 9);
+        // logo
+        $this->Image($this->tha->getUrl('/bundles/app/images/fibervent_logo_white_landscape_lowres.jpg'), self::PDF_MARGIN_LEFT, 7);
+        $this->SetXY(self::PDF_MARGIN_LEFT, 11);
         $this->setFontStyle(null, 'I', 10);
         $this->setBlueLine();
         $this->Cell(0, 0, 'Página ' . $this->getAliasNumPage() . ' de ' . $this->getAliasNbPages(), 'B', 0, 'R');
@@ -36,12 +64,12 @@ class CustomTcpdf extends \TCPDF
      */
     public function Footer()
     {
-        $this->SetFont('dejavusans', 'I', 8);
-        $this->SetY($this->getFooterMargin());
-        $text = $this->getAliasNumPage() . ' / ' . $this->getAliasNbPages();
-        $textWidth = $this->GetStringWidth($text);
-        $x = (((210 - $this->getMargins()['right']) - $this->getMargins()['left']) / 2) + $this->getMargins()['left']  - ($textWidth / 4);
-        $this->Text($x, $this->getFooterMargin(), $text);
+//        $this->SetFont('dejavusans', 'I', 8);
+//        $this->SetY($this->getFooterMargin());
+//        $text = $this->getAliasNumPage() . ' / ' . $this->getAliasNbPages();
+//        $textWidth = $this->GetStringWidth($text);
+//        $x = (((210 - $this->getMargins()['right']) - $this->getMargins()['left']) / 2) + $this->getMargins()['left']  - ($textWidth / 4);
+//        $this->Text($x, $this->getFooterMargin(), $text);
     }
 
     /**

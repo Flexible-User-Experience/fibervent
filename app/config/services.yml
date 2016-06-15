@@ -74,6 +74,10 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Usuari", group: "Client" }
 # PDF service builders
+    app.custom_tcpdf:
+        class: AppBundle\Pdf\CustomTcpdf
+        arguments:
+            - "@templating.helper.assets"
     app.audit_pdf_builder:
         class: AppBundle\Service\AuditPdfBuilderService
         arguments:

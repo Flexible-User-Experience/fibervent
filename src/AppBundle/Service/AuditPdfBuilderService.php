@@ -83,7 +83,7 @@ class AuditPdfBuilderService
         $pdf->AddPage(PDF_PAGE_ORIENTATION, PDF_PAGE_FORMAT, true, true);
 
         // Introduction page
-        $pdf->SetXY(CustomTcpdf::PDF_MARGIN_LEFT, 20);
+        $pdf->SetXY(CustomTcpdf::PDF_MARGIN_LEFT, CustomTcpdf::PDF_MARGIN_TOP);
         $pdf->setBlackText();
         $pdf->setFontStyle(null, 'B', 11);
         $pdf->Write(0, '1. INTRODUCCIÓN', '', 0, 'L', true, 0, false, false, 0);
@@ -115,7 +115,7 @@ class AuditPdfBuilderService
     private function doInitialConfig(Audit $audit, Windmill $windmill, Windfarm $windfarm)
     {
         /** @var CustomTcpdf $pdf */
-        $pdf = $this->tcpdf->create();
+        $pdf = $this->tcpdf->create($this->tha);
 
         // set document information
         $pdf->SetCreator(PDF_CREATOR);
