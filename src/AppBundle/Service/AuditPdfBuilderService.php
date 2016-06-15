@@ -143,9 +143,14 @@ class AuditPdfBuilderService
         $pdf->Image($this->tha->getUrl('/bundles/app/images/fibervent_logo_white_landscape.jpg'), 30, 45);
 
         // main detail section
-        $pdf->Write(0, '------', '', 0, 'C', true, 0, false, false, 0);
-        $pdf->Write(0, 'INSPECCIÓN DE PALAS DEL PARQUE EÓLICO ' . $windfarm->getName(), '', 0, 'C', true, 0, false, false, 0);
-        $pdf->Write(0, 'INFORME INDIVIDUAL AEROGENERADOR ' . $windmill->getCode(), '', 0, 'C', true, 0, false, false, 0);
+        $pdf->SetXY(self::PDF_MARGIN_LEFT, 100);
+        $this->setBlackText($pdf);
+        $this->setBlueBackground($pdf);
+        $pdf->Cell(0, 0, 'INSPECCIÓN DE PALAS DEL PARQUE EÓLICO ' . $windfarm->getName(), 'TB', 1, 'C', true);
+        $this->setWhiteBackground($pdf);
+        $pdf->Cell(0, 0, 'INFORME INDIVIDUAL AEROGENERADOR ' . $windmill->getCode(), 'TB', 1, 'C', true);
+
+
         $pdf->Write(0, $windfarm->getPdfLocationString() . '', '', 0, 'C', true, 0, false, false, 0);
 
         // table detail section
@@ -172,15 +177,17 @@ class AuditPdfBuilderService
         $pdf->Write(0, 'No. de AG / palas inspeccionadas: 1 AG / 3 palas', '', 0, 'L', true, 0, false, false, 0);
 
         // footer
-        $y = 245;
-        $this->setFont($pdf, null, null, 8); $this->setBlueText($pdf);
-        $pdf->Text(self::PDF_MARGIN_LEFT, $y, 'Fibervent, SL'); $y = $y + 4; $this->setBlackText($pdf);
-        $pdf->Text(self::PDF_MARGIN_LEFT, $y, 'CIF: B55572580'); $y = $y + 4;
-        $pdf->Text(self::PDF_MARGIN_LEFT, $y, 'Pol. Industrial Pla de Solans, Parcela 2'); $y = $y + 4;
-        $pdf->Text(self::PDF_MARGIN_LEFT, $y, '43519 El Perelló (Tarragona)'); $y = $y + 4;
-        $pdf->Text(self::PDF_MARGIN_LEFT, $y, 'Tel. +34 977 490 713'); $y = $y + 4;
-        $pdf->Text(self::PDF_MARGIN_LEFT, $y, 'info@fibervent.com'); $y = $y + 4;
-        $pdf->Text(self::PDF_MARGIN_LEFT, $y, 'www.fibervent.com');
+        $pdf->SetXY(self::PDF_MARGIN_LEFT, 240);
+        $this->setFont($pdf, null, null, 8);
+        $this->setBlueText($pdf);
+        $pdf->Write(0, 'Fibervent, SL', false, false, 'L', true);
+        $this->setBlackText($pdf);
+        $pdf->Write(0, 'CIF: B55572580', false, false, 'L', true);
+        $pdf->Write(0, 'Pol. Industrial Pla de Solans, Parcela 2', false, false, 'L', true);
+        $pdf->Write(0, '43519 El Perelló (Tarragona)', false, false, 'L', true);
+        $pdf->Write(0, 'Tel. +34 977 490 713', false, false, 'L', true);
+        $pdf->Write(0, 'info@fibervent.com', 'mailto:info@fibervent.com', false, 'L', true);
+        $pdf->Write(0, 'www.fibervent.com', 'http://www.fibervent.com/', false, 'L');
 
         return $pdf;
     }
@@ -204,7 +211,7 @@ class AuditPdfBuilderService
      */
     private function setBlueText(\TCPDF $pdf)
     {
-        $pdf->SetTextColor($this->colorBlue['red'], $this->colorBlue['green'], $this->colorBlue['blue'], 100);
+        $pdf->SetTextColor($this->colorBlue['red'], $this->colorBlue['green'], $this->colorBlue['blue']);
     }
 
     /**
@@ -212,6 +219,22 @@ class AuditPdfBuilderService
      */
     private function setBlackText(\TCPDF $pdf)
     {
-        $pdf->SetTextColor(0, 0, 0, 100);
+        $pdf->SetTextColor(0, 0, 0);
+    }
+
+    /**
+     * @param \TCPDF $pdf
+     */
+    private function setBlueBackground(\TCPDF $pdf)
+    {
+        $pdf->SetFillColor($this->colorBlueDark['red'], $this->colorBlueDark['green'], $this->colorBlueDark['blue']);
+    }
+
+    /**
+     * @param \TCPDF $pdf
+     */
+    private function setWhiteBackground(\TCPDF $pdf)
+    {
+        $pdf->SetFillColor(255, 255, 255);
     }
 }
