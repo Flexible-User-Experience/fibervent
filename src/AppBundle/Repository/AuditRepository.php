@@ -13,5 +13,13 @@ use Doctrine\ORM\EntityRepository;
  */
 class AuditRepository extends EntityRepository
 {
+    public function getOpenAuditsAmount()
+    {
+        $query = $this->createQueryBuilder('a')
+            ->where('a.status = :status')
+            ->setParameter('status', true)
+            ->getQuery();
 
+        return count($query->getResult());
+    }
 }

@@ -73,6 +73,12 @@ services:
         arguments: [ ~, AppBundle\Entity\User, ~, "@fos_user.user_manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Usuari", group: "Client" }
+# Sonata Blocks
+    admin.block.audits:
+        class: AppBundle\Admin\Block\AuditsBlock
+        tags:
+            - { name: sonata.block }
+        arguments: [ "sonata.admin.block.audits", "@templating", "@doctrine.orm.entity_manager" ]
 # PDF service builders
     app.custom_tcpdf:
         class: AppBundle\Pdf\CustomTcpdf

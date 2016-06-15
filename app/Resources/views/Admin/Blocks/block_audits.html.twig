@@ -1,0 +1,14 @@
+{% extends sonata_block.templates.block_base %}
+
+{% block block %}
+    {% if is_granted('ROLE_ADMIN') %}
+        <div class="box box-success">
+            <div class="box-header">
+                <h3 class="box-title">
+                    <i class="fa fa-bar-chart"></i>
+                    AUDITORIES OBERTES {{ open_audits }} AUDITORIES PENDENTS
+                </h3>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}
