@@ -133,9 +133,6 @@ class AuditPdfBuilderService
         // set image scale factor
         $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
 
-        // Set font
-        $this->setFont($pdf);
-
         // Add start page
         $pdf->startPage(PDF_PAGE_ORIENTATION, PDF_PAGE_FORMAT);
 
@@ -144,40 +141,74 @@ class AuditPdfBuilderService
 
         // main detail section
         $pdf->SetXY(self::PDF_MARGIN_LEFT, 100);
+        $this->setFont($pdf, null, 'B', 14);
         $this->setBlackText($pdf);
+        $this->setBlueLine($pdf);
         $this->setBlueBackground($pdf);
-        $pdf->Cell(0, 0, 'INSPECCIÓN DE PALAS DEL PARQUE EÓLICO ' . $windfarm->getName(), 'TB', 1, 'C', true);
+        $pdf->Cell(0, 8, 'INSPECCIÓN DE PALAS DEL PARQUE EÓLICO ' . $windfarm->getName(), 'TB', 1, 'C', true);
         $this->setWhiteBackground($pdf);
-        $pdf->Cell(0, 0, 'INFORME INDIVIDUAL AEROGENERADOR ' . $windmill->getCode(), 'TB', 1, 'C', true);
-
-
-        $pdf->Write(0, $windfarm->getPdfLocationString() . '', '', 0, 'C', true, 0, false, false, 0);
+        $pdf->Cell(0, 8, 'INFORME INDIVIDUAL AEROGENERADOR ' . $windmill->getCode(), 'TB', 1, 'C', true);
+        $pdf->Cell(0, 8, $windfarm->getPdfLocationString(), 'TB', 1, 'C', true);
+        $this->setFont($pdf);
 
         // table detail section
-        $pdf->Write(0, '------', '', 0, 'C', true, 0, false, false, 0);
-        $pdf->Write(0, 'PAÍS/REGION: ' . $windfarm->getState()->getCountryName() . ' (' . $windfarm->getState()->getName() . ')' . '', '', 0, 'L', true, 0, false, false, 0);
-        $pdf->Write(0, 'PARQUE EÓLICO: ' . $windfarm->getName(), '', 0, 'L', true, 0, false, false, 0);
-        $pdf->Write(0, 'MODELO AEROGENERADOR: ' . $windmill->getPdfModelString(), '', 0, 'L', true, 0, false, false, 0);
-        $pdf->Write(0, 'MODELO PALA: ' . $windmill->getBladeType()->getModel(), '', 0, 'L', true, 0, false, false, 0);
-        $pdf->Write(0, 'TOTAL No. AG / Capacidad PE: ' . $windfarm->getPdfTotalPowerString(), '', 0, 'L', true, 0, false, false, 0);
-        $pdf->Write(0, 'Puesta en marcha (años del PE): ' . $windfarm->getPdfYearString(), '', 0, 'L', true, 0, false, false, 0);
-        $pdf->Write(0, 'O&M REGIONAL MANAGER: ' . $windfarm->getManager()->getFullname(), '', 0, 'L', true, 0, false, false, 0);
+        $pdf->SetXY(self::PDF_MARGIN_LEFT, $pdf->GetY() + 10);
+        $this->setFont($pdf, null, 'B', 10); $this->setBlueBackground($pdf);
+        $pdf->Cell(70, 6, 'PAÍS/REGION', 'TB', 0, 'C', true);
+        $this->setFont($pdf, null, '', 10); $this->setWhiteBackground($pdf);
+        $pdf->Cell(0, 6, $windfarm->getState()->getCountryName() . ' (' . $windfarm->getState()->getName() . ')', 'TB', 1, 'C', true);
+        $this->setFont($pdf, null, 'B', 10); $this->setBlueBackground($pdf);
+        $pdf->Cell(70, 6, 'PARQUE EÓLICO', 'TB', 0, 'C', true);
+        $this->setFont($pdf, null, '', 10); $this->setWhiteBackground($pdf);
+        $pdf->Cell(0, 6, $windfarm->getName(), 'TB', 1, 'C', true);
+        $this->setFont($pdf, null, 'B', 10); $this->setBlueBackground($pdf);
+        $pdf->Cell(70, 6, 'MODELO AEROGENERADOR', 'TB', 0, 'C', true);
+        $this->setFont($pdf, null, '', 10); $this->setWhiteBackground($pdf);
+        $pdf->Cell(0, 6, $windmill->getPdfModelString(), 'TB', 1, 'C', true);
+        $this->setFont($pdf, null, 'B', 10); $this->setBlueBackground($pdf);
+        $pdf->Cell(70, 6, 'MODELO PALA', 'TB', 0, 'C', true);
+        $this->setFont($pdf, null, '', 10); $this->setWhiteBackground($pdf);
+        $pdf->Cell(0, 6, $windmill->getBladeType()->getModel(), 'TB', 1, 'C', true);
+        $this->setFont($pdf, null, 'B', 10); $this->setBlueBackground($pdf);
+        $pdf->Cell(70, 6, 'TOTAL No. AG / Capacidad PE', 'TB', 0, 'C', true);
+        $this->setFont($pdf, null, '', 10); $this->setWhiteBackground($pdf);
+        $pdf->Cell(0, 6, $windfarm->getPdfTotalPowerString(), 'TB', 1, 'C', true);
+        $this->setFont($pdf, null, 'B', 10); $this->setBlueBackground($pdf);
+        $pdf->Cell(70, 6, 'Puesta en marcha (años del PE)', 'TB', 0, 'C', true);
+        $this->setFont($pdf, null, '', 10); $this->setWhiteBackground($pdf);
+        $pdf->Cell(0, 6, $windfarm->getPdfYearString(), 'TB', 1, 'C', true);
+        $this->setFont($pdf, null, 'B', 10); $this->setBlueBackground($pdf);
+        $pdf->Cell(70, 6, 'O&M REGIONAL MANAGER', 'TB', 0, 'C', true);
+        $this->setFont($pdf, null, '', 10); $this->setWhiteBackground($pdf);
+        $pdf->Cell(0, 6, $windfarm->getManager()->getFullname(), 'TB', 1, 'C', true);
 
         // revisions table section
-        $pdf->Write(0, '--- REVISIONES ---', '', 0, 'C', true, 0, false, false, 0);
+//        $pdf->Write(0, '--- REVISIONES ---', '', 0, 'C', true, 0, false, false, 0);
 
         // operators details
-        $pdf->Write(0, '------', '', 0, 'C', true, 0, false, false, 0);
-        $pdf->Write(0, 'TÉCNICOS INSPECCIÓN: ' . implode(', ', $audit->getOperators()->getValues()), '', 0, 'L', true, 0, false, false, 0);
+        $pdf->SetXY(self::PDF_MARGIN_LEFT, $pdf->GetY() + 10);
+        $this->setFont($pdf, null, 'B', 10); $this->setBlueBackground($pdf);
+        $pdf->Cell(70, 6, 'TÉCNICOS INSPECCIÓN', 'TB', 0, 'C', true);
+        $this->setFont($pdf, null, '', 10); $this->setWhiteBackground($pdf);
+        $pdf->Cell(0, 6, implode(', ', $audit->getOperators()->getValues()), 'TB', 1, 'C', true);
 
         // final details
-        $pdf->Write(0, '------', '', 0, 'C', true, 0, false, false, 0);
-        $pdf->Write(0, 'TIPO DE INSPECCIÓN: SUELO (Telescopio FIBERVENT)', '', 0, 'L', true, 0, false, false, 0);
-        $pdf->Write(0, 'FECHA DE INSPECCIÓN: ' . $audit->getBeginDate()->format('d/m/Y'), '', 0, 'L', true, 0, false, false, 0);
-        $pdf->Write(0, 'No. de AG / palas inspeccionadas: 1 AG / 3 palas', '', 0, 'L', true, 0, false, false, 0);
+        $pdf->SetXY(self::PDF_MARGIN_LEFT, $pdf->GetY() + 10);
+        $this->setFont($pdf, null, 'B', 10); $this->setBlueBackground($pdf);
+        $pdf->Cell(70, 6, 'TIPO DE INSPECCIÓN', 'TB', 0, 'C', true);
+        $this->setFont($pdf, null, '', 10); $this->setWhiteBackground($pdf);
+        $pdf->Cell(0, 6, 'SUELO (Telescopio FIBERVENT)', 'TB', 1, 'C', true);
+        $this->setFont($pdf, null, 'B', 10); $this->setBlueBackground($pdf);
+        $pdf->Cell(70, 6, 'FECHA DE INSPECCIÓN', 'TB', 0, 'C', true);
+        $this->setFont($pdf, null, '', 10); $this->setWhiteBackground($pdf);
+        $pdf->Cell(0, 6, $audit->getBeginDate()->format('d/m/Y'), 'TB', 1, 'C', true);
+        $this->setFont($pdf, null, 'B', 10); $this->setBlueBackground($pdf);
+        $pdf->Cell(70, 6, 'No. de AG / palas inspeccionadas', 'TB', 0, 'C', true);
+        $this->setFont($pdf, null, '', 10); $this->setWhiteBackground($pdf);
+        $pdf->Cell(0, 6, '1 AG / 3 palas', 'TB', 1, 'C', true);
 
         // footer
-        $pdf->SetXY(self::PDF_MARGIN_LEFT, 240);
+        $pdf->SetXY(self::PDF_MARGIN_LEFT, 250);
         $this->setFont($pdf, null, null, 8);
         $this->setBlueText($pdf);
         $pdf->Write(0, 'Fibervent, SL', false, false, 'L', true);
@@ -186,8 +217,12 @@ class AuditPdfBuilderService
         $pdf->Write(0, 'Pol. Industrial Pla de Solans, Parcela 2', false, false, 'L', true);
         $pdf->Write(0, '43519 El Perelló (Tarragona)', false, false, 'L', true);
         $pdf->Write(0, 'Tel. +34 977 490 713', false, false, 'L', true);
+        $this->setFont($pdf, null, 'U', 8);
+        $this->setBlueText($pdf);
         $pdf->Write(0, 'info@fibervent.com', 'mailto:info@fibervent.com', false, 'L', true);
+        $this->setFont($pdf, null, null, 8);
         $pdf->Write(0, 'www.fibervent.com', 'http://www.fibervent.com/', false, 'L');
+        $this->setBlackText($pdf);
 
         return $pdf;
     }
@@ -236,5 +271,21 @@ class AuditPdfBuilderService
     private function setWhiteBackground(\TCPDF $pdf)
     {
         $pdf->SetFillColor(255, 255, 255);
+    }
+
+    /**
+     * @param \TCPDF $pdf
+     */
+    private function setBlueLine(\TCPDF $pdf)
+    {
+        $pdf->SetDrawColor($this->colorBlueLight['red'], $this->colorBlueLight['green'], $this->colorBlueLight['blue']);
+    }
+
+    /**
+     * @param \TCPDF $pdf
+     */
+    private function setBlackLine(\TCPDF $pdf)
+    {
+        $pdf->SetDrawColor(0, 0, 0);
     }
 }
