@@ -272,8 +272,11 @@ class AuditAdmin extends AbstractBaseAdmin
                 'windmill',
                 null,
                 array(
-                    'label'               => 'Aerogenerador',
-                    'associated_property' => 'code',
+                    'label'                            => 'Aerogenerador',
+                    'associated_property'              => 'code',
+                    'sortable'                         => true,
+                    'sort_field_mapping'               => array('fieldName' => 'code'),
+                    'sort_parent_association_mappings' => array(array('fieldName' => 'windmill')),
                 )
             )
             ->add(
