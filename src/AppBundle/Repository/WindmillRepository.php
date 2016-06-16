@@ -21,13 +21,16 @@ class WindmillRepository extends EntityRepository
      *
      * @return QueryBuilder
      */
-    public function findAllSortedByCustomerWindfarmTurbineQB($limit = null, $order = 'ASC')
+    public function findAllSortedByCustomerWindfarmAndWindmillCodeQB($limit = null, $order = 'ASC')
     {
         $query = $this
-            ->createQueryBuilder('w')
-            ->orderBy('w.windfarm', $order)
-//            ->addOrderBy('w.windfarm.name', $order)
-            ->addOrderBy('w.turbine', $order);
+            ->createQueryBuilder('windmill')
+            ->select('windmill, windfarm, customer')
+            ->join('windmill.windfarm', 'windfarm')
+            ->join('windfarm.customer', 'customer')
+            ->orderBy('customer.name', $order)
+            ->addOrderBy('windfarm.name', $order)
+            ->addOrderBy('windmill.code', $order);
 
         if (!is_null($limit)) {
             $query->setMaxResults($limit);
@@ -42,9 +45,9 @@ class WindmillRepository extends EntityRepository
      *
      * @return Query
      */
-    public function findAllSortedByCustomerWindfarmTurbineQ($limit = null, $order = 'ASC')
+    public function findAllSortedByCustomerWindfarmAndWindmillCodeQ($limit = null, $order = 'ASC')
     {
-        return $this->findAllSortedByCustomerWindfarmTurbineQB($limit, $order)->getQuery();
+        return $this->findAllSortedByCustomerWindfarmAndWindmillCodeQB($limit, $order)->getQuery();
     }
 
     /**
@@ -53,8 +56,8 @@ class WindmillRepository extends EntityRepository
      *
      * @return array
      */
-    public function findAllSortedByCustomerWindfarmTurbine($limit = null, $order = 'ASC')
+    public function findAllSortedByCustomerWindfarmAndWindmillCode($limit = null, $order = 'ASC')
     {
-        return $this->findAllSortedByCustomerWindfarmTurbineQ($limit, $order)->getResult();
+        return $this->findAllSortedByCustomerWindfarmAndWindmillCodeQ($limit, $order)->getResult();
     }
 }

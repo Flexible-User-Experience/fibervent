@@ -56,7 +56,7 @@ class AuditAdmin extends AbstractBaseAdmin
                     'btn_add'    => false,
                     'btn_delete' => false,
                     'required'   => true,
-                    'query'      => $this->wmr->findAllSortedByCustomerWindfarmTurbineQ()
+                    'query'      => $this->wmr->findAllSortedByCustomerWindfarmAndWindmillCodeQ()
                 )
             )
             ->add(
