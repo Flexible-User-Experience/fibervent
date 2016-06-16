@@ -4,9 +4,10 @@
     {% if is_granted('ROLE_ADMIN') %}
         <div class="box box-success">
             <div class="box-header">
-                <h3 class="box-title">
-                    <i class="fa fa-bar-chart"></i>
-                    AUDITORIES OBERTES {{ open_audits }} AUDITORIES PENDENTS
+                <h3 class="box-title">ESTAT AUDITORIES
+                    {#<i class="fa fa-bar-chart"></i>#}
+                    <h4>AUDITORIES OBERTES {{ open_audits }}</h4>
+                    <h4>AUDITORIES PENDENTS {{ pending_audits }}</h4>
                 </h3>
             </div>
         </div>
