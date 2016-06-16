@@ -1,15 +1,13 @@
 {% extends sonata_block.templates.block_base %}
 
 {% block block %}
-    {% if is_granted('ROLE_ADMIN') %}
-        <div class="box box-success">
-            <div class="box-header">
-                <h3 class="box-title">ESTAT AUDITORIES
-                    {#<i class="fa fa-bar-chart"></i>#}
-                    <h4>AUDITORIES OBERTES {{ open_audits }}</h4>
-                    <h4>AUDITORIES PENDENTS {{ pending_audits }}</h4>
-                </h3>
-            </div>
+    <div class="box">
+        <div class="box-header">
+            <h3 class="box-title"><i class="fa fa-bar-chart"></i> Estat Auditories</h3>
         </div>
-    {% endif %}
+        <div class="box-body">
+            <h4>Auditories pendents {{ pending_audits }}</h4>
+            <h4>Auditories en procés {{ open_audits }}</h4>
+        </div>
+    </div>
 {% endblock %}

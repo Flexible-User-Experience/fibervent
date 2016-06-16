@@ -71,9 +71,10 @@ sonata_admin:
                 settings:
                     groups: [ Auditoria ]
             -
-                position: bottom
+                position: top
                 type: admin.block.audits
-                class: col-md-12
+                class: col-md-6
+                roles: [ ROLE_OPERATOR ]
             -
                 position: bottom
                 type: sonata.block.service.text
