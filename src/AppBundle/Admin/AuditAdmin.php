@@ -259,6 +259,10 @@ class AuditAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'Client',
+                    'associated_property'              => 'name',
+                    'sortable'                         => true,
+                    'sort_field_mapping'               => array('fieldName' => 'name'),
+                    'sort_parent_association_mappings' => array(array('fieldName' => 'customer')),
                 )
             )
             ->add(
@@ -266,6 +270,10 @@ class AuditAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'Parc Eòlic',
+                    'associated_property'              => 'name',
+                    'sortable'                         => true,
+                    'sort_field_mapping'               => array('fieldName' => 'name'),
+                    'sort_parent_association_mappings' => array(array('fieldName' => 'windfarm')),
                 )
             )
             ->add(
