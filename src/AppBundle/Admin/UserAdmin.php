@@ -58,6 +58,7 @@ class UserAdmin extends ParentUserAdmin
     protected function configureRoutes(RouteCollection $collection)
     {
         $collection->remove('batch');
+        $collection->remove('delete');
         $collection->remove('export');
         $collection->remove('show');
     }
@@ -317,7 +318,6 @@ class UserAdmin extends ParentUserAdmin
                     'label'   => 'Accions',
                     'actions' => array(
                         'edit'   => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
-                        'delete' => array('template' => '::Admin/Buttons/list__action_delete_button.html.twig'),
                     ),
                 )
             );
