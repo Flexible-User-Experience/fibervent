@@ -91,7 +91,7 @@ class Customer extends AbstractBase
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="User", mappedBy="customer")
+     * @ORM\OneToMany(targetEntity="User", mappedBy="customer", cascade={"persist"})
      */
     private $contacts;
 
