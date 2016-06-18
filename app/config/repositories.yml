@@ -19,3 +19,8 @@ services:
         factory: [ "@doctrine", getRepository ]
         arguments:
             - AppBundle:Windfarm
+    app.windmill_repository:
+        class: AppBundle\Repository\WindmillRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - AppBundle:Windmill

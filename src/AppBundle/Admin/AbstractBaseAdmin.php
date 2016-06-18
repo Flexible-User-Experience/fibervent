@@ -6,6 +6,7 @@ use AppBundle\Repository\BladeRepository;
 use AppBundle\Repository\StateRepository;
 use AppBundle\Repository\TurbineRepository;
 use AppBundle\Repository\WindfarmRepository;
+use AppBundle\Repository\WindmillRepository;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Liip\ImagineBundle\Imagine\Cache\CacheManager;
@@ -20,6 +21,11 @@ use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
  */
 abstract class AbstractBaseAdmin extends AbstractAdmin
 {
+    /**
+     * @var WindmillRepository
+     */
+    protected $wmr;
+
     /**
      * @var WindfarmRepository
      */
@@ -54,6 +60,7 @@ abstract class AbstractBaseAdmin extends AbstractAdmin
      * @param string             $code
      * @param string             $class
      * @param string             $baseControllerName
+     * @param WindmillRepository $wmr
      * @param WindfarmRepository $wfr
      * @param BladeRepository    $br
      * @param TurbineRepository  $tr
@@ -61,9 +68,10 @@ abstract class AbstractBaseAdmin extends AbstractAdmin
      * @param UploaderHelper     $vus
      * @param CacheManager       $lis
      */
-    public function __construct($code, $class, $baseControllerName, WindfarmRepository $wfr, BladeRepository $br, TurbineRepository $tr, StateRepository $sr, UploaderHelper $vus, CacheManager $lis)
+    public function __construct($code, $class, $baseControllerName, WindmillRepository $wmr, WindfarmRepository $wfr, BladeRepository $br, TurbineRepository $tr, StateRepository $sr, UploaderHelper $vus, CacheManager $lis)
     {
         parent::__construct($code, $class, $baseControllerName);
+        $this->wmr = $wmr;
         $this->wfr = $wfr;
         $this->br  = $br;
         $this->tr  = $tr;

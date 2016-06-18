@@ -50,10 +50,13 @@ class AuditAdmin extends AbstractBaseAdmin
             ->with('General', $this->getFormMdSuccessBoxArray(7))
             ->add(
                 'windmill',
-                null,
+                'sonata_type_model',
                 array(
                     'label'    => 'Aerogenerador',
-                    'required' => true,
+                    'btn_add'    => false,
+                    'btn_delete' => false,
+                    'required'   => true,
+                    'query'      => $this->wmr->findAllSortedByCustomerWindfarmAndWindmillCodeQ()
                 )
             )
             ->add(
@@ -256,6 +259,10 @@ class AuditAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'Client',
+                    'associated_property'              => 'name',
+                    'sortable'                         => true,
+                    'sort_field_mapping'               => array('fieldName' => 'name'),
+                    'sort_parent_association_mappings' => array(array('fieldName' => 'customer')),
                 )
             )
             ->add(
@@ -263,14 +270,21 @@ class AuditAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'Parc Eòlic',
+                    'associated_property'              => 'name',
+                    'sortable'                         => true,
+                    'sort_field_mapping'               => array('fieldName' => 'name'),
+                    'sort_parent_association_mappings' => array(array('fieldName' => 'windfarm')),
                 )
             )
             ->add(
                 'windmill',
                 null,
                 array(
-                    'label'               => 'Aerogenerador',
-                    'associated_property' => 'code',
+                    'label'                            => 'Aerogenerador',
+                    'associated_property'              => 'code',
+                    'sortable'                         => true,
+                    'sort_field_mapping'               => array('fieldName' => 'code'),
+                    'sort_parent_association_mappings' => array(array('fieldName' => 'windmill')),
                 )
             )
             ->add(

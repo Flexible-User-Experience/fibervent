@@ -3214,16 +3214,16 @@
         },
         {
             "name": "sonata-project/admin-bundle",
-            "version": "3.3.0",
+            "version": "3.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataAdminBundle.git",
-                "reference": "a8f34c0a618df0e63bf58ec0669fc2a576ec09ca"
+                "reference": "15b350f0f4ca1ab6eb44b774071f46a9ac9a3410"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataAdminBundle/zipball/a8f34c0a618df0e63bf58ec0669fc2a576ec09ca",
-                "reference": "a8f34c0a618df0e63bf58ec0669fc2a576ec09ca",
+                "url": "https://api.github.com/repos/sonata-project/SonataAdminBundle/zipball/15b350f0f4ca1ab6eb44b774071f46a9ac9a3410",
+                "reference": "15b350f0f4ca1ab6eb44b774071f46a9ac9a3410",
                 "shasum": ""
             },
             "require": {
@@ -3304,7 +3304,7 @@
                 "bootstrap",
                 "sonata"
             ],
-            "time": "2016-06-13 13:27:31"
+            "time": "2016-06-17 15:56:56"
         },
         {
             "name": "sonata-project/block-bundle",
@@ -3440,16 +3440,16 @@
         },
         {
             "name": "sonata-project/core-bundle",
-            "version": "3.0.2",
+            "version": "3.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataCoreBundle.git",
-                "reference": "68c19b011aee8717c23a97ae9eccf24219d96eaf"
+                "reference": "3f13220be081c05e61aa97c12d3407c9fb47f1f7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataCoreBundle/zipball/68c19b011aee8717c23a97ae9eccf24219d96eaf",
-                "reference": "68c19b011aee8717c23a97ae9eccf24219d96eaf",
+                "url": "https://api.github.com/repos/sonata-project/SonataCoreBundle/zipball/3f13220be081c05e61aa97c12d3407c9fb47f1f7",
+                "reference": "3f13220be081c05e61aa97c12d3407c9fb47f1f7",
                 "shasum": ""
             },
             "require": {
@@ -3507,7 +3507,7 @@
             "keywords": [
                 "sonata"
             ],
-            "time": "2016-06-06 18:04:42"
+            "time": "2016-06-17 12:05:02"
         },
         {
             "name": "sonata-project/datagrid-bundle",
@@ -3617,16 +3617,16 @@
         },
         {
             "name": "sonata-project/doctrine-orm-admin-bundle",
-            "version": "3.0.3",
+            "version": "3.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataDoctrineORMAdminBundle.git",
-                "reference": "4c7f9333e56722e9b32a28c36a78b060265eb8fd"
+                "reference": "c27f7a5f6f61445b0156236abff3f6cb375a1abe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataDoctrineORMAdminBundle/zipball/4c7f9333e56722e9b32a28c36a78b060265eb8fd",
-                "reference": "4c7f9333e56722e9b32a28c36a78b060265eb8fd",
+                "url": "https://api.github.com/repos/sonata-project/SonataDoctrineORMAdminBundle/zipball/c27f7a5f6f61445b0156236abff3f6cb375a1abe",
+                "reference": "c27f7a5f6f61445b0156236abff3f6cb375a1abe",
                 "shasum": ""
             },
             "require": {
@@ -3689,7 +3689,7 @@
                 "generator",
                 "sonata"
             ],
-            "time": "2016-06-09 15:50:53"
+            "time": "2016-06-17 14:59:00"
         },
         {
             "name": "sonata-project/easy-extends-bundle",
@@ -3752,43 +3752,45 @@
         },
         {
             "name": "sonata-project/exporter",
-            "version": "1.4.1",
+            "version": "1.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/exporter.git",
-                "reference": "474be8b9dbb8ca1c378aa24e701df940a89ec124"
+                "reference": "157e2e67df0ee4f1a0074d22039dd482af0a1550"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/exporter/zipball/474be8b9dbb8ca1c378aa24e701df940a89ec124",
-                "reference": "474be8b9dbb8ca1c378aa24e701df940a89ec124",
+                "url": "https://api.github.com/repos/sonata-project/exporter/zipball/157e2e67df0ee4f1a0074d22039dd482af0a1550",
+                "reference": "157e2e67df0ee4f1a0074d22039dd482af0a1550",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.0"
+                "php": "^5.3 || ^7.0"
             },
             "require-dev": {
-                "fabpot/php-cs-fixer": "~0.1|~1.0",
-                "propel/propel1": "~1.6",
-                "symfony/phpunit-bridge": "~2.7|~3.0",
-                "symfony/property-access": "~2.3|~3.0",
-                "symfony/routing": "~2.3|~3.0"
+                "doctrine/dbal": "^2.2",
+                "doctrine/orm": "^2.2",
+                "propel/propel1": "^1.6",
+                "sllh/php-cs-fixer-styleci-bridge": "^2.0",
+                "symfony/phpunit-bridge": "^2.7 || ^3.0",
+                "symfony/property-access": "^2.3 || ^3.0",
+                "symfony/routing": "^2.3 || ^3.0"
             },
             "suggest": {
                 "ext-curl": "*",
-                "propel/propel1": "~1.6",
-                "symfony/property-access": "~2.3|~3.0",
-                "symfony/routing": "~2.3|~3.0"
+                "propel/propel1": "^1.6",
+                "symfony/property-access": "^2.3 || ^3.0",
+                "symfony/routing": "^2.3 || ^3.0"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1-dev"
+                    "dev-master": "1.x-dev"
                 }
             },
             "autoload": {
-                "psr-0": {
-                    "Exporter": "lib/"
+                "psr-4": {
+                    "Exporter\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -3811,7 +3813,7 @@
                 "export",
                 "xls"
             ],
-            "time": "2015-11-25 09:33:45"
+            "time": "2016-06-16 10:27:09"
         },
         {
             "name": "sonata-project/google-authenticator",

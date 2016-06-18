@@ -1,4 +1,4 @@
-fibervent
+Fibervent
 =========
 
-A Symfony project created on May 16, 2016, 6:26 pm.
+A Symfony2 webapp project to manage Fibervent enterprise auditting process.

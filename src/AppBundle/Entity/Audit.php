@@ -86,6 +86,20 @@ class Audit extends AbstractBase
     private $operators;
 
     /**
+     * @var Windfarm
+     *
+     * @ORM\ManyToOne(targetEntity="Windfarm")
+     */
+    private $windfarm;
+
+    /**
+     * @var Customer
+     *
+     * @ORM\ManyToOne(targetEntity="Customer")
+     */
+    private $customer;
+
+    /**
      *
      *
      * Methods
@@ -343,6 +357,46 @@ class Audit extends AbstractBase
     public function removeOperator(User $user)
     {
         $this->operators->removeElement($user);
+
+        return $this;
+    }
+
+    /**
+     * @return Windfarm
+     */
+    public function getWindfarm()
+    {
+        return $this->windfarm;
+    }
+
+    /**
+     * @param Windfarm $windfarm
+     *
+     * @return Audit
+     */
+    public function setWindfarm(Windfarm $windfarm)
+    {
+        $this->windfarm = $windfarm;
+
+        return $this;
+    }
+
+    /**
+     * @return Customer
+     */
+    public function getCustomer()
+    {
+        return $this->customer;
+    }
+
+    /**
+     * @param Customer $customer
+     *
+     * @return Audit
+     */
+    public function setCustomer(Customer $customer)
+    {
+        $this->customer = $customer;
 
         return $this;
     }
