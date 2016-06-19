@@ -70,7 +70,7 @@ services:
             - { name: sonata.admin, manager_type: orm, label: "Audit Dany Pala", group: "Auditoria", show_in_dashboard: false }
     admin.user:
         class: AppBundle\Admin\UserAdmin
-        arguments: [ ~, AppBundle\Entity\User, ~, "@fos_user.user_manager" ]
+        arguments: [ ~, AppBundle\Entity\User, AppBundle:UserAdmin, "@fos_user.user_manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Usuari", group: "Client" }
 # Sonata Blocks
