@@ -109,7 +109,7 @@ class Windfarm extends AbstractBase
     }
 
     /**
-     * @param Customer $customer
+     * @param Customer|null $customer
      *
      * @return Windfarm
      */

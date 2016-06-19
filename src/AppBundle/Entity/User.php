@@ -80,11 +80,11 @@ class User extends BaseUser
     }
 
     /**
-     * @param Customer $customer
+     * @param Customer|null $customer
      *
      * @return User
      */
-    public function setCustomer(Customer $customer)
+    public function setCustomer($customer)
     {
         $this->customer = $customer;
 
