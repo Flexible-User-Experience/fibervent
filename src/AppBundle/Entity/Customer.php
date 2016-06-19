@@ -22,6 +22,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="AppBundle\Repository\CustomerRepository")
  * @UniqueEntity("code")
+ * @Gedmo\SoftDeleteable(fieldName="removedAt", timeAware=false)
  */
 class Customer extends AbstractBase
 {

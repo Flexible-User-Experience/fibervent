@@ -19,6 +19,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="AppBundle\Repository\PhotoRepository")
+ * @Gedmo\SoftDeleteable(fieldName="removedAt", timeAware=false)
  * @Vich\Uploadable
  */
 class Photo extends AbstractBase
