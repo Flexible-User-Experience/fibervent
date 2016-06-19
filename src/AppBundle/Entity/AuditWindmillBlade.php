@@ -16,6 +16,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="AppBundle\Repository\AuditWindmillBladeRepository")
+ * @Gedmo\SoftDeleteable(fieldName="removedAt", timeAware=false)           
  */
 class AuditWindmillBlade extends AbstractBase
 {

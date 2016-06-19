@@ -16,6 +16,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="AppBundle\Repository\AuditRepository")
+ * @Gedmo\SoftDeleteable(fieldName="removedAt", timeAware=false)
  */
 class Audit extends AbstractBase
 {
@@ -79,11 +80,24 @@ class Audit extends AbstractBase
      * @var ArrayCollection
      *
      * @ORM\ManyToMany(targetEntity="User")
-     * @ORM\JoinTable(name="audits_users",
-     *     joinColumns={@ORM\JoinColumn(name="audit_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")}
-     *      )     */
+     * @ORM\JoinTable(name="audits_users", joinColumns={@ORM\JoinColumn(name="audit_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")})
+     */
     private $operators;
+
+    /**
+     * @var Windfarm
+     *
+     * @ORM\ManyToOne(targetEntity="Windfarm")
+     */
+    private $windfarm;
+
+    /**
+     * @var Customer
+     *
+     * @ORM\ManyToOne(targetEntity="Customer")
+     */
+    private $customer;
 
     /**
      *
@@ -343,6 +357,46 @@ class Audit extends AbstractBase
     public function removeOperator(User $user)
     {
         $this->operators->removeElement($user);
+
+        return $this;
+    }
+
+    /**
+     * @return Windfarm
+     */
+    public function getWindfarm()
+    {
+        return $this->windfarm;
+    }
+
+    /**
+     * @param Windfarm $windfarm
+     *
+     * @return Audit
+     */
+    public function setWindfarm(Windfarm $windfarm)
+    {
+        $this->windfarm = $windfarm;
+
+        return $this;
+    }
+
+    /**
+     * @return Customer
+     */
+    public function getCustomer()
+    {
+        return $this->customer;
+    }
+
+    /**
+     * @param Customer $customer
+     *
+     * @return Audit
+     */
+    public function setCustomer(Customer $customer)
+    {
+        $this->customer = $customer;
 
         return $this;
     }

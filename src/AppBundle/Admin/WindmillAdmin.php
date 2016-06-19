@@ -172,7 +172,9 @@ class WindmillAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label'    => 'Parc Eòlic',
-                    'editable' => true,
+                    'sortable'                         => true,
+                    'sort_field_mapping'               => array('fieldName' => 'name'),
+                    'sort_parent_association_mappings' => array(array('fieldName' => 'windfarm')),
                 )
             )
             ->add(
@@ -188,7 +190,9 @@ class WindmillAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label'    => 'Turbina',
-                    'editable' => false,
+                    'sortable'                         => true,
+                    'sort_field_mapping'               => array('fieldName' => 'model'),
+                    'sort_parent_association_mappings' => array(array('fieldName' => 'turbine')),
                 )
             )
             ->add(
@@ -196,7 +200,9 @@ class WindmillAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label'    => 'Tipus Pala',
-                    'editable' => false,
+                    'sortable'                         => true,
+                    'sort_field_mapping'               => array('fieldName' => 'model'),
+                    'sort_parent_association_mappings' => array(array('fieldName' => 'bladeType')),
                 )
             )
             ->add(

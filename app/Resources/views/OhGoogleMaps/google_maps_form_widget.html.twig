@@ -39,8 +39,8 @@
                         'lng_field'          : $('#{{ attribute(form, lng_name).vars.id }}'),
                         'callback'           : oh_google_maps_callback
                     });
-                    jQuery('#{{ id }}_lat').prop('readonly', true);
-                    jQuery('#{{ id }}_lng').prop('readonly', true);
+                    {#jQuery('#{{ id }}_lat').prop('readonly', true);#}
+                    {#jQuery('#{{ id }}_lng').prop('readonly', true);#}
                 });
             </script>
         {% endblock %}

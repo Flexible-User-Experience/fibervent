@@ -2,6 +2,7 @@
 
 namespace AppBundle\Repository;
 
+use AppBundle\Entity\Customer;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
@@ -16,8 +17,8 @@ use Doctrine\ORM\QueryBuilder;
 class WindfarmRepository extends EntityRepository
 {
     /**
-     * @param null   $limit
-     * @param string $order
+     * @param integer|null $limit
+     * @param string       $order
      *
      * @return QueryBuilder
      */
@@ -35,8 +36,8 @@ class WindfarmRepository extends EntityRepository
     }
 
     /**
-     * @param null   $limit
-     * @param string $order
+     * @param integer|null $limit
+     * @param string       $order
      *
      * @return Query
      */
@@ -46,13 +47,55 @@ class WindfarmRepository extends EntityRepository
     }
 
     /**
-     * @param null   $limit
-     * @param string $order
+     * @param integer|null $limit
+     * @param string       $order
      *
      * @return array
      */
     public function findAllSortedByName($limit = null, $order = 'ASC')
     {
         return $this->findAllSortedByNameQ($limit, $order)->getResult();
+    }
+
+    /**
+     * @param Customer     $customer
+     * @param integer|null $limit
+     * @param string       $order
+     *
+     * @return QueryBuilder
+     */
+    public function findOnlyAvailableSortedByNameQB(Customer $customer, $limit = null, $order = 'ASC')
+    {
+        $query = $this->findAllSortedByNameQB($limit, $order);
+        $query
+            ->where('w.customer IS NULL')
+            ->orWhere('w.customer = :customer')
+            ->setParameter('customer', $customer);
+
+        return $query;
+    }
+
+    /**
+     * @param Customer     $customer
+     * @param integer|null $limit
+     * @param string       $order
+     *
+     * @return Query
+     */
+    public function findOnlyAvailableSortedByNameQ(Customer $customer, $limit = null, $order = 'ASC')
+    {
+        return $this->findOnlyAvailableSortedByNameQB($customer, $limit, $order)->getQuery();
+    }
+
+    /**
+     * @param Customer     $customer
+     * @param integer|null $limit
+     * @param string       $order
+     *
+     * @return array
+     */
+    public function findOnlyAvailableSortedByName(Customer $customer, $limit = null, $order = 'ASC')
+    {
+        return $this->findOnlyAvailableSortedByNameQ($customer, $limit, $order)->getResult();
     }
 }
