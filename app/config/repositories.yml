@@ -34,3 +34,8 @@ services:
         factory: [ "@doctrine", getRepository ]
         arguments:
             - AppBundle:Customer
+    app.damage_category_repository:
+        class: AppBundle\Repository\DamageCategoryRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - AppBundle:DamageCategory

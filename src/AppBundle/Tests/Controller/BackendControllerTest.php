@@ -105,6 +105,7 @@ class BackendControllerTest extends AbstractBaseTest
             array('/admin/users/list'),
             array('/admin/users/create'),
             array('/admin/users/1/edit'),
+            array('/admin/users/profile'),
         );
     }
 

@@ -57,10 +57,12 @@ class UserAdmin extends ParentUserAdmin
      */
     protected function configureRoutes(RouteCollection $collection)
     {
-        $collection->remove('batch');
-        $collection->remove('delete');
-        $collection->remove('export');
-        $collection->remove('show');
+        $collection
+            ->add('profile')
+            ->remove('batch')
+            ->remove('delete')
+            ->remove('export')
+            ->remove('show');
     }
 
     /**

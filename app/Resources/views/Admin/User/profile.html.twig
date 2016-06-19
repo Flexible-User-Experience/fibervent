@@ -1,0 +1,47 @@
+{% extends 'SonataAdminBundle:CRUD:base_show.html.twig' %}
+
+{% block sonata_admin_content %}
+    <div class="sonata-ba-form">
+        {{ form_start(form) }}
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="box box-primary">
+                                <div class="box-header">
+                                    <h4 class="box-title">General</h4>
+                                </div>
+                                <div class="box-body">
+                                    <div class="sonata-ba-collapsed-fields">
+                                        {{ form_row(form.username) }}
+                                        {{ form_row(form.email) }}
+                                        {{ form_row(form.firstname) }}
+                                        {{ form_row(form.lastname) }}
+                                        {{ form_row(form.phone) }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="box box-primary">
+                                <div class="box-header">
+                                    <h4 class="box-title">Foto</h4>
+                                </div>
+                                <div class="box-body">
+                                    <div class="sonata-ba-collapsed-fields">
+                                        <img class="img-responsive" src="{% if app.user.imageName %}{{ vich_uploader_asset(app.user, 'imageFile') | imagine_filter('342x342') }}{% else %}http://placehold.it/342x342?text=?{% endif %}" alt="342x342 profile photo"/>
+                                        {{ form_row(form.imageFile) }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="sonata-ba-form-actions well well-small form-actions">
+                {{ form_widget(form.submit) }}
+                {{ form_rest(form) }}
+            </div>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
