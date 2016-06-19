@@ -3,6 +3,8 @@
 namespace AppBundle\Service;
 
 use AppBundle\Entity\Audit;
+use AppBundle\Entity\AuditWindmillBlade;
+use AppBundle\Entity\BladeDamage;
 use AppBundle\Entity\DamageCategory;
 use AppBundle\Entity\Windfarm;
 use AppBundle\Entity\Windmill;
@@ -127,10 +129,36 @@ class AuditPdfBuilderService
         $pdf->Ln(5);
         // Inspection description
         $pdf->setFontStyle(null, 'B', 11);
-        $pdf->Write(0, '3. DESCRIPCIÓN DE LA INSPECCIÓN', '', 0, 'L', true, 0, false, false, 0);
+        $pdf->Write(0, '3. DESCRIPCIÓN DE LA INSPECCIÓN', '', false, 'L', true);
+        $pdf->Ln(5);
         $pdf->setFontStyle(null, '', 9);
-        $pdf->Write(0, 'El esquema en la numeración de palas (1, 2, 3) se describe en la siguiente imagen:', '', 0, 'L', true, 0, false, false, 0);
-        // TODO windmill schema
+        $pdf->Write(0, 'El esquema en la numeración de palas (1, 2, 3) se describe en la siguiente imagen:', '', false, 'L', true);
+        $pdf->Ln(5);
+        // TODO windmill img schema
+        // Damages section
+        /** @var AuditWindmillBlade $auditWindmillBlade */
+        foreach ($audit->getAuditWindmillBlades() as $key => $auditWindmillBlade) {
+            $pdf->setFontStyle(null, 'B', 11);
+            $pdf->Write(0, '3. RESUMEN INDIVIDUAL DAÑOS PALA ' . ($key + 1), '', false, 'L', true);
+            $pdf->Ln(5);
+            $pdf->setFontStyle(null, '', 9);
+            $pdf->Write(0, 'En la siguiente tabla se describe el resultado de la inspección con la categorización, descripciones, ubicación y links a fotografías de los daños.', '', false, 'L', true);
+            $pdf->Ln(5);
+            $pdf->Cell(10, 0, 'DAÑO', true, false);
+            $pdf->Cell(30, 0, 'LOCALIZACIÓN', true, false);
+            $pdf->Cell(20, 0, 'TAMAÑO', true, false);
+            $pdf->Cell(95, 0, 'DESCRIPCIÓN', true, false);
+            $pdf->Cell(0, 0, 'CAT', true, true);
+            /** @var BladeDamage $bladeDamage */
+            foreach ($auditWindmillBlade->getBladeDamages() as $bladeDamage) {
+                $pdf->Cell(10, 0, $bladeDamage->getNumber(), true, false);
+                $pdf->Cell(30, 0, $bladeDamage->getDamage()->getCode(), true, false);
+                $pdf->Cell(20, 0, $bladeDamage->getSize(), true, false);
+                $pdf->Cell(95, 0, $bladeDamage->getDamage()->getDescription(), true, false);
+                $pdf->Cell(0, 0, $bladeDamage->getDamageCategory()->getCategory(), true, true);
+            }
+            $pdf->Ln(5);
+        }
 
         return $pdf;
     }
