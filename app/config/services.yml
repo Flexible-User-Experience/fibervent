@@ -84,6 +84,7 @@ services:
         class: AppBundle\Pdf\CustomTcpdf
         arguments:
             - "@templating.helper.assets"
+            - AppBundle\Entity\Audit
     app.audit_pdf_builder:
         class: AppBundle\Service\AuditPdfBuilderService
         arguments:
@@ -91,6 +92,7 @@ services:
             - "@liip_imagine.cache.manager"
             - "@vich_uploader.templating.helper.uploader_helper"
             - "@templating.helper.assets"
+            - "@app.damage_category_repository"
             - "%kernel.root_dir%"
 # Form types
     app.form_type_action_button:

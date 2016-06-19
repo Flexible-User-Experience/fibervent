@@ -3,9 +3,11 @@
 namespace AppBundle\Service;
 
 use AppBundle\Entity\Audit;
+use AppBundle\Entity\DamageCategory;
 use AppBundle\Entity\Windfarm;
 use AppBundle\Entity\Windmill;
 use AppBundle\Pdf\CustomTcpdf;
+use AppBundle\Repository\DamageCategoryRepository;
 use WhiteOctober\TCPDFBundle\Controller\TCPDFController;
 use Liip\ImagineBundle\Imagine\Cache\CacheManager;
 use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
@@ -41,6 +43,11 @@ class AuditPdfBuilderService
     private $tha;
 
     /**
+     * @var DamageCategoryRepository
+     */
+    private $dcr;
+
+    /**
      * @var string $krd Kernel Root Dir
      */
     private $krd;
@@ -48,18 +55,20 @@ class AuditPdfBuilderService
     /**
      * AuditPdfBuilderService constructor
      *
-     * @param TCPDFController $tcpdf
-     * @param CacheManager    $cm
-     * @param UploaderHelper  $uh
-     * @param AssetsHelper    $tha
-     * @param string          $krd
+     * @param TCPDFController          $tcpdf
+     * @param CacheManager             $cm
+     * @param UploaderHelper           $uh
+     * @param AssetsHelper             $tha
+     * @param DamageCategoryRepository $dcr
+     * @param string                   $krd
      */
-    public function __construct(TCPDFController $tcpdf, CacheManager $cm, UploaderHelper $uh, AssetsHelper $tha, $krd)
+    public function __construct(TCPDFController $tcpdf, CacheManager $cm, UploaderHelper $uh, AssetsHelper $tha, DamageCategoryRepository $dcr, $krd)
     {
         $this->tcpdf = $tcpdf;
         $this->cm    = $cm;
         $this->uh    = $uh;
         $this->tha   = $tha;
+        $this->dcr   = $dcr;
         $this->krd   = $krd;
     }
 
@@ -92,9 +101,9 @@ class AuditPdfBuilderService
         // Introduction table
         $pdf->setCellPaddings(5, 5, 5, 5);
         $pdf->setCellMargins(10, 0, 10, 0);
-        $pdf->MultiCell(0, 0, '[LEFT]\n<br>[LEFT]', 1, 'L', false, 1);
+        $pdf->MultiCell(0, 0, '<ul><li>Kit telescopio SWAROVSKI ATS 80-HD + OCULAR ZOOM 25-50X</li><li>Adaptador foto SWAROVSKI TLS APO</li><li>Kit cámara OLYMPUS EPL 5 16 Mpx + cable disparador</li><li>Batería OLYMPUS BLS-5</li><li>Objetivo OLYMPUS 14-42 mm</li><li>Adaptador OLYMPUS T-MICRO 4/3</li><li>Kit trípode MANFROTTO NAT DOS Carbono</li><li>Funda trípode MANFROTTO BAG 80</li><li>Mochila LOWEPRO TRAVEL 200 AW</li></ul>', 1, 'L', false, 1, '', '', true, 0, true);
         $pdf->setCellPaddings(1, 1, 1, 1);
-        $pdf->setCellMargins(1, 1, 1, 1);
+        $pdf->setCellMargins(0, 0, 0, 0);
         $pdf->Ln(5);
         // Damages categorization
         $pdf->setFontStyle(null, 'B', 11);
@@ -103,7 +112,20 @@ class AuditPdfBuilderService
         $pdf->setFontStyle(null, '', 9);
         $pdf->Write(0, 'Los daños encontrados se han categorizado según los siguientes criterios:', '', false, 'L', true);
         $pdf->Ln(5);
-        // TODO damage category table
+        // Damages table
+        $pdf->Cell(20, 0, 'Categoría', true, false);
+        $pdf->Cell(20, 0, 'Prioridad', true, false);
+        $pdf->Cell(60, 0, 'Descripción / Hallazgos', true, false);
+        $pdf->Cell(0, 0, 'Acción recomendada', true, true);
+        /** @var DamageCategory $item */
+        foreach ($this->dcr->findAllSortedByCategory() as $item) {
+            $pdf->Cell(20, 0, $item->getCategory(), true, false);
+            $pdf->Cell(20, 0, $item->getPriority(), true, false);
+            $pdf->Cell(60, 0, $item->getDescription(), true, false);
+            $pdf->Cell(0, 0, $item->getRecommendedAction(), true, true);
+        }
+        $pdf->Ln(5);
+        // Inspection description
         $pdf->setFontStyle(null, 'B', 11);
         $pdf->Write(0, '3. DESCRIPCIÓN DE LA INSPECCIÓN', '', 0, 'L', true, 0, false, false, 0);
         $pdf->setFontStyle(null, '', 9);
