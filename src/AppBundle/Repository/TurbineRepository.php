@@ -25,8 +25,7 @@ class TurbineRepository extends EntityRepository
     {
         $query = $this
             ->createQueryBuilder('t')
-            ->orderBy('t.model', $order)
-            ->addOrderBy('t.model', $order);
+            ->orderBy('t.model', $order);
 
         if (!is_null($limit)) {
             $query->setMaxResults($limit);

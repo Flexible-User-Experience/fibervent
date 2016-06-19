@@ -96,7 +96,7 @@ class User extends BaseUser
 
     public function fullContactInfoString()
     {
-        return $this->getFullname() . ' · ' . $this->getEmail() . ($this->getPhone() ? ' · ' . $this->getPhone() : '');
+        return $this->getLastname() . ', ' . $this->getFirstname()  . ' · ' . $this->getEmail() . ($this->getPhone() ? ' · ' . $this->getPhone() : '');
     }
 
     /**

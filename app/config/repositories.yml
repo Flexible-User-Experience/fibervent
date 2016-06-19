@@ -29,3 +29,8 @@ services:
         factory: [ "@doctrine", getRepository ]
         arguments:
             - AppBundle:User
+    app.customer_repository:
+        class: AppBundle\Repository\CustomerRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - AppBundle:Customer

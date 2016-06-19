@@ -52,7 +52,7 @@ class AuditAdmin extends AbstractBaseAdmin
                 'windmill',
                 'sonata_type_model',
                 array(
-                    'label'    => 'Aerogenerador',
+                    'label'      => 'Aerogenerador',
                     'btn_add'    => false,
                     'btn_delete' => false,
                     'required'   => true,
@@ -258,7 +258,7 @@ class AuditAdmin extends AbstractBaseAdmin
                 'windmill.windfarm.customer',
                 null,
                 array(
-                    'label' => 'Client',
+                    'label'                            => 'Client',
                     'associated_property'              => 'name',
                     'sortable'                         => true,
                     'sort_field_mapping'               => array('fieldName' => 'name'),
@@ -269,7 +269,7 @@ class AuditAdmin extends AbstractBaseAdmin
                 'windmill.windfarm',
                 null,
                 array(
-                    'label' => 'Parc Eòlic',
+                    'label'                            => 'Parc Eòlic',
                     'associated_property'              => 'name',
                     'sortable'                         => true,
                     'sort_field_mapping'               => array('fieldName' => 'name'),
