@@ -101,6 +101,21 @@ class UserAdmin extends ParentUserAdmin
                 )
             )
             ->add(
+                'email',
+                EmailType::class,
+                array(
+                    'label' => 'Correu Electrònic',
+                )
+            )
+            ->add(
+                'plainPassword',
+                PasswordType::class,
+                array(
+                    'label'    => 'Password',
+                    'required' => (!$this->getSubject() || is_null($this->getSubject()->getId()))
+                )
+            )
+            ->add(
                 'firstname',
                 null,
                 array(
@@ -117,25 +132,10 @@ class UserAdmin extends ParentUserAdmin
                 )
             )
             ->add(
-                'email',
-                EmailType::class,
-                array(
-                    'label' => 'Correu Electrònic',
-                )
-            )
-            ->add(
                 'phone',
                 null,
                 array(
                     'label' => 'Telèfon',
-                )
-            )
-            ->add(
-                'plainPassword',
-                PasswordType::class,
-                array(
-                    'label'    => 'Password',
-                    'required' => (!$this->getSubject() || is_null($this->getSubject()->getId()))
                 )
             )
             ->end()

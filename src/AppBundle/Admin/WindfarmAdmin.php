@@ -51,6 +51,17 @@ class WindfarmAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
+                'customer',
+                'sonata_type_model',
+                array(
+                    'label'        => 'Client',
+                    'required'     => true,
+                    'multiple'     => false,
+                    'btn_add'      => false,
+                    'query'        => $this->cr->findAllSortedByNameQ(),
+                )
+            )
+            ->add(
                 'name',
                 null,
                 array(
@@ -66,10 +77,13 @@ class WindfarmAdmin extends AbstractBaseAdmin
             )
             ->add(
                 'state',
-                null,
+                'sonata_type_model',
                 array(
-                    'label'    => 'Província',
-                    'required' => true,
+                    'label'      => 'Província',
+                    'btn_add'    => true,
+                    'btn_delete' => false,
+                    'required'   => true,
+                    'query'      => $this->sr->findAllSortedByNameQ(),
                 )
             )
             ->end()

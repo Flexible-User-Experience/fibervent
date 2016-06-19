@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "14c1c6d6322aeb07b6b0dfdd93d5347d",
-    "content-hash": "25b2db75e63b30de7f7cc11cfcf1629c",
+    "hash": "8ccfed89b141ae1bdd9cb243a86aa966",
+    "content-hash": "f8a9aeda27c392b5e793d5081febb9ee",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -562,29 +562,27 @@
         },
         {
             "name": "doctrine/data-fixtures",
-            "version": "v1.2.0",
+            "version": "v1.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/data-fixtures.git",
-                "reference": "1bd7eb8720cb600a9cf0a798698fbf4fa2bec9b8"
+                "reference": "bd44f6b6e40247b6530bc8abe802e4e4d914976a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/data-fixtures/zipball/1bd7eb8720cb600a9cf0a798698fbf4fa2bec9b8",
-                "reference": "1bd7eb8720cb600a9cf0a798698fbf4fa2bec9b8",
+                "url": "https://api.github.com/repos/doctrine/data-fixtures/zipball/bd44f6b6e40247b6530bc8abe802e4e4d914976a",
+                "reference": "bd44f6b6e40247b6530bc8abe802e4e4d914976a",
                 "shasum": ""
             },
             "require": {
                 "doctrine/common": "~2.2",
-                "php": "^5.6 || ^7.0"
+                "php": ">=5.3.2"
             },
             "conflict": {
                 "doctrine/orm": "< 2.4"
             },
             "require-dev": {
-                "doctrine/dbal": "^2.5.4",
-                "doctrine/orm": "^2.5.4",
-                "phpunit/phpunit": "^5.4.6"
+                "doctrine/orm": "~2.4"
             },
             "suggest": {
                 "doctrine/mongodb-odm": "For loading MongoDB ODM fixtures",
@@ -617,7 +615,7 @@
             "keywords": [
                 "database"
             ],
-            "time": "2016-06-19 09:43:21"
+            "time": "2015-03-30 12:14:13"
         },
         {
             "name": "doctrine/dbal",
