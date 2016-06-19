@@ -16,6 +16,7 @@
         "components/font-awesome": "^4.0",
         "components/jquery": "^2.0",
         "cypresslab/gitelephant-bundle": "dev-develop",
+        "doctrine/data-fixtures": "1.1.1",
         "doctrine/doctrine-bundle": "~1.4",
         "doctrine/doctrine-fixtures-bundle": "^2.3",
         "doctrine/doctrine-migrations-bundle": "^1.0",
