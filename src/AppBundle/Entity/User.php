@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use AppBundle\Entity\Traits\ImageTrait;
+use AppBundle\Entity\Traits\RemovedAtTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Sonata\UserBundle\Entity\BaseUser as BaseUser;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -19,11 +20,13 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
  * @ORM\Table(name="admin_user")
+ * @Gedmo\SoftDeleteable(fieldName="removedAt", timeAware=false)
  * @Vich\Uploadable
  */
 class User extends BaseUser
 {
     use ImageTrait;
+    use RemovedAtTrait;
 
     /**
      * @var integer

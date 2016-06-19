@@ -79,7 +79,7 @@ stof_doctrine_extensions:
     default_locale: "%locale%"
     orm:
         default:
-            softdeleteable: true
+            softdeleteable: false
             timestampable:  true
             sluggable:      true
             translatable:   false
