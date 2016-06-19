@@ -30,6 +30,7 @@
                                 <div class="box-body">
                                     <div class="sonata-ba-collapsed-fields">
                                         <img class="img-responsive" src="{% if app.user.imageName %}{{ vich_uploader_asset(app.user, 'imageFile') | imagine_filter('342x342') }}{% else %}http://placehold.it/342x342?text=?{% endif %}" alt="342x342 profile photo"/>
+                                        {{ form_row(form.imageFile) }}
                                     </div>
                                 </div>
                             </div>
