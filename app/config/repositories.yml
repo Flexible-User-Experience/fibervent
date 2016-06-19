@@ -19,3 +19,13 @@ services:
         factory: [ "@doctrine", getRepository ]
         arguments:
             - AppBundle:Windfarm
+    app.windmill_repository:
+        class: AppBundle\Repository\WindmillRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - AppBundle:Windmill
+    app.user_repository:
+        class: AppBundle\Repository\UserRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - AppBundle:User

@@ -20,6 +20,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="AppBundle\Repository\WindfarmRepository")
+ * @Gedmo\SoftDeleteable(fieldName="removedAt", timeAware=false)
  */
 class Windfarm extends AbstractBase
 {
@@ -109,7 +110,7 @@ class Windfarm extends AbstractBase
     }
 
     /**
-     * @param Customer $customer
+     * @param Customer|null $customer
      *
      * @return Windfarm
      */

@@ -47,7 +47,7 @@ twig:
         - "::Admin/Form/action_button_from_template.html.twig"
         - "::OhGoogleMaps/google_maps_form_widget.html.twig"
     globals:
-        admin_tag_version:        "v1.0.06"
+        admin_tag_version:        "v1.0.07"
         main_brand_title:         "%project_web_title%"
         google_analytics_enabled: %google_analytics_enabled%
         google_analytics_account: "%google_analytics_account%"
@@ -69,13 +69,17 @@ doctrine:
         auto_generate_proxy_classes: "%kernel.debug%"
         naming_strategy:             doctrine.orm.naming_strategy.underscore
         auto_mapping:                true
+#        filters:
+#            softdeleteable:
+#                class:   Gedmo\SoftDeleteable\Filter\SoftDeleteableFilter
+#                enabled: true
 
 # Stof Doctrine Extensions
 stof_doctrine_extensions:
     default_locale: "%locale%"
     orm:
         default:
-            softdeleteable: true
+            softdeleteable: false
             timestampable:  true
             sluggable:      true
             translatable:   false

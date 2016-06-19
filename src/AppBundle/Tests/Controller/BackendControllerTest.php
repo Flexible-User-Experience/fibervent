@@ -105,7 +105,6 @@ class BackendControllerTest extends AbstractBaseTest
             array('/admin/users/list'),
             array('/admin/users/create'),
             array('/admin/users/1/edit'),
-            array('/admin/users/1/delete'),
         );
     }
 
@@ -136,6 +135,7 @@ class BackendControllerTest extends AbstractBaseTest
             array('/admin/customers/state/batch'),
             array('/admin/windfarms/windfarm/batch'),
             array('/admin/users/show'),
+            array('/admin/users/1/delete'),
             array('/admin/users/batch'),
         );
     }

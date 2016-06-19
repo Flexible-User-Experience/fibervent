@@ -22,6 +22,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="AppBundle\Repository\CustomerRepository")
  * @UniqueEntity("code")
+ * @Gedmo\SoftDeleteable(fieldName="removedAt", timeAware=false)
  */
 class Customer extends AbstractBase
 {
@@ -84,14 +85,14 @@ class Customer extends AbstractBase
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="Windfarm", mappedBy="customer")
+     * @ORM\OneToMany(targetEntity="Windfarm", mappedBy="customer", cascade={"persist", "remove"})
      */
     private $windfarms;
 
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="User", mappedBy="customer")
+     * @ORM\OneToMany(targetEntity="User", mappedBy="customer", cascade={"persist", "remove"})
      */
     private $contacts;
 
@@ -252,6 +253,7 @@ class Customer extends AbstractBase
      */
     public function removeWindfarm(Windfarm $windfarm)
     {
+        $windfarm->setCustomer(null);
         $this->windfarms->removeElement($windfarm);
 
         return $this;
@@ -273,6 +275,7 @@ class Customer extends AbstractBase
     public function setContacts(ArrayCollection $contacts)
     {
         $this->contacts = $contacts;
+        
         return $this;
     }
 
@@ -296,6 +299,7 @@ class Customer extends AbstractBase
      */
     public function removeContact(User $contact)
     {
+        $contact->setCustomer(null);
         $this->contacts->removeElement($contact);
 
         return $this;

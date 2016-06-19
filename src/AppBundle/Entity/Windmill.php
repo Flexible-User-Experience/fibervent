@@ -19,6 +19,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="AppBundle\Repository\WindmillRepository")
  * @UniqueEntity("code")
+ * @Gedmo\SoftDeleteable(fieldName="removedAt", timeAware=false)
  */
 class Windmill extends AbstractBase
 {

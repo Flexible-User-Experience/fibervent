@@ -15,6 +15,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="AppBundle\Repository\DamageCategoryRepository")
+ * @Gedmo\SoftDeleteable(fieldName="removedAt", timeAware=false)
  */
 class DamageCategory extends AbstractBase
 {

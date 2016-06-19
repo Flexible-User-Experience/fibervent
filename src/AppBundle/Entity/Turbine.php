@@ -18,6 +18,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="AppBundle\Repository\TurbineRepository")
+ * @Gedmo\SoftDeleteable(fieldName="removedAt", timeAware=false)
  */
 class Turbine extends AbstractBase
 {
