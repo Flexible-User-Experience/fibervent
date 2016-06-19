@@ -16,8 +16,8 @@ use Doctrine\ORM\QueryBuilder;
 class BladeRepository extends EntityRepository
 {
     /**
-     * @param null   $limit
-     * @param string $order
+     * @param int|null $limit
+     * @param string   $order
      *
      * @return QueryBuilder
      */
@@ -35,8 +35,8 @@ class BladeRepository extends EntityRepository
     }
 
     /**
-     * @param null   $limit
-     * @param string $order
+     * @param int|null $limit
+     * @param string   $order
      *
      * @return Query
      */
@@ -46,8 +46,8 @@ class BladeRepository extends EntityRepository
     }
 
     /**
-     * @param null   $limit
-     * @param string $order
+     * @param int|null $limit
+     * @param string   $order
      *
      * @return array
      */

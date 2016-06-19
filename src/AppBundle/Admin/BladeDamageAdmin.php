@@ -2,6 +2,7 @@
 
 namespace AppBundle\Admin;
 
+use AppBundle\Enum\BladeDamageEdgeEnum;
 use AppBundle\Enum\BladeDamagePositionEnum;
 use AppBundle\Enum\BladeDamageStatusEnum;
 use AppBundle\Form\Type\ActionButtonFormType;
@@ -79,6 +80,17 @@ class BladeDamageAdmin extends AbstractBaseAdmin
                     'required'    => true,
                     'help'        => 'm',
                     'sonata_help' => 'm',
+                )
+            )
+            ->add(
+                'edge',
+                ChoiceType::class,
+                array(
+                    'label'    => 'Vora',
+                    'choices'  => BladeDamageEdgeEnum::getEnumArray(),
+                    'multiple' => false,
+                    'expanded' => false,
+                    'required' => true,
                 )
             )
             ->add(

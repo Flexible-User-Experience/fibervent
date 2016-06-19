@@ -2,6 +2,10 @@
 
 namespace AppBundle\Pdf;
 
+use AppBundle\Entity\Audit;
+use AppBundle\Entity\Customer;
+use AppBundle\Entity\Windfarm;
+use AppBundle\Entity\Windmill;
 use Symfony\Bundle\FrameworkBundle\Templating\Helper\AssetsHelper;
 
 /**
@@ -25,7 +29,27 @@ class CustomTcpdf extends \TCPDF
     /**
      * @var AssetsHelper $tha
      */
-    private $tha;
+    protected $tha;
+
+    /**
+     * @var Audit
+     */
+    protected $audit;
+
+    /**
+     * @var Windmill
+     */
+    protected $windmill;
+
+    /**
+     * @var Windfarm
+     */
+    protected $windfarm;
+
+    /**
+     * @var Customer
+     */
+    protected $customer;
 
     /**
      * 
@@ -39,11 +63,16 @@ class CustomTcpdf extends \TCPDF
      * CustomTcpdf constructor
      *
      * @param AssetsHelper $tha
+     * @param Audit        $audit
      */
-    public function __construct(AssetsHelper $tha)
+    public function __construct(AssetsHelper $tha, Audit $audit)
     {
         parent::__construct();
-        $this->tha = $tha;
+        $this->tha      = $tha;
+        $this->audit    = $audit;
+        $this->windmill = $audit->getWindmill();
+        $this->windfarm = $audit->getWindmill()->getWindfarm();
+        $this->customer = $audit->getWindmill()->getWindfarm()->getCustomer();
     }
 
     /**
@@ -54,9 +83,10 @@ class CustomTcpdf extends \TCPDF
         // logo
         $this->Image($this->tha->getUrl('/bundles/app/images/fibervent_logo_white_landscape_lowres.jpg'), self::PDF_MARGIN_LEFT, 7);
         $this->SetXY(self::PDF_MARGIN_LEFT, 11);
-        $this->setFontStyle(null, 'I', 10);
+        $this->setFontStyle(null, 'I', 8);
         $this->setBlueLine();
-        $this->Cell(0, 0, 'Página ' . $this->getAliasNumPage() . ' de ' . $this->getAliasNbPages(), 'B', 0, 'R');
+        $this->Cell(0, 0, 'Parque Eólico ' . $this->windfarm->getName(), 'B', 0, 'C');
+        $this->Text(self::PDF_MARGIN_LEFT + 150, 11, $this->audit->getPdfBeginDateString());
     }
 
     /**
@@ -64,12 +94,11 @@ class CustomTcpdf extends \TCPDF
      */
     public function Footer()
     {
-//        $this->SetFont('dejavusans', 'I', 8);
-//        $this->SetY($this->getFooterMargin());
-//        $text = $this->getAliasNumPage() . ' / ' . $this->getAliasNbPages();
-//        $textWidth = $this->GetStringWidth($text);
-//        $x = (((210 - $this->getMargins()['right']) - $this->getMargins()['left']) / 2) + $this->getMargins()['left']  - ($textWidth / 4);
-//        $this->Text($x, $this->getFooterMargin(), $text);
+        $this->SetXY(self::PDF_MARGIN_LEFT, 280);
+        $this->setFontStyle(null, 'I', 8);
+        $this->setBlueLine();
+        $this->Cell(10, 0, 'Página ' . $this->getAliasNumPage() . ' de ' . $this->getAliasNbPages(), 'T', 0, 'L');
+        $this->Cell(0, 0, 'Ref: #' . $this->audit->getId(), 'T', 0, 'R');
     }
 
     /**
