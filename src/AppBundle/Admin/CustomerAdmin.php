@@ -120,21 +120,22 @@ class CustomerAdmin extends AbstractBaseAdmin
             ->end();
         if ($this->id($this->getSubject())) { // is edit mode, disable on new subjects
             $formMapper
-                ->with('Contactes', $this->getFormMdSuccessBoxArray(6))
+                ->with('Contactes', $this->getFormMdSuccessBoxArray(8))
                 ->add(
                     'contacts',
                     'sonata_type_model',
                     array(
                         'label'        => ' ',
-                        'property'     => 'lastname',
+                        'property'     => 'fullContactInfoString',
                         'required'     => false,
                         'multiple'     => true,
                         'btn_add'      => false,
                         'by_reference' => false,
+                        'query'        => $this->ur->findOnlyAvailableSortedByNameQ($this->getSubject()),
                     )
                 )
                 ->end()
-                ->with('Parcs Eòlics', $this->getFormMdSuccessBoxArray(6))
+                ->with('Parcs Eòlics', $this->getFormMdSuccessBoxArray(4))
                 ->add(
                     'windfarms',
                     'sonata_type_model',

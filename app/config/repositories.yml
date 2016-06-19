@@ -24,3 +24,8 @@ services:
         factory: [ "@doctrine", getRepository ]
         arguments:
             - AppBundle:Windmill
+    app.user_repository:
+        class: AppBundle\Repository\UserRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - AppBundle:User

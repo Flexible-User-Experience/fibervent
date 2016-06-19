@@ -5,6 +5,7 @@ namespace AppBundle\Admin;
 use AppBundle\Repository\BladeRepository;
 use AppBundle\Repository\StateRepository;
 use AppBundle\Repository\TurbineRepository;
+use AppBundle\Repository\UserRepository;
 use AppBundle\Repository\WindfarmRepository;
 use AppBundle\Repository\WindmillRepository;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
@@ -47,6 +48,11 @@ abstract class AbstractBaseAdmin extends AbstractAdmin
     protected $sr;
 
     /**
+     * @var UserRepository
+     */
+    protected $ur;
+
+    /**
      * @var UploaderHelper
      */
     protected $vus;
@@ -60,6 +66,7 @@ abstract class AbstractBaseAdmin extends AbstractAdmin
      * @param string             $code
      * @param string             $class
      * @param string             $baseControllerName
+     * @param UserRepository     $ur
      * @param WindmillRepository $wmr
      * @param WindfarmRepository $wfr
      * @param BladeRepository    $br
@@ -68,9 +75,10 @@ abstract class AbstractBaseAdmin extends AbstractAdmin
      * @param UploaderHelper     $vus
      * @param CacheManager       $lis
      */
-    public function __construct($code, $class, $baseControllerName, WindmillRepository $wmr, WindfarmRepository $wfr, BladeRepository $br, TurbineRepository $tr, StateRepository $sr, UploaderHelper $vus, CacheManager $lis)
+    public function __construct($code, $class, $baseControllerName, UserRepository $ur, WindmillRepository $wmr, WindfarmRepository $wfr, BladeRepository $br, TurbineRepository $tr, StateRepository $sr, UploaderHelper $vus, CacheManager $lis)
     {
         parent::__construct($code, $class, $baseControllerName);
+        $this->ur  = $ur;
         $this->wmr = $wmr;
         $this->wfr = $wfr;
         $this->br  = $br;
