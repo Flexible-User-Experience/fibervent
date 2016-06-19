@@ -25,8 +25,7 @@ class BladeRepository extends EntityRepository
     {
         $query = $this
             ->createQueryBuilder('b')
-            ->orderBy('b.model', $order)
-            ->addOrderBy('b.model', $order);
+            ->orderBy('b.model', $order);
 
         if (!is_null($limit)) {
             $query->setMaxResults($limit);
