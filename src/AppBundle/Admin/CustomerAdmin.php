@@ -144,6 +144,7 @@ class CustomerAdmin extends AbstractBaseAdmin
                         'multiple'     => true,
                         'btn_add'      => false,
                         'by_reference' => false,
+                        'query'        => $this->wfr->findOnlyAvailableSortedByNameQ($this->getSubject()),
                     )
                 )
                 ->end();
