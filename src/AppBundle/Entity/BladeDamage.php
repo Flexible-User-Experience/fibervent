@@ -36,6 +36,13 @@ class BladeDamage extends AbstractBase
     /**
      * @var integer
      *
+     * @ORM\Column(type="integer", options={"default"=0})
+     */
+    protected $edge;
+
+    /**
+     * @var integer
+     *
      * @ORM\Column(type="integer")
      */
     protected $distance;
@@ -141,6 +148,30 @@ class BladeDamage extends AbstractBase
     public function setRadius($radius)
     {
         $this->radius = $radius;
+
+        return $this;
+    }
+
+    /**
+     * Get Edge
+     *
+     * @return int
+     */
+    public function getEdge()
+    {
+        return $this->edge;
+    }
+
+    /**
+     * Set Edge
+     *
+     * @param int $edge
+     *
+     * @return $this
+     */
+    public function setEdge($edge)
+    {
+        $this->edge = $edge;
 
         return $this;
     }
