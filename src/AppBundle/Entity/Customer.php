@@ -84,14 +84,14 @@ class Customer extends AbstractBase
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="Windfarm", mappedBy="customer")
+     * @ORM\OneToMany(targetEntity="Windfarm", mappedBy="customer", cascade={"persist"})
      */
     private $windfarms;
 
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="User", mappedBy="customer", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="User", mappedBy="customer")
      */
     private $contacts;
 
@@ -273,6 +273,7 @@ class Customer extends AbstractBase
     public function setContacts(ArrayCollection $contacts)
     {
         $this->contacts = $contacts;
+        
         return $this;
     }
 

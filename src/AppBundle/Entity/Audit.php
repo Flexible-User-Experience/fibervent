@@ -79,10 +79,9 @@ class Audit extends AbstractBase
      * @var ArrayCollection
      *
      * @ORM\ManyToMany(targetEntity="User")
-     * @ORM\JoinTable(name="audits_users",
-     *     joinColumns={@ORM\JoinColumn(name="audit_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")}
-     *      )     */
+     * @ORM\JoinTable(name="audits_users", joinColumns={@ORM\JoinColumn(name="audit_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")})
+     */
     private $operators;
 
     /**

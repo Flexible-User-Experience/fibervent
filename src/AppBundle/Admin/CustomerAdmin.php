@@ -125,11 +125,12 @@ class CustomerAdmin extends AbstractBaseAdmin
                     'contacts',
                     'sonata_type_model',
                     array(
-                        'label'    => ' ',
-                        'property' => 'lastname',
-                        'required' => false,
-                        'multiple' => true,
-                        'btn_add'  => false,
+                        'label'        => ' ',
+                        'property'     => 'lastname',
+                        'required'     => false,
+                        'multiple'     => true,
+                        'btn_add'      => false,
+                        'by_reference' => false,
                     )
                 )
                 ->end()
@@ -138,10 +139,11 @@ class CustomerAdmin extends AbstractBaseAdmin
                     'windfarms',
                     'sonata_type_model',
                     array(
-                        'label'    => ' ',
-                        'required' => false,
-                        'multiple' => true,
-                        'btn_add'  => false,
+                        'label'        => ' ',
+                        'required'     => false,
+                        'multiple'     => true,
+                        'btn_add'      => false,
+                        'by_reference' => false,
                     )
                 )
                 ->end();

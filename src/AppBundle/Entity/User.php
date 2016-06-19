@@ -84,7 +84,7 @@ class User extends BaseUser
      *
      * @return User
      */
-    public function setCustomer($customer)
+    public function setCustomer(Customer $customer)
     {
         $this->customer = $customer;
 
