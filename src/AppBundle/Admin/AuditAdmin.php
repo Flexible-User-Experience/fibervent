@@ -5,6 +5,7 @@ namespace AppBundle\Admin;
 use AppBundle\Entity\Audit;
 use AppBundle\Entity\AuditWindmillBlade;
 use AppBundle\Enum\AuditStatusEnum;
+use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
@@ -40,6 +41,24 @@ class AuditAdmin extends AbstractBaseAdmin
             ->add('pdf', $this->getRouterIdParameter() . '/pdf')
             ->add('email', $this->getRouterIdParameter() . '/email');
     }
+
+    /**
+     * Override query list to reduce queries amount on list view (apply join strategy)
+     *
+     * @param string $context context
+     *
+     * @return QueryBuilder
+     */
+//    public function createQuery($context = 'list')
+//    {
+//        /** @var QueryBuilder $query */
+//        $query = parent::createQuery($context);
+//        $query
+//            ->select($query->getRootAliases()[0] . ', a')
+//            ->leftJoin($query->getRootAliases()[0] . '.user', 'a');
+//
+//        return $query;
+//    }
 
     /**
      * @param FormMapper $formMapper
