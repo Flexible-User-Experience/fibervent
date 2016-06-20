@@ -49,16 +49,20 @@ class AuditAdmin extends AbstractBaseAdmin
      *
      * @return QueryBuilder
      */
-//    public function createQuery($context = 'list')
-//    {
-//        /** @var QueryBuilder $query */
-//        $query = parent::createQuery($context);
-//        $query
-//            ->select($query->getRootAliases()[0] . ', a')
-//            ->leftJoin($query->getRootAliases()[0] . '.user', 'a');
-//
-//        return $query;
-//    }
+    public function createQuery($context = 'list')
+    {
+        /** @var QueryBuilder $query */
+        $query = parent::createQuery($context);
+        $query
+            ->select($query->getRootAliases()[0] . ', wm, wf, c')
+            ->join($query->getRootAliases()[0] . '.windmill', 'wm')
+            ->join('wm.windfarm', 'wf')
+            ->join('wf.customer', 'c')
+//            ->join($query->getRootAliases()[0] . '.operators', 'u')
+        ;
+
+        return $query;
+    }
 
     /**
      * @param FormMapper $formMapper
