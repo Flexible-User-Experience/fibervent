@@ -90,10 +90,14 @@ class WindfarmAdmin extends AbstractBaseAdmin
             ->with('Controls', $this->getFormMdSuccessBoxArray(5))
             ->add(
                 'manager',
-                null,
+                'sonata_type_model',
                 array(
-                    'label'    => 'Administrador',
-                    'required' => false,
+                    'label'      => 'Administrador',
+                    'btn_add'    => false,
+                    'btn_delete' => false,
+                    'required'   => false,
+                    'property'   => 'contactInfoString',
+                    'query'      => $this->ur->findAllSortedByNameQ(),
                 )
             )
             ->add(

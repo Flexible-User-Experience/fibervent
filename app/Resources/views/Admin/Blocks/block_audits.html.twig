@@ -12,7 +12,7 @@
                     <td class="sonata-ba-list-label" width="40%">Pendents</td>
                     <td>
                         <div class="btn-group">
-                            <a href="{{ path('admin_app_audit_list') }}?filter%5Bstatus%5D%5Btype%5D=&filter%5Bstatus%5D%5Bvalue%5D=0" class="btn btn-link btn-flat"><i class="fa fa-pause-circle"></i> {{ pending_audits }}</a>
+                            <a href="{{ path('admin_app_audit_list') }}?filter%5Bstatus%5D%5Btype%5D=&filter%5Bstatus%5D%5Bvalue%5D={{ status_pending }}" class="btn btn-link btn-flat"><i class="fa fa-pause-circle"></i> {{ pending_audits }}</a>
                         </div>
                     </td>
                 </tr>
@@ -20,7 +20,7 @@
                     <td class="sonata-ba-list-label" width="40%">En procés</td>
                     <td>
                         <div class="btn-group">
-                            <a href="{{ path('admin_app_audit_list') }}?filter%5Bstatus%5D%5Btype%5D=&filter%5Bstatus%5D%5Bvalue%5D=1" class="btn btn-link btn-flat"><i class="fa fa-play-circle"></i> {{ open_audits }}</a>
+                            <a href="{{ path('admin_app_audit_list') }}?filter%5Bstatus%5D%5Btype%5D=&filter%5Bstatus%5D%5Bvalue%5D={{ status_doing }}" class="btn btn-link btn-flat"><i class="fa fa-play-circle"></i> {{ doing_audits }}</a>
                         </div>
                     </td>
                 </tr>

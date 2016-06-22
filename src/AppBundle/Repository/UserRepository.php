@@ -25,9 +25,9 @@ class UserRepository extends EntityRepository
     public function findAllSortedByNameQB($limit = null, $order = 'ASC')
     {
         $query = $this
-            ->createQueryBuilder('w')
-            ->orderBy('w.lastname', $order)
-            ->addOrderBy('w.firstname', $order);
+            ->createQueryBuilder('u')
+            ->orderBy('u.lastname', $order)
+            ->addOrderBy('u.firstname', $order);
 
         if (!is_null($limit)) {
             $query->setMaxResults($limit);
@@ -69,8 +69,8 @@ class UserRepository extends EntityRepository
     {
         $query = $this->findAllSortedByNameQB($limit, $order);
         $query
-            ->where('w.customer IS NULL')
-            ->orWhere('w.customer = :customer')
+            ->where('u.customer IS NULL')
+            ->orWhere('u.customer = :customer')
             ->setParameter('customer', $customer);
 
         return $query;

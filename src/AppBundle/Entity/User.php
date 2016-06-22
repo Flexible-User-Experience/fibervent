@@ -94,9 +94,20 @@ class User extends BaseUser
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function fullContactInfoString()
     {
         return $this->getLastname() . ', ' . $this->getFirstname()  . ' · ' . $this->getEmail() . ($this->getPhone() ? ' · ' . $this->getPhone() : '');
+    }
+
+    /**
+     * @return string
+     */
+    public function contactInfoString()
+    {
+        return $this->getLastname() . ', ' . $this->getFirstname();
     }
 
     /**
