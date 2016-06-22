@@ -346,6 +346,7 @@ class AuditAdmin extends AbstractBaseAdmin
      */
     public function prePersist($object)
     {
+        //Set three auditwindmillblade entities
         $windmillBlades = $object->getWindmill()->getWindmillBlades();
 
         $auditWindmillBlade1 = new AuditWindmillBlade();
@@ -364,5 +365,28 @@ class AuditAdmin extends AbstractBaseAdmin
             ->addAuditWindmillBlade($auditWindmillBlade1)
             ->addAuditWindmillBlade($auditWindmillBlade2)
             ->addAuditWindmillBlade($auditWindmillBlade3);
+
+        $this->commomPreEvent($object);
+    }
+
+    /**
+     * @param Audit $object
+     */
+    public function preUpdate($object)
+    {
+        $this->commomPreEvent($object);
+    }
+
+    /**
+     * @param Audit $object
+     */
+    private function commomPreEvent($object)
+    {
+        //Set audit relations
+        $windfarm = $object->getWindmill()->getWindfarm();
+        $object->setWindfarm($windfarm);
+
+        $customer = $windfarm->getCustomer();
+        $object->setCustomer($customer);
     }
 }
