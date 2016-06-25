@@ -2,6 +2,7 @@
 
 namespace AppBundle\Admin\Block;
 
+use AppBundle\Enum\AuditStatusEnum;
 use Doctrine\ORM\EntityManager;
 use Sonata\BlockBundle\Block\BaseBlockService;
 use Sonata\BlockBundle\Block\BlockContextInterface;
@@ -47,11 +48,13 @@ class AuditsBlock extends BaseBlockService
         return $this->renderResponse(
             $blockContext->getTemplate(),
             array(
-                'block'           => $blockContext->getBlock(),
-                'settings'        => $blockContext->getSettings(),
-                'title'           => 'Estat Auditories',
-                'open_audits' => $this->em->getRepository('AppBundle:Audit')->getOpenAuditsAmount(),
+                'block'          => $blockContext->getBlock(),
+                'settings'       => $blockContext->getSettings(),
+                'title'          => 'Estat Auditories',
+                'doing_audits'   => $this->em->getRepository('AppBundle:Audit')->getDoingAuditsAmount(),
                 'pending_audits' => $this->em->getRepository('AppBundle:Audit')->getPendingAuditsAmount(),
+                'status_pending' => AuditStatusEnum::PENDING,
+                'status_doing'   => AuditStatusEnum::DOING,
             ),
             $response
         );

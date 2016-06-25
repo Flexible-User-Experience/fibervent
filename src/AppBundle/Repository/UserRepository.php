@@ -3,6 +3,7 @@
 namespace AppBundle\Repository;
 
 use AppBundle\Entity\Customer;
+use AppBundle\Enum\UserRolesEnum;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
@@ -25,9 +26,9 @@ class UserRepository extends EntityRepository
     public function findAllSortedByNameQB($limit = null, $order = 'ASC')
     {
         $query = $this
-            ->createQueryBuilder('w')
-            ->orderBy('w.lastname', $order)
-            ->addOrderBy('w.firstname', $order);
+            ->createQueryBuilder('u')
+            ->orderBy('u.lastname', $order)
+            ->addOrderBy('u.firstname', $order);
 
         if (!is_null($limit)) {
             $query->setMaxResults($limit);
@@ -69,8 +70,8 @@ class UserRepository extends EntityRepository
     {
         $query = $this->findAllSortedByNameQB($limit, $order);
         $query
-            ->where('w.customer IS NULL')
-            ->orWhere('w.customer = :customer')
+            ->where('u.customer IS NULL')
+            ->orWhere('u.customer = :customer')
             ->setParameter('customer', $customer);
 
         return $query;
@@ -98,5 +99,41 @@ class UserRepository extends EntityRepository
     public function findOnlyAvailableSortedByName(Customer $customer, $limit = null, $order = 'ASC')
     {
         return $this->findOnlyAvailableSortedByNameQ($customer, $limit, $order)->getResult();
+    }
+
+    /**
+     * @param integer|null $limit
+     * @param string       $order
+     *
+     * @return QueryBuilder
+     */
+    public function findAllTechnicinasSortedByNameQB($limit = null, $order = 'ASC')
+    {
+        return $this
+            ->findAllSortedByNameQB($limit, $order)
+            ->where('u.roles NOT LIKE :role')
+            ->setParameter('role', '%' . UserRolesEnum::ROLE_CUSTOMER . '%');
+    }
+
+    /**
+     * @param integer|null $limit
+     * @param string       $order
+     *
+     * @return Query
+     */
+    public function findAllTechnicinasSortedByNameQ($limit = null, $order = 'ASC')
+    {
+        return $this->findAllTechnicinasSortedByNameQB($limit, $order)->getQuery();
+    }
+
+    /**
+     * @param integer|null $limit
+     * @param string       $order
+     *
+     * @return array
+     */
+    public function findAllTechnicinasSortedByName($limit = null, $order = 'ASC')
+    {
+        return $this->findAllTechnicinasSortedByNameQ($limit, $order)->getResult();
     }
 }

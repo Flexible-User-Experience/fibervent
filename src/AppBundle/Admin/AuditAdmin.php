@@ -5,6 +5,7 @@ namespace AppBundle\Admin;
 use AppBundle\Entity\Audit;
 use AppBundle\Entity\AuditWindmillBlade;
 use AppBundle\Enum\AuditStatusEnum;
+use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
@@ -42,6 +43,27 @@ class AuditAdmin extends AbstractBaseAdmin
     }
 
     /**
+     * Override query list to reduce queries amount on list view (apply join strategy)
+     *
+     * @param string $context context
+     *
+     * @return QueryBuilder
+     */
+    public function createQuery($context = 'list')
+    {
+        /** @var QueryBuilder $query */
+        $query = parent::createQuery($context);
+        $query
+            ->select($query->getRootAliases()[0] . ', wm, wf, c, u')
+            ->join($query->getRootAliases()[0] . '.windmill', 'wm')
+            ->join('wm.windfarm', 'wf')
+            ->join('wf.customer', 'c')
+            ->leftJoin($query->getRootAliases()[0] . '.operators', 'u');
+
+        return $query;
+    }
+
+    /**
      * @param FormMapper $formMapper
      */
     protected function configureFormFields(FormMapper $formMapper)
@@ -56,7 +78,7 @@ class AuditAdmin extends AbstractBaseAdmin
                     'btn_add'    => false,
                     'btn_delete' => false,
                     'required'   => true,
-                    'query'      => $this->wmr->findAllSortedByCustomerWindfarmAndWindmillCodeQ()
+                    'query'      => $this->wmr->findAllSortedByCustomerWindfarmAndWindmillCodeQ(),
                 )
             )
             ->add(
@@ -110,11 +132,15 @@ class AuditAdmin extends AbstractBaseAdmin
             )
             ->add(
                 'operators',
-                null,
+                'sonata_type_model',
                 array(
-                    'label'    => 'Tècnics Inspecció',
-                    'multiple' => true,
-                    'required' => false,
+                    'label'      => 'Tècnics Inspecció',
+                    'multiple'   => true,
+                    'required'   => false,
+                    'btn_add'    => false,
+                    'btn_delete' => false,
+                    'property'   => 'contactInfoString',
+                    'query'      => $this->ur->findAllTechnicinasSortedByNameQ(),
                 )
             )
             ->add(
@@ -323,6 +349,7 @@ class AuditAdmin extends AbstractBaseAdmin
      */
     public function prePersist($object)
     {
+        //Set three auditwindmillblade entities
         $windmillBlades = $object->getWindmill()->getWindmillBlades();
 
         $auditWindmillBlade1 = new AuditWindmillBlade();
@@ -341,5 +368,26 @@ class AuditAdmin extends AbstractBaseAdmin
             ->addAuditWindmillBlade($auditWindmillBlade1)
             ->addAuditWindmillBlade($auditWindmillBlade2)
             ->addAuditWindmillBlade($auditWindmillBlade3);
+
+        $this->commomPreEvent($object);
+    }
+
+    /**
+     * @param Audit $object
+     */
+    public function preUpdate($object)
+    {
+        $this->commomPreEvent($object);
+    }
+
+    /**
+     * @param Audit $object
+     */
+    private function commomPreEvent($object)
+    {
+        // set audit relations
+        $object
+            ->setWindfarm($object->getWindmill()->getWindfarm())
+            ->setCustomer($object->getWindmill()->getWindfarm()->getCustomer());
     }
 }
