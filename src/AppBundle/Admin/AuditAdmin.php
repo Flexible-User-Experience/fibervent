@@ -79,7 +79,7 @@ class AuditAdmin extends AbstractBaseAdmin
                     'btn_add'    => false,
                     'btn_delete' => false,
                     'required'   => true,
-                    'query'      => $this->wmr->findAllSortedByCustomerWindfarmAndWindmillCodeQ()
+                    'query'      => $this->wmr->findAllSortedByCustomerWindfarmAndWindmillCodeQ(),
                 )
             )
             ->add(
@@ -133,11 +133,15 @@ class AuditAdmin extends AbstractBaseAdmin
             )
             ->add(
                 'operators',
-                null,
+                'sonata_type_model',
                 array(
-                    'label'    => 'Tècnics Inspecció',
-                    'multiple' => true,
-                    'required' => false,
+                    'label'      => 'Tècnics Inspecció',
+                    'multiple'   => true,
+                    'required'   => false,
+                    'btn_add'    => false,
+                    'btn_delete' => false,
+                    'property'   => 'contactInfoString',
+                    'query'      => $this->ur->findAllTechnicinasSortedByNameQ(),
                 )
             )
             ->add(

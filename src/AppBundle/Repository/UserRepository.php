@@ -3,6 +3,7 @@
 namespace AppBundle\Repository;
 
 use AppBundle\Entity\Customer;
+use AppBundle\Enum\UserRolesEnum;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
@@ -98,5 +99,41 @@ class UserRepository extends EntityRepository
     public function findOnlyAvailableSortedByName(Customer $customer, $limit = null, $order = 'ASC')
     {
         return $this->findOnlyAvailableSortedByNameQ($customer, $limit, $order)->getResult();
+    }
+
+    /**
+     * @param integer|null $limit
+     * @param string       $order
+     *
+     * @return QueryBuilder
+     */
+    public function findAllTechnicinasSortedByNameQB($limit = null, $order = 'ASC')
+    {
+        return $this
+            ->findAllSortedByNameQB($limit, $order)
+            ->where('u.roles NOT LIKE :role')
+            ->setParameter('role', '%"' . UserRolesEnum::ROLE_CUSTOMER . '"%');
+    }
+
+    /**
+     * @param integer|null $limit
+     * @param string       $order
+     *
+     * @return Query
+     */
+    public function findAllTechnicinasSortedByNameQ($limit = null, $order = 'ASC')
+    {
+        return $this->findAllTechnicinasSortedByNameQB($limit, $order)->getQuery();
+    }
+
+    /**
+     * @param integer|null $limit
+     * @param string       $order
+     *
+     * @return array
+     */
+    public function findAllTechnicinasSortedByName($limit = null, $order = 'ASC')
+    {
+        return $this->findAllTechnicinasSortedByNameQ($limit, $order)->getResult();
     }
 }
