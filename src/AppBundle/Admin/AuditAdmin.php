@@ -54,12 +54,11 @@ class AuditAdmin extends AbstractBaseAdmin
         /** @var QueryBuilder $query */
         $query = parent::createQuery($context);
         $query
-            ->select($query->getRootAliases()[0] . ', wm, wf, c')
+            ->select($query->getRootAliases()[0] . ', wm, wf, c, u')
             ->join($query->getRootAliases()[0] . '.windmill', 'wm')
             ->join('wm.windfarm', 'wf')
             ->join('wf.customer', 'c')
-//            ->join($query->getRootAliases()[0] . '.operators', 'u')
-        ;
+            ->leftJoin($query->getRootAliases()[0] . '.operators', 'u');
 
         return $query;
     }
@@ -386,11 +385,9 @@ class AuditAdmin extends AbstractBaseAdmin
      */
     private function commomPreEvent($object)
     {
-        //Set audit relations
-        $windfarm = $object->getWindmill()->getWindfarm();
-        $object->setWindfarm($windfarm);
-
-        $customer = $windfarm->getCustomer();
-        $object->setCustomer($customer);
+        // set audit relations
+        $object
+            ->setWindfarm($object->getWindmill()->getWindfarm())
+            ->setCustomer($object->getWindmill()->getWindfarm()->getCustomer());
     }
 }
