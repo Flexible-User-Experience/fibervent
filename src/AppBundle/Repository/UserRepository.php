@@ -112,7 +112,7 @@ class UserRepository extends EntityRepository
         return $this
             ->findAllSortedByNameQB($limit, $order)
             ->where('u.roles NOT LIKE :role')
-            ->setParameter('role', '%"' . UserRolesEnum::ROLE_CUSTOMER . '"%');
+            ->setParameter('role', '%' . UserRolesEnum::ROLE_CUSTOMER . '%');
     }
 
     /**
