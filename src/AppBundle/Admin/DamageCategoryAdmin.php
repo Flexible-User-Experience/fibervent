@@ -53,6 +53,28 @@ class DamageCategoryAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
+                'colour',
+                'color_picker',
+                array(
+                    'label'    => 'Color',
+                    'required' => true,
+                    'picker_options' => array(
+                        'color'    => false,
+                        'mode'     => 'hsl',
+                        'hide'     => false,
+                        'border'   => true,
+                        'target'   => false,
+                        'width'    => 200,
+                        'palettes' => true,
+                        'controls' => array(
+                            'horiz' => 's',
+                            'vert'  => 'l',
+                            'strip' => 'h'
+                        )
+                    )
+                )
+            )
+            ->add(
                 'recommendedAction',
                 null,
                 array(
@@ -70,6 +92,15 @@ class DamageCategoryAdmin extends AbstractBaseAdmin
     {
         unset($this->listModes['mosaic']);
         $listMapper
+            ->add(
+                'fakecolour',
+                null,
+                array(
+                    'label'    => ' ',
+                    'template' => '::Admin/Cells/list__cell_colour.html.twig',
+                    'editable' => false,
+                )
+            )
             ->add(
                 'category',
                 null,
