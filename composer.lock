@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8ccfed89b141ae1bdd9cb243a86aa966",
-    "content-hash": "f8a9aeda27c392b5e793d5081febb9ee",
+    "hash": "450fad63ad624e750a740df690bcaf91",
+    "content-hash": "a1756cc6b2beb759dae7592d5e925239",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -1859,6 +1859,51 @@
                 "password"
             ],
             "time": "2014-11-20 16:49:30"
+        },
+        {
+            "name": "it-blaster/color-picker-type-bundle",
+            "version": "v1.0.3",
+            "target-dir": "Fenrizbes/ColorPickerTypeBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/it-blaster/color-picker-type-bundle.git",
+                "reference": "507dba21e7ac32174090f08e7192673f3752b311"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/it-blaster/color-picker-type-bundle/zipball/507dba21e7ac32174090f08e7192673f3752b311",
+                "reference": "507dba21e7ac32174090f08e7192673f3752b311",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2",
+                "symfony/framework-bundle": "~2.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Fenrizbes\\ColorPickerTypeBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Yaroslav Gashuk",
+                    "email": "fenrizbes@yandex.ru"
+                }
+            ],
+            "description": "The FormType for choosing a color",
+            "homepage": "https://github.com/it-blaster/color-picker-type-bundle",
+            "keywords": [
+                "color picker",
+                "form",
+                "iris",
+                "symfony"
+            ],
+            "time": "2015-07-13 08:08:22"
         },
         {
             "name": "jdorn/sql-formatter",
