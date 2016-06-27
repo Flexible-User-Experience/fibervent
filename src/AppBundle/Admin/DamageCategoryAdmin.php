@@ -93,6 +93,15 @@ class DamageCategoryAdmin extends AbstractBaseAdmin
         unset($this->listModes['mosaic']);
         $listMapper
             ->add(
+                'fakecolour',
+                null,
+                array(
+                    'label'    => ' ',
+                    'template' => '::Admin/Cells/list__cell_colour.html.twig',
+                    'editable' => false,
+                )
+            )
+            ->add(
                 'category',
                 null,
                 array(
