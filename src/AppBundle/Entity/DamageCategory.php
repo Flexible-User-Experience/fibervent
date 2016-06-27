@@ -43,6 +43,13 @@ class DamageCategory extends AbstractBase
     private $recommendedAction;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $colour;
+
+    /**
      *
      *
      * Methods
@@ -106,6 +113,26 @@ class DamageCategory extends AbstractBase
     public function setRecommendedAction($recommendedAction)
     {
         $this->recommendedAction = $recommendedAction;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getColour()
+    {
+        return $this->colour;
+    }
+
+    /**
+     * @param string $colour
+     *
+     * @return DamageCategory
+     */
+    public function setColour($colour)
+    {
+        $this->colour = $colour;
 
         return $this;
     }

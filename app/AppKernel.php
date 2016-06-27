@@ -32,6 +32,7 @@ class AppKernel extends Kernel
             new Oh\GoogleMapFormTypeBundle\OhGoogleMapFormTypeBundle(),
             new Vich\UploaderBundle\VichUploaderBundle(),
             new WhiteOctober\TCPDFBundle\WhiteOctoberTCPDFBundle(),
+            new Fenrizbes\ColorPickerTypeBundle\FenrizbesColorPickerTypeBundle(),
             // app
             new AppBundle\AppBundle(),
         );
