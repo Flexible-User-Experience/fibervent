@@ -20,11 +20,11 @@
             <script type="text/javascript" src="{{ asset('bundles/ohgooglemapformtype/js/jquery.ohgooglemaps.js') }}"></script>
         {% endblock %}
         {% block oh_google_maps_javascript %}
-        {% block oh_google_maps_callback %}
-            <script type="text/javascript">
-                var oh_google_maps_callback = function(location, gmap) { /* your callback function here */ }
-            </script>
-        {% endblock %}
+            {% block oh_google_maps_callback %}
+                <script type="text/javascript">
+                    var oh_google_maps_callback = function(location, gmap) { {#/* your callback function here */#} }
+                </script>
+            {% endblock %}
             <script type="text/javascript">
                 jQuery(document).ready(function() {
                     jQuery('#{{ id }}_map_canvas').ohGoogleMapType({
