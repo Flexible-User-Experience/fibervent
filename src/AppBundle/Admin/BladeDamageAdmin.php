@@ -120,17 +120,6 @@ class BladeDamageAdmin extends AbstractBaseAdmin
                     ),
                 )
             )
-            ->add(
-                'status',
-                ChoiceType::class,
-                array(
-                    'label'    => 'Estat',
-                    'choices'  => BladeDamageStatusEnum::getEnumArray(),
-                    'multiple' => false,
-                    'expanded' => false,
-                    'required' => true,
-                )
-            )
             ->end();
         if ($this->id($this->getSubject()) && $this->getRootCode() != $this->getCode()) {
             // is edit mode, disable on new subjects and is children
