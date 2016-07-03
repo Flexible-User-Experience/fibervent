@@ -78,14 +78,4 @@ class ActionButtonFormType extends AbstractType
     {
         return 'action_button';
     }
-
-    /**
-     * Returns the name of this type.
-     *
-     * @return string The name of this type
-     */
-    public function getName()
-    {
-        return 'action_button';
-    }
 }
