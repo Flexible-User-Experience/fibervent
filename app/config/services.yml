@@ -42,7 +42,7 @@ services:
         class: AppBundle\Admin\AuditAdmin
         arguments: [ ~, AppBundle\Entity\Audit, AppBundle:AuditAdmin, "@app.customer_repository", "@app.user_repository", "@app.windmill_repository", "@app.windfarm_repository", "@app.blade_repository", "@app.turbine_repository", "@app.state_repository", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: "Auditoria", group: "Auditoria" }
+            - { name: sonata.admin, manager_type: orm, label: "Inspecció", group: "Auditoria" }
     admin.blade_damage:
         class: AppBundle\Admin\BladeDamageAdmin
         arguments: [ ~, AppBundle\Entity\BladeDamage, ~, "@app.customer_repository", "@app.user_repository", "@app.windmill_repository", "@app.windfarm_repository", "@app.blade_repository", "@app.turbine_repository", "@app.state_repository", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]

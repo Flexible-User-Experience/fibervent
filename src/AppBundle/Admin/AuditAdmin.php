@@ -22,7 +22,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
  */
 class AuditAdmin extends AbstractBaseAdmin
 {
-    protected $classnameLabel = 'Auditoria';
+    protected $classnameLabel = 'Inspecció';
     protected $baseRoutePattern = 'audits/audit';
     protected $datagridValues = array(
         '_sort_by'    => 'beginDate',
@@ -82,25 +82,6 @@ class AuditAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'type',
-                null,
-                array(
-                    'label'    => 'Tipus',
-                    'required' => false,
-                )
-            )
-            ->add(
-                'tools',
-                TextareaType::class,
-                array(
-                    'label'    => 'Eines',
-                    'required' => false,
-                    'attr'     => array(
-                        'rows' => 8,
-                    )
-                )
-            )
-            ->add(
                 'observations',
                 TextareaType::class,
                 array(
@@ -157,7 +138,7 @@ class AuditAdmin extends AbstractBaseAdmin
             ->end();
         if ($this->id($this->getSubject())) { // is edit mode, disable on new subjects
             $formMapper
-                ->with('Pales auditades', $this->getFormMdSuccessBoxArray(5))
+                ->with('Pales inspeccionades', $this->getFormMdSuccessBoxArray(5))
                 ->add(
                     'auditWindmillBlades',
                     'sonata_type_collection',
@@ -240,20 +221,6 @@ class AuditAdmin extends AbstractBaseAdmin
                     'expanded' => false,
                     'multiple' => false,
                     'choices'  => AuditStatusEnum::getEnumArray(),
-                )
-            )
-            ->add(
-                'type',
-                null,
-                array(
-                    'label' => 'Tipus',
-                )
-            )
-            ->add(
-                'tools',
-                null,
-                array(
-                    'label' => 'Eines',
                 )
             )
             ->add(
