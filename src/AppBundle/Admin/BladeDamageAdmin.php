@@ -76,7 +76,7 @@ class BladeDamageAdmin extends AbstractBaseAdmin
                 'distance',
                 null,
                 array(
-                    'label'       => 'Distància',
+                    'label'       => 'Distància (cm)',
                     'required'    => true,
                     'help'        => 'm',
                     'sonata_help' => 'm',
