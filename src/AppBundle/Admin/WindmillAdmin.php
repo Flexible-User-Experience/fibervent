@@ -46,7 +46,7 @@ class WindmillAdmin extends AbstractBaseAdmin
                 'code',
                 null,
                 array(
-                    'label' => 'Codi',
+                    'label' => 'Número',
                 )
             )
             ->end()
@@ -134,7 +134,7 @@ class WindmillAdmin extends AbstractBaseAdmin
                 'code',
                 null,
                 array(
-                    'label' => 'Codi',
+                    'label' => 'Número',
                 )
             )
             ->add(
@@ -181,7 +181,7 @@ class WindmillAdmin extends AbstractBaseAdmin
                 'code',
                 null,
                 array(
-                    'label'    => 'Codi',
+                    'label'    => 'Número',
                     'editable' => true,
                 )
             )
