@@ -6,6 +6,7 @@ use AppBundle\Entity\Audit;
 use AppBundle\Entity\AuditWindmillBlade;
 use AppBundle\Enum\AuditDiagramTypeEnum;
 use AppBundle\Enum\AuditStatusEnum;
+use AppBundle\Form\Type\AuditDiagramTypeFormType;
 use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
@@ -140,7 +141,7 @@ class AuditAdmin extends AbstractBaseAdmin
             ->with('Diagrama de pales', $this->getFormMdSuccessBoxArray(7))
             ->add(
                 'diagramType',
-                ChoiceType::class,
+                AuditDiagramTypeFormType::class,
                 array(
                     'label'    => 'Tipus',
                     'choices'  => AuditDiagramTypeEnum::getEnumArray(),
