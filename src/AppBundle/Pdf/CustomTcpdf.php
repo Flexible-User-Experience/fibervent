@@ -85,8 +85,7 @@ class CustomTcpdf extends \TCPDF
         $this->SetXY(self::PDF_MARGIN_LEFT, 11);
         $this->setFontStyle(null, 'I', 8);
         $this->setBlueLine();
-        $this->Cell(0, 0, 'Parque Eólico ' . $this->windfarm->getName(), 'B', 0, 'C');
-        $this->Text(self::PDF_MARGIN_LEFT + 150, 11, $this->audit->getPdfBeginDateString());
+        $this->Cell(0, 0, 'Parque Eólico ' . $this->windfarm->getName(), 'B', 0, 'R');
     }
 
     /**
