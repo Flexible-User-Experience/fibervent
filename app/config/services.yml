@@ -65,7 +65,7 @@ services:
             - { name: sonata.admin, manager_type: orm, label: "Foto", group: "Auditoria", show_in_dashboard: false }
     admin.audit_windmill_blade:
         class: AppBundle\Admin\AuditWindmillBladeAdmin
-        arguments: [ ~, AppBundle\Entity\AuditWindmillBlade, ~, "@app.customer_repository", "@app.user_repository", "@app.windmill_repository", "@app.windfarm_repository", "@app.blade_repository", "@app.turbine_repository", "@app.state_repository", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
+        arguments: [ ~, AppBundle\Entity\AuditWindmillBlade, AppBundle:AuditWindmillBladeAdmin, "@app.customer_repository", "@app.user_repository", "@app.windmill_repository", "@app.windfarm_repository", "@app.blade_repository", "@app.turbine_repository", "@app.state_repository", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Audit Dany Pala", group: "Auditoria", show_in_dashboard: false }
     admin.user:
