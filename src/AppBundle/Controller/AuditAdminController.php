@@ -36,7 +36,7 @@ class AuditAdminController extends AbstractBaseAdminController
         /** @var Audit $object */
         $object = $this->admin->getObject($id);
         if (!$object) {
-            throw $this->createNotFoundException(sprintf('Unable to find audit record with id : %s', $id));
+            throw $this->createNotFoundException(sprintf('Unable to find audit record with id: %s', $id));
         }
 
         /** @var AuditPdfBuilderService $apbs */
@@ -63,7 +63,7 @@ class AuditAdminController extends AbstractBaseAdminController
         /** @var Audit $object */
         $object = $this->admin->getObject($id);
         if (!$object) {
-            throw $this->createNotFoundException(sprintf('Unable to find audit record with id : %s', $id));
+            throw $this->createNotFoundException(sprintf('Unable to find audit record with id: %s', $id));
         }
 
         return $this->render(

@@ -32,7 +32,9 @@ class WindfarmAdmin extends AbstractBaseAdmin
     protected function configureRoutes(RouteCollection $collection)
     {
         parent::configureRoutes($collection);
-        $collection->add('map', $this->getRouterIdParameter() . '/map');
+        $collection
+            ->add('audits', $this->getRouterIdParameter() . '/audits')
+            ->add('map', $this->getRouterIdParameter() . '/map');
     }
 
     /**
@@ -239,6 +241,7 @@ class WindfarmAdmin extends AbstractBaseAdmin
                     'label'   => 'Accions',
                     'actions' => array(
                         'edit'   => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
+                        'audits' => array('template' => '::Admin/Buttons/list__action_audits_button.html.twig'),
                         'map'    => array('template' => '::Admin/Buttons/list__action_map_button.html.twig'),
                         'delete' => array('template' => '::Admin/Buttons/list__action_delete_button.html.twig'),
                     )
