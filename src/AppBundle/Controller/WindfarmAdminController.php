@@ -18,7 +18,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class WindfarmAdminController extends AbstractBaseAdminController
 {
     /**
-     * Show windfamr audits list view
+     * Show windfarm audits list view
      *
      * @param Request $request
      *

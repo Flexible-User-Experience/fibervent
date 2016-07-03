@@ -1,3 +1,6 @@
 {% if admin.isGranted('EDIT', object) and admin.hasRoute('audits') %}
-    <a href="{{ admin.generateObjectUrl('audits', object) }}" class="btn btn-sm btn-default edit_link" title="Inspeccions"><i class="fa fa-list-alt"></i></a>
+    {#<a href="{{ admin.generateObjectUrl('audits', object) }}" class="btn btn-sm btn-default edit_link" title="Inspeccions"><i class="fa fa-list-alt"></i></a>#}
+    <a href="{{ path('admin_app_audit_list') }}?filter%5Bwindmill__windfarm%5D%5Btype%5D=&filter%5Bwindmill__windfarm%5D%5Bvalue%5D={{ object.id }}" class="btn btn-sm btn-default edit_link" title="Inspeccions"><i class="fa fa-list-alt"></i></a>
 {% endif %}
+
+{#http://fibervent.dev/app_dev.php/admin/audits/audit/list?filter%5BbeginDate%5D%5Btype%5D=&filter%5BbeginDate%5D%5Bvalue%5D=&filter%5BendDate%5D%5Btype%5D=&filter%5BendDate%5D%5Bvalue%5D=&filter%5Bwindmill__windfarm__customer%5D%5Btype%5D=&filter%5Bwindmill__windfarm__customer%5D%5Bvalue%5D=&filter%5Bwindmill__windfarm%5D%5Btype%5D=&filter%5Bwindmill__windfarm%5D%5Bvalue%5D=13&filter%5Bwindmill%5D%5Btype%5D=&filter%5Bwindmill%5D%5Bvalue%5D=&filter%5Boperators%5D%5Btype%5D=&filter%5Boperators%5D%5Bvalue%5D=&filter%5Bstatus%5D%5Btype%5D=&filter%5Bstatus%5D%5Bvalue%5D=&filter%5BdiagramType%5D%5Btype%5D=&filter%5BdiagramType%5D%5Bvalue%5D=&filter%5Bobservations%5D%5Btype%5D=&filter%5Bobservations%5D%5Bvalue%5D=&filter%5B_page%5D=1&filter%5B_sort_by%5D=beginDate&filter%5B_sort_order%5D=desc&filter%5B_per_page%5D=25#}
