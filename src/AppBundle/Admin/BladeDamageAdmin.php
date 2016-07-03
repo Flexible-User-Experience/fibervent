@@ -66,7 +66,7 @@ class BladeDamageAdmin extends AbstractBaseAdmin
                 'radius',
                 null,
                 array(
-                    'label'       => 'Radi',
+                    'label'       => 'Radi (m)',
                     'required'    => true,
                     'help'        => 'm',
                     'sonata_help' => 'm',
