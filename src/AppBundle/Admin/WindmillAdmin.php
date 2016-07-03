@@ -66,7 +66,7 @@ class WindmillAdmin extends AbstractBaseAdmin
                 'bladeType',
                 'sonata_type_model',
                 array(
-                    'label'      => 'Tipus Pala',
+                    'label'      => 'Pala',
                     'btn_add'    => true,
                     'btn_delete' => false,
                     'required'   => true,
@@ -148,7 +148,7 @@ class WindmillAdmin extends AbstractBaseAdmin
                 'bladeType',
                 null,
                 array(
-                    'label' => 'Tipus Pala',
+                    'label' => 'Pala',
                 )
             )
             ->add(
@@ -199,7 +199,7 @@ class WindmillAdmin extends AbstractBaseAdmin
                 'bladeType',
                 null,
                 array(
-                    'label'    => 'Tipus Pala',
+                    'label'    => 'Pala',
                     'sortable'                         => true,
                     'sort_field_mapping'               => array('fieldName' => 'model'),
                     'sort_parent_association_mappings' => array(array('fieldName' => 'bladeType')),
