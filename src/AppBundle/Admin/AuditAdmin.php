@@ -4,7 +4,9 @@ namespace AppBundle\Admin;
 
 use AppBundle\Entity\Audit;
 use AppBundle\Entity\AuditWindmillBlade;
+use AppBundle\Enum\AuditDiagramTypeEnum;
 use AppBundle\Enum\AuditStatusEnum;
+use AppBundle\Form\Type\AuditDiagramTypeFormType;
 use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
@@ -22,7 +24,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
  */
 class AuditAdmin extends AbstractBaseAdmin
 {
-    protected $classnameLabel = 'Auditoria';
+    protected $classnameLabel = 'Inspecció';
     protected $baseRoutePattern = 'audits/audit';
     protected $datagridValues = array(
         '_sort_by'    => 'beginDate',
@@ -82,25 +84,6 @@ class AuditAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'type',
-                null,
-                array(
-                    'label'    => 'Tipus',
-                    'required' => false,
-                )
-            )
-            ->add(
-                'tools',
-                TextareaType::class,
-                array(
-                    'label'    => 'Eines',
-                    'required' => false,
-                    'attr'     => array(
-                        'rows' => 8,
-                    )
-                )
-            )
-            ->add(
                 'observations',
                 TextareaType::class,
                 array(
@@ -154,10 +137,23 @@ class AuditAdmin extends AbstractBaseAdmin
                     'required' => true,
                 )
             )
+            ->end()
+            ->with('Diagrama de pales', $this->getFormMdSuccessBoxArray(7))
+            ->add(
+                'diagramType',
+                AuditDiagramTypeFormType::class,
+                array(
+                    'label'    => 'Tipus',
+                    'choices'  => AuditDiagramTypeEnum::getEnumArray(),
+                    'multiple' => false,
+                    'expanded' => true,
+                    'required' => true,
+                )
+            )
             ->end();
         if ($this->id($this->getSubject())) { // is edit mode, disable on new subjects
             $formMapper
-                ->with('Pales auditades', $this->getFormMdSuccessBoxArray(5))
+                ->with('Pales inspeccionades', $this->getFormMdSuccessBoxArray(5))
                 ->add(
                     'auditWindmillBlades',
                     'sonata_type_collection',
@@ -243,17 +239,16 @@ class AuditAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'type',
+                'diagramType',
                 null,
                 array(
-                    'label' => 'Tipus',
-                )
-            )
-            ->add(
-                'tools',
-                null,
+                    'label' => 'Tipus de diagrama',
+                ),
+                'choice',
                 array(
-                    'label' => 'Eines',
+                    'expanded' => false,
+                    'multiple' => false,
+                    'choices'  => AuditDiagramTypeEnum::getEnumArray(),
                 )
             )
             ->add(

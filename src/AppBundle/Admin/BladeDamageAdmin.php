@@ -66,7 +66,7 @@ class BladeDamageAdmin extends AbstractBaseAdmin
                 'radius',
                 null,
                 array(
-                    'label'       => 'Radi',
+                    'label'       => 'Radi (m)',
                     'required'    => true,
                     'help'        => 'm',
                     'sonata_help' => 'm',
@@ -76,7 +76,7 @@ class BladeDamageAdmin extends AbstractBaseAdmin
                 'distance',
                 null,
                 array(
-                    'label'       => 'Distància',
+                    'label'       => 'Distància (cm)',
                     'required'    => true,
                     'help'        => 'm',
                     'sonata_help' => 'm',
@@ -97,7 +97,7 @@ class BladeDamageAdmin extends AbstractBaseAdmin
                 'size',
                 null,
                 array(
-                    'label'    => 'Dimensió',
+                    'label'    => 'Dimensió (cm)',
                     'required' => false,
                 )
             )
@@ -118,17 +118,6 @@ class BladeDamageAdmin extends AbstractBaseAdmin
                     'attr'     => array(
                         'hidden' => true,
                     ),
-                )
-            )
-            ->add(
-                'status',
-                ChoiceType::class,
-                array(
-                    'label'    => 'Estat',
-                    'choices'  => BladeDamageStatusEnum::getEnumArray(),
-                    'multiple' => false,
-                    'expanded' => false,
-                    'required' => true,
                 )
             )
             ->end();

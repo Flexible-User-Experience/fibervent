@@ -127,6 +127,6 @@ class Turbine extends AbstractBase
      */
     public function __toString()
     {
-        return $this->getModel() ? $this->getModel() . ' (' . $this->getPower() . ')' : '---';
+        return $this->getModel() ? $this->getModel() . ' (' . $this->getPower() . 'MW)' : '---';
     }
 }

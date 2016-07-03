@@ -47,7 +47,8 @@ class CustomerAdmin extends AbstractBaseAdmin
                 'code',
                 null,
                 array(
-                    'label' => 'CIF',
+                    'label'    => 'CIF',
+                    'required' => false,
                 )
             )
             ->add(
@@ -63,7 +64,8 @@ class CustomerAdmin extends AbstractBaseAdmin
                 'email',
                 EmailType::class,
                 array(
-                    'label' => 'Correu Electrònic',
+                    'label'    => 'Correu Electrònic',
+                    'required' => false,
                 )
             )
             ->add(

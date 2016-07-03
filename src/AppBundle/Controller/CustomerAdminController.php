@@ -34,7 +34,7 @@ class CustomerAdminController extends AbstractBaseAdminController
         /** @var Customer $object */
         $object = $this->admin->getObject($id);
         if (!$object) {
-            throw $this->createNotFoundException(sprintf('Unable to find customer record with id : %s', $id));
+            throw $this->createNotFoundException(sprintf('Unable to find customer record with id: %s', $id));
         }
 
         return $this->render(

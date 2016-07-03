@@ -42,6 +42,13 @@ class Audit extends AbstractBase
     protected $status;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(type="integer", options={"default"=1})
+     */
+    protected $diagramType = 1;
+
+    /**
      * @var string
      *
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -188,6 +195,26 @@ class Audit extends AbstractBase
     public function setStatus($status)
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getDiagramType()
+    {
+        return $this->diagramType;
+    }
+
+    /**
+     * @param int $diagramType
+     *
+     * @return $this
+     */
+    public function setDiagramType($diagramType)
+    {
+        $this->diagramType = $diagramType;
 
         return $this;
     }

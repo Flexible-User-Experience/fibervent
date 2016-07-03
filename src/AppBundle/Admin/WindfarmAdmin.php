@@ -32,7 +32,9 @@ class WindfarmAdmin extends AbstractBaseAdmin
     protected function configureRoutes(RouteCollection $collection)
     {
         parent::configureRoutes($collection);
-        $collection->add('map', $this->getRouterIdParameter() . '/map');
+        $collection
+            ->add('audits', $this->getRouterIdParameter() . '/audits')
+            ->add('map', $this->getRouterIdParameter() . '/map');
     }
 
     /**
@@ -41,15 +43,7 @@ class WindfarmAdmin extends AbstractBaseAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->with('General', $this->getFormMdSuccessBoxArray(7))
-            ->add(
-                'customer',
-                null,
-                array(
-                    'label'    => 'Client',
-                    'required' => true,
-                )
-            )
+            ->with('General', $this->getFormMdSuccessBoxArray(4))
             ->add(
                 'customer',
                 'sonata_type_model',
@@ -62,10 +56,34 @@ class WindfarmAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
+                'code',
+                null,
+                array(
+                    'label'    => 'CIF',
+                    'required' => false,
+                )
+            )
+            ->add(
                 'name',
                 null,
                 array(
                     'label' => 'Nom',
+                )
+            )
+            ->end()
+            ->with('Dades Postals', $this->getFormMdSuccessBoxArray(4))
+            ->add(
+                'address',
+                null,
+                array(
+                    'label' => 'Adreça',
+                )
+            )
+            ->add(
+                'zip',
+                null,
+                array(
+                    'label' => 'Codi Postal',
                 )
             )
             ->add(
@@ -87,12 +105,12 @@ class WindfarmAdmin extends AbstractBaseAdmin
                 )
             )
             ->end()
-            ->with('Controls', $this->getFormMdSuccessBoxArray(5))
+            ->with('Controls', $this->getFormMdSuccessBoxArray(4))
             ->add(
                 'manager',
                 'sonata_type_model',
                 array(
-                    'label'      => 'Administrador',
+                    'label'      => 'O&M Regional Manager',
                     'btn_add'    => false,
                     'btn_delete' => false,
                     'required'   => false,
@@ -145,10 +163,31 @@ class WindfarmAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
+                'code',
+                null,
+                array(
+                    'label' => 'CIF',
+                )
+            )
+            ->add(
                 'name',
                 null,
                 array(
                     'label' => 'Nom',
+                )
+            )
+            ->add(
+                'address',
+                null,
+                array(
+                    'label' => 'Adreça',
+                )
+            )
+            ->add(
+                'zip',
+                null,
+                array(
+                    'label' => 'Codi Postal',
                 )
             )
             ->add(
@@ -159,10 +198,17 @@ class WindfarmAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
+                'state',
+                null,
+                array(
+                    'label' => 'Província',
+                )
+            )
+            ->add(
                 'manager',
                 null,
                 array(
-                    'label' => 'Administrador',
+                    'label' => 'O&M Regional Manager',
                 )
             )
             ->add(
@@ -177,13 +223,6 @@ class WindfarmAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'Any',
-                )
-            )
-            ->add(
-                'state',
-                null,
-                array(
-                    'label' => 'Província',
                 )
             );
     }
@@ -225,7 +264,7 @@ class WindfarmAdmin extends AbstractBaseAdmin
                 'manager',
                 null,
                 array(
-                    'label'                            => 'Administrador',
+                    'label'                            => 'O&M Regional Manager',
                     'sortable'                         => true,
                     'sort_field_mapping'               => array('fieldName' => 'lastname'),
                     'sort_parent_association_mappings' => array(array('fieldName' => 'manager')),
@@ -239,6 +278,7 @@ class WindfarmAdmin extends AbstractBaseAdmin
                     'label'   => 'Accions',
                     'actions' => array(
                         'edit'   => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
+                        'audits' => array('template' => '::Admin/Buttons/list__action_audits_button.html.twig'),
                         'map'    => array('template' => '::Admin/Buttons/list__action_map_button.html.twig'),
                         'delete' => array('template' => '::Admin/Buttons/list__action_delete_button.html.twig'),
                     )

@@ -20,6 +20,17 @@ class BladeDamageEdgeEnum
     public static function getEnumArray()
     {
         return array(
+            self::EDGE_IN  => 'CA',
+            self::EDGE_OUT => 'CS',
+        );
+    }
+
+    /**
+     * @return array
+     */
+    public static function getLongTextEnumArray()
+    {
+        return array(
             self::EDGE_IN  => 'Atac',
             self::EDGE_OUT => 'Sortida',
         );

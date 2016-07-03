@@ -100,7 +100,6 @@ class BackendControllerTest extends AbstractBaseTest
             array('/admin/audits/photo/1/edit'),
             array('/admin/audits/audit-windmill-blade/list'),
             array('/admin/audits/audit-windmill-blade/create'),
-            array('/admin/audits/audit-windmill-blade/1/delete'),
             array('/admin/audits/audit-windmill-blade/1/edit'),
             array('/admin/users/list'),
             array('/admin/users/create'),
