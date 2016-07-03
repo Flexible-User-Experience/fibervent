@@ -4,6 +4,7 @@ namespace AppBundle\Admin;
 
 use AppBundle\Entity\Audit;
 use AppBundle\Entity\AuditWindmillBlade;
+use AppBundle\Enum\AuditDiagramTypeEnum;
 use AppBundle\Enum\AuditStatusEnum;
 use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -135,6 +136,19 @@ class AuditAdmin extends AbstractBaseAdmin
                     'required' => true,
                 )
             )
+            ->end()
+            ->with('Diagrama de pales', $this->getFormMdSuccessBoxArray(7))
+            ->add(
+                'diagramType',
+                ChoiceType::class,
+                array(
+                    'label'    => 'Tipus',
+                    'choices'  => AuditDiagramTypeEnum::getEnumArray(),
+                    'multiple' => false,
+                    'expanded' => true,
+                    'required' => true,
+                )
+            )
             ->end();
         if ($this->id($this->getSubject())) { // is edit mode, disable on new subjects
             $formMapper
@@ -221,6 +235,19 @@ class AuditAdmin extends AbstractBaseAdmin
                     'expanded' => false,
                     'multiple' => false,
                     'choices'  => AuditStatusEnum::getEnumArray(),
+                )
+            )
+            ->add(
+                'diagramType',
+                null,
+                array(
+                    'label' => 'Tipus de diagrama',
+                ),
+                'choice',
+                array(
+                    'expanded' => false,
+                    'multiple' => false,
+                    'choices'  => AuditDiagramTypeEnum::getEnumArray(),
                 )
             )
             ->add(

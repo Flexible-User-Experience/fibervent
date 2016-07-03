@@ -200,6 +200,26 @@ class Audit extends AbstractBase
     }
 
     /**
+     * @return int
+     */
+    public function getDiagramType()
+    {
+        return $this->diagramType;
+    }
+
+    /**
+     * @param int $diagramType
+     *
+     * @return $this
+     */
+    public function setDiagramType($diagramType)
+    {
+        $this->diagramType = $diagramType;
+
+        return $this;
+    }
+
+    /**
      * @return string
      */
     public function getType()
