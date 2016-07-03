@@ -92,7 +92,7 @@ class WindfarmAdmin extends AbstractBaseAdmin
                 'manager',
                 'sonata_type_model',
                 array(
-                    'label'      => 'Administrador',
+                    'label'      => 'O&M Regional Manager',
                     'btn_add'    => false,
                     'btn_delete' => false,
                     'required'   => false,
@@ -162,7 +162,7 @@ class WindfarmAdmin extends AbstractBaseAdmin
                 'manager',
                 null,
                 array(
-                    'label' => 'Administrador',
+                    'label' => 'O&M Regional Manager',
                 )
             )
             ->add(
@@ -225,7 +225,7 @@ class WindfarmAdmin extends AbstractBaseAdmin
                 'manager',
                 null,
                 array(
-                    'label'                            => 'Administrador',
+                    'label'                            => 'O&M Regional Manager',
                     'sortable'                         => true,
                     'sort_field_mapping'               => array('fieldName' => 'lastname'),
                     'sort_parent_association_mappings' => array(array('fieldName' => 'manager')),
