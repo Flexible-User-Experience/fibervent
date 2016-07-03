@@ -43,15 +43,7 @@ class WindfarmAdmin extends AbstractBaseAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->with('General', $this->getFormMdSuccessBoxArray(7))
-            ->add(
-                'customer',
-                null,
-                array(
-                    'label'    => 'Client',
-                    'required' => true,
-                )
-            )
+            ->with('General', $this->getFormMdSuccessBoxArray(4))
             ->add(
                 'customer',
                 'sonata_type_model',
@@ -64,10 +56,34 @@ class WindfarmAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
+                'code',
+                null,
+                array(
+                    'label'    => 'CIF',
+                    'required' => false,
+                )
+            )
+            ->add(
                 'name',
                 null,
                 array(
                     'label' => 'Nom',
+                )
+            )
+            ->end()
+            ->with('Dades Postals', $this->getFormMdSuccessBoxArray(4))
+            ->add(
+                'address',
+                null,
+                array(
+                    'label' => 'Adreça',
+                )
+            )
+            ->add(
+                'zip',
+                null,
+                array(
+                    'label' => 'Codi Postal',
                 )
             )
             ->add(
@@ -89,7 +105,7 @@ class WindfarmAdmin extends AbstractBaseAdmin
                 )
             )
             ->end()
-            ->with('Controls', $this->getFormMdSuccessBoxArray(5))
+            ->with('Controls', $this->getFormMdSuccessBoxArray(4))
             ->add(
                 'manager',
                 'sonata_type_model',
@@ -147,6 +163,13 @@ class WindfarmAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
+                'code',
+                null,
+                array(
+                    'label' => 'CIF',
+                )
+            )
+            ->add(
                 'name',
                 null,
                 array(
@@ -154,10 +177,31 @@ class WindfarmAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
+                'address',
+                null,
+                array(
+                    'label' => 'Adreça',
+                )
+            )
+            ->add(
+                'zip',
+                null,
+                array(
+                    'label' => 'Codi Postal',
+                )
+            )
+            ->add(
                 'city',
                 null,
                 array(
                     'label' => 'Ciutat',
+                )
+            )
+            ->add(
+                'state',
+                null,
+                array(
+                    'label' => 'Província',
                 )
             )
             ->add(
@@ -179,13 +223,6 @@ class WindfarmAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'Any',
-                )
-            )
-            ->add(
-                'state',
-                null,
-                array(
-                    'label' => 'Província',
                 )
             );
     }
