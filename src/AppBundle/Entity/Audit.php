@@ -42,6 +42,13 @@ class Audit extends AbstractBase
     protected $status;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(type="integer", options={"default"=1})
+     */
+    protected $diagramType = 1;
+
+    /**
      * @var string
      *
      * @ORM\Column(type="string", length=255, nullable=true)
