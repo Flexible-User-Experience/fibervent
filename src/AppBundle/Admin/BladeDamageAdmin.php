@@ -97,7 +97,7 @@ class BladeDamageAdmin extends AbstractBaseAdmin
                 'size',
                 null,
                 array(
-                    'label'    => 'Dimensió',
+                    'label'    => 'Dimensió (cm)',
                     'required' => false,
                 )
             )
