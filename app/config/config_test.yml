@@ -30,4 +30,3 @@ security:
     firewalls:
         admin:
             http_basic: ~
-

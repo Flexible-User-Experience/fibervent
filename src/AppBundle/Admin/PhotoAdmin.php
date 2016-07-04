@@ -2,8 +2,6 @@
 
 namespace AppBundle\Admin;
 
-use AppBundle\Form\Type\ActionButtonFormType;
-use Oh\GoogleMapFormTypeBundle\Form\Type\GoogleMapType;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
@@ -51,16 +49,6 @@ class PhotoAdmin extends AbstractBaseAdmin
                     'required'    => false,
                 )
             )
-                ->end()
-                ->with('Geolocalització', $this->getFormMdSuccessBoxArray(12))
-                ->add(
-                    'latLng',
-                    GoogleMapType::class,
-                    array(
-                        'label'    => 'Mapa',
-                        'required' => false
-                    )
-                )
             ->end();
     }
 
