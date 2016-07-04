@@ -101,7 +101,7 @@ class AuditPdfBuilderService
         $pdf->Write(0, 'Este informe es el resultado de la inspección visual realizada con telescopio desde suelo en el Parque Eólico "' . $windfarm->getName() . '" entre el ' . $audit->getPdfBeginDateString() . ' y el ' . $audit->getPdfEndDateString(). '. El equipo, propiedad de FIBERVENT, y utilizado para la inspección es el siguiente:', '', false, 'L', true);
         $pdf->Ln(5);
         // Introduction table
-        $pdf->setCellPaddings(5, 5, 5, 5);
+        $pdf->setCellPaddings(0, 5, 0, 5);
         $pdf->setCellMargins(10, 0, 10, 0);
         $pdf->MultiCell(0, 0, '<ul><li>Kit telescopio SWAROVSKI ATS 80-HD + OCULAR ZOOM 25-50X</li><li>Adaptador foto SWAROVSKI TLS APO</li><li>Kit cámara OLYMPUS EPL 5 16 Mpx + cable disparador</li><li>Batería OLYMPUS BLS-5</li><li>Objetivo OLYMPUS 14-42 mm</li><li>Adaptador OLYMPUS T-MICRO 4/3</li><li>Kit trípode MANFROTTO NAT DOS Carbono</li><li>Funda trípode MANFROTTO BAG 80</li><li>Mochila LOWEPRO TRAVEL 200 AW</li></ul>', 1, 'L', false, 1, '', '', true, 0, true);
         $pdf->setCellPaddings(1, 1, 1, 1);
@@ -115,17 +115,23 @@ class AuditPdfBuilderService
         $pdf->Write(0, 'Los daños encontrados se han categorizado según los siguientes criterios:', '', false, 'L', true);
         $pdf->Ln(5);
         // Damages table
-        $pdf->Cell(20, 0, 'Categoría', true, false);
-        $pdf->Cell(20, 0, 'Prioridad', true, false);
-        $pdf->Cell(60, 0, 'Descripción / Hallazgos', true, false);
-        $pdf->Cell(0, 0, 'Acción recomendada', true, true);
+        $pdf->setBlackLine();
+        $pdf->setBlueBackground();
+        $pdf->MultiCell(20, 15, 'Categoría', true, 'L', true, false, '', '', true);
+        $pdf->MultiCell(20, 15, 'Prioridad', true, false, 'L', true);
+        $pdf->MultiCell(60, 15, 'Descripción / Hallazgos', true, false, 'L', true);
+        $pdf->MultiCell(0, 15, 'Acción recomendada', true, true, 'L', true);
         /** @var DamageCategory $item */
         foreach ($this->dcr->findAllSortedByCategory() as $item) {
-            $pdf->Cell(20, 0, $item->getCategory(), true, false);
-            $pdf->Cell(20, 0, $item->getPriority(), true, false);
-            $pdf->Cell(60, 0, $item->getDescription(), true, false);
-            $pdf->Cell(0, 0, $item->getRecommendedAction(), true, true);
+            $rgb = $pdf->hex2rgb($item->getColour());
+            $pdf->SetFillColor($rgb[0], $rgb[1], $rgb[2]);
+            $pdf->MultiCell(20, 10, $item->getCategory(), true, false, 'L', true);
+            $pdf->MultiCell(20, 10, $item->getPriority(), true, false, 'L', true);
+            $pdf->MultiCell(60, 10, $item->getDescription(), true, false, 'L', true);
+            $pdf->MultiCell(0, 10, $item->getRecommendedAction(), true, true, 'L', true);
         }
+        $pdf->setBlueLine();
+        $pdf->setWhiteBackground();
         $pdf->Ln(5);
         // Inspection description
         $pdf->setFontStyle(null, 'B', 11);
