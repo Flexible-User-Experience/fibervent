@@ -44,8 +44,8 @@ class DamageCategoryAdmin extends AbstractBaseAdmin
                 'colour',
                 'color_picker',
                 array(
-                    'label'    => 'Color',
-                    'required' => true,
+                    'label'          => 'Color',
+                    'required'       => true,
                     'picker_options' => array(
                         'color'    => false,
                         'mode'     => 'hsl',
@@ -98,7 +98,8 @@ class DamageCategoryAdmin extends AbstractBaseAdmin
                 'enabled',
                 null,
                 array(
-                    'label' => 'Actiu',
+                    'label'    => 'Actiu',
+                    'required' => false,
                 )
             )
             ->end();
@@ -166,7 +167,7 @@ class DamageCategoryAdmin extends AbstractBaseAdmin
                 array(
                     'label'   => 'Accions',
                     'actions' => array(
-                        'edit'   => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
+                        'edit' => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
                     )
                 )
             );
