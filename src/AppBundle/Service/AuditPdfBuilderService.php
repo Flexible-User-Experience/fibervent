@@ -149,7 +149,7 @@ class AuditPdfBuilderService
         /** @var AuditWindmillBlade $auditWindmillBlade */
         foreach ($audit->getAuditWindmillBlades() as $key => $auditWindmillBlade) {
             $pdf->setFontStyle(null, 'B', 11);
-            $pdf->Write(0, '3. RESUMEN INDIVIDUAL DAÑOS PALA ' . ($key + 1), '', false, 'L', true);
+            $pdf->Write(0, '3.' . ($key + 1) . ' RESUMEN INDIVIDUAL DAÑOS PALA ' . ($key + 1), '', false, 'L', true);
             $pdf->Ln(5);
             $pdf->setFontStyle(null, '', 9);
             $pdf->Write(0, 'En la siguiente tabla se describe el resultado de la inspección con la categorización, descripciones, ubicación y links a fotografías de los daños.', '', false, 'L', true);
@@ -186,6 +186,8 @@ class AuditPdfBuilderService
                 $pdf->setWhiteBackground();
             }
             $pdf->Ln(5);
+            $pdf->Image($this->tha->getUrl('/bundles/app/images/blade_diagrams/blade_blueprint_1.jpg'), CustomTcpdf::PDF_MARGIN_LEFT, $pdf->GetY(), null, 78);
+            $pdf->AddPage();
         }
 
         return $pdf;
