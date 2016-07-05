@@ -117,18 +117,19 @@ class AuditPdfBuilderService
         // Damages table
         $pdf->setBlackLine();
         $pdf->setBlueBackground();
-        $pdf->MultiCell(20, 15, 'Categoría', true, 'L', true, false, '', '', true);
-        $pdf->MultiCell(20, 15, 'Prioridad', true, false, 'L', true);
-        $pdf->MultiCell(60, 15, 'Descripción / Hallazgos', true, false, 'L', true);
-        $pdf->MultiCell(0, 15, 'Acción recomendada', true, true, 'L', true);
+        // MultiCell($w, $h, $txt, $border=0, $align='J', $fill=0, $ln=1, $x='', $y='', $reseth=true, $stretch=0, $ishtml=false, $autopadding=true, $maxh=0)
+        $pdf->MultiCell(20, 0, 'Categoría', 1, 'L', 1, 0, '', '', true);
+        $pdf->MultiCell(20, 0, 'Prioridad', 1, 'L', 1, 0, '', '', true);
+        $pdf->MultiCell(60, 0, 'Descripción / Hallazgos', 1, 'L', 1, 0, '', '', true);
+        $pdf->MultiCell(0, 0, 'Acción recomendada', 1, 'L', 1, 1, '', '', true);
         /** @var DamageCategory $item */
         foreach ($this->dcr->findAllSortedByCategory() as $item) {
             $rgb = $pdf->hex2rgb($item->getColour());
             $pdf->SetFillColor($rgb[0], $rgb[1], $rgb[2]);
-            $pdf->MultiCell(20, 10, $item->getCategory(), true, false, 'L', true);
-            $pdf->MultiCell(20, 10, $item->getPriority(), true, false, 'L', true);
-            $pdf->MultiCell(60, 10, $item->getDescription(), true, false, 'L', true);
-            $pdf->MultiCell(0, 10, $item->getRecommendedAction(), true, true, 'L', true);
+            $pdf->MultiCell(20, 14, $item->getCategory(), 1, 'L', 1, 0, '', '', true);
+            $pdf->MultiCell(20, 14, $item->getPriority(), 1, 'L', 1, 0, '', '', true);
+            $pdf->MultiCell(60, 14, $item->getDescription(), 1, 'L', 1, 0, '', '', true);
+            $pdf->MultiCell(0, 14, $item->getRecommendedAction(), 1, 'L', 1, 1, '', '', true);
         }
         $pdf->setBlueLine();
         $pdf->setWhiteBackground();
