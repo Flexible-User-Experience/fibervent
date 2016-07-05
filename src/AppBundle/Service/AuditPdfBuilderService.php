@@ -6,6 +6,7 @@ use AppBundle\Entity\Audit;
 use AppBundle\Entity\AuditWindmillBlade;
 use AppBundle\Entity\BladeDamage;
 use AppBundle\Entity\DamageCategory;
+use AppBundle\Entity\Photo;
 use AppBundle\Entity\Windfarm;
 use AppBundle\Entity\Windmill;
 use AppBundle\Pdf\CustomTcpdf;
@@ -167,6 +168,10 @@ class AuditPdfBuilderService
             foreach ($auditWindmillBlade->getBladeDamages() as $bladeDamage) {
                 $pdf->drawDamageTableHeader();
                 $pdf->drawDamageTableBodyRow($bladeDamage);
+                /** @var Photo $photo */
+                foreach ($bladeDamage->getPhotos() as $photo) {
+//                    $pdf->Image($this->tha->getUrl('/bundles/app/images/blade_diagrams/blade_blueprint_1.jpg'), CustomTcpdf::PDF_MARGIN_LEFT, $pdf->GetY(), 70, null);
+                }
                 $pdf->AddPage();
             }
 
@@ -302,6 +307,4 @@ class AuditPdfBuilderService
 
         return $pdf;
     }
-
-
 }
