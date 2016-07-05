@@ -5,6 +5,7 @@
 !app/logs/.gitkeep
 /app/database/*
 !/app/database/.gitkeep
+/backups/
 
 # Cache and logs (Symfony3)
 /var/cache/*
