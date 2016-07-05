@@ -8,6 +8,7 @@ use Oh\GoogleMapFormTypeBundle\Form\Type\GoogleMapType;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Route\RouteCollection;
 
 /**
  * Class WindmillAdmin
@@ -24,6 +25,17 @@ class WindmillAdmin extends AbstractBaseAdmin
         '_sort_by'    => 'code',
         '_sort_order' => 'asc',
     );
+
+    /**
+     * Configure route collection
+     *
+     * @param RouteCollection $collection
+     */
+    protected function configureRoutes(RouteCollection $collection)
+    {
+        parent::configureRoutes($collection);
+        $collection->remove('delete');
+    }
 
     /**
      * @param FormMapper $formMapper
@@ -47,6 +59,13 @@ class WindmillAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'Número',
+                )
+            )
+            ->add(
+                'enabled',
+                null,
+                array(
+                    'label' => 'Actiu',
                 )
             )
             ->end()
@@ -157,6 +176,13 @@ class WindmillAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'Administrador',
                 )
+            )
+            ->add(
+                'enabled',
+                null,
+                array(
+                    'label' => 'Actiu',
+                )
             );
     }
 
@@ -206,13 +232,20 @@ class WindmillAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
+                'enabled',
+                null,
+                array(
+                    'label'    => 'Actiu',
+                    'editable' => true,
+                )
+            )
+            ->add(
                 '_action',
                 'actions',
                 array(
                     'label'   => 'Accions',
                     'actions' => array(
                         'edit'   => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
-                        'delete' => array('template' => '::Admin/Buttons/list__action_delete_button.html.twig'),
                     )
                 )
             );
