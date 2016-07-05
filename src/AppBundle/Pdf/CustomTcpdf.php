@@ -3,6 +3,7 @@
 namespace AppBundle\Pdf;
 
 use AppBundle\Entity\Audit;
+use AppBundle\Entity\BladeDamage;
 use AppBundle\Entity\Customer;
 use AppBundle\Entity\Windfarm;
 use AppBundle\Entity\Windmill;
@@ -146,6 +147,42 @@ class CustomTcpdf extends \TCPDF
     public function setBlackLine()
     {
         $this->SetDrawColor(0, 0, 0);
+    }
+    
+    public function drawDamageTableHeader()
+    {
+        // Cell($w, $h=0, $txt='', $border=0, $ln=0, $align='', $fill=0, $link='', $stretch=0, $ignore_min_height=false, $calign='T', $valign='M')
+        $this->setBlueBackground();
+        $this->setFontStyle(null, 'B', 9);
+        $this->Cell(16, 0, 'DAÑO', 1, 0, 'C', true);
+        $this->Cell(33, 0, 'LOCALIZACIÓN', 1, 0, 'C', true);
+        $this->Cell(16, 0, 'TAMAÑO', 1, 0, 'C', true);
+        $this->Cell(90, 0, 'DESCRIPCIÓN', 1, 0, 'C', true);
+        $this->Cell(0, 0, 'CAT', 1, 1, 'C', true);
+        $this->setFontStyle(null, '', 9);
+        $this->Cell(7, 0, 'Nº', 1, 0, 'C', true);
+        $this->Cell(9, 0, 'Cód.', 1, 0, 'C', true);
+        $this->Cell(8, 0, 'Pos.', 1, 0, 'C', true);
+        $this->Cell(10, 0, 'Radio', 1, 0, 'C', true);
+        $this->Cell(15, 0, 'Dist. BA', 1, 0, 'C', true);
+        $this->Cell(16, 0, '', 1, 0, 'C', true);
+        $this->Cell(90, 0, '', 1, 0, 'C', true);
+        $this->Cell(0, 0, '', 1, 1, 'C', true);
+        $this->setWhiteBackground();
+    }
+
+    public function drawDamageTableBodyRow(BladeDamage $bladeDamage)
+    {
+        $this->Cell(7, 0, $bladeDamage->getNumber(), 1, 0, 'C', true);
+        $this->Cell(9, 0, $bladeDamage->getDamage()->getCode(), 1, 0, 'C', true);
+        $this->Cell(8, 0, $bladeDamage->getPositionString(), 1, 0, 'C', true);
+        $this->Cell(10, 0, $bladeDamage->getRadius() . ' m', 1, 0, 'C', true);
+        $this->Cell(15, 0, $bladeDamage->getDistance() . ' cm', 1, 0, 'C', true);
+        $this->Cell(16, 0, $bladeDamage->getSize() . ' cm', 1, 0, 'C', true);
+        $this->Cell(90, 0, $bladeDamage->getDamage()->getDescription(), 1, 0, 'L', true);
+        $this->setBackgroundHexColor($bladeDamage->getDamageCategory()->getColour());
+        $this->Cell(0, 0, $bladeDamage->getDamageCategory()->getCategory(), 1, 1, 'C', true);
+        $this->setWhiteBackground();
     }
 
     /**

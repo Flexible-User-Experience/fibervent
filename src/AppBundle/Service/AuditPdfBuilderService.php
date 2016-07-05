@@ -154,40 +154,22 @@ class AuditPdfBuilderService
             $pdf->setFontStyle(null, '', 9);
             $pdf->Write(0, 'En la siguiente tabla se describe el resultado de la inspección con la categorización, descripciones, ubicación y links a fotografías de los daños.', '', false, 'L', true);
             $pdf->Ln(5);
-            // Cell($w, $h=0, $txt='', $border=0, $ln=0, $align='', $fill=0, $link='', $stretch=0, $ignore_min_height=false, $calign='T', $valign='M')
-            $pdf->setBlueBackground();
-            $pdf->setFontStyle(null, 'B', 9);
-            $pdf->Cell(16, 0, 'DAÑO', 1, 0, 'C', true);
-            $pdf->Cell(33, 0, 'LOCALIZACIÓN', 1, 0, 'C', true);
-            $pdf->Cell(16, 0, 'TAMAÑO', 1, 0, 'C', true);
-            $pdf->Cell(90, 0, 'DESCRIPCIÓN', 1, 0, 'C', true);
-            $pdf->Cell(0, 0, 'CAT', 1, 1, 'C', true);
-            $pdf->setFontStyle(null, '', 9);
-            $pdf->Cell(7, 0, 'Nº', 1, 0, 'C', true);
-            $pdf->Cell(9, 0, 'Cód.', 1, 0, 'C', true);
-            $pdf->Cell(8, 0, 'Pos.', 1, 0, 'C', true);
-            $pdf->Cell(10, 0, 'Radio', 1, 0, 'C', true);
-            $pdf->Cell(15, 0, 'Dist. BA', 1, 0, 'C', true);
-            $pdf->Cell(16, 0, '', 1, 0, 'C', true);
-            $pdf->Cell(90, 0, '', 1, 0, 'C', true);
-            $pdf->Cell(0, 0, '', 1, 1, 'C', true);
-            $pdf->setWhiteBackground();
+            $pdf->drawDamageTableHeader();
             /** @var BladeDamage $bladeDamage */
             foreach ($auditWindmillBlade->getBladeDamages() as $bladeDamage) {
-                $pdf->Cell(7, 0, $bladeDamage->getNumber(), 1, 0, 'C', true);
-                $pdf->Cell(9, 0, $bladeDamage->getDamage()->getCode(), 1, 0, 'C', true);
-                $pdf->Cell(8, 0, $bladeDamage->getPositionString(), 1, 0, 'C', true);
-                $pdf->Cell(10, 0, $bladeDamage->getRadius() . ' m', 1, 0, 'C', true);
-                $pdf->Cell(15, 0, $bladeDamage->getDistance() . ' cm', 1, 0, 'C', true);
-                $pdf->Cell(16, 0, $bladeDamage->getSize() . ' cm', 1, 0, 'C', true);
-                $pdf->Cell(90, 0, $bladeDamage->getDamage()->getDescription(), 1, 0, 'L', true);
-                $pdf->setBackgroundHexColor($bladeDamage->getDamageCategory()->getColour());
-                $pdf->Cell(0, 0, $bladeDamage->getDamageCategory()->getCategory(), 1, 1, 'C', true);
-                $pdf->setWhiteBackground();
+                $pdf->drawDamageTableBodyRow($bladeDamage);
             }
             $pdf->Ln(5);
             $pdf->Image($this->tha->getUrl('/bundles/app/images/blade_diagrams/blade_blueprint_1.jpg'), CustomTcpdf::PDF_MARGIN_LEFT, $pdf->GetY(), null, 78);
+            // Damage images pages
             $pdf->AddPage();
+            /** @var BladeDamage $bladeDamage */
+            foreach ($auditWindmillBlade->getBladeDamages() as $bladeDamage) {
+                $pdf->drawDamageTableHeader();
+                $pdf->drawDamageTableBodyRow($bladeDamage);
+                $pdf->AddPage();
+            }
+
         }
 
         return $pdf;
@@ -320,4 +302,6 @@ class AuditPdfBuilderService
 
         return $pdf;
     }
+
+
 }
