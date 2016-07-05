@@ -131,6 +131,12 @@ class CustomTcpdf extends \TCPDF
     {
         $this->SetFillColor(255, 255, 255);
     }
+    
+    public function setBackgroundHexColor($hex)
+    {
+        $rgb = $this->hex2rgb($hex);
+        $this->SetFillColor($rgb[0], $rgb[1], $rgb[2]);
+    }
 
     public function setBlueLine()
     {
@@ -147,7 +153,7 @@ class CustomTcpdf extends \TCPDF
      *
      * @return array
      */
-    public function hex2rgb($hex)
+    private function hex2rgb($hex)
     {
         $hex = str_replace('#', '', $hex);
 
@@ -160,9 +166,7 @@ class CustomTcpdf extends \TCPDF
             $g = hexdec(substr($hex,2,2));
             $b = hexdec(substr($hex,4,2));
         }
-        $rgb = array($r, $g, $b);
 
-        //return implode(",", $rgb); // returns the rgb values separated by commas
-        return $rgb; // returns an array with the rgb values
+        return array($r, $g, $b);
     }
 }

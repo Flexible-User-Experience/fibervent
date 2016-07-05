@@ -117,15 +117,16 @@ class AuditPdfBuilderService
         // Damages table
         $pdf->setBlackLine();
         $pdf->setBlueBackground();
+        $pdf->setFontStyle(null, 'B', 9);
         // MultiCell($w, $h, $txt, $border=0, $align='J', $fill=0, $ln=1, $x='', $y='', $reseth=true, $stretch=0, $ishtml=false, $autopadding=true, $maxh=0)
         $pdf->MultiCell(20, 0, 'Categoría', 1, 'L', 1, 0, '', '', true);
         $pdf->MultiCell(20, 0, 'Prioridad', 1, 'L', 1, 0, '', '', true);
         $pdf->MultiCell(60, 0, 'Descripción / Hallazgos', 1, 'L', 1, 0, '', '', true);
         $pdf->MultiCell(0, 0, 'Acción recomendada', 1, 'L', 1, 1, '', '', true);
+        $pdf->setFontStyle(null, '', 9);
         /** @var DamageCategory $item */
         foreach ($this->dcr->findAllSortedByCategory() as $item) {
-            $rgb = $pdf->hex2rgb($item->getColour());
-            $pdf->SetFillColor($rgb[0], $rgb[1], $rgb[2]);
+            $pdf->setBackgroundHexColor($item->getColour());
             $pdf->MultiCell(20, 14, $item->getCategory(), 1, 'L', 1, 0, '', '', true);
             $pdf->MultiCell(20, 14, $item->getPriority(), 1, 'L', 1, 0, '', '', true);
             $pdf->MultiCell(60, 14, $item->getDescription(), 1, 'L', 1, 0, '', '', true);
@@ -153,18 +154,36 @@ class AuditPdfBuilderService
             $pdf->setFontStyle(null, '', 9);
             $pdf->Write(0, 'En la siguiente tabla se describe el resultado de la inspección con la categorización, descripciones, ubicación y links a fotografías de los daños.', '', false, 'L', true);
             $pdf->Ln(5);
-            $pdf->Cell(10, 0, 'DAÑO', true, false);
-            $pdf->Cell(30, 0, 'LOCALIZACIÓN', true, false);
-            $pdf->Cell(20, 0, 'TAMAÑO', true, false);
-            $pdf->Cell(95, 0, 'DESCRIPCIÓN', true, false);
-            $pdf->Cell(0, 0, 'CAT', true, true);
+            // Cell($w, $h=0, $txt='', $border=0, $ln=0, $align='', $fill=0, $link='', $stretch=0, $ignore_min_height=false, $calign='T', $valign='M')
+            $pdf->setBlueBackground();
+            $pdf->setFontStyle(null, 'B', 9);
+            $pdf->Cell(16, 0, 'DAÑO', 1, 0, 'C', true);
+            $pdf->Cell(33, 0, 'LOCALIZACIÓN', 1, 0, 'C', true);
+            $pdf->Cell(16, 0, 'TAMAÑO', 1, 0, 'C', true);
+            $pdf->Cell(90, 0, 'DESCRIPCIÓN', 1, 0, 'C', true);
+            $pdf->Cell(0, 0, 'CAT', 1, 1, 'C', true);
+            $pdf->setFontStyle(null, '', 9);
+            $pdf->Cell(7, 0, 'Nº', 1, 0, 'C', true);
+            $pdf->Cell(9, 0, 'Cód.', 1, 0, 'C', true);
+            $pdf->Cell(8, 0, 'Pos.', 1, 0, 'C', true);
+            $pdf->Cell(10, 0, 'Radio', 1, 0, 'C', true);
+            $pdf->Cell(15, 0, 'Dist. BA', 1, 0, 'C', true);
+            $pdf->Cell(16, 0, '', 1, 0, 'C', true);
+            $pdf->Cell(90, 0, '', 1, 0, 'C', true);
+            $pdf->Cell(0, 0, '', 1, 1, 'C', true);
+            $pdf->setWhiteBackground();
             /** @var BladeDamage $bladeDamage */
             foreach ($auditWindmillBlade->getBladeDamages() as $bladeDamage) {
-                $pdf->Cell(10, 0, $bladeDamage->getNumber(), true, false);
-                $pdf->Cell(30, 0, $bladeDamage->getDamage()->getCode(), true, false);
-                $pdf->Cell(20, 0, $bladeDamage->getSize(), true, false);
-                $pdf->Cell(95, 0, $bladeDamage->getDamage()->getDescription(), true, false);
-                $pdf->Cell(0, 0, $bladeDamage->getDamageCategory()->getCategory(), true, true);
+                $pdf->Cell(7, 0, $bladeDamage->getNumber(), 1, 0, 'C', true);
+                $pdf->Cell(9, 0, $bladeDamage->getDamage()->getCode(), 1, 0, 'C', true);
+                $pdf->Cell(8, 0, $bladeDamage->getPositionString(), 1, 0, 'C', true);
+                $pdf->Cell(10, 0, $bladeDamage->getRadius() . ' m', 1, 0, 'C', true);
+                $pdf->Cell(15, 0, $bladeDamage->getDistance() . ' cm', 1, 0, 'C', true);
+                $pdf->Cell(16, 0, $bladeDamage->getSize() . ' cm', 1, 0, 'C', true);
+                $pdf->Cell(90, 0, $bladeDamage->getDamage()->getDescription(), 1, 0, 'L', true);
+                $pdf->setBackgroundHexColor($bladeDamage->getDamageCategory()->getColour());
+                $pdf->Cell(0, 0, $bladeDamage->getDamageCategory()->getCategory(), 1, 1, 'C', true);
+                $pdf->setWhiteBackground();
             }
             $pdf->Ln(5);
         }
