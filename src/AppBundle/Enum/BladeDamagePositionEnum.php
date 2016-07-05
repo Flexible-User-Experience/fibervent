@@ -2,6 +2,8 @@
 
 namespace AppBundle\Enum;
 
+use AppBundle\Entity\BladeDamage;
+
 /**
  * Class BladeDamagePositionEnum
  *
@@ -37,5 +39,15 @@ class BladeDamagePositionEnum
             self::VALVE_SUCTION  => 'Valva succió',
             self::VALVE_BOTH     => 'Canto',
         );
+    }
+
+    /**
+     * @param BladeDamage $bladeDamage
+     *
+     * @return string
+     */
+    public static function getStringValue(BladeDamage $bladeDamage)
+    {
+        return self::getEnumArray()[$bladeDamage->getPosition()];
     }
 }

@@ -4,11 +4,11 @@ namespace AppBundle\Admin;
 
 use AppBundle\Enum\BladeDamageEdgeEnum;
 use AppBundle\Enum\BladeDamagePositionEnum;
-use AppBundle\Enum\BladeDamageStatusEnum;
 use AppBundle\Form\Type\ActionButtonFormType;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Route\RouteCollection;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 /**
@@ -27,6 +27,17 @@ class BladeDamageAdmin extends AbstractBaseAdmin
         '_sort_by'    => 'status',
         '_sort_order' => 'desc',
     );
+
+    /**
+     * Configure route collection
+     *
+     * @param RouteCollection $collection
+     */
+    protected function configureRoutes(RouteCollection $collection)
+    {
+        parent::configureRoutes($collection);
+        $collection->remove('delete');
+    }
 
     /**
      * @param FormMapper $formMapper
@@ -68,7 +79,6 @@ class BladeDamageAdmin extends AbstractBaseAdmin
                 array(
                     'label'       => 'Radi (m)',
                     'required'    => true,
-                    'help'        => 'm',
                     'sonata_help' => 'm',
                 )
             )
@@ -78,8 +88,7 @@ class BladeDamageAdmin extends AbstractBaseAdmin
                 array(
                     'label'       => 'Distància (cm)',
                     'required'    => true,
-                    'help'        => 'm',
-                    'sonata_help' => 'm',
+                    'sonata_help' => 'cm',
                 )
             )
             ->add(
@@ -97,8 +106,9 @@ class BladeDamageAdmin extends AbstractBaseAdmin
                 'size',
                 null,
                 array(
-                    'label'    => 'Dimensió (cm)',
-                    'required' => false,
+                    'label'       => 'Dimensió (cm)',
+                    'required'    => false,
+                    'sonata_help' => 'cm',
                 )
             )
             ->add(
@@ -115,6 +125,7 @@ class BladeDamageAdmin extends AbstractBaseAdmin
                 array(
                     'label'    => 'Pala',
                     'required' => true,
+                    'disabled' => true,
                     'attr'     => array(
                         'hidden' => true,
                     ),
@@ -215,54 +226,6 @@ class BladeDamageAdmin extends AbstractBaseAdmin
     {
         unset($this->listModes['mosaic']);
         $listMapper
-//            ->add(
-//                'damage.code',
-//                null,
-//                array(
-//                    'label'    => 'Codi Dany',
-//                    'editable' => true,
-//                )
-//            )
-//            ->add(
-//                'damageCategory.priority',
-//                null,
-//                array(
-//                    'label'    => 'Prioritat Dany',
-//                    'editable' => true,
-//                )
-//            )
-//            ->add(
-//                'position',
-//                null,
-//                array(
-//                    'label'    => 'Posició',
-//                    'editable' => true,
-//                )
-//            )
-//            ->add(
-//                'radius',
-//                null,
-//                array(
-//                    'label'    => 'Radi',
-//                    'editable' => true,
-//                )
-//            )
-//            ->add(
-//                'distance',
-//                null,
-//                array(
-//                    'label'    => 'Distància',
-//                    'editable' => true,
-//                )
-//            )
-//            ->add(
-//                'size',
-//                null,
-//                array(
-//                    'label'    => 'Mesura',
-//                    'editable' => true,
-//                )
-//            )
             ->add(
                 'status',
                 null,
@@ -286,7 +249,6 @@ class BladeDamageAdmin extends AbstractBaseAdmin
                     'label'   => 'Accions',
                     'actions' => array(
                         'edit'   => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
-                        'delete' => array('template' => '::Admin/Buttons/list__action_delete_button.html.twig'),
                     )
                 )
             );

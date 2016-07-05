@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Enum\BladeDamagePositionEnum;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -118,6 +119,14 @@ class BladeDamage extends AbstractBase
     public function getPosition()
     {
         return $this->position;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPositionString()
+    {
+        return BladeDamagePositionEnum::getStringValue($this);
     }
 
     /**

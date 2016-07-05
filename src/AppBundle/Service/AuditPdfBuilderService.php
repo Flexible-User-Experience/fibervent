@@ -6,6 +6,7 @@ use AppBundle\Entity\Audit;
 use AppBundle\Entity\AuditWindmillBlade;
 use AppBundle\Entity\BladeDamage;
 use AppBundle\Entity\DamageCategory;
+use AppBundle\Entity\Photo;
 use AppBundle\Entity\Windfarm;
 use AppBundle\Entity\Windmill;
 use AppBundle\Pdf\CustomTcpdf;
@@ -101,7 +102,7 @@ class AuditPdfBuilderService
         $pdf->Write(0, 'Este informe es el resultado de la inspección visual realizada con telescopio desde suelo en el Parque Eólico "' . $windfarm->getName() . '" entre el ' . $audit->getPdfBeginDateString() . ' y el ' . $audit->getPdfEndDateString(). '. El equipo, propiedad de FIBERVENT, y utilizado para la inspección es el siguiente:', '', false, 'L', true);
         $pdf->Ln(5);
         // Introduction table
-        $pdf->setCellPaddings(5, 5, 5, 5);
+        $pdf->setCellPaddings(0, 5, 0, 5);
         $pdf->setCellMargins(10, 0, 10, 0);
         $pdf->MultiCell(0, 0, '<ul><li>Kit telescopio SWAROVSKI ATS 80-HD + OCULAR ZOOM 25-50X</li><li>Adaptador foto SWAROVSKI TLS APO</li><li>Kit cámara OLYMPUS EPL 5 16 Mpx + cable disparador</li><li>Batería OLYMPUS BLS-5</li><li>Objetivo OLYMPUS 14-42 mm</li><li>Adaptador OLYMPUS T-MICRO 4/3</li><li>Kit trípode MANFROTTO NAT DOS Carbono</li><li>Funda trípode MANFROTTO BAG 80</li><li>Mochila LOWEPRO TRAVEL 200 AW</li></ul>', 1, 'L', false, 1, '', '', true, 0, true);
         $pdf->setCellPaddings(1, 1, 1, 1);
@@ -115,17 +116,25 @@ class AuditPdfBuilderService
         $pdf->Write(0, 'Los daños encontrados se han categorizado según los siguientes criterios:', '', false, 'L', true);
         $pdf->Ln(5);
         // Damages table
-        $pdf->Cell(20, 0, 'Categoría', true, false);
-        $pdf->Cell(20, 0, 'Prioridad', true, false);
-        $pdf->Cell(60, 0, 'Descripción / Hallazgos', true, false);
-        $pdf->Cell(0, 0, 'Acción recomendada', true, true);
+        $pdf->setBlackLine();
+        $pdf->setBlueBackground();
+        $pdf->setFontStyle(null, 'B', 9);
+        // MultiCell($w, $h, $txt, $border=0, $align='J', $fill=0, $ln=1, $x='', $y='', $reseth=true, $stretch=0, $ishtml=false, $autopadding=true, $maxh=0)
+        $pdf->MultiCell(20, 0, 'Categoría', 1, 'L', 1, 0, '', '', true);
+        $pdf->MultiCell(20, 0, 'Prioridad', 1, 'L', 1, 0, '', '', true);
+        $pdf->MultiCell(60, 0, 'Descripción / Hallazgos', 1, 'L', 1, 0, '', '', true);
+        $pdf->MultiCell(0, 0, 'Acción recomendada', 1, 'L', 1, 1, '', '', true);
+        $pdf->setFontStyle(null, '', 9);
         /** @var DamageCategory $item */
         foreach ($this->dcr->findAllSortedByCategory() as $item) {
-            $pdf->Cell(20, 0, $item->getCategory(), true, false);
-            $pdf->Cell(20, 0, $item->getPriority(), true, false);
-            $pdf->Cell(60, 0, $item->getDescription(), true, false);
-            $pdf->Cell(0, 0, $item->getRecommendedAction(), true, true);
+            $pdf->setBackgroundHexColor($item->getColour());
+            $pdf->MultiCell(20, 14, $item->getCategory(), 1, 'L', 1, 0, '', '', true);
+            $pdf->MultiCell(20, 14, $item->getPriority(), 1, 'L', 1, 0, '', '', true);
+            $pdf->MultiCell(60, 14, $item->getDescription(), 1, 'L', 1, 0, '', '', true);
+            $pdf->MultiCell(0, 14, $item->getRecommendedAction(), 1, 'L', 1, 1, '', '', true);
         }
+        $pdf->setBlueLine();
+        $pdf->setWhiteBackground();
         $pdf->Ln(5);
         // Inspection description
         $pdf->setFontStyle(null, 'B', 11);
@@ -134,30 +143,38 @@ class AuditPdfBuilderService
         $pdf->setFontStyle(null, '', 9);
         $pdf->Write(0, 'El esquema en la numeración de palas (1, 2, 3) se describe en la siguiente imagen:', '', false, 'L', true);
         $pdf->Ln(5);
-        // TODO windmill img schema
+        // Audit description with windmill image schema
+        $pdf->Image($this->tha->getUrl('/bundles/app/images/tubrine_diagrams/' . $audit->getDiagramType() . '.jpg'), CustomTcpdf::PDF_MARGIN_LEFT, $pdf->GetY(), null, 40);
+        $pdf->AddPage();
         // Damages section
         /** @var AuditWindmillBlade $auditWindmillBlade */
         foreach ($audit->getAuditWindmillBlades() as $key => $auditWindmillBlade) {
             $pdf->setFontStyle(null, 'B', 11);
-            $pdf->Write(0, '3. RESUMEN INDIVIDUAL DAÑOS PALA ' . ($key + 1), '', false, 'L', true);
+            $pdf->Write(0, '3.' . ($key + 1) . ' RESUMEN INDIVIDUAL DAÑOS PALA ' . ($key + 1), '', false, 'L', true);
             $pdf->Ln(5);
             $pdf->setFontStyle(null, '', 9);
             $pdf->Write(0, 'En la siguiente tabla se describe el resultado de la inspección con la categorización, descripciones, ubicación y links a fotografías de los daños.', '', false, 'L', true);
             $pdf->Ln(5);
-            $pdf->Cell(10, 0, 'DAÑO', true, false);
-            $pdf->Cell(30, 0, 'LOCALIZACIÓN', true, false);
-            $pdf->Cell(20, 0, 'TAMAÑO', true, false);
-            $pdf->Cell(95, 0, 'DESCRIPCIÓN', true, false);
-            $pdf->Cell(0, 0, 'CAT', true, true);
+            $pdf->drawDamageTableHeader();
             /** @var BladeDamage $bladeDamage */
             foreach ($auditWindmillBlade->getBladeDamages() as $bladeDamage) {
-                $pdf->Cell(10, 0, $bladeDamage->getNumber(), true, false);
-                $pdf->Cell(30, 0, $bladeDamage->getDamage()->getCode(), true, false);
-                $pdf->Cell(20, 0, $bladeDamage->getSize(), true, false);
-                $pdf->Cell(95, 0, $bladeDamage->getDamage()->getDescription(), true, false);
-                $pdf->Cell(0, 0, $bladeDamage->getDamageCategory()->getCategory(), true, true);
+                $pdf->drawDamageTableBodyRow($bladeDamage);
             }
             $pdf->Ln(5);
+            $pdf->Image($this->tha->getUrl('/bundles/app/images/blade_diagrams/blade_blueprint_1.jpg'), CustomTcpdf::PDF_MARGIN_LEFT, $pdf->GetY(), null, 78);
+            // Damage images pages
+            $pdf->AddPage();
+            /** @var BladeDamage $bladeDamage */
+            foreach ($auditWindmillBlade->getBladeDamages() as $bladeDamage) {
+                $pdf->drawDamageTableHeader();
+                $pdf->drawDamageTableBodyRow($bladeDamage);
+                /** @var Photo $photo */
+                foreach ($bladeDamage->getPhotos() as $photo) {
+//                    $pdf->Image($this->tha->getUrl('/bundles/app/images/blade_diagrams/blade_blueprint_1.jpg'), CustomTcpdf::PDF_MARGIN_LEFT, $pdf->GetY(), 70, null);
+                }
+                $pdf->AddPage();
+            }
+
         }
 
         return $pdf;
