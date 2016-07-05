@@ -49,7 +49,6 @@ class BackendControllerTest extends AbstractBaseTest
             array('/admin/dashboard'),
             array('/admin/customers/customer/list'),
             array('/admin/customers/customer/create'),
-            array('/admin/customers/customer/1/delete'),
             array('/admin/customers/customer/1/edit'),
             array('/admin/customers/customer/1/map'),
             array('/admin/customers/state/list'),
@@ -58,7 +57,6 @@ class BackendControllerTest extends AbstractBaseTest
             array('/admin/customers/state/1/edit'),
             array('/admin/windfarms/windfarm/list'),
             array('/admin/windfarms/windfarm/create'),
-            array('/admin/windfarms/windfarm/1/delete'),
             array('/admin/windfarms/windfarm/1/edit'),
             array('/admin/windfarms/windfarm/1/map'),
             array('/admin/windfarms/windmill/list'),
@@ -130,9 +128,11 @@ class BackendControllerTest extends AbstractBaseTest
     {
         return array(
             array('/admin/customers/customer/batch'),
+            array('/admin/customers/customer/1/delete'),
             array('/admin/customers/country/batch'),
             array('/admin/customers/state/batch'),
             array('/admin/windfarms/windfarm/batch'),
+            array('/admin/windfarms/windfarm/1/delete'),
             array('/admin/audits/blade-damage/1/delete'),
             array('/admin/audits/audit-windmill-blade/1/delete'),
             array('/admin/users/show'),
