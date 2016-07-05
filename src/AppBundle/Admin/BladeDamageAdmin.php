@@ -107,7 +107,7 @@ class BladeDamageAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label'       => 'Dimensió (cm)',
-                    'required'    => false,
+                    'required'    => true,
                     'sonata_help' => 'cm',
                 )
             )
@@ -125,7 +125,7 @@ class BladeDamageAdmin extends AbstractBaseAdmin
                 array(
                     'label'    => 'Pala',
                     'required' => true,
-                    'disabled' => true,
+                    'disabled' => false,
                     'attr'     => array(
                         'hidden' => true,
                     ),
@@ -147,7 +147,7 @@ class BladeDamageAdmin extends AbstractBaseAdmin
                     )
                 )
                 ->end();
-        } else {
+        } else if ($this->id($this->getSubject())) {
             // is edit mode, disable on new subjects and is children
             $formMapper
                 ->with('Fotos', $this->getFormMdSuccessBoxArray(9))

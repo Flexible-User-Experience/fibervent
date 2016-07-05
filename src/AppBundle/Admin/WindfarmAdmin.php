@@ -34,7 +34,8 @@ class WindfarmAdmin extends AbstractBaseAdmin
         parent::configureRoutes($collection);
         $collection
             ->add('audits', $this->getRouterIdParameter() . '/audits')
-            ->add('map', $this->getRouterIdParameter() . '/map');
+            ->add('map', $this->getRouterIdParameter() . '/map')
+            ->remove('delete');
     }
 
     /**
@@ -68,6 +69,13 @@ class WindfarmAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'Nom',
+                )
+            )
+            ->add(
+                'enabled',
+                null,
+                array(
+                    'label' => 'Actiu',
                 )
             )
             ->end()
@@ -224,6 +232,13 @@ class WindfarmAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'Any',
                 )
+            )
+            ->add(
+                'enabled',
+                null,
+                array(
+                    'label' => 'Actiu',
+                )
             );
     }
 
@@ -272,6 +287,14 @@ class WindfarmAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
+                'enabled',
+                null,
+                array(
+                    'label'    => 'Actiu',
+                    'editable' => true,
+                )
+            )
+            ->add(
                 '_action',
                 'actions',
                 array(
@@ -280,7 +303,6 @@ class WindfarmAdmin extends AbstractBaseAdmin
                         'edit'   => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
                         'audits' => array('template' => '::Admin/Buttons/list__action_audits_button.html.twig'),
                         'map'    => array('template' => '::Admin/Buttons/list__action_map_button.html.twig'),
-                        'delete' => array('template' => '::Admin/Buttons/list__action_delete_button.html.twig'),
                     )
                 )
             );

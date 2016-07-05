@@ -168,13 +168,18 @@ class AuditPdfBuilderService
             foreach ($auditWindmillBlade->getBladeDamages() as $bladeDamage) {
                 $pdf->drawDamageTableHeader();
                 $pdf->drawDamageTableBodyRow($bladeDamage);
+                $pdf->Ln(5);
+                $i = 0;
                 /** @var Photo $photo */
                 foreach ($bladeDamage->getPhotos() as $photo) {
-//                    $pdf->Image($this->tha->getUrl('/bundles/app/images/blade_diagrams/blade_blueprint_1.jpg'), CustomTcpdf::PDF_MARGIN_LEFT, $pdf->GetY(), 70, null);
+                    $pdf->Image($this->cm->getBrowserPath($this->uh->asset($photo, 'imageFile'), '480x270'), CustomTcpdf::PDF_MARGIN_LEFT + (($i % 2) * 85), $pdf->GetY(), 80, null);
+                    $i++;
+                    if ($i % 2 == 0) {
+                        $pdf->Ln(50);
+                    }
                 }
                 $pdf->AddPage();
             }
-
         }
 
         return $pdf;
