@@ -175,7 +175,7 @@ class AuditPdfBuilderService
                     $pdf->Image($this->cm->getBrowserPath($this->uh->asset($photo, 'imageFile'), '480x270'), CustomTcpdf::PDF_MARGIN_LEFT + (($i % 2) * 85), $pdf->GetY(), 80, null);
                     $i++;
                     if ($i % 2 == 0) {
-                        $pdf->SetY($pdf->GetY() + 50);
+                        $pdf->Ln(50);
                     }
                 }
                 $pdf->AddPage();
