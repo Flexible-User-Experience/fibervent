@@ -36,3 +36,5 @@ parameters:
     google_analytics_enabled: false
     google_analytics_account: "UA-xxxxxxxx-x"
     google_maps_api_key:      "<YOUR-GMAP-API-KEY>"
+
+    dev_delivery_address: "your@email.com"

@@ -79,7 +79,7 @@ class Audit extends AbstractBase
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="AuditWindmillBlade", mappedBy="audit", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="AuditWindmillBlade", mappedBy="audit", cascade={"persist", "remove"}, orphanRemoval=true)
      */
     private $auditWindmillBlades;
 

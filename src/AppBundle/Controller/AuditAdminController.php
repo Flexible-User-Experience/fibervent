@@ -3,7 +3,10 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Audit;
+use AppBundle\Entity\User;
+use AppBundle\Form\Type\AuditEmailSendFormType;
 use AppBundle\Service\AuditPdfBuilderService;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
@@ -92,15 +95,129 @@ class AuditAdminController extends AbstractBaseAdminController
         /** @var Audit $object */
         $object = $this->admin->getObject($id);
         if (!$object) {
-            throw $this->createNotFoundException(sprintf('Unable to find audit record with id : %s', $id));
+            throw $this->createNotFoundException(sprintf('Unable to find audit record with id: %s', $id));
+        }
+
+        /** @var AuditPdfBuilderService $apbs */
+        $apbs = $this->get('app.audit_pdf_builder');
+        $pdf = $apbs->build($object);
+        $pdf->Output($this->getDestAuditFilePath($object), 'F');
+        
+        $form = $this->createForm(new AuditEmailSendFormType(), $object, array(
+            'default_msg'    => 'Adjunto archivo resultado auditoria número ' . $object->getId(),
+            'to_emails_list' => $this->getToEmailsList($object),
+            'cc_emails_list' => $this->getCcEmailsList($object),
+        ));
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $to = $form->get('to')->getData();
+            $cc = $form->get('cc')->getData();
+            $subject = $form->get('subject')->getData();
+            $message = $form->get('message')->getData();
+            $this->get('app.notification')->deliverAuditEmail(
+                'info@fibervent.com',
+                $to,
+                $cc,
+                $subject,
+                $message,
+                $this->getDestAuditFilePath($object)
+            );
+            $this->addFlash('sonata_flash_success', 'La auditoria núm. ' . $object->getId() . ' s\'ha enviat correctament a ' . $to . ($cc ? ' amb còpia per a ' . $cc : ''));
+
+            return new RedirectResponse($this->admin->generateUrl('list'));
         }
 
         return $this->render(
             ':Admin/Audit:email.html.twig',
             array(
-                'action' => 'show',
-                'object' => $object,
+                'action'         => 'show',
+                'object'         => $object,
+                'form'           => $form->createView(),
+                'pdf_short_path' => $this->getShortAuditFilePath($object),
             )
         );
+    }
+
+    /**
+     * @param Audit $audit
+     *
+     * @return string
+     */
+    private function getDestAuditFilePath(Audit $audit)
+    {
+        $krd = $this->getParameter('kernel.root_dir');
+        $path = $krd . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'web' . $this->getShortAuditFilePath($audit);
+        
+        return $path;
+    }
+
+    /**
+     * @param Audit $audit
+     *
+     * @return string
+     */
+    private function getShortAuditFilePath(Audit $audit)
+    {
+        return DIRECTORY_SEPARATOR . 'pdfs' . DIRECTORY_SEPARATOR . 'Auditoria-' . $audit->getId() . '.pdf';
+    }
+
+    /**
+     * @param Audit $audit
+     *
+     * @return array
+     */
+    private function getToEmailsList(Audit $audit)
+    {
+        $availableMails = $this->commonEmailsList($audit);
+        if ($audit->getCustomer()) {
+            /** @var User $user */
+            foreach ($audit->getCustomer()->getContacts() as $user) {
+                if ($user->isEnabled()) {
+                    $availableMails[$user->getEmail()] = $user->getFullname() . ' <' . $user->getEmail() . '>';
+                }
+            }
+        }
+
+        return $availableMails;
+    }
+
+    /**
+     * @param Audit $audit
+     *
+     * @return array
+     */
+    private function getCcEmailsList(Audit $audit)
+    {
+        $availableMails = $this->commonEmailsList($audit);
+        $users = $this->get('app.user_repository')->findOnlyAvailableSortedByName($audit->getCustomer());
+        /** @var User $user */
+        foreach ($users as $user) {
+            $availableMails[$user->getEmail()] = $user->getFullname() . ' <' . $user->getEmail() . '>';
+        }
+
+        return $availableMails;
+    }
+
+    /**
+     * @param Audit $audit
+     *
+     * @return array
+     */
+    private function commonEmailsList(Audit $audit)
+    {
+        $availableMails = array();
+        if ($audit->getWindfarm()->getManager()) {
+            $availableMails[$audit->getWindfarm()->getManager()->getEmail()] = $audit->getWindfarm()->getMangerFullname() . ' <' . $audit->getWindfarm()->getManager()->getEmail() . '>';
+        }
+        if ($audit->getCustomer()) {
+            /** @var User $user */
+            foreach ($audit->getCustomer()->getContacts() as $user) {
+                if ($user->isEnabled()) {
+                    $availableMails[$user->getEmail()] = $user->getFullname() . ' <' . $user->getEmail() . '>';
+                }
+            }
+        }
+
+        return $availableMails;
     }
 }

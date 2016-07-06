@@ -267,7 +267,7 @@ class AuditPdfBuilderService
         $pdf->setFontStyle(null, 'B', 10); $pdf->setBlueBackground();
         $pdf->Cell(70, 6, 'O&M REGIONAL MANAGER', 'TB', 0, 'R', true);
         $pdf->setFontStyle(null, '', 10); $pdf->setWhiteBackground();
-        $pdf->Cell(0, 6, $windfarm->getManager()->getFullname(), 'TB', 1, 'L', true);
+        $pdf->Cell(0, 6, $windfarm->getMangerFullname(), 'TB', 1, 'L', true);
 
         // TODO revisions table section
 
