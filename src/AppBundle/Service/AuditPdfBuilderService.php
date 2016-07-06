@@ -155,13 +155,27 @@ class AuditPdfBuilderService
             $pdf->setFontStyle(null, '', 9);
             $pdf->Write(0, 'En la siguiente tabla se describe el resultado de la inspección con la categorización, descripciones, ubicación y links a fotografías de los daños.', '', false, 'L', true);
             $pdf->Ln(5);
+            // damage table
             $pdf->drawDamageTableHeader();
             /** @var BladeDamage $bladeDamage */
             foreach ($auditWindmillBlade->getBladeDamages() as $bladeDamage) {
                 $pdf->drawDamageTableBodyRow($bladeDamage);
             }
             $pdf->Ln(5);
-            $pdf->Image($this->tha->getUrl('/bundles/app/images/blade_diagrams/blade_blueprint_1.jpg'), CustomTcpdf::PDF_MARGIN_LEFT, $pdf->GetY(), null, 78);
+            // blade diagram damage locations
+            $x1 = CustomTcpdf::PDF_MARGIN_LEFT;
+            $y1 = $pdf->GetY();
+            $x2 = 210 - CustomTcpdf::PDF_MARGIN_RIGHT;
+            $y2 = $y1 + 78;
+            $bladeGap = 40;
+            $pdf->Image($this->tha->getUrl('/bundles/app/images/blade_diagrams/blade_blueprint_1.jpg'), $x1, $y1, null, 78);
+//            $pdf->Rect($x1, $y1, ($x2 - $x1), ($y2 - $y1));
+//            $pdf->Rect($x1 + 3.5, $y1, ($x2 - $x1 - 5), ($y2 - $y1));
+//            $pdf->Rect($x1 + 44.5, $y1, ($x2 - $x1), ($y2 - $y1));
+            $pdf->Text(($x1 + ($bladeGap * 1) - 9), $y1 + 32, $auditWindmillBlade->getWindmillBlade()->getWindmill()->getBladeType()->getQ1LengthString());
+            $pdf->Text(($x1 + ($bladeGap * 2) - 10), $y1 + 32, $auditWindmillBlade->getWindmillBlade()->getWindmill()->getBladeType()->getQ2LengthString());
+            $pdf->Text(($x1 + ($bladeGap * 3) - 12), $y1 + 32, $auditWindmillBlade->getWindmillBlade()->getWindmill()->getBladeType()->getQ3LengthString());
+            $pdf->Text(($x1 + ($bladeGap * 4) - 10), $y1 + 32, $auditWindmillBlade->getWindmillBlade()->getWindmill()->getBladeType()->getQ4LengthString());
             // Damage images pages
             $pdf->AddPage();
             /** @var BladeDamage $bladeDamage */
