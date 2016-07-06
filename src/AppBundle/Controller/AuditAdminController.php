@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Audit;
+use AppBundle\Entity\User;
 use AppBundle\Form\Type\AuditEmailSendFormType;
 use AppBundle\Service\AuditPdfBuilderService;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -102,7 +103,11 @@ class AuditAdminController extends AbstractBaseAdminController
         $pdf = $apbs->build($object);
         $pdf->Output($this->getDestAuditFilePath($object), 'F');
         
-        $form = $this->createForm(new AuditEmailSendFormType(), $object, array());
+        $form = $this->createForm(new AuditEmailSendFormType(), $object, array(
+            'default_msg'    => 'Adjunto archivo resultado auditoria número ' . $object->getId(),
+            'to_emails_list' => $this->getToEmailsList($object),
+            'cc_emails_list' => $this->getCcEmailsList($object),
+        ));
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $this->addFlash('sonata_flash_success', 'La auditoria núm. ' . $object->getId() . ' s\'ha enviat correctament.');
@@ -142,5 +147,65 @@ class AuditAdminController extends AbstractBaseAdminController
     private function getShortAuditFilePath(Audit $audit)
     {
         return DIRECTORY_SEPARATOR . 'pdfs' . DIRECTORY_SEPARATOR . 'Auditoria-' . $audit->getId() . '.pdf';
+    }
+
+    /**
+     * @param Audit $audit
+     *
+     * @return array
+     */
+    private function getToEmailsList(Audit $audit)
+    {
+        $availableMails = $this->commonEmailsList($audit);
+        if ($audit->getCustomer()) {
+            /** @var User $user */
+            foreach ($audit->getCustomer()->getContacts() as $user) {
+                if ($user->isEnabled()) {
+                    $availableMails[$user->getEmail()] = $user->getFullname() . ' <' . $audit->getWindfarm()->getManager()->getEmail() . '>';
+                }
+            }
+        }
+
+        return $availableMails;
+    }
+
+    /**
+     * @param Audit $audit
+     *
+     * @return array
+     */
+    private function getCcEmailsList(Audit $audit)
+    {
+        $availableMails = $this->commonEmailsList($audit);
+        $users = $this->get('app.user_repository')->findOnlyAvailableSortedByName($audit->getCustomer());
+        /** @var User $user */
+        foreach ($users as $user) {
+            $availableMails[$user->getEmail()] = $user->getFullname() . ' <' . $audit->getWindfarm()->getManager()->getEmail() . '>';
+        }
+
+        return $availableMails;
+    }
+
+    /**
+     * @param Audit $audit
+     *
+     * @return array
+     */
+    private function commonEmailsList(Audit $audit)
+    {
+        $availableMails = array();
+        if ($audit->getWindfarm()->getManager()) {
+            $availableMails[$audit->getWindfarm()->getManager()->getEmail()] = $audit->getWindfarm()->getMangerFullname() . ' <' . $audit->getWindfarm()->getManager()->getEmail() . '>';
+        }
+        if ($audit->getCustomer()) {
+            /** @var User $user */
+            foreach ($audit->getCustomer()->getContacts() as $user) {
+                if ($user->isEnabled()) {
+                    $availableMails[$user->getEmail()] = $user->getFullname() . ' <' . $audit->getWindfarm()->getManager()->getEmail() . '>';
+                }
+            }
+        }
+
+        return $availableMails;
     }
 }

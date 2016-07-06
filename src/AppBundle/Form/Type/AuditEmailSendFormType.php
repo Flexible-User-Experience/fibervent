@@ -34,7 +34,7 @@ class AuditEmailSendFormType extends AbstractType
                     'required' => true,
                     'multiple' => false,
                     'label'    => 'Per a',
-                    'choices'  => $options['mails'],
+                    'choices'  => $options['to_emails_list'],
                 )
             )
             ->add(
@@ -45,7 +45,7 @@ class AuditEmailSendFormType extends AbstractType
                     'required' => false,
                     'multiple' => false,
                     'label'    => 'Amb còpia per a',
-                    'choices'  => $options['mails'],
+                    'choices'  => $options['cc_emails_list'],
                 )
             )
             ->add(
@@ -68,6 +68,7 @@ class AuditEmailSendFormType extends AbstractType
                     'mapped'   => false,
                     'required' => false,
                     'label'    => 'Missatge',
+                    'data'     => $options['default_msg'],
                 )
             )
             ->add(
@@ -92,8 +93,10 @@ class AuditEmailSendFormType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'AppBundle\Entity\Audit',
-                'mails'      => null,
+                'data_class'     => 'AppBundle\Entity\Audit',
+                'default_msg'    => null,
+                'to_emails_list' => null,
+                'cc_emails_list' => null,
             )
         );
     }
