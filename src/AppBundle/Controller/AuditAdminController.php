@@ -110,7 +110,10 @@ class AuditAdminController extends AbstractBaseAdminController
         ));
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->addFlash('sonata_flash_success', 'La auditoria núm. ' . $object->getId() . ' s\'ha enviat correctament.');
+            $to = $form->get('to')->getData();
+            $cc = $form->get('cc')->getData();
+            $this->get('app.notification')->deliverAuditEmail($o);
+            $this->addFlash('sonata_flash_success', 'La auditoria núm. ' . $object->getId() . ' s\'ha enviat correctament a ' . $to . ($cc ? ' amb còpia per a ' . $cc : ''));
 
             return new RedirectResponse($this->admin->generateUrl('list'));
         }

@@ -28,5 +28,5 @@ cypress_git_elephant:
     repositories:
         "Fibervent": "%kernel.root_dir%/../"
 
-#swiftmailer:
-#    delivery_address: me@example.com
+swiftmailer:
+    delivery_address: "%dev_delivery_address%"

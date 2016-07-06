@@ -99,3 +99,10 @@ services:
         class: AppBundle\Form\Type\ActionButtonFormType
         tags:
             - { name: form.type, alias: action_button }
+# Messaging
+    app.courier:
+        class: AppBundle\Service\CourierService
+        arguments: [ "@swiftmailer.mailer" ]
+    app.notification:
+        class: AppBundle\Service\NotificationService
+        arguments: [ "@app.courier" ]
