@@ -371,6 +371,24 @@ class BladeDamage extends AbstractBase
     }
 
     /**
+     * @param int $gap
+     *
+     * @return float
+     */
+    public function getDeltaGap($gap)
+    {
+        return ($this->getRadius() * $gap) / $this->getAuditWindmillBlade()->getWindmillBlade()->getWindmill()->getBladeType()->getLength();
+    }
+
+    /**
+     * @return float
+     */
+    public function getDeltaGapVertical()
+    {
+        return $this->getPosition() == BladeDamagePositionEnum::VALVE_PRESSURE ? 24 : 43.5;
+    }
+
+    /**
      * @return string
      */
     public function __toString()
