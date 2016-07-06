@@ -171,7 +171,7 @@ class AuditPdfBuilderService
             $gap = $x2 - $x1;
             $pdf->Image($this->tha->getUrl('/bundles/app/images/blade_diagrams/blade_blueprint_1.jpg'), $x1, $y1, null, 78);
 //            $pdf->Rect($x1, $y1, ($x2 - $x1), ($y2 - $y1));
-            $pdf->Rect($x1 + 3.5, $y1, ($x2 - $x1 - 4.5), ($y2 - $y1));
+//            $pdf->Rect($x1 + 3.5, $y1, ($x2 - $x1 - 4.5), ($y2 - $y1));
 //            $pdf->Rect($x1 + 44.5, $y1, ($x2 - $x1), ($y2 - $y1));
             $pdf->Text(($x1 + ($bladeGap * 1) - 9), $y1 + 32, $auditWindmillBlade->getWindmillBlade()->getWindmill()->getBladeType()->getQ1LengthString());
             $pdf->Text(($x1 + ($bladeGap * 2) - 10), $y1 + 32, $auditWindmillBlade->getWindmillBlade()->getWindmill()->getBladeType()->getQ2LengthString());
