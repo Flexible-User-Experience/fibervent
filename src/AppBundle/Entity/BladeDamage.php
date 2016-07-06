@@ -371,6 +371,16 @@ class BladeDamage extends AbstractBase
     }
 
     /**
+     * @param int $gap
+     *
+     * @return float
+     */
+    public function getDeltaGap($gap)
+    {
+        return ($this->getRadius() * $gap) / $this->getAuditWindmillBlade()->getWindmillBlade()->getWindmill()->getBladeType()->getLength();
+    }
+
+    /**
      * @return string
      */
     public function __toString()

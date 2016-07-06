@@ -28,6 +28,7 @@ class Blade extends AbstractBase
      * @var integer
      *
      * @ORM\Column(type="integer")
+     * @Assert\GreaterThan(value=1)
      */
     private $length;
 
