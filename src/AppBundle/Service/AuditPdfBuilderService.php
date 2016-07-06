@@ -168,7 +168,7 @@ class AuditPdfBuilderService
             $x2 = 210 - CustomTcpdf::PDF_MARGIN_RIGHT;
             $y2 = $y1 + 78;
             $bladeGap = 40;
-            $gap = ($x2 - $x1 - 4.5) - ($x1 + 3.5);
+            $gap = $x2 - $x1;
             $pdf->Image($this->tha->getUrl('/bundles/app/images/blade_diagrams/blade_blueprint_1.jpg'), $x1, $y1, null, 78);
 //            $pdf->Rect($x1, $y1, ($x2 - $x1), ($y2 - $y1));
             $pdf->Rect($x1 + 3.5, $y1, ($x2 - $x1 - 4.5), ($y2 - $y1));
@@ -181,8 +181,8 @@ class AuditPdfBuilderService
             foreach ($auditWindmillBlade->getBladeDamages() as $bladeDamage) {
                 // MultiCell($w, $h, $txt, $border=0, $align='J', $fill=0, $ln=1, $x='', $y='', $reseth=true, $stretch=0, $ishtml=false, $autopadding=true, $maxh=0)
                 $pdf->setBackgroundHexColor($bladeDamage->getDamageCategory()->getColour());
-                $pdf->Rect($x1 + $bladeDamage->getDeltaGap($gap), $y1 + 20, 5 + $bladeDamage->getSize(), 5, 'F');
-                $pdf->MultiCell(5 + $bladeDamage->getSize(), 5, $bladeDamage->getDamageCategory()->getCategory(), 1, 'C', 1, 0, $x1 + $bladeDamage->getDeltaGap($gap), $y1 + 19.5, true);
+                $pdf->Rect($x1 + $bladeDamage->getDeltaGap($gap), $y1 + $bladeDamage->getDeltaGapVertical(), 5 + $bladeDamage->getSize(), 5, 'F');
+                $pdf->MultiCell(5 + $bladeDamage->getSize(), 5, $bladeDamage->getNumber(), 1, 'C', 1, 0, $x1 + $bladeDamage->getDeltaGap($gap), $y1 + $bladeDamage->getDeltaGapVertical(), true);
             }
             $pdf->setWhiteBackground();
             // Damage images pages

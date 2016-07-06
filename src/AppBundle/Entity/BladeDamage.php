@@ -381,6 +381,14 @@ class BladeDamage extends AbstractBase
     }
 
     /**
+     * @return float
+     */
+    public function getDeltaGapVertical()
+    {
+        return $this->getPosition() == BladeDamagePositionEnum::VALVE_PRESSURE ? 24 : 43.5;
+    }
+
+    /**
      * @return string
      */
     public function __toString()
