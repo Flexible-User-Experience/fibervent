@@ -20,8 +20,8 @@ class BladeDamageEdgeEnum
     public static function getEnumArray()
     {
         return array(
-            self::EDGE_IN  => 'CA',
-            self::EDGE_OUT => 'CS',
+            self::EDGE_IN  => 'BA',
+            self::EDGE_OUT => 'BS',
         );
     }
 
