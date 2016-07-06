@@ -113,9 +113,10 @@ class AuditAdminController extends AbstractBaseAdminController
         return $this->render(
             ':Admin/Audit:email.html.twig',
             array(
-                'action' => 'show',
-                'object' => $object,
-                'form'   => $form->createView(),
+                'action'         => 'show',
+                'object'         => $object,
+                'form'           => $form->createView(),
+                'pdf_short_path' => $this->getShortAuditFilePath($object),
             )
         );
     }
@@ -128,8 +129,18 @@ class AuditAdminController extends AbstractBaseAdminController
     private function getDestAuditFilePath(Audit $audit)
     {
         $krd = $this->getParameter('kernel.root_dir');
-        $path = $krd . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'web' . DIRECTORY_SEPARATOR . 'pdfs' . DIRECTORY_SEPARATOR . 'Auditoria-' . $audit->getId() . '.pdf';
+        $path = $krd . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'web' . $this->getShortAuditFilePath($audit);
         
         return $path;
+    }
+
+    /**
+     * @param Audit $audit
+     *
+     * @return string
+     */
+    private function getShortAuditFilePath(Audit $audit)
+    {
+        return DIRECTORY_SEPARATOR . 'pdfs' . DIRECTORY_SEPARATOR . 'Auditoria-' . $audit->getId() . '.pdf';
     }
 }
