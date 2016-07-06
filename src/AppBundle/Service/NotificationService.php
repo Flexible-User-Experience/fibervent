@@ -2,8 +2,6 @@
 
 namespace AppBundle\Service;
 
-use AppBundle\Form\Type\AuditEmailSendFormType;
-
 /**
  * Class NotificationService
  *
@@ -31,51 +29,22 @@ class NotificationService
     /**
      * Deliver PDF Audit
      *
-     * @param AuditEmailSendFormType $form
+     * @param string $from
+     * @param string $to
+     * @param string $cc
+     * @param string $subject
+     * @param string $message
+     * @param string $attatchmentPath
      */
-    public function deliverAuditEmail(AuditEmailSendFormType $form)
+    public function deliverAuditEmail($from, $to, $cc, $subject, $message, $attatchmentPath)
     {
-        $this->messenger->sendEmail(
-            $contactMessage->getEmail(),
-            $this->amd,
-            $this->urlBase . ' contact form received',
-            $this->twig->render(':Mails:contact_form_admin_notification.html.twig', array(
-                'contact' => $contactMessage,
-            ))
-        );
-    }
-
-    /**
-     * Send a contact form notification to web user
-     *
-     * @param ContactMessage $contactMessage
-     */
-    public function sendUserNotification(ContactMessage $contactMessage)
-    {
-        $this->messenger->sendEmail(
-            $this->amd,
-            $contactMessage->getEmail(),
-            $this->urlBase . ' question received',
-            $this->twig->render(':Mails:contact_form_user_notification.html.twig', array(
-                'contact' => $contactMessage,
-            ))
-        );
-    }
-
-    /**
-     * Send backend answer notification to web user
-     *
-     * @param ContactMessage $contactMessage
-     */
-    public function senddUserBackendNotification(ContactMessage $contactMessage)
-    {
-        $this->messenger->sendEmail(
-            $this->amd,
-            $contactMessage->getEmail(),
-            $this->urlBase . ' contact form answer',
-            $this->twig->render(':Mails:contact_form_user_backend_notification.html.twig', array(
-                'contact' => $contactMessage,
-            ))
+        $this->messenger->sendEmailWithCCAndAttatchment(
+            $from,
+            $to,
+            $subject,
+            $message,
+            $cc,
+            $attatchmentPath
         );
     }
 }

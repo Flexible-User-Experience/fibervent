@@ -112,7 +112,16 @@ class AuditAdminController extends AbstractBaseAdminController
         if ($form->isSubmitted() && $form->isValid()) {
             $to = $form->get('to')->getData();
             $cc = $form->get('cc')->getData();
-            $this->get('app.notification')->deliverAuditEmail($o);
+            $subject = $form->get('subject')->getData();
+            $message = $form->get('message')->getData();
+            $this->get('app.notification')->deliverAuditEmail(
+                'info@fibervent.com',
+                $to,
+                $cc,
+                $subject,
+                $message,
+                $this->getDestAuditFilePath($object)
+            );
             $this->addFlash('sonata_flash_success', 'La auditoria núm. ' . $object->getId() . ' s\'ha enviat correctament a ' . $to . ($cc ? ' amb còpia per a ' . $cc : ''));
 
             return new RedirectResponse($this->admin->generateUrl('list'));
@@ -164,7 +173,7 @@ class AuditAdminController extends AbstractBaseAdminController
             /** @var User $user */
             foreach ($audit->getCustomer()->getContacts() as $user) {
                 if ($user->isEnabled()) {
-                    $availableMails[$user->getEmail()] = $user->getFullname() . ' <' . $audit->getWindfarm()->getManager()->getEmail() . '>';
+                    $availableMails[$user->getEmail()] = $user->getFullname() . ' <' . $user->getEmail() . '>';
                 }
             }
         }
@@ -183,7 +192,7 @@ class AuditAdminController extends AbstractBaseAdminController
         $users = $this->get('app.user_repository')->findOnlyAvailableSortedByName($audit->getCustomer());
         /** @var User $user */
         foreach ($users as $user) {
-            $availableMails[$user->getEmail()] = $user->getFullname() . ' <' . $audit->getWindfarm()->getManager()->getEmail() . '>';
+            $availableMails[$user->getEmail()] = $user->getFullname() . ' <' . $user->getEmail() . '>';
         }
 
         return $availableMails;
@@ -204,7 +213,7 @@ class AuditAdminController extends AbstractBaseAdminController
             /** @var User $user */
             foreach ($audit->getCustomer()->getContacts() as $user) {
                 if ($user->isEnabled()) {
-                    $availableMails[$user->getEmail()] = $user->getFullname() . ' <' . $audit->getWindfarm()->getManager()->getEmail() . '>';
+                    $availableMails[$user->getEmail()] = $user->getFullname() . ' <' . $user->getEmail() . '>';
                 }
             }
         }

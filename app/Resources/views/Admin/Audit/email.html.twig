@@ -6,10 +6,9 @@
         <div class="col-md-5">
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <h4 class="box-title">Enviar inpecció per email</h4><br>
-                    <h6 class="box-title">{{ object }}</h6>
+                    <h4 class="box-title"><strong>Enviar inpecció núm. {{ object.id }} per email</strong></h4><br>
+                    <h4 class="box-title" style="margin-bottom:40px">{{ object }}</h4>
                     <div class="box-body table-responsive no-padding">
-                        <div class="alert alert-warning" role="alert"><i class="fa fa-warning"></i> en construcció</div>
                         {{ form(form) }}
                     </div>
                 </div>
@@ -18,7 +17,7 @@
         <div class="col-md-7">
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <h4 class="box-title">PDF</h4><br>
+                    <h4 class="box-title" style="margin-bottom:40px">PDF</h4><br>
                     <div class="box-body table-responsive no-padding">
                         <iframe id="viewer" src="{{ asset('bundles/app/js/viewer-js/index.html') }}#{{ pdf_short_path }}" width="100%" height="800"></iframe>
                     </div>

@@ -3,6 +3,7 @@
 namespace AppBundle\Service;
 
 use \Swift_Message;
+use \Swift_Attachment;
 
 /**
  * Class CourierService
@@ -36,6 +37,42 @@ class CourierService
      */
     public function sendEmail($from, $to, $subject, $body)
     {
+        $message = $this->commonSendEmail($from, $to, $subject, $body);
+
+        $this->mailer->send($message);
+    }
+
+    /**
+     * Send an email with CC and attatchment
+     *
+     * @param string $from
+     * @param string $to
+     * @param string $subject
+     * @param string $body
+     * @param string $cc
+     * @param string $attatchmentPath
+     */
+    public function sendEmailWithCCAndAttatchment($from, $to, $subject, $body, $cc, $attatchmentPath)
+    {
+        $message = $this->commonSendEmail($from, $to, $subject, $body);
+        $message->attach(\Swift_Attachment::fromPath($attatchmentPath));
+        if (!is_null($cc)) {
+            $message->addCc($cc);
+        }
+
+        $this->mailer->send($message);
+    }
+
+    /**
+     * @param string $from
+     * @param string $to
+     * @param string $subject
+     * @param string $body
+     *
+     * @return Swift_Message
+     */
+    private function commonSendEmail($from, $to, $subject, $body)
+    {
         $message = new \Swift_Message();
         $message
             ->setSubject($subject)
@@ -45,6 +82,6 @@ class CourierService
             ->setCharset('UTF-8')
             ->setContentType('text/html');
 
-        $this->mailer->send($message);
+        return $message;
     }
 }
