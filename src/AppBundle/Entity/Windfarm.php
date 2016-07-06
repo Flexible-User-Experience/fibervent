@@ -155,6 +155,18 @@ class Windfarm extends AbstractBase
     }
 
     /**
+     * @return string
+     */
+    public function getMangerFullname()
+    {
+        if (!is_null($this->manager)) {
+            return $this->manager->getFullname();
+        }
+
+        return '---';
+    }
+
+    /**
      * @return ArrayCollection
      */
     public function getWindmills()

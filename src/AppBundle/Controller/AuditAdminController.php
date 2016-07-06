@@ -96,6 +96,11 @@ class AuditAdminController extends AbstractBaseAdminController
         if (!$object) {
             throw $this->createNotFoundException(sprintf('Unable to find audit record with id: %s', $id));
         }
+
+        /** @var AuditPdfBuilderService $apbs */
+        $apbs = $this->get('app.audit_pdf_builder');
+        $pdf = $apbs->build($object);
+        $pdf->Output($this->getDestAuditFilePath($object), 'F');
         
         $form = $this->createForm(new AuditEmailSendFormType(), $object, array());
         $form->handleRequest($request);
@@ -113,5 +118,18 @@ class AuditAdminController extends AbstractBaseAdminController
                 'form'   => $form->createView(),
             )
         );
+    }
+
+    /**
+     * @param Audit $audit
+     *
+     * @return string
+     */
+    private function getDestAuditFilePath(Audit $audit)
+    {
+        $krd = $this->getParameter('kernel.root_dir');
+        $path = $krd . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'web' . DIRECTORY_SEPARATOR . 'pdfs' . DIRECTORY_SEPARATOR . 'Auditoria-' . $audit->getId() . '.pdf';
+        
+        return $path;
     }
 }

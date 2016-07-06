@@ -33,6 +33,8 @@
 !/web/media/.gitkeep
 /web/js/
 /web/css/
+/web/pdfs/
+!/web/pdfs/.gitkeep
 
 # Assets managed by Bower
 /web/assets/vendor/
