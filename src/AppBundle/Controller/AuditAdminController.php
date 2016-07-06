@@ -3,7 +3,9 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Audit;
+use AppBundle\Form\Type\AuditEmailSendFormType;
 use AppBundle\Service\AuditPdfBuilderService;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
@@ -92,7 +94,15 @@ class AuditAdminController extends AbstractBaseAdminController
         /** @var Audit $object */
         $object = $this->admin->getObject($id);
         if (!$object) {
-            throw $this->createNotFoundException(sprintf('Unable to find audit record with id : %s', $id));
+            throw $this->createNotFoundException(sprintf('Unable to find audit record with id: %s', $id));
+        }
+        
+        $form = $this->createForm(new AuditEmailSendFormType(), $object, array());
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->addFlash('sonata_flash_success', 'La auditoria núm. ' . $object->getId() . ' s\'ha enviat correctament.');
+
+            return new RedirectResponse($this->admin->generateUrl('list'));
         }
 
         return $this->render(
@@ -100,6 +110,7 @@ class AuditAdminController extends AbstractBaseAdminController
             array(
                 'action' => 'show',
                 'object' => $object,
+                'form'   => $form->createView(),
             )
         );
     }
