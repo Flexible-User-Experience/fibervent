@@ -176,6 +176,14 @@ class AuditPdfBuilderService
             $pdf->Text(($x1 + ($bladeGap * 2) - 10), $y1 + 32, $auditWindmillBlade->getWindmillBlade()->getWindmill()->getBladeType()->getQ2LengthString());
             $pdf->Text(($x1 + ($bladeGap * 3) - 12), $y1 + 32, $auditWindmillBlade->getWindmillBlade()->getWindmill()->getBladeType()->getQ3LengthString());
             $pdf->Text(($x1 + ($bladeGap * 4) - 10), $y1 + 32, $auditWindmillBlade->getWindmillBlade()->getWindmill()->getBladeType()->getQ4LengthString());
+            /** @var BladeDamage $bladeDamage */
+            foreach ($auditWindmillBlade->getBladeDamages() as $bladeDamage) {
+                // MultiCell($w, $h, $txt, $border=0, $align='J', $fill=0, $ln=1, $x='', $y='', $reseth=true, $stretch=0, $ishtml=false, $autopadding=true, $maxh=0)
+                $pdf->setBackgroundHexColor($bladeDamage->getDamageCategory()->getColour());
+                $pdf->Rect($x1 + ($bladeDamage->getRadius() * 20), $y1 + 20, 5, 5, 'F');
+                $pdf->MultiCell(5, 5, $bladeDamage->getDamageCategory()->getCategory(), 1, 'C', 1, 0, $x1 + ($bladeDamage->getRadius() * 20), $y1 + 19.5, true);
+            }
+            $pdf->setWhiteBackground();
             // Damage images pages
             $pdf->AddPage();
             /** @var BladeDamage $bladeDamage */
