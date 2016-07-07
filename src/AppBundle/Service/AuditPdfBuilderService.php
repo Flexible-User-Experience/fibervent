@@ -146,7 +146,7 @@ class AuditPdfBuilderService
         $pdf->Write(0, 'El esquema en la numeración de palas (1, 2, 3) se describe en la siguiente imagen:', '', false, 'L', true);
         $pdf->Ln(5);
         // Audit description with windmill image schema
-        $pdf->Image($this->tha->getUrl('/bundles/app/images/tubrine_diagrams/' . $audit->getDiagramType() . '.jpg'), CustomTcpdf::PDF_MARGIN_LEFT, $pdf->GetY(), null, 40);
+        $pdf->Image($this->tha->getUrl('/bundles/app/images/tubrine_diagrams/' . $audit->getDiagramType() . '.jpg'), CustomTcpdf::PDF_MARGIN_LEFT + 50, $pdf->GetY(), null, 40);
         $pdf->AddPage();
         // Damages section
         /** @var AuditWindmillBlade $auditWindmillBlade */

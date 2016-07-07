@@ -160,19 +160,19 @@ class CustomTcpdf extends \TCPDF
         $this->setBlueBackground();
         $this->setFontStyle(null, 'B', 9);
         $this->Cell(16, 0, 'DAÑO', 1, 0, 'C', true);
-        $this->Cell(33, 0, 'LOCALIZACIÓN', 1, 0, 'C', true);
-        $this->Cell(16, 0, 'TAMAÑO', 1, 0, 'C', true);
-        $this->Cell(90, 0, 'DESCRIPCIÓN', 1, 0, 'C', true);
-        $this->Cell(0, 0, 'CAT', 1, 1, 'C', true);
+        $this->Cell(34, 0, 'LOCALIZACIÓN', 1, 1, 'C', true);
         $this->setFontStyle(null, '', 9);
         $this->Cell(7, 0, 'Nº', 1, 0, 'C', true);
         $this->Cell(9, 0, 'Cód.', 1, 0, 'C', true);
         $this->Cell(8, 0, 'Pos.', 1, 0, 'C', true);
         $this->Cell(10, 0, 'Radio', 1, 0, 'C', true);
-        $this->Cell(15, 0, 'Dist.', 1, 0, 'C', true);
-        $this->Cell(16, 0, '', 1, 0, 'C', true);
-        $this->Cell(90, 0, '', 1, 0, 'C', true);
-        $this->Cell(0, 0, '', 1, 1, 'C', true);
+        $this->Cell(16, 0, 'Dist.', 1, 0, 'C', true);
+        $this->SetXY($this::PDF_MARGIN_LEFT + 50, $this->GetY() - 6);
+        $this->setFontStyle(null, 'B', 9);
+        $this->Cell(16, 12, 'TAMAÑO', 1, 0, 'C', true);
+        $this->Cell(89, 12, 'DESCRIPCIÓN', 1, 0, 'C', true);
+        $this->Cell(0, 12, 'CAT', 1, 1, 'C', true);
+        $this->setFontStyle(null, '', 9);
         $this->setWhiteBackground();
     }
 
@@ -182,9 +182,9 @@ class CustomTcpdf extends \TCPDF
         $this->Cell(9, 0, $bladeDamage->getDamage()->getCode(), 1, 0, 'C', true);
         $this->Cell(8, 0, $bladeDamage->getPositionString(), 1, 0, 'C', true);
         $this->Cell(10, 0, $bladeDamage->getRadius() . 'm', 1, 0, 'C', true);
-        $this->Cell(15, 0, $bladeDamage->getEdgeString() . ' '. $bladeDamage->getDistance() . 'cm', 1, 0, 'C', true);
+        $this->Cell(16, 0, $bladeDamage->getEdgeString() . ' '. $bladeDamage->getDistance() . 'cm', 1, 0, 'C', true);
         $this->Cell(16, 0, $bladeDamage->getSize() . 'cm', 1, 0, 'C', true);
-        $this->Cell(90, 0, $bladeDamage->getDamage()->getDescription(), 1, 0, 'L', true);
+        $this->Cell(89, 0, $bladeDamage->getDamage()->getDescription(), 1, 0, 'L', true);
         $this->setBackgroundHexColor($bladeDamage->getDamageCategory()->getColour());
         $this->Cell(0, 0, $bladeDamage->getDamageCategory()->getCategory(), 1, 1, 'C', true);
         $this->setWhiteBackground();
