@@ -203,6 +203,19 @@ class BladeDamage extends AbstractBase
     }
 
     /**
+     * @return int
+     */
+    public function getDistanceString()
+    {
+        $dist = $this->distance . 'cm';
+        if ($this->distance > 999) {
+            $dist = number_format(($this->distance / 1000), 1, ',', '.') . 'm';
+        }
+
+        return $this->position == BladeDamagePositionEnum::VALVE_BOTH ? $this->getEdgeString() : $this->getEdgeString() . ' ' . $dist;
+    }
+
+    /**
      * @param int $distance
      *
      * @return BladeDamage
