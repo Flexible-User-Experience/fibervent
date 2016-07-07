@@ -31,7 +31,7 @@ class BladeDamageAdminController extends Controller
 
         if (null !== $request->get('btn_update_and_list')) {
             $router = $this->get('router');
-            $url = $router->generate('admin_app_audit_edit', array('id' => $object->getAuditWindmillBlade()->getAudit()->getId()), UrlGeneratorInterface::ABSOLUTE_PATH);
+            $url = $router->generate('admin_app_auditwindmillblade_edit', array('id' => $object->getAuditWindmillBlade()->getId()), UrlGeneratorInterface::ABSOLUTE_PATH);
         }
         if (null !== $request->get('btn_create_and_list')) {
             $url = $this->admin->generateUrl('list');
