@@ -90,6 +90,7 @@ class AuditPdfBuilderService
         // Add a page
         $pdf->setPrintHeader(true);
         $pdf->AddPage(PDF_PAGE_ORIENTATION, PDF_PAGE_FORMAT, true, true);
+        $pdf->setAvailablePageDimension();
         $pdf->setPrintFooter(true);
 
         // Introduction page
@@ -192,14 +193,11 @@ class AuditPdfBuilderService
                 $pdf->drawDamageTableHeader();
                 $pdf->drawDamageTableBodyRow($bladeDamage);
                 $pdf->Ln(5);
-                $i = 0;
                 /** @var Photo $photo */
                 foreach ($bladeDamage->getPhotos() as $photo) {
-                    $pdf->Image($this->cm->getBrowserPath($this->uh->asset($photo, 'imageFile'), '480x270'), CustomTcpdf::PDF_MARGIN_LEFT + (($i % 2) * 85), $pdf->GetY(), 80, null);
-                    $i++;
-                    if ($i % 2 == 0) {
-                        $pdf->Ln(50);
-                    }
+                    // Image($file, $x='', $y='', $w=0, $h=0, $type='', $link='', $align='', $resize=false, $dpi=300, $palign='', $ismask=false, $imgmask=false, $border=0, $fitbox=false, $hidden=false, $fitonpage=false)
+                    $pdf->Image($this->cm->getBrowserPath($this->uh->asset($photo, 'imageFile'), '960x540'), CustomTcpdf::PDF_MARGIN_LEFT, $pdf->GetY(), $pdf->availablePageWithDimension, null);
+                    $pdf->Ln(100);
                 }
                 $pdf->AddPage();
             }

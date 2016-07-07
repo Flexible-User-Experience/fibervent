@@ -53,6 +53,11 @@ class CustomTcpdf extends \TCPDF
     protected $customer;
 
     /**
+     * @var float
+     */
+    public $availablePageWithDimension;
+
+    /**
      * 
      * 
      * Methods
@@ -205,5 +210,10 @@ class CustomTcpdf extends \TCPDF
         }
 
         return array($r, $g, $b);
+    }
+
+    public function setAvailablePageDimension()
+    {
+        $this->availablePageWithDimension = $this->getPageWidth() - self::PDF_MARGIN_LEFT - self::PDF_MARGIN_RIGHT;
     }
 }
