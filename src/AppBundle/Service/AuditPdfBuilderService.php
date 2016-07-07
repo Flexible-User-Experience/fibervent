@@ -9,6 +9,7 @@ use AppBundle\Entity\DamageCategory;
 use AppBundle\Entity\Photo;
 use AppBundle\Entity\Windfarm;
 use AppBundle\Entity\Windmill;
+use AppBundle\Enum\BladeDamagePositionEnum;
 use AppBundle\Pdf\CustomTcpdf;
 use AppBundle\Repository\DamageCategoryRepository;
 use WhiteOctober\TCPDFBundle\Controller\TCPDFController;
@@ -174,16 +175,30 @@ class AuditPdfBuilderService
 //            $pdf->Rect($x1, $y1, ($x2 - $x1), ($y2 - $y1));
 //            $pdf->Rect($x1 + 3.5, $y1, ($x2 - $x1 - 4.5), ($y2 - $y1));
 //            $pdf->Rect($x1 + 44.5, $y1, ($x2 - $x1), ($y2 - $y1));
-            $pdf->Text(($x1 + ($bladeGap * 1) - 9), $y1 + 32, $auditWindmillBlade->getWindmillBlade()->getWindmill()->getBladeType()->getQ1LengthString());
-            $pdf->Text(($x1 + ($bladeGap * 2) - 10), $y1 + 32, $auditWindmillBlade->getWindmillBlade()->getWindmill()->getBladeType()->getQ2LengthString());
-            $pdf->Text(($x1 + ($bladeGap * 3) - 12), $y1 + 32, $auditWindmillBlade->getWindmillBlade()->getWindmill()->getBladeType()->getQ3LengthString());
-            $pdf->Text(($x1 + ($bladeGap * 4) - 10), $y1 + 32, $auditWindmillBlade->getWindmillBlade()->getWindmill()->getBladeType()->getQ4LengthString());
+            $txt = $auditWindmillBlade->getWindmillBlade()->getWindmill()->getBladeType()->getQ1LengthString();
+            $pdf->Text(($x1 + ($bladeGap * 1) - $pdf->GetStringWidth($txt) + 2), $y1 + 32, $txt);
+            $txt = $auditWindmillBlade->getWindmillBlade()->getWindmill()->getBladeType()->getQ2LengthString();
+            $pdf->Text(($x1 + ($bladeGap * 2) - $pdf->GetStringWidth($txt) + 2), $y1 + 32, $txt);
+            $txt = $auditWindmillBlade->getWindmillBlade()->getWindmill()->getBladeType()->getQ3LengthString();
+            $pdf->Text(($x1 + ($bladeGap * 3) - $pdf->GetStringWidth($txt)), $y1 + 32, $txt);
+            $txt = $auditWindmillBlade->getWindmillBlade()->getWindmill()->getBladeType()->getQ4LengthString();
+            $pdf->Text(($x1 + ($bladeGap * 4) - $pdf->GetStringWidth($txt) + 2), $y1 + 32, $txt);
             /** @var BladeDamage $bladeDamage */
             foreach ($auditWindmillBlade->getBladeDamages() as $bladeDamage) {
                 // MultiCell($w, $h, $txt, $border=0, $align='J', $fill=0, $ln=1, $x='', $y='', $reseth=true, $stretch=0, $ishtml=false, $autopadding=true, $maxh=0)
                 $pdf->setBackgroundHexColor($bladeDamage->getDamageCategory()->getColour());
-                $pdf->Rect($x1 + $bladeDamage->getDeltaGap($gap), $y1 + $bladeDamage->getDeltaGapVertical(), 5 + $bladeDamage->getSize(), 5, 'F');
-                $pdf->MultiCell(5 + $bladeDamage->getSize(), 5, $bladeDamage->getNumber(), 1, 'C', 1, 0, $x1 + $bladeDamage->getDeltaGap($gap), $y1 + $bladeDamage->getDeltaGapVertical(), true);
+                if ($bladeDamage->getPosition() == BladeDamagePositionEnum::VALVE_BOTH) {
+                    // Both valves {B}
+                    // 24 : 43.5
+                    $pdf->Rect($x1 + $bladeDamage->getDeltaGap($gap), $y1 + 24, 5 + $bladeDamage->getSize(), 5, 'F');
+                    $pdf->MultiCell(5 + $bladeDamage->getSize(), 5, $bladeDamage->getNumber(), 1, 'C', 1, 0, $x1 + $bladeDamage->getDeltaGap($gap), $y1 + 24, true);
+                    $pdf->Rect($x1 + $bladeDamage->getDeltaGap($gap), $y1 + 43.5, 5 + $bladeDamage->getSize(), 5, 'F');
+                    $pdf->MultiCell(5 + $bladeDamage->getSize(), 5, $bladeDamage->getNumber(), 1, 'C', 1, 0, $x1 + $bladeDamage->getDeltaGap($gap), $y1 + 43.5, true);
+                } else {
+                    // One valve {VP, VS}
+                    $pdf->Rect($x1 + $bladeDamage->getDeltaGap($gap), $y1 + $bladeDamage->getDeltaGapVertical(), 5 + $bladeDamage->getSize(), 5, 'F');
+                    $pdf->MultiCell(5 + $bladeDamage->getSize(), 5, $bladeDamage->getNumber(), 1, 'C', 1, 0, $x1 + $bladeDamage->getDeltaGap($gap), $y1 + $bladeDamage->getDeltaGapVertical(), true);
+                }
             }
             $pdf->setWhiteBackground();
             // Damage images pages

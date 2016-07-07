@@ -169,7 +169,7 @@ class CustomTcpdf extends \TCPDF
         $this->Cell(9, 0, 'Cód.', 1, 0, 'C', true);
         $this->Cell(8, 0, 'Pos.', 1, 0, 'C', true);
         $this->Cell(10, 0, 'Radio', 1, 0, 'C', true);
-        $this->Cell(15, 0, 'Dist. BA', 1, 0, 'C', true);
+        $this->Cell(15, 0, 'Dist.', 1, 0, 'C', true);
         $this->Cell(16, 0, '', 1, 0, 'C', true);
         $this->Cell(90, 0, '', 1, 0, 'C', true);
         $this->Cell(0, 0, '', 1, 1, 'C', true);
@@ -181,9 +181,9 @@ class CustomTcpdf extends \TCPDF
         $this->Cell(7, 0, $bladeDamage->getNumber(), 1, 0, 'C', true);
         $this->Cell(9, 0, $bladeDamage->getDamage()->getCode(), 1, 0, 'C', true);
         $this->Cell(8, 0, $bladeDamage->getPositionString(), 1, 0, 'C', true);
-        $this->Cell(10, 0, $bladeDamage->getRadius() . ' m', 1, 0, 'C', true);
-        $this->Cell(15, 0, $bladeDamage->getDistance() . ' cm', 1, 0, 'C', true);
-        $this->Cell(16, 0, $bladeDamage->getSize() . ' cm', 1, 0, 'C', true);
+        $this->Cell(10, 0, $bladeDamage->getRadius() . 'm', 1, 0, 'C', true);
+        $this->Cell(15, 0, $bladeDamage->getEdgeString() . ' '. $bladeDamage->getDistance() . 'cm', 1, 0, 'C', true);
+        $this->Cell(16, 0, $bladeDamage->getSize() . 'cm', 1, 0, 'C', true);
         $this->Cell(90, 0, $bladeDamage->getDamage()->getDescription(), 1, 0, 'L', true);
         $this->setBackgroundHexColor($bladeDamage->getDamageCategory()->getColour());
         $this->Cell(0, 0, $bladeDamage->getDamageCategory()->getCategory(), 1, 1, 'C', true);

@@ -2,6 +2,8 @@
 
 namespace AppBundle\Enum;
 
+use AppBundle\Entity\BladeDamage;
+
 /**
  * Class BladeDamageEdgeEnum
  *
@@ -34,5 +36,15 @@ class BladeDamageEdgeEnum
             self::EDGE_IN  => 'Atac',
             self::EDGE_OUT => 'Sortida',
         );
+    }
+
+    /**
+     * @param BladeDamage $bladeDamage
+     *
+     * @return string
+     */
+    public static function getStringValue(BladeDamage $bladeDamage)
+    {
+        return self::getEnumArray()[$bladeDamage->getEdge()];
     }
 }
