@@ -25,7 +25,7 @@ class BladeDamagePositionEnum
         return array(
             self::VALVE_PRESSURE => 'VP',
             self::VALVE_SUCTION  => 'VS',
-            self::VALVE_BOTH     => 'C',
+            self::VALVE_BOTH     => 'B',
         );
     }
 
@@ -37,7 +37,7 @@ class BladeDamagePositionEnum
         return array(
             self::VALVE_PRESSURE => 'Valva pressió',
             self::VALVE_SUCTION  => 'Valva succió',
-            self::VALVE_BOTH     => 'Canto',
+            self::VALVE_BOTH     => 'Bora',
         );
     }
 

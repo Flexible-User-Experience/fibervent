@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Enum\BladeDamageEdgeEnum;
 use AppBundle\Enum\BladeDamagePositionEnum;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -169,6 +170,14 @@ class BladeDamage extends AbstractBase
     public function getEdge()
     {
         return $this->edge;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEdgeString()
+    {
+        return BladeDamageEdgeEnum::getStringValue($this);
     }
 
     /**
@@ -385,6 +394,11 @@ class BladeDamage extends AbstractBase
      */
     public function getDeltaGapVertical()
     {
+        if ($this->getEdge() == BladeDamageEdgeEnum::EDGE_OUT) {
+            
+            return $this->getPosition() == BladeDamagePositionEnum::VALVE_PRESSURE ? 5 : 62.5;
+        }
+
         return $this->getPosition() == BladeDamagePositionEnum::VALVE_PRESSURE ? 24 : 43.5;
     }
 
