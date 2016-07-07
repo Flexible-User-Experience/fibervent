@@ -190,14 +190,14 @@ class AuditPdfBuilderService
                 if ($bladeDamage->getPosition() == BladeDamagePositionEnum::VALVE_BOTH) {
                     // Both valves {B}
                     // 24 : 43.5
-                    $pdf->Rect($x1 + $bladeDamage->getDeltaGap($gap), $y1 + 24, 5 + $bladeDamage->getSize(), 5, 'F');
-                    $pdf->MultiCell(5 + $bladeDamage->getSize(), 5, $bladeDamage->getNumber(), 1, 'C', 1, 0, $x1 + $bladeDamage->getDeltaGap($gap), $y1 + 24, true);
-                    $pdf->Rect($x1 + $bladeDamage->getDeltaGap($gap), $y1 + 43.5, 5 + $bladeDamage->getSize(), 5, 'F');
-                    $pdf->MultiCell(5 + $bladeDamage->getSize(), 5, $bladeDamage->getNumber(), 1, 'C', 1, 0, $x1 + $bladeDamage->getDeltaGap($gap), $y1 + 43.5, true);
+                    $pdf->Rect($x1 + $bladeDamage->getDeltaGap($gap), $y1 + 24, $bladeDamage->getDeltaGapSize(), 5, 'F');
+                    $pdf->MultiCell($bladeDamage->getDeltaGapSize(), 5, $bladeDamage->getNumber(), 1, 'C', 1, 0, $x1 + $bladeDamage->getDeltaGap($gap), $y1 + 24, true);
+                    $pdf->Rect($x1 + $bladeDamage->getDeltaGap($gap), $y1 + 43.5, $bladeDamage->getDeltaGapSize(), 5, 'F');
+                    $pdf->MultiCell($bladeDamage->getDeltaGapSize(), 5, $bladeDamage->getNumber(), 1, 'C', 1, 0, $x1 + $bladeDamage->getDeltaGap($gap), $y1 + 43.5, true);
                 } else {
                     // One valve {VP, VS}
-                    $pdf->Rect($x1 + $bladeDamage->getDeltaGap($gap), $y1 + $bladeDamage->getDeltaGapVertical(), 5 + $bladeDamage->getSize(), 5, 'F');
-                    $pdf->MultiCell(5 + $bladeDamage->getSize(), 5, $bladeDamage->getNumber(), 1, 'C', 1, 0, $x1 + $bladeDamage->getDeltaGap($gap), $y1 + $bladeDamage->getDeltaGapVertical(), true);
+                    $pdf->Rect($x1 + $bladeDamage->getDeltaGap($gap), $y1 + $bladeDamage->getDeltaGapVertical(), $bladeDamage->getDeltaGapSize(), 5, 'F');
+                    $pdf->MultiCell($bladeDamage->getDeltaGapSize(), 5, $bladeDamage->getNumber(), 1, 'C', 1, 0, $x1 + $bladeDamage->getDeltaGap($gap), $y1 + $bladeDamage->getDeltaGapVertical(), true);
                 }
             }
             $pdf->setWhiteBackground();

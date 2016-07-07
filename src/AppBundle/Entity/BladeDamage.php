@@ -405,6 +405,19 @@ class BladeDamage extends AbstractBase
     /**
      * @return float
      */
+    public function getDeltaGapSize()
+    {
+        $result = 5 + ($this->size / 10);
+        if ($result < 5) {
+            $result = 5;
+        }
+
+        return $result;
+    }
+
+    /**
+     * @return float
+     */
     public function getDeltaGapVertical()
     {
         if ($this->getEdge() == BladeDamageEdgeEnum::EDGE_OUT) {
