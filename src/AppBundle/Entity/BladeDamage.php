@@ -203,6 +203,19 @@ class BladeDamage extends AbstractBase
     }
 
     /**
+     * @return int
+     */
+    public function getDistanceString()
+    {
+        $dist = $this->distance . 'cm';
+        if ($this->distance > 999) {
+            $dist = number_format(($this->distance / 1000), 1, ',', '.') . 'm';
+        }
+
+        return $this->position == BladeDamagePositionEnum::VALVE_BOTH ? $this->getEdgeString() : $this->getEdgeString() . ' ' . $dist;
+    }
+
+    /**
      * @param int $distance
      *
      * @return BladeDamage
@@ -387,6 +400,19 @@ class BladeDamage extends AbstractBase
     public function getDeltaGap($gap)
     {
         return ($this->getRadius() * $gap) / $this->getAuditWindmillBlade()->getWindmillBlade()->getWindmill()->getBladeType()->getLength();
+    }
+
+    /**
+     * @return float
+     */
+    public function getDeltaGapSize()
+    {
+        $result = 5 + ($this->size / 10);
+        if ($result < 5) {
+            $result = 5;
+        }
+
+        return $result;
     }
 
     /**
