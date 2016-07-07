@@ -204,6 +204,55 @@ class AuditPdfBuilderService
                 $pdf->AddPage();
             }
         }
+        // Inspection description
+        $pdf->setFontStyle(null, 'B', 11);
+        $pdf->Write(0, '4. CONTACTO', '', false, 'L', true);
+        $pdf->Ln(5);
+        $pdf->setFontStyle(null, '', 9);
+        $pdf->Write(0, 'Podrá contactar con nosotros en las siguientes direcciones y teléfonos:', '', false, 'L', true);
+        $pdf->Ln(10);
+        $pdf->Write(0, 'Oficinas Fibervent:', '', false, 'L', true);
+        $pdf->Ln(5);
+        $pdf->Write(0, 'Pol. Industrial Pal de Solans, Parcela 2', '', false, 'L', true);
+        $pdf->Write(0, '43519 El Perelló (Tarragona)', '', false, 'L', true);
+        $pdf->Write(0, 'Tel: +34 977 490 713', '', false, 'L', true);
+        $pdf->setFontStyle(null, 'U', 9);
+        $pdf->setBlueText();
+        $pdf->Write(0, 'fibervent@fibervent.com', 'mailto:fibervent@fibervent.com', false, 'L', true);
+        $pdf->Write(0, 'www.fibervent.com', 'www.fibervent.com', false, 'L', true);
+        $pdf->setFontStyle(null, '', 9);
+        $pdf->setBlackText();
+        $pdf->Ln(10);
+        $pdf->Write(0, 'Teléfonos y emails de contacto:', '', false, 'L', true);
+        $pdf->Ln(5);
+        $pdf->Write(0, 'David Espasa (636 317 884)', '', false, 'L', true);
+        $pdf->setFontStyle(null, 'U', 9);
+        $pdf->setBlueText();
+        $pdf->Write(0, 'info@fibervent.com', 'mailto:info@fibervent.com', false, 'L', true);
+        $pdf->setFontStyle(null, '', 9);
+        $pdf->setBlackText();
+        $pdf->Write(0, 'Eduard Borràs (636 690 757)', '', false, 'L', true);
+        $pdf->setFontStyle(null, 'U', 9);
+        $pdf->setBlueText();
+        $pdf->Write(0, 'fibervent@fibervent.com', 'mailto:fibervent@fibervent.com', false, 'L', true);
+        $pdf->setFontStyle(null, '', 9);
+        $pdf->setBlackText();
+        $pdf->Write(0, 'Josep Marsal (647 610 351)', '', false, 'L', true);
+        $pdf->setFontStyle(null, 'U', 9);
+        $pdf->setBlueText();
+        $pdf->Write(0, 'tecnic@fibervent.com', 'mailto:tecnic@fibervent.com', false, 'L', true);
+        $pdf->setFontStyle(null, '', 9);
+        $pdf->setBlackText();
+        $pdf->Write(0, 'Sergio López (618 277 158)', '', false, 'L', true);
+        $pdf->setFontStyle(null, 'U', 9);
+        $pdf->setBlueText();
+        $pdf->Write(0, 'oficinatecnica@fibervent.com', 'mailto:oficinatecnica@fibervent.com', false, 'L', true);
+        $pdf->setFontStyle(null, '', 9);
+        $pdf->setBlackText();
+        $pdf->Ln(15);
+        $pdf->Write(0, 'Agradecemos la confianza depositada en el equipo técnico de FIBERVENT.', '', false, 'L', true);
+        $pdf->Ln(5);
+        $pdf->Write(0, 'FIBERVENT, S.L.', '', false, 'L', true);
 
         return $pdf;
     }

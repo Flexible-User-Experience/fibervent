@@ -7,7 +7,7 @@ imports:
 
 # Symfony Framework
 framework:
-    translator:      { fallbacks: ["%locale%"] }
+    translator:      { fallbacks: [ "%locale%" ] }
     secret:          "%secret%"
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
