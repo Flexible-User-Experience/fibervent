@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Entity\Traits\ObservationsTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -19,6 +20,8 @@ use Gedmo\Mapping\Annotation as Gedmo;
  */
 class Audit extends AbstractBase
 {
+    use ObservationsTrait;
+
     /**
      * @var \DateTime
      *
@@ -60,13 +63,6 @@ class Audit extends AbstractBase
      * @ORM\Column(type="text", length=4000, nullable=true)
      */
     private $tools;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="text", length=4000, nullable=true)
-     */
-    private $observations;
 
     /**
      * @var Windmill
@@ -254,26 +250,6 @@ class Audit extends AbstractBase
     public function setTools($tools)
     {
         $this->tools = $tools;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getObservations()
-    {
-        return $this->observations;
-    }
-
-    /**
-     * @param string $observations
-     *
-     * @return $this
-     */
-    public function setObservations($observations)
-    {
-        $this->observations = $observations;
 
         return $this;
     }
