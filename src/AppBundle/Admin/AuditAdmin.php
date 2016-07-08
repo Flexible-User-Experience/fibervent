@@ -138,7 +138,7 @@ class AuditAdmin extends AbstractBaseAdmin
                 )
             )
             ->end()
-            ->with('Diagrama de pales', $this->getFormMdSuccessBoxArray(7))
+            ->with('Diagrama de pales', $this->getFormMdSuccessBoxArray(12))
             ->add(
                 'diagramType',
                 AuditDiagramTypeFormType::class,
@@ -153,7 +153,7 @@ class AuditAdmin extends AbstractBaseAdmin
             ->end();
         if ($this->id($this->getSubject())) { // is edit mode, disable on new subjects
             $formMapper
-                ->with('Pales inspeccionades', $this->getFormMdSuccessBoxArray(5))
+                ->with('Pales inspeccionades', $this->getFormMdSuccessBoxArray(12))
                 ->add(
                     'auditWindmillBlades',
                     'sonata_type_collection',

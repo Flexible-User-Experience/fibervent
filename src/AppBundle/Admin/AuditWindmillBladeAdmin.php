@@ -7,6 +7,7 @@ use AppBundle\Form\Type\ActionButtonFormType;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 /**
  * Class AuditWindmillBladeAdmin
@@ -62,6 +63,17 @@ class AuditWindmillBladeAdmin extends AbstractBaseAdmin
                         'label'    => 'Pala',
                         'required' => true,
                         'disabled' => true,
+                    )
+                )
+                ->add(
+                    'observations',
+                    TextareaType::class,
+                    array(
+                        'label'    => 'Observacions',
+                        'required' => false,
+                        'attr'     => array(
+                            'rows' => 8,
+                        )
                     )
                 )
                 ->end()

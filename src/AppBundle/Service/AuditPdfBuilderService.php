@@ -166,6 +166,14 @@ class AuditPdfBuilderService
                 $pdf->drawDamageTableBodyRow($sKey, $bladeDamage);
             }
             $pdf->Ln(5);
+            if ($auditWindmillBlade->getObservations()) {
+                $pdf->setFontStyle(null, 'B', 11);
+                $pdf->Write(0, '3.' . ($key + 1) . '.1 Observaciones', '', false, 'L', true);
+                $pdf->Ln(5);
+                $pdf->setFontStyle(null, '', 9);
+                $pdf->Write(0, $auditWindmillBlade->getObservations(), '', false, 'L', true);
+                $pdf->Ln(5);
+            }
             // blade diagram damage locations
             $x1 = CustomTcpdf::PDF_MARGIN_LEFT;
             $y1 = $pdf->GetY();

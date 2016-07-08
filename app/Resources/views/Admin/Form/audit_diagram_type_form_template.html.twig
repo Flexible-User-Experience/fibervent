@@ -5,7 +5,7 @@
         <ul  class="list-inline">
             {% for child in form %}
                 <li>
-                    <img class="media-object" src="{{ asset('bundles/app/images/tubrine_diagrams/' ~ loop.index ~ '.jpg') | imagine_filter('252x184') }}" alt="...">
+                    <img class="media-object" src="{{ asset('bundles/app/images/tubrine_diagrams/' ~ loop.index ~ '.jpg') | imagine_filter('168x123') }}" alt="...">
                     {{ form_widget(child) }}
                     {{ form_label(child) }}
                 </li>
