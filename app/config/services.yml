@@ -93,7 +93,7 @@ services:
             - "@vich_uploader.templating.helper.uploader_helper"
             - "@templating.helper.assets"
             - "@app.damage_category_repository"
-            - "%kernel.root_dir%"
+            - "@app.blade_damage_repository"
 # Form types
     app.form_type_action_button:
         class: AppBundle\Form\Type\ActionButtonFormType

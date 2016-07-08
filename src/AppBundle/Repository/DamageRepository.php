@@ -25,6 +25,8 @@ class DamageRepository extends EntityRepository
     {
         $query = $this
             ->createQueryBuilder('d')
+            ->where('d.enabled = :enabled')
+            ->setParameter('enabled', true)
             ->orderBy('d.code', $order);
 
         if (!is_null($limit)) {
