@@ -63,6 +63,17 @@ class BladeDamageAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
+                'damage',
+                'sonata_type_model',
+                array(
+                    'label'      => 'Codi',
+                    'btn_add'    => false,
+                    'btn_delete' => false,
+                    'required'   => true,
+                    'query'      => $this->dr->findAllEnabledSortedByCodeQ(),
+                )
+            )
+            ->add(
                 'position',
                 ChoiceType::class,
                 array(
