@@ -2,6 +2,8 @@
 
 namespace AppBundle\Service;
 
+use Symfony\Component\Form\Form;
+
 /**
  * Class NotificationService
  *
@@ -29,17 +31,18 @@ class NotificationService
     /**
      * Deliver PDF Audit
      *
-     * @param string $from
-     * @param string $to
-     * @param string $cc
-     * @param string $subject
-     * @param string $message
+     * @param Form   $form
      * @param string $attatchmentPath
      */
-    public function deliverAuditEmail($from, $to, $cc, $subject, $message, $attatchmentPath)
+    public function deliverAuditEmail(Form $form, $attatchmentPath)
     {
+        $to = $form->get('to')->getData();
+        $cc = $form->get('cc')->getData();
+        $subject = $form->get('subject')->getData();
+        $message = $form->get('message')->getData();
+
         $this->messenger->sendEmailWithCCAndAttatchment(
-            $from,
+            'info@fibervent.com',
             $to,
             $subject,
             $message,

@@ -176,9 +176,9 @@ class CustomTcpdf extends \TCPDF
         $this->setWhiteBackground();
     }
 
-    public function drawDamageTableBodyRow(BladeDamage $bladeDamage)
+    public function drawDamageTableBodyRow($key, BladeDamage $bladeDamage)
     {
-        $this->Cell(7, 0, $bladeDamage->getNumber(), 1, 0, 'C', true);
+        $this->Cell(7, 0, $key + 1, 1, 0, 'C', true);
         $this->Cell(9, 0, $bladeDamage->getDamage()->getCode(), 1, 0, 'C', true);
         $this->Cell(8, 0, $bladeDamage->getPositionString(), 1, 0, 'C', true);
         $this->Cell(10, 0, $bladeDamage->getRadius() . 'm', 1, 0, 'C', true);

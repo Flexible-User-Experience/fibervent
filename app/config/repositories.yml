@@ -14,6 +14,11 @@ services:
         factory: [ "@doctrine", getRepository ]
         arguments:
             - AppBundle:Blade
+    app.blade_damage_repository:
+        class: AppBundle\Repository\BladeDamageRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - AppBundle:BladeDamage
     app.windfarm_repository:
         class: AppBundle\Repository\WindfarmRepository
         factory: [ "@doctrine", getRepository ]
@@ -34,6 +39,11 @@ services:
         factory: [ "@doctrine", getRepository ]
         arguments:
             - AppBundle:Customer
+    app.damage_repository:
+        class: AppBundle\Repository\DamageRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - AppBundle:Damage
     app.damage_category_repository:
         class: AppBundle\Repository\DamageCategoryRepository
         factory: [ "@doctrine", getRepository ]

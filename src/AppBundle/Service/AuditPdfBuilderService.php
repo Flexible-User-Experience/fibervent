@@ -11,6 +11,7 @@ use AppBundle\Entity\Windfarm;
 use AppBundle\Entity\Windmill;
 use AppBundle\Enum\BladeDamagePositionEnum;
 use AppBundle\Pdf\CustomTcpdf;
+use AppBundle\Repository\BladeDamageRepository;
 use AppBundle\Repository\DamageCategoryRepository;
 use WhiteOctober\TCPDFBundle\Controller\TCPDFController;
 use Liip\ImagineBundle\Imagine\Cache\CacheManager;
@@ -52,9 +53,9 @@ class AuditPdfBuilderService
     private $dcr;
 
     /**
-     * @var string $krd Kernel Root Dir
+     * @var BladeDamageRepository
      */
-    private $krd;
+    private $bdr;
 
     /**
      * AuditPdfBuilderService constructor
@@ -64,16 +65,16 @@ class AuditPdfBuilderService
      * @param UploaderHelper           $uh
      * @param AssetsHelper             $tha
      * @param DamageCategoryRepository $dcr
-     * @param string                   $krd
+     * @param BladeDamageRepository    $bdr
      */
-    public function __construct(TCPDFController $tcpdf, CacheManager $cm, UploaderHelper $uh, AssetsHelper $tha, DamageCategoryRepository $dcr, $krd)
+    public function __construct(TCPDFController $tcpdf, CacheManager $cm, UploaderHelper $uh, AssetsHelper $tha, DamageCategoryRepository $dcr, BladeDamageRepository $bdr)
     {
         $this->tcpdf = $tcpdf;
         $this->cm    = $cm;
         $this->uh    = $uh;
         $this->tha   = $tha;
         $this->dcr   = $dcr;
-        $this->krd   = $krd;
+        $this->bdr   = $bdr;
     }
 
     /**
@@ -159,16 +160,17 @@ class AuditPdfBuilderService
             $pdf->Ln(5);
             // damage table
             $pdf->drawDamageTableHeader();
+            $bladeDamages = $this->bdr->getItemsOfAuditWindmillBladeSortedByRadius($auditWindmillBlade);
             /** @var BladeDamage $bladeDamage */
-            foreach ($auditWindmillBlade->getBladeDamages() as $bladeDamage) {
-                $pdf->drawDamageTableBodyRow($bladeDamage);
+            foreach ($bladeDamages as $sKey => $bladeDamage) {
+                $pdf->drawDamageTableBodyRow($sKey, $bladeDamage);
             }
             $pdf->Ln(5);
             // blade diagram damage locations
             $x1 = CustomTcpdf::PDF_MARGIN_LEFT;
             $y1 = $pdf->GetY();
             $x2 = 210 - CustomTcpdf::PDF_MARGIN_RIGHT;
-            $y2 = $y1 + 78;
+//            $y2 = $y1 + 78;
             $bladeGap = 40;
             $gap = $x2 - $x1;
             $pdf->Image($this->tha->getUrl('/bundles/app/images/blade_diagrams/blade_blueprint_1.jpg'), $x1, $y1, null, 78);
@@ -184,29 +186,29 @@ class AuditPdfBuilderService
             $txt = $auditWindmillBlade->getWindmillBlade()->getWindmill()->getBladeType()->getQ4LengthString();
             $pdf->Text(($x1 + ($bladeGap * 4) - $pdf->GetStringWidth($txt) + 2), $y1 + 32, $txt);
             /** @var BladeDamage $bladeDamage */
-            foreach ($auditWindmillBlade->getBladeDamages() as $bladeDamage) {
+            foreach ($bladeDamages as $sKey => $bladeDamage) {
                 // MultiCell($w, $h, $txt, $border=0, $align='J', $fill=0, $ln=1, $x='', $y='', $reseth=true, $stretch=0, $ishtml=false, $autopadding=true, $maxh=0)
                 $pdf->setBackgroundHexColor($bladeDamage->getDamageCategory()->getColour());
                 if ($bladeDamage->getPosition() == BladeDamagePositionEnum::VALVE_BOTH) {
                     // Both valves {B}
                     // 24 : 43.5
                     $pdf->Rect($x1 + $bladeDamage->getDeltaGap($gap), $y1 + 24, $bladeDamage->getDeltaGapSize(), 5, 'F');
-                    $pdf->MultiCell($bladeDamage->getDeltaGapSize(), 5, $bladeDamage->getNumber(), 1, 'C', 1, 0, $x1 + $bladeDamage->getDeltaGap($gap), $y1 + 24, true);
+                    $pdf->MultiCell($bladeDamage->getDeltaGapSize(), 5, $sKey + 1, 1, 'C', 1, 0, $x1 + $bladeDamage->getDeltaGap($gap), $y1 + 24, true);
                     $pdf->Rect($x1 + $bladeDamage->getDeltaGap($gap), $y1 + 43.5, $bladeDamage->getDeltaGapSize(), 5, 'F');
-                    $pdf->MultiCell($bladeDamage->getDeltaGapSize(), 5, $bladeDamage->getNumber(), 1, 'C', 1, 0, $x1 + $bladeDamage->getDeltaGap($gap), $y1 + 43.5, true);
+                    $pdf->MultiCell($bladeDamage->getDeltaGapSize(), 5, $sKey + 1, 1, 'C', 1, 0, $x1 + $bladeDamage->getDeltaGap($gap), $y1 + 43.5, true);
                 } else {
                     // One valve {VP, VS}
                     $pdf->Rect($x1 + $bladeDamage->getDeltaGap($gap), $y1 + $bladeDamage->getDeltaGapVertical(), $bladeDamage->getDeltaGapSize(), 5, 'F');
-                    $pdf->MultiCell($bladeDamage->getDeltaGapSize(), 5, $bladeDamage->getNumber(), 1, 'C', 1, 0, $x1 + $bladeDamage->getDeltaGap($gap), $y1 + $bladeDamage->getDeltaGapVertical(), true);
+                    $pdf->MultiCell($bladeDamage->getDeltaGapSize(), 5, $sKey + 1, 1, 'C', 1, 0, $x1 + $bladeDamage->getDeltaGap($gap), $y1 + $bladeDamage->getDeltaGapVertical(), true);
                 }
             }
             $pdf->setWhiteBackground();
             // Damage images pages
             $pdf->AddPage();
             /** @var BladeDamage $bladeDamage */
-            foreach ($auditWindmillBlade->getBladeDamages() as $bladeDamage) {
+            foreach ($bladeDamages as $sKey => $bladeDamage) {
                 $pdf->drawDamageTableHeader();
-                $pdf->drawDamageTableBodyRow($bladeDamage);
+                $pdf->drawDamageTableBodyRow($sKey, $bladeDamage);
                 $pdf->Ln(5);
                 /** @var Photo $photo */
                 foreach ($bladeDamage->getPhotos() as $photo) {
