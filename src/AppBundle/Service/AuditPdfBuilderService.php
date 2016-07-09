@@ -174,11 +174,21 @@ class AuditPdfBuilderService
             $x1 = CustomTcpdf::PDF_MARGIN_LEFT;
             $y1 = $pdf->GetY();
             $x2 = 210 - CustomTcpdf::PDF_MARGIN_RIGHT;
-//            $y2 = $y1 + 78;
+            $y2 = $y1 + 78;
             $bladeGap = 40;
             $gap = $x2 - $x1;
             $pdf->Image($this->tha->getUrl('/bundles/app/images/blade_diagrams/blade_blueprint_1.jpg'), $x1, $y1, null, 78);
 //            $pdf->Rect($x1, $y1, ($x2 - $x1), ($y2 - $y1));
+            $xQuarter1 = $x1 + 3.5;
+            $xQuarter5 = $x2 - 1;
+            $xQuarter2 = $xQuarter1 + (($xQuarter5 - $xQuarter1) / 4);
+            $xQuarter3 = $xQuarter2 + (($xQuarter5 - $xQuarter1) / 4);
+            $xQuarter4 = $xQuarter3 + (($xQuarter5 - $xQuarter1) / 4);
+            $pdf->Line($xQuarter1, $y1, $xQuarter1, $y1 + ($y2 - $y1));
+            $pdf->Line($xQuarter2, $y1, $xQuarter2, $y1 + ($y2 - $y1));
+            $pdf->Line($xQuarter3, $y1, $xQuarter3, $y1 + ($y2 - $y1));
+            $pdf->Line($xQuarter4, $y1, $xQuarter4, $y1 + ($y2 - $y1));
+            $pdf->Line($xQuarter5, $y1, $xQuarter5, $y1 + ($y2 - $y1));
 //            $pdf->Rect($x1 + 3.5, $y1, ($x2 - $x1 - 4.5), ($y2 - $y1));
 //            $pdf->Rect($x1 + 44.5, $y1, ($x2 - $x1), ($y2 - $y1));
             $txt = $auditWindmillBlade->getWindmillBlade()->getWindmill()->getBladeType()->getQ1LengthString();
@@ -378,8 +388,6 @@ class AuditPdfBuilderService
         $pdf->Cell(70, 6, 'O&M REGIONAL MANAGER', 'TB', 0, 'R', true);
         $pdf->setFontStyle(null, '', 10); $pdf->setWhiteBackground();
         $pdf->Cell(0, 6, $windfarm->getMangerFullname(), 'TB', 1, 'L', true);
-
-        // TODO revisions table section
 
         // operators details
         $pdf->SetXY(CustomTcpdf::PDF_MARGIN_LEFT, $pdf->GetY() + 10);
