@@ -27,7 +27,7 @@ parameters:
     private_editor_test_surname: lastname
 
     # A secret key that's used to generate certain security-related tokens
-    secret:            ThisTokenIsNotSoSecretChangeIt
+    secret:            Th1sT0kenIsN0tS0SecretChXng31t
 
     locale: ca
 

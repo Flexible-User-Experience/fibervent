@@ -15,7 +15,8 @@ class BladeDamagePositionEnum
 {
     const VALVE_PRESSURE = 0;
     const VALVE_SUCTION  = 1;
-    const VALVE_BOTH     = 2;
+    const EDGE_IN        = 2;
+    const EDGE_OUT       = 3;
 
     /**
      * @return array
@@ -25,7 +26,8 @@ class BladeDamagePositionEnum
         return array(
             self::VALVE_PRESSURE => 'VP',
             self::VALVE_SUCTION  => 'VS',
-            self::VALVE_BOTH     => 'B',
+            self::EDGE_IN        => 'BA',
+            self::EDGE_OUT       => 'BS',
         );
     }
 
@@ -37,7 +39,8 @@ class BladeDamagePositionEnum
         return array(
             self::VALVE_PRESSURE => 'Valva pressió',
             self::VALVE_SUCTION  => 'Valva succió',
-            self::VALVE_BOTH     => 'Bora',
+            self::EDGE_IN        => 'Vora atac',
+            self::EDGE_OUT       => 'Vora sortida',
         );
     }
 

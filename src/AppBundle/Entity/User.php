@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use AppBundle\Entity\Traits\ImageTrait;
 use AppBundle\Entity\Traits\RemovedAtTrait;
+use AppBundle\Enum\UserRolesEnum;
 use Doctrine\ORM\Mapping as ORM;
 use Sonata\UserBundle\Entity\BaseUser as BaseUser;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -108,6 +109,44 @@ class User extends BaseUser
     public function contactInfoString()
     {
         return $this->getLastname() . ', ' . $this->getFirstname();
+    }
+
+    /**
+     * @return string
+     */
+    public function getBsStatusRole()
+    {
+        $status = 'primary';
+        if ($this->hasRole('ROLE_OPERATOR')) {
+            $status = 'success';
+        } elseif ($this->hasRole('ROLE_TECHNICIAN')) {
+            $status = 'info';
+        } elseif ($this->hasRole('ROLE_ADMIN')) {
+            $status = 'warning';
+        } elseif ($this->hasRole('ROLE_SUPER_ADMIN')) {
+            $status = 'danger';
+        }
+        
+        return $status;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRoleString()
+    {
+        $role = UserRolesEnum::getEnumArray()[UserRolesEnum::ROLE_CUSTOMER];
+        if ($this->hasRole('ROLE_OPERATOR')) {
+            $role = UserRolesEnum::getEnumArray()[UserRolesEnum::ROLE_OPERATOR];
+        } elseif ($this->hasRole('ROLE_TECHNICIAN')) {
+            $role = UserRolesEnum::getEnumArray()[UserRolesEnum::ROLE_TECHNICIAN];
+        } elseif ($this->hasRole('ROLE_ADMIN')) {
+            $role = UserRolesEnum::getEnumArray()[UserRolesEnum::ROLE_ADMIN];
+        } elseif ($this->hasRole('ROLE_SUPER_ADMIN')) {
+            $role = UserRolesEnum::getEnumArray()[UserRolesEnum::ROLE_SUPER_ADMIN];
+        }
+
+        return $role;
     }
 
     /**

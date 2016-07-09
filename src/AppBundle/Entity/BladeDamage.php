@@ -212,7 +212,7 @@ class BladeDamage extends AbstractBase
             $dist = number_format(($this->distance / 1000), 1, ',', '.') . 'm';
         }
 
-        return $this->position == BladeDamagePositionEnum::VALVE_BOTH ? $this->getEdgeString() : $this->getEdgeString() . ' ' . $dist;
+        return $this->position == BladeDamagePositionEnum::EDGE_IN || $this->position == BladeDamagePositionEnum::EDGE_OUT ? '-' : $dist . ' ' . $this->getEdgeString();
     }
 
     /**
@@ -420,12 +420,28 @@ class BladeDamage extends AbstractBase
      */
     public function getDeltaGapVertical()
     {
-        if ($this->getEdge() == BladeDamageEdgeEnum::EDGE_OUT) {
-            
-            return $this->getPosition() == BladeDamagePositionEnum::VALVE_PRESSURE ? 5 : 62.5;
+        $gap = 0; // 5 - 24 - 43,5 - 62,5
+        if ($this->getEdge() == BladeDamageEdgeEnum::EDGE_IN) {
+            if ($this->getPosition() == BladeDamagePositionEnum::VALVE_PRESSURE) {
+                $gap = 24;
+            } elseif ($this->getPosition() == BladeDamagePositionEnum::VALVE_SUCTION) {
+                $gap = 43.5;
+            }
+        } elseif ($this->getEdge() == BladeDamageEdgeEnum::EDGE_OUT) {
+            if ($this->getPosition() == BladeDamagePositionEnum::VALVE_PRESSURE) {
+                $gap = 5;
+            } elseif ($this->getPosition() == BladeDamagePositionEnum::VALVE_SUCTION) {
+                $gap = 62.5;
+            }
+        } elseif ($this->getEdge() == BladeDamageEdgeEnum::EDGE_UNDEFINED) {
+            if ($this->getPosition() == BladeDamagePositionEnum::EDGE_IN) {
+                $gap = 24;
+            } elseif ($this->getPosition() == BladeDamagePositionEnum::EDGE_OUT) {
+                $gap = 43.5;
+            }
         }
 
-        return $this->getPosition() == BladeDamagePositionEnum::VALVE_PRESSURE ? 24 : 43.5;
+        return $gap;
     }
 
     /**

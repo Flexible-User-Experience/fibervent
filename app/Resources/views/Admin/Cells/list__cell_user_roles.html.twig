@@ -3,31 +3,11 @@
 {% block field %}
     {% spaceless %}
         <div>
-            {% if object.roles %}
-                {% for role in object.roles %}
-                    {% if role == 'ROLE_CUSTOMER' %}
-                        {% set status = 'primary' %}
-                        {% set text = 'client' %}
-                    {% elseif role == 'ROLE_OPERATOR' %}
-                        {% set status = 'success' %}
-                        {% set text = 'operari' %}
-                    {% elseif role == 'ROLE_TECHNICIAN' %}
-                        {% set status = 'info' %}
-                        {% set text = 'tècnic' %}
-                    {% elseif role == 'ROLE_ADMIN' %}
-                        {% set status = 'warning' %}
-                        {% set text = 'administrador' %}
-                    {% elseif role == 'ROLE_SUPER_ADMIN' %}
-                        {% set status = 'danger' %}
-                        {% set text = 'super administrador' %}
-                    {% endif %}
-                    {% if role != 'ROLE_USER' %}
-                        <span class="label label-{{ status }}" style="margin-right:10px">{{ text }}</span>
-                    {% endif %}
-                {% endfor %}
-            {% else %}
-                ---
-            {% endif %}
+            {% for role in object.roles %}
+                {% if role != 'ROLE_USER' %}
+                    <span class="label label-{{ object.bsStatusRole }}" style="margin-right:10px">{{ object.roleString }}</span>
+                {% endif %}
+            {% endfor %}
         </div>
     {% endspaceless %}
 {% endblock %}
