@@ -167,10 +167,6 @@ class AuditPdfBuilderService
             }
             $pdf->Ln(5);
             if ($auditWindmillBlade->getObservations()) {
-                $pdf->setFontStyle(null, 'B', 11);
-                $pdf->Write(0, '3.' . ($key + 1) . '.1 Observaciones', '', false, 'L', true);
-                $pdf->Ln(5);
-                $pdf->setFontStyle(null, '', 9);
                 $pdf->Write(0, $auditWindmillBlade->getObservations(), '', false, 'L', true);
                 $pdf->Ln(5);
             }
