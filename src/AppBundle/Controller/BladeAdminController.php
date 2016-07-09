@@ -2,23 +2,23 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\Turbine;
+use AppBundle\Entity\Blade;
 use Sonata\AdminBundle\Controller\CRUDController as Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
 /**
- * Class TurbineAdminController
+ * Class BladeAdminController
  *
  * @category Controller
  * @package  AppBundle\Controller
  * @author   David Romaní <david@flux.cat>
  */
-class TurbineAdminController extends Controller
+class BladeAdminController extends Controller
 {
     /**
      * Redirect the user depend on this choice.
      *
-     * @param Turbine $object
+     * @param Blade $object
      *
      * @return RedirectResponse
      */
