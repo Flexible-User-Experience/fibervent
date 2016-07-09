@@ -193,7 +193,7 @@ class AuditPdfBuilderService
             foreach ($bladeDamages as $sKey => $bladeDamage) {
                 // MultiCell($w, $h, $txt, $border=0, $align='J', $fill=0, $ln=1, $x='', $y='', $reseth=true, $stretch=0, $ishtml=false, $autopadding=true, $maxh=0)
                 $pdf->setBackgroundHexColor($bladeDamage->getDamageCategory()->getColour());
-                if ($bladeDamage->getPosition() == BladeDamagePositionEnum::VALVE_BOTH) {
+                if ($bladeDamage->getPosition() == BladeDamagePositionEnum::EDGE_IN || $bladeDamage->getPosition() == BladeDamagePositionEnum::EDGE_OUT) {
                     // Both valves {B}
                     // 24 : 43.5
                     $pdf->Rect($x1 + $bladeDamage->getDeltaGap($gap), $y1 + 24, $bladeDamage->getDeltaGapSize(), 5, 'F');
