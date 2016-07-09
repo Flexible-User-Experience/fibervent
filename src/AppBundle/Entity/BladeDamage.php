@@ -7,6 +7,7 @@ use AppBundle\Enum\BladeDamagePositionEnum;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * BladeDamage
@@ -32,6 +33,7 @@ class BladeDamage extends AbstractBase
      * @var integer
      *
      * @ORM\Column(type="integer")
+     * @Assert\GreaterThanOrEqual(value=0)
      */
     protected $radius;
 
@@ -393,7 +395,7 @@ class BladeDamage extends AbstractBase
     }
 
     /**
-     * @param int $gap
+     * @param float $gap
      *
      * @return float
      */
@@ -403,11 +405,13 @@ class BladeDamage extends AbstractBase
     }
 
     /**
+     * @param float $gap
+     *
      * @return float
      */
-    public function getDeltaGapSize()
+    public function getDeltaGapSize($gap)
     {
-        $result = 5 + ($this->size / 10);
+        $result = (($this->getSize() / 100) * $gap) / $this->getAuditWindmillBlade()->getWindmillBlade()->getWindmill()->getBladeType()->getLength();
         if ($result < 5) {
             $result = 5;
         }

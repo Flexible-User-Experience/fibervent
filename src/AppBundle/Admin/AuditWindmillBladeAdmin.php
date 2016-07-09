@@ -104,6 +104,7 @@ class AuditWindmillBladeAdmin extends AbstractBaseAdmin
                         'label'              => 'Danys',
                         'required'           => true,
                         'cascade_validation' => true,
+                        'error_bubbling'     => true,
                     ),
                     array(
                         'edit'     => 'inline',

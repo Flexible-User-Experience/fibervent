@@ -3,7 +3,6 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Turbine;
-use Sonata\AdminBundle\Controller\CRUDController as Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
 /**
@@ -13,7 +12,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
  * @package  AppBundle\Controller
  * @author   David Romaní <david@flux.cat>
  */
-class TurbineAdminController extends Controller
+class TurbineAdminController extends AbstractBaseAdminController
 {
     /**
      * Redirect the user depend on this choice.
@@ -26,41 +25,6 @@ class TurbineAdminController extends Controller
     {
         $request = $this->getRequest();
 
-        $url = false;
-
-        if (null !== $request->get('btn_update_and_list')) {
-            $router = $this->get('router');
-            $url = $router->generate('admin_app_windmill_list');
-        }
-        if (null !== $request->get('btn_create_and_list')) {
-            $url = $this->admin->generateUrl('list');
-        }
-
-        if (null !== $request->get('btn_create_and_create')) {
-            $params = array();
-            if ($this->admin->hasActiveSubClass()) {
-                $params['subclass'] = $request->get('subclass');
-            }
-            $url = $this->admin->generateUrl('create', $params);
-        }
-
-        if ($this->getRestMethod() === 'DELETE') {
-            $url = $this->admin->generateUrl('list');
-        }
-
-        if (!$url) {
-            foreach (array('edit', 'show') as $route) {
-                if ($this->admin->hasRoute($route) && $this->admin->isGranted(strtoupper($route), $object)) {
-                    $url = $this->admin->generateObjectUrl($route, $object);
-                    break;
-                }
-            }
-        }
-
-        if (!$url) {
-            $url = $this->admin->generateUrl('list');
-        }
-
-        return new RedirectResponse($url);
+        return new RedirectResponse($this->getRedirectToUrl($request, $object, 'admin_app_windmill_list'));
     }
 }
