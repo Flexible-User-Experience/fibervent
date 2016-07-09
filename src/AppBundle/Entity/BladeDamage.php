@@ -395,7 +395,7 @@ class BladeDamage extends AbstractBase
     }
 
     /**
-     * @param int $gap
+     * @param float $gap
      *
      * @return float
      */
@@ -405,11 +405,13 @@ class BladeDamage extends AbstractBase
     }
 
     /**
+     * @param float $gap
+     *
      * @return float
      */
-    public function getDeltaGapSize()
+    public function getDeltaGapSize($gap)
     {
-        $result = 5 + ($this->size / 10);
+        $result = (($this->getSize() / 100) * $gap) / $this->getAuditWindmillBlade()->getWindmillBlade()->getWindmill()->getBladeType()->getLength();
         if ($result < 5) {
             $result = 5;
         }
