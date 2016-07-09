@@ -185,11 +185,11 @@ class AuditPdfBuilderService
             $xQuarter2 = $xQuarter1 + ($scaleGap / 4);
             $xQuarter3 = $xQuarter2 + ($scaleGap / 4);
             $xQuarter4 = $xQuarter3 + ($scaleGap / 4);
-            $pdf->Line($xQuarter1, $y1, $xQuarter1, $y1 + ($y2 - $y1));
-            $pdf->Line($xQuarter2, $y1, $xQuarter2, $y1 + ($y2 - $y1));
-            $pdf->Line($xQuarter3, $y1, $xQuarter3, $y1 + ($y2 - $y1));
-            $pdf->Line($xQuarter4, $y1, $xQuarter4, $y1 + ($y2 - $y1));
-            $pdf->Line($xQuarter5, $y1, $xQuarter5, $y1 + ($y2 - $y1));
+//            $pdf->Line($xQuarter1, $y1, $xQuarter1, $y1 + ($y2 - $y1));
+//            $pdf->Line($xQuarter2, $y1, $xQuarter2, $y1 + ($y2 - $y1));
+//            $pdf->Line($xQuarter3, $y1, $xQuarter3, $y1 + ($y2 - $y1));
+//            $pdf->Line($xQuarter4, $y1, $xQuarter4, $y1 + ($y2 - $y1));
+//            $pdf->Line($xQuarter5, $y1, $xQuarter5, $y1 + ($y2 - $y1));
 //            $pdf->Rect($x1 + 3.5, $y1, ($x2 - $x1 - 4.5), ($y2 - $y1));
 //            $pdf->Rect($x1 + 44.5, $y1, ($x2 - $x1), ($y2 - $y1));
             $txt = $auditWindmillBlade->getWindmillBlade()->getWindmill()->getBladeType()->getQ1LengthString();
@@ -204,13 +204,19 @@ class AuditPdfBuilderService
             foreach ($bladeDamages as $sKey => $bladeDamage) {
                 // MultiCell($w, $h, $txt, $border=0, $align='J', $fill=0, $ln=1, $x='', $y='', $reseth=true, $stretch=0, $ishtml=false, $autopadding=true, $maxh=0)
                 $pdf->setBackgroundHexColor($bladeDamage->getDamageCategory()->getColour());
-                if ($bladeDamage->getPosition() == BladeDamagePositionEnum::EDGE_IN || $bladeDamage->getPosition() == BladeDamagePositionEnum::EDGE_OUT) {
-                    // Both valves {BA, BS}
+                if ($bladeDamage->getPosition() == BladeDamagePositionEnum::EDGE_IN) {
+                    // Both Valves {BS}
                     // 24 : 43.5
                     $pdf->Rect($xQuarter1 + $bladeDamage->getDeltaGap($scaleGap), $y1 + 24, $bladeDamage->getDeltaGapSize($scaleGap), 5, 'F');
                     $pdf->MultiCell($bladeDamage->getDeltaGapSize($scaleGap), 5, $sKey + 1, 1, 'C', 1, 0, $xQuarter1 + $bladeDamage->getDeltaGap($scaleGap), $y1 + 24, true);
                     $pdf->Rect($xQuarter1 + $bladeDamage->getDeltaGap($scaleGap), $y1 + 43.5, $bladeDamage->getDeltaGapSize($scaleGap), 5, 'F');
                     $pdf->MultiCell($bladeDamage->getDeltaGapSize($scaleGap), 5, $sKey + 1, 1, 'C', 1, 0, $xQuarter1 + $bladeDamage->getDeltaGap($scaleGap), $y1 + 43.5, true);
+                } elseif ($bladeDamage->getPosition() == BladeDamagePositionEnum::EDGE_OUT) {
+                    // Both Valves {BS}
+                    $pdf->Rect($xQuarter1 + $bladeDamage->getDeltaGap($scaleGap), $y1 + 5, $bladeDamage->getDeltaGapSize($scaleGap), 5, 'F');
+                    $pdf->MultiCell($bladeDamage->getDeltaGapSize($scaleGap), 5, $sKey + 1, 1, 'C', 1, 0, $xQuarter1 + $bladeDamage->getDeltaGap($scaleGap), $y1 + 5, true);
+                    $pdf->Rect($xQuarter1 + $bladeDamage->getDeltaGap($scaleGap), $y1 + 62.5, $bladeDamage->getDeltaGapSize($scaleGap), 5, 'F');
+                    $pdf->MultiCell($bladeDamage->getDeltaGapSize($scaleGap), 5, $sKey + 1, 1, 'C', 1, 0, $xQuarter1 + $bladeDamage->getDeltaGap($scaleGap), $y1 + 62.5, true);
                 } else {
                     // One valve {VP, VS}
                     $pdf->Rect($xQuarter1 + $bladeDamage->getDeltaGap($scaleGap), $y1 + $bladeDamage->getDeltaGapVertical(), $bladeDamage->getDeltaGapSize($scaleGap), 5, 'F');
