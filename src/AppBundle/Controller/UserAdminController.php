@@ -40,7 +40,6 @@ class UserAdminController extends AbstractBaseAdminController
         if ($form->isSubmitted() && $form->isValid()) {
             // update user profile changes
             $em = $this->getDoctrine()->getManager();
-//            $em->persist($user);
             $em->flush();
 
             // build flash message

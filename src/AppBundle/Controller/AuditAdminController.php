@@ -81,15 +81,13 @@ class AuditAdminController extends AbstractBaseAdminController
     /**
      * Custom email action
      *
-     * @param null $id
+     * @param Request $request
      *
      * @return Response
-     * @throws NotFoundHttpException If the object does not exist
-     * @throws AccessDeniedException If access is not granted
      */
-    public function emailAction($id = null)
+    public function emailAction(Request $request = null)
     {
-        $request = $this->resolveRequest();
+        $request = $this->resolveRequest($request);
         $id = $request->get($this->admin->getIdParameter());
 
         /** @var Audit $object */
