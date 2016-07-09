@@ -35,7 +35,7 @@ class Turbine extends AbstractBase
     /**
      * @var integer
      *
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="float", precision=2)
      */
     private $rotorDiameter;
 
