@@ -202,18 +202,17 @@ class AuditPdfBuilderService
             $xQuarter3 = $this->amdb->getXQ3();
             $xQuarter4 = $this->amdb->getXQ4();
             $xQuarter5 = $this->amdb->getXQ5();
-            
             $pdf->Line($xQuarter1, $y1, $xQuarter1, $y1 + ($y2 - $y1));
             $pdf->Line($xQuarter2, $y1, $xQuarter2, $y1 + ($y2 - $y1));
             $pdf->Line($xQuarter3, $y1, $xQuarter3, $y1 + ($y2 - $y1));
             $pdf->Line($xQuarter4, $y1, $xQuarter4, $y1 + ($y2 - $y1));
             $pdf->Line($xQuarter5, $y1, $xQuarter5, $y1 + ($y2 - $y1));
 
-            $yQuarter1 = $y1 + 7.25;
-            $yQuarter2 = $yQuarter1 + 14.75;
-            $yQuarter3 = $yQuarter2 + 12;
-            $yQuarter4 = $yQuarter3 + 15;
-            $yMiddle = $yQuarter2 + (($yQuarter3 - $yQuarter2) / 2) + 0.75;
+            $yMiddle   = $this->amdb->getYMiddle();
+            $yQuarter1 = $this->amdb->getYQ1();
+            $yQuarter2 = $this->amdb->getYQ2();
+            $yQuarter3 = $this->amdb->getYQ3();
+            $yQuarter4 = $this->amdb->getYQ4();
             $pdf->Line($x1, $yQuarter1, $x2, $yQuarter1);
             $pdf->Line($x1, $yQuarter2, $x2, $yQuarter2);
             $pdf->Line($x1, $yMiddle,   $x2, $yMiddle);

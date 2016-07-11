@@ -14,7 +14,7 @@ use AppBundle\Pdf\CustomTcpdf;
 class AuditModelDiagramBridgeService
 {
     const PDF_TOTAL_WIDHT = 210;
-    const DIAGRAM_HEIGHT = 78;
+    const DIAGRAM_HEIGHT  = 55;
 
     /**
      * @var float
@@ -117,6 +117,24 @@ class AuditModelDiagramBridgeService
         $this->xQ2 = $this->xQ1 + ($this->xScaleGap / 4);
         $this->xQ3 = $this->xQ2 + ($this->xScaleGap / 4);
         $this->xQ4 = $this->xQ3 + ($this->xScaleGap / 4);
+    }
+    
+    /**
+     * @param float $y
+     *
+     * @return $this
+     */
+    public function setYs($y)
+    {
+        $this->y1 = $y;
+        $this->y2 = $y + self::DIAGRAM_HEIGHT;
+        $this->yQ1 = $this->y1 + 7.25;
+        $this->yQ2 = $this->yQ1 + 14.75;
+        $this->yQ3 = $this->yQ2 + 12;
+        $this->yQ4 = $this->yQ3 + 15;
+        $this->yMiddle = $this->yQ2 + (($this->yQ3 - $this->yQ2) / 2) + 0.75;
+        
+        return $this;
     }
 
     public function getDeltaGap()
@@ -476,19 +494,6 @@ class AuditModelDiagramBridgeService
     public function setYScaleGap($yScaleGap)
     {
         $this->yScaleGap = $yScaleGap;
-
-        return $this;
-    }
-
-    /**
-     * @param float $y
-     *
-     * @return $this
-     */
-    public function setYs($y)
-    {
-        $this->y1 = $y;
-        $this->y2 = $y + self::DIAGRAM_HEIGHT;
 
         return $this;
     }
