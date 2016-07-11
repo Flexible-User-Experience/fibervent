@@ -4,6 +4,7 @@ namespace AppBundle\Admin;
 
 use AppBundle\Repository\BladeRepository;
 use AppBundle\Repository\CustomerRepository;
+use AppBundle\Repository\DamageCategoryRepository;
 use AppBundle\Repository\DamageRepository;
 use AppBundle\Repository\StateRepository;
 use AppBundle\Repository\TurbineRepository;
@@ -65,6 +66,11 @@ abstract class AbstractBaseAdmin extends AbstractAdmin
     protected $dr;
 
     /**
+     * @var DamageCategoryRepository
+     */
+    protected $dc;
+
+    /**
      * @var UploaderHelper
      */
     protected $vus;
@@ -75,21 +81,22 @@ abstract class AbstractBaseAdmin extends AbstractAdmin
     protected $lis;
 
     /**
-     * @param string             $code
-     * @param string             $class
-     * @param string             $baseControllerName
-     * @param CustomerRepository $cr
-     * @param UserRepository     $ur
-     * @param WindmillRepository $wmr
-     * @param WindfarmRepository $wfr
-     * @param BladeRepository    $br
-     * @param TurbineRepository  $tr
-     * @param StateRepository    $sr
-     * @param DamageRepository   $dr
-     * @param UploaderHelper     $vus
-     * @param CacheManager       $lis
+     * @param string                     $code
+     * @param string                     $class
+     * @param string                     $baseControllerName
+     * @param CustomerRepository         $cr
+     * @param UserRepository             $ur
+     * @param WindmillRepository         $wmr
+     * @param WindfarmRepository         $wfr
+     * @param BladeRepository            $br
+     * @param TurbineRepository          $tr
+     * @param StateRepository            $sr
+     * @param DamageRepository           $dr
+     * @param DamageCategoryRepository   $dr
+     * @param UploaderHelper             $vus
+     * @param CacheManager               $lis
      */
-    public function __construct($code, $class, $baseControllerName, CustomerRepository $cr, UserRepository $ur, WindmillRepository $wmr, WindfarmRepository $wfr, BladeRepository $br, TurbineRepository $tr, StateRepository $sr, DamageRepository $dr, UploaderHelper $vus, CacheManager $lis)
+    public function __construct($code, $class, $baseControllerName, CustomerRepository $cr, UserRepository $ur, WindmillRepository $wmr, WindfarmRepository $wfr, BladeRepository $br, TurbineRepository $tr, StateRepository $sr, DamageRepository $dr, DamageCategoryRepository $dc, UploaderHelper $vus, CacheManager $lis)
     {
         parent::__construct($code, $class, $baseControllerName);
         $this->cr  = $cr;
@@ -100,6 +107,7 @@ abstract class AbstractBaseAdmin extends AbstractAdmin
         $this->tr  = $tr;
         $this->sr  = $sr;
         $this->dr  = $dr;
+        $this->dc  = $dc;
         $this->vus = $vus;
         $this->lis = $lis;
     }
