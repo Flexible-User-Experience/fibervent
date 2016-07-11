@@ -6,9 +6,12 @@ use AppBundle\Entity\Audit;
 use AppBundle\Entity\AuditWindmillBlade;
 use AppBundle\Entity\BladeDamage;
 use AppBundle\Entity\DamageCategory;
+use AppBundle\Entity\Photo;
 use AppBundle\Entity\Windfarm;
 use AppBundle\Entity\Windmill;
+use AppBundle\Enum\BladeDamagePositionEnum;
 use AppBundle\Pdf\CustomTcpdf;
+use AppBundle\Repository\BladeDamageRepository;
 use AppBundle\Repository\DamageCategoryRepository;
 use WhiteOctober\TCPDFBundle\Controller\TCPDFController;
 use Liip\ImagineBundle\Imagine\Cache\CacheManager;
@@ -50,28 +53,43 @@ class AuditPdfBuilderService
     private $dcr;
 
     /**
-     * @var string $krd Kernel Root Dir
+     * @var BladeDamageRepository
      */
-    private $krd;
+    private $bdr;
+
+    /**
+     * @var AuditModelDiagramBridgeService
+     */
+    private $amdb;
+
+    /**
+     *
+     *
+     * Methods
+     *
+     *
+     */
 
     /**
      * AuditPdfBuilderService constructor
      *
-     * @param TCPDFController          $tcpdf
-     * @param CacheManager             $cm
-     * @param UploaderHelper           $uh
-     * @param AssetsHelper             $tha
-     * @param DamageCategoryRepository $dcr
-     * @param string                   $krd
+     * @param TCPDFController                $tcpdf
+     * @param CacheManager                   $cm
+     * @param UploaderHelper                 $uh
+     * @param AssetsHelper                   $tha
+     * @param DamageCategoryRepository       $dcr
+     * @param BladeDamageRepository          $bdr
+     * @param AuditModelDiagramBridgeService $amdb
      */
-    public function __construct(TCPDFController $tcpdf, CacheManager $cm, UploaderHelper $uh, AssetsHelper $tha, DamageCategoryRepository $dcr, $krd)
+    public function __construct(TCPDFController $tcpdf, CacheManager $cm, UploaderHelper $uh, AssetsHelper $tha, DamageCategoryRepository $dcr, BladeDamageRepository $bdr, AuditModelDiagramBridgeService $amdb)
     {
         $this->tcpdf = $tcpdf;
         $this->cm    = $cm;
         $this->uh    = $uh;
         $this->tha   = $tha;
         $this->dcr   = $dcr;
-        $this->krd   = $krd;
+        $this->bdr   = $bdr;
+        $this->amdb  = $amdb;
     }
 
     /**
@@ -89,6 +107,7 @@ class AuditPdfBuilderService
         // Add a page
         $pdf->setPrintHeader(true);
         $pdf->AddPage(PDF_PAGE_ORIENTATION, PDF_PAGE_FORMAT, true, true);
+        $pdf->setAvailablePageDimension();
         $pdf->setPrintFooter(true);
 
         // Introduction page
@@ -101,7 +120,7 @@ class AuditPdfBuilderService
         $pdf->Write(0, 'Este informe es el resultado de la inspección visual realizada con telescopio desde suelo en el Parque Eólico "' . $windfarm->getName() . '" entre el ' . $audit->getPdfBeginDateString() . ' y el ' . $audit->getPdfEndDateString(). '. El equipo, propiedad de FIBERVENT, y utilizado para la inspección es el siguiente:', '', false, 'L', true);
         $pdf->Ln(5);
         // Introduction table
-        $pdf->setCellPaddings(5, 5, 5, 5);
+        $pdf->setCellPaddings(0, 5, 0, 5);
         $pdf->setCellMargins(10, 0, 10, 0);
         $pdf->MultiCell(0, 0, '<ul><li>Kit telescopio SWAROVSKI ATS 80-HD + OCULAR ZOOM 25-50X</li><li>Adaptador foto SWAROVSKI TLS APO</li><li>Kit cámara OLYMPUS EPL 5 16 Mpx + cable disparador</li><li>Batería OLYMPUS BLS-5</li><li>Objetivo OLYMPUS 14-42 mm</li><li>Adaptador OLYMPUS T-MICRO 4/3</li><li>Kit trípode MANFROTTO NAT DOS Carbono</li><li>Funda trípode MANFROTTO BAG 80</li><li>Mochila LOWEPRO TRAVEL 200 AW</li></ul>', 1, 'L', false, 1, '', '', true, 0, true);
         $pdf->setCellPaddings(1, 1, 1, 1);
@@ -115,17 +134,25 @@ class AuditPdfBuilderService
         $pdf->Write(0, 'Los daños encontrados se han categorizado según los siguientes criterios:', '', false, 'L', true);
         $pdf->Ln(5);
         // Damages table
-        $pdf->Cell(20, 0, 'Categoría', true, false);
-        $pdf->Cell(20, 0, 'Prioridad', true, false);
-        $pdf->Cell(60, 0, 'Descripción / Hallazgos', true, false);
-        $pdf->Cell(0, 0, 'Acción recomendada', true, true);
+        $pdf->setBlackLine();
+        $pdf->setBlueBackground();
+        $pdf->setFontStyle(null, 'B', 9);
+        // MultiCell($w, $h, $txt, $border=0, $align='J', $fill=0, $ln=1, $x='', $y='', $reseth=true, $stretch=0, $ishtml=false, $autopadding=true, $maxh=0)
+        $pdf->MultiCell(20, 0, 'Categoría', 1, 'C', 1, 0, '', '', true);
+        $pdf->MultiCell(20, 0, 'Prioridad', 1, 'C', 1, 0, '', '', true);
+        $pdf->MultiCell(60, 0, 'Descripción / Hallazgos', 1, 'C', 1, 0, '', '', true);
+        $pdf->MultiCell(0, 0, 'Acción recomendada', 1, 'C', 1, 1, '', '', true);
+        $pdf->setFontStyle(null, '', 9);
         /** @var DamageCategory $item */
         foreach ($this->dcr->findAllSortedByCategory() as $item) {
-            $pdf->Cell(20, 0, $item->getCategory(), true, false);
-            $pdf->Cell(20, 0, $item->getPriority(), true, false);
-            $pdf->Cell(60, 0, $item->getDescription(), true, false);
-            $pdf->Cell(0, 0, $item->getRecommendedAction(), true, true);
+            $pdf->setBackgroundHexColor($item->getColour());
+            $pdf->MultiCell(20, 14, $item->getCategory(), 1, 'C', 1, 0, '', '', true, 0, false, true, 14, 'M');
+            $pdf->MultiCell(20, 14, $item->getPriority(), 1, 'C', 1, 0, '', '', true, 0, false, true, 14, 'M');
+            $pdf->MultiCell(60, 14, $item->getDescription(), 1, 'L', 1, 0, '', '', true, 0, false, true, 14, 'M');
+            $pdf->MultiCell(0, 14, $item->getRecommendedAction(), 1, 'L', 1, 1, '', '', true, 0, false, true, 14, 'M');
         }
+        $pdf->setBlueLine();
+        $pdf->setWhiteBackground();
         $pdf->Ln(5);
         // Inspection description
         $pdf->setFontStyle(null, 'B', 11);
@@ -134,31 +161,175 @@ class AuditPdfBuilderService
         $pdf->setFontStyle(null, '', 9);
         $pdf->Write(0, 'El esquema en la numeración de palas (1, 2, 3) se describe en la siguiente imagen:', '', false, 'L', true);
         $pdf->Ln(5);
-        // TODO windmill img schema
+        // Audit description with windmill image schema
+        $pdf->Image($this->tha->getUrl('/bundles/app/images/tubrine_diagrams/' . $audit->getDiagramType() . '.jpg'), CustomTcpdf::PDF_MARGIN_LEFT + 50, $pdf->GetY(), null, 40);
+        $pdf->AddPage();
         // Damages section
         /** @var AuditWindmillBlade $auditWindmillBlade */
         foreach ($audit->getAuditWindmillBlades() as $key => $auditWindmillBlade) {
             $pdf->setFontStyle(null, 'B', 11);
-            $pdf->Write(0, '3. RESUMEN INDIVIDUAL DAÑOS PALA ' . ($key + 1), '', false, 'L', true);
+            $pdf->Write(0, '3.' . ($key + 1) . ' RESUMEN INDIVIDUAL DAÑOS PALA ' . ($key + 1), '', false, 'L', true);
             $pdf->Ln(5);
             $pdf->setFontStyle(null, '', 9);
             $pdf->Write(0, 'En la siguiente tabla se describe el resultado de la inspección con la categorización, descripciones, ubicación y links a fotografías de los daños.', '', false, 'L', true);
             $pdf->Ln(5);
-            $pdf->Cell(10, 0, 'DAÑO', true, false);
-            $pdf->Cell(30, 0, 'LOCALIZACIÓN', true, false);
-            $pdf->Cell(20, 0, 'TAMAÑO', true, false);
-            $pdf->Cell(95, 0, 'DESCRIPCIÓN', true, false);
-            $pdf->Cell(0, 0, 'CAT', true, true);
+            // damage table
+            $pdf->drawDamageTableHeader();
+            $bladeDamages = $this->bdr->getItemsOfAuditWindmillBladeSortedByRadius($auditWindmillBlade);
             /** @var BladeDamage $bladeDamage */
-            foreach ($auditWindmillBlade->getBladeDamages() as $bladeDamage) {
-                $pdf->Cell(10, 0, $bladeDamage->getNumber(), true, false);
-                $pdf->Cell(30, 0, $bladeDamage->getDamage()->getCode(), true, false);
-                $pdf->Cell(20, 0, $bladeDamage->getSize(), true, false);
-                $pdf->Cell(95, 0, $bladeDamage->getDamage()->getDescription(), true, false);
-                $pdf->Cell(0, 0, $bladeDamage->getDamageCategory()->getCategory(), true, true);
+            foreach ($bladeDamages as $sKey => $bladeDamage) {
+                $pdf->drawDamageTableBodyRow($sKey, $bladeDamage);
             }
             $pdf->Ln(5);
+            if ($auditWindmillBlade->getObservations()) {
+                $pdf->Write(0, $auditWindmillBlade->getObservations(), '', false, 'L', true);
+                $pdf->Ln(5);
+            }
+            // blade diagram damage locations
+            $this->amdb->setYs($pdf->GetY());
+            $x1 = $this->amdb->getX1();
+            $y1 = $this->amdb->getY1();
+            $x2 = $this->amdb->getX2();
+//            $y2 = $this->amdb->getY2();
+//            $bladeGap = 40;
+//            $gap = $x2 - $x1;
+            $pdf->Image($this->tha->getUrl('/bundles/app/images/blade_diagrams/blade_blueprint_1.jpg'), $x1, $y1, ($x2 - $x1), null);
+//            $pdf->Rect($x1, $y1, ($x2 - $x1), ($y2 - $y1));
+
+//            $xQuarter1 = $this->amdb->getXQ1();
+            $xQuarter2 = $this->amdb->getXQ2();
+            $xQuarter3 = $this->amdb->getXQ3();
+            $xQuarter4 = $this->amdb->getXQ4();
+            $xQuarter5 = $this->amdb->getXQ5();
+//            $pdf->Line($xQuarter1, $y1, $xQuarter1, $y1 + ($y2 - $y1));
+//            $pdf->Line($xQuarter2, $y1, $xQuarter2, $y1 + ($y2 - $y1));
+//            $pdf->Line($xQuarter3, $y1, $xQuarter3, $y1 + ($y2 - $y1));
+//            $pdf->Line($xQuarter4, $y1, $xQuarter4, $y1 + ($y2 - $y1));
+//            $pdf->Line($xQuarter5, $y1, $xQuarter5, $y1 + ($y2 - $y1));
+
+            $yMiddle   = $this->amdb->getYMiddle();
+//            $yQuarter1 = $this->amdb->getYQ1();
+//            $yQuarter2 = $this->amdb->getYQ2();
+//            $yQuarter3 = $this->amdb->getYQ3();
+//            $yQuarter4 = $this->amdb->getYQ4();
+//            $pdf->Line($x1, $yQuarter1, $x2, $yQuarter1);
+//            $pdf->Line($x1, $yQuarter2, $x2, $yQuarter2);
+//            $pdf->Line($x1, $yMiddle,   $x2, $yMiddle);
+//            $pdf->Line($x1, $yQuarter3, $x2, $yQuarter3);
+//            $pdf->Line($x1, $yQuarter4, $x2, $yQuarter4);
+
+//            $pdf->Rect($x1 + 3.5, $y1, ($x2 - $x1 - 4.5), ($y2 - $y1));
+//            $pdf->Rect($x1 + 44.5, $y1, ($x2 - $x1), ($y2 - $y1));
+            $txt = $auditWindmillBlade->getWindmillBlade()->getWindmill()->getBladeType()->getQ1LengthString();
+            $pdf->Text(($xQuarter2 - $pdf->GetStringWidth($txt) - 2), $yMiddle - 5, $txt);
+            $txt = $auditWindmillBlade->getWindmillBlade()->getWindmill()->getBladeType()->getQ2LengthString();
+            $pdf->Text(($xQuarter3 - $pdf->GetStringWidth($txt) - 2), $yMiddle - 5, $txt);
+            $txt = $auditWindmillBlade->getWindmillBlade()->getWindmill()->getBladeType()->getQ3LengthString();
+            $pdf->Text(($xQuarter4 - $pdf->GetStringWidth($txt) - 2), $yMiddle - 5, $txt);
+            $txt = $auditWindmillBlade->getWindmillBlade()->getWindmill()->getBladeType()->getQ4LengthString();
+            $pdf->Text(($xQuarter5 - $pdf->GetStringWidth($txt) - 2), $yMiddle - 5, $txt);
+            /** @var BladeDamage $bladeDamage */
+            foreach ($bladeDamages as $sKey => $bladeDamage) {
+                // MultiCell($w, $h, $txt, $border=0, $align='J', $fill=0, $ln=1, $x='', $y='', $reseth=true, $stretch=0, $ishtml=false, $autopadding=true, $maxh=0)
+                $pdf->setBackgroundHexColor($bladeDamage->getDamageCategory()->getColour());
+                if ($bladeDamage->getPosition() == BladeDamagePositionEnum::EDGE_IN) {
+                    // Both Valves {BA}
+                    $pdf->drawDamage($this->amdb->getGapX($bladeDamage), $this->amdb->getYQ2() - AuditModelDiagramBridgeService::GAP_SQUARE_SIZE, $this->amdb->getGapXSize($bladeDamage), $sKey + 1, $bladeDamage->getDamageCategory()->getColour());
+                    $pdf->drawDamage($this->amdb->getGapX($bladeDamage), $this->amdb->getYQ3(), $this->amdb->getGapXSize($bladeDamage), $sKey + 1, $bladeDamage->getDamageCategory()->getColour());
+                } elseif ($bladeDamage->getPosition() == BladeDamagePositionEnum::EDGE_OUT) {
+                    // Both Valves {BS}
+                    $pdf->drawDamage($this->amdb->getGapX($bladeDamage), $this->amdb->getYQ1(), $this->amdb->getGapXSize($bladeDamage), $sKey + 1, $bladeDamage->getDamageCategory()->getColour());
+                    $pdf->drawDamage($this->amdb->getGapX($bladeDamage), $this->amdb->getYQ4() - AuditModelDiagramBridgeService::GAP_SQUARE_SIZE, $this->amdb->getGapXSize($bladeDamage), $sKey + 1, $bladeDamage->getDamageCategory()->getColour());
+                } else {
+                    // One valve {VP, VS}
+                    $pdf->drawDamage($this->amdb->getGapX($bladeDamage), $this->amdb->getGapY($bladeDamage), $this->amdb->getGapXSize($bladeDamage), $sKey + 1, $bladeDamage->getDamageCategory()->getColour());
+                }
+            }
+            $pdf->setWhiteBackground();
+            // Damage images pages
+            $pdf->AddPage();
+            /** @var BladeDamage $bladeDamage */
+            foreach ($bladeDamages as $sKey => $bladeDamage) {
+                $pdf->drawDamageTableHeader();
+                $pdf->drawDamageTableBodyRow($sKey, $bladeDamage);
+                $pdf->Ln(5);
+                /** @var Photo $photo */
+                foreach ($bladeDamage->getPhotos() as $photo) {
+                    // Image($file, $x='', $y='', $w=0, $h=0, $type='', $link='', $align='', $resize=false, $dpi=300, $palign='', $ismask=false, $imgmask=false, $border=0, $fitbox=false, $hidden=false, $fitonpage=false)
+                    $pdf->Image($this->cm->getBrowserPath($this->uh->asset($photo, 'imageFile'), '960x540'), CustomTcpdf::PDF_MARGIN_LEFT, $pdf->GetY(), $pdf->availablePageWithDimension, null);
+                    $pdf->Ln(100);
+                }
+                $pdf->AddPage();
+            }
         }
+        // Inspection description
+        $pdf->setFontStyle(null, 'B', 11);
+        $pdf->Write(0, '4. CONTACTO', '', false, 'L', true);
+        $pdf->Ln(5);
+        $pdf->setFontStyle(null, '', 9);
+        $pdf->Write(0, 'Podrá contactar con nosotros en las siguientes direcciones y teléfonos:', '', false, 'L', true);
+        $pdf->Ln(10);
+        // Cell($w, $h=0, $txt='', $border=0, $ln=0, $align='', $fill=0, $link='', $stretch=0, $ignore_min_height=false, $calign='T', $valign='M')
+        $pdf->Cell(10, 0, '', 0, 0);
+        $pdf->Cell(0, 0, 'Oficinas Fibervent:', 0, 1, 'L', 0, '');
+        $pdf->Ln(5);
+        $pdf->Cell(20, 0, '', 0, 0);
+        $pdf->Cell(0, 0, 'Pol. Industrial Pal de Solans, Parcela 2', 0, 1, 'L', 0, '');
+        $pdf->Cell(20, 0, '', 0, 0);
+        $pdf->Cell(0, 0, '43519 El Perelló (Tarragona)', 0, 1, 'L', 0, '');
+        $pdf->Cell(20, 0, '', 0, 0);
+        $pdf->Cell(0, 0, 'Tel: +34 977 490 713', 0, 1, 'L', 0, '');
+        $pdf->setFontStyle(null, 'U', 9);
+        $pdf->setBlueText();
+        $pdf->Cell(20, 0, '', 0, 0);
+        $pdf->Cell(0, 0, 'fibervent@fibervent.com', 0, 1, 'L', 0, 'mailto:fibervent@fibervent.com');
+        $pdf->Cell(20, 0, '', 0, 0);
+        $pdf->Cell(0, 0, 'www.fibervent.com', 0, 1, 'L', 0, 'www.fibervent.com');
+        $pdf->setFontStyle(null, '', 9);
+        $pdf->setBlackText();
+        $pdf->Ln(10);
+        $pdf->Cell(10, 0, '', 0, 0);
+        $pdf->Cell(0, 0, 'Teléfonos y emails de contacto:', 0, 1, 'L', 0, '');
+        $pdf->Ln(5);
+        $pdf->Cell(20, 0, '', 0, 0);
+        $pdf->Cell(0, 0, 'David Espasa (636 317 884)', 0, 1, 'L', 0, '');
+        $pdf->setFontStyle(null, 'U', 9);
+        $pdf->setBlueText();
+        $pdf->Cell(20, 0, '', 0, 0);
+        $pdf->Cell(0, 0, 'info@fibervent.com', 0, 1, 'L', 0, 'mailto:info@fibervent.com');
+        $pdf->setFontStyle(null, '', 9);
+        $pdf->setBlackText();
+        $pdf->Ln(3);
+        $pdf->Cell(20, 0, '', 0, 0);
+        $pdf->Cell(0, 0, 'Eduard Borràs (636 690 757)', 0, 1, 'L', 0, '');
+        $pdf->setFontStyle(null, 'U', 9);
+        $pdf->setBlueText();
+        $pdf->Cell(20, 0, '', 0, 0);
+        $pdf->Cell(0, 0, 'fibervent@fibervent.com', 0, 1, 'L', 0, 'mailto:fibervent@fibervent.com');
+        $pdf->setFontStyle(null, '', 9);
+        $pdf->setBlackText();
+        $pdf->Ln(3);
+        $pdf->Cell(20, 0, '', 0, 0);
+        $pdf->Cell(0, 0, 'Josep Marsal (647 610 351)', 0, 1, 'L', 0, '');
+        $pdf->setFontStyle(null, 'U', 9);
+        $pdf->setBlueText();
+        $pdf->Cell(20, 0, '', 0, 0);
+        $pdf->Cell(0, 0, 'tecnic@fibervent.com', 0, 1, 'L', 0, 'mailto:tecnic@fibervent.com');
+        $pdf->setFontStyle(null, '', 9);
+        $pdf->setBlackText();
+        $pdf->Ln(3);
+        $pdf->Cell(20, 0, '', 0, 0);
+        $pdf->Cell(0, 0, 'Sergio López (618 277 158)', 0, 1, 'L', 0, '');
+        $pdf->setFontStyle(null, 'U', 9);
+        $pdf->setBlueText();
+        $pdf->Cell(20, 0, '', 0, 0);
+        $pdf->Cell(0, 0, 'oficinatecnica@fibervent.com', 0, 1, 'L', 0, 'mailto:oficinatecnica@fibervent.com');
+        $pdf->setFontStyle(null, '', 9);
+        $pdf->setBlackText();
+        $pdf->Ln(15);
+        $pdf->Write(0, 'Agradecemos la confianza depositada en el equipo técnico de FIBERVENT.', '', false, 'L', true);
+        $pdf->Ln(5);
+        $pdf->Write(0, 'FIBERVENT, S.L.', '', false, 'L', true);
 
         return $pdf;
     }
@@ -245,9 +416,7 @@ class AuditPdfBuilderService
         $pdf->setFontStyle(null, 'B', 10); $pdf->setBlueBackground();
         $pdf->Cell(70, 6, 'O&M REGIONAL MANAGER', 'TB', 0, 'R', true);
         $pdf->setFontStyle(null, '', 10); $pdf->setWhiteBackground();
-        $pdf->Cell(0, 6, $windfarm->getManager()->getFullname(), 'TB', 1, 'L', true);
-
-        // TODO revisions table section
+        $pdf->Cell(0, 6, $windfarm->getMangerFullname(), 'TB', 1, 'L', true);
 
         // operators details
         $pdf->SetXY(CustomTcpdf::PDF_MARGIN_LEFT, $pdf->GetY() + 10);

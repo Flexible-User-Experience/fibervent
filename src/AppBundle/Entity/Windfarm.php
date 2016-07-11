@@ -2,9 +2,12 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Entity\Traits\AddresTrait;
 use AppBundle\Entity\Traits\CityTrait;
+use AppBundle\Entity\Traits\CodeTrait;
 use AppBundle\Entity\Traits\GpsCoordinatesTrait;
 use AppBundle\Entity\Traits\NameTrait;
+use AppBundle\Entity\Traits\PostalCodeTrait;
 use AppBundle\Entity\Traits\PowerTrait;
 use AppBundle\Entity\Traits\StateTrait;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -25,6 +28,9 @@ use Gedmo\Mapping\Annotation as Gedmo;
 class Windfarm extends AbstractBase
 {
     use NameTrait;
+    use CodeTrait;
+    use AddresTrait;
+    use PostalCodeTrait;
     use StateTrait;
     use CityTrait;
     use GpsCoordinatesTrait;
@@ -36,6 +42,13 @@ class Windfarm extends AbstractBase
      * @ORM\Column(type="integer", nullable=true)
      */
     private $year;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", length=45, nullable=true)
+     */
+    private $code;
 
     /**
      * @var State
@@ -139,6 +152,18 @@ class Windfarm extends AbstractBase
         $this->manager = $manager;
 
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMangerFullname()
+    {
+        if (!is_null($this->manager)) {
+            return $this->manager->getFullname();
+        }
+
+        return '---';
     }
 
     /**

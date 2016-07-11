@@ -2,14 +2,15 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Entity\Traits\AddresTrait;
 use AppBundle\Entity\Traits\CityTrait;
 use AppBundle\Entity\Traits\CodeTrait;
 use AppBundle\Entity\Traits\NameTrait;
+use AppBundle\Entity\Traits\PostalCodeTrait;
 use AppBundle\Entity\Traits\StateTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -21,12 +22,13 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="AppBundle\Repository\CustomerRepository")
- * @UniqueEntity("code")
  * @Gedmo\SoftDeleteable(fieldName="removedAt", timeAware=false)
  */
 class Customer extends AbstractBase
 {
     use NameTrait;
+    use AddresTrait;
+    use PostalCodeTrait;
     use StateTrait;
     use CityTrait;
     use CodeTrait;
@@ -34,7 +36,7 @@ class Customer extends AbstractBase
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\Email(strict=true, checkMX=true, checkHost=true)
      */
     private $email;
@@ -42,7 +44,7 @@ class Customer extends AbstractBase
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=45, unique=true)
+     * @ORM\Column(type="string", length=45, nullable=true)
      */
     private $code;
 
@@ -60,20 +62,6 @@ class Customer extends AbstractBase
      * @Assert\Url(checkDNS=true)
      */
     private $web;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $address;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $zip;
 
     /**
      * @var State
@@ -169,46 +157,6 @@ class Customer extends AbstractBase
     public function setWeb($web)
     {
         $this->web = $web;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getAddress()
-    {
-        return $this->address;
-    }
-
-    /**
-     * @param string $address
-     *
-     * @return Customer
-     */
-    public function setAddress($address)
-    {
-        $this->address = $address;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getZip()
-    {
-        return $this->zip;
-    }
-
-    /**
-     * @param string $zip
-     *
-     * @return Customer
-     */
-    public function setZip($zip)
-    {
-        $this->zip = $zip;
 
         return $this;
     }

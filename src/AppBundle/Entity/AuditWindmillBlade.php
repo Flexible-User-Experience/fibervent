@@ -2,10 +2,10 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Entity\Traits\ObservationsTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * AuditWindmillBlade
@@ -20,6 +20,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class AuditWindmillBlade extends AbstractBase
 {
+    use ObservationsTrait;
+
     /**
      * @var Audit
      *

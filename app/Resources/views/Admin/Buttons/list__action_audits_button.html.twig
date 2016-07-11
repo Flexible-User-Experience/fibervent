@@ -1,0 +1,3 @@
+{% if admin.isGranted('EDIT', object) and admin.hasRoute('audits') %}
+    <a href="{{ path('admin_app_audit_list') }}?filter%5Bwindmill__windfarm%5D%5Btype%5D=&filter%5Bwindmill__windfarm%5D%5Bvalue%5D={{ object.id }}" class="btn btn-sm btn-default edit_link" title="Inspeccions"><i class="fa fa-list-alt"></i></a>
+{% endif %}

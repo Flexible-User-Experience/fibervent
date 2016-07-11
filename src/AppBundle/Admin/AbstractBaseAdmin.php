@@ -4,6 +4,7 @@ namespace AppBundle\Admin;
 
 use AppBundle\Repository\BladeRepository;
 use AppBundle\Repository\CustomerRepository;
+use AppBundle\Repository\DamageRepository;
 use AppBundle\Repository\StateRepository;
 use AppBundle\Repository\TurbineRepository;
 use AppBundle\Repository\UserRepository;
@@ -59,6 +60,11 @@ abstract class AbstractBaseAdmin extends AbstractAdmin
     protected $sr;
 
     /**
+     * @var DamageRepository
+     */
+    protected $dr;
+
+    /**
      * @var UploaderHelper
      */
     protected $vus;
@@ -79,10 +85,11 @@ abstract class AbstractBaseAdmin extends AbstractAdmin
      * @param BladeRepository    $br
      * @param TurbineRepository  $tr
      * @param StateRepository    $sr
+     * @param DamageRepository   $dr
      * @param UploaderHelper     $vus
      * @param CacheManager       $lis
      */
-    public function __construct($code, $class, $baseControllerName, CustomerRepository $cr, UserRepository $ur, WindmillRepository $wmr, WindfarmRepository $wfr, BladeRepository $br, TurbineRepository $tr, StateRepository $sr, UploaderHelper $vus, CacheManager $lis)
+    public function __construct($code, $class, $baseControllerName, CustomerRepository $cr, UserRepository $ur, WindmillRepository $wmr, WindfarmRepository $wfr, BladeRepository $br, TurbineRepository $tr, StateRepository $sr, DamageRepository $dr, UploaderHelper $vus, CacheManager $lis)
     {
         parent::__construct($code, $class, $baseControllerName);
         $this->cr  = $cr;
@@ -92,6 +99,7 @@ abstract class AbstractBaseAdmin extends AbstractAdmin
         $this->br  = $br;
         $this->tr  = $tr;
         $this->sr  = $sr;
+        $this->dr  = $dr;
         $this->vus = $vus;
         $this->lis = $lis;
     }

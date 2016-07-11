@@ -6,6 +6,8 @@ use AppBundle\Entity\AuditWindmillBlade;
 use AppBundle\Form\Type\ActionButtonFormType;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Route\RouteCollection;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 /**
  * Class AuditWindmillBladeAdmin
@@ -22,6 +24,17 @@ class AuditWindmillBladeAdmin extends AbstractBaseAdmin
         '_sort_by'    => 'audit',
         '_sort_order' => 'desc',
     );
+
+    /**
+     * Configure route collection
+     *
+     * @param RouteCollection $collection
+     */
+    protected function configureRoutes(RouteCollection $collection)
+    {
+        parent::configureRoutes($collection);
+        $collection->remove('delete');
+    }
 
     /**
      * @param FormMapper $formMapper
@@ -52,6 +65,17 @@ class AuditWindmillBladeAdmin extends AbstractBaseAdmin
                         'disabled' => true,
                     )
                 )
+                ->add(
+                    'observations',
+                    TextareaType::class,
+                    array(
+                        'label'    => 'Observacions',
+                        'required' => false,
+                        'attr'     => array(
+                            'rows' => 8,
+                        )
+                    )
+                )
                 ->end()
                 ->with('Danys', $this->getFormMdSuccessBoxArray(3))
                 ->add(
@@ -80,6 +104,7 @@ class AuditWindmillBladeAdmin extends AbstractBaseAdmin
                         'label'              => 'Danys',
                         'required'           => true,
                         'cascade_validation' => true,
+                        'error_bubbling'     => true,
                     ),
                     array(
                         'edit'     => 'inline',

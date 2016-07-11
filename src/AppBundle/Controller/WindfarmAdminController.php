@@ -18,6 +18,35 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class WindfarmAdminController extends AbstractBaseAdminController
 {
     /**
+     * Show windfarm audits list view
+     *
+     * @param Request $request
+     *
+     * @return Response
+     * @throws NotFoundHttpException If the object does not exist
+     * @throws AccessDeniedHttpException If access is not granted
+     */
+    public function auditsAction(Request $request = null)
+    {
+        $request = $this->resolveRequest($request);
+        $id = $request->get($this->admin->getIdParameter());
+
+        /** @var Windfarm $object */
+        $object = $this->admin->getObject($id);
+        if (!$object) {
+            throw $this->createNotFoundException(sprintf('Unable to find windfarm record with id: %s', $id));
+        }
+
+        return $this->render(
+            ':Admin/Windfarm:map.html.twig',
+            array(
+                'action' => 'show',
+                'object' => $object,
+            )
+        );
+    }
+
+    /**
      * Create windmills map view
      *
      * @param Request $request
@@ -34,7 +63,7 @@ class WindfarmAdminController extends AbstractBaseAdminController
         /** @var Windfarm $object */
         $object = $this->admin->getObject($id);
         if (!$object) {
-            throw $this->createNotFoundException(sprintf('Unable to find windfarm record with id : %s', $id));
+            throw $this->createNotFoundException(sprintf('Unable to find windfarm record with id: %s', $id));
         }
 
         return $this->render(

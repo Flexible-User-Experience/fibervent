@@ -211,6 +211,7 @@ AppBundle\Entity\Audit:
     endDate: <dateTimeThisMonth($max = 'now')>
     type: <word()>
     status: <numberBetween(0, 3)>
+    diagramType: <numberBetween(1, 6)>
     tools: <sentence()>
     observations: <sentence()>
     windmill: @windmill<numberBetween(1, 50)>

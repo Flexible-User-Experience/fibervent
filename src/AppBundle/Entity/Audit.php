@@ -2,10 +2,10 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Entity\Traits\ObservationsTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Audit
@@ -20,6 +20,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Audit extends AbstractBase
 {
+    use ObservationsTrait;
+
     /**
      * @var \DateTime
      *
@@ -42,6 +44,13 @@ class Audit extends AbstractBase
     protected $status;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(type="integer", options={"default"=1})
+     */
+    protected $diagramType = 1;
+
+    /**
      * @var string
      *
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -56,13 +65,6 @@ class Audit extends AbstractBase
     private $tools;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(type="text", length=4000, nullable=true)
-     */
-    private $observations;
-
-    /**
      * @var Windmill
      *
      * @ORM\ManyToOne(targetEntity="Windmill", inversedBy="audits")
@@ -72,7 +74,7 @@ class Audit extends AbstractBase
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="AuditWindmillBlade", mappedBy="audit", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="AuditWindmillBlade", mappedBy="audit", cascade={"persist", "remove"}, orphanRemoval=true)
      */
     private $auditWindmillBlades;
 
@@ -193,6 +195,26 @@ class Audit extends AbstractBase
     }
 
     /**
+     * @return int
+     */
+    public function getDiagramType()
+    {
+        return $this->diagramType;
+    }
+
+    /**
+     * @param int $diagramType
+     *
+     * @return $this
+     */
+    public function setDiagramType($diagramType)
+    {
+        $this->diagramType = $diagramType;
+
+        return $this;
+    }
+
+    /**
      * @return string
      */
     public function getType()
@@ -228,26 +250,6 @@ class Audit extends AbstractBase
     public function setTools($tools)
     {
         $this->tools = $tools;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getObservations()
-    {
-        return $this->observations;
-    }
-
-    /**
-     * @param string $observations
-     *
-     * @return $this
-     */
-    public function setObservations($observations)
-    {
-        $this->observations = $observations;
 
         return $this;
     }

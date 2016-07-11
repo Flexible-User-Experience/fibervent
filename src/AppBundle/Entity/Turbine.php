@@ -35,7 +35,7 @@ class Turbine extends AbstractBase
     /**
      * @var integer
      *
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="float", precision=2)
      */
     private $rotorDiameter;
 
@@ -127,6 +127,6 @@ class Turbine extends AbstractBase
      */
     public function __toString()
     {
-        return $this->getModel() ? $this->getModel() . ' (' . $this->getPower() . ')' : '---';
+        return $this->getModel() ? $this->getModel() . ' (' . $this->getPower() . 'MW)' : '---';
     }
 }
