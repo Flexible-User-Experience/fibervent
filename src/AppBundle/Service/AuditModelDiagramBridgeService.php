@@ -2,6 +2,9 @@
 
 namespace AppBundle\Service;
 
+use AppBundle\Entity\BladeDamage;
+use AppBundle\Enum\BladeDamageEdgeEnum;
+use AppBundle\Enum\BladeDamagePositionEnum;
 use AppBundle\Pdf\CustomTcpdf;
 
 /**
@@ -15,6 +18,7 @@ class AuditModelDiagramBridgeService
 {
     const PDF_TOTAL_WIDHT = 210;
     const DIAGRAM_HEIGHT  = 55;
+    const GAP_SQUARE_SIZE = 5;
 
     /**
      * @var float
@@ -137,9 +141,63 @@ class AuditModelDiagramBridgeService
         return $this;
     }
 
-    public function getDeltaGap()
+    /**
+     * @param BladeDamage $bladeDamage
+     *
+     * @return float
+     */
+    public function getGapX(BladeDamage $bladeDamage)
     {
+        return $this->xQ1 + (($bladeDamage->getRadius() * $this->xScaleGap) / $bladeDamage->getAuditWindmillBlade()->getWindmillBlade()->getWindmill()->getBladeType()->getLength());
+    }
 
+    /**
+     * @param BladeDamage $bladeDamage
+     *
+     * @return float
+     */
+    public function getGapXSize(BladeDamage $bladeDamage)
+    {
+        $result = (($bladeDamage->getSize() / 100) * $this->xScaleGap) / $bladeDamage->getAuditWindmillBlade()->getWindmillBlade()->getWindmill()->getBladeType()->getLength();
+        if ($result < self::GAP_SQUARE_SIZE) {
+            $result = self::GAP_SQUARE_SIZE;
+        }
+
+        return $result;
+    }
+
+    /**
+     * @param BladeDamage $bladeDamage
+     *
+     * @return float
+     */
+    public function getGapY(BladeDamage $bladeDamage)
+    {
+        $gap = 0; // 5 - 24 - 43,5 - 62,5
+        if ($bladeDamage->getEdge() == BladeDamageEdgeEnum::EDGE_IN) {
+            // Edge in
+            if ($bladeDamage->getPosition() == BladeDamagePositionEnum::VALVE_PRESSURE) {
+                $gap = $this->getYQ2() - self::GAP_SQUARE_SIZE;
+            } elseif ($bladeDamage->getPosition() == BladeDamagePositionEnum::VALVE_SUCTION) {
+                $gap = $this->getYQ3();
+            }
+        } elseif ($bladeDamage->getEdge() == BladeDamageEdgeEnum::EDGE_OUT) {
+            // Edge out
+            if ($bladeDamage->getPosition() == BladeDamagePositionEnum::VALVE_PRESSURE) {
+                $gap = $this->getYQ1();
+            } elseif ($bladeDamage->getPosition() == BladeDamagePositionEnum::VALVE_SUCTION) {
+                $gap = $this->getYQ4() - self::GAP_SQUARE_SIZE;
+            }
+        } elseif ($bladeDamage->getEdge() == BladeDamageEdgeEnum::EDGE_UNDEFINED) {
+            // No edge -> check valve position
+            if ($bladeDamage->getPosition() == BladeDamagePositionEnum::EDGE_IN) {
+                $gap = $this->getYQ2() - self::GAP_SQUARE_SIZE;
+            } elseif ($bladeDamage->getPosition() == BladeDamagePositionEnum::EDGE_OUT) {
+                $gap = $this->getYQ3();
+            }
+        }
+
+        return $gap;
     }
 
     /**

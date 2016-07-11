@@ -234,23 +234,16 @@ class AuditPdfBuilderService
                 // MultiCell($w, $h, $txt, $border=0, $align='J', $fill=0, $ln=1, $x='', $y='', $reseth=true, $stretch=0, $ishtml=false, $autopadding=true, $maxh=0)
                 $pdf->setBackgroundHexColor($bladeDamage->getDamageCategory()->getColour());
                 if ($bladeDamage->getPosition() == BladeDamagePositionEnum::EDGE_IN) {
-                    // Both Valves {BS}
-                    // 24 : 43.5
-                    $pdf->Rect($xQuarter1 + $bladeDamage->getDeltaGap($scaleGap), $y1 + 24, $bladeDamage->getDeltaGapSize($scaleGap), 5, 'F');
-                    $pdf->MultiCell($bladeDamage->getDeltaGapSize($scaleGap), 5, $sKey + 1, 1, 'C', 1, 0, $xQuarter1 + $bladeDamage->getDeltaGap($scaleGap), $y1 + 24, true);
-                    $pdf->Rect($xQuarter1 + $bladeDamage->getDeltaGap($scaleGap), $y1 + 43.5, $bladeDamage->getDeltaGapSize($scaleGap), 5, 'F');
-                    $pdf->MultiCell($bladeDamage->getDeltaGapSize($scaleGap), 5, $sKey + 1, 1, 'C', 1, 0, $xQuarter1 + $bladeDamage->getDeltaGap($scaleGap), $y1 + 43.5, true);
+                    // Both Valves {BA}
+                    $pdf->drawDamage($this->amdb->getGapX($bladeDamage), $this->amdb->getYQ2() - AuditModelDiagramBridgeService::GAP_SQUARE_SIZE, $this->amdb->getGapXSize($bladeDamage), $sKey + 1, $bladeDamage->getDamageCategory()->getColour());
+                    $pdf->drawDamage($this->amdb->getGapX($bladeDamage), $this->amdb->getYQ3(), $this->amdb->getGapXSize($bladeDamage), $sKey + 1, $bladeDamage->getDamageCategory()->getColour());
                 } elseif ($bladeDamage->getPosition() == BladeDamagePositionEnum::EDGE_OUT) {
                     // Both Valves {BS}
-                    $pdf->Rect($xQuarter1 + $bladeDamage->getDeltaGap($scaleGap), $y1 + 5, $bladeDamage->getDeltaGapSize($scaleGap), 5, 'F');
-                    $pdf->MultiCell($bladeDamage->getDeltaGapSize($scaleGap), 5, $sKey + 1, 1, 'C', 1, 0, $xQuarter1 + $bladeDamage->getDeltaGap($scaleGap), $y1 + 5, true);
-                    $pdf->Rect($xQuarter1 + $bladeDamage->getDeltaGap($scaleGap), $y1 + 62.5, $bladeDamage->getDeltaGapSize($scaleGap), 5, 'F');
-                    $pdf->MultiCell($bladeDamage->getDeltaGapSize($scaleGap), 5, $sKey + 1, 1, 'C', 1, 0, $xQuarter1 + $bladeDamage->getDeltaGap($scaleGap), $y1 + 62.5, true);
+                    $pdf->drawDamage($this->amdb->getGapX($bladeDamage), $this->amdb->getYQ1(), $this->amdb->getGapXSize($bladeDamage), $sKey + 1, $bladeDamage->getDamageCategory()->getColour());
+                    $pdf->drawDamage($this->amdb->getGapX($bladeDamage), $this->amdb->getYQ4() - AuditModelDiagramBridgeService::GAP_SQUARE_SIZE, $this->amdb->getGapXSize($bladeDamage), $sKey + 1, $bladeDamage->getDamageCategory()->getColour());
                 } else {
                     // One valve {VP, VS}
-                    $pdf->drawDamage($xQuarter1 + $bladeDamage->getDeltaGap($scaleGap),  $y1 + $bladeDamage->getDeltaGapVertical(), $bladeDamage->getDeltaGapSize($scaleGap), $sKey + 1, $bladeDamage->getDamageCategory()->getColour());
-//                    $pdf->Rect($xQuarter1 + $bladeDamage->getDeltaGap($scaleGap), $y1 + $bladeDamage->getDeltaGapVertical(), $bladeDamage->getDeltaGapSize($scaleGap), 5, 'F');
-//                    $pdf->MultiCell($bladeDamage->getDeltaGapSize($scaleGap), 5, $sKey + 1, 1, 'C', 1, 0, $xQuarter1 + $bladeDamage->getDeltaGap($scaleGap), $y1 + $bladeDamage->getDeltaGapVertical(), true);
+                    $pdf->drawDamage($this->amdb->getGapX($bladeDamage), $this->amdb->getGapY($bladeDamage), $this->amdb->getGapXSize($bladeDamage), $sKey + 1, $bladeDamage->getDamageCategory()->getColour());
                 }
             }
             $pdf->setWhiteBackground();
