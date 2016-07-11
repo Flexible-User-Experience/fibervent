@@ -55,4 +55,41 @@ class CustomerRepository extends EntityRepository
     {
         return $this->findAllSortedByNameQ($limit, $order)->getResult();
     }
+
+    /**
+     * @param null   $limit
+     * @param string $order
+     *
+     * @return QueryBuilder
+     */
+    public function findEnabledSortedByNameQB($limit = null, $order = 'ASC')
+    {
+        $query = $this
+            ->findAllSortedByNameQB($limit, $order)
+            ->where('c.enabled = true');
+
+        return $query;
+    }
+
+    /**
+     * @param null   $limit
+     * @param string $order
+     *
+     * @return Query
+     */
+    public function findEnabledSortedByNameQ($limit = null, $order = 'ASC')
+    {
+        return $this->findEnabledSortedByNameQB($limit, $order)->getQuery();
+    }
+
+    /**
+     * @param null   $limit
+     * @param string $order
+     *
+     * @return array
+     */
+    public function findEnabledSortedByName($limit = null, $order = 'ASC')
+    {
+        return $this->findEnabledSortedByNameQ($limit, $order)->getResult();
+    }
 }

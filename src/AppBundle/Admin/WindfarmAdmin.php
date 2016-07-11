@@ -53,7 +53,7 @@ class WindfarmAdmin extends AbstractBaseAdmin
                     'required'     => true,
                     'multiple'     => false,
                     'btn_add'      => false,
-                    'query'        => $this->cr->findAllSortedByNameQ(),
+                    'query'        => $this->cr->findEnabledSortedByNameQ(),
                 )
             )
             ->add(
