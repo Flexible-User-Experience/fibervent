@@ -58,16 +58,30 @@ class AuditPdfBuilderService
     private $bdr;
 
     /**
+     * @var AuditModelDiagramBridgeService
+     */
+    private $amdb;
+
+    /**
+     *
+     *
+     * Methods
+     *
+     *
+     */
+
+    /**
      * AuditPdfBuilderService constructor
      *
-     * @param TCPDFController          $tcpdf
-     * @param CacheManager             $cm
-     * @param UploaderHelper           $uh
-     * @param AssetsHelper             $tha
-     * @param DamageCategoryRepository $dcr
-     * @param BladeDamageRepository    $bdr
+     * @param TCPDFController                $tcpdf
+     * @param CacheManager                   $cm
+     * @param UploaderHelper                 $uh
+     * @param AssetsHelper                   $tha
+     * @param DamageCategoryRepository       $dcr
+     * @param BladeDamageRepository          $bdr
+     * @param AuditModelDiagramBridgeService $amdb
      */
-    public function __construct(TCPDFController $tcpdf, CacheManager $cm, UploaderHelper $uh, AssetsHelper $tha, DamageCategoryRepository $dcr, BladeDamageRepository $bdr)
+    public function __construct(TCPDFController $tcpdf, CacheManager $cm, UploaderHelper $uh, AssetsHelper $tha, DamageCategoryRepository $dcr, BladeDamageRepository $bdr, AuditModelDiagramBridgeService $amdb)
     {
         $this->tcpdf = $tcpdf;
         $this->cm    = $cm;
@@ -75,6 +89,7 @@ class AuditPdfBuilderService
         $this->tha   = $tha;
         $this->dcr   = $dcr;
         $this->bdr   = $bdr;
+        $this->amdb  = $amdb;
     }
 
     /**
@@ -177,11 +192,11 @@ class AuditPdfBuilderService
             $y2 = $y1 + 78;
 //            $bladeGap = 40;
 //            $gap = $x2 - $x1;
-            $pdf->Image($this->tha->getUrl('/bundles/app/images/blade_diagrams/blade_blueprint_1.jpg'), $x1, $y1, null, 78);
+            $pdf->Image($this->tha->getUrl('/bundles/app/images/blade_diagrams/blade_blueprint_1.jpg'), $x1, $y1, ($x2 - $x1), null);
 //            $pdf->Rect($x1, $y1, ($x2 - $x1), ($y2 - $y1));
 
-            $xQuarter1 = $x1 + 3.5;
-            $xQuarter5 = $x2 - 1;
+            $xQuarter1 = $x1 + 0.25;
+            $xQuarter5 = $x2 - 0.25;
             $scaleGap = $xQuarter5 - $xQuarter1;
             $xQuarter2 = $xQuarter1 + ($scaleGap / 4);
             $xQuarter3 = $xQuarter2 + ($scaleGap / 4);
@@ -192,25 +207,27 @@ class AuditPdfBuilderService
             $pdf->Line($xQuarter4, $y1, $xQuarter4, $y1 + ($y2 - $y1));
             $pdf->Line($xQuarter5, $y1, $xQuarter5, $y1 + ($y2 - $y1));
 
-            $yQuarter1 = $y1 + 9.5;
-            $yQuarter2 = $yQuarter1 + 20.5;
-            $yQuarter3 = $yQuarter2 + 15;
-            $yQuarter4 = $yQuarter3 + 20;
+            $yQuarter1 = $y1 + 7.25;
+            $yQuarter2 = $yQuarter1 + 14.75;
+            $yQuarter3 = $yQuarter2 + 12;
+            $yQuarter4 = $yQuarter3 + 15;
+            $yMiddle = $yQuarter2 + (($yQuarter3 - $yQuarter2) / 2) + 0.75;
             $pdf->Line($x1, $yQuarter1, $x2, $yQuarter1);
             $pdf->Line($x1, $yQuarter2, $x2, $yQuarter2);
+            $pdf->Line($x1, $yMiddle,   $x2, $yMiddle);
             $pdf->Line($x1, $yQuarter3, $x2, $yQuarter3);
             $pdf->Line($x1, $yQuarter4, $x2, $yQuarter4);
 
 //            $pdf->Rect($x1 + 3.5, $y1, ($x2 - $x1 - 4.5), ($y2 - $y1));
 //            $pdf->Rect($x1 + 44.5, $y1, ($x2 - $x1), ($y2 - $y1));
             $txt = $auditWindmillBlade->getWindmillBlade()->getWindmill()->getBladeType()->getQ1LengthString();
-            $pdf->Text(($xQuarter2 - $pdf->GetStringWidth($txt) - 2), $y1 + 32, $txt);
+            $pdf->Text(($xQuarter2 - $pdf->GetStringWidth($txt) - 2), $yMiddle - 5, $txt);
             $txt = $auditWindmillBlade->getWindmillBlade()->getWindmill()->getBladeType()->getQ2LengthString();
-            $pdf->Text(($xQuarter3 - $pdf->GetStringWidth($txt) - 2), $y1 + 32, $txt);
+            $pdf->Text(($xQuarter3 - $pdf->GetStringWidth($txt) - 2), $yMiddle - 5, $txt);
             $txt = $auditWindmillBlade->getWindmillBlade()->getWindmill()->getBladeType()->getQ3LengthString();
-            $pdf->Text(($xQuarter4 - $pdf->GetStringWidth($txt) - 2), $y1 + 32, $txt);
+            $pdf->Text(($xQuarter4 - $pdf->GetStringWidth($txt) - 2), $yMiddle - 5, $txt);
             $txt = $auditWindmillBlade->getWindmillBlade()->getWindmill()->getBladeType()->getQ4LengthString();
-            $pdf->Text(($xQuarter5 - $pdf->GetStringWidth($txt) - 2), $y1 + 32, $txt);
+            $pdf->Text(($xQuarter5 - $pdf->GetStringWidth($txt) - 2), $yMiddle - 5, $txt);
             /** @var BladeDamage $bladeDamage */
             foreach ($bladeDamages as $sKey => $bladeDamage) {
                 // MultiCell($w, $h, $txt, $border=0, $align='J', $fill=0, $ln=1, $x='', $y='', $reseth=true, $stretch=0, $ishtml=false, $autopadding=true, $maxh=0)
@@ -321,6 +338,19 @@ class AuditPdfBuilderService
         $pdf->Write(0, 'FIBERVENT, S.L.', '', false, 'L', true);
 
         return $pdf;
+    }
+
+    /**
+     * @param CustomTcpdf $pdf
+     * @param float       $x
+     * @param float       $y
+     * @param float       $w
+     * @param string      $txt
+     */
+    private function drawDamage(CustomTcpdf $pdf, $x, $y, $w, $txt)
+    {
+        $pdf->Rect($x, $y, $w, 5, 'F');
+        $pdf->MultiCell($w, 5, $txt, 1, 'C', 1, 0, $x, $y, true);
     }
 
     /**

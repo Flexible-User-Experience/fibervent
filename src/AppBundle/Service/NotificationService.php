@@ -19,6 +19,14 @@ class NotificationService
     private $messenger;
 
     /**
+     *
+     *
+     * Methods
+     *
+     *
+     */
+
+    /**
      * NotificationService constructor
      *
      * @param CourierService    $messenger
