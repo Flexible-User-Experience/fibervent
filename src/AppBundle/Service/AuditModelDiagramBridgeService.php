@@ -16,9 +16,10 @@ use AppBundle\Pdf\CustomTcpdf;
  */
 class AuditModelDiagramBridgeService
 {
-    const PDF_TOTAL_WIDHT = 210;
-    const DIAGRAM_HEIGHT  = 55;
-    const GAP_SQUARE_SIZE = 5;
+    const PDF_TOTAL_WIDHT      = 210;
+    const DIAGRAM_HEIGHT       = 55;
+    const GAP_SQUARE_SIZE      = 5;
+    const GAP_SQUARE_HALF_SIZE = 2.5;
 
     /**
      * @var float
@@ -137,6 +138,7 @@ class AuditModelDiagramBridgeService
         $this->yQ3 = $this->yQ2 + 12;
         $this->yQ4 = $this->yQ3 + 15;
         $this->yMiddle = $this->yQ2 + (($this->yQ3 - $this->yQ2) / 2) + 0.75;
+        $this->yScaleGap = $this->yQ2 - $this->yQ1;
         
         return $this;
     }
@@ -173,31 +175,49 @@ class AuditModelDiagramBridgeService
      */
     public function getGapY(BladeDamage $bladeDamage)
     {
-        $gap = 0; // 5 - 24 - 43,5 - 62,5
+        $gap = 0;
         if ($bladeDamage->getEdge() == BladeDamageEdgeEnum::EDGE_IN) {
             // Edge in
             if ($bladeDamage->getPosition() == BladeDamagePositionEnum::VALVE_PRESSURE) {
-                $gap = $this->getYQ2() - self::GAP_SQUARE_SIZE;
+                // Valve pressure
+                $gap = $this->yQ2 - (($bladeDamage->getDistance() * $this->yScaleGap) / $this->yCalculateMaxFactor($bladeDamage)) - self::GAP_SQUARE_HALF_SIZE;
             } elseif ($bladeDamage->getPosition() == BladeDamagePositionEnum::VALVE_SUCTION) {
-                $gap = $this->getYQ3();
+                // Valve suction
+                $gap = $this->yQ3 + (($bladeDamage->getDistance() * $this->yScaleGap) / $this->yCalculateMaxFactor($bladeDamage)) - self::GAP_SQUARE_HALF_SIZE;
             }
         } elseif ($bladeDamage->getEdge() == BladeDamageEdgeEnum::EDGE_OUT) {
             // Edge out
             if ($bladeDamage->getPosition() == BladeDamagePositionEnum::VALVE_PRESSURE) {
-                $gap = $this->getYQ1();
+                // Valve pressure
+//                $gap = $this->getYQ1();
+                $gap = $this->yQ1 + (($bladeDamage->getDistance() * $this->yScaleGap) / $this->yCalculateMaxFactor($bladeDamage)) - self::GAP_SQUARE_HALF_SIZE;
             } elseif ($bladeDamage->getPosition() == BladeDamagePositionEnum::VALVE_SUCTION) {
-                $gap = $this->getYQ4() - self::GAP_SQUARE_SIZE;
+                // Valve suction
+//                $gap = $this->getYQ4() - self::GAP_SQUARE_SIZE;
+                $gap = $this->yQ4 - (($bladeDamage->getDistance() * $this->yScaleGap) / $this->yCalculateMaxFactor($bladeDamage)) - self::GAP_SQUARE_HALF_SIZE;
             }
         } elseif ($bladeDamage->getEdge() == BladeDamageEdgeEnum::EDGE_UNDEFINED) {
             // No edge -> check valve position
             if ($bladeDamage->getPosition() == BladeDamagePositionEnum::EDGE_IN) {
+                // Edge in
                 $gap = $this->getYQ2() - self::GAP_SQUARE_SIZE;
             } elseif ($bladeDamage->getPosition() == BladeDamagePositionEnum::EDGE_OUT) {
+                // Edge out
                 $gap = $this->getYQ3();
             }
         }
 
         return $gap;
+    }
+
+    /**
+     * @param BladeDamage $bladeDamage
+     *
+     * @return float
+     */
+    public function yCalculateMaxFactor(BladeDamage $bladeDamage)
+    {
+        return (((1 / 30) * $bladeDamage->getAuditWindmillBlade()->getWindmillBlade()->getWindmill()->getBladeType()->getLength()) + (4 / 3)) * 100;
     }
 
     /**

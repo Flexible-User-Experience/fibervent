@@ -234,7 +234,7 @@ class CustomTcpdf extends \TCPDF
     {
         $this->setBackgroundHexColor($hexColor);
         $this->Rect($x, $y, $w, 5, 'F');
-        $this->MultiCell($w, 5, $txt, 1, 'C', 1, 0, $x, $y, true);
+        $this->MultiCell($w, 5, $txt, 1, 'C', 1, 0, $x, $y - 0.25, true);
     }
 
     /**
