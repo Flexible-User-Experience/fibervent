@@ -195,7 +195,7 @@ class AuditAdminController extends AbstractBaseAdminController
     private function commonEmailsList(Audit $audit)
     {
         $availableMails = array();
-        if ($audit->getWindfarm()->getManager()) {
+        if ($audit->getWindfarm() && $audit->getWindfarm()->getManager()) {
             $availableMails[$audit->getWindfarm()->getManager()->getEmail()] = $audit->getWindfarm()->getMangerFullname() . ' <' . $audit->getWindfarm()->getManager()->getEmail() . '>';
         }
         if ($audit->getCustomer()) {
