@@ -136,4 +136,46 @@ class UserRepository extends EntityRepository
     {
         return $this->findAllTechnicinasSortedByNameQ($limit, $order)->getResult();
     }
+
+    /**
+     * @param Customer|null $customer
+     * @param integer|null  $limit
+     * @param string        $order
+     *
+     * @return QueryBuilder
+     */
+    public function findEnabledSortedByNameQB($customer, $limit = null, $order = 'ASC')
+    {
+        $query = $this
+            ->findAllSortedByNameQB($limit, $order)
+            ->where('u.enabled = true AND u.customer IS NULL')
+            ->orWhere('u.enabled = true AND u.customer = :customer')
+            ->setParameter('customer', $customer);
+
+        return $query;
+    }
+
+    /**
+     * @param Customer|null $customer
+     * @param integer|null  $limit
+     * @param string        $order
+     *
+     * @return Query
+     */
+    public function findEnabledSortedByNameQ($customer, $limit = null, $order = 'ASC')
+    {
+        return $this->findEnabledSortedByNameQB($customer, $limit, $order)->getQuery();
+    }
+
+    /**
+     * @param Customer|null $customer
+     * @param integer|null  $limit
+     * @param string        $order
+     *
+     * @return array
+     */
+    public function findEnabledSortedByName($customer, $limit = null, $order = 'ASC')
+    {
+        return $this->findEnabledSortedByNameQ($customer, $limit, $order)->getResult();
+    }
 }
