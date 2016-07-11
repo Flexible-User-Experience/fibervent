@@ -186,21 +186,23 @@ class AuditPdfBuilderService
                 $pdf->Ln(5);
             }
             // blade diagram damage locations
-            $x1 = CustomTcpdf::PDF_MARGIN_LEFT;
-            $y1 = $pdf->GetY();
-            $x2 = 210 - CustomTcpdf::PDF_MARGIN_RIGHT;
-            $y2 = $y1 + 78;
+            $this->amdb->setYs($pdf->GetY());
+            $x1 = $this->amdb->getX1();
+            $y1 = $this->amdb->getY1();
+            $x2 = $this->amdb->getX2();
+            $y2 = $this->amdb->getY2();
 //            $bladeGap = 40;
 //            $gap = $x2 - $x1;
             $pdf->Image($this->tha->getUrl('/bundles/app/images/blade_diagrams/blade_blueprint_1.jpg'), $x1, $y1, ($x2 - $x1), null);
 //            $pdf->Rect($x1, $y1, ($x2 - $x1), ($y2 - $y1));
 
-            $xQuarter1 = $x1 + 0.25;
-            $xQuarter5 = $x2 - 0.25;
-            $scaleGap = $xQuarter5 - $xQuarter1;
-            $xQuarter2 = $xQuarter1 + ($scaleGap / 4);
-            $xQuarter3 = $xQuarter2 + ($scaleGap / 4);
-            $xQuarter4 = $xQuarter3 + ($scaleGap / 4);
+            $scaleGap  = $this->amdb->getXScaleGap();
+            $xQuarter1 = $this->amdb->getXQ1();
+            $xQuarter2 = $this->amdb->getXQ2();
+            $xQuarter3 = $this->amdb->getXQ3();
+            $xQuarter4 = $this->amdb->getXQ4();
+            $xQuarter5 = $this->amdb->getXQ5();
+            
             $pdf->Line($xQuarter1, $y1, $xQuarter1, $y1 + ($y2 - $y1));
             $pdf->Line($xQuarter2, $y1, $xQuarter2, $y1 + ($y2 - $y1));
             $pdf->Line($xQuarter3, $y1, $xQuarter3, $y1 + ($y2 - $y1));
@@ -247,8 +249,9 @@ class AuditPdfBuilderService
                     $pdf->MultiCell($bladeDamage->getDeltaGapSize($scaleGap), 5, $sKey + 1, 1, 'C', 1, 0, $xQuarter1 + $bladeDamage->getDeltaGap($scaleGap), $y1 + 62.5, true);
                 } else {
                     // One valve {VP, VS}
-                    $pdf->Rect($xQuarter1 + $bladeDamage->getDeltaGap($scaleGap), $y1 + $bladeDamage->getDeltaGapVertical(), $bladeDamage->getDeltaGapSize($scaleGap), 5, 'F');
-                    $pdf->MultiCell($bladeDamage->getDeltaGapSize($scaleGap), 5, $sKey + 1, 1, 'C', 1, 0, $xQuarter1 + $bladeDamage->getDeltaGap($scaleGap), $y1 + $bladeDamage->getDeltaGapVertical(), true);
+                    $pdf->drawDamage($xQuarter1 + $bladeDamage->getDeltaGap($scaleGap),  $y1 + $bladeDamage->getDeltaGapVertical(), $bladeDamage->getDeltaGapSize($scaleGap), $sKey + 1, $bladeDamage->getDamageCategory()->getColour());
+//                    $pdf->Rect($xQuarter1 + $bladeDamage->getDeltaGap($scaleGap), $y1 + $bladeDamage->getDeltaGapVertical(), $bladeDamage->getDeltaGapSize($scaleGap), 5, 'F');
+//                    $pdf->MultiCell($bladeDamage->getDeltaGapSize($scaleGap), 5, $sKey + 1, 1, 'C', 1, 0, $xQuarter1 + $bladeDamage->getDeltaGap($scaleGap), $y1 + $bladeDamage->getDeltaGapVertical(), true);
                 }
             }
             $pdf->setWhiteBackground();
@@ -338,19 +341,6 @@ class AuditPdfBuilderService
         $pdf->Write(0, 'FIBERVENT, S.L.', '', false, 'L', true);
 
         return $pdf;
-    }
-
-    /**
-     * @param CustomTcpdf $pdf
-     * @param float       $x
-     * @param float       $y
-     * @param float       $w
-     * @param string      $txt
-     */
-    private function drawDamage(CustomTcpdf $pdf, $x, $y, $w, $txt)
-    {
-        $pdf->Rect($x, $y, $w, 5, 'F');
-        $pdf->MultiCell($w, 5, $txt, 1, 'C', 1, 0, $x, $y, true);
     }
 
     /**

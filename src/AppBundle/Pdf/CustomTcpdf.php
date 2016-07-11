@@ -118,45 +118,70 @@ class CustomTcpdf extends \TCPDF
         $this->SetFont($font, $style, $size, '', true);
     }
 
+    /**
+     * Set blue text color
+     */
     public function setBlueText()
     {
         $this->SetTextColor($this->colorBlue['red'], $this->colorBlue['green'], $this->colorBlue['blue']);
     }
 
+    /**
+     * Set black text color
+     */
     public function setBlackText()
     {
         $this->SetTextColor(0, 0, 0);
     }
 
+    /**
+     * Set blue background color
+     */
     public function setBlueBackground()
     {
         $this->SetFillColor($this->colorBlueDark['red'], $this->colorBlueDark['green'], $this->colorBlueDark['blue']);
     }
 
+    /**
+     * Set white background color
+     */
     public function setWhiteBackground()
     {
         $this->SetFillColor(255, 255, 255);
     }
-    
+
+    /**
+     * Set background color
+     *
+     * @param string $hex
+     */
     public function setBackgroundHexColor($hex)
     {
         $rgb = $this->hex2rgb($hex);
         $this->SetFillColor($rgb[0], $rgb[1], $rgb[2]);
     }
 
+    /**
+     * Set blue line color
+     */
     public function setBlueLine()
     {
         $this->SetDrawColor($this->colorBlueLight['red'], $this->colorBlueLight['green'], $this->colorBlueLight['blue']);
     }
 
+    /**
+     * Set blue line color
+     */
     public function setBlackLine()
     {
         $this->SetDrawColor(0, 0, 0);
     }
-    
+
+    /**
+     * Draw damage table header
+     */
     public function drawDamageTableHeader()
     {
-        // Cell($w, $h=0, $txt='', $border=0, $ln=0, $align='', $fill=0, $link='', $stretch=0, $ignore_min_height=false, $calign='T', $valign='M')
         $this->setBlueBackground();
         $this->setFontStyle(null, 'B', 9);
         $this->Cell(16, 0, 'DAÑO', 1, 0, 'C', true);
@@ -176,6 +201,12 @@ class CustomTcpdf extends \TCPDF
         $this->setWhiteBackground();
     }
 
+    /**
+     * Draw damage table body row
+     *
+     * @param integer     $key
+     * @param BladeDamage $bladeDamage
+     */
     public function drawDamageTableBodyRow($key, BladeDamage $bladeDamage)
     {
         $this->Cell(7, 0, $key + 1, 1, 0, 'C', true);
@@ -188,6 +219,30 @@ class CustomTcpdf extends \TCPDF
         $this->setBackgroundHexColor($bladeDamage->getDamageCategory()->getColour());
         $this->Cell(0, 0, $bladeDamage->getDamageCategory()->getCategory(), 1, 1, 'C', true);
         $this->setWhiteBackground();
+    }
+
+    /**
+     * Draw damage in diagram
+     *
+     * @param float   $x
+     * @param float   $y
+     * @param float   $w
+     * @param int     $txt
+     * @param string  $hexColor
+     */
+    public function drawDamage($x, $y, $w, $txt, $hexColor)
+    {
+        $this->setBackgroundHexColor($hexColor);
+        $this->Rect($x, $y, $w, 5, 'F');
+        $this->MultiCell($w, 5, $txt, 1, 'C', 1, 0, $x, $y, true);
+    }
+
+    /**
+     * Set available page dimensions
+     */
+    public function setAvailablePageDimension()
+    {
+        $this->availablePageWithDimension = $this->getPageWidth() - self::PDF_MARGIN_LEFT - self::PDF_MARGIN_RIGHT;
     }
 
     /**
@@ -210,10 +265,5 @@ class CustomTcpdf extends \TCPDF
         }
 
         return array($r, $g, $b);
-    }
-
-    public function setAvailablePageDimension()
-    {
-        $this->availablePageWithDimension = $this->getPageWidth() - self::PDF_MARGIN_LEFT - self::PDF_MARGIN_RIGHT;
     }
 }
