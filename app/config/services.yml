@@ -94,6 +94,11 @@ services:
             - "@templating.helper.assets"
             - "@app.damage_category_repository"
             - "@app.blade_damage_repository"
+            - "@app.audit_model_diagram_bridge"
+    app.audit_model_diagram_bridge:
+        class: AppBundle\Service\AuditModelDiagramBridgeService
+#        arguments:
+#            - AppBundle\Entity\Audit
 # Form types
     app.form_type_action_button:
         class: AppBundle\Form\Type\ActionButtonFormType

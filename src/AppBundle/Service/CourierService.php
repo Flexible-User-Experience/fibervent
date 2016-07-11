@@ -14,8 +14,18 @@ use \Swift_Attachment;
  */
 class CourierService
 {
-    /** @var \Swift_Mailer */
+    /**
+     * @var \Swift_Mailer
+     */
     private $mailer;
+
+    /**
+     *
+     *
+     * Methods
+     *
+     *
+     */
 
     /**
      * CourierService constructor
