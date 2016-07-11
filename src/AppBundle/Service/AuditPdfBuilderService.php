@@ -179,17 +179,28 @@ class AuditPdfBuilderService
 //            $gap = $x2 - $x1;
             $pdf->Image($this->tha->getUrl('/bundles/app/images/blade_diagrams/blade_blueprint_1.jpg'), $x1, $y1, null, 78);
 //            $pdf->Rect($x1, $y1, ($x2 - $x1), ($y2 - $y1));
+
             $xQuarter1 = $x1 + 3.5;
             $xQuarter5 = $x2 - 1;
             $scaleGap = $xQuarter5 - $xQuarter1;
             $xQuarter2 = $xQuarter1 + ($scaleGap / 4);
             $xQuarter3 = $xQuarter2 + ($scaleGap / 4);
             $xQuarter4 = $xQuarter3 + ($scaleGap / 4);
-//            $pdf->Line($xQuarter1, $y1, $xQuarter1, $y1 + ($y2 - $y1));
-//            $pdf->Line($xQuarter2, $y1, $xQuarter2, $y1 + ($y2 - $y1));
-//            $pdf->Line($xQuarter3, $y1, $xQuarter3, $y1 + ($y2 - $y1));
-//            $pdf->Line($xQuarter4, $y1, $xQuarter4, $y1 + ($y2 - $y1));
-//            $pdf->Line($xQuarter5, $y1, $xQuarter5, $y1 + ($y2 - $y1));
+            $pdf->Line($xQuarter1, $y1, $xQuarter1, $y1 + ($y2 - $y1));
+            $pdf->Line($xQuarter2, $y1, $xQuarter2, $y1 + ($y2 - $y1));
+            $pdf->Line($xQuarter3, $y1, $xQuarter3, $y1 + ($y2 - $y1));
+            $pdf->Line($xQuarter4, $y1, $xQuarter4, $y1 + ($y2 - $y1));
+            $pdf->Line($xQuarter5, $y1, $xQuarter5, $y1 + ($y2 - $y1));
+
+            $yQuarter1 = $y1 + 9.5;
+            $yQuarter2 = $yQuarter1 + 20.5;
+            $yQuarter3 = $yQuarter2 + 15;
+            $yQuarter4 = $yQuarter3 + 20;
+            $pdf->Line($x1, $yQuarter1, $x2, $yQuarter1);
+            $pdf->Line($x1, $yQuarter2, $x2, $yQuarter2);
+            $pdf->Line($x1, $yQuarter3, $x2, $yQuarter3);
+            $pdf->Line($x1, $yQuarter4, $x2, $yQuarter4);
+
 //            $pdf->Rect($x1 + 3.5, $y1, ($x2 - $x1 - 4.5), ($y2 - $y1));
 //            $pdf->Rect($x1 + 44.5, $y1, ($x2 - $x1), ($y2 - $y1));
             $txt = $auditWindmillBlade->getWindmillBlade()->getWindmill()->getBladeType()->getQ1LengthString();
