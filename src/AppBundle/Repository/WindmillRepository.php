@@ -60,4 +60,41 @@ class WindmillRepository extends EntityRepository
     {
         return $this->findAllSortedByCustomerWindfarmAndWindmillCodeQ($limit, $order)->getResult();
     }
+
+    /**
+     * @param null   $limit
+     * @param string $order
+     *
+     * @return QueryBuilder
+     */
+    public function findEnabledSortedByCustomerWindfarmAndWindmillCodeQB($limit = null, $order = 'ASC')
+    {
+        $query = $this
+            ->findAllSortedByCustomerWindfarmAndWindmillCodeQB($limit, $order)
+            ->where('windmill.enabled = true');
+
+        return $query;
+    }
+
+    /**
+     * @param null   $limit
+     * @param string $order
+     *
+     * @return Query
+     */
+    public function findEnabledSortedByCustomerWindfarmAndWindmillCodeQ($limit = null, $order = 'ASC')
+    {
+        return $this->findEnabledSortedByCustomerWindfarmAndWindmillCodeQB($limit, $order)->getQuery();
+    }
+
+    /**
+     * @param null   $limit
+     * @param string $order
+     *
+     * @return array
+     */
+    public function findEnabledSortedByCustomerWindfarmAndWindmillCode($limit = null, $order = 'ASC')
+    {
+        return $this->findEnabledSortedByCustomerWindfarmAndWindmillCodeQ($limit, $order)->getResult();
+    }
 }

@@ -190,7 +190,7 @@ class AuditAdminController extends AbstractBaseAdminController
         if ($audit->getCustomer()->getEmail()) {
             $availableMails[$audit->getCustomer()->getEmail()] = $audit->getCustomer()->getName() . ' <' . $audit->getCustomer()->getEmail() . '>';
         }
-        if ($audit->getWindfarm()->getManager()) {
+        if ($audit->getWindfarm() && $audit->getWindfarm()->getManager()) {
             $availableMails[$audit->getWindfarm()->getManager()->getEmail()] = $audit->getWindfarm()->getMangerFullname() . ' <' . $audit->getWindfarm()->getManager()->getEmail() . '>';
         }
         if ($audit->getCustomer()) {

@@ -56,14 +56,6 @@ class BladeDamageAdmin extends AbstractBaseAdmin
             )
             ->add(
                 'damage',
-                null,
-                array(
-                    'label'    => 'Codi',
-                    'required' => true,
-                )
-            )
-            ->add(
-                'damage',
                 'sonata_type_model',
                 array(
                     'label'      => 'Codi',
@@ -124,10 +116,13 @@ class BladeDamageAdmin extends AbstractBaseAdmin
             )
             ->add(
                 'damageCategory',
-                null,
+                'sonata_type_model',
                 array(
-                    'label'    => 'Cat.',
-                    'required' => true,
+                    'label'      => 'Cat.',
+                    'btn_add'    => false,
+                    'btn_delete' => false,
+                    'required'   => true,
+                    'query'      => $this->dc->findEnabledSortedByCategoryQ(),
                 )
             )
             ->add(

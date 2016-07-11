@@ -60,13 +60,13 @@ class UserRepository extends EntityRepository
     }
 
     /**
-     * @param Customer     $customer
-     * @param integer|null $limit
-     * @param string       $order
+     * @param Customer|null $customer
+     * @param integer|null  $limit
+     * @param string        $order
      *
      * @return QueryBuilder
      */
-    public function findOnlyAvailableSortedByNameQB(Customer $customer, $limit = null, $order = 'ASC')
+    public function findOnlyAvailableSortedByNameQB($customer, $limit = null, $order = 'ASC')
     {
         $query = $this->findAllSortedByNameQB($limit, $order);
         $query
@@ -78,25 +78,25 @@ class UserRepository extends EntityRepository
     }
 
     /**
-     * @param Customer     $customer
-     * @param integer|null $limit
-     * @param string       $order
+     * @param Customer|null $customer
+     * @param integer|null  $limit
+     * @param string        $order
      *
      * @return Query
      */
-    public function findOnlyAvailableSortedByNameQ(Customer $customer, $limit = null, $order = 'ASC')
+    public function findOnlyAvailableSortedByNameQ($customer, $limit = null, $order = 'ASC')
     {
         return $this->findOnlyAvailableSortedByNameQB($customer, $limit, $order)->getQuery();
     }
 
     /**
-     * @param Customer     $customer
-     * @param integer|null $limit
-     * @param string       $order
+     * @param Customer|null $customer
+     * @param integer|null  $limit
+     * @param string        $order
      *
      * @return array
      */
-    public function findOnlyAvailableSortedByName(Customer $customer, $limit = null, $order = 'ASC')
+    public function findOnlyAvailableSortedByName($customer, $limit = null, $order = 'ASC')
     {
         return $this->findOnlyAvailableSortedByNameQ($customer, $limit, $order)->getResult();
     }
@@ -135,5 +135,47 @@ class UserRepository extends EntityRepository
     public function findAllTechnicinasSortedByName($limit = null, $order = 'ASC')
     {
         return $this->findAllTechnicinasSortedByNameQ($limit, $order)->getResult();
+    }
+
+    /**
+     * @param Customer|null $customer
+     * @param integer|null  $limit
+     * @param string        $order
+     *
+     * @return QueryBuilder
+     */
+    public function findEnabledSortedByNameQB($customer, $limit = null, $order = 'ASC')
+    {
+        $query = $this
+            ->findAllSortedByNameQB($limit, $order)
+            ->where('u.enabled = true AND u.customer IS NULL')
+            ->orWhere('u.enabled = true AND u.customer = :customer')
+            ->setParameter('customer', $customer);
+
+        return $query;
+    }
+
+    /**
+     * @param Customer|null $customer
+     * @param integer|null  $limit
+     * @param string        $order
+     *
+     * @return Query
+     */
+    public function findEnabledSortedByNameQ($customer, $limit = null, $order = 'ASC')
+    {
+        return $this->findEnabledSortedByNameQB($customer, $limit, $order)->getQuery();
+    }
+
+    /**
+     * @param Customer|null $customer
+     * @param integer|null  $limit
+     * @param string        $order
+     *
+     * @return array
+     */
+    public function findEnabledSortedByName($customer, $limit = null, $order = 'ASC')
+    {
+        return $this->findEnabledSortedByNameQ($customer, $limit, $order)->getResult();
     }
 }

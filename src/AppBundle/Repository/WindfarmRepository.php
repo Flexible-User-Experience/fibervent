@@ -58,6 +58,43 @@ class WindfarmRepository extends EntityRepository
     }
 
     /**
+     * @param integer|null $limit
+     * @param string       $order
+     *
+     * @return QueryBuilder
+     */
+    public function findEnabledSortedByNameQB($limit = null, $order = 'ASC')
+    {
+        $query = $this
+            ->findAllSortedByNameQB($limit, $order)
+            ->where('w.enabled = true');
+
+        return $query;
+    }
+
+    /**
+     * @param integer|null $limit
+     * @param string       $order
+     *
+     * @return Query
+     */
+    public function findEnabledSortedByNameQ($limit = null, $order = 'ASC')
+    {
+        return $this->findEnabledSortedByNameQB($limit, $order)->getQuery();
+    }
+
+    /**
+     * @param integer|null $limit
+     * @param string       $order
+     *
+     * @return array
+     */
+    public function findEnabledSortedByName($limit = null, $order = 'ASC')
+    {
+        return $this->findEnabledSortedByNameQ($limit, $order)->getResult();
+    }
+
+    /**
      * @param Customer     $customer
      * @param integer|null $limit
      * @param string       $order
