@@ -116,6 +116,23 @@ class AuditWindmillBladeAdmin extends AbstractBaseAdmin
                         'sortable' => 'number',
                     )
                 )
+                ->end()
+                ->with('Observacions · Pala ' . $text, $this->getFormMdSuccessBoxArray(12))
+                ->add(
+                    'observations',
+                    'sonata_type_collection',
+                    array(
+                        'label'              => 'Observacions',
+                        'required'           => true,
+                        'cascade_validation' => true,
+                        'error_bubbling'     => true,
+                    ),
+                    array(
+                        'edit'     => 'inline',
+                        'inline'   => 'table',
+                        'sortable' => 'position',
+                    )
+                )
                 ->end();
         }
     }

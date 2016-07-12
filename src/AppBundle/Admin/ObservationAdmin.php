@@ -4,21 +4,22 @@ namespace AppBundle\Admin;
 
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 /**
- * Class BladePhotoAdmin
+ * Class ObservationAdmin
  *
  * @category Admin
  * @package  AppBundle\Admin
- * @author   Anton Serra <aserratorta@gmail.com>
+ * @author   David Romaní <david@flux.cat>
  */
-class BladePhotoAdmin extends AbstractBaseAdmin
+class ObservationAdmin extends AbstractBaseAdmin
 {
     protected $maxPerPage = 50;
-    protected $classnameLabel = 'Foto Pala';
-    protected $baseRoutePattern = 'audits/blade-photo';
+    protected $classnameLabel = 'Observacions Danys Pala';
+    protected $baseRoutePattern = 'audits/observation';
     protected $datagridValues = array(
-        '_sort_by'    => 'imageName',
+        '_sort_by'    => 'position',
         '_sort_order' => 'asc',
     );
 
@@ -51,13 +52,30 @@ class BladePhotoAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'imageFile',
-                'file',
+                'position',
+                null,
                 array(
-                    'label'       => 'Foto',
-                    'help'        => $this->getImageHelperFormMapperWithThumbnail(),
-                    'sonata_help' => $this->getImageHelperFormMapperWithThumbnail(),
-                    'required'    => false,
+                    'label'    => 'Ordre',
+                    'required' => false,
+                )
+            )
+            ->add(
+                'damageNumber',
+                null,
+                array(
+                    'label'    => 'Número Dany',
+                    'required' => true,
+                )
+            )
+            ->add(
+                'observations',
+                TextareaType::class,
+                array(
+                    'label'    => 'Observacions',
+                    'required' => true,
+                    'attr'     => array(
+                        'rows' => 5,
+                    )
                 )
             )
             ->end();
