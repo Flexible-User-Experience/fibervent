@@ -181,7 +181,6 @@ class AuditModelDiagramBridgeService
     public function calculateMaxFunctionYPoint(Blade $blade)
     {
         $maxY = 0;
-//        $factor = $this->yCalculateMaxFactor($blade) / 10;
         for ($x = 0; $x <= $blade->getLength(); $x = $x + 0.5) {
             $val = $this->isolatedDeltaY($x);
             if ($maxY < $val) {
@@ -232,24 +231,29 @@ class AuditModelDiagramBridgeService
             if ($bladeDamage->getPosition() == BladeDamagePositionEnum::VALVE_PRESSURE) {
                 // Valve pressure
                 $gap = $this->yQ2 - $this->yCalculateFactor($bladeDamage) - self::GAP_SQUARE_SIZE;
+
             } elseif ($bladeDamage->getPosition() == BladeDamagePositionEnum::VALVE_SUCTION) {
                 // Valve suction
                 $gap = $this->yQ3 + $this->yCalculateFactor($bladeDamage) - self::GAP_SQUARE_HALF_SIZE;
             }
+
         } elseif ($bladeDamage->getEdge() == BladeDamageEdgeEnum::EDGE_OUT) {
             // Edge out
             if ($bladeDamage->getPosition() == BladeDamagePositionEnum::VALVE_PRESSURE) {
                 // Valve pressure
                 $gap = $this->yQ2 - $this->yCalculateFactorEdgeOut($bladeDamage) - self::GAP_SQUARE_SIZE;
+
             } elseif ($bladeDamage->getPosition() == BladeDamagePositionEnum::VALVE_SUCTION) {
                 // Valve suction
                 $gap = $this->yQ3 + $this->yCalculateFactorEdgeOut($bladeDamage);
             }
+
         } elseif ($bladeDamage->getEdge() == BladeDamageEdgeEnum::EDGE_UNDEFINED) {
             // No edge -> check valve position
             if ($bladeDamage->getPosition() == BladeDamagePositionEnum::EDGE_IN) {
                 // Edge in
                 $gap = $this->getYQ2() - self::GAP_SQUARE_SIZE;
+
             } elseif ($bladeDamage->getPosition() == BladeDamagePositionEnum::EDGE_OUT) {
                 // Edge out
                 $gap = $this->yQ3 + $this->yCalculateFactorEdgeOut($bladeDamage, $inversed);
@@ -282,10 +286,6 @@ class AuditModelDiagramBridgeService
         $valve = ($pow * $this->getYScaleGap()) / $this->getMaxFunctionYPoint();
 
         return $inversed * ($valve - (((($bladeDamage->getDistance() / 100)) * $this->getYScaleGap()) / $this->getMaxFunctionYPoint()));
-
-//        return ($pow * $this->getYScaleGap()) / $this->getMaxFunctionYPoint();
-//        return -4 * ($this->isolatedDeltaY($bladeDamage->getAuditWindmillBlade()->getWindmillBlade()->getWindmill()->getBladeType()->getLength(), $bladeDamage->getRadius()));
-        //return -1 * ($this->deltaY($bladeDamage) + (($bladeDamage->getDistance() / 100)  * $this->getYScaleGap()) / $this->getMaxFunctionYPoint());
     }
 
     /**
@@ -297,16 +297,6 @@ class AuditModelDiagramBridgeService
     {
         return (((1 / 30) * $blade->getLength()) + (4 / 3)) * 100;
     }
-
-//    /**
-//     * @param BladeDamage $bladeDamage
-//     *
-//     * @return float
-//     */
-//    public function deltaY(BladeDamage $bladeDamage)
-//    {
-//        return $this->isolatedDeltaY($this->yCalculateMaxFactor($bladeDamage->getAuditWindmillBlade()->getWindmillBlade()->getWindmill()->getBladeType()) / 10, $bladeDamage->getRadius());
-//    }
 
     /**
      * @param float $x
@@ -320,7 +310,6 @@ class AuditModelDiagramBridgeService
         $base = pow(M_E, (pow((0.7 * pow($factor, 1.5) - 0.4), 2) * -1)) * $n * 0.07;
         $bladeBase = (atan((pow($factor, 3) - pow($factor, 2) * 0.5)) / ($factor + 3)) * $n * 0.4;
 
-//        return -pow(0.000002 * $x, 5) + pow(0.0008 * $x, 4) - pow(0.0158 * $x, 3) + pow(0.1064 * $x, 2) - (0.1265 * $x) + 1.3258;
         return $bladeBase + $base;
     }
 
