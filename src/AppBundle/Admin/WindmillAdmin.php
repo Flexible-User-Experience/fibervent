@@ -51,7 +51,7 @@ class WindmillAdmin extends AbstractBaseAdmin
                     'label'    => 'Parc Eòlic',
                     'btn_add'  => false,
                     'required' => true,
-                    'query'    => $this->wfr->findAllSortedByNameQ()
+                    'query'    => $this->wfr->findEnabledSortedByNameQ()
                 )
             )
             ->add(

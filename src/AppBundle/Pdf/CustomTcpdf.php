@@ -233,7 +233,7 @@ class CustomTcpdf extends \TCPDF
     public function drawDamage($x, $y, $w, $txt, $hexColor)
     {
         $this->setBackgroundHexColor($hexColor);
-        $this->Rect($x, $y, $w, 5, 'F');
+        $this->Rect($x, $y, $w, 5, 'DF', array('all' => array('width' => 0.25, 'cap' => 'butt', 'join' => 'miter', 'dash' => 0, 'color' => array(0, 0, 0))));
         $this->MultiCell($w, 5, $txt, 1, 'C', 1, 0, $x, $y - 0.25, true);
     }
 

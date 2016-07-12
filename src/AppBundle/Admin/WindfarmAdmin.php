@@ -43,6 +43,11 @@ class WindfarmAdmin extends AbstractBaseAdmin
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
+        $customer = null;
+        if ($this->getSubject() != null) {
+            $customer = $this->getSubject()->getCustomer();
+        }
+
         $formMapper
             ->with('General', $this->getFormMdSuccessBoxArray(4))
             ->add(
@@ -53,7 +58,7 @@ class WindfarmAdmin extends AbstractBaseAdmin
                     'required'     => true,
                     'multiple'     => false,
                     'btn_add'      => false,
-                    'query'        => $this->cr->findAllSortedByNameQ(),
+                    'query'        => $this->cr->findEnabledSortedByNameQ(),
                 )
             )
             ->add(
@@ -123,7 +128,7 @@ class WindfarmAdmin extends AbstractBaseAdmin
                     'btn_delete' => false,
                     'required'   => false,
                     'property'   => 'contactInfoString',
-                    'query'      => $this->ur->findAllSortedByNameQ(),
+                    'query'      => $this->ur->findEnabledSortedByNameQ($customer),
                 )
             )
             ->add(

@@ -164,6 +164,7 @@ class AuditPdfBuilderService
         // Audit description with windmill image schema
         $pdf->Image($this->tha->getUrl('/bundles/app/images/tubrine_diagrams/' . $audit->getDiagramType() . '.jpg'), CustomTcpdf::PDF_MARGIN_LEFT + 50, $pdf->GetY(), null, 40);
         $pdf->AddPage();
+        $this->amdb->calculateMaxFunctionYPoint($audit->getWindmill()->getBladeType());
         // Damages section
         /** @var AuditWindmillBlade $auditWindmillBlade */
         foreach ($audit->getAuditWindmillBlades() as $key => $auditWindmillBlade) {
@@ -193,6 +194,7 @@ class AuditPdfBuilderService
 //            $y2 = $this->amdb->getY2();
 //            $bladeGap = 40;
 //            $gap = $x2 - $x1;
+
             $pdf->Image($this->tha->getUrl('/bundles/app/images/blade_diagrams/blade_blueprint_1.jpg'), $x1, $y1, ($x2 - $x1), null);
 //            $pdf->Rect($x1, $y1, ($x2 - $x1), ($y2 - $y1));
 
@@ -238,8 +240,8 @@ class AuditPdfBuilderService
                     $pdf->drawDamage($this->amdb->getGapX($bladeDamage), $this->amdb->getYQ3(), $this->amdb->getGapXSize($bladeDamage), $sKey + 1, $bladeDamage->getDamageCategory()->getColour());
                 } elseif ($bladeDamage->getPosition() == BladeDamagePositionEnum::EDGE_OUT) {
                     // Both Valves {BS}
-                    $pdf->drawDamage($this->amdb->getGapX($bladeDamage), $this->amdb->getYQ1(), $this->amdb->getGapXSize($bladeDamage), $sKey + 1, $bladeDamage->getDamageCategory()->getColour());
-                    $pdf->drawDamage($this->amdb->getGapX($bladeDamage), $this->amdb->getYQ4() - AuditModelDiagramBridgeService::GAP_SQUARE_SIZE, $this->amdb->getGapXSize($bladeDamage), $sKey + 1, $bladeDamage->getDamageCategory()->getColour());
+                    $pdf->drawDamage($this->amdb->getGapX($bladeDamage), $this->amdb->getGapY($bladeDamage), $this->amdb->getGapXSize($bladeDamage), $sKey + 1, $bladeDamage->getDamageCategory()->getColour());
+                    $pdf->drawDamage($this->amdb->getGapX($bladeDamage), $this->amdb->getGapY($bladeDamage, -1) - $this->amdb->getYScaleGap() - AuditModelDiagramBridgeService::GAP_SQUARE_HALF_SIZE , $this->amdb->getGapXSize($bladeDamage), $sKey + 1, $bladeDamage->getDamageCategory()->getColour());
                 } else {
                     // One valve {VP, VS}
                     $pdf->drawDamage($this->amdb->getGapX($bladeDamage), $this->amdb->getGapY($bladeDamage), $this->amdb->getGapXSize($bladeDamage), $sKey + 1, $bladeDamage->getDamageCategory()->getColour());

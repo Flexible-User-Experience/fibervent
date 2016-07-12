@@ -55,4 +55,41 @@ class DamageCategoryRepository extends EntityRepository
     {
         return $this->findAllSortedByCategoryQ($limit, $order)->getResult();
     }
+
+    /**
+     * @param int|null $limit
+     * @param string   $order
+     *
+     * @return QueryBuilder
+     */
+    public function findEnabledSortedByCategoryQB($limit = null, $order = 'ASC')
+    {
+        $query = $this
+            ->findAllSortedByCategoryQB($limit, $order)
+            ->where('dc.enabled = true');
+
+        return $query;
+    }
+
+    /**
+     * @param int|null $limit
+     * @param string   $order
+     *
+     * @return Query
+     */
+    public function findEnabledSortedByCategoryQ($limit = null, $order = 'ASC')
+    {
+        return $this->findEnabledSortedByCategoryQB($limit, $order)->getQuery();
+    }
+
+    /**
+     * @param int|null $limit
+     * @param string   $order
+     *
+     * @return array
+     */
+    public function findEnabledSortedByCategory($limit = null, $order = 'ASC')
+    {
+        return $this->findEnabledSortedByCategoryQ($limit, $order)->getResult();
+    }
 }

@@ -2666,32 +2666,33 @@
         },
         {
             "name": "nelmio/alice",
-            "version": "2.1.4",
+            "version": "2.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nelmio/alice.git",
-                "reference": "c8cb3413ab5d1fa76ee84296dafe356b0c703014"
+                "reference": "11de5826323f1fe530a2dd2f50fffcb300b1af75"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nelmio/alice/zipball/c8cb3413ab5d1fa76ee84296dafe356b0c703014",
-                "reference": "c8cb3413ab5d1fa76ee84296dafe356b0c703014",
+                "url": "https://api.github.com/repos/nelmio/alice/zipball/11de5826323f1fe530a2dd2f50fffcb300b1af75",
+                "reference": "11de5826323f1fe530a2dd2f50fffcb300b1af75",
                 "shasum": ""
             },
             "require": {
-                "fzaninotto/faker": "~1.0",
-                "php": ">=5.4",
-                "symfony/yaml": "~2.0|~3.0"
+                "fzaninotto/faker": "^1.0",
+                "php": "^5.6||^7.0",
+                "symfony/yaml": "^2.0||^3.0"
             },
             "require-dev": {
-                "doctrine/common": "~2.3",
-                "phpunit/phpunit": "~4.0",
-                "symfony/property-access": "~2.2|~3.0"
+                "doctrine/common": "^2.3",
+                "phpunit/phpunit": "^5.0||^4.0",
+                "symfony/phpunit-bridge": "^3.0",
+                "symfony/property-access": "^2.2||^3.0"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.0.x-dev"
+                    "dev-master": "3.0.x-dev"
                 }
             },
             "autoload": {
@@ -2711,6 +2712,10 @@
                 {
                     "name": "Tim Shelburne",
                     "email": "shelburt02@gmail.com"
+                },
+                {
+                    "name": "Théo FIDRY",
+                    "email": "theo.fidry@gmail.com"
                 }
             ],
             "description": "Expressive fixtures generator",
@@ -2720,7 +2725,7 @@
                 "orm",
                 "test"
             ],
-            "time": "2016-01-07 14:44:47"
+            "time": "2016-07-11 10:42:26"
         },
         {
             "name": "nelmio/api-doc-bundle",
@@ -3354,16 +3359,16 @@
         },
         {
             "name": "sonata-project/block-bundle",
-            "version": "3.0.1",
+            "version": "3.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataBlockBundle.git",
-                "reference": "7649e8b1b1d3593c882c21ba3659f22c6bcbdb06"
+                "reference": "0f1429c0a4b8c520ef0df01c9eeb47651502e58f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataBlockBundle/zipball/7649e8b1b1d3593c882c21ba3659f22c6bcbdb06",
-                "reference": "7649e8b1b1d3593c882c21ba3659f22c6bcbdb06",
+                "url": "https://api.github.com/repos/sonata-project/SonataBlockBundle/zipball/0f1429c0a4b8c520ef0df01c9eeb47651502e58f",
+                "reference": "0f1429c0a4b8c520ef0df01c9eeb47651502e58f",
                 "shasum": ""
             },
             "require": {
@@ -3394,6 +3399,9 @@
                 "psr-4": {
                     "Sonata\\BlockBundle\\": ""
                 },
+                "exclude-from-classmap": [
+                    "Tests/"
+                ],
                 "files": [
                     "Resources/stubs/symfony2.php"
                 ]
@@ -3419,7 +3427,7 @@
                 "block",
                 "sonata"
             ],
-            "time": "2016-06-14 12:28:03"
+            "time": "2016-07-12 08:02:01"
         },
         {
             "name": "sonata-project/cache",
