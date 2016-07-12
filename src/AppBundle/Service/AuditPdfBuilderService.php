@@ -238,12 +238,12 @@ class AuditPdfBuilderService
                 if ($bladeDamage->getPosition() == BladeDamagePositionEnum::EDGE_IN) {
                     // Both Valves {BA} · Double draw
                     $pdf->drawDamage($this->amdb->getGapX($bladeDamage), $this->amdb->getYQ2() - AuditModelDiagramBridgeService::GAP_SQUARE_HALF_SIZE, $this->amdb->getGapXSize($bladeDamage), $sKey + 1, $bladeDamage->getDamageCategory()->getColour());
-                    $pdf->drawDamage($this->amdb->getGapX($bladeDamage), $this->amdb->getYQ3(), $this->amdb->getGapXSize($bladeDamage), $sKey + 1, $bladeDamage->getDamageCategory()->getColour());
+                    $pdf->drawDamage($this->amdb->getGapX($bladeDamage), $this->amdb->getYQ3() -  AuditModelDiagramBridgeService::GAP_SQUARE_HALF_SIZE, $this->amdb->getGapXSize($bladeDamage), $sKey + 1, $bladeDamage->getDamageCategory()->getColour());
                     
                 } elseif ($bladeDamage->getPosition() == BladeDamagePositionEnum::EDGE_OUT) {
                     // Both Valves {BS} · Double draw
                     $pdf->drawDamage($this->amdb->getGapX($bladeDamage), $this->amdb->getGapY($bladeDamage), $this->amdb->getGapXSize($bladeDamage), $sKey + 1, $bladeDamage->getDamageCategory()->getColour());
-                    $pdf->drawDamage($this->amdb->getGapX($bladeDamage), $this->amdb->getGapY($bladeDamage, -1) - $this->amdb->getYScaleGap() - AuditModelDiagramBridgeService::GAP_SQUARE_HALF_SIZE , $this->amdb->getGapXSize($bladeDamage), $sKey + 1, $bladeDamage->getDamageCategory()->getColour());
+                    $pdf->drawDamage($this->amdb->getGapX($bladeDamage), $this->amdb->getGapY($bladeDamage, -1) - $this->amdb->getYScaleGap() - AuditModelDiagramBridgeService::GAP_SQUARE_SIZE, $this->amdb->getGapXSize($bladeDamage), $sKey + 1, $bladeDamage->getDamageCategory()->getColour());
                     
                 } else {
                     // One valve {VP, VS}

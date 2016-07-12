@@ -241,11 +241,11 @@ class AuditModelDiagramBridgeService
             // Edge out
             if ($bladeDamage->getPosition() == BladeDamagePositionEnum::VALVE_PRESSURE) {
                 // Valve pressure
-                $gap = $this->yQ2 - $this->yCalculateFactorEdgeOut($bladeDamage) - self::GAP_SQUARE_SIZE;
+                $gap = $this->yQ2 - $this->yCalculateFactorEdgeOut($bladeDamage) - self::GAP_SQUARE_HALF_SIZE;
 
             } elseif ($bladeDamage->getPosition() == BladeDamagePositionEnum::VALVE_SUCTION) {
                 // Valve suction
-                $gap = $this->yQ3 + $this->yCalculateFactorEdgeOut($bladeDamage);
+                $gap = $this->yQ3 + $this->yCalculateFactorEdgeOut($bladeDamage) - self::GAP_SQUARE_HALF_SIZE;
             }
 
         } elseif ($bladeDamage->getEdge() == BladeDamageEdgeEnum::EDGE_UNDEFINED) {
