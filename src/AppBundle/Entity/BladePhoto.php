@@ -30,7 +30,7 @@ class BladePhoto extends AbstractBase
     /**
      * @var File
      *
-     * @Vich\UploadableField(mapping="image", fileNameProperty="imageName")
+     * @Vich\UploadableField(mapping="blade", fileNameProperty="imageName")
      * @Assert\File(
      *     maxSize = "10M",
      *     mimeTypes = {"image/jpg", "image/jpeg", "image/png", "image/gif"}
