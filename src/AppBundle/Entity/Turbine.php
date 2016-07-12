@@ -18,6 +18,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="AppBundle\Repository\TurbineRepository")
+ * @Gedmo\SoftDeleteable(fieldName="removedAt", timeAware=false)
  */
 class Turbine extends AbstractBase
 {
@@ -34,7 +35,7 @@ class Turbine extends AbstractBase
     /**
      * @var integer
      *
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="float", precision=2)
      */
     private $rotorDiameter;
 
@@ -126,6 +127,6 @@ class Turbine extends AbstractBase
      */
     public function __toString()
     {
-        return $this->getModel() ? $this->getModel() . ' (' . $this->getPower() . ')' : '---';
+        return $this->getModel() ? $this->getModel() . ' (' . $this->getPower() . 'MW)' : '---';
     }
 }

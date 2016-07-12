@@ -18,10 +18,34 @@ liip_imagine:
           web_path: ~
     filter_sets:
         cache: ~
+        960x540:
+            quality: 80
+            filters:
+                thumbnail: { size: [ 960, 540 ], mode: outbound }
         480xY:
-            quality: 95
+            quality: 90
             filters:
                 thumbnail: { size: [ 480, null ], mode: outbound }
+        480x270:
+            quality: 95
+            filters:
+                thumbnail: { size: [ 480, 270 ], mode: outbound }
+        342x342:
+            quality: 95
+            filters:
+                thumbnail: { size: [ 342, 342 ], mode: outbound }
+        252x184:
+            quality: 100
+            filters:
+                thumbnail: { size: [ 252, 184 ], mode: outbound }
+        168x123:
+            quality: 100
+            filters:
+                thumbnail: { size: [ 168, 123 ], mode: outbound }
+        128x128:
+            quality: 100
+            filters:
+                thumbnail: { size: [ 128, 128 ], mode: outbound }
         60x60:
             quality: 100
             filters:

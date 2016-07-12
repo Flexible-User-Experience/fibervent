@@ -5,7 +5,6 @@ namespace AppBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
-use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Intl\Intl;
 
 /**
@@ -17,6 +16,7 @@ use Symfony\Component\Intl\Intl;
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="AppBundle\Repository\StateRepository")
+ * @Gedmo\SoftDeleteable(fieldName="removedAt", timeAware=false)
  */
 class State extends AbstractBase
 {

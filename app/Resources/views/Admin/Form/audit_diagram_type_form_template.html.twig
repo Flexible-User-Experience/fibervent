@@ -1,0 +1,20 @@
+{% block audit_diagram_type_widget %}
+    {% spaceless %}
+        {#{% if expanded %}#}
+        {#X#}
+        <ul  class="list-inline">
+            {% for child in form %}
+                <li>
+                    <img class="media-object" src="{{ asset('bundles/app/images/tubrine_diagrams/' ~ loop.index ~ '.jpg') | imagine_filter('168x123') }}" alt="...">
+                    {{ form_widget(child) }}
+                    {{ form_label(child) }}
+                </li>
+            {% endfor %}
+        </ul>
+        {#{% else %}#}
+            {#Y#}
+             {#just let the choice widget render the select tag #}
+            {#{{ block('choice_widget') }}#}
+        {#{% endif %}#}
+    {% endspaceless %}
+{% endblock %}

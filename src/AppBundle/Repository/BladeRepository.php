@@ -16,8 +16,8 @@ use Doctrine\ORM\QueryBuilder;
 class BladeRepository extends EntityRepository
 {
     /**
-     * @param null   $limit
-     * @param string $order
+     * @param int|null $limit
+     * @param string   $order
      *
      * @return QueryBuilder
      */
@@ -25,8 +25,7 @@ class BladeRepository extends EntityRepository
     {
         $query = $this
             ->createQueryBuilder('b')
-            ->orderBy('b.model', $order)
-            ->addOrderBy('b.model', $order);
+            ->orderBy('b.model', $order);
 
         if (!is_null($limit)) {
             $query->setMaxResults($limit);
@@ -36,8 +35,8 @@ class BladeRepository extends EntityRepository
     }
 
     /**
-     * @param null   $limit
-     * @param string $order
+     * @param int|null $limit
+     * @param string   $order
      *
      * @return Query
      */
@@ -47,8 +46,8 @@ class BladeRepository extends EntityRepository
     }
 
     /**
-     * @param null   $limit
-     * @param string $order
+     * @param int|null $limit
+     * @param string   $order
      *
      * @return array
      */

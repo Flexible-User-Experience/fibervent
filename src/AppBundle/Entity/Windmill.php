@@ -16,9 +16,9 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @package  AppBundle\Entity
  * @author   Anton Serra <aserratorta@gmail.com>
  *
- * @ORM\Table()
+ * @ORM\Table(uniqueConstraints={@ORM\UniqueConstraint(name="windfarm_code_unique", columns={"windfarm_id", "code"})})
  * @ORM\Entity(repositoryClass="AppBundle\Repository\WindmillRepository")
- * @UniqueEntity("code")
+ * @Gedmo\SoftDeleteable(fieldName="removedAt", timeAware=false)
  */
 class Windmill extends AbstractBase
 {
@@ -28,7 +28,7 @@ class Windmill extends AbstractBase
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=255, unique=true)
+     * @ORM\Column(type="string", length=255)
      */
     private $code;
 

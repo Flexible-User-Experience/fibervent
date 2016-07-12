@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Entity\Traits\RemovedAtTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
@@ -14,6 +15,8 @@ use Gedmo\Mapping\Annotation as Gedmo;
  */
 abstract class AbstractBase
 {
+    use RemovedAtTrait;
+
     /**
      * @var integer
      *
@@ -38,13 +41,6 @@ abstract class AbstractBase
      * @Gedmo\Timestampable(on="update")
      */
     protected $updatedAt;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(type="datetime", nullable = true)
-     */
-    protected $removedAt;
 
     /**
      * @var boolean
@@ -117,52 +113,6 @@ abstract class AbstractBase
     public function getUpdatedAt()
     {
         return $this->updatedAt;
-    }
-
-    /**
-     * Set removedAt
-     *
-     * @param \DateTime $removedAt
-     *
-     * @return $this
-     */
-    public function setRemovedAt(\DateTime $removedAt)
-    {
-        $this->removedAt = $removedAt;
-
-        return $this;
-    }
-
-    /**
-     * Get removedAt
-     *
-     * @return \DateTime
-     */
-    public function getRemovedAt()
-    {
-        return $this->removedAt;
-    }
-
-    /**
-     * Remove (soft delete)
-     *
-     * @return $this
-     */
-    public function remove()
-    {
-        $this->setRemovedAt(new \DateTime());
-
-        return $this;
-    }
-
-    /**
-     * Is deleted?
-     *
-     * @return bool
-     */
-    public function isDeleted()
-    {
-        return $this->removedAt !== null;
     }
 
     /**

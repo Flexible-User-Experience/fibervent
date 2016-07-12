@@ -20,11 +20,11 @@
             <script type="text/javascript" src="{{ asset('bundles/ohgooglemapformtype/js/jquery.ohgooglemaps.js') }}"></script>
         {% endblock %}
         {% block oh_google_maps_javascript %}
-        {% block oh_google_maps_callback %}
-            <script type="text/javascript">
-                var oh_google_maps_callback = function(location, gmap) { /* your callback function here */ }
-            </script>
-        {% endblock %}
+            {% block oh_google_maps_callback %}
+                <script type="text/javascript">
+                    var oh_google_maps_callback = function(location, gmap) { {#/* your callback function here */#} }
+                </script>
+            {% endblock %}
             <script type="text/javascript">
                 jQuery(document).ready(function() {
                     jQuery('#{{ id }}_map_canvas').ohGoogleMapType({
@@ -39,8 +39,8 @@
                         'lng_field'          : $('#{{ attribute(form, lng_name).vars.id }}'),
                         'callback'           : oh_google_maps_callback
                     });
-                    jQuery('#{{ id }}_lat').prop('readonly', true);
-                    jQuery('#{{ id }}_lng').prop('readonly', true);
+                    {#jQuery('#{{ id }}_lat').prop('readonly', true);#}
+                    {#jQuery('#{{ id }}_lng').prop('readonly', true);#}
                 });
             </script>
         {% endblock %}

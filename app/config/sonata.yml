@@ -5,6 +5,7 @@ sonata_block:
         sonata.admin.block.admin_list:  ~
         sonata.user.block.menu:         ~
         sonata.block.service.text:      ~
+        admin.block.audits:             ~
 
 # User
 sonata_user:
@@ -39,10 +40,10 @@ sonata_admin:
                 label: "Clients"
             Parc_Eolic:
                 icon:  "<i class='fa fa-recycle' aria-hidden='true'></i>"
-                label: "Parc Eòlics"
+                label: "Parcs Eòlics"
             Auditoria:
                 icon:  "<i class='fa fa-list-alt' aria-hidden='true'></i>"
-                label: "Auditories"
+                label: "Inspeccions"
         blocks:
             -
                 position: top
@@ -69,6 +70,11 @@ sonata_admin:
                 class: col-md-6
                 settings:
                     groups: [ Auditoria ]
+            -
+                position: top
+                type: admin.block.audits
+                class: col-md-6
+                roles: [ ROLE_OPERATOR ]
             -
                 position: bottom
                 type: sonata.block.service.text

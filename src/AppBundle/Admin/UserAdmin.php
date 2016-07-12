@@ -13,7 +13,6 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
-use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * Class UserAdmin
@@ -57,9 +56,12 @@ class UserAdmin extends ParentUserAdmin
      */
     protected function configureRoutes(RouteCollection $collection)
     {
-        $collection->remove('batch');
-        $collection->remove('export');
-        $collection->remove('show');
+        $collection
+            ->add('profile')
+            ->remove('batch')
+            ->remove('delete')
+            ->remove('export')
+            ->remove('show');
     }
 
     /**
@@ -100,6 +102,21 @@ class UserAdmin extends ParentUserAdmin
                 )
             )
             ->add(
+                'email',
+                EmailType::class,
+                array(
+                    'label' => 'Correu Electrònic',
+                )
+            )
+            ->add(
+                'plainPassword',
+                PasswordType::class,
+                array(
+                    'label'    => 'Password',
+                    'required' => (!$this->getSubject() || is_null($this->getSubject()->getId()))
+                )
+            )
+            ->add(
                 'firstname',
                 null,
                 array(
@@ -116,25 +133,10 @@ class UserAdmin extends ParentUserAdmin
                 )
             )
             ->add(
-                'email',
-                EmailType::class,
-                array(
-                    'label' => 'Correu Electrònic',
-                )
-            )
-            ->add(
                 'phone',
                 null,
                 array(
                     'label' => 'Telèfon',
-                )
-            )
-            ->add(
-                'plainPassword',
-                PasswordType::class,
-                array(
-                    'label'    => 'Password',
-                    'required' => (!$this->getSubject() || is_null($this->getSubject()->getId()))
                 )
             )
             ->end()
@@ -317,7 +319,6 @@ class UserAdmin extends ParentUserAdmin
                     'label'   => 'Accions',
                     'actions' => array(
                         'edit'   => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
-                        'delete' => array('template' => '::Admin/Buttons/list__action_delete_button.html.twig'),
                     ),
                 )
             );

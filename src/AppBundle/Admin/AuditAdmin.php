@@ -4,7 +4,10 @@ namespace AppBundle\Admin;
 
 use AppBundle\Entity\Audit;
 use AppBundle\Entity\AuditWindmillBlade;
+use AppBundle\Enum\AuditDiagramTypeEnum;
 use AppBundle\Enum\AuditStatusEnum;
+use AppBundle\Form\Type\AuditDiagramTypeFormType;
+use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
@@ -21,7 +24,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
  */
 class AuditAdmin extends AbstractBaseAdmin
 {
-    protected $classnameLabel = 'Auditoria';
+    protected $classnameLabel = 'Inspecció';
     protected $baseRoutePattern = 'audits/audit';
     protected $datagridValues = array(
         '_sort_by'    => 'beginDate',
@@ -42,6 +45,27 @@ class AuditAdmin extends AbstractBaseAdmin
     }
 
     /**
+     * Override query list to reduce queries amount on list view (apply join strategy)
+     *
+     * @param string $context context
+     *
+     * @return QueryBuilder
+     */
+    public function createQuery($context = 'list')
+    {
+        /** @var QueryBuilder $query */
+        $query = parent::createQuery($context);
+        $query
+            ->select($query->getRootAliases()[0] . ', wm, wf, c, u')
+            ->join($query->getRootAliases()[0] . '.windmill', 'wm')
+            ->join('wm.windfarm', 'wf')
+            ->join('wf.customer', 'c')
+            ->leftJoin($query->getRootAliases()[0] . '.operators', 'u');
+
+        return $query;
+    }
+
+    /**
      * @param FormMapper $formMapper
      */
     protected function configureFormFields(FormMapper $formMapper)
@@ -50,29 +74,13 @@ class AuditAdmin extends AbstractBaseAdmin
             ->with('General', $this->getFormMdSuccessBoxArray(7))
             ->add(
                 'windmill',
-                null,
+                'sonata_type_model',
                 array(
-                    'label'    => 'Aerogenerador',
-                    'required' => true,
-                )
-            )
-            ->add(
-                'type',
-                null,
-                array(
-                    'label'    => 'Tipus',
-                    'required' => false,
-                )
-            )
-            ->add(
-                'tools',
-                TextareaType::class,
-                array(
-                    'label'    => 'Eines',
-                    'required' => false,
-                    'attr'     => array(
-                        'rows' => 8,
-                    )
+                    'label'      => 'Aerogenerador',
+                    'btn_add'    => false,
+                    'btn_delete' => false,
+                    'required'   => true,
+                    'query'      => $this->wmr->findEnabledSortedByCustomerWindfarmAndWindmillCodeQ(),
                 )
             )
             ->add(
@@ -107,11 +115,15 @@ class AuditAdmin extends AbstractBaseAdmin
             )
             ->add(
                 'operators',
-                null,
+                'sonata_type_model',
                 array(
-                    'label'    => 'Tècnics Inspecció',
-                    'multiple' => true,
-                    'required' => false,
+                    'label'      => 'Tècnics Inspecció',
+                    'multiple'   => true,
+                    'required'   => false,
+                    'btn_add'    => false,
+                    'btn_delete' => false,
+                    'property'   => 'contactInfoString',
+                    'query'      => $this->ur->findAllTechnicinasSortedByNameQ(),
                 )
             )
             ->add(
@@ -125,10 +137,23 @@ class AuditAdmin extends AbstractBaseAdmin
                     'required' => true,
                 )
             )
+            ->end()
+            ->with('Diagrama de pales', $this->getFormMdSuccessBoxArray(12))
+            ->add(
+                'diagramType',
+                AuditDiagramTypeFormType::class,
+                array(
+                    'label'    => 'Tipus',
+                    'choices'  => AuditDiagramTypeEnum::getEnumArray(),
+                    'multiple' => false,
+                    'expanded' => true,
+                    'required' => true,
+                )
+            )
             ->end();
         if ($this->id($this->getSubject())) { // is edit mode, disable on new subjects
             $formMapper
-                ->with('Pales auditades', $this->getFormMdSuccessBoxArray(5))
+                ->with('Pales inspeccionades', $this->getFormMdSuccessBoxArray(12))
                 ->add(
                     'auditWindmillBlades',
                     'sonata_type_collection',
@@ -214,17 +239,16 @@ class AuditAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'type',
+                'diagramType',
                 null,
                 array(
-                    'label' => 'Tipus',
-                )
-            )
-            ->add(
-                'tools',
-                null,
+                    'label' => 'Tipus de diagrama',
+                ),
+                'choice',
                 array(
-                    'label' => 'Eines',
+                    'expanded' => false,
+                    'multiple' => false,
+                    'choices'  => AuditDiagramTypeEnum::getEnumArray(),
                 )
             )
             ->add(
@@ -255,22 +279,33 @@ class AuditAdmin extends AbstractBaseAdmin
                 'windmill.windfarm.customer',
                 null,
                 array(
-                    'label' => 'Client',
+                    'label'                            => 'Client',
+                    'associated_property'              => 'name',
+                    'sortable'                         => true,
+                    'sort_field_mapping'               => array('fieldName' => 'name'),
+                    'sort_parent_association_mappings' => array(array('fieldName' => 'customer')),
                 )
             )
             ->add(
                 'windmill.windfarm',
                 null,
                 array(
-                    'label' => 'Parc Eòlic',
+                    'label'                            => 'Parc Eòlic',
+                    'associated_property'              => 'name',
+                    'sortable'                         => true,
+                    'sort_field_mapping'               => array('fieldName' => 'name'),
+                    'sort_parent_association_mappings' => array(array('fieldName' => 'windfarm')),
                 )
             )
             ->add(
                 'windmill',
                 null,
                 array(
-                    'label'               => 'Aerogenerador',
-                    'associated_property' => 'code',
+                    'label'                            => 'Aerogenerador',
+                    'associated_property'              => 'code',
+                    'sortable'                         => true,
+                    'sort_field_mapping'               => array('fieldName' => 'code'),
+                    'sort_parent_association_mappings' => array(array('fieldName' => 'windmill')),
                 )
             )
             ->add(
@@ -309,6 +344,7 @@ class AuditAdmin extends AbstractBaseAdmin
      */
     public function prePersist($object)
     {
+        //Set three auditwindmillblade entities
         $windmillBlades = $object->getWindmill()->getWindmillBlades();
 
         $auditWindmillBlade1 = new AuditWindmillBlade();
@@ -327,5 +363,26 @@ class AuditAdmin extends AbstractBaseAdmin
             ->addAuditWindmillBlade($auditWindmillBlade1)
             ->addAuditWindmillBlade($auditWindmillBlade2)
             ->addAuditWindmillBlade($auditWindmillBlade3);
+
+        $this->commomPreEvent($object);
+    }
+
+    /**
+     * @param Audit $object
+     */
+    public function preUpdate($object)
+    {
+        $this->commomPreEvent($object);
+    }
+
+    /**
+     * @param Audit $object
+     */
+    private function commomPreEvent($object)
+    {
+        // set audit relations
+        $object
+            ->setWindfarm($object->getWindmill()->getWindfarm())
+            ->setCustomer($object->getWindmill()->getWindfarm()->getCustomer());
     }
 }

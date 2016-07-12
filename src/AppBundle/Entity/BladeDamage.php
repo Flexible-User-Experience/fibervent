@@ -2,9 +2,12 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Enum\BladeDamageEdgeEnum;
+use AppBundle\Enum\BladeDamagePositionEnum;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * BladeDamage
@@ -15,6 +18,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="AppBundle\Repository\BladeDamageRepository")
+ * @Gedmo\SoftDeleteable(fieldName="removedAt", timeAware=false)
  */
 class BladeDamage extends AbstractBase
 {
@@ -29,8 +33,16 @@ class BladeDamage extends AbstractBase
      * @var integer
      *
      * @ORM\Column(type="integer")
+     * @Assert\GreaterThanOrEqual(value=0)
      */
     protected $radius;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(type="integer", options={"default"=0})
+     */
+    protected $edge;
 
     /**
      * @var integer
@@ -49,9 +61,9 @@ class BladeDamage extends AbstractBase
     /**
      * @var integer
      *
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", options={"default"=0})
      */
-    protected $status;
+    protected $status = 0;
 
     /**
      * @var integer
@@ -113,6 +125,14 @@ class BladeDamage extends AbstractBase
     }
 
     /**
+     * @return string
+     */
+    public function getPositionString()
+    {
+        return BladeDamagePositionEnum::getStringValue($this);
+    }
+
+    /**
      * @param int $position
      *
      * @return BladeDamage
@@ -145,11 +165,56 @@ class BladeDamage extends AbstractBase
     }
 
     /**
+     * Get Edge
+     *
+     * @return int
+     */
+    public function getEdge()
+    {
+        return $this->edge;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEdgeString()
+    {
+        return BladeDamageEdgeEnum::getStringValue($this);
+    }
+
+    /**
+     * Set Edge
+     *
+     * @param int $edge
+     *
+     * @return $this
+     */
+    public function setEdge($edge)
+    {
+        $this->edge = $edge;
+
+        return $this;
+    }
+
+    /**
      * @return int
      */
     public function getDistance()
     {
         return $this->distance;
+    }
+
+    /**
+     * @return int
+     */
+    public function getDistanceString()
+    {
+        $dist = $this->distance . 'cm';
+        if ($this->distance > 999) {
+            $dist = number_format(($this->distance / 1000), 1, ',', '.') . 'm';
+        }
+
+        return $this->position == BladeDamagePositionEnum::EDGE_IN || $this->position == BladeDamagePositionEnum::EDGE_OUT ? '-' : $dist . ' ' . $this->getEdgeString();
     }
 
     /**
@@ -327,6 +392,35 @@ class BladeDamage extends AbstractBase
         $this->photos->removeElement($photo);
 
         return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getDeltaGapVertical()
+    {
+        $gap = 0; // 5 - 24 - 43,5 - 62,5
+        if ($this->getEdge() == BladeDamageEdgeEnum::EDGE_IN) {
+            if ($this->getPosition() == BladeDamagePositionEnum::VALVE_PRESSURE) {
+                $gap = 24;
+            } elseif ($this->getPosition() == BladeDamagePositionEnum::VALVE_SUCTION) {
+                $gap = 43.5;
+            }
+        } elseif ($this->getEdge() == BladeDamageEdgeEnum::EDGE_OUT) {
+            if ($this->getPosition() == BladeDamagePositionEnum::VALVE_PRESSURE) {
+                $gap = 5;
+            } elseif ($this->getPosition() == BladeDamagePositionEnum::VALVE_SUCTION) {
+                $gap = 62.5;
+            }
+        } elseif ($this->getEdge() == BladeDamageEdgeEnum::EDGE_UNDEFINED) {
+            if ($this->getPosition() == BladeDamagePositionEnum::EDGE_IN) {
+                $gap = 24;
+            } elseif ($this->getPosition() == BladeDamagePositionEnum::EDGE_OUT) {
+                $gap = 43.5;
+            }
+        }
+
+        return $gap;
     }
 
     /**

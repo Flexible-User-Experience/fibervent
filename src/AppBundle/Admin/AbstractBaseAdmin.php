@@ -3,9 +3,14 @@
 namespace AppBundle\Admin;
 
 use AppBundle\Repository\BladeRepository;
+use AppBundle\Repository\CustomerRepository;
+use AppBundle\Repository\DamageCategoryRepository;
+use AppBundle\Repository\DamageRepository;
 use AppBundle\Repository\StateRepository;
 use AppBundle\Repository\TurbineRepository;
+use AppBundle\Repository\UserRepository;
 use AppBundle\Repository\WindfarmRepository;
+use AppBundle\Repository\WindmillRepository;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Liip\ImagineBundle\Imagine\Cache\CacheManager;
@@ -20,6 +25,21 @@ use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
  */
 abstract class AbstractBaseAdmin extends AbstractAdmin
 {
+    /**
+     * @var CustomerRepository
+     */
+    protected $cr;
+
+    /**
+     * @var UserRepository
+     */
+    protected $ur;
+
+    /**
+     * @var WindmillRepository
+     */
+    protected $wmr;
+
     /**
      * @var WindfarmRepository
      */
@@ -41,6 +61,16 @@ abstract class AbstractBaseAdmin extends AbstractAdmin
     protected $sr;
 
     /**
+     * @var DamageRepository
+     */
+    protected $dr;
+
+    /**
+     * @var DamageCategoryRepository
+     */
+    protected $dc;
+
+    /**
      * @var UploaderHelper
      */
     protected $vus;
@@ -51,23 +81,33 @@ abstract class AbstractBaseAdmin extends AbstractAdmin
     protected $lis;
 
     /**
-     * @param string             $code
-     * @param string             $class
-     * @param string             $baseControllerName
-     * @param WindfarmRepository $wfr
-     * @param BladeRepository    $br
-     * @param TurbineRepository  $tr
-     * @param StateRepository    $sr
-     * @param UploaderHelper     $vus
-     * @param CacheManager       $lis
+     * @param string                     $code
+     * @param string                     $class
+     * @param string                     $baseControllerName
+     * @param CustomerRepository         $cr
+     * @param UserRepository             $ur
+     * @param WindmillRepository         $wmr
+     * @param WindfarmRepository         $wfr
+     * @param BladeRepository            $br
+     * @param TurbineRepository          $tr
+     * @param StateRepository            $sr
+     * @param DamageRepository           $dr
+     * @param DamageCategoryRepository   $dr
+     * @param UploaderHelper             $vus
+     * @param CacheManager               $lis
      */
-    public function __construct($code, $class, $baseControllerName, WindfarmRepository $wfr, BladeRepository $br, TurbineRepository $tr, StateRepository $sr, UploaderHelper $vus, CacheManager $lis)
+    public function __construct($code, $class, $baseControllerName, CustomerRepository $cr, UserRepository $ur, WindmillRepository $wmr, WindfarmRepository $wfr, BladeRepository $br, TurbineRepository $tr, StateRepository $sr, DamageRepository $dr, DamageCategoryRepository $dc, UploaderHelper $vus, CacheManager $lis)
     {
         parent::__construct($code, $class, $baseControllerName);
+        $this->cr  = $cr;
+        $this->ur  = $ur;
+        $this->wmr = $wmr;
         $this->wfr = $wfr;
         $this->br  = $br;
         $this->tr  = $tr;
         $this->sr  = $sr;
+        $this->dr  = $dr;
+        $this->dc  = $dc;
         $this->vus = $vus;
         $this->lis = $lis;
     }

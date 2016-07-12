@@ -4,6 +4,7 @@ namespace AppBundle\Admin;
 
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Route\RouteCollection;
 
 /**
  * Class DamageCategoryAdmin
@@ -22,12 +23,45 @@ class DamageCategoryAdmin extends AbstractBaseAdmin
     );
 
     /**
+     * Configure route collection
+     *
+     * @param RouteCollection $collection
+     */
+    protected function configureRoutes(RouteCollection $collection)
+    {
+        parent::configureRoutes($collection);
+        $collection->remove('delete');
+    }
+
+    /**
      * @param FormMapper $formMapper
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
             ->with('General', $this->getFormMdSuccessBoxArray(7))
+            ->add(
+                'colour',
+                'color_picker',
+                array(
+                    'label'          => 'Color',
+                    'required'       => true,
+                    'picker_options' => array(
+                        'color'    => false,
+                        'mode'     => 'hsl',
+                        'hide'     => false,
+                        'border'   => true,
+                        'target'   => false,
+                        'width'    => 200,
+                        'palettes' => true,
+                        'controls' => array(
+                            'horiz' => 's',
+                            'vert'  => 'l',
+                            'strip' => 'h'
+                        )
+                    )
+                )
+            )
             ->add(
                 'category',
                 null,
@@ -58,6 +92,14 @@ class DamageCategoryAdmin extends AbstractBaseAdmin
                 array(
                     'label'    => 'Acció Recomanada',
                     'required' => true,
+                )
+            )
+            ->add(
+                'enabled',
+                null,
+                array(
+                    'label'    => 'Actiu',
+                    'required' => false,
                 )
             )
             ->end();
@@ -71,6 +113,15 @@ class DamageCategoryAdmin extends AbstractBaseAdmin
         unset($this->listModes['mosaic']);
         $listMapper
             ->add(
+                'fakecolour',
+                null,
+                array(
+                    'label'    => ' ',
+                    'template' => '::Admin/Cells/list__cell_colour.html.twig',
+                    'editable' => false,
+                )
+            )
+            ->add(
                 'category',
                 null,
                 array(
@@ -103,13 +154,20 @@ class DamageCategoryAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
+                'enabled',
+                null,
+                array(
+                    'label'    => 'Actiu',
+                    'editable' => true,
+                )
+            )
+            ->add(
                 '_action',
                 'actions',
                 array(
                     'label'   => 'Accions',
                     'actions' => array(
-                        'edit'   => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
-                        'delete' => array('template' => '::Admin/Buttons/list__action_delete_button.html.twig'),
+                        'edit' => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
                     )
                 )
             );

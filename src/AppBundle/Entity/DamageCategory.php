@@ -15,6 +15,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="AppBundle\Repository\DamageCategoryRepository")
+ * @Gedmo\SoftDeleteable(fieldName="removedAt", timeAware=false)
  */
 class DamageCategory extends AbstractBase
 {
@@ -40,6 +41,13 @@ class DamageCategory extends AbstractBase
      * @ORM\Column(type="string", length=255)
      */
     private $recommendedAction;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $colour;
 
     /**
      *
@@ -105,6 +113,26 @@ class DamageCategory extends AbstractBase
     public function setRecommendedAction($recommendedAction)
     {
         $this->recommendedAction = $recommendedAction;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getColour()
+    {
+        return $this->colour;
+    }
+
+    /**
+     * @param string $colour
+     *
+     * @return DamageCategory
+     */
+    public function setColour($colour)
+    {
+        $this->colour = $colour;
 
         return $this;
     }

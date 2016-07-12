@@ -33,7 +33,9 @@ class CustomerAdmin extends AbstractBaseAdmin
     protected function configureRoutes(RouteCollection $collection)
     {
         parent::configureRoutes($collection);
-        $collection->add('map', $this->getRouterIdParameter() . '/map');
+        $collection
+            ->add('map', $this->getRouterIdParameter() . '/map')
+            ->remove('delete');
     }
 
     /**
@@ -47,7 +49,8 @@ class CustomerAdmin extends AbstractBaseAdmin
                 'code',
                 null,
                 array(
-                    'label' => 'CIF',
+                    'label'    => 'CIF',
+                    'required' => false,
                 )
             )
             ->add(
@@ -57,13 +60,21 @@ class CustomerAdmin extends AbstractBaseAdmin
                     'label' => 'Nom',
                 )
             )
+            ->add(
+                'enabled',
+                null,
+                array(
+                    'label'    => 'Actiu',
+                )
+            )
             ->end()
             ->with('Contacte', $this->getFormMdSuccessBoxArray(4))
             ->add(
                 'email',
                 EmailType::class,
                 array(
-                    'label' => 'Correu Electrònic',
+                    'label'    => 'Correu Electrònic',
+                    'required' => false,
                 )
             )
             ->add(
@@ -120,28 +131,32 @@ class CustomerAdmin extends AbstractBaseAdmin
             ->end();
         if ($this->id($this->getSubject())) { // is edit mode, disable on new subjects
             $formMapper
-                ->with('Contactes', $this->getFormMdSuccessBoxArray(6))
+                ->with('Contactes', $this->getFormMdSuccessBoxArray(8))
                 ->add(
                     'contacts',
                     'sonata_type_model',
                     array(
-                        'label'    => ' ',
-                        'property' => 'lastname',
-                        'required' => false,
-                        'multiple' => true,
-                        'btn_add'  => false,
+                        'label'        => ' ',
+                        'property'     => 'fullContactInfoString',
+                        'required'     => false,
+                        'multiple'     => true,
+                        'btn_add'      => false,
+                        'by_reference' => false,
+                        'query'        => $this->ur->findOnlyAvailableSortedByNameQ($this->getSubject()),
                     )
                 )
                 ->end()
-                ->with('Parcs Eòlics', $this->getFormMdSuccessBoxArray(6))
+                ->with('Parcs Eòlics', $this->getFormMdSuccessBoxArray(4))
                 ->add(
                     'windfarms',
                     'sonata_type_model',
                     array(
-                        'label'    => ' ',
-                        'required' => false,
-                        'multiple' => true,
-                        'btn_add'  => false,
+                        'label'        => ' ',
+                        'required'     => false,
+                        'multiple'     => true,
+                        'btn_add'      => false,
+                        'by_reference' => false,
+                        'query'        => $this->wfr->findOnlyAvailableSortedByNameQ($this->getSubject()),
                     )
                 )
                 ->end();
@@ -217,6 +232,13 @@ class CustomerAdmin extends AbstractBaseAdmin
                     'label' => 'Província',
                     'query' => $this->sr->findAllSortedByNameQ(),
                 )
+            )
+            ->add(
+                'enabled',
+                null,
+                array(
+                    'label'    => 'Actiu',
+                )
             );
     }
 
@@ -268,6 +290,14 @@ class CustomerAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
+                'enabled',
+                null,
+                array(
+                    'label'    => 'Actiu',
+                    'editable' => true,
+                )
+            )
+            ->add(
                 '_action',
                 'actions',
                 array(
@@ -275,7 +305,6 @@ class CustomerAdmin extends AbstractBaseAdmin
                     'actions' => array(
                         'edit'   => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
                         'map'    => array('template' => '::Admin/Buttons/list__action_map_button.html.twig'),
-                        'delete' => array('template' => '::Admin/Buttons/list__action_delete_button.html.twig'),
                     )
                 )
             );

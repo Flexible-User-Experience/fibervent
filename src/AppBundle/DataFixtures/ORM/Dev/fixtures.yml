@@ -211,6 +211,7 @@ AppBundle\Entity\Audit:
     endDate: <dateTimeThisMonth($max = 'now')>
     type: <word()>
     status: <numberBetween(0, 3)>
+    diagramType: <numberBetween(1, 6)>
     tools: <sentence()>
     observations: <sentence()>
     windmill: @windmill<numberBetween(1, 50)>
@@ -399,26 +400,31 @@ AppBundle\Entity\DamageCategory:
     priority: 'Ninguna'
     description: 'Pala en excelentes condiciones de operación'
     recommendedAction: 'Ninguna acción es necesaria'
+    colour: '#3c8607'
   damageCategory2:
     category: '2'
     priority: 'Ninguna'
     description: 'La pala presenta leves señales de posible daños/desgaste'
     recommendedAction: 'Inspeccionar y re-categorizar dentro de un año'
+    colour: '#81d742'
   damageCategory3:
     category: '3'
     priority: 'Baja'
     description: 'Se aprecian signos de daños o desgaste reales en las palas'
     recommendedAction: 'Inspeccionar y re-categorizar dentro 6 meses'
+    colour: '#eeee22'
   damageCategory4:
     category: '4'
     priority: 'Media'
     description: 'Se reconocen en la pala avanzados signos de daños/desgaste'
     recommendedAction: 'Reparar o Inspeccionar y re-categorizar en 3 meses'
+    colour: '#dd9933'
   damageCategory5:
     category: '5'
     priority: 'Alta'
     description: 'La pala ha fallado o debe ser sacada de operación para prevenir daños mayores'
     recommendedAction: 'Parar la turbina y reparar o reemplazar antes de estar nuevamente operativa'
+    colour: '#dd3333'
 
 # Photo
 AppBundle\Entity\Photo:
@@ -433,6 +439,7 @@ AppBundle\Entity\BladeDamage:
   bladeDamage{1..5}:
     position: <numberBetween($min = 1, $max = 7)>
     radius: <numberBetween($min = 1, $max = 7)>
+    edge: <numberBetween($min = 0, $max = 1)>
     distance: <numberBetween($min = 1, $max = 7)>
     size: <numberBetween($min = 1, $max = 7)>
     status: <numberBetween($min = 1, $max = 7)>

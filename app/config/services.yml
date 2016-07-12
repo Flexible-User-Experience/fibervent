@@ -5,79 +5,86 @@ services:
 # Sonata Admin
     admin.customer:
         class: AppBundle\Admin\CustomerAdmin
-        arguments: [ ~, AppBundle\Entity\Customer, AppBundle:CustomerAdmin, "@app.windfarm_repository", "@app.blade_repository", "@app.turbine_repository", "@app.state_repository", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
+        arguments: [ ~, AppBundle\Entity\Customer, AppBundle:CustomerAdmin, "@app.customer_repository", "@app.user_repository", "@app.windmill_repository", "@app.windfarm_repository", "@app.blade_repository", "@app.turbine_repository", "@app.state_repository", "@app.damage_repository", "@app.damage_category_repository", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Client", group: "Client" }
     admin.state:
         class: AppBundle\Admin\StateAdmin
-        arguments: [ ~, AppBundle\Entity\State, ~, "@app.windfarm_repository", "@app.blade_repository", "@app.turbine_repository", "@app.state_repository", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
+        arguments: [ ~, AppBundle\Entity\State, ~, "@app.customer_repository", "@app.user_repository", "@app.windmill_repository", "@app.windfarm_repository", "@app.blade_repository", "@app.turbine_repository", "@app.state_repository", "@app.damage_repository", "@app.damage_category_repository", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Província", group: "Customer", show_in_dashboard: false }
     admin.windfarm:
         class: AppBundle\Admin\WindfarmAdmin
-        arguments: [ ~, AppBundle\Entity\Windfarm, AppBundle:WindfarmAdmin, "@app.windfarm_repository", "@app.blade_repository", "@app.turbine_repository", "@app.state_repository", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
+        arguments: [ ~, AppBundle\Entity\Windfarm, AppBundle:WindfarmAdmin, "@app.customer_repository", "@app.user_repository", "@app.windmill_repository", "@app.windfarm_repository", "@app.blade_repository", "@app.turbine_repository", "@app.state_repository", "@app.damage_repository", "@app.damage_category_repository", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Parc Eòlic", group: "Parc_Eolic" }
     admin.windmill:
         class: AppBundle\Admin\WindmillAdmin
-        arguments: [ ~, AppBundle\Entity\Windmill, ~, "@app.windfarm_repository", "@app.blade_repository", "@app.turbine_repository", "@app.state_repository", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
+        arguments: [ ~, AppBundle\Entity\Windmill, ~, "@app.customer_repository", "@app.user_repository", "@app.windmill_repository", "@app.windfarm_repository", "@app.blade_repository", "@app.turbine_repository", "@app.state_repository", "@app.damage_repository", "@app.damage_category_repository", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Aerogenerador", group: "Parc_Eolic" }
     admin.turbine:
         class: AppBundle\Admin\TurbineAdmin
-        arguments: [ ~, AppBundle\Entity\Turbine, ~, "@app.windfarm_repository", "@app.blade_repository", "@app.turbine_repository", "@app.state_repository", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
+        arguments: [ ~, AppBundle\Entity\Turbine, AppBundle:TurbineAdmin, "@app.customer_repository", "@app.user_repository", "@app.windmill_repository", "@app.windfarm_repository", "@app.blade_repository", "@app.turbine_repository", "@app.state_repository", "@app.damage_repository", "@app.damage_category_repository", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Turbina", group: "Parc_Eolic", show_in_dashboard: false }
     admin.blade:
         class: AppBundle\Admin\BladeAdmin
-        arguments: [ ~, AppBundle\Entity\Blade, ~, "@app.windfarm_repository", "@app.blade_repository", "@app.turbine_repository", "@app.state_repository", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
+        arguments: [ ~, AppBundle\Entity\Blade, AppBundle:BladeAdmin, "@app.customer_repository", "@app.user_repository", "@app.windmill_repository", "@app.windfarm_repository", "@app.blade_repository", "@app.turbine_repository", "@app.state_repository", "@app.damage_repository", "@app.damage_category_repository", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Tipus Pala", group: "Parc_Eolic", show_in_dashboard: false }
     admin.windmill_blade:
         class: AppBundle\Admin\WindmillBladeAdmin
-        arguments: [ ~, AppBundle\Entity\WindmillBlade, ~, "@app.windfarm_repository", "@app.blade_repository", "@app.turbine_repository", "@app.state_repository", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
+        arguments: [ ~, AppBundle\Entity\WindmillBlade, ~, "@app.customer_repository", "@app.user_repository", "@app.windmill_repository", "@app.windfarm_repository", "@app.blade_repository", "@app.turbine_repository", "@app.state_repository", "@app.damage_repository", "@app.damage_category_repository", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Pales", group: "Parc_Eolic", show_in_dashboard: false }
     admin.audit:
         class: AppBundle\Admin\AuditAdmin
-        arguments: [ ~, AppBundle\Entity\Audit, AppBundle:AuditAdmin, "@app.windfarm_repository", "@app.blade_repository", "@app.turbine_repository", "@app.state_repository", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
+        arguments: [ ~, AppBundle\Entity\Audit, AppBundle:AuditAdmin, "@app.customer_repository", "@app.user_repository", "@app.windmill_repository", "@app.windfarm_repository", "@app.blade_repository", "@app.turbine_repository", "@app.state_repository", "@app.damage_repository", "@app.damage_category_repository", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: "Auditoria", group: "Auditoria" }
+            - { name: sonata.admin, manager_type: orm, label: "Inspecció", group: "Auditoria" }
     admin.blade_damage:
         class: AppBundle\Admin\BladeDamageAdmin
-        arguments: [ ~, AppBundle\Entity\BladeDamage, ~, "@app.windfarm_repository", "@app.blade_repository", "@app.turbine_repository", "@app.state_repository", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
+        arguments: [ ~, AppBundle\Entity\BladeDamage, AppBundle:BladeDamageAdmin, "@app.customer_repository", "@app.user_repository", "@app.windmill_repository", "@app.windfarm_repository", "@app.blade_repository", "@app.turbine_repository", "@app.state_repository", "@app.damage_repository", "@app.damage_category_repository", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Dany Pala", group: "Auditoria", show_in_dashboard: false }
     admin.damage:
         class: AppBundle\Admin\DamageAdmin
-        arguments: [ ~, AppBundle\Entity\Damage, ~, "@app.windfarm_repository", "@app.blade_repository", "@app.turbine_repository", "@app.state_repository", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
+        arguments: [ ~, AppBundle\Entity\Damage, ~, "@app.customer_repository", "@app.user_repository", "@app.windmill_repository", "@app.windfarm_repository", "@app.blade_repository", "@app.turbine_repository", "@app.state_repository", "@app.damage_repository", "@app.damage_category_repository", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Tipus Dany", group: "Auditoria" }
     admin.damage_category:
         class: AppBundle\Admin\DamageCategoryAdmin
-        arguments: [ ~, AppBundle\Entity\DamageCategory, ~, "@app.windfarm_repository", "@app.blade_repository", "@app.turbine_repository", "@app.state_repository", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
+        arguments: [ ~, AppBundle\Entity\DamageCategory, ~, "@app.customer_repository", "@app.user_repository", "@app.windmill_repository", "@app.windfarm_repository", "@app.blade_repository", "@app.turbine_repository", "@app.state_repository", "@app.damage_repository", "@app.damage_category_repository", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Categoria Dany", group: "Auditoria" }
     admin.photo:
         class: AppBundle\Admin\PhotoAdmin
-        arguments: [ ~, AppBundle\Entity\Photo, ~, "@app.windfarm_repository", "@app.blade_repository", "@app.turbine_repository", "@app.state_repository", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
+        arguments: [ ~, AppBundle\Entity\Photo, ~, "@app.customer_repository", "@app.user_repository", "@app.windmill_repository", "@app.windfarm_repository", "@app.blade_repository", "@app.turbine_repository", "@app.state_repository", "@app.damage_repository", "@app.damage_category_repository", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Foto", group: "Auditoria", show_in_dashboard: false }
     admin.audit_windmill_blade:
         class: AppBundle\Admin\AuditWindmillBladeAdmin
-        arguments: [ ~, AppBundle\Entity\AuditWindmillBlade, ~, "@app.windfarm_repository", "@app.blade_repository", "@app.turbine_repository", "@app.state_repository", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
+        arguments: [ ~, AppBundle\Entity\AuditWindmillBlade, AppBundle:AuditWindmillBladeAdmin, "@app.customer_repository", "@app.user_repository", "@app.windmill_repository", "@app.windfarm_repository", "@app.blade_repository", "@app.turbine_repository", "@app.state_repository", "@app.damage_repository", "@app.damage_category_repository", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Audit Dany Pala", group: "Auditoria", show_in_dashboard: false }
     admin.user:
         class: AppBundle\Admin\UserAdmin
-        arguments: [ ~, AppBundle\Entity\User, ~, "@fos_user.user_manager" ]
+        arguments: [ ~, AppBundle\Entity\User, AppBundle:UserAdmin, "@fos_user.user_manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Usuari", group: "Client" }
+# Sonata Blocks
+    admin.block.audits:
+        class: AppBundle\Admin\Block\AuditsBlock
+        tags:
+            - { name: sonata.block }
+        arguments: [ "sonata.admin.block.audits", "@templating", "@doctrine.orm.entity_manager" ]
 # PDF service builders
     app.custom_tcpdf:
         class: AppBundle\Pdf\CustomTcpdf
         arguments:
             - "@templating.helper.assets"
+            - AppBundle\Entity\Audit
     app.audit_pdf_builder:
         class: AppBundle\Service\AuditPdfBuilderService
         arguments:
@@ -85,9 +92,20 @@ services:
             - "@liip_imagine.cache.manager"
             - "@vich_uploader.templating.helper.uploader_helper"
             - "@templating.helper.assets"
-            - "%kernel.root_dir%"
+            - "@app.damage_category_repository"
+            - "@app.blade_damage_repository"
+            - "@app.audit_model_diagram_bridge"
+    app.audit_model_diagram_bridge:
+        class: AppBundle\Service\AuditModelDiagramBridgeService
 # Form types
     app.form_type_action_button:
         class: AppBundle\Form\Type\ActionButtonFormType
         tags:
             - { name: form.type, alias: action_button }
+# Messaging
+    app.courier:
+        class: AppBundle\Service\CourierService
+        arguments: [ "@swiftmailer.mailer" ]
+    app.notification:
+        class: AppBundle\Service\NotificationService
+        arguments: [ "@app.courier" ]

@@ -1,4 +1,6 @@
-fibervent
+Fibervent
 =========
 
-A Symfony project created on May 16, 2016, 6:26 pm.
+A Symfony2 webapp project to manage [Fibervent](http://www.fibervent.com) windmill auditting process.
+
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/347cfb17-7811-4835-80d5-746c9ecc518d/big.png)](https://insight.sensiolabs.com/projects/347cfb17-7811-4835-80d5-746c9ecc518d)
