@@ -143,6 +143,14 @@ AppBundle\Entity\Photo:
     gpsLongitude: <longitude($min = -180, $max = 180)>
     bladeDamage: @bladeDamage<numberBetween(1, 5)>
 
+# BladePhoto
+AppBundle\Entity\BladePhoto:
+  bladePhoto{1..5}:
+    imageName: <current()>.jpg
+    gpsLatitude: <latitude($min = -90, $max = 90)>
+    gpsLongitude: <longitude($min = -180, $max = 180)>
+    auditWindmillBlade: @auditwindmillblade<numberBetween(1, 3)>
+
 # BladeDamage
 AppBundle\Entity\BladeDamage:
   bladeDamage{1..5}:
@@ -155,6 +163,13 @@ AppBundle\Entity\BladeDamage:
     number: <numberBetween($min = 1, $max = 7)>
     damage: @damage<numberBetween(1, 5)>
     damageCategory: @damageCategory<numberBetween(1, 5)>
+    auditWindmillBlade: @auditwindmillblade<numberBetween(1, 3)>
+
+# Observation
+AppBundle\Entity\Observation:
+  observation{1..5}:
+    position: <numberBetween($min = 1, $max = 5)>
+    damageNumber: <numberBetween($min = 1, $max = 5)>
     auditWindmillBlade: @auditwindmillblade<numberBetween(1, 3)>
 
 ## Users
