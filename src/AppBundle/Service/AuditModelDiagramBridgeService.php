@@ -181,9 +181,9 @@ class AuditModelDiagramBridgeService
     public function calculateMaxFunctionYPoint(Blade $blade)
     {
         $maxY = 0;
-        $factor = $this->yCalculateMaxFactor($blade) / 10;
+//        $factor = $this->yCalculateMaxFactor($blade) / 10;
         for ($x = 0; $x <= $blade->getLength(); $x = $x + 0.5) {
-            $val = $this->isolatedDeltaY($factor, $x);
+            $val = $this->isolatedDeltaY($x);
             if ($maxY < $val) {
                 $maxY = $val;
             }
@@ -239,7 +239,7 @@ class AuditModelDiagramBridgeService
             // Edge out
             if ($bladeDamage->getPosition() == BladeDamagePositionEnum::VALVE_PRESSURE) {
                 // Valve pressure
-                $gap = $this->yQ1 + (($this->yQ2 - $this->yQ1) / 2) + $this->yCalculateFactorEdgeOut($bladeDamage); // + $this->deltaY($bladeDamage);
+                $gap = $this->yQ2 - $this->yCalculateFactorEdgeOut($bladeDamage) - self::GAP_SQUARE_SIZE; // + $this->deltaY($bladeDamage);
             } elseif ($bladeDamage->getPosition() == BladeDamagePositionEnum::VALVE_SUCTION) {
                 // Valve suction
                 $gap = $this->yQ4 - $this->yCalculateFactor($bladeDamage) - $this->deltaY($bladeDamage);
@@ -275,7 +275,15 @@ class AuditModelDiagramBridgeService
      */
     public function yCalculateFactorEdgeOut(BladeDamage $bladeDamage)
     {
-        return -1 * ($this->deltaY($bladeDamage) + (($bladeDamage->getDistance() / 100)  * $this->getYScaleGap()) / $this->getMaxFunctionYPoint());
+        $x = $bladeDamage->getRadius();
+        $pow = $this->isolatedDeltaY($x);
+        $valve = ($pow * $this->getYScaleGap()) / $this->getMaxFunctionYPoint();
+
+        return $valve - (((($bladeDamage->getDistance() / 100)) * $this->getYScaleGap()) / $this->getMaxFunctionYPoint());
+
+//        return ($pow * $this->getYScaleGap()) / $this->getMaxFunctionYPoint();
+//        return -4 * ($this->isolatedDeltaY($bladeDamage->getAuditWindmillBlade()->getWindmillBlade()->getWindmill()->getBladeType()->getLength(), $bladeDamage->getRadius()));
+        //return -1 * ($this->deltaY($bladeDamage) + (($bladeDamage->getDistance() / 100)  * $this->getYScaleGap()) / $this->getMaxFunctionYPoint());
     }
 
     /**
@@ -299,17 +307,18 @@ class AuditModelDiagramBridgeService
     }
 
     /**
-     * @param float $n
      * @param float $x
      *
      * @return float
      */
-    private function isolatedDeltaY($n, $x)
+    private function isolatedDeltaY($x)
     {
+        $n = 20;
         $factor = (10 * $x) / $n;
         $base = pow(M_E, (pow((0.7 * pow($factor, 1.5) - 0.4), 2) * -1)) * $n * 0.07;
         $bladeBase = (atan((pow($factor, 3) - pow($factor, 2) * 0.5)) / ($factor + 3)) * $n * 0.4;
 
+//        return -pow(0.000002 * $x, 5) + pow(0.0008 * $x, 4) - pow(0.0158 * $x, 3) + pow(0.1064 * $x, 2) - (0.1265 * $x) + 1.3258;
         return $bladeBase + $base;
     }
 
