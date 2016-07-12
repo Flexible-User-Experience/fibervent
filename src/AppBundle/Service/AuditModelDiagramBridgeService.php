@@ -230,7 +230,7 @@ class AuditModelDiagramBridgeService
             // Edge in
             if ($bladeDamage->getPosition() == BladeDamagePositionEnum::VALVE_PRESSURE) {
                 // Valve pressure
-                $gap = $this->yQ2 - $this->yCalculateFactor($bladeDamage) - self::GAP_SQUARE_SIZE;
+                $gap = $this->yQ2 - $this->yCalculateFactor($bladeDamage) - self::GAP_SQUARE_HALF_SIZE;
 
             } elseif ($bladeDamage->getPosition() == BladeDamagePositionEnum::VALVE_SUCTION) {
                 // Valve suction
