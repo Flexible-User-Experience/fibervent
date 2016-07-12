@@ -115,6 +115,6 @@ class Observation extends AbstractBase
      */
     public function __toString()
     {
-        return $this->getId() ? $this->getId() : '---';
+        return $this->getId() ? (string)$this->getId() : '---';
     }
 }
