@@ -71,7 +71,7 @@ class ObservationAdmin extends AbstractBaseAdmin
                 'observations',
                 TextareaType::class,
                 array(
-                    'label'    => 'Observacions',
+                    'label'    => 'Observació',
                     'required' => true,
                     'attr'     => array(
                         'rows' => 5,

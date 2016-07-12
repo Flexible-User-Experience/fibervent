@@ -6,6 +6,7 @@ use AppBundle\Entity\Audit;
 use AppBundle\Entity\AuditWindmillBlade;
 use AppBundle\Entity\BladeDamage;
 use AppBundle\Entity\DamageCategory;
+use AppBundle\Entity\Observation;
 use AppBundle\Entity\Photo;
 use AppBundle\Entity\Windfarm;
 use AppBundle\Entity\Windmill;
@@ -184,10 +185,7 @@ class AuditPdfBuilderService
                 $pdf->drawDamageTableBodyRow($sKey, $bladeDamage);
             }
             $pdf->Ln(5);
-            if ($auditWindmillBlade->getObservations()) {
-                $pdf->Write(0, $auditWindmillBlade->getObservations(), '', false, 'L', true);
-                $pdf->Ln(5);
-            }
+
             // blade diagram damage locations
             $this->amdb->setYs($pdf->GetY());
             $x1 = $this->amdb->getX1();
@@ -251,6 +249,25 @@ class AuditPdfBuilderService
                 }
             }
             $pdf->setWhiteBackground();
+            
+            // Observations table
+            if ($auditWindmillBlade->getObservations()) {
+                $pdf->Ln(AuditModelDiagramBridgeService::DIAGRAM_HEIGHT + 5);
+                $pdf->setBlueLine();
+                $pdf->setBlueBackground();
+                $pdf->setFontStyle(null, 'B', 9);
+                $pdf->Cell(16, 0, 'DAÑO', 1, 0, 'C', true);
+                $pdf->Cell(0, 0, 'OBSERVACIONES', 1, 1, 'C', true);
+                $pdf->setFontStyle(null, '', 9);
+                $pdf->setWhiteBackground();
+                /** @var Observation $observation */
+                foreach ($auditWindmillBlade->getObservations() as $observation) {
+                    $pdf->Cell(16, 0, $observation->getDamageNumber(), 1, 0, 'C', true);
+                    $pdf->Cell(0, 0, $observation->getObservations(), 1, 1, 'L', true);
+                }
+                $pdf->Ln(5);
+            }
+            
             // Damage images pages
             $pdf->AddPage();
             /** @var BladeDamage $bladeDamage */

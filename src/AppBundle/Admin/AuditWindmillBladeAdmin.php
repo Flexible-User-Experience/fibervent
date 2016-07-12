@@ -117,7 +117,7 @@ class AuditWindmillBladeAdmin extends AbstractBaseAdmin
                     )
                 )
                 ->end()
-                ->with('Observacions · Pala ' . $text, $this->getFormMdSuccessBoxArray(12))
+                ->with('Observacions · Pala ' . $text, $this->getFormMdSuccessBoxArray(6))
                 ->add(
                     'observations',
                     'sonata_type_collection',
