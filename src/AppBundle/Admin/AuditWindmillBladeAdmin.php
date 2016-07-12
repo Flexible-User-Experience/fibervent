@@ -65,17 +65,21 @@ class AuditWindmillBladeAdmin extends AbstractBaseAdmin
                         'disabled' => true,
                     )
                 )
-                ->add(
-                    'observations',
-                    TextareaType::class,
-                    array(
-                        'label'    => 'Observacions',
-                        'required' => false,
-                        'attr'     => array(
-                            'rows' => 8,
-                        )
-                    )
-                )
+//                ->add(
+//                    'observations',
+//                    'sonata_type_collection',
+//                    array(
+//                        'label'              => 'Observacions',
+//                        'required'           => true,
+//                        'cascade_validation' => true,
+//                        'error_bubbling'     => true,
+//                    ),
+//                    array(
+//                        'edit'     => 'inline',
+//                        'inline'   => 'table',
+//                        'sortable' => 'number',
+//                    )
+//                )
                 ->end()
                 ->with('Danys', $this->getFormMdSuccessBoxArray(3))
                 ->add(
