@@ -20,7 +20,6 @@ use Gedmo\Mapping\Annotation as Gedmo;
  */
 class AuditWindmillBlade extends AbstractBase
 {
-    use ObservationsTrait;
 
     /**
      * @var Audit
@@ -45,6 +44,21 @@ class AuditWindmillBlade extends AbstractBase
     private $bladeDamages;
 
     /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="Observation", mappedBy="auditWindmillBlade", cascade={"persist", "remove"}, orphanRemoval=true))
+     * @ORM\OrderBy({"position"="ASC"})
+     */
+    private $observations;
+
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="BladePhoto", mappedBy="auditWindmillBlade", cascade={"persist", "remove"}, orphanRemoval=true))
+     */
+    private $bladePhotos;
+
+    /**
      *
      *
      * Methods
@@ -58,6 +72,8 @@ class AuditWindmillBlade extends AbstractBase
     public function __construct()
     {
         $this->bladeDamages = new ArrayCollection();
+        $this->observations = new ArrayCollection();
+        $this->bladePhotos = new ArrayCollection();
     }
 
     /**
@@ -141,6 +157,96 @@ class AuditWindmillBlade extends AbstractBase
     public function removeBladeDamage(BladeDamage $bladeDamage)
     {
         $this->bladeDamages->removeElement($bladeDamage);
+
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getObservations()
+    {
+        return $this->observations;
+    }
+
+    /**
+     * @param ArrayCollection $observations
+     *
+     * @return AuditWindmillBlade
+     */
+    public function setObservations(ArrayCollection $observations)
+    {
+        $this->observations = $observations;
+
+        return $this;
+    }
+
+    /**
+     * @param Observation $observation
+     *
+     * @return $this
+     */
+    public function addObservation(Observation $observation)
+    {
+        $observation->setAuditWindmillBlade($this);
+        $this->observations->add($observation);
+
+        return $this;
+    }
+
+    /**
+     * @param Observation $observation
+     *
+     * @return $this
+     */
+    public function removeOservation(Observation $observation)
+    {
+        $this->observations->removeElement($observation);
+
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getBladePhotos()
+    {
+        return $this->bladePhotos;
+    }
+
+    /**
+     * @param ArrayCollection $bladePhotos
+     *
+     * @return AuditWindmillBlade
+     */
+    public function setBladePhotos(ArrayCollection $bladePhotos)
+    {
+        $this->bladePhotos = $bladePhotos;
+
+        return $this;
+    }
+
+    /**
+     * @param BladePhoto $bladePhoto
+     *
+     * @return $this
+     */
+    public function addBladePhoto(BladePhoto $bladePhoto)
+    {
+        $bladePhoto->setAuditWindmillBlade($this);
+        $this->bladePhotos->add($bladePhoto);
+
+        return $this;
+    }
+
+    /**
+     * @param BladePhoto $bladePhoto
+     *
+     * @return $this
+     */
+    public function removeBladePhoto(BladePhoto $bladePhoto)
+    {
+        $this->bladePhotos->removeElement($bladePhoto);
 
         return $this;
     }
