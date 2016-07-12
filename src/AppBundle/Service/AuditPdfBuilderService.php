@@ -27,6 +27,8 @@ use Symfony\Bundle\FrameworkBundle\Templating\Helper\AssetsHelper;
  */
 class AuditPdfBuilderService
 {
+    const SHOW_GRID_DEBUG = false;
+
     /**
      * @var TCPDFController
      */
@@ -192,36 +194,34 @@ class AuditPdfBuilderService
             $y1 = $this->amdb->getY1();
             $x2 = $this->amdb->getX2();
             $y2 = $this->amdb->getY2();
-//            $bladeGap = 40;
-//            $gap = $x2 - $x1;
-
-            $pdf->Image($this->tha->getUrl('/bundles/app/images/blade_diagrams/blade_blueprint_1.jpg'), $x1, $y1, ($x2 - $x1), null);
-//            $pdf->Rect($x1, $y1, ($x2 - $x1), ($y2 - $y1));
 
             $xQuarter1 = $this->amdb->getXQ1();
             $xQuarter2 = $this->amdb->getXQ2();
             $xQuarter3 = $this->amdb->getXQ3();
             $xQuarter4 = $this->amdb->getXQ4();
             $xQuarter5 = $this->amdb->getXQ5();
-            $pdf->Line($xQuarter1, $y1, $xQuarter1, $y1 + ($y2 - $y1));
-            $pdf->Line($xQuarter2, $y1, $xQuarter2, $y1 + ($y2 - $y1));
-            $pdf->Line($xQuarter3, $y1, $xQuarter3, $y1 + ($y2 - $y1));
-            $pdf->Line($xQuarter4, $y1, $xQuarter4, $y1 + ($y2 - $y1));
-            $pdf->Line($xQuarter5, $y1, $xQuarter5, $y1 + ($y2 - $y1));
 
             $yMiddle   = $this->amdb->getYMiddle();
             $yQuarter1 = $this->amdb->getYQ1();
             $yQuarter2 = $this->amdb->getYQ2();
             $yQuarter3 = $this->amdb->getYQ3();
             $yQuarter4 = $this->amdb->getYQ4();
-            $pdf->Line($x1, $yQuarter1, $x2, $yQuarter1);
-            $pdf->Line($x1, $yQuarter2, $x2, $yQuarter2);
-            $pdf->Line($x1, $yMiddle,   $x2, $yMiddle);
-            $pdf->Line($x1, $yQuarter3, $x2, $yQuarter3);
-            $pdf->Line($x1, $yQuarter4, $x2, $yQuarter4);
 
-//            $pdf->Rect($x1 + 3.5, $y1, ($x2 - $x1 - 4.5), ($y2 - $y1));
-//            $pdf->Rect($x1 + 44.5, $y1, ($x2 - $x1), ($y2 - $y1));
+            $pdf->Image($this->tha->getUrl('/bundles/app/images/blade_diagrams/blade_blueprint_1.jpg'), $x1, $y1, ($x2 - $x1), null);
+
+            if (self::SHOW_GRID_DEBUG) {
+                $pdf->Line($xQuarter1, $y1, $xQuarter1, $y1 + ($y2 - $y1));
+                $pdf->Line($xQuarter2, $y1, $xQuarter2, $y1 + ($y2 - $y1));
+                $pdf->Line($xQuarter3, $y1, $xQuarter3, $y1 + ($y2 - $y1));
+                $pdf->Line($xQuarter4, $y1, $xQuarter4, $y1 + ($y2 - $y1));
+                $pdf->Line($xQuarter5, $y1, $xQuarter5, $y1 + ($y2 - $y1));
+                $pdf->Line($x1, $yQuarter1, $x2, $yQuarter1);
+                $pdf->Line($x1, $yQuarter2, $x2, $yQuarter2);
+                $pdf->Line($x1, $yMiddle,   $x2, $yMiddle);
+                $pdf->Line($x1, $yQuarter3, $x2, $yQuarter3);
+                $pdf->Line($x1, $yQuarter4, $x2, $yQuarter4);
+            }
+
             $txt = $auditWindmillBlade->getWindmillBlade()->getWindmill()->getBladeType()->getQ1LengthString();
             $pdf->Text(($xQuarter2 - $pdf->GetStringWidth($txt) - 2), $yMiddle - 5, $txt);
             $txt = $auditWindmillBlade->getWindmillBlade()->getWindmill()->getBladeType()->getQ2LengthString();
@@ -237,7 +237,7 @@ class AuditPdfBuilderService
                 
                 if ($bladeDamage->getPosition() == BladeDamagePositionEnum::EDGE_IN) {
                     // Both Valves {BA} · Double draw
-                    $pdf->drawDamage($this->amdb->getGapX($bladeDamage), $this->amdb->getYQ2() - AuditModelDiagramBridgeService::GAP_SQUARE_SIZE, $this->amdb->getGapXSize($bladeDamage), $sKey + 1, $bladeDamage->getDamageCategory()->getColour());
+                    $pdf->drawDamage($this->amdb->getGapX($bladeDamage), $this->amdb->getYQ2() - AuditModelDiagramBridgeService::GAP_SQUARE_HALF_SIZE, $this->amdb->getGapXSize($bladeDamage), $sKey + 1, $bladeDamage->getDamageCategory()->getColour());
                     $pdf->drawDamage($this->amdb->getGapX($bladeDamage), $this->amdb->getYQ3(), $this->amdb->getGapXSize($bladeDamage), $sKey + 1, $bladeDamage->getDamageCategory()->getColour());
                     
                 } elseif ($bladeDamage->getPosition() == BladeDamagePositionEnum::EDGE_OUT) {

@@ -252,7 +252,7 @@ class AuditModelDiagramBridgeService
             // No edge -> check valve position
             if ($bladeDamage->getPosition() == BladeDamagePositionEnum::EDGE_IN) {
                 // Edge in
-                $gap = $this->getYQ2() - self::GAP_SQUARE_SIZE;
+                $gap = $this->getYQ2();
 
             } elseif ($bladeDamage->getPosition() == BladeDamagePositionEnum::EDGE_OUT) {
                 // Edge out
