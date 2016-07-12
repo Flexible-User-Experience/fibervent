@@ -231,10 +231,10 @@ class AuditModelDiagramBridgeService
             // Edge in
             if ($bladeDamage->getPosition() == BladeDamagePositionEnum::VALVE_PRESSURE) {
                 // Valve pressure
-                $gap = $this->yQ2 - $this->yCalculateFactor($bladeDamage);
+                $gap = $this->yQ2 - $this->yCalculateFactor($bladeDamage) - self::GAP_SQUARE_SIZE;
             } elseif ($bladeDamage->getPosition() == BladeDamagePositionEnum::VALVE_SUCTION) {
                 // Valve suction
-                $gap = $this->yQ3 + $this->yCalculateFactor($bladeDamage);
+                $gap = $this->yQ3 + $this->yCalculateFactor($bladeDamage) - self::GAP_SQUARE_HALF_SIZE;
             }
         } elseif ($bladeDamage->getEdge() == BladeDamageEdgeEnum::EDGE_OUT) {
             // Edge out
@@ -266,7 +266,7 @@ class AuditModelDiagramBridgeService
      */
     public function yCalculateFactor(BladeDamage $bladeDamage)
     {
-        return (($bladeDamage->getDistance() * $this->yScaleGap) / $this->yCalculateMaxFactor($bladeDamage->getAuditWindmillBlade()->getWindmillBlade()->getWindmill()->getBladeType())) - self::GAP_SQUARE_HALF_SIZE;
+        return (($bladeDamage->getDistance() / 100) * $this->getYScaleGap()) / $this->getMaxFunctionYPoint();
     }
 
     /**
