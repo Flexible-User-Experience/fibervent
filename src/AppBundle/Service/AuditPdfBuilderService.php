@@ -5,6 +5,7 @@ namespace AppBundle\Service;
 use AppBundle\Entity\Audit;
 use AppBundle\Entity\AuditWindmillBlade;
 use AppBundle\Entity\BladeDamage;
+use AppBundle\Entity\BladePhoto;
 use AppBundle\Entity\DamageCategory;
 use AppBundle\Entity\Observation;
 use AppBundle\Entity\Photo;
@@ -267,7 +268,18 @@ class AuditPdfBuilderService
                 }
                 $pdf->Ln(5);
             }
-            
+
+            // Observations table
+            if ($auditWindmillBlade->getBladePhotos()) {
+                $pdf->AddPage();
+                /** @var BladePhoto $photo */
+                foreach ($auditWindmillBlade->getBladePhotos() as $photo) {
+                    // Image($file, $x='', $y='', $w=0, $h=0, $type='', $link='', $align='', $resize=false, $dpi=300, $palign='', $ismask=false, $imgmask=false, $border=0, $fitbox=false, $hidden=false, $fitonpage=false)
+                    $pdf->Image($this->cm->getBrowserPath($this->uh->asset($photo, 'imageFile'), '960x540'), CustomTcpdf::PDF_MARGIN_LEFT, $pdf->GetY(), $pdf->availablePageWithDimension, null);
+                }
+                $pdf->Ln(5);
+            }
+
             // Damage images pages
             $pdf->AddPage();
             /** @var BladeDamage $bladeDamage */
@@ -277,7 +289,6 @@ class AuditPdfBuilderService
                 $pdf->Ln(5);
                 /** @var Photo $photo */
                 foreach ($bladeDamage->getPhotos() as $photo) {
-                    // Image($file, $x='', $y='', $w=0, $h=0, $type='', $link='', $align='', $resize=false, $dpi=300, $palign='', $ismask=false, $imgmask=false, $border=0, $fitbox=false, $hidden=false, $fitonpage=false)
                     $pdf->Image($this->cm->getBrowserPath($this->uh->asset($photo, 'imageFile'), '960x540'), CustomTcpdf::PDF_MARGIN_LEFT, $pdf->GetY(), $pdf->availablePageWithDimension, null);
                     $pdf->Ln(100);
                 }
