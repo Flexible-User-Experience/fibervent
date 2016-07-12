@@ -53,6 +53,14 @@ class AuditWindmillBlade extends AbstractBase
     private $observations;
 
     /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="BladePhoto", mappedBy="auditWindmillBlade", cascade={"persist", "remove"}, orphanRemoval=true))
+     * @ORM\OrderBy({"number"="ASC"})
+     */
+    private $bladePhotos;
+
+    /**
      *
      *
      * Methods
@@ -67,6 +75,7 @@ class AuditWindmillBlade extends AbstractBase
     {
         $this->bladeDamages = new ArrayCollection();
         $this->observations = new ArrayCollection();
+        $this->bladePhotos = new ArrayCollection();
     }
 
     /**
@@ -195,6 +204,51 @@ class AuditWindmillBlade extends AbstractBase
     public function removeOservation(Observation $observation)
     {
         $this->observations->removeElement($observation);
+
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getBladePhotos()
+    {
+        return $this->bladePhotos;
+    }
+
+    /**
+     * @param ArrayCollection $bladePhotos
+     *
+     * @return AuditWindmillBlade
+     */
+    public function setBladePhotos(ArrayCollection $bladePhotos)
+    {
+        $this->bladePhotos = $bladePhotos;
+
+        return $this;
+    }
+
+    /**
+     * @param BladePhoto $bladePhoto
+     *
+     * @return $this
+     */
+    public function addBladePhoto(BladePhoto $bladePhoto)
+    {
+        $bladePhoto->setAuditWindmillBlade($this);
+        $this->bladePhotos->add($bladePhoto);
+
+        return $this;
+    }
+
+    /**
+     * @param BladePhoto $bladePhoto
+     *
+     * @return $this
+     */
+    public function removeBladePhoto(BladePhoto $bladePhoto)
+    {
+        $this->bladePhotos->removeElement($bladePhoto);
 
         return $this;
     }
