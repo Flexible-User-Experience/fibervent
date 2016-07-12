@@ -158,14 +158,6 @@ class AuditAdminController extends AbstractBaseAdminController
     private function getToEmailsList(Audit $audit)
     {
         $availableMails = $this->commonEmailsList($audit);
-        if ($audit->getCustomer()) {
-            /** @var User $user */
-            foreach ($audit->getCustomer()->getContacts() as $user) {
-                if ($user->isEnabled()) {
-                    $availableMails[$user->getEmail()] = $user->getFullname() . ' <' . $user->getEmail() . '>';
-                }
-            }
-        }
 
         return $availableMails;
     }
@@ -195,6 +187,9 @@ class AuditAdminController extends AbstractBaseAdminController
     private function commonEmailsList(Audit $audit)
     {
         $availableMails = array();
+        if ($audit->getCustomer()->getEmail()) {
+            $availableMails[$audit->getCustomer()->getEmail()] = $audit->getCustomer()->getName() . ' <' . $audit->getCustomer()->getEmail() . '>';
+        }
         if ($audit->getWindfarm() && $audit->getWindfarm()->getManager()) {
             $availableMails[$audit->getWindfarm()->getManager()->getEmail()] = $audit->getWindfarm()->getMangerFullname() . ' <' . $audit->getWindfarm()->getManager()->getEmail() . '>';
         }
