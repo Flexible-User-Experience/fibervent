@@ -2,7 +2,7 @@
 
 namespace AppBundle\Entity;
 
-use AppBundle\Entity\Traits\DescriptionTrait;
+use AppBundle\Entity\Traits\ObservationsTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
@@ -18,7 +18,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  */
 class Observation extends AbstractBase
 {
-    use DescriptionTrait;
+    use ObservationsTrait;
 
     /**
      * @var integer
@@ -33,13 +33,6 @@ class Observation extends AbstractBase
      * @ORM\Column(type="integer")
      */
     private $damageNumber;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="text")
-     */
-    private $description;
 
     /**
      * @var AuditWindmillBlade
