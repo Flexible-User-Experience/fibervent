@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "450fad63ad624e750a740df690bcaf91",
-    "content-hash": "a1756cc6b2beb759dae7592d5e925239",
+    "hash": "537c4012a0d62022b1f3570a918e56c8",
+    "content-hash": "b3fb0ba5d8a5bddf7657a6ecf225d693",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -2666,33 +2666,32 @@
         },
         {
             "name": "nelmio/alice",
-            "version": "2.2.0",
+            "version": "2.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nelmio/alice.git",
-                "reference": "11de5826323f1fe530a2dd2f50fffcb300b1af75"
+                "reference": "c8cb3413ab5d1fa76ee84296dafe356b0c703014"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nelmio/alice/zipball/11de5826323f1fe530a2dd2f50fffcb300b1af75",
-                "reference": "11de5826323f1fe530a2dd2f50fffcb300b1af75",
+                "url": "https://api.github.com/repos/nelmio/alice/zipball/c8cb3413ab5d1fa76ee84296dafe356b0c703014",
+                "reference": "c8cb3413ab5d1fa76ee84296dafe356b0c703014",
                 "shasum": ""
             },
             "require": {
-                "fzaninotto/faker": "^1.0",
-                "php": "^5.6||^7.0",
-                "symfony/yaml": "^2.0||^3.0"
+                "fzaninotto/faker": "~1.0",
+                "php": ">=5.4",
+                "symfony/yaml": "~2.0|~3.0"
             },
             "require-dev": {
-                "doctrine/common": "^2.3",
-                "phpunit/phpunit": "^5.0||^4.0",
-                "symfony/phpunit-bridge": "^3.0",
-                "symfony/property-access": "^2.2||^3.0"
+                "doctrine/common": "~2.3",
+                "phpunit/phpunit": "~4.0",
+                "symfony/property-access": "~2.2|~3.0"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.0.x-dev"
+                    "dev-master": "2.0.x-dev"
                 }
             },
             "autoload": {
@@ -2712,10 +2711,6 @@
                 {
                     "name": "Tim Shelburne",
                     "email": "shelburt02@gmail.com"
-                },
-                {
-                    "name": "Théo FIDRY",
-                    "email": "theo.fidry@gmail.com"
                 }
             ],
             "description": "Expressive fixtures generator",
@@ -2725,7 +2720,7 @@
                 "orm",
                 "test"
             ],
-            "time": "2016-07-11 10:42:26"
+            "time": "2016-01-07 14:44:47"
         },
         {
             "name": "nelmio/api-doc-bundle",
