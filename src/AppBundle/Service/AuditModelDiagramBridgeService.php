@@ -18,7 +18,7 @@ use AppBundle\Pdf\CustomTcpdf;
 class AuditModelDiagramBridgeService
 {
     const PDF_TOTAL_WIDHT      = 210;
-    const DIAGRAM_HEIGHT       = 55;
+    const DIAGRAM_HEIGHT       = 60;
     const GAP_SQUARE_SIZE      = 5;
     const GAP_SQUARE_HALF_SIZE = 2.5;
 
@@ -122,8 +122,8 @@ class AuditModelDiagramBridgeService
     {
         $this->x1 = CustomTcpdf::PDF_MARGIN_LEFT;
         $this->x2 = self::PDF_TOTAL_WIDHT - CustomTcpdf::PDF_MARGIN_RIGHT;
-        $this->xQ1 = $this->x1 + 0.25;
-        $this->xQ5 = $this->x2 - 0.25;
+        $this->xQ1 = $this->x1 + 0.5;
+        $this->xQ5 = $this->x2 - 0.5;
         $this->xScaleGap = $this->xQ5 - $this->xQ1;
         $this->xQ2 = $this->xQ1 + ($this->xScaleGap / 4);
         $this->xQ3 = $this->xQ2 + ($this->xScaleGap / 4);
@@ -139,10 +139,10 @@ class AuditModelDiagramBridgeService
     {
         $this->y1 = $y;
         $this->y2 = $y + self::DIAGRAM_HEIGHT;
-        $this->yQ1 = $this->y1 + 7.25;
-        $this->yQ2 = $this->yQ1 + 14.75;
-        $this->yQ3 = $this->yQ2 + 12;
-        $this->yQ4 = $this->yQ3 + 15;
+        $this->yQ1 = $this->y1  + 5.5;
+        $this->yQ2 = $this->yQ1 + 17;
+        $this->yQ3 = $this->yQ2 + 16.75;
+        $this->yQ4 = $this->yQ3 + 17;
         $this->yMiddle = $this->yQ2 + (($this->yQ3 - $this->yQ2) / 2) + 0.75;
         $this->yScaleGap = $this->yQ2 - $this->yQ1;
 
@@ -199,7 +199,7 @@ class AuditModelDiagramBridgeService
      */
     public function getGapX(BladeDamage $bladeDamage)
     {
-        return $this->xQ1 + (($bladeDamage->getRadius() * $this->xScaleGap) / $bladeDamage->getAuditWindmillBlade()->getWindmillBlade()->getWindmill()->getBladeType()->getLength());
+        return $this->xQ1 + (($bladeDamage->getRadius() * $this->xScaleGap) / $bladeDamage->getAuditWindmillBlade()->getWindmillBlade()->getWindmill()->getBladeType()->getLength()) - self::GAP_SQUARE_HALF_SIZE;
     }
 
     /**
@@ -230,7 +230,7 @@ class AuditModelDiagramBridgeService
             // Edge in
             if ($bladeDamage->getPosition() == BladeDamagePositionEnum::VALVE_PRESSURE) {
                 // Valve pressure
-                $gap = $this->yQ2 - $this->yCalculateFactor($bladeDamage) - self::GAP_SQUARE_SIZE;
+                $gap = $this->yQ2 - $this->yCalculateFactor($bladeDamage) - self::GAP_SQUARE_HALF_SIZE;
 
             } elseif ($bladeDamage->getPosition() == BladeDamagePositionEnum::VALVE_SUCTION) {
                 // Valve suction
@@ -241,18 +241,18 @@ class AuditModelDiagramBridgeService
             // Edge out
             if ($bladeDamage->getPosition() == BladeDamagePositionEnum::VALVE_PRESSURE) {
                 // Valve pressure
-                $gap = $this->yQ2 - $this->yCalculateFactorEdgeOut($bladeDamage) - self::GAP_SQUARE_SIZE;
+                $gap = $this->yQ2 - $this->yCalculateFactorEdgeOut($bladeDamage) - self::GAP_SQUARE_HALF_SIZE;
 
             } elseif ($bladeDamage->getPosition() == BladeDamagePositionEnum::VALVE_SUCTION) {
                 // Valve suction
-                $gap = $this->yQ3 + $this->yCalculateFactorEdgeOut($bladeDamage);
+                $gap = $this->yQ3 + $this->yCalculateFactorEdgeOut($bladeDamage) - self::GAP_SQUARE_HALF_SIZE;
             }
 
         } elseif ($bladeDamage->getEdge() == BladeDamageEdgeEnum::EDGE_UNDEFINED) {
             // No edge -> check valve position
             if ($bladeDamage->getPosition() == BladeDamagePositionEnum::EDGE_IN) {
                 // Edge in
-                $gap = $this->getYQ2() - self::GAP_SQUARE_SIZE;
+                $gap = $this->getYQ2();
 
             } elseif ($bladeDamage->getPosition() == BladeDamagePositionEnum::EDGE_OUT) {
                 // Edge out
