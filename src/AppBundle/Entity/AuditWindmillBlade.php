@@ -20,7 +20,6 @@ use Gedmo\Mapping\Annotation as Gedmo;
  */
 class AuditWindmillBlade extends AbstractBase
 {
-    use ObservationsTrait;
 
     /**
      * @var Audit
