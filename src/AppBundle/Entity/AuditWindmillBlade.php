@@ -45,6 +45,14 @@ class AuditWindmillBlade extends AbstractBase
     private $bladeDamages;
 
     /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="Observation", mappedBy="auditWindmillBlade", cascade={"persist", "remove"}, orphanRemoval=true))
+     * @ORM\OrderBy({"number"="ASC"})
+     */
+    private $observations;
+
+    /**
      *
      *
      * Methods
@@ -58,6 +66,7 @@ class AuditWindmillBlade extends AbstractBase
     public function __construct()
     {
         $this->bladeDamages = new ArrayCollection();
+        $this->observations = new ArrayCollection();
     }
 
     /**
@@ -141,6 +150,51 @@ class AuditWindmillBlade extends AbstractBase
     public function removeBladeDamage(BladeDamage $bladeDamage)
     {
         $this->bladeDamages->removeElement($bladeDamage);
+
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getObservations()
+    {
+        return $this->observations;
+    }
+
+    /**
+     * @param ArrayCollection $observations
+     *
+     * @return AuditWindmillBlade
+     */
+    public function setObservations(ArrayCollection $observations)
+    {
+        $this->observations = $observations;
+
+        return $this;
+    }
+
+    /**
+     * @param Observation $observation
+     *
+     * @return $this
+     */
+    public function addObservation(Observation $observation)
+    {
+        $observation->setAuditWindmillBlade($this);
+        $this->observations->add($observation);
+
+        return $this;
+    }
+
+    /**
+     * @param Observation $observation
+     *
+     * @return $this
+     */
+    public function removeOservation(Observation $observation)
+    {
+        $this->observations->removeElement($observation);
 
         return $this;
     }
