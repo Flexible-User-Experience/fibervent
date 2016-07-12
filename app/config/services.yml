@@ -63,11 +63,11 @@ services:
         arguments: [ ~, AppBundle\Entity\Photo, ~, "@app.customer_repository", "@app.user_repository", "@app.windmill_repository", "@app.windfarm_repository", "@app.blade_repository", "@app.turbine_repository", "@app.state_repository", "@app.damage_repository", "@app.damage_category_repository", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Foto", group: "Auditoria", show_in_dashboard: false }
-#    admin.blade_photo:
-#        class: AppBundle\Admin\BladePhotoAdmin
-#        arguments: [ ~, AppBundle\Entity\BladePhoto, ~, "@app.customer_repository", "@app.user_repository", "@app.windmill_repository", "@app.windfarm_repository", "@app.blade_repository", "@app.turbine_repository", "@app.state_repository", "@app.damage_repository", "@app.damage_category_repository", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
-#        tags:
-#            - { name: sonata.admin, manager_type: orm, label: "Foto Pala", group: "Auditoria", show_in_dashboard: false }
+    admin.blade_photo:
+        class: AppBundle\Admin\BladePhotoAdmin
+        arguments: [ ~, AppBundle\Entity\BladePhoto, ~, "@app.customer_repository", "@app.user_repository", "@app.windmill_repository", "@app.windfarm_repository", "@app.blade_repository", "@app.turbine_repository", "@app.state_repository", "@app.damage_repository", "@app.damage_category_repository", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Foto Pala", group: "Auditoria", show_in_dashboard: false }
     admin.audit_windmill_blade:
         class: AppBundle\Admin\AuditWindmillBladeAdmin
         arguments: [ ~, AppBundle\Entity\AuditWindmillBlade, AppBundle:AuditWindmillBladeAdmin, "@app.customer_repository", "@app.user_repository", "@app.windmill_repository", "@app.windfarm_repository", "@app.blade_repository", "@app.turbine_repository", "@app.state_repository", "@app.damage_repository", "@app.damage_category_repository", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
