@@ -102,7 +102,7 @@ class AuditWindmillBladeAdmin extends AbstractBaseAdmin
                     )
                 )
                 ->end()
-                ->with('Observacions · Pala ' . $text, $this->getFormMdSuccessBoxArray(6))
+                ->with('Observacions · Pala ' . $text, $this->getFormMdSuccessBoxArray(8))
                 ->add(
                     'observations',
                     'sonata_type_collection',
@@ -119,7 +119,7 @@ class AuditWindmillBladeAdmin extends AbstractBaseAdmin
                     )
                 )
                 ->end()
-                ->with('Fotos generals · Pala ' . $text, $this->getFormMdSuccessBoxArray(6))
+                ->with('Fotos generals · Pala ' . $text, $this->getFormMdSuccessBoxArray(4))
                 ->add(
                     'bladePhotos',
                     'sonata_type_collection',
