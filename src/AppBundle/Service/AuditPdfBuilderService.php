@@ -280,7 +280,7 @@ class AuditPdfBuilderService
                 /** @var BladePhoto $photo */
                 foreach ($auditWindmillBlade->getBladePhotos() as $photo) {
                     // Image($file, $x='', $y='', $w=0, $h=0, $type='', $link='', $align='', $resize=false, $dpi=300, $palign='', $ismask=false, $imgmask=false, $border=0, $fitbox=false, $hidden=false, $fitonpage=false)
-                    $pdf->Image($this->cm->getBrowserPath($this->uh->asset($photo, 'imageFile'), '600x960'), CustomTcpdf::PDF_MARGIN_LEFT + (($i % 2) * 76), $pdf->GetY(), null, 115);
+                    $pdf->Image($this->cm->getBrowserPath($this->uh->asset($photo, 'imageFile'), '600x960'), CustomTcpdf::PDF_MARGIN_LEFT + (($i % 2) * 76) + 7, $pdf->GetY(), null, 115);
                     $i++;
                     if ($i % 2 == 0) {
                         $pdf->Ln(120);
