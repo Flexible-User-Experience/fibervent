@@ -107,11 +107,12 @@ class UserRepository extends EntityRepository
      *
      * @return QueryBuilder
      */
-    public function findAllTechnicinasSortedByNameQB($limit = null, $order = 'ASC')
+    public function findAllTechniciansSortedByNameQB($limit = null, $order = 'ASC')
     {
         return $this
             ->findAllSortedByNameQB($limit, $order)
             ->where('u.roles NOT LIKE :role')
+            ->andWhere('u.enabled = true')
             ->setParameter('role', '%' . UserRolesEnum::ROLE_CUSTOMER . '%');
     }
 
@@ -121,9 +122,9 @@ class UserRepository extends EntityRepository
      *
      * @return Query
      */
-    public function findAllTechnicinasSortedByNameQ($limit = null, $order = 'ASC')
+    public function findAllTechniciansSortedByNameQ($limit = null, $order = 'ASC')
     {
-        return $this->findAllTechnicinasSortedByNameQB($limit, $order)->getQuery();
+        return $this->findAllTechniciansSortedByNameQB($limit, $order)->getQuery();
     }
 
     /**
@@ -132,9 +133,9 @@ class UserRepository extends EntityRepository
      *
      * @return array
      */
-    public function findAllTechnicinasSortedByName($limit = null, $order = 'ASC')
+    public function findAllTechniciansSortedByName($limit = null, $order = 'ASC')
     {
-        return $this->findAllTechnicinasSortedByNameQ($limit, $order)->getResult();
+        return $this->findAllTechniciansSortedByNameQ($limit, $order)->getResult();
     }
 
     /**

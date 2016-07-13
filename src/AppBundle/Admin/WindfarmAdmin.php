@@ -44,7 +44,7 @@ class WindfarmAdmin extends AbstractBaseAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $customer = null;
-        if ($this->getSubject() != null) {
+        if ($this->getSubject() !== null) {
             $customer = $this->getSubject()->getCustomer();
         }
 

@@ -49,9 +49,6 @@
 # Composer PHAR
 /composer.phar
 
-# PHPStorm
-/.idea/
-
 /dbreset.sh
 /test.sh
 

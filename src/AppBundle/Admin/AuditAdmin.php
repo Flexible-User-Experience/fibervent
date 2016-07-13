@@ -123,7 +123,7 @@ class AuditAdmin extends AbstractBaseAdmin
                     'btn_add'    => false,
                     'btn_delete' => false,
                     'property'   => 'contactInfoString',
-                    'query'      => $this->ur->findAllTechnicinasSortedByNameQ(),
+                    'query'      => $this->ur->findAllTechniciansSortedByNameQ(),
                 )
             )
             ->add(
