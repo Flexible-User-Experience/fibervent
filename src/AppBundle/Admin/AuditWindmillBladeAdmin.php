@@ -65,21 +65,6 @@ class AuditWindmillBladeAdmin extends AbstractBaseAdmin
                         'disabled' => true,
                     )
                 )
-//                ->add(
-//                    'observations',
-//                    'sonata_type_collection',
-//                    array(
-//                        'label'              => 'Observacions',
-//                        'required'           => true,
-//                        'cascade_validation' => true,
-//                        'error_bubbling'     => true,
-//                    ),
-//                    array(
-//                        'edit'     => 'inline',
-//                        'inline'   => 'table',
-//                        'sortable' => 'number',
-//                    )
-//                )
                 ->end()
                 ->with('Danys', $this->getFormMdSuccessBoxArray(3))
                 ->add(
@@ -114,6 +99,39 @@ class AuditWindmillBladeAdmin extends AbstractBaseAdmin
                         'edit'     => 'inline',
                         'inline'   => 'table',
                         'sortable' => 'number',
+                    )
+                )
+                ->end()
+                ->with('Observacions · Pala ' . $text, $this->getFormMdSuccessBoxArray(8))
+                ->add(
+                    'observations',
+                    'sonata_type_collection',
+                    array(
+                        'label'              => 'Observacions',
+                        'required'           => true,
+                        'cascade_validation' => true,
+                        'error_bubbling'     => true,
+                    ),
+                    array(
+                        'edit'     => 'inline',
+                        'inline'   => 'table',
+                        'sortable' => 'position',
+                    )
+                )
+                ->end()
+                ->with('Fotos generals · Pala ' . $text, $this->getFormMdSuccessBoxArray(4))
+                ->add(
+                    'bladePhotos',
+                    'sonata_type_collection',
+                    array(
+                        'label'              => 'Fotos',
+                        'required'           => true,
+                        'cascade_validation' => true,
+                        'error_bubbling'     => true,
+                    ),
+                    array(
+                        'edit'     => 'inline',
+                        'inline'   => 'table',
                     )
                 )
                 ->end();

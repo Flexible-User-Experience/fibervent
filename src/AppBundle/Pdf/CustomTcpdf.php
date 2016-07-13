@@ -102,7 +102,7 @@ class CustomTcpdf extends \TCPDF
         $this->SetXY(self::PDF_MARGIN_LEFT, 280);
         $this->setFontStyle(null, 'I', 8);
         $this->setBlueLine();
-        $this->Cell(0, 0, 'Página ' . $this->getAliasNumPage() . ' de ' . $this->getAliasNbPages(), 'T', 0, 'L');
+        $this->Cell(0, 0, 'Página ' . $this->getAliasNumPage() . ' de ' . $this->getAliasNbPages(), 'T', 0, 'C');
     }
 
     /**
@@ -234,7 +234,7 @@ class CustomTcpdf extends \TCPDF
     {
         $this->setBackgroundHexColor($hexColor);
         $this->Rect($x, $y, $w, 5, 'DF', array('all' => array('width' => 0.25, 'cap' => 'butt', 'join' => 'miter', 'dash' => 0, 'color' => array(0, 0, 0))));
-        $this->MultiCell($w, 5, $txt, 1, 'C', 1, 0, $x, $y - 0.25, true);
+        $this->MultiCell($w + 2, 5, $txt, 0, 'C', false, 0, $x - 1, $y - 0.25, true);
     }
 
     /**
