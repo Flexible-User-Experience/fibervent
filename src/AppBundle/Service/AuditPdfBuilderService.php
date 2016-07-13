@@ -222,13 +222,13 @@ class AuditPdfBuilderService
             }
 
             $txt = $auditWindmillBlade->getWindmillBlade()->getWindmill()->getBladeType()->getQ1LengthString();
-            $pdf->Text(($xQuarter2 - $pdf->GetStringWidth($txt) - 2), $yMiddle - 5, $txt);
+            $pdf->Text(($xQuarter2 - $pdf->GetStringWidth($txt) - 2), $yMiddle - 5.75, $txt);
             $txt = $auditWindmillBlade->getWindmillBlade()->getWindmill()->getBladeType()->getQ2LengthString();
-            $pdf->Text(($xQuarter3 - $pdf->GetStringWidth($txt) - 2), $yMiddle - 5, $txt);
+            $pdf->Text(($xQuarter3 - $pdf->GetStringWidth($txt) - 2), $yMiddle - 5.75, $txt);
             $txt = $auditWindmillBlade->getWindmillBlade()->getWindmill()->getBladeType()->getQ3LengthString();
-            $pdf->Text(($xQuarter4 - $pdf->GetStringWidth($txt) - 2), $yMiddle - 5, $txt);
+            $pdf->Text(($xQuarter4 - $pdf->GetStringWidth($txt) - 2), $yMiddle - 5.75, $txt);
             $txt = $auditWindmillBlade->getWindmillBlade()->getWindmill()->getBladeType()->getQ4LengthString();
-            $pdf->Text(($xQuarter5 - $pdf->GetStringWidth($txt) - 2), $yMiddle - 5, $txt);
+            $pdf->Text(($xQuarter5 - $pdf->GetStringWidth($txt) - 2), $yMiddle - 5.75, $txt);
             /** @var BladeDamage $bladeDamage */
             foreach ($bladeDamages as $sKey => $bladeDamage) {
                 // MultiCell($w, $h, $txt, $border=0, $align='J', $fill=0, $ln=1, $x='', $y='', $reseth=true, $stretch=0, $ishtml=false, $autopadding=true, $maxh=0)
@@ -291,6 +291,7 @@ class AuditPdfBuilderService
 
             // Damage images pages
             $pdf->AddPage();
+            $pdf->setBlueLine();
             /** @var BladeDamage $bladeDamage */
             foreach ($bladeDamages as $sKey => $bladeDamage) {
                 $pdf->drawDamageTableHeader();
