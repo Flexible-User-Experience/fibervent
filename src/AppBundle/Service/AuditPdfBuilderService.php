@@ -172,137 +172,143 @@ class AuditPdfBuilderService
         // Damages section
         /** @var AuditWindmillBlade $auditWindmillBlade */
         foreach ($audit->getAuditWindmillBlades() as $key => $auditWindmillBlade) {
-            $pdf->setFontStyle(null, 'B', 11);
-            $pdf->Write(0, '3.' . ($key + 1) . ' RESUMEN INDIVIDUAL DAÑOS PALA ' . ($key + 1), '', false, 'L', true);
-            $pdf->Ln(5);
-            $pdf->setFontStyle(null, '', 9);
-            $pdf->Write(0, 'En la siguiente tabla se describe el resultado de la inspección con la categorización, descripciones, ubicación y links a fotografías de los daños.', '', false, 'L', true);
-            $pdf->Ln(5);
-            // damage table
-            $pdf->drawDamageTableHeader();
             $bladeDamages = $this->bdr->getItemsOfAuditWindmillBladeSortedByRadius($auditWindmillBlade);
-            /** @var BladeDamage $bladeDamage */
-            foreach ($bladeDamages as $sKey => $bladeDamage) {
-                $pdf->drawDamageTableBodyRow($sKey, $bladeDamage);
-            }
-            $pdf->Ln(10);
-
-            // blade diagram damage locations
-            $this->amdb->setYs($pdf->GetY());
-            $x1 = $this->amdb->getX1();
-            $y1 = $this->amdb->getY1();
-            $x2 = $this->amdb->getX2();
-            $y2 = $this->amdb->getY2();
-
-            $xQuarter1 = $this->amdb->getXQ1();
-            $xQuarter2 = $this->amdb->getXQ2();
-            $xQuarter3 = $this->amdb->getXQ3();
-            $xQuarter4 = $this->amdb->getXQ4();
-            $xQuarter5 = $this->amdb->getXQ5();
-
-            $yMiddle   = $this->amdb->getYMiddle();
-            $yQuarter1 = $this->amdb->getYQ1();
-            $yQuarter2 = $this->amdb->getYQ2();
-            $yQuarter3 = $this->amdb->getYQ3();
-            $yQuarter4 = $this->amdb->getYQ4();
-
-            $pdf->Image($this->tha->getUrl('/bundles/app/images/blade_diagrams/blade_blueprint_1.jpg'), $x1, $y1, ($x2 - $x1), null);
-
-            if (self::SHOW_GRID_DEBUG) {
-                $pdf->Line($xQuarter1, $y1, $xQuarter1, $y1 + ($y2 - $y1));
-                $pdf->Line($xQuarter2, $y1, $xQuarter2, $y1 + ($y2 - $y1));
-                $pdf->Line($xQuarter3, $y1, $xQuarter3, $y1 + ($y2 - $y1));
-                $pdf->Line($xQuarter4, $y1, $xQuarter4, $y1 + ($y2 - $y1));
-                $pdf->Line($xQuarter5, $y1, $xQuarter5, $y1 + ($y2 - $y1));
-                $pdf->Line($x1, $yQuarter1, $x2, $yQuarter1);
-                $pdf->Line($x1, $yQuarter2, $x2, $yQuarter2);
-                $pdf->Line($x1, $yMiddle,   $x2, $yMiddle);
-                $pdf->Line($x1, $yQuarter3, $x2, $yQuarter3);
-                $pdf->Line($x1, $yQuarter4, $x2, $yQuarter4);
-            }
-
-            $txt = $auditWindmillBlade->getWindmillBlade()->getWindmill()->getBladeType()->getQ1LengthString();
-            $pdf->Text(($xQuarter2 - $pdf->GetStringWidth($txt) - 2), $yMiddle - 5.75, $txt);
-            $txt = $auditWindmillBlade->getWindmillBlade()->getWindmill()->getBladeType()->getQ2LengthString();
-            $pdf->Text(($xQuarter3 - $pdf->GetStringWidth($txt) - 2), $yMiddle - 5.75, $txt);
-            $txt = $auditWindmillBlade->getWindmillBlade()->getWindmill()->getBladeType()->getQ3LengthString();
-            $pdf->Text(($xQuarter4 - $pdf->GetStringWidth($txt) - 2), $yMiddle - 5.75, $txt);
-            $txt = $auditWindmillBlade->getWindmillBlade()->getWindmill()->getBladeType()->getQ4LengthString();
-            $pdf->Text(($xQuarter5 - $pdf->GetStringWidth($txt) - 2), $yMiddle - 5.75, $txt);
-            /** @var BladeDamage $bladeDamage */
-            foreach ($bladeDamages as $sKey => $bladeDamage) {
-                // MultiCell($w, $h, $txt, $border=0, $align='J', $fill=0, $ln=1, $x='', $y='', $reseth=true, $stretch=0, $ishtml=false, $autopadding=true, $maxh=0)
-                $pdf->setBackgroundHexColor($bladeDamage->getDamageCategory()->getColour());
-                
-                if ($bladeDamage->getPosition() == BladeDamagePositionEnum::EDGE_IN) {
-                    // Both Valves {BA} · Double draw
-                    $pdf->drawDamage($this->amdb->getGapX($bladeDamage), $this->amdb->getYQ2() - AuditModelDiagramBridgeService::GAP_SQUARE_HALF_SIZE, $this->amdb->getGapXSize($bladeDamage), $sKey + 1, $bladeDamage->getDamageCategory()->getColour());
-                    $pdf->drawDamage($this->amdb->getGapX($bladeDamage), $this->amdb->getYQ3() -  AuditModelDiagramBridgeService::GAP_SQUARE_HALF_SIZE, $this->amdb->getGapXSize($bladeDamage), $sKey + 1, $bladeDamage->getDamageCategory()->getColour());
-                    
-                } elseif ($bladeDamage->getPosition() == BladeDamagePositionEnum::EDGE_OUT) {
-                    // Both Valves {BS} · Double draw
-                    $pdf->drawDamage($this->amdb->getGapX($bladeDamage), $this->amdb->getGapY($bladeDamage), $this->amdb->getGapXSize($bladeDamage), $sKey + 1, $bladeDamage->getDamageCategory()->getColour());
-                    $pdf->drawDamage($this->amdb->getGapX($bladeDamage), $this->amdb->getGapY($bladeDamage, -1) - $this->amdb->getYScaleGap() - AuditModelDiagramBridgeService::GAP_SQUARE_SIZE, $this->amdb->getGapXSize($bladeDamage), $sKey + 1, $bladeDamage->getDamageCategory()->getColour());
-                    
-                } else {
-                    // One valve {VP, VS}
-                    $pdf->drawDamage($this->amdb->getGapX($bladeDamage), $this->amdb->getGapY($bladeDamage), $this->amdb->getGapXSize($bladeDamage), $sKey + 1, $bladeDamage->getDamageCategory()->getColour());
-                }
-            }
-            $pdf->setWhiteBackground();
-            
-            // Observations table
-            if (count($auditWindmillBlade->getObservations())> 0) {
-                $pdf->Ln(35);
-                $pdf->setBlueLine();
-                $pdf->setBlueBackground();
-                $pdf->setFontStyle(null, 'B', 9);
-                $pdf->Cell(16, 0, 'DAÑO', 1, 0, 'C', true);
-                $pdf->Cell(0, 0, 'OBSERVACIONES', 1, 1, 'C', true);
-                $pdf->setFontStyle(null, '', 9);
-                $pdf->setWhiteBackground();
-                /** @var Observation $observation */
-                foreach ($auditWindmillBlade->getObservations() as $observation) {
-                    $pdf->Cell(16, 0, $observation->getDamageNumber(), 1, 0, 'C', true);
-                    $pdf->Cell(0, 0, $observation->getObservations(), 1, 1, 'L', true);
-                }
-                $pdf->Ln(5);
-            }
-
-            // General blade damage images
-            if (count($auditWindmillBlade->getBladePhotos()) > 0) {
-                $pdf->AddPage();
+            if (count($bladeDamages) > 0) {
                 $pdf->setFontStyle(null, 'B', 11);
-                $pdf->Write(0, '3.' . ($key + 1) . '.1 VISTAS GENERALES PALA ' . ($key + 1), '', false, 'L', true);
-                $pdf->Ln(3);
+                $pdf->Write(0, '3.' . ($key + 1) . ' RESUMEN INDIVIDUAL DAÑOS PALA ' . ($key + 1), '', false, 'L', true);
+                $pdf->Ln(5);
                 $pdf->setFontStyle(null, '', 9);
-                $i = 0;
-                /** @var BladePhoto $photo */
-                foreach ($auditWindmillBlade->getBladePhotos() as $photo) {
-                    // Image($file, $x='', $y='', $w=0, $h=0, $type='', $link='', $align='', $resize=false, $dpi=300, $palign='', $ismask=false, $imgmask=false, $border=0, $fitbox=false, $hidden=false, $fitonpage=false)
-                    $pdf->Image($this->cm->getBrowserPath($this->uh->asset($photo, 'imageFile'), '600x960'), CustomTcpdf::PDF_MARGIN_LEFT + (($i % 2) * 76) + 7, $pdf->GetY(), null, 115);
-                    $i++;
-                    if ($i % 2 == 0) {
-                        $pdf->Ln(120);
+                $pdf->Write(0, 'En la siguiente tabla se describe el resultado de la inspección con la categorización, descripciones, ubicación y links a fotografías de los daños.', '', false, 'L', true);
+                $pdf->Ln(5);
+                // damage table
+                $pdf->drawDamageTableHeader();
+                /** @var BladeDamage $bladeDamage */
+                foreach ($bladeDamages as $sKey => $bladeDamage) {
+                    $pdf->drawDamageTableBodyRow($sKey, $bladeDamage);
+                }
+                $pdf->Ln(7);
+
+                // blade diagram damage locations
+                $this->amdb->setYs($pdf->GetY());
+                $x1 = $this->amdb->getX1();
+                $y1 = $this->amdb->getY1();
+                $x2 = $this->amdb->getX2();
+                $y2 = $this->amdb->getY2();
+
+                $xQuarter1 = $this->amdb->getXQ1();
+                $xQuarter2 = $this->amdb->getXQ2();
+                $xQuarter3 = $this->amdb->getXQ3();
+                $xQuarter4 = $this->amdb->getXQ4();
+                $xQuarter5 = $this->amdb->getXQ5();
+
+                $yMiddle   = $this->amdb->getYMiddle();
+                $yQuarter1 = $this->amdb->getYQ1();
+                $yQuarter2 = $this->amdb->getYQ2();
+                $yQuarter3 = $this->amdb->getYQ3();
+                $yQuarter4 = $this->amdb->getYQ4();
+
+                $pdf->Image($this->tha->getUrl('/bundles/app/images/blade_diagrams/blade_blueprint_1.jpg'), $x1, $y1, ($x2 - $x1), null);
+
+                if (self::SHOW_GRID_DEBUG) {
+                    $pdf->Line($xQuarter1, $y1, $xQuarter1, $y1 + ($y2 - $y1));
+                    $pdf->Line($xQuarter2, $y1, $xQuarter2, $y1 + ($y2 - $y1));
+                    $pdf->Line($xQuarter3, $y1, $xQuarter3, $y1 + ($y2 - $y1));
+                    $pdf->Line($xQuarter4, $y1, $xQuarter4, $y1 + ($y2 - $y1));
+                    $pdf->Line($xQuarter5, $y1, $xQuarter5, $y1 + ($y2 - $y1));
+                    $pdf->Line($x1, $yQuarter1, $x2, $yQuarter1);
+                    $pdf->Line($x1, $yQuarter2, $x2, $yQuarter2);
+                    $pdf->Line($x1, $yMiddle,   $x2, $yMiddle);
+                    $pdf->Line($x1, $yQuarter3, $x2, $yQuarter3);
+                    $pdf->Line($x1, $yQuarter4, $x2, $yQuarter4);
+                }
+
+                $txt = $auditWindmillBlade->getWindmillBlade()->getWindmill()->getBladeType()->getQ1LengthString();
+                $pdf->Text(($xQuarter2 - $pdf->GetStringWidth($txt) - 2), $yMiddle - 5.75, $txt);
+                $txt = $auditWindmillBlade->getWindmillBlade()->getWindmill()->getBladeType()->getQ2LengthString();
+                $pdf->Text(($xQuarter3 - $pdf->GetStringWidth($txt) - 2), $yMiddle - 5.75, $txt);
+                $txt = $auditWindmillBlade->getWindmillBlade()->getWindmill()->getBladeType()->getQ3LengthString();
+                $pdf->Text(($xQuarter4 - $pdf->GetStringWidth($txt) - 2), $yMiddle - 5.75, $txt);
+                $txt = $auditWindmillBlade->getWindmillBlade()->getWindmill()->getBladeType()->getQ4LengthString();
+                $pdf->Text(($xQuarter5 - $pdf->GetStringWidth($txt) - 2), $yMiddle - 5.75, $txt);
+                /** @var BladeDamage $bladeDamage */
+                foreach ($bladeDamages as $sKey => $bladeDamage) {
+                    // MultiCell($w, $h, $txt, $border=0, $align='J', $fill=0, $ln=1, $x='', $y='', $reseth=true, $stretch=0, $ishtml=false, $autopadding=true, $maxh=0)
+                    $pdf->setBackgroundHexColor($bladeDamage->getDamageCategory()->getColour());
+
+                    if ($bladeDamage->getPosition() == BladeDamagePositionEnum::EDGE_IN) {
+                        // Both Valves {BA} · Double draw
+                        $pdf->drawDamage($this->amdb->getGapX($bladeDamage), $this->amdb->getYQ2() - AuditModelDiagramBridgeService::GAP_SQUARE_HALF_SIZE, $this->amdb->getGapXSize($bladeDamage), $sKey + 1, $bladeDamage->getDamageCategory()->getColour());
+                        $pdf->drawDamage($this->amdb->getGapX($bladeDamage), $this->amdb->getYQ3() -  AuditModelDiagramBridgeService::GAP_SQUARE_HALF_SIZE, $this->amdb->getGapXSize($bladeDamage), $sKey + 1, $bladeDamage->getDamageCategory()->getColour());
+
+                    } elseif ($bladeDamage->getPosition() == BladeDamagePositionEnum::EDGE_OUT) {
+                        // Both Valves {BS} · Double draw
+                        $pdf->drawDamage($this->amdb->getGapX($bladeDamage), $this->amdb->getGapY($bladeDamage), $this->amdb->getGapXSize($bladeDamage), $sKey + 1, $bladeDamage->getDamageCategory()->getColour());
+                        $pdf->drawDamage($this->amdb->getGapX($bladeDamage), $this->amdb->getGapY($bladeDamage, -1) - $this->amdb->getYScaleGap() - AuditModelDiagramBridgeService::GAP_SQUARE_SIZE, $this->amdb->getGapXSize($bladeDamage), $sKey + 1, $bladeDamage->getDamageCategory()->getColour());
+
+                    } else {
+                        // One valve {VP, VS}
+                        $pdf->drawDamage($this->amdb->getGapX($bladeDamage), $this->amdb->getGapY($bladeDamage), $this->amdb->getGapXSize($bladeDamage), $sKey + 1, $bladeDamage->getDamageCategory()->getColour());
                     }
                 }
-                $pdf->Ln(5);
-            }
+                $pdf->setWhiteBackground();
 
-            // Damage images pages
-            $pdf->AddPage();
-            $pdf->setBlueLine();
-            /** @var BladeDamage $bladeDamage */
-            foreach ($bladeDamages as $sKey => $bladeDamage) {
-                $pdf->drawDamageTableHeader();
-                $pdf->drawDamageTableBodyRow($sKey, $bladeDamage);
-                $pdf->Ln(5);
-                /** @var Photo $photo */
-                foreach ($bladeDamage->getPhotos() as $photo) {
-                    $pdf->Image($this->cm->getBrowserPath($this->uh->asset($photo, 'imageFile'), '960x540'), CustomTcpdf::PDF_MARGIN_LEFT, $pdf->GetY(), $pdf->availablePageWithDimension, null);
-                    $pdf->Ln(100);
+                // Observations table
+                if (count($auditWindmillBlade->getObservations())> 0) {
+                    $pdf->Ln(50);
+                    $pdf->setBlueLine();
+                    $pdf->setBlueBackground();
+                    $pdf->setFontStyle(null, 'B', 9);
+                    $pdf->Cell(16, 0, 'DAÑO', 1, 0, 'C', true);
+                    $pdf->Cell(0, 0, 'OBSERVACIONES', 1, 1, 'C', true);
+                    $pdf->setFontStyle(null, '', 9);
+                    $pdf->setWhiteBackground();
+                    /** @var Observation $observation */
+                    foreach ($auditWindmillBlade->getObservations() as $observation) {
+                        $pdf->Cell(16, 0, $observation->getDamageNumber(), 1, 0, 'C', true);
+                        $pdf->Cell(0, 0, $observation->getObservations(), 1, 1, 'L', true);
+                    }
+                    $pdf->Ln(5);
                 }
+
+                // General blade damage images
+                if (count($auditWindmillBlade->getBladePhotos()) > 0) {
+                    $pdf->AddPage();
+                    $pdf->setFontStyle(null, 'B', 11);
+                    $pdf->Write(0, '3.' . ($key + 1) . '.1 VISTAS GENERALES PALA ' . ($key + 1), '', false, 'L', true);
+                    $pdf->Ln(3);
+                    $pdf->setFontStyle(null, '', 9);
+                    $i = 0;
+                    /** @var BladePhoto $photo */
+                    foreach ($auditWindmillBlade->getBladePhotos() as $photo) {
+                        if ($photo->getImageName()) {
+                            // Image($file, $x='', $y='', $w=0, $h=0, $type='', $link='', $align='', $resize=false, $dpi=300, $palign='', $ismask=false, $imgmask=false, $border=0, $fitbox=false, $hidden=false, $fitonpage=false)
+                            $pdf->Image($this->cm->getBrowserPath($this->uh->asset($photo, 'imageFile'), '600x960'), CustomTcpdf::PDF_MARGIN_LEFT + (($i % 2) * 76) + 7, $pdf->GetY(), null, 115);
+                            $i++;
+                            if ($i % 2 == 0) {
+                                $pdf->Ln(120);
+                            }
+                        }
+                    }
+                    $pdf->Ln(5);
+                }
+
+                // Damage images pages
                 $pdf->AddPage();
+                $pdf->setBlueLine();
+                /** @var BladeDamage $bladeDamage */
+                foreach ($bladeDamages as $sKey => $bladeDamage) {
+                    $pdf->drawDamageTableHeader();
+                    $pdf->drawDamageTableBodyRow($sKey, $bladeDamage);
+                    $pdf->Ln(5);
+                    /** @var Photo $photo */
+                    foreach ($bladeDamage->getPhotos() as $photo) {
+                        if ($photo->getImageName()) {
+                            $pdf->Image($this->cm->getBrowserPath($this->uh->asset($photo, 'imageFile'), '960x540'), CustomTcpdf::PDF_MARGIN_LEFT, $pdf->GetY(), $pdf->availablePageWithDimension, null);
+                            $pdf->Ln(100);
+                        }
+                    }
+                    $pdf->AddPage();
+                }
             }
         }
         // Inspection description

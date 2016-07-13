@@ -25,14 +25,19 @@ liip_imagine:
         960x540:
             quality: 80
             filters:
+                auto_rotate: ~
+                strip: ~
                 thumbnail: { size: [ 960, 540 ], mode: outbound }
         600x960:
             quality: 80
             filters:
+                auto_rotate: ~
+                strip: ~
                 thumbnail: { size: [ 600, 960 ], mode: outbound }
         480xY:
             quality: 90
             filters:
+                auto_rotate: ~
                 thumbnail: { size: [ 480, null ], mode: outbound }
         480x270:
             quality: 95
