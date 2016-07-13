@@ -122,8 +122,8 @@ class AuditModelDiagramBridgeService
     {
         $this->x1 = CustomTcpdf::PDF_MARGIN_LEFT;
         $this->x2 = self::PDF_TOTAL_WIDHT - CustomTcpdf::PDF_MARGIN_RIGHT;
-        $this->xQ1 = $this->x1 + 0.5;
-        $this->xQ5 = $this->x2 - 0.5;
+        $this->xQ1 = $this->x1 + 0.25;
+        $this->xQ5 = $this->x2 - 0.25;
         $this->xScaleGap = $this->xQ5 - $this->xQ1;
         $this->xQ2 = $this->xQ1 + ($this->xScaleGap / 4);
         $this->xQ3 = $this->xQ2 + ($this->xScaleGap / 4);
@@ -199,7 +199,7 @@ class AuditModelDiagramBridgeService
      */
     public function getGapX(BladeDamage $bladeDamage)
     {
-        return $this->xQ1 + (($bladeDamage->getRadius() * $this->xScaleGap) / $bladeDamage->getAuditWindmillBlade()->getWindmillBlade()->getWindmill()->getBladeType()->getLength()) - self::GAP_SQUARE_HALF_SIZE;
+        return $this->xQ1 + (($bladeDamage->getRadius() * $this->xScaleGap) / $bladeDamage->getAuditWindmillBlade()->getWindmillBlade()->getWindmill()->getBladeType()->getLength());
     }
 
     /**
