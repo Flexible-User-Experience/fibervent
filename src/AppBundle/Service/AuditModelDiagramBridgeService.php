@@ -181,7 +181,8 @@ class AuditModelDiagramBridgeService
     public function calculateMaxFunctionYPoint(Blade $blade)
     {
         $maxY = 0;
-        for ($x = 0; $x <= $blade->getLength(); $x = $x + 0.5) {
+        $bladeLength = $blade->getLength();
+        for ($x = 0; $x <= $bladeLength; $x = $x + 0.5) {
             $val = $this->isolatedDeltaY($x);
             if ($maxY < $val) {
                 $maxY = $val;
