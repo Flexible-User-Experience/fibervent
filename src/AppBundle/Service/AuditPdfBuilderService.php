@@ -279,11 +279,13 @@ class AuditPdfBuilderService
                 $i = 0;
                 /** @var BladePhoto $photo */
                 foreach ($auditWindmillBlade->getBladePhotos() as $photo) {
-                    // Image($file, $x='', $y='', $w=0, $h=0, $type='', $link='', $align='', $resize=false, $dpi=300, $palign='', $ismask=false, $imgmask=false, $border=0, $fitbox=false, $hidden=false, $fitonpage=false)
-                    $pdf->Image($this->cm->getBrowserPath($this->uh->asset($photo, 'imageFile'), '600x960'), CustomTcpdf::PDF_MARGIN_LEFT + (($i % 2) * 76) + 7, $pdf->GetY(), null, 115);
-                    $i++;
-                    if ($i % 2 == 0) {
-                        $pdf->Ln(120);
+                    if ($photo->getImageName()) {
+                        // Image($file, $x='', $y='', $w=0, $h=0, $type='', $link='', $align='', $resize=false, $dpi=300, $palign='', $ismask=false, $imgmask=false, $border=0, $fitbox=false, $hidden=false, $fitonpage=false)
+                        $pdf->Image($this->cm->getBrowserPath($this->uh->asset($photo, 'imageFile'), '600x960'), CustomTcpdf::PDF_MARGIN_LEFT + (($i % 2) * 76) + 7, $pdf->GetY(), null, 115);
+                        $i++;
+                        if ($i % 2 == 0) {
+                            $pdf->Ln(120);
+                        }
                     }
                 }
                 $pdf->Ln(5);
@@ -299,8 +301,10 @@ class AuditPdfBuilderService
                 $pdf->Ln(5);
                 /** @var Photo $photo */
                 foreach ($bladeDamage->getPhotos() as $photo) {
-                    $pdf->Image($this->cm->getBrowserPath($this->uh->asset($photo, 'imageFile'), '960x540'), CustomTcpdf::PDF_MARGIN_LEFT, $pdf->GetY(), $pdf->availablePageWithDimension, null);
-                    $pdf->Ln(100);
+                    if ($photo->getImageName()) {
+                        $pdf->Image($this->cm->getBrowserPath($this->uh->asset($photo, 'imageFile'), '960x540'), CustomTcpdf::PDF_MARGIN_LEFT, $pdf->GetY(), $pdf->availablePageWithDimension, null);
+                        $pdf->Ln(100);
+                    }
                 }
                 $pdf->AddPage();
             }
