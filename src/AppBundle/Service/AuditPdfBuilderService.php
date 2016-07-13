@@ -185,7 +185,7 @@ class AuditPdfBuilderService
             foreach ($bladeDamages as $sKey => $bladeDamage) {
                 $pdf->drawDamageTableBodyRow($sKey, $bladeDamage);
             }
-            $pdf->Ln(5);
+            $pdf->Ln(10);
 
             // blade diagram damage locations
             $this->amdb->setYs($pdf->GetY());
@@ -252,8 +252,8 @@ class AuditPdfBuilderService
             $pdf->setWhiteBackground();
             
             // Observations table
-            if ($auditWindmillBlade->getObservations()->count() > 0) {
-                $pdf->Ln(AuditModelDiagramBridgeService::DIAGRAM_HEIGHT + 5);
+            if (count($auditWindmillBlade->getObservations())> 0) {
+                $pdf->Ln(35);
                 $pdf->setBlueLine();
                 $pdf->setBlueBackground();
                 $pdf->setFontStyle(null, 'B', 9);
@@ -270,7 +270,7 @@ class AuditPdfBuilderService
             }
 
             // General blade damage images
-            if ($auditWindmillBlade->getBladePhotos()->count() > 0) {
+            if (count($auditWindmillBlade->getBladePhotos()) > 0) {
                 $pdf->AddPage();
                 $pdf->setFontStyle(null, 'B', 11);
                 $pdf->Write(0, '3.' . ($key + 1) . '.1 VISTAS GENERALES PALA ' . ($key + 1), '', false, 'L', true);
