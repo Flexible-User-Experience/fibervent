@@ -1,5 +1,6 @@
 {
     "name": "flux/fibervent",
+    "description": "A Symfony2 webapp project to manage Fibervent windmill auditting process",
     "license": "proprietary",
     "type": "project",
     "autoload": {

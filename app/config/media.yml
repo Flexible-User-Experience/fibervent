@@ -17,6 +17,7 @@ vich_uploader:
 
 # Liip Imagine
 liip_imagine:
+    driver: imagick
     resolvers:
        default:
           web_path: ~
