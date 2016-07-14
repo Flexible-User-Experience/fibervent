@@ -16,7 +16,7 @@ framework:
     csrf_protection: ~
     validation:      { enable_annotations: true }
     templating:
-        engines: ['twig']
+        engines: [ "twig" ]
     default_locale:  "%locale%"
     trusted_hosts:   ~
     trusted_proxies: ~
@@ -72,10 +72,6 @@ doctrine:
         auto_generate_proxy_classes: "%kernel.debug%"
         naming_strategy:             doctrine.orm.naming_strategy.underscore
         auto_mapping:                true
-#        filters:
-#            softdeleteable:
-#                class:   Gedmo\SoftDeleteable\Filter\SoftDeleteableFilter
-#                enabled: true
 
 # Stof Doctrine Extensions
 stof_doctrine_extensions:
@@ -99,7 +95,7 @@ fos_user:
         group_manager: sonata.user.orm.group_manager
     service:
         user_manager: sonata.user.orm.user_manager
-    profile:  # Authentication Form
+    profile:
         form:
             type:               fos_user_profile
             handler:            fos_user.profile.form.handler.default
