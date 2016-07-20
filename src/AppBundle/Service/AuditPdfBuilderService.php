@@ -187,6 +187,7 @@ class AuditPdfBuilderService
                     $pdf->drawDamageTableBodyRow($sKey, $bladeDamage);
                 }
                 $pdf->Ln(7);
+                $yBreakpoint = $pdf->GetY();
 
                 // blade diagram damage locations
                 $this->amdb->setYs($pdf->GetY());
@@ -251,10 +252,10 @@ class AuditPdfBuilderService
                     }
                 }
                 $pdf->setWhiteBackground();
+                $pdf->SetY($yBreakpoint + AuditModelDiagramBridgeService::DIAGRAM_HEIGHT + 10);
 
                 // Observations table
                 if (count($auditWindmillBlade->getObservations())> 0) {
-                    $pdf->Ln(50);
                     $pdf->setBlueLine();
                     $pdf->setBlueBackground();
                     $pdf->setFontStyle(null, 'B', 9);
@@ -264,8 +265,9 @@ class AuditPdfBuilderService
                     $pdf->setWhiteBackground();
                     /** @var Observation $observation */
                     foreach ($auditWindmillBlade->getObservations() as $observation) {
-                        $pdf->Cell(16, 0, $observation->getDamageNumber(), 1, 0, 'C', true);
-                        $pdf->Cell(0, 0, $observation->getObservations(), 1, 1, 'L', true);
+                        $h = $pdf->getStringHeight(AuditModelDiagramBridgeService::PDF_TOTAL_WIDHT - CustomTcpdf::PDF_MARGIN_LEFT - CustomTcpdf::PDF_MARGIN_RIGHT - 16, $observation->getObservations());
+                        $pdf->MultiCell(0, $h, $observation->getObservations(), 1, 'L', 0, 0, CustomTcpdf::PDF_MARGIN_LEFT + 16, '', true, 0, false, true, 0, 'M');
+                        $pdf->MultiCell(16, $h, $observation->getDamageNumber(), 1, 'C', 0, 1, CustomTcpdf::PDF_MARGIN_LEFT, '', true, 0, false, true, 0, 'M');
                     }
                     $pdf->Ln(5);
                 }
@@ -449,11 +451,15 @@ class AuditPdfBuilderService
         $pdf->setFontStyle(null, 'B', 10); $pdf->setBlueBackground();
         $pdf->Cell(70, 6, 'MODELO AEROGENERADOR', 'TB', 0, 'R', true);
         $pdf->setFontStyle(null, '', 10); $pdf->setWhiteBackground();
-        $pdf->Cell(0, 6, $windmill->getPdfModelString(), 'TB', 1, 'L', true);
+        $pdf->Cell(0, 6, $windmill->getTurbine(), 'TB', 1, 'L', true);
+        $pdf->setFontStyle(null, 'B', 10); $pdf->setBlueBackground();
+        $pdf->Cell(70, 6, 'DIMENSIONES AEROGENERADOR', 'TB', 0, 'R', true);
+        $pdf->setFontStyle(null, '', 10); $pdf->setWhiteBackground();
+        $pdf->Cell(0, 6, $windmill->getPdfModelDimensionString(), 'TB', 1, 'L', true);
         $pdf->setFontStyle(null, 'B', 10); $pdf->setBlueBackground();
         $pdf->Cell(70, 6, 'MODELO PALA', 'TB', 0, 'R', true);
         $pdf->setFontStyle(null, '', 10); $pdf->setWhiteBackground();
-        $pdf->Cell(0, 6, $windmill->getBladeType()->getModel(), 'TB', 1, 'L', true);
+        $pdf->Cell(0, 6, $windmill->getBladeType(), 'TB', 1, 'L', true);
         $pdf->setFontStyle(null, 'B', 10); $pdf->setBlueBackground();
         $pdf->Cell(70, 6, 'TOTAL No. AG / Capacidad PE', 'TB', 0, 'R', true);
         $pdf->setFontStyle(null, '', 10); $pdf->setWhiteBackground();
