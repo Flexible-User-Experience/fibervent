@@ -245,6 +245,14 @@ class Windmill extends AbstractBase
     /**
      * @return string
      */
+    public function getPdfModelDimensionString()
+    {
+        return 'Torre ' . $this->getTurbine()->getTowerHeight() . 'm / Rotor Ø' . $this->getTurbine()->getRotorDiameter() . 'm / Pala ' . $this->getBladeType()->getLength() . 'm';
+    }
+
+    /**
+     * @return string
+     */
     public function __toString()
     {
         return $this->getCode() ? $this->getWindfarm()->getCustomer()->getName() . ' · ' . $this->getWindfarm()->getName() . ' · ' . $this->getCode()  : '---';
