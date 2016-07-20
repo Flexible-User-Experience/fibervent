@@ -122,7 +122,7 @@ class BladeDamageAdmin extends AbstractBaseAdmin
                     'btn_add'    => false,
                     'btn_delete' => false,
                     'required'   => true,
-                    'query'      => $this->dc->findEnabledSortedByCategoryQ(),
+                    'query'      => $this->dcr->findEnabledSortedByCategoryQ(),
                 )
             )
             ->add(

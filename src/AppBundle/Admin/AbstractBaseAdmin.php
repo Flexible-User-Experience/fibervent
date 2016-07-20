@@ -68,7 +68,7 @@ abstract class AbstractBaseAdmin extends AbstractAdmin
     /**
      * @var DamageCategoryRepository
      */
-    protected $dc;
+    protected $dcr;
 
     /**
      * @var UploaderHelper
@@ -92,11 +92,11 @@ abstract class AbstractBaseAdmin extends AbstractAdmin
      * @param TurbineRepository          $tr
      * @param StateRepository            $sr
      * @param DamageRepository           $dr
-     * @param DamageCategoryRepository   $dr
+     * @param DamageCategoryRepository   $dcr
      * @param UploaderHelper             $vus
      * @param CacheManager               $lis
      */
-    public function __construct($code, $class, $baseControllerName, CustomerRepository $cr, UserRepository $ur, WindmillRepository $wmr, WindfarmRepository $wfr, BladeRepository $br, TurbineRepository $tr, StateRepository $sr, DamageRepository $dr, DamageCategoryRepository $dc, UploaderHelper $vus, CacheManager $lis)
+    public function __construct($code, $class, $baseControllerName, CustomerRepository $cr, UserRepository $ur, WindmillRepository $wmr, WindfarmRepository $wfr, BladeRepository $br, TurbineRepository $tr, StateRepository $sr, DamageRepository $dr, DamageCategoryRepository $dcr, UploaderHelper $vus, CacheManager $lis)
     {
         parent::__construct($code, $class, $baseControllerName);
         $this->cr  = $cr;
@@ -107,7 +107,7 @@ abstract class AbstractBaseAdmin extends AbstractAdmin
         $this->tr  = $tr;
         $this->sr  = $sr;
         $this->dr  = $dr;
-        $this->dc  = $dc;
+        $this->dcr = $dcr;
         $this->vus = $vus;
         $this->lis = $lis;
     }
