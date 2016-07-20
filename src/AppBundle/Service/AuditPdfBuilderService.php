@@ -187,6 +187,7 @@ class AuditPdfBuilderService
                     $pdf->drawDamageTableBodyRow($sKey, $bladeDamage);
                 }
                 $pdf->Ln(7);
+                $yBreakpoint = $pdf->GetY();
 
                 // blade diagram damage locations
                 $this->amdb->setYs($pdf->GetY());
@@ -251,10 +252,10 @@ class AuditPdfBuilderService
                     }
                 }
                 $pdf->setWhiteBackground();
+                $pdf->SetY($yBreakpoint + AuditModelDiagramBridgeService::DIAGRAM_HEIGHT + 10);
 
                 // Observations table
                 if (count($auditWindmillBlade->getObservations())> 0) {
-                    $pdf->Ln(50);
                     $pdf->setBlueLine();
                     $pdf->setBlueBackground();
                     $pdf->setFontStyle(null, 'B', 9);
