@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "88f65fd707c8322ea1312027aff79af4",
-    "content-hash": "b3fb0ba5d8a5bddf7657a6ecf225d693",
+    "hash": "ae7b793cf002f25a8511908d3b432175",
+    "content-hash": "f49a8bc74195d32776eb762369c53366",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -238,17 +238,17 @@
         },
         {
             "name": "cypresslab/gitelephant-bundle",
-            "version": "dev-develop",
+            "version": "v0.0.6",
             "target-dir": "Cypress/GitElephantBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/matteosister/GitElephantBundle.git",
-                "reference": "5ae5c0851361e4b7833175c8ac717870e80397f5"
+                "reference": "942775be6d9e265fa39994bc713c6790dec3459f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/matteosister/GitElephantBundle/zipball/5ae5c0851361e4b7833175c8ac717870e80397f5",
-                "reference": "5ae5c0851361e4b7833175c8ac717870e80397f5",
+                "url": "https://api.github.com/repos/matteosister/GitElephantBundle/zipball/942775be6d9e265fa39994bc713c6790dec3459f",
+                "reference": "942775be6d9e265fa39994bc713c6790dec3459f",
                 "shasum": ""
             },
             "require": {
@@ -282,7 +282,7 @@
             "keywords": [
                 "git"
             ],
-            "time": "2015-10-12 20:25:38"
+            "time": "2015-10-12 20:25:28"
         },
         {
             "name": "doctrine/annotations",
@@ -1551,16 +1551,16 @@
         },
         {
             "name": "gedmo/doctrine-extensions",
-            "version": "v2.4.15",
+            "version": "v2.4.18",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Atlantic18/DoctrineExtensions.git",
-                "reference": "8f172af78138ee3ea12e87be431dec3da0c2f4a9"
+                "reference": "c453c7d695da0dd1c3e713a27ec71a05da355662"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Atlantic18/DoctrineExtensions/zipball/8f172af78138ee3ea12e87be431dec3da0c2f4a9",
-                "reference": "8f172af78138ee3ea12e87be431dec3da0c2f4a9",
+                "url": "https://api.github.com/repos/Atlantic18/DoctrineExtensions/zipball/c453c7d695da0dd1c3e713a27ec71a05da355662",
+                "reference": "c453c7d695da0dd1c3e713a27ec71a05da355662",
                 "shasum": ""
             },
             "require": {
@@ -1626,7 +1626,7 @@
                 "tree",
                 "uploadable"
             ],
-            "time": "2016-07-08 05:48:13"
+            "time": "2016-07-19 06:08:11"
         },
         {
             "name": "hautelook/alice-bundle",
@@ -5120,16 +5120,16 @@
         },
         {
             "name": "vich/uploader-bundle",
-            "version": "1.1.0",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dustin10/VichUploaderBundle.git",
-                "reference": "f803b16f419af72d498753324051f283384871ef"
+                "reference": "0f40b0eabcc50732ec50fb5ce8adc15f8e5b055c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dustin10/VichUploaderBundle/zipball/f803b16f419af72d498753324051f283384871ef",
-                "reference": "f803b16f419af72d498753324051f283384871ef",
+                "url": "https://api.github.com/repos/dustin10/VichUploaderBundle/zipball/0f40b0eabcc50732ec50fb5ce8adc15f8e5b055c",
+                "reference": "0f40b0eabcc50732ec50fb5ce8adc15f8e5b055c",
                 "shasum": ""
             },
             "require": {
@@ -5173,7 +5173,7 @@
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.0.x-dev"
+                    "dev-master": "1.1.x-dev"
                 }
             },
             "autoload": {
@@ -5197,7 +5197,7 @@
                 "file uploads",
                 "upload"
             ],
-            "time": "2016-05-29 16:30:28"
+            "time": "2016-07-14 21:22:59"
         },
         {
             "name": "whiteoctober/tcpdf-bundle",
@@ -5496,7 +5496,6 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "cypresslab/gitelephant-bundle": 20,
         "oh/google-map-form-type-bundle": 20
     },
     "prefer-stable": false,
