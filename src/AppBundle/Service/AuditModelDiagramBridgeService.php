@@ -183,7 +183,7 @@ class AuditModelDiagramBridgeService
         $maxY = 0;
         $bladeLength = $blade->getLength();
         for ($x = 0; $x <= $bladeLength; $x = $x + 0.5) {
-            $val = $this->isolatedDeltaY($x);
+            $val = $this->isolatedDeltaY($x, $blade->getLength());
             if ($maxY < $val) {
                 $maxY = $val;
             }
@@ -283,30 +283,21 @@ class AuditModelDiagramBridgeService
     public function yCalculateFactorEdgeOut(BladeDamage $bladeDamage, $inversed = 1)
     {
         $x = $bladeDamage->getRadius();
-        $pow = $this->isolatedDeltaY($x);
+        $pow = $this->isolatedDeltaY($x, $bladeDamage->getAuditWindmillBlade()->getWindmillBlade()->getWindmill()->getBladeType()->getLength());
         $valve = ($pow * $this->getYScaleGap()) / $this->getMaxFunctionYPoint();
 
         return $inversed * ($valve - (((($bladeDamage->getDistance() / 100)) * $this->getYScaleGap()) / $this->getMaxFunctionYPoint()));
     }
 
     /**
-     * @param Blade $blade
-     *
-     * @return float
-     */
-    public function yCalculateMaxFactor(Blade $blade)
-    {
-        return (((1 / 30) * $blade->getLength()) + (4 / 3)) * 100;
-    }
-
-    /**
      * @param float $x
+     * @param float $bladeLength
      *
      * @return float
      */
-    private function isolatedDeltaY($x)
+    private function isolatedDeltaY($x, $bladeLength)
     {
-        $n = 20;
+        $n = 20 + $bladeLength;
         $factor = (10 * $x) / $n;
         $base = pow(M_E, (pow((0.7 * pow($factor, 1.5) - 0.4), 2) * -1)) * $n * 0.07;
         $bladeBase = (atan((pow($factor, 3) - pow($factor, 2) * 0.5)) / ($factor + 3)) * $n * 0.4;
