@@ -264,8 +264,9 @@ class AuditPdfBuilderService
                     $pdf->setWhiteBackground();
                     /** @var Observation $observation */
                     foreach ($auditWindmillBlade->getObservations() as $observation) {
-                        $pdf->Cell(16, 0, $observation->getDamageNumber(), 1, 0, 'C', true);
-                        $pdf->Cell(0, 0, $observation->getObservations(), 1, 1, 'L', true);
+                        $h = $pdf->getStringHeight(AuditModelDiagramBridgeService::PDF_TOTAL_WIDHT - CustomTcpdf::PDF_MARGIN_LEFT - CustomTcpdf::PDF_MARGIN_RIGHT - 16, $observation->getObservations());
+                        $pdf->MultiCell(0, $h, $observation->getObservations(), 1, 'L', 0, 0, CustomTcpdf::PDF_MARGIN_LEFT + 16, '', true, 0, false, true, 0, 'M');
+                        $pdf->MultiCell(16, $h, $observation->getDamageNumber(), 1, 'C', 0, 1, CustomTcpdf::PDF_MARGIN_LEFT, '', true, 0, false, true, 0, 'M');
                     }
                     $pdf->Ln(5);
                 }
