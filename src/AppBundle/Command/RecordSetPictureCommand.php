@@ -9,6 +9,34 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class RecordSetPictureCommand extends AbstractBaseCommand
 {
+    /**
+     * @var int
+     */
+    private $photosFound = 0;
+
+    /**
+     * @var int
+     */
+    private $photosNotFound = 0;
+
+    /**
+     * @var int
+     */
+    private $blPhotosFound = 0;
+
+    /**
+     * @var int
+     */
+    private $blPhotosNotFound = 0;
+
+    /**
+     *
+     *
+     * Methods
+     *
+     *
+     */
+
     protected function configure()
     {
         $this
@@ -30,85 +58,61 @@ class RecordSetPictureCommand extends AbstractBaseCommand
         $output->writeln('RecordSetting pictures, please wait...');
 
         $photos = $this->em->getRepository('AppBundle:Photo')->findAll();
-
-        $photosFound = 0;
-        $photosNotFound = 0;
-
         foreach($photos as $photo) {
             $path = $this->uploaderHelper->asset($photo, 'imageFile');
             $output->write('Photo #' . $photo->getId() . ' ' . $photo->getImageName() . ' ');
             if ($path) {
-                $binary = $this->dataManager->find('960x540', $path);
-                if (!$binary) {
-//                    $this->cacheManager->store(
-//                        $this->filterManager->applyFilter($binary, '960x540'),
-//                        $path,
-//                        '960x540'
-//                    );
-                    $output->writeln($path . ' Created');
-                    $photosFound = $photosFound + 1;
-                } else {
-                    $output->writeln($path . ' <error>Not created</error>');
-                    $photosNotFound = $photosNotFound + 1;
-                }
-                $binary = $this->dataManager->find('600x960', $path);
-                if (!$binary) {
-//                    $this->cacheManager->store(
-//                        $this->filterManager->applyFilter($binary, '600x960'),
-//                        $path,
-//                        '600x960'
-//                    );
-                    $output->writeln($path . ' Created');
-                    $photosFound = $photosFound + 1;
-                } else {
-                    $output->writeln($path . ' <error>Not created</error>');
-                    $photosNotFound = $photosNotFound + 1;
-                }
+                $this->buildImageCache($output, $photo, 'Photo', '960x540', $path);
+                $this->buildImageCache($output, $photo, 'Photo', '600x960', $path);
             }
         }
 
         $bladePhotos = $this->em->getRepository('AppBundle:BladePhoto')->findAll();
-
-        $blPhotosFound = 0;
-        $blPhotosNotFound = 0;
-
         foreach($bladePhotos as $bladePhoto)
         {
             $path = $this->uploaderHelper->asset($bladePhoto, 'imageFile');
             if ($path) {
-                $binary = $this->dataManager->find('960x540', $path);
-                if ($binary) {
-//                    $this->cacheManager->store(
-//                        $this->filterManager->applyFilter($binary, '960x540'),
-//                        $path,
-//                        '960x540'
-//                    );
-                    $this->writeMessage($output, $bladePhoto, 'Blade Photo', '960x540', $path, true);
-                    $blPhotosFound = $blPhotosFound + 1;
-                } else {
-                    $this->writeMessage($output, $bladePhoto, 'Blade Photo', '960x540', $path, false);
-                    $blPhotosNotFound = $blPhotosNotFound + 1;
-                }
-                $binary = $this->dataManager->find('600x960', $path);
-                if ($binary) {
-//                    $this->cacheManager->store(
-//                        $this->filterManager->applyFilter($binary, '600x960'),
-//                        $path,
-//                        '600x960'
-//                    );
-                    $this->writeMessage($output, $bladePhoto, 'Blade Photo', '600x960', $path, true);
-                    $blPhotosFound = $blPhotosFound + 1;
-                } else {
-                    $this->writeMessage($output, $bladePhoto, 'Blade Photo', '600x960', $path, false);
-                    $blPhotosNotFound = $blPhotosNotFound + 1;
-                }
+                $this->buildImageCache($output, $bladePhoto, 'Blade Photo', '960x540', $path);
+                $this->buildImageCache($output, $bladePhoto, 'Blade Photo', '600x960', $path);
             }
         }
-        $output->writeln('Total records ' . ($photosFound + $photosNotFound + $blPhotosFound + $blPhotosNotFound));
-        $output->writeln('Created Photos '. $photosFound);
-        $output->writeln('Errors Photos '. $photosNotFound);
-        $output->writeln('Created BlPhotos '. $blPhotosFound);
-        $output->writeln('Errors BlPhotos '. $blPhotosNotFound);
+        $output->writeln('Total records ' . ($this->photosFound + $this->photosNotFound + $this->blPhotosFound + $this->blPhotosNotFound));
+        $output->writeln('Created Photos '. $this->photosFound);
+        $output->writeln('Errors Photos '. $this->photosNotFound);
+        $output->writeln('Created BlPhotos '. $this->blPhotosFound);
+        $output->writeln('Errors BlPhotos '. $this->blPhotosNotFound);
+    }
+
+    /**
+     * @param OutputInterface  $output
+     * @param Photo|BladePhoto $object
+     * @param string           $type
+     * @param string           $filter
+     * @param string           $path
+     */
+    private function buildImageCache(OutputInterface $output, $object, $type, $filter, $path)
+    {
+        $binary = $this->dataManager->find($filter, $path);
+        if ($binary) {
+//                    $this->cacheManager->store(
+//                        $this->filterManager->applyFilter($binary, $filter),
+//                        $path,
+//                        $filter
+//                    );
+            $this->writeMessage($output, $object, $type, $filter, $path, true);
+            if ($object instanceof Photo) {
+                $this->photosFound = $this->photosFound + 1;
+            } else {
+                $this->blPhotosFound = $this->blPhotosFound + 1;
+            }
+        } else {
+            $this->writeMessage($output, $object, $type, $filter, $path, false);
+            if ($object instanceof Photo) {
+                $this->photosNotFound = $this->photosNotFound + 1;
+            } else {
+                $this->blPhotosNotFound = $this->blPhotosNotFound + 1;
+            }
+        }
     }
 
     /**
