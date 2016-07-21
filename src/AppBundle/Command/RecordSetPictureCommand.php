@@ -58,29 +58,33 @@ class RecordSetPictureCommand extends AbstractBaseCommand
         $output->writeln('RecordSetting pictures, please wait...');
 
         $photos = $this->em->getRepository('AppBundle:Photo')->findAll();
-        foreach($photos as $photo) {
-            $path = $this->uploaderHelper->asset($photo, 'imageFile');
-            $output->write('Photo #' . $photo->getId() . ' ' . $photo->getImageName() . ' ');
-            if ($path) {
-                $this->buildImageCache($output, $photo, 'Photo', '960x540', $path);
-                $this->buildImageCache($output, $photo, 'Photo', '600x960', $path);
-            }
-        }
+        $this->buildImagesCacheCollection($photos, $output, 'Photo');
 
         $bladePhotos = $this->em->getRepository('AppBundle:BladePhoto')->findAll();
-        foreach($bladePhotos as $bladePhoto)
-        {
-            $path = $this->uploaderHelper->asset($bladePhoto, 'imageFile');
-            if ($path) {
-                $this->buildImageCache($output, $bladePhoto, 'Blade Photo', '960x540', $path);
-                $this->buildImageCache($output, $bladePhoto, 'Blade Photo', '600x960', $path);
-            }
-        }
+        $this->buildImagesCacheCollection($bladePhotos, $output, 'Blade Photo');
+
         $output->writeln('Total records ' . ($this->photosFound + $this->photosNotFound + $this->blPhotosFound + $this->blPhotosNotFound));
         $output->writeln('Created Photos '. $this->photosFound);
         $output->writeln('Errors Photos '. $this->photosNotFound);
         $output->writeln('Created BlPhotos '. $this->blPhotosFound);
         $output->writeln('Errors BlPhotos '. $this->blPhotosNotFound);
+    }
+
+    /**
+     * @param array           $collection
+     * @param OutputInterface $output
+     * @param string          $type
+     */
+    private function buildImagesCacheCollection($collection, $output, $type)
+    {
+        foreach($collection as $item)
+        {
+            $path = $this->uploaderHelper->asset($item, 'imageFile');
+            if ($path) {
+                $this->buildImageCache($output, $item, $type, '960x540', $path);
+                $this->buildImageCache($output, $item, $type, '600x960', $path);
+            }
+        }
     }
 
     /**
@@ -94,11 +98,11 @@ class RecordSetPictureCommand extends AbstractBaseCommand
     {
         $binary = $this->dataManager->find($filter, $path);
         if ($binary) {
-//                    $this->cacheManager->store(
-//                        $this->filterManager->applyFilter($binary, $filter),
-//                        $path,
-//                        $filter
-//                    );
+            $this->cacheManager->store(
+                $this->filterManager->applyFilter($binary, $filter),
+                $path,
+                $filter
+            );
             $this->writeMessage($output, $object, $type, $filter, $path, true);
             if ($object instanceof Photo) {
                 $this->photosFound = $this->photosFound + 1;
