@@ -2,11 +2,41 @@
 
 namespace AppBundle\Command;
 
+use AppBundle\Entity\BladePhoto;
+use AppBundle\Entity\Photo;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class RecordSetPictureCommand extends AbstractBaseCommand
 {
+    /**
+     * @var int
+     */
+    private $photosFound = 0;
+
+    /**
+     * @var int
+     */
+    private $photosNotFound = 0;
+
+    /**
+     * @var int
+     */
+    private $blPhotosFound = 0;
+
+    /**
+     * @var int
+     */
+    private $blPhotosNotFound = 0;
+
+    /**
+     *
+     *
+     * Methods
+     *
+     *
+     */
+
     protected function configure()
     {
         $this
@@ -27,48 +57,83 @@ class RecordSetPictureCommand extends AbstractBaseCommand
 
         $output->writeln('RecordSetting pictures, please wait...');
 
-        //TODO for o foreach recorrent la col·lecció de $photos de BladeDamage i $bladePhotos de AuditWindmillBlade
         $photos = $this->em->getRepository('AppBundle:Photo')->findAll();
+        $this->buildImagesCacheCollection($photos, $output, 'Photo');
 
-        $photosFound = 0;
-        $photosNotFound = 0;
+        $bladePhotos = $this->em->getRepository('AppBundle:BladePhoto')->findAll();
+        $this->buildImagesCacheCollection($bladePhotos, $output, 'Blade Photo');
 
-        foreach($photos as $photo)
+        $output->writeln('Total records ' . ($this->photosFound + $this->photosNotFound + $this->blPhotosFound + $this->blPhotosNotFound));
+        $output->writeln('Created Photos '. $this->photosFound);
+        $output->writeln('Errors Photos '. $this->photosNotFound);
+        $output->writeln('Created BlPhotos '. $this->blPhotosFound);
+        $output->writeln('Errors BlPhotos '. $this->blPhotosNotFound);
+    }
+
+    /**
+     * @param array           $collection
+     * @param OutputInterface $output
+     * @param string          $type
+     */
+    private function buildImagesCacheCollection($collection, $output, $type)
+    {
+        foreach($collection as $item)
         {
-            $path = $this->uploaderHelper->asset($photo, 'imageFile');
-            $output->write('Photo #'.$photo->getId().' '.$photo->getImageName(). ' ');
+            $path = $this->uploaderHelper->asset($item, 'imageFile');
             if ($path) {
-                $binary = $this->dataManager->find('960x540', $path);
-                if (!$binary) {
-//                    $this->cacheManager->store(
-//                        $this->filterManager->applyFilter($binary, '960x540'),
-//                        $path,
-//                        '960x540'
-//                    );
-                    $output->writeln($path.' Created');
-                    $photosFound = $photosFound + 1;
-                } else {
-                    $output->writeln($path.' <error>Not created</error>');
-                    $photosNotFound = $photosNotFound + 1;
-                }
+                $this->buildImageCache($output, $item, $type, '960x540', $path);
+                $this->buildImageCache($output, $item, $type, '600x960', $path);
             }
-//         $bladePhotos = $this->em->getRepository('AppBundle:BladePhoto')->findAll();
-//            $path = $this->uploaderHelper->asset($photo, 'imageFile');
-//            if ($path) {
-//                $binary = $this->dataManager->find('600x960', $path);
-//                if ($binary) {
-//                    $this->cacheManager->store(
-//                        $this->filterManager->applyFilter($binary, '600x960'),
-//                        $path,
-//                        '600x960'
-//                    );
-//                    $output->writeln($path);
-//                }
-//            }
         }
-        $output->writeln('Total records ' .($photosFound + $photosNotFound));
-        $output->writeln('Created '.$photosFound);
-        $output->writeln('Errors '.$photosNotFound);
+    }
 
+    /**
+     * @param OutputInterface  $output
+     * @param Photo|BladePhoto $object
+     * @param string           $type
+     * @param string           $filter
+     * @param string           $path
+     */
+    private function buildImageCache(OutputInterface $output, $object, $type, $filter, $path)
+    {
+        $binary = $this->dataManager->find($filter, $path);
+        if ($binary) {
+            $this->cacheManager->store(
+                $this->filterManager->applyFilter($binary, $filter),
+                $path,
+                $filter
+            );
+            $this->writeMessage($output, $object, $type, $filter, $path, true);
+            if ($object instanceof Photo) {
+                $this->photosFound = $this->photosFound + 1;
+            } else {
+                $this->blPhotosFound = $this->blPhotosFound + 1;
+            }
+        } else {
+            $this->writeMessage($output, $object, $type, $filter, $path, false);
+            if ($object instanceof Photo) {
+                $this->photosNotFound = $this->photosNotFound + 1;
+            } else {
+                $this->blPhotosNotFound = $this->blPhotosNotFound + 1;
+            }
+        }
+    }
+
+    /**
+     * @param OutputInterface  $output
+     * @param Photo|BladePhoto $object
+     * @param string           $type
+     * @param string           $filter
+     * @param string           $path
+     * @param boolean          $isCreated
+     */
+    private function writeMessage(OutputInterface $output, $object, $type, $filter, $path, $isCreated)
+    {
+        if ($isCreated) {
+            $ending = 'Created';
+        } else {
+            $ending = '<error>Not created</error>';
+        }
+        $output->writeln($type.' #'.$object->getId().' '. $filter.' '.$object->getImageName().' '.$path.' '.$ending);
     }
 }
