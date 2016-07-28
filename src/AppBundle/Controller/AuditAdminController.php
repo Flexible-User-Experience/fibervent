@@ -69,11 +69,20 @@ class AuditAdminController extends AbstractBaseAdminController
             throw $this->createNotFoundException(sprintf('Unable to find audit record with id: %s', $id));
         }
 
+        $sortedBladeDamages = array();
+        $bdr = $this->get('app.blade_damage_repository');
+
+        foreach ( $object->getAuditWindmillBlades() as $auditWindmillBlade) {
+            $bladeDamages = $bdr->getItemsOfAuditWindmillBladeSortedByRadius($auditWindmillBlade);
+            array_push($sortedBladeDamages, $bladeDamages);
+        }
+
         return $this->render(
             ':Admin/Audit:show.html.twig',
             array(
-                'action' => 'show',
-                'object' => $object,
+                'action'       => 'show',
+                'object'       => $object,
+                'sortedBladeDamages' => $sortedBladeDamages,
             )
         );
     }

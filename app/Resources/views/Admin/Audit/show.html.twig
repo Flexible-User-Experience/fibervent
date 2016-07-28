@@ -93,7 +93,7 @@
                             <h4 class="box-title">DESCRIPCIÓ DE DANYS PALA {{ loop.index }}</h4>
                             <div class="box-body table-responsive">
                                 <table class="table">
-                                    {% for bladeDamage in auditWindmillBlade.bladeDamages %}
+                                    {% for bladeDamage in sortedBladeDamages[loop.index - 1] %}
                                         <thead>
                                         <tr class="sonata-ba-view-container">
                                             <th>N. Dany</th>
@@ -108,7 +108,7 @@
                                         </thead>
                                         <tbody>
                                         <tr class="sonata-ba-view-container">
-                                            <td>{{ bladeDamage.number }}</td>
+                                            <td>{{ loop.index }}</td>
                                             <td>{{ bladeDamage.damage.code }}</td>
                                             <td>{{ bladeDamage.positionString }}</td>
                                             <td>{{ bladeDamage.radius }}m</td>
