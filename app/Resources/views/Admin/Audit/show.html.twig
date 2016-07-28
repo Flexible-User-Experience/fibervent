@@ -94,43 +94,62 @@
                             <div class="box-body table-responsive">
                                 <table class="table">
                                     {% for bladeDamage in sortedBladeDamages[loop.index - 1] %}
-                                        <thead>
+                                    <thead>
+                                    <tr class="sonata-ba-view-container">
+                                        <th>N. Dany</th>
+                                        <th>Codi</th>
+                                        <th>Posició</th>
+                                        <th>Radi</th>
+                                        <th>Distància</th>
+                                        <th>Mesura</th>
+                                        <th style="width: 30%">Descripció</th>
+                                        <th>Categoria</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr class="sonata-ba-view-container">
+                                        <td>{{ loop.index }}</td>
+                                        <td>{{ bladeDamage.damage.code }}</td>
+                                        <td>{{ bladeDamage.positionString }}</td>
+                                        <td>{{ bladeDamage.radius }}m</td>
+                                        <td>{{ bladeDamage.distanceString }}</td>
+                                        <td>{{ bladeDamage.size }}cm</td>
+                                        <td>{{ bladeDamage.damage.description }}</td>
+                                        <td>{{ bladeDamage.damageCategory.category }}</td>
+                                    </tr>
+                                    {% if bladeDamage.photos | length > 0 %}
                                         <tr class="sonata-ba-view-container">
-                                            <th>N. Dany</th>
-                                            <th>Codi</th>
-                                            <th>Posició</th>
-                                            <th>Radi</th>
-                                            <th>Distància</th>
-                                            <th>Mesura</th>
-                                            <th style="width: 30%">Descripció</th>
-                                            <th>Categoria</th>
+                                            <td colspan="8">
+                                                {% for photo in bladeDamage.photos %}
+                                                    <img
+                                                            src="{{ vich_uploader_asset(photo, 'imageFile') | imagine_filter('128x128') }}"
+                                                            alt="{{ photo.imageName }}">
+                                                {% endfor %}
+                                            </td>
                                         </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr class="sonata-ba-view-container">
-                                            <td>{{ loop.index }}</td>
-                                            <td>{{ bladeDamage.damage.code }}</td>
-                                            <td>{{ bladeDamage.positionString }}</td>
-                                            <td>{{ bladeDamage.radius }}m</td>
-                                            <td>{{ bladeDamage.distanceString }}</td>
-                                            <td>{{ bladeDamage.size }}cm</td>
-                                            <td>{{ bladeDamage.damage.description }}</td>
-                                            <td>{{ bladeDamage.damageCategory.category }}</td>
-                                        </tr>
-                                        {% if bladeDamage.photos | length > 0 %}
-                                            <tr class="sonata-ba-view-container">
-                                                <td colspan="8">
-                                                    {% for photo in bladeDamage.photos %}
-                                                        <img
-                                                                src="{{ vich_uploader_asset(photo, 'imageFile') | imagine_filter('128x128') }}"
-                                                                alt="{{ photo.imageName }}">
-                                                    {% endfor %}
-                                                </td>
-                                            </tr>
-                                        {% endif %}
+                                    {% endif %}
                                     {% endfor %}
                                     </tbody>
                                 </table>
+                                {% if auditWindmillBlade.observations | length > 0 %}
+                                    <hr>
+                                    <table class="table">
+                                        <thead>
+                                        <tr class="sonata-ba-view-container">
+                                            <th>DANY</th>
+                                            <th>OBSERVACIONS</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for observation in auditWindmillBlade.observations %}
+                                            <tr class="sonata-ba-view-container">
+                                                <td>{{ observation.damageNumber }}</td>
+                                                <td>{{ observation.observations }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                {% endif %}
                             </div>
                         </div>
                     </div>

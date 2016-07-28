@@ -71,17 +71,15 @@ class AuditAdminController extends AbstractBaseAdminController
 
         $sortedBladeDamages = array();
         $bdr = $this->get('app.blade_damage_repository');
-
-        foreach ( $object->getAuditWindmillBlades() as $auditWindmillBlade) {
-            $bladeDamages = $bdr->getItemsOfAuditWindmillBladeSortedByRadius($auditWindmillBlade);
-            array_push($sortedBladeDamages, $bladeDamages);
+        foreach ($object->getAuditWindmillBlades() as $auditWindmillBlade) {
+            array_push($sortedBladeDamages, $bdr->getItemsOfAuditWindmillBladeSortedByRadius($auditWindmillBlade));
         }
 
         return $this->render(
             ':Admin/Audit:show.html.twig',
             array(
-                'action'       => 'show',
-                'object'       => $object,
+                'action'             => 'show',
+                'object'             => $object,
                 'sortedBladeDamages' => $sortedBladeDamages,
             )
         );
