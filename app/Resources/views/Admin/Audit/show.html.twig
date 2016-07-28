@@ -9,21 +9,25 @@
                         <div class="box-body table-responsive no-padding">
                             <table class="table">
                                 <thead>
-                                    <tr class="info">
-                                        <th colspan="2" class="text-center">INSPECCIÓN DE PALAS DEL PARQUE
-                                            EÓLICO {{ object.windmill.windfarm.name }}</th>
-                                    </tr>
-                                    <tr>
-                                        <th colspan="2" class="text-center">INFORME INDIVIDUAL AEROGENERADOR {{ object.windmill.code }}</th>
-                                    </tr>
-                                    <tr>
-                                        <th colspan="2" class="text-center">{{ object.windmill.windfarm.pdfLocationString | upper}}</th>
-                                    </tr>
+                                <tr class="info">
+                                    <th colspan="2" class="text-center">INSPECCIÓN DE PALAS DEL PARQUE
+                                        EÓLICO {{ object.windmill.windfarm.name }}</th>
+                                </tr>
+                                <tr>
+                                    <th colspan="2" class="text-center">INFORME INDIVIDUAL
+                                        AEROGENERADOR {{ object.windmill.code }}</th>
+                                </tr>
+                                <tr>
+                                    <th colspan="2"
+                                        class="text-center">{{ object.windmill.windfarm.pdfLocationString | upper }}</th>
+                                </tr>
                                 </thead>
-                                <tr><th></th></tr>
+                                <tr>
+                                    <th></th>
+                                </tr>
                                 <tbody>
                                 <tr>
-                                    <th class="info text-right" style="width:30%" >PAÍS/REGIÓ</th>
+                                    <th class="info text-right" style="width:30%">PAÍS/REGIÓ</th>
                                     <td>{{ object.windmill.windfarm.state.name }}</td>
                                 </tr>
                                 <tr>
@@ -54,12 +58,16 @@
                                     <th class="info text-right">O&M REGIONAL MANAGER</th>
                                     <td>{{ object.windmill.windfarm.manager }}</td>
                                 </tr>
-                                <tr><th colspan="2"></th></tr>
+                                <tr>
+                                    <th colspan="2"></th>
+                                </tr>
                                 <tr>
                                     <th class="info text-right">TÈCNICS D'INSPECCIÓ</th>
                                     <td>{{ object.operators | join(', ') }}</td>
                                 </tr>
-                                <tr><th colspan="2"></th></tr>
+                                <tr>
+                                    <th colspan="2"></th>
+                                </tr>
                                 <tr>
                                     <th class="info text-right">TIPUS D'INSPECCIÓ</th>
                                     <td>TERRA (Telescopi FIBERVENT)</td>
@@ -85,37 +93,37 @@
                             <h4 class="box-title">DESCRIPCIÓ DE DANYS PALA {{ loop.index }}</h4>
                             <div class="box-body table-responsive">
                                 <table class="table">
-                                    <thead>
-                                    <tr>
-                                        <th>N. Dany</th>
-                                        <th>Codi</th>
-                                        <th>Posició</th>
-                                        <th>Radi</th>
-                                        <th>Distància BA</th>
-                                        <th>Mesura</th>
-                                        <th>Categoria</th>
-                                        <th>Estat</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
                                     {% for bladeDamage in auditWindmillBlade.bladeDamages %}
+                                        <thead>
+                                        <tr class="sonata-ba-view-container">
+                                            <th>N. Dany</th>
+                                            <th>Codi</th>
+                                            <th>Posició</th>
+                                            <th>Radi</th>
+                                            <th>Distància</th>
+                                            <th>Mesura</th>
+                                            <th style="width: 30%">Descripció</th>
+                                            <th>Categoria</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
                                         <tr class="sonata-ba-view-container">
                                             <td>{{ bladeDamage.number }}</td>
                                             <td>{{ bladeDamage.damage.code }}</td>
-                                            <td>{{ bladeDamage.position }}</td>
-                                            <td>{{ bladeDamage.radius }}</td>
-                                            <td>{{ bladeDamage.distance }}</td>
-                                            <td>{{ bladeDamage.size }}</td>
+                                            <td>{{ bladeDamage.positionString }}</td>
+                                            <td>{{ bladeDamage.radius }}m</td>
+                                            <td>{{ bladeDamage.distanceString }}</td>
+                                            <td>{{ bladeDamage.size }}cm</td>
+                                            <td>{{ bladeDamage.damage.description }}</td>
                                             <td>{{ bladeDamage.damageCategory.category }}</td>
-                                            <td>{{ bladeDamage.status }}</td>
                                         </tr>
                                         {% if bladeDamage.photos | length > 0 %}
-                                            <tr>
-                                                <td colspan="2">
+                                            <tr class="sonata-ba-view-container">
+                                                <td colspan="8">
                                                     {% for photo in bladeDamage.photos %}
                                                         <img
-                                                             src="{{ vich_uploader_asset(photo, 'imageFile') | imagine_filter('128x128') }}"
-                                                             alt="{{ photo.imageName }}">
+                                                                src="{{ vich_uploader_asset(photo, 'imageFile') | imagine_filter('128x128') }}"
+                                                                alt="{{ photo.imageName }}">
                                                     {% endfor %}
                                                 </td>
                                             </tr>
