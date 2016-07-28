@@ -92,6 +92,23 @@
                         <div class="box-header with-border">
                             <h4 class="box-title">DESCRIPCIÓ DE DANYS PALA {{ loop.index }}</h4>
                             <div class="box-body table-responsive">
+                                {% if auditWindmillBlade.bladePhotos | length > 0 %}
+                                    <h5>VISTES GENERALS PALA {{ loop.index }}</h5>
+                                    <table class="table">
+                                        <tbody>
+                                        <tr>
+                                            <td>
+                                                {% for bladePhoto in auditWindmillBlade.bladePhotos %}
+                                                    <img
+                                                            src="{{ vich_uploader_asset(bladePhoto, 'imageFile') | imagine_filter('Xx128') }}"
+                                                            alt="{{ bladePhoto.imageName }}">
+                                                {% endfor %}
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <hr>
+                                {% endif %}
                                 <table class="table">
                                     {% for bladeDamage in sortedBladeDamages[loop.index - 1] %}
                                     <thead>
