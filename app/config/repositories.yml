@@ -49,3 +49,15 @@ services:
         factory: [ "@doctrine", getRepository ]
         arguments:
             - AppBundle:DamageCategory
+    app.repositories_service:
+        class: AppBundle\Service\RepositoriesService
+        arguments:
+            - "@app.customer_repository"
+            - "@app.user_repository"
+            - "@app.windmill_repository"
+            - "@app.windfarm_repository"
+            - "@app.blade_repository"
+            - "@app.turbine_repository"
+            - "@app.state_repository"
+            - "@app.damage_repository"
+            - "@app.damage_category_repository"
