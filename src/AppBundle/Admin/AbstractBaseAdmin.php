@@ -11,6 +11,7 @@ use AppBundle\Repository\TurbineRepository;
 use AppBundle\Repository\UserRepository;
 use AppBundle\Repository\WindfarmRepository;
 use AppBundle\Repository\WindmillRepository;
+use AppBundle\Service\RepositoriesService;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Liip\ImagineBundle\Imagine\Cache\CacheManager;
@@ -84,30 +85,22 @@ abstract class AbstractBaseAdmin extends AbstractAdmin
      * @param string                     $code
      * @param string                     $class
      * @param string                     $baseControllerName
-     * @param CustomerRepository         $cr
-     * @param UserRepository             $ur
-     * @param WindmillRepository         $wmr
-     * @param WindfarmRepository         $wfr
-     * @param BladeRepository            $br
-     * @param TurbineRepository          $tr
-     * @param StateRepository            $sr
-     * @param DamageRepository           $dr
-     * @param DamageCategoryRepository   $dcr
+     * @param RepositoriesService        $rs
      * @param UploaderHelper             $vus
      * @param CacheManager               $lis
      */
-    public function __construct($code, $class, $baseControllerName, CustomerRepository $cr, UserRepository $ur, WindmillRepository $wmr, WindfarmRepository $wfr, BladeRepository $br, TurbineRepository $tr, StateRepository $sr, DamageRepository $dr, DamageCategoryRepository $dcr, UploaderHelper $vus, CacheManager $lis)
+    public function __construct($code, $class, $baseControllerName, RepositoriesService $rs, UploaderHelper $vus, CacheManager $lis)
     {
         parent::__construct($code, $class, $baseControllerName);
-        $this->cr  = $cr;
-        $this->ur  = $ur;
-        $this->wmr = $wmr;
-        $this->wfr = $wfr;
-        $this->br  = $br;
-        $this->tr  = $tr;
-        $this->sr  = $sr;
-        $this->dr  = $dr;
-        $this->dcr = $dcr;
+        $this->cr  = $rs->getCr();
+        $this->ur  = $rs->getUr();
+        $this->wmr = $rs->getWmr();
+        $this->wfr = $rs->getWfr();
+        $this->br  = $rs->getBr();
+        $this->tr  = $rs->getTr();
+        $this->sr  = $rs->getSr();
+        $this->dr  = $rs->getDr();
+        $this->dcr = $rs->getDcr();
         $this->vus = $vus;
         $this->lis = $lis;
     }
