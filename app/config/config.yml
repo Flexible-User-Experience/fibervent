@@ -102,6 +102,13 @@ fos_user:
             name:               fos_user_profile_form
             validation_groups:  [ Authentication ]
 
+# A2lix Translations
+a2lix_translation_form:
+    locales:          [ en ]
+    default_required: true
+    manager_registry: doctrine
+    templating:       "::A2lix/form_template.html.twig"
+
 # Swiftmailer
 swiftmailer:
     transport: "%mailer_transport%"

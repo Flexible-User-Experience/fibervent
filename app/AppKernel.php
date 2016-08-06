@@ -25,6 +25,8 @@ class AppKernel extends Kernel
             new Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle(),
             new Sonata\UserBundle\SonataUserBundle('FOSUserBundle'),
             // vendors
+            new A2lix\TranslationFormBundle\A2lixTranslationFormBundle(),
+            new Fenrizbes\ColorPickerTypeBundle\FenrizbesColorPickerTypeBundle(),
             new FOS\UserBundle\FOSUserBundle(),
             new Hautelook\AliceBundle\HautelookAliceBundle(),
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
@@ -32,7 +34,6 @@ class AppKernel extends Kernel
             new Oh\GoogleMapFormTypeBundle\OhGoogleMapFormTypeBundle(),
             new Vich\UploaderBundle\VichUploaderBundle(),
             new WhiteOctober\TCPDFBundle\WhiteOctoberTCPDFBundle(),
-            new Fenrizbes\ColorPickerTypeBundle\FenrizbesColorPickerTypeBundle(),
             // app
             new AppBundle\AppBundle(),
         );
