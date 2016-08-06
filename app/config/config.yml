@@ -104,7 +104,7 @@ fos_user:
 
 # A2lix Translations
 a2lix_translation_form:
-    locales:          [ en ]
+    locales:          %locale_i18n%
     default_required: true
     manager_registry: doctrine
     templating:       "::A2lix/form_template.html.twig"
