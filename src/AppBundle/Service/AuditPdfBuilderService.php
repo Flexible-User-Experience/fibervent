@@ -135,34 +135,34 @@ class AuditPdfBuilderService
         $pdf->SetXY(CustomTcpdf::PDF_MARGIN_LEFT, CustomTcpdf::PDF_MARGIN_TOP);
         $pdf->setBlackText();
         $pdf->setFontStyle(null, 'B', 11);
-        $pdf->Write(0, '1. INTRODUCCIÓN', '', false, 'L', true);
+        $pdf->Write(0, $this->ts->trans('pdf.intro.1_title'), '', false, 'L', true);
         $pdf->Ln(5);
         $pdf->setFontStyle(null, '', 9);
-        $pdf->Write(0, 'Este informe es el resultado de la inspección visual realizada con telescopio desde suelo en el Parque Eólico "' . $windfarm->getName() . '" entre el ' . $audit->getPdfBeginDateString() . ' y el ' . $audit->getPdfEndDateString() . '. El equipo, propiedad de FIBERVENT, y utilizado para la inspección es el siguiente:', '', false, 'L', true);
+        $pdf->Write(0, $this->ts->trans('pdf.intro.2_description', ['%windfarm%' => $windfarm->getName(), '%begin%' => $audit->getPdfBeginDateString(), '%end%' => $audit->getPdfEndDateString()]), '', false, 'L', true);
         $pdf->Ln(5);
         // Introduction table
         $pdf->setCellPaddings(0, 5, 0, 5);
         $pdf->setCellMargins(10, 0, 10, 0);
-        $pdf->MultiCell(0, 0, '<ul><li>Kit telescopio SWAROVSKI ATS 80-HD + OCULAR ZOOM 25-50X</li><li>Adaptador foto SWAROVSKI TLS APO</li><li>Kit cámara OLYMPUS EPL 5 16 Mpx + cable disparador</li><li>Batería OLYMPUS BLS-5</li><li>Objetivo OLYMPUS 14-42 mm</li><li>Adaptador OLYMPUS T-MICRO 4/3</li><li>Kit trípode MANFROTTO NAT DOS Carbono</li><li>Funda trípode MANFROTTO BAG 80</li><li>Mochila LOWEPRO TRAVEL 200 AW</li></ul>', 1, 'L', false, 1, '', '', true, 0, true);
+        $pdf->MultiCell(0, 0, $this->ts->trans('pdf.intro.3_list'), 1, 'L', false, 1, '', '', true, 0, true);
         $pdf->setCellPaddings(1, 1, 1, 1);
         $pdf->setCellMargins(0, 0, 0, 0);
         $pdf->Ln(5);
         // Damages categorization
         $pdf->setFontStyle(null, 'B', 11);
-        $pdf->Write(0, '2. CATALOGACIÓN DE DAÑOS', '', false, 'L', true);
+        $pdf->Write(0, $this->ts->trans('pdf.damage_catalog.1_title'), '', false, 'L', true);
         $pdf->Ln(5);
         $pdf->setFontStyle(null, '', 9);
-        $pdf->Write(0, 'Los daños encontrados se han categorizado según los siguientes criterios:', '', false, 'L', true);
+        $pdf->Write(0, $this->ts->trans('pdf.damage_catalog.2_subtitle'), '', false, 'L', true);
         $pdf->Ln(5);
         // Damages table
         $pdf->setBlackLine();
         $pdf->setBlueBackground();
         $pdf->setFontStyle(null, 'B', 9);
         // MultiCell($w, $h, $txt, $border=0, $align='J', $fill=0, $ln=1, $x='', $y='', $reseth=true, $stretch=0, $ishtml=false, $autopadding=true, $maxh=0)
-        $pdf->MultiCell(20, 0, 'Categoría', 1, 'C', 1, 0, '', '', true);
-        $pdf->MultiCell(20, 0, 'Prioridad', 1, 'C', 1, 0, '', '', true);
-        $pdf->MultiCell(60, 0, 'Descripción / Hallazgos', 1, 'C', 1, 0, '', '', true);
-        $pdf->MultiCell(0, 0, 'Acción recomendada', 1, 'C', 1, 1, '', '', true);
+        $pdf->MultiCell(20, 0, $this->ts->trans('pdf.damage_catalog.table.1_category'), 1, 'C', 1, 0, '', '', true);
+        $pdf->MultiCell(20, 0, $this->ts->trans('pdf.damage_catalog.table.2_priority'), 1, 'C', 1, 0, '', '', true);
+        $pdf->MultiCell(60, 0, $this->ts->trans('pdf.damage_catalog.table.3_description'), 1, 'C', 1, 0, '', '', true);
+        $pdf->MultiCell(0, 0, $this->ts->trans('pdf.damage_catalog.table.4_action'), 1, 'C', 1, 1, '', '', true);
         $pdf->setFontStyle(null, '', 9);
         /** @var DamageCategory $item */
         foreach ($this->dcr->findAllSortedByCategory() as $item) {
@@ -478,7 +478,7 @@ class AuditPdfBuilderService
         $pdf->Cell(70, 6, $this->ts->trans('pdf.cover.6_turbine_size'), 'TB', 0, 'R', true);
         $pdf->setFontStyle(null, '', 10);
         $pdf->setWhiteBackground();
-        $pdf->Cell(0, 6, $windmill->getPdfModelDimensionString(), 'TB', 1, 'L', true);
+        $pdf->Cell(0, 6, $this->ts->trans('pdf.cover.6_turbine_size_value', ['%height%' => $windmill->getTurbine()->getTowerHeight(), '%diameter%' => $windmill->getTurbine()->getRotorDiameter(), '%length%' => $windmill->getBladeType()->getLength()]), 'TB', 1, 'L', true);
         $pdf->setFontStyle(null, 'B', 10);
         $pdf->setBlueBackground();
         $pdf->Cell(70, 6, $this->ts->trans('pdf.cover.7_blade_type'), 'TB', 0, 'R', true);
@@ -490,13 +490,13 @@ class AuditPdfBuilderService
         $pdf->Cell(70, 6, $this->ts->trans('pdf.cover.8_total_turbines'), 'TB', 0, 'R', true);
         $pdf->setFontStyle(null, '', 10);
         $pdf->setWhiteBackground();
-        $pdf->Cell(0, 6, $windfarm->getPdfTotalPowerString(), 'TB', 1, 'L', true);
+        $pdf->Cell(0, 6, $this->ts->trans('pdf.cover.8_total_turbines_value', ['%windmills%' => $windfarm->getWindmills()->count(), '%power%' => $windfarm->getPower()]), 'TB', 1, 'L', true);
         $pdf->setFontStyle(null, 'B', 10);
         $pdf->setBlueBackground();
         $pdf->Cell(70, 6, $this->ts->trans('pdf.cover.9_startup_year'), 'TB', 0, 'R', true);
         $pdf->setFontStyle(null, '', 10);
         $pdf->setWhiteBackground();
-        $pdf->Cell(0, 6, $windfarm->getPdfYearString(), 'TB', 1, 'L', true);
+        $pdf->Cell(0, 6, $this->ts->trans('pdf.cover.9_startup_year_value', ['%year%' => $windfarm->getYear(), '%diff%' => $windfarm->getYearDiff()]), 'TB', 1, 'L', true);
         $pdf->setFontStyle(null, 'B', 10);
         $pdf->setBlueBackground();
         $pdf->Cell(70, 6, $this->ts->trans('pdf.cover.10_om_regional_manager'), 'TB', 0, 'R', true);
