@@ -2,6 +2,8 @@
 
 namespace AppBundle\Entity\Traits;
 
+use Gedmo\Mapping\Annotation as Gedmo;
+
 /**
  * Description trait
  *
@@ -15,6 +17,7 @@ Trait DescriptionTrait
      * @var string
      *
      * @ORM\Column(type="string", length=255)
+     * @Gedmo\Translatable
      */
     private $description;
 
