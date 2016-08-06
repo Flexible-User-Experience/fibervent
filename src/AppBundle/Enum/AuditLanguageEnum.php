@@ -24,12 +24,27 @@ class AuditLanguageEnum
     public static function getEnumArray()
     {
         return array(
+            self::SPANISH    => 'es',
+            self::ENGLISH    => 'en',
+            self::FRENCH     => 'fr',
+            self::PORTUGUESE => 'pt',
+            self::GERMAN     => 'de',
+            self::ITALIAN    => 'it',
+        );
+    }
+
+    /**
+     * @return array
+     */
+    public static function getEnumArrayString()
+    {
+        return array(
             self::SPANISH    => 'espanyol',
             self::ENGLISH    => 'anglès',
-            self::FRENCH     => 'francès',
-            self::PORTUGUESE => 'portuguès',
-            self::GERMAN     => 'alemany',
-            self::ITALIAN    => 'italià',
+//            self::FRENCH     => 'francès',
+//            self::PORTUGUESE => 'portuguès',
+//            self::GERMAN     => 'alemany',
+//            self::ITALIAN    => 'italià',
         );
     }
 }

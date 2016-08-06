@@ -131,10 +131,10 @@ class AuditAdmin extends AbstractBaseAdmin
                 'language',
                 ChoiceType::class,
                 array(
-                    'label'    => 'Idioma',
-                    'choices'  => AuditLanguageEnum::getEnumArray(),
+                    'label'    => 'Idioma PDF',
+                    'choices'  => AuditLanguageEnum::getEnumArrayString(),
                     'multiple' => false,
-                    'expanded' => false,
+                    'expanded' => true,
                     'required' => true,
                 )
             )

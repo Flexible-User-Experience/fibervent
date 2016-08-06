@@ -11,10 +11,12 @@ use AppBundle\Entity\Observation;
 use AppBundle\Entity\Photo;
 use AppBundle\Entity\Windfarm;
 use AppBundle\Entity\Windmill;
+use AppBundle\Enum\AuditLanguageEnum;
 use AppBundle\Enum\BladeDamagePositionEnum;
 use AppBundle\Pdf\CustomTcpdf;
 use AppBundle\Repository\BladeDamageRepository;
 use AppBundle\Repository\DamageCategoryRepository;
+use Symfony\Bundle\FrameworkBundle\Translation\Translator;
 use WhiteOctober\TCPDFBundle\Controller\TCPDFController;
 use Liip\ImagineBundle\Imagine\Cache\CacheManager;
 use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
@@ -52,6 +54,11 @@ class AuditPdfBuilderService
     private $tha;
 
     /**
+     * @var Translator
+     */
+    private $ts;
+
+    /**
      * @var DamageCategoryRepository
      */
     private $dcr;
@@ -67,6 +74,11 @@ class AuditPdfBuilderService
     private $amdb;
 
     /**
+     * @var string
+     */
+    private $locale;
+
+    /**
      *
      *
      * Methods
@@ -77,23 +89,25 @@ class AuditPdfBuilderService
     /**
      * AuditPdfBuilderService constructor
      *
-     * @param TCPDFController $tcpdf
-     * @param CacheManager $cm
-     * @param UploaderHelper $uh
-     * @param AssetsHelper $tha
-     * @param DamageCategoryRepository $dcr
-     * @param BladeDamageRepository $bdr
+     * @param TCPDFController                $tcpdf
+     * @param CacheManager                   $cm
+     * @param UploaderHelper                 $uh
+     * @param AssetsHelper                   $tha
+     * @param Translator                     $ts
+     * @param DamageCategoryRepository       $dcr
+     * @param BladeDamageRepository          $bdr
      * @param AuditModelDiagramBridgeService $amdb
      */
-    public function __construct(TCPDFController $tcpdf, CacheManager $cm, UploaderHelper $uh, AssetsHelper $tha, DamageCategoryRepository $dcr, BladeDamageRepository $bdr, AuditModelDiagramBridgeService $amdb)
+    public function __construct(TCPDFController $tcpdf, CacheManager $cm, UploaderHelper $uh, AssetsHelper $tha, Translator $ts, DamageCategoryRepository $dcr, BladeDamageRepository $bdr, AuditModelDiagramBridgeService $amdb)
     {
         $this->tcpdf = $tcpdf;
-        $this->cm = $cm;
-        $this->uh = $uh;
-        $this->tha = $tha;
-        $this->dcr = $dcr;
-        $this->bdr = $bdr;
-        $this->amdb = $amdb;
+        $this->cm    = $cm;
+        $this->uh    = $uh;
+        $this->tha   = $tha;
+        $this->ts    = $ts;
+        $this->dcr   = $dcr;
+        $this->bdr   = $bdr;
+        $this->amdb  = $amdb;
     }
 
     /**
@@ -105,6 +119,9 @@ class AuditPdfBuilderService
     {
         $windmill = $audit->getWindmill();
         $windfarm = $windmill->getWindfarm();
+        $this->locale = AuditLanguageEnum::getEnumArray()[$audit->getLanguage()];
+        $this->ts->setLocale($this->locale);
+
         /** @var CustomTcpdf $pdf */
         $pdf = $this->doInitialConfig($audit, $windmill, $windfarm);
 
@@ -430,7 +447,7 @@ class AuditPdfBuilderService
         $pdf->setBlackText();
         $pdf->setBlueLine();
         $pdf->setBlueBackground();
-        $pdf->Cell(0, 8, 'INSPECCIÓN DE PALAS DEL PARQUE EÓLICO ' . $windfarm->getName(), 'TB', 1, 'C', true);
+        $pdf->Cell(0, 8, $this->ts->trans('pdf.cover.1_inspection') . ' ' . $windfarm->getName(), 'TB', 1, 'C', true);
         $pdf->setWhiteBackground();
         $pdf->Cell(0, 8, 'INFORME INDIVIDUAL AEROGENERADOR ' . $windmill->getCode(), 'TB', 1, 'C', true);
         $pdf->Cell(0, 8, $windfarm->getPdfLocationString(), 'TB', 1, 'C', true);
