@@ -1,3 +1,18 @@
 pdf:
   cover:
     1_inspection: INSPECCIÓN DE PALAS DEL PARQUE EÓLICO
+    2_resume: INFORME INDIVIDUAL AEROGENERADOR
+    3_country: PAÍS/REGION
+    4_windfarm: PARQUE EÓLICO
+    5_turbine_model: MODELO AEROGENERADOR
+    6_turbine_size: DIMENSIONES AEROGENERADOR
+    7_blade_type: MODELO PALA
+    8_total_turbines: TOTAL No. AG / Capacidad PE
+    9_startup_year: Puesta en marcha (años del PE)
+    10_om_regional_manager: O&M REGIONAL MANAGER
+    11_technicians: TÉCNICOS INSPECCIÓN
+    12_audit_type: TIPO DE INSPECCIÓN
+    12_audit_type_value: SUELO (Telescopio FIBERVENT)
+    13_audit_date: FECHA DE INSPECCIÓN
+    14_blades_amout: No. de AG / palas inspeccionadas
+    14_blades_amout_value: 1 AG / 3 palas
