@@ -24,12 +24,12 @@ class AuditLanguageEnum
     public static function getEnumArray()
     {
         return array(
-            self::SPANISH    => 'Pendent',
-            self::ENGLISH    => 'En procés',
-            self::FRENCH     => 'Fet',
-            self::PORTUGUESE => 'Facturat',
-            self::GERMAN     => 'Facturat',
-            self::ITALIAN    => 'Facturat',
+            self::SPANISH    => 'espanyol',
+            self::ENGLISH    => 'anglès',
+            self::FRENCH     => 'francès',
+            self::PORTUGUESE => 'portuguès',
+            self::GERMAN     => 'alemany',
+            self::ITALIAN    => 'italià',
         );
     }
 }
