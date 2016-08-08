@@ -275,8 +275,8 @@ class AuditPdfBuilderService
                 $pdf->setBlueLine();
                 $pdf->setBlueBackground();
                 $pdf->setFontStyle(null, 'B', 9);
-                $pdf->Cell(16, 0, 'DAÑO', 1, 0, 'C', true);
-                $pdf->Cell(0, 0, 'OBSERVACIONES', 1, 1, 'C', true);
+                $pdf->Cell(16, 0, $this->ts->trans('pdf.observations_table.1_damage'), 1, 0, 'C', true);
+                $pdf->Cell(0, 0, $this->ts->trans('pdf.observations_table.2_observations'), 1, 1, 'C', true);
                 $pdf->setFontStyle(null, '', 9);
                 $pdf->setWhiteBackground();
                 /** @var Observation $observation */

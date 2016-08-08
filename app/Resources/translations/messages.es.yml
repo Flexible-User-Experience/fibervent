@@ -37,3 +37,6 @@ pdf:
   audit_blade_damage:
     1_title: RESUMEN INDIVIDUAL DAÑOS PALA
     2_description: En la siguiente tabla se describe el resultado de la inspección con la categorización, descripciones, ubicación y links a fotografías de los daños.
+  observations_table:
+    1_damage: DAÑO
+    2_observations: OBSERVACIONES
