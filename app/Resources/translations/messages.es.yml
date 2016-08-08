@@ -40,3 +40,5 @@ pdf:
   observations_table:
     1_damage: DAÑO
     2_observations: OBSERVACIONES
+  blade_damage_images:
+    1_general_blade_views: 1 VISTAS GENERALES PALA

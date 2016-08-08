@@ -292,7 +292,7 @@ class AuditPdfBuilderService
             if (count($auditWindmillBlade->getBladePhotos()) > 0) {
                 $pdf->AddPage();
                 $pdf->setFontStyle(null, 'B', 11);
-                $pdf->Write(0, '3.' . ($key + 1) . '.1 VISTAS GENERALES PALA ' . ($key + 1), '', false, 'L', true);
+                $pdf->Write(0, '3.' . ($key + 1) . '.' . $this->ts->trans('pdf.blade_damage_images.1_general_blade_views') . ' ' . ($key + 1), '', false, 'L', true);
                 $pdf->Ln(3);
                 $pdf->setFontStyle(null, '', 9);
                 $i = 0;
