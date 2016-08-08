@@ -42,3 +42,9 @@ pdf:
     2_observations: OBSERVACIONES
   blade_damage_images:
     1_general_blade_views: 1 VISTAS GENERALES PALA
+  inspection_description:
+    1_contact: 4. CONTACTO
+    2_description: 'Podrá contactar con nosotros en las siguientes direcciones y teléfonos:'
+    3_offices: 'Oficinas Fibervent:'
+    4_phones_emails: 'Teléfonos y emails de contacto:'
+    5_gratitude: 'Agradecemos la confianza depositada en el equipo técnico de FIBERVENT.'
