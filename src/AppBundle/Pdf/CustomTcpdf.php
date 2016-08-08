@@ -7,6 +7,7 @@ use AppBundle\Entity\BladeDamage;
 use AppBundle\Entity\Customer;
 use AppBundle\Entity\Windfarm;
 use AppBundle\Entity\Windmill;
+use Symfony\Bundle\FrameworkBundle\Translation\Translator;
 use Symfony\Bundle\FrameworkBundle\Templating\Helper\AssetsHelper;
 
 /**
@@ -31,6 +32,11 @@ class CustomTcpdf extends \TCPDF
      * @var AssetsHelper $tha
      */
     protected $tha;
+
+    /**
+     * @var Translator
+     */
+    private $ts;
 
     /**
      * @var Audit
@@ -184,18 +190,18 @@ class CustomTcpdf extends \TCPDF
     {
         $this->setBlueBackground();
         $this->setFontStyle(null, 'B', 9);
-        $this->Cell(16, 0, 'DAÑO', 1, 0, 'C', true);
-        $this->Cell(35, 0, 'LOCALIZACIÓN', 1, 1, 'C', true);
+        $this->Cell(16, 0, $this->ts->trans('pdf.damage_table_header.1_damage'), 1, 0, 'C', true);
+        $this->Cell(35, 0, $this->ts->trans('pdf.damage_table_header.2_position'), 1, 1, 'C', true);
         $this->setFontStyle(null, '', 9);
-        $this->Cell(7, 0, 'Nº', 1, 0, 'C', true);
-        $this->Cell(9, 0, 'Cód.', 1, 0, 'C', true);
+        $this->Cell(7, 0, $this->ts->trans('pdf.damage_table_header.3_number'), 1, 0, 'C', true);
+        $this->Cell(9, 0, $this->ts->trans('pdf.damage_table_header.4_code') , 1, 0, 'C', true);
         $this->Cell(8, 0, 'Pos.', 1, 0, 'C', true);
-        $this->Cell(10, 0, 'Radio', 1, 0, 'C', true);
+        $this->Cell(10, 0, $this->ts->trans('pdf.damage_table_header.5_radius'), 1, 0, 'C', true);
         $this->Cell(17, 0, 'Dist.', 1, 0, 'C', true);
         $this->SetXY($this::PDF_MARGIN_LEFT + 51, $this->GetY() - 6);
         $this->setFontStyle(null, 'B', 9);
-        $this->Cell(16, 12, 'TAMAÑO', 1, 0, 'C', true);
-        $this->Cell(88, 12, 'DESCRIPCIÓN', 1, 0, 'C', true);
+        $this->Cell(16, 12, $this->ts->trans('pdf.damage_table_header.6_size'), 1, 0, 'C', true);
+        $this->Cell(88, 12, $this->ts->trans('pdf.damage_table_header.7_description'), 1, 0, 'C', true);
         $this->Cell(0, 12, 'CAT', 1, 1, 'C', true);
         $this->setFontStyle(null, '', 9);
         $this->setWhiteBackground();
