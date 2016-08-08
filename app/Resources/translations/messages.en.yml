@@ -37,3 +37,25 @@ pdf:
   audit_blade_damage:
     1_title: RESUMEN INDIVIDUAL DAÑOS PALA
     2_description: En la siguiente tabla se describe el resultado de la inspección con la categorización, descripciones, ubicación y links a fotografías de los daños.
+  observations_table:
+    1_damage: DAÑO
+    2_observations: OBSERVACIONES
+  blade_damage_images:
+    1_general_blade_views: 1 VISTAS GENERALES PALA
+  inspection_description:
+    1_contact: 4. CONTACTO
+    2_description: 'Podrá contactar con nosotros en las siguientes direcciones y teléfonos:'
+    3_offices: 'Oficinas Fibervent:'
+    4_phones_emails: 'Teléfonos y emails de contacto:'
+    5_gratitude: 'Agradecemos la confianza depositada en el equipo técnico de FIBERVENT.'
+  damage_table_header:
+    1_damage: DAÑO
+    2_position: LOCALIZACIÓN
+    3_number: 'Nº'
+    4_code: 'Cód.'
+    5_radius: Radio
+    6_size: TAMAÑO
+    7_description: DESCRIPCIÓN
+  set_document_information:
+    1_title: 'Auditoria #'
+    2_subject: Inspección palas parque eólico

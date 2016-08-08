@@ -416,8 +416,8 @@ class AuditPdfBuilderService
         // set document information
         $pdf->SetCreator(PDF_CREATOR);
         $pdf->SetAuthor('Fibervent');
-        $pdf->SetTitle('Auditoria #' . $audit->getId() . ' ' . $windfarm->getName());
-        $pdf->SetSubject('Inspección palas parque eólico ' . $windfarm->getName());
+        $pdf->SetTitle($this->ts->trans('pdf.set_document_information.1_title') . $audit->getId() . ' ' . $windfarm->getName());
+        $pdf->SetSubject($this->ts->trans('pdf.set_document_information.2_subject') . $windfarm->getName());
 
         // set default font subsetting mode
         $pdf->setFontSubsetting(true);
