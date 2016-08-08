@@ -42,14 +42,6 @@ class DamageAdmin extends AbstractBaseAdmin
         $formMapper
             ->with('General', $this->getFormMdSuccessBoxArray(6))
             ->add(
-                'description',
-                null,
-                array(
-                    'label'    => 'Descripció',
-                    'required' => true,
-                )
-            )
-            ->add(
                 'section',
                 null,
                 array(
@@ -66,6 +58,16 @@ class DamageAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
+                'description',
+                null,
+                array(
+                    'label'    => 'Descripció',
+                    'required' => true,
+                )
+            )
+            ->end()
+            ->with('Controls', $this->getFormMdSuccessBoxArray(6))
+            ->add(
                 'enabled',
                 null,
                 array(
@@ -73,7 +75,18 @@ class DamageAdmin extends AbstractBaseAdmin
                     'required' => false,
                 )
             )
-            ->end();
+            ->end()
+            ->with('Traduccions', $this->getFormMdSuccessBoxArray(6))
+            ->add('translations', 'a2lix_translations_gedmo', array(
+                'required' => false,
+                'label' => ' ',
+                'translatable_class' => 'AppBundle\Entity\Translation\DamageTranslation',
+                'fields' => array(
+                    'description' => array('label' => 'Descripció', 'attr' => array('rows' => 8), 'required' => false),
+                ),
+            ))
+            ->end()
+        ;
     }
 
     /**

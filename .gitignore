@@ -49,11 +49,9 @@
 # Composer PHAR
 /composer.phar
 
+# Customs
 /dbreset.sh
 /test.sh
-
 /Capfile
 /app/config/deploy.rb
-
 !/.travis.yml
-

@@ -4,9 +4,11 @@ namespace AppBundle\Entity;
 
 use AppBundle\Entity\Traits\CodeTrait;
 use AppBundle\Entity\Traits\DescriptionTrait;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Damage
@@ -19,6 +21,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Entity(repositoryClass="AppBundle\Repository\DamageRepository")
  * @UniqueEntity("code")
  * @Gedmo\SoftDeleteable(fieldName="removedAt", timeAware=false)
+ * @Gedmo\TranslationEntity(class="AppBundle\Entity\Translations\DamageTranslation")
  */
 class Damage extends AbstractBase
 {
@@ -40,12 +43,31 @@ class Damage extends AbstractBase
     private $code;
 
     /**
+     * @ORM\OneToMany(
+     *     targetEntity="AppBundle\Entity\Translations\DamageTranslation",
+     *     mappedBy="object",
+     *     cascade={"persist", "remove"}
+     * )
+     * @Assert\Valid(deep = true)
+     * @var ArrayCollection
+     */
+    private $translations;
+
+    /**
      *
      *
      * Methods
      *
      *
      */
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->translations = new ArrayCollection();
+    }
 
     /**
      * @return int
@@ -85,6 +107,61 @@ class Damage extends AbstractBase
         $this->code = $code;
 
         return $this;
+    }
+
+    /**
+     * Add translation
+     *
+     * @param Translations\DamageTranslation $translation
+     *
+     * @return $this
+     */
+    public function addTranslation(Translations\DamageTranslation $translation)
+    {
+        if ($translation->getContent()) {
+            $translation->setObject($this);
+            $this->translations[] = $translation;
+        }
+
+        return $this;
+    }
+
+    /**
+     * Remove translation
+     *
+     * @param Translations\DamageTranslation $translation
+     *
+     * @return $this
+     */
+    public function removeTranslation(Translations\DamageTranslation $translation)
+    {
+        $this->translations->removeElement($translation);
+
+        return $this;
+    }
+
+    /**
+     * Set translations
+     *
+     * @param ArrayCollection $translations
+     *
+     * @return $this
+     */
+    public function setTranslations($translations)
+    {
+        $this->translations = $translations;
+
+        return $this;
+    }
+
+    /**
+     * Get translations
+     *
+     * @return ArrayCollection
+     */
+    public function getTranslations()
+    {
+        return $this->translations;
     }
 
     /**

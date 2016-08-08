@@ -13,6 +13,7 @@
         ]
     },
     "require": {
+        "a2lix/translation-form-bundle": "1.*",
         "components/font-awesome": "^4.0",
         "components/jquery": "^2.0",
         "cypresslab/gitelephant-bundle": "^0.0.6",
@@ -27,6 +28,7 @@
         "ircmaxell/password-compat": "~1.0",
         "liip/functional-test-bundle": "^1.0",
         "liip/imagine-bundle": "^1.0",
+        "ocramius/proxy-manager": "1.0.2",
         "oh/google-map-form-type-bundle": "dev-master",
         "php": ">=5.3.9",
         "sensio/distribution-bundle": "~5.0",

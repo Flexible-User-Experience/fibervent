@@ -18,8 +18,8 @@ script:
 
 notifications:
   email:
-    -  aserratorta@gmail.com
-    -  david@flux.cat
+    - aserratorta@gmail.com
+    - david@flux.cat
 
 branches:
   only:
