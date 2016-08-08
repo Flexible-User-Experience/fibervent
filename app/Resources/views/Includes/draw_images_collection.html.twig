@@ -1,0 +1,5 @@
+{% for photo in images %}
+    <img
+            src="{{ vich_uploader_asset(photo, 'imageFile') | imagine_filter(filter) }}"
+            alt="{{ photo.imageName }}">
+{% endfor %}

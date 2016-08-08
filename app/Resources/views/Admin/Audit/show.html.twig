@@ -98,11 +98,7 @@
                                         <tbody>
                                         <tr>
                                             <td>
-                                                {% for bladePhoto in auditWindmillBlade.bladePhotos %}
-                                                    <img
-                                                            src="{{ vich_uploader_asset(bladePhoto, 'imageFile') | imagine_filter('Xx128') }}"
-                                                            alt="{{ bladePhoto.imageName }}">
-                                                {% endfor %}
+                                                {% include ':Includes:draw_images_collection.html.twig' with {images: auditWindmillBlade.bladePhotos, filter: 'Xx128'} %}
                                             </td>
                                         </tr>
                                         </tbody>
@@ -137,11 +133,7 @@
                                     {% if bladeDamage.photos | length > 0 %}
                                         <tr class="sonata-ba-view-container">
                                             <td colspan="8">
-                                                {% for photo in bladeDamage.photos %}
-                                                    <img
-                                                            src="{{ vich_uploader_asset(photo, 'imageFile') | imagine_filter('128x128') }}"
-                                                            alt="{{ photo.imageName }}">
-                                                {% endfor %}
+                                                {% include ':Includes:draw_images_collection.html.twig' with {images: bladeDamage.photos, filter: '128x128'} %}
                                             </td>
                                         </tr>
                                     {% endif %}
