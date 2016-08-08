@@ -31,3 +31,9 @@ pdf:
       2_priority: Prioridad
       3_description: Descripción / Hallazgos
       4_action: Acción recomendada
+  audit_description:
+    1_title: 3. DESCRIPCIÓN DE LA INSPECCIÓN
+    2_description: 'El esquema en la numeración de palas (1, 2, 3) se describe en la siguiente imagen:'
+  audit_blade_damage:
+    1_title: RESUMEN INDIVIDUAL DAÑOS PALA
+    2_description: En la siguiente tabla se describe el resultado de la inspección con la categorización, descripciones, ubicación y links a fotografías de los daños.

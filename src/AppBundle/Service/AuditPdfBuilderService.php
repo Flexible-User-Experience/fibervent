@@ -191,10 +191,10 @@ class AuditPdfBuilderService
         foreach ($audit->getAuditWindmillBlades() as $key => $auditWindmillBlade) {
             $bladeDamages = $this->bdr->getItemsOfAuditWindmillBladeSortedByRadius($auditWindmillBlade);
             $pdf->setFontStyle(null, 'B', 11);
-            $pdf->Write(0, '3.' . ($key + 1) . ' RESUMEN INDIVIDUAL DAÑOS PALA ' . ($key + 1), '', false, 'L', true);
+            $pdf->Write(0, '3.' . ($key + 1) . ' ' . $this->ts->trans('pdf.audit_blade_damage.1_title') . ' ' . ($key + 1), '', false, 'L', true);
             $pdf->Ln(5);
             $pdf->setFontStyle(null, '', 9);
-            $pdf->Write(0, 'En la siguiente tabla se describe el resultado de la inspección con la categorización, descripciones, ubicación y links a fotografías de los daños.', '', false, 'L', true);
+            $pdf->Write(0, $this->ts->trans('pdf.audit_blade_damage.2_description'), '', false, 'L', true);
             $pdf->Ln(5);
             // damage table
             $pdf->drawDamageTableHeader();
