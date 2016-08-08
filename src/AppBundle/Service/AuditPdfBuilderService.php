@@ -177,10 +177,10 @@ class AuditPdfBuilderService
         $pdf->Ln(5);
         // Inspection description
         $pdf->setFontStyle(null, 'B', 11);
-        $pdf->Write(0, '3. DESCRIPCIÓN DE LA INSPECCIÓN', '', false, 'L', true);
+        $pdf->Write(0, $this->ts->trans('pdf.audit_description.1_title'), '', false, 'L', true);
         $pdf->Ln(5);
         $pdf->setFontStyle(null, '', 9);
-        $pdf->Write(0, 'El esquema en la numeración de palas (1, 2, 3) se describe en la siguiente imagen:', '', false, 'L', true);
+        $pdf->Write(0, $this->ts->trans('pdf.audit_description.2_description'), '', false, 'L', true);
         $pdf->Ln(5);
         // Audit description with windmill image schema
         $pdf->Image($this->tha->getUrl('/bundles/app/images/tubrine_diagrams/' . $audit->getDiagramType() . '.jpg'), CustomTcpdf::PDF_MARGIN_LEFT + 50, $pdf->GetY(), null, 40);
