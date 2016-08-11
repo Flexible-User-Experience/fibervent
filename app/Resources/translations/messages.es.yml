@@ -60,3 +60,8 @@ pdf:
   set_document_information:
     1_title: 'Auditoria #'
     2_subject: Inspección palas parque eólico
+  blade_damage_position:
+    1_VP: VP
+    2_VS: VS
+    3_BA: BA
+    4_BS: BS
