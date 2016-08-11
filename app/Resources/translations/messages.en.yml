@@ -24,13 +24,13 @@ pdf:
     2_description: 'This report is the result of the visual inspection done by telephoto lens on the ground in the “Ávila Wind Farm between 06/06/2016 and 06/06/2016. The equipment, property of FIBERVENT, used in this inspection is the following:'
     3_list: '<ul><li>Telephoto lens kit SWAROVSKI ATS 80-HD + OCULAR ZOOM 25-50X</li><li>Photo adaptor SWAROVSKI TLS APO</li><li>Camera kit OLYMPUS EPL 5 16 Mpx + remote switch</li><li>Battery OLYMPUS BLS-5</li><li>Camera lens OLYMPUS 14-42 mm</li><li>Adaptor OLYMPUS T-MICRO 4/3</li><li>Carbon tripod kit MANFROTTO NAT DOS</li><li>Tripod bag MANFROTTO BAG 80</li><li>Backpack LOWEPRO TRAVEL 200 AW</li></ul>'
   damage_catalog:
-    1_title: 2. CATALOGACIÓN DE DAÑOS
-    2_subtitle: 'Los daños encontrados se han categorizado según los siguientes criterios:'
+    1_title: 2. DAMAGES CATEGORIZATION
+    2_subtitle: 'All the damages found have been categorized by the following criteria:'
     table:
-      1_category: Categoría
-      2_priority: Prioridad
-      3_description: Descripción / Hallazgos
-      4_action: Acción recomendada
+      1_category: Category
+      2_priority: Priority
+      3_description: Description / Findings
+      4_action: Recommended actions
   audit_description:
     1_title: 3. DESCRIPCIÓN DE LA INSPECCIÓN
     2_description: 'El esquema en la numeración de palas (1, 2, 3) se describe en la siguiente imagen:'
