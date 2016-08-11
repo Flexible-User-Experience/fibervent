@@ -571,7 +571,7 @@ class AuditPdfBuilderService
         $pdf->Cell(9, 0, $this->ts->trans('pdf.damage_table_header.4_code') , 1, 0, 'C', true);
         $pdf->Cell(8, 0, 'Pos.', 1, 0, 'C', true);
         $pdf->Cell(10, 0, $this->ts->trans('pdf.damage_table_header.5_radius'), 1, 0, 'C', true);
-        $pdf->Cell(17, 0, 'Dist.', 1, 0, 'C', true);
+        $pdf->Cell(17, 0, $this->ts->trans('pdf.damage_table_header.8_distance'), 1, 0, 'C', true);
         $pdf->SetXY(CustomTcpdf::PDF_MARGIN_LEFT + 51, $pdf->GetY() - 6);
         $pdf->setFontStyle(null, 'B', 9);
         $pdf->Cell(16, 12, $this->ts->trans('pdf.damage_table_header.6_size'), 1, 0, 'C', true);
