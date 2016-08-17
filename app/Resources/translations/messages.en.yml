@@ -21,7 +21,7 @@ pdf:
     14_blades_amout_value: 1 AG / 3 blades
   intro:
     1_title: 1. INTRODUCTION
-    2_description: 'This report is the result of the visual inspection done by telephoto lens on the ground in the “Ávila Wind Farm between 06/06/2016 and 06/06/2016. The equipment, property of FIBERVENT, used in this inspection is the following:'
+    2_description: 'This report is the result of the visual inspection done by telephoto lens on the ground in the "%windfarm%" Wind Farm between %begin% and %end%. The equipment, property of FIBERVENT, used in this inspection is the following:'
     3_list: '<ul><li>Telephoto lens kit SWAROVSKI ATS 80-HD + OCULAR ZOOM 25-50X</li><li>Photo adaptor SWAROVSKI TLS APO</li><li>Camera kit OLYMPUS EPL 5 16 Mpx + remote switch</li><li>Battery OLYMPUS BLS-5</li><li>Camera lens OLYMPUS 14-42 mm</li><li>Adaptor OLYMPUS T-MICRO 4/3</li><li>Carbon tripod kit MANFROTTO NAT DOS</li><li>Tripod bag MANFROTTO BAG 80</li><li>Backpack LOWEPRO TRAVEL 200 AW</li></ul>'
   damage_catalog:
     1_title: 2. DAMAGES CATEGORIZATION
@@ -60,6 +60,8 @@ pdf:
   set_document_information:
     1_title: 'Auditoria #'
     2_subject: Inspección palas parque eólico
+  header:
+    1_description: '%name% wind farm'
   footer:
     1_page: Page
     2_of: of

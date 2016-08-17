@@ -3,11 +3,11 @@
 namespace AppBundle\Pdf;
 
 use AppBundle\Entity\Audit;
-use AppBundle\Entity\BladeDamage;
 use AppBundle\Entity\Customer;
 use AppBundle\Entity\Windfarm;
 use AppBundle\Entity\Windmill;
 use Symfony\Bundle\FrameworkBundle\Templating\Helper\AssetsHelper;
+use Symfony\Bundle\FrameworkBundle\Translation\Translator;
 
 /**
  * Class CustomTcpdf
@@ -36,6 +36,11 @@ class CustomTcpdf extends \TCPDF
      * @var Audit
      */
     protected $audit;
+
+    /**
+     * @var Translator
+     */
+    private $ts;
 
     /**
      * @var Windmill
@@ -70,12 +75,14 @@ class CustomTcpdf extends \TCPDF
      *
      * @param AssetsHelper $tha
      * @param Audit        $audit
+     * @param Translator   $ts
      */
-    public function __construct(AssetsHelper $tha, Audit $audit)
+    public function __construct(AssetsHelper $tha, Audit $audit, Translator $ts)
     {
         parent::__construct();
         $this->tha      = $tha;
         $this->audit    = $audit;
+        $this->ts       = $ts;
         $this->windmill = $audit->getWindmill();
         $this->windfarm = $audit->getWindmill()->getWindfarm();
         $this->customer = $audit->getWindmill()->getWindfarm()->getCustomer();
@@ -91,7 +98,7 @@ class CustomTcpdf extends \TCPDF
         $this->SetXY(self::PDF_MARGIN_LEFT, 11);
         $this->setFontStyle(null, 'I', 8);
         $this->setBlueLine();
-        $this->Cell(0, 0, 'Parque Eólico ' . $this->windfarm->getName(), 'B', 0, 'R');
+        $this->Cell(0, 0, $this->ts->trans('pdf.header.1_description', array('%name%' => $this->windfarm->getName())), 'B', 0, 'R');
     }
 
     /**
@@ -102,7 +109,7 @@ class CustomTcpdf extends \TCPDF
         $this->SetXY(self::PDF_MARGIN_LEFT, 280);
         $this->setFontStyle(null, 'I', 8);
         $this->setBlueLine();
-        $this->Cell(0, 0, 'Página ' . $this->getAliasNumPage() . ' de ' . $this->getAliasNbPages(), 'T', 0, 'C');
+        $this->Cell(0, 0, $this->ts->trans('pdf.footer.1_page') . ' ' . $this->getAliasNumPage() . ' ' . $this->ts->trans('pdf.footer.2_of') . ' ' . $this->getAliasNbPages(), 'T', 0, 'C');
     }
 
     /**

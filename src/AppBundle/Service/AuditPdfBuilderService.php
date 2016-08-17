@@ -411,7 +411,7 @@ class AuditPdfBuilderService
     private function doInitialConfig(Audit $audit, Windmill $windmill, Windfarm $windfarm)
     {
         /** @var CustomTcpdf $pdf */
-        $pdf = $this->tcpdf->create($this->tha, $audit);
+        $pdf = $this->tcpdf->create($this->tha, $audit, $this->ts);
 
         // set document information
         $pdf->SetCreator(PDF_CREATOR);

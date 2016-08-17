@@ -60,6 +60,8 @@ pdf:
   set_document_information:
     1_title: 'Auditoria #'
     2_subject: Inspección palas parque eólico
+  header:
+    1_description: 'Parque eólico %name%'
   footer:
     1_page: Página
     2_of: de
