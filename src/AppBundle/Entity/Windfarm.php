@@ -103,6 +103,16 @@ class Windfarm extends AbstractBase
     }
 
     /**
+     * @return string
+     */
+    public function getYearDiff()
+    {
+        $today = new \DateTime();
+
+        return $today->format('Y') - $this->getYear();
+    }
+
+    /**
      * @param int $year
      *
      * @return Windfarm
@@ -232,9 +242,7 @@ class Windfarm extends AbstractBase
      */
     public function getPdfYearString()
     {
-        $today = new \DateTime();
-        
-        return $this->getYear() . ' (' . ($today->format('Y') - $this->getYear()) . ' años)';
+        return $this->getYear() . ' (' . $this->getYearDiff() . ' años)';
     }
 
     /**

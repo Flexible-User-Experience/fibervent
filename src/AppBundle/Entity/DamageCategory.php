@@ -3,8 +3,10 @@
 namespace AppBundle\Entity;
 
 use AppBundle\Entity\Traits\DescriptionTrait;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * DamageCategory
@@ -16,6 +18,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="AppBundle\Repository\DamageCategoryRepository")
  * @Gedmo\SoftDeleteable(fieldName="removedAt", timeAware=false)
+ * @Gedmo\TranslationEntity(class="AppBundle\Entity\Translations\DamageCategoryTranslation")
  */
 class DamageCategory extends AbstractBase
 {
@@ -32,6 +35,7 @@ class DamageCategory extends AbstractBase
      * @var string
      *
      * @ORM\Column(type="string", length=255)
+     * @Gedmo\Translatable
      */
     private $priority;
 
@@ -39,6 +43,7 @@ class DamageCategory extends AbstractBase
      * @var string
      *
      * @ORM\Column(type="string", length=255)
+     * @Gedmo\Translatable
      */
     private $recommendedAction;
 
@@ -50,12 +55,31 @@ class DamageCategory extends AbstractBase
     private $colour;
 
     /**
+     * @ORM\OneToMany(
+     *     targetEntity="AppBundle\Entity\Translations\DamageCategoryTranslation",
+     *     mappedBy="object",
+     *     cascade={"persist", "remove"}
+     * )
+     * @Assert\Valid(deep = true)
+     * @var ArrayCollection
+     */
+    private $translations;
+
+    /**
      *
      *
      * Methods
      *
      *
      */
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->translations = new ArrayCollection();
+    }
 
     /**
      * @return int
@@ -135,6 +159,61 @@ class DamageCategory extends AbstractBase
         $this->colour = $colour;
 
         return $this;
+    }
+
+    /**
+     * Add translation
+     *
+     * @param Translations\DamageCategoryTranslation $translation
+     *
+     * @return $this
+     */
+    public function addTranslation(Translations\DamageCategoryTranslation $translation)
+    {
+        if ($translation->getContent()) {
+            $translation->setObject($this);
+            $this->translations[] = $translation;
+        }
+
+        return $this;
+    }
+
+    /**
+     * Remove translation
+     *
+     * @param Translations\DamageCategoryTranslation $translation
+     *
+     * @return $this
+     */
+    public function removeTranslation(Translations\DamageCategoryTranslation $translation)
+    {
+        $this->translations->removeElement($translation);
+
+        return $this;
+    }
+
+    /**
+     * Set translations
+     *
+     * @param ArrayCollection $translations
+     *
+     * @return $this
+     */
+    public function setTranslations($translations)
+    {
+        $this->translations = $translations;
+
+        return $this;
+    }
+
+    /**
+     * Get translations
+     *
+     * @return ArrayCollection
+     */
+    public function getTranslations()
+    {
+        return $this->translations;
     }
 
     /**

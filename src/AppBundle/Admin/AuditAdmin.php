@@ -5,6 +5,7 @@ namespace AppBundle\Admin;
 use AppBundle\Entity\Audit;
 use AppBundle\Entity\AuditWindmillBlade;
 use AppBundle\Enum\AuditDiagramTypeEnum;
+use AppBundle\Enum\AuditLanguageEnum;
 use AppBundle\Enum\AuditStatusEnum;
 use AppBundle\Form\Type\AuditDiagramTypeFormType;
 use Doctrine\ORM\QueryBuilder;
@@ -124,6 +125,17 @@ class AuditAdmin extends AbstractBaseAdmin
                     'btn_delete' => false,
                     'property'   => 'contactInfoString',
                     'query'      => $this->ur->findAllTechniciansSortedByNameQ(),
+                )
+            )
+            ->add(
+                'language',
+                ChoiceType::class,
+                array(
+                    'label'    => 'Idioma PDF',
+                    'choices'  => AuditLanguageEnum::getEnumArrayString(),
+                    'multiple' => false,
+                    'expanded' => true,
+                    'required' => true,
                 )
             )
             ->add(

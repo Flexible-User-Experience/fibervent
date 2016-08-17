@@ -1,0 +1,72 @@
+pdf:
+  cover:
+    1_inspection: WIND FARM BLADE REPORT
+    2_resume: WIND TURBINE REPORT
+    3_country: COUNTRY/REGION
+    4_windfarm: WIND FARM
+    5_turbine_model: WIND TURBINE MODEL
+    6_turbine_size: TURBINE DIMENSIONS
+    6_turbine_size_value: 'Tower %height%m / Rotor Ø%diameter%m / Blade %length%m'
+    7_blade_type: BLADE MODEL
+    8_total_turbines: TOTAL Nr. WTG / WF Capacity
+    8_total_turbines_value: '%windmills% aerogeneradores / %power%MW'
+    9_startup_year: Comissioning date (years WF)
+    9_startup_year_value: '%year% (%diff% años)'
+    10_om_regional_manager: O&M REGIONAL MANAGER
+    11_technicians: INSPECTION TECHNICIANS
+    12_audit_type: INSPECTION TYPE
+    12_audit_type_value: GROUND (Telephoto lens FIBERVENT)
+    13_audit_date: DATE OF INSPECTION
+    14_blades_amout: Nr. of WTG / blades inspected
+    14_blades_amout_value: 1 AG / 3 blades
+  intro:
+    1_title: 1. INTRODUCTION
+    2_description: 'This report is the result of the visual inspection done by telephoto lens on the ground in the "%windfarm%" Wind Farm between %begin% and %end%. The equipment, property of FIBERVENT, used in this inspection is the following:'
+    3_list: '<ul><li>Telephoto lens kit SWAROVSKI ATS 80-HD + OCULAR ZOOM 25-50X</li><li>Photo adaptor SWAROVSKI TLS APO</li><li>Camera kit OLYMPUS EPL 5 16 Mpx + remote switch</li><li>Battery OLYMPUS BLS-5</li><li>Camera lens OLYMPUS 14-42 mm</li><li>Adaptor OLYMPUS T-MICRO 4/3</li><li>Carbon tripod kit MANFROTTO NAT DOS</li><li>Tripod bag MANFROTTO BAG 80</li><li>Backpack LOWEPRO TRAVEL 200 AW</li></ul>'
+  damage_catalog:
+    1_title: 2. DAMAGES CATEGORIZATION
+    2_subtitle: 'All the damages found have been categorized by the following criteria:'
+    table:
+      1_category: Category
+      2_priority: Priority
+      3_description: Description / Findings
+      4_action: Recommended actions
+  audit_description:
+    1_title: 3. INSPECTION DESCRIPTION
+    2_description: 'The blade’s number scheme (1, 2, 3) is described in the next picture:'
+  audit_blade_damage:
+    1_title: INDIVIDUAL DAMAGES SUMMARY BLADE
+    2_description: The result of the inspection including categorization, descriptions and location of the damages is shown in the following table:
+  observations_table:
+    1_damage: DAMAGE
+    2_observations: OBSERVATIONS
+  blade_damage_images:
+    1_general_blade_views: 1 GENERAL OVERVIEWS BLADE
+  inspection_description:
+    1_contact: 4. CONTACT
+    2_description: 'You can contact us in the following addresses and phone numbers:'
+    3_offices: 'Fibervent Headquarters:'
+    4_phones_emails: 'Phone numbers and email addresses:'
+    5_gratitude: 'We appreciate the confidence shown in the technical team of FIBERVENT.'
+  damage_table_header:
+    1_damage: DAMAGE
+    2_position: LOCATION
+    3_number: Nr
+    4_code: Code
+    5_radius: Radius
+    6_size: SIZE
+    7_description: DESCRIPTION
+    8_distance: Distance
+  set_document_information:
+    1_title: 'Auditoria #'
+    2_subject: Inspección palas parque eólico
+  header:
+    1_description: '%name% wind farm'
+  footer:
+    1_page: Page
+    2_of: of
+  blade_damage_position:
+    1_VP: PS
+    2_VS: SS
+    3_BA: LE
+    4_BS: TE

@@ -102,6 +102,13 @@ class Audit extends AbstractBase
     private $customer;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(type="integer", options={"default"=0})
+     */
+    protected $language = 0;
+
+    /**
      *
      *
      * Methods
@@ -399,6 +406,30 @@ class Audit extends AbstractBase
     public function setCustomer(Customer $customer)
     {
         $this->customer = $customer;
+
+        return $this;
+    }
+
+    /**
+     * Get Language
+     *
+     * @return int
+     */
+    public function getLanguage()
+    {
+        return $this->language;
+    }
+
+    /**
+     * Set Language
+     *
+     * @param int $language
+     *
+     * @return $this
+     */
+    public function setLanguage($language)
+    {
+        $this->language = $language;
 
         return $this;
     }

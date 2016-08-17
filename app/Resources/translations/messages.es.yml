@@ -1,0 +1,72 @@
+pdf:
+  cover:
+    1_inspection: INSPECCIÓN DE PALAS DEL PARQUE EÓLICO
+    2_resume: INFORME INDIVIDUAL AEROGENERADOR
+    3_country: PAÍS/REGION
+    4_windfarm: PARQUE EÓLICO
+    5_turbine_model: MODELO AEROGENERADOR
+    6_turbine_size: DIMENSIONES AEROGENERADOR
+    6_turbine_size_value: 'Torre %height%m / Rotor Ø%diameter%m / Pala %length%m'
+    7_blade_type: MODELO PALA
+    8_total_turbines: TOTAL No. AG / Capacidad PE
+    8_total_turbines_value: '%windmills% aerogeneradores / %power%MW'
+    9_startup_year: Puesta en marcha (años del PE)
+    9_startup_year_value: '%year% (%diff% años)'
+    10_om_regional_manager: O&M REGIONAL MANAGER
+    11_technicians: TÉCNICOS INSPECCIÓN
+    12_audit_type: TIPO DE INSPECCIÓN
+    12_audit_type_value: SUELO (Telescopio FIBERVENT)
+    13_audit_date: FECHA DE INSPECCIÓN
+    14_blades_amout: No. de AG / palas inspeccionadas
+    14_blades_amout_value: 1 AG / 3 palas
+  intro:
+    1_title: 1. INTRODUCCIÓN
+    2_description: 'Este informe es el resultado de la inspección visual realizada con telescopio desde suelo en el Parque Eólico "%windfarm%" entre el %begin% y el %end%. El equipo, propiedad de FIBERVENT, y utilizado para la inspección es el siguiente:'
+    3_list: '<ul><li>Kit telescopio SWAROVSKI ATS 80-HD + OCULAR ZOOM 25-50X</li><li>Adaptador foto SWAROVSKI TLS APO</li><li>Kit cámara OLYMPUS EPL 5 16 Mpx + cable disparador</li><li>Batería OLYMPUS BLS-5</li><li>Objetivo OLYMPUS 14-42 mm</li><li>Adaptador OLYMPUS T-MICRO 4/3</li><li>Kit trípode MANFROTTO NAT DOS Carbono</li><li>Funda trípode MANFROTTO BAG 80</li><li>Mochila LOWEPRO TRAVEL 200 AW</li></ul>'
+  damage_catalog:
+    1_title: 2. CATALOGACIÓN DE DAÑOS
+    2_subtitle: 'Los daños encontrados se han categorizado según los siguientes criterios:'
+    table:
+      1_category: Categoría
+      2_priority: Prioridad
+      3_description: Descripción / Hallazgos
+      4_action: Acción recomendada
+  audit_description:
+    1_title: 3. DESCRIPCIÓN DE LA INSPECCIÓN
+    2_description: 'El esquema en la numeración de palas (1, 2, 3) se describe en la siguiente imagen:'
+  audit_blade_damage:
+    1_title: RESUMEN INDIVIDUAL DAÑOS PALA
+    2_description: En la siguiente tabla se describe el resultado de la inspección con la categorización, descripciones, ubicación y links a fotografías de los daños.
+  observations_table:
+    1_damage: DAÑO
+    2_observations: OBSERVACIONES
+  blade_damage_images:
+    1_general_blade_views: 1 VISTAS GENERALES PALA
+  inspection_description:
+    1_contact: 4. CONTACTO
+    2_description: 'Podrá contactar con nosotros en las siguientes direcciones y teléfonos:'
+    3_offices: 'Oficinas Fibervent:'
+    4_phones_emails: 'Teléfonos y emails de contacto:'
+    5_gratitude: 'Agradecemos la confianza depositada en el equipo técnico de FIBERVENT.'
+  damage_table_header:
+    1_damage: DAÑO
+    2_position: LOCALIZACIÓN
+    3_number: 'Nº'
+    4_code: 'Cód.'
+    5_radius: Radio
+    6_size: TAMAÑO
+    7_description: DESCRIPCIÓN
+    8_distance: Dist.
+  set_document_information:
+    1_title: 'Auditoria #'
+    2_subject: Inspección palas parque eólico
+  header:
+    1_description: 'Parque eólico %name%'
+  footer:
+    1_page: Página
+    2_of: de
+  blade_damage_position:
+    1_VP: VP
+    2_VS: VS
+    3_BA: BA
+    4_BS: BS

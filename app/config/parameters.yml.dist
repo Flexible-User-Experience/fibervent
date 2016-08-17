@@ -30,6 +30,7 @@ parameters:
     secret:            Th1sT0kenIsN0tS0SecretChXng31t
 
     locale: ca
+    locale_i18n: [ en ]
 
     project_web_title: "Fibervent"
 

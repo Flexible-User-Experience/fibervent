@@ -39,29 +39,7 @@ class DamageCategoryAdmin extends AbstractBaseAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->with('General', $this->getFormMdSuccessBoxArray(7))
-            ->add(
-                'colour',
-                'color_picker',
-                array(
-                    'label'          => 'Color',
-                    'required'       => true,
-                    'picker_options' => array(
-                        'color'    => false,
-                        'mode'     => 'hsl',
-                        'hide'     => false,
-                        'border'   => true,
-                        'target'   => false,
-                        'width'    => 200,
-                        'palettes' => true,
-                        'controls' => array(
-                            'horiz' => 's',
-                            'vert'  => 'l',
-                            'strip' => 'h'
-                        )
-                    )
-                )
-            )
+            ->with('General', $this->getFormMdSuccessBoxArray(6))
             ->add(
                 'category',
                 null,
@@ -94,6 +72,42 @@ class DamageCategoryAdmin extends AbstractBaseAdmin
                     'required' => true,
                 )
             )
+            ->end()
+            ->with('Traduccions', $this->getFormMdSuccessBoxArray(6))
+            ->add('translations', 'a2lix_translations_gedmo', array(
+                'required' => false,
+                'label' => ' ',
+                'translatable_class' => 'AppBundle\Entity\Translation\DamageTranslation',
+                'fields' => array(
+                    'priority' => array('label' => 'Prioritat', 'required' => false),
+                    'description' => array('label' => 'Descripció', 'attr' => array('rows' => 8), 'required' => false),
+                    'recommendedAction' => array('label' => 'Acció Recomanada', 'required' => false),
+                ),
+            ))
+            ->end()
+            ->with('Controls', $this->getFormMdSuccessBoxArray(6))
+            ->add(
+                'colour',
+                'color_picker',
+                array(
+                    'label'          => 'Color',
+                    'required'       => true,
+                    'picker_options' => array(
+                        'color'    => false,
+                        'mode'     => 'hsl',
+                        'hide'     => false,
+                        'border'   => true,
+                        'target'   => false,
+                        'width'    => 200,
+                        'palettes' => true,
+                        'controls' => array(
+                            'horiz' => 's',
+                            'vert'  => 'l',
+                            'strip' => 'h'
+                        )
+                    )
+                )
+            )
             ->add(
                 'enabled',
                 null,
@@ -102,7 +116,8 @@ class DamageCategoryAdmin extends AbstractBaseAdmin
                     'required' => false,
                 )
             )
-            ->end();
+            ->end()
+        ;
     }
 
     /**

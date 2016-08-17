@@ -95,6 +95,7 @@ services:
         arguments:
             - "@templating.helper.assets"
             - AppBundle\Entity\Audit
+            - "@translator.default"
     app.audit_pdf_builder:
         class: AppBundle\Service\AuditPdfBuilderService
         arguments:
@@ -102,6 +103,7 @@ services:
             - "@liip_imagine.cache.manager"
             - "@vich_uploader.templating.helper.uploader_helper"
             - "@templating.helper.assets"
+            - "@translator.default"
             - "@app.damage_category_repository"
             - "@app.blade_damage_repository"
             - "@app.audit_model_diagram_bridge"
