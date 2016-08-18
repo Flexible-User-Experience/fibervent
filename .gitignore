@@ -31,8 +31,12 @@
 !/web/uploads/.gitkeep
 /web/media/*
 !/web/media/.gitkeep
-/web/js/
-/web/css/
+/web/js/*
+!/web/js/.gitkeep
+/web/css/*
+!/web/css/.gitkeep
+/web/images/*
+!/web/images/.gitkeep
 /web/pdfs/*
 !/web/pdfs/.gitkeep
 
