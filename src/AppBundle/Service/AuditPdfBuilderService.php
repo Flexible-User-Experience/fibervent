@@ -225,7 +225,7 @@ class AuditPdfBuilderService
             $yQuarter3 = $this->amdb->getYQ3();
             $yQuarter4 = $this->amdb->getYQ4();
 
-            $pdf->Image($this->tha->getUrl('/bundles/app/images/blade_diagrams/blade_blueprint_1.jpg'), $x1, $y1, ($x2 - $x1), null);
+            $pdf->Image($this->tha->getUrl('/bundles/app/images/blade_diagrams/blade_blueprint_' . $this->locale . '.jpg'), $x1, $y1, ($x2 - $x1), null);
 
             if (self::SHOW_GRID_DEBUG) {
                 $pdf->Line($xQuarter1, $y1, $xQuarter1, $y1 + ($y2 - $y1));
