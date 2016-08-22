@@ -165,7 +165,7 @@ class AuditPdfBuilderService
         $pdf->MultiCell(0, 0, $this->ts->trans('pdf.damage_catalog.table.4_action'), 1, 'C', 1, 1, '', '', true);
         $pdf->setFontStyle(null, '', 9);
         /** @var DamageCategory $item */
-        foreach ($this->dcr->findAllSortedByCategory() as $item) {
+        foreach ($this->dcr->findAllSortedByCategoryLocalized($this->locale) as $item) {
             $pdf->setBackgroundHexColor($item->getColour());
             $pdf->MultiCell(20, 14, $item->getCategory(), 1, 'C', 1, 0, '', '', true, 0, false, true, 14, 'M');
             $pdf->MultiCell(20, 14, $item->getPriority(), 1, 'C', 1, 0, '', '', true, 0, false, true, 14, 'M');

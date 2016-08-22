@@ -5,6 +5,7 @@ namespace AppBundle\Repository;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
+use Gedmo\Translatable\TranslatableListener;
 
 /**
  * Class DamageCategoryRepository
@@ -54,6 +55,36 @@ class DamageCategoryRepository extends EntityRepository
     public function findAllSortedByCategory($limit = null, $order = 'ASC')
     {
         return $this->findAllSortedByCategoryQ($limit, $order)->getResult();
+    }
+
+    /**
+     * @param string   $locale
+     * @param int|null $limit
+     * @param string   $order
+     *
+     * @return Query
+     */
+    public function findAllSortedByCategoryLocalizedQ($locale, $limit = null, $order = 'ASC')
+    {
+        $query = $this->findAllSortedByCategoryQB($limit, $order)->getQuery();
+        $query
+            ->setHint(Query::HINT_CUSTOM_OUTPUT_WALKER, 'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker')
+            ->setHint(TranslatableListener::HINT_TRANSLATABLE_LOCALE, $locale)
+            ->setHint(TranslatableListener::HINT_FALLBACK, 1);
+
+        return $query;
+    }
+
+    /**
+     * @param string   $locale
+     * @param int|null $limit
+     * @param string   $order
+     *
+     * @return array
+     */
+    public function findAllSortedByCategoryLocalized($locale, $limit = null, $order = 'ASC')
+    {
+        return $this->findAllSortedByCategoryLocalizedQ($locale, $limit, $order)->getResult();
     }
 
     /**
