@@ -65,6 +65,7 @@ pdf:
   footer:
     1_page: Page
     2_of: of
+enum:
   blade_damage_position:
     1_VP: PS
     2_VS: SS
