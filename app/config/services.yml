@@ -104,6 +104,7 @@ services:
             - "@vich_uploader.templating.helper.uploader_helper"
             - "@templating.helper.assets"
             - "@translator.default"
+            - "@app.damage_repository"
             - "@app.damage_category_repository"
             - "@app.blade_damage_repository"
             - "@app.audit_model_diagram_bridge"

@@ -14,6 +14,7 @@ use AppBundle\Entity\Windmill;
 use AppBundle\Enum\AuditLanguageEnum;
 use AppBundle\Enum\BladeDamagePositionEnum;
 use AppBundle\Pdf\CustomTcpdf;
+use AppBundle\Repository\DamageRepository;
 use AppBundle\Repository\BladeDamageRepository;
 use AppBundle\Repository\DamageCategoryRepository;
 use Symfony\Bundle\FrameworkBundle\Translation\Translator;
@@ -59,6 +60,11 @@ class AuditPdfBuilderService
     private $ts;
 
     /**
+     * @var DamageRepository
+     */
+    private $dr;
+
+    /**
      * @var DamageCategoryRepository
      */
     private $dcr;
@@ -94,17 +100,19 @@ class AuditPdfBuilderService
      * @param UploaderHelper                 $uh
      * @param AssetsHelper                   $tha
      * @param Translator                     $ts
+     * @param DamageRepository               $dr
      * @param DamageCategoryRepository       $dcr
      * @param BladeDamageRepository          $bdr
      * @param AuditModelDiagramBridgeService $amdb
      */
-    public function __construct(TCPDFController $tcpdf, CacheManager $cm, UploaderHelper $uh, AssetsHelper $tha, Translator $ts, DamageCategoryRepository $dcr, BladeDamageRepository $bdr, AuditModelDiagramBridgeService $amdb)
+    public function __construct(TCPDFController $tcpdf, CacheManager $cm, UploaderHelper $uh, AssetsHelper $tha, Translator $ts, DamageRepository $dr, DamageCategoryRepository $dcr, BladeDamageRepository $bdr, AuditModelDiagramBridgeService $amdb)
     {
         $this->tcpdf = $tcpdf;
         $this->cm    = $cm;
         $this->uh    = $uh;
         $this->tha   = $tha;
         $this->ts    = $ts;
+        $this->dr    = $dr;
         $this->dcr   = $dcr;
         $this->bdr   = $bdr;
         $this->amdb  = $amdb;
@@ -165,7 +173,7 @@ class AuditPdfBuilderService
         $pdf->MultiCell(0, 0, $this->ts->trans('pdf.damage_catalog.table.4_action'), 1, 'C', 1, 1, '', '', true);
         $pdf->setFontStyle(null, '', 9);
         /** @var DamageCategory $item */
-        foreach ($this->dcr->findAllSortedByCategory() as $item) {
+        foreach ($this->dcr->findAllSortedByCategoryLocalized($this->locale) as $item) {
             $pdf->setBackgroundHexColor($item->getColour());
             $pdf->MultiCell(20, 14, $item->getCategory(), 1, 'C', 1, 0, '', '', true, 0, false, true, 14, 'M');
             $pdf->MultiCell(20, 14, $item->getPriority(), 1, 'C', 1, 0, '', '', true, 0, false, true, 14, 'M');
@@ -225,7 +233,7 @@ class AuditPdfBuilderService
             $yQuarter3 = $this->amdb->getYQ3();
             $yQuarter4 = $this->amdb->getYQ4();
 
-            $pdf->Image($this->tha->getUrl('/bundles/app/images/blade_diagrams/blade_blueprint_1.jpg'), $x1, $y1, ($x2 - $x1), null);
+            $pdf->Image($this->tha->getUrl('/bundles/app/images/blade_diagrams/blade_blueprint_' . $this->locale . '.jpg'), $x1, $y1, ($x2 - $x1), null);
 
             if (self::SHOW_GRID_DEBUG) {
                 $pdf->Line($xQuarter1, $y1, $xQuarter1, $y1 + ($y2 - $y1));
@@ -565,17 +573,17 @@ class AuditPdfBuilderService
         $pdf->setBlueBackground();
         $pdf->setFontStyle(null, 'B', 9);
         $pdf->Cell(16, 0, $this->ts->trans('pdf.damage_table_header.1_damage'), 1, 0, 'C', true);
-        $pdf->Cell(35, 0, $this->ts->trans('pdf.damage_table_header.2_position'), 1, 1, 'C', true);
+        $pdf->Cell(37, 0, $this->ts->trans('pdf.damage_table_header.2_position'), 1, 1, 'C', true);
         $pdf->setFontStyle(null, '', 9);
         $pdf->Cell(7, 0, $this->ts->trans('pdf.damage_table_header.3_number'), 1, 0, 'C', true);
         $pdf->Cell(9, 0, $this->ts->trans('pdf.damage_table_header.4_code') , 1, 0, 'C', true);
         $pdf->Cell(8, 0, 'Pos.', 1, 0, 'C', true);
-        $pdf->Cell(10, 0, $this->ts->trans('pdf.damage_table_header.5_radius'), 1, 0, 'C', true);
+        $pdf->Cell(12, 0, $this->ts->trans('pdf.damage_table_header.5_radius'), 1, 0, 'C', true);
         $pdf->Cell(17, 0, $this->ts->trans('pdf.damage_table_header.8_distance'), 1, 0, 'C', true);
-        $pdf->SetXY(CustomTcpdf::PDF_MARGIN_LEFT + 51, $pdf->GetY() - 6);
+        $pdf->SetXY(CustomTcpdf::PDF_MARGIN_LEFT + 53, $pdf->GetY() - 6);
         $pdf->setFontStyle(null, 'B', 9);
         $pdf->Cell(16, 12, $this->ts->trans('pdf.damage_table_header.6_size'), 1, 0, 'C', true);
-        $pdf->Cell(88, 12, $this->ts->trans('pdf.damage_table_header.7_description'), 1, 0, 'C', true);
+        $pdf->Cell(86, 12, $this->ts->trans('pdf.damage_table_header.7_description'), 1, 0, 'C', true);
         $pdf->Cell(0, 12, 'CAT', 1, 1, 'C', true);
         $pdf->setFontStyle(null, '', 9);
         $pdf->setWhiteBackground();
@@ -592,11 +600,11 @@ class AuditPdfBuilderService
     {
         $pdf->Cell(7, 0, $key + 1, 1, 0, 'C', true);
         $pdf->Cell(9, 0, $bladeDamage->getDamage()->getCode(), 1, 0, 'C', true);
-        $pdf->Cell(8, 0, $bladeDamage->getPositionString(), 1, 0, 'C', true);
-        $pdf->Cell(10, 0, $bladeDamage->getRadius() . 'm', 1, 0, 'C', true);
+        $pdf->Cell(8, 0, $this->ts->trans($bladeDamage->getPositionStringLocalized()), 1, 0, 'C', true);
+        $pdf->Cell(12, 0, $bladeDamage->getRadius() . 'm', 1, 0, 'C', true);
         $pdf->Cell(17, 0, $bladeDamage->getDistanceString(), 1, 0, 'C', true);
         $pdf->Cell(16, 0, $bladeDamage->getSize() . 'cm', 1, 0, 'C', true);
-        $pdf->Cell(88, 0, $bladeDamage->getDamage()->getDescription(), 1, 0, 'L', true);
+        $pdf->Cell(86, 0, $this->dr->localizedFind($bladeDamage->getDamage()->getId(), $this->locale)->getDescription(), 1, 0, 'L', true);
         $pdf->setBackgroundHexColor($bladeDamage->getDamageCategory()->getColour());
         $pdf->Cell(0, 0, $bladeDamage->getDamageCategory()->getCategory(), 1, 1, 'C', true);
         $pdf->setWhiteBackground();
