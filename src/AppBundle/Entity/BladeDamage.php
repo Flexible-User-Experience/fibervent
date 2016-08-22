@@ -133,6 +133,14 @@ class BladeDamage extends AbstractBase
     }
 
     /**
+     * @return string
+     */
+    public function getPositionStringLocalized()
+    {
+        return BladeDamagePositionEnum::getStringLocalizedValue($this);
+    }
+
+    /**
      * @param int $position
      *
      * @return BladeDamage

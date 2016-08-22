@@ -565,17 +565,17 @@ class AuditPdfBuilderService
         $pdf->setBlueBackground();
         $pdf->setFontStyle(null, 'B', 9);
         $pdf->Cell(16, 0, $this->ts->trans('pdf.damage_table_header.1_damage'), 1, 0, 'C', true);
-        $pdf->Cell(35, 0, $this->ts->trans('pdf.damage_table_header.2_position'), 1, 1, 'C', true);
+        $pdf->Cell(37, 0, $this->ts->trans('pdf.damage_table_header.2_position'), 1, 1, 'C', true);
         $pdf->setFontStyle(null, '', 9);
         $pdf->Cell(7, 0, $this->ts->trans('pdf.damage_table_header.3_number'), 1, 0, 'C', true);
         $pdf->Cell(9, 0, $this->ts->trans('pdf.damage_table_header.4_code') , 1, 0, 'C', true);
         $pdf->Cell(8, 0, 'Pos.', 1, 0, 'C', true);
-        $pdf->Cell(10, 0, $this->ts->trans('pdf.damage_table_header.5_radius'), 1, 0, 'C', true);
+        $pdf->Cell(12, 0, $this->ts->trans('pdf.damage_table_header.5_radius'), 1, 0, 'C', true);
         $pdf->Cell(17, 0, $this->ts->trans('pdf.damage_table_header.8_distance'), 1, 0, 'C', true);
-        $pdf->SetXY(CustomTcpdf::PDF_MARGIN_LEFT + 51, $pdf->GetY() - 6);
+        $pdf->SetXY(CustomTcpdf::PDF_MARGIN_LEFT + 53, $pdf->GetY() - 6);
         $pdf->setFontStyle(null, 'B', 9);
         $pdf->Cell(16, 12, $this->ts->trans('pdf.damage_table_header.6_size'), 1, 0, 'C', true);
-        $pdf->Cell(88, 12, $this->ts->trans('pdf.damage_table_header.7_description'), 1, 0, 'C', true);
+        $pdf->Cell(86, 12, $this->ts->trans('pdf.damage_table_header.7_description'), 1, 0, 'C', true);
         $pdf->Cell(0, 12, 'CAT', 1, 1, 'C', true);
         $pdf->setFontStyle(null, '', 9);
         $pdf->setWhiteBackground();
@@ -592,11 +592,11 @@ class AuditPdfBuilderService
     {
         $pdf->Cell(7, 0, $key + 1, 1, 0, 'C', true);
         $pdf->Cell(9, 0, $bladeDamage->getDamage()->getCode(), 1, 0, 'C', true);
-        $pdf->Cell(8, 0, $bladeDamage->getPositionString(), 1, 0, 'C', true);
-        $pdf->Cell(10, 0, $bladeDamage->getRadius() . 'm', 1, 0, 'C', true);
+        $pdf->Cell(8, 0, $this->ts->trans($bladeDamage->getPositionStringLocalized()), 1, 0, 'C', true);
+        $pdf->Cell(12, 0, $bladeDamage->getRadius() . 'm', 1, 0, 'C', true);
         $pdf->Cell(17, 0, $bladeDamage->getDistanceString(), 1, 0, 'C', true);
         $pdf->Cell(16, 0, $bladeDamage->getSize() . 'cm', 1, 0, 'C', true);
-        $pdf->Cell(88, 0, $bladeDamage->getDamage()->getDescription(), 1, 0, 'L', true);
+        $pdf->Cell(86, 0, $bladeDamage->getDamage()->getDescription(), 1, 0, 'L', true);
         $pdf->setBackgroundHexColor($bladeDamage->getDamageCategory()->getColour());
         $pdf->Cell(0, 0, $bladeDamage->getDamageCategory()->getCategory(), 1, 1, 'C', true);
         $pdf->setWhiteBackground();
