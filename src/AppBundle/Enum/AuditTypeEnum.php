@@ -23,8 +23,8 @@ class AuditTypeEnum
     public static function getEnumArray()
     {
         return array(
-            self::GROUND => 'suelo (telescopio Fibervent)',
-            self::ROPE   => 'cuerdas',
+            self::GROUND => 'terra (telescopi Fibervent)',
+            self::ROPE   => 'cordas',
             self::INSIDE => 'interior pala',
         );
     }

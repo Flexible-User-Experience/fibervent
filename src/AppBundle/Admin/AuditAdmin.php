@@ -7,6 +7,7 @@ use AppBundle\Entity\AuditWindmillBlade;
 use AppBundle\Enum\AuditDiagramTypeEnum;
 use AppBundle\Enum\AuditLanguageEnum;
 use AppBundle\Enum\AuditStatusEnum;
+use AppBundle\Enum\AuditTypeEnum;
 use AppBundle\Form\Type\AuditDiagramTypeFormType;
 use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -112,6 +113,17 @@ class AuditAdmin extends AbstractBaseAdmin
                     'label'    => 'Data fi',
                     'format'   => 'd/M/y',
                     'required' => false,
+                )
+            )
+            ->add(
+                'type',
+                ChoiceType::class,
+                array(
+                    'label'    => 'Tipus d\'Inspecció',
+                    'choices'  => AuditTypeEnum::getEnumArray(),
+                    'multiple' => false,
+                    'expanded' => false,
+                    'required' => true,
                 )
             )
             ->add(
