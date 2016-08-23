@@ -51,9 +51,9 @@ class Audit extends AbstractBase
     protected $diagramType = 1;
 
     /**
-     * @var string
+     * @var integer
      *
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="integer", options={"default"=0})
      */
     private $type;
 
@@ -222,7 +222,7 @@ class Audit extends AbstractBase
     }
 
     /**
-     * @return string
+     * @return int
      */
     public function getType()
     {
@@ -230,7 +230,7 @@ class Audit extends AbstractBase
     }
 
     /**
-     * @param string $type
+     * @param int $type
      *
      * @return $this
      */
