@@ -24,7 +24,7 @@ class AuditTypeEnum
     {
         return array(
             self::GROUND => 'terra (telescopi Fibervent)',
-            self::ROPE   => 'cordas',
+            self::ROPE   => 'cordes',
             self::INSIDE => 'interior pala',
         );
     }

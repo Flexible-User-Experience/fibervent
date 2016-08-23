@@ -116,17 +116,6 @@ class AuditAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'type',
-                ChoiceType::class,
-                array(
-                    'label'    => 'Tipus d\'Inspecció',
-                    'choices'  => AuditTypeEnum::getEnumArray(),
-                    'multiple' => false,
-                    'expanded' => false,
-                    'required' => true,
-                )
-            )
-            ->add(
                 'operators',
                 'sonata_type_model',
                 array(
@@ -137,6 +126,17 @@ class AuditAdmin extends AbstractBaseAdmin
                     'btn_delete' => false,
                     'property'   => 'contactInfoString',
                     'query'      => $this->ur->findAllTechniciansSortedByNameQ(),
+                )
+            )
+            ->add(
+                'type',
+                ChoiceType::class,
+                array(
+                    'label'    => 'Tipus d\'Inspecció',
+                    'choices'  => AuditTypeEnum::getEnumArray(),
+                    'multiple' => false,
+                    'expanded' => false,
+                    'required' => true,
                 )
             )
             ->add(
