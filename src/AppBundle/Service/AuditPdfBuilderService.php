@@ -604,7 +604,7 @@ class AuditPdfBuilderService
         $pdf->Cell(12, 0, $bladeDamage->getRadius() . 'm', 1, 0, 'C', true);
         $pdf->Cell(17, 0, $bladeDamage->getDistanceString(), 1, 0, 'C', true);
         $pdf->Cell(16, 0, $bladeDamage->getSize() . 'cm', 1, 0, 'C', true);
-        $pdf->Cell(86, 0, $this->dr->localizedFind($bladeDamage->getDamage()->getId(), $this->locale)->getDescription(), 1, 0, 'L', true);
+        $pdf->Cell(86, 0, $this->dr->getlocalizedDesciption($bladeDamage->getDamage()->getId(), $this->locale), 1, 0, 'L', true);
         $pdf->setBackgroundHexColor($bladeDamage->getDamageCategory()->getColour());
         $pdf->Cell(0, 0, $bladeDamage->getDamageCategory()->getCategory(), 1, 1, 'C', true);
         $pdf->setWhiteBackground();
