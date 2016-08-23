@@ -71,3 +71,7 @@ enum:
     2_VS: SS
     3_BA: LE
     4_BS: TE
+  audit_type:
+    ground: GROUND (Telephoto lens FIBERVENT)
+    rope: ROPE ACCESS
+    inside: BLADE INTERIOR

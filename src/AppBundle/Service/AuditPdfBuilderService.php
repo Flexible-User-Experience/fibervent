@@ -529,7 +529,7 @@ class AuditPdfBuilderService
         $pdf->Cell(70, 6, $this->ts->trans('pdf.cover.12_audit_type'), 'TB', 0, 'R', true);
         $pdf->setFontStyle(null, '', 10);
         $pdf->setWhiteBackground();
-        $pdf->Cell(0, 6, $this->ts->trans('pdf.cover.12_audit_type_value'), 'TB', 1, 'L', true);
+        $pdf->Cell(0, 6, $this->ts->trans($audit->getTypeStringLocalized()), 'TB', 1, 'L', true);
         $pdf->setFontStyle(null, 'B', 10);
         $pdf->setBlueBackground();
         $pdf->Cell(70, 6, $this->ts->trans('pdf.cover.13_audit_date'), 'TB', 0, 'R', true);

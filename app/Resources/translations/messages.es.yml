@@ -71,3 +71,7 @@ enum:
     2_VS: VS
     3_BA: BA
     4_BS: BS
+  audit_type:
+    ground: SUELO (Telescopio FIBERVENT)
+    rope: CUERDAS
+    inside: INTERIOR PALA
