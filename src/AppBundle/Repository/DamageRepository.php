@@ -102,4 +102,26 @@ class DamageRepository extends EntityRepository
     {
         return $this->localizedFindQ($id, $locale)->getOneOrNullResult();
     }
+
+    /**
+     * @param integer $id
+     * @param string  $locale
+     *
+     * @return string
+     */
+    public function getlocalizedDesciption($id, $locale)
+    {
+        $queryBuilder = $this
+            ->createQueryBuilder('d')
+            ->select('d.description')
+            ->where('d.id = :id')
+            ->setParameter('id', $id);
+
+        $query = $queryBuilder
+            ->getQuery()
+            ->setHint(Query::HINT_CUSTOM_OUTPUT_WALKER, 'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker')
+            ->setHint(TranslatableListener::HINT_TRANSLATABLE_LOCALE, $locale);
+
+        return $query->getOneOrNullResult()['description'];
+    }
 }
