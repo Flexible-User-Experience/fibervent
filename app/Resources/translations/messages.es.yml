@@ -57,6 +57,12 @@ pdf:
     6_size: TAMAÑO
     7_description: DESCRIPCIÓN
     8_distance: Dist.
+  damage_table_body:
+    none: -
+    BA_dist_cm: '%dist%cm BA'
+    BS_dist_cm: '%dist%cm BS'
+    BA_dist_m: '%dist%m BA'
+    BS_dist_m: '%dist%m BS'
   set_document_information:
     1_title: 'Auditoria #'
     2_subject: Inspección palas parque eólico
