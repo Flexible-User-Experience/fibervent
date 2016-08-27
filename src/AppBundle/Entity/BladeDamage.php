@@ -215,6 +215,14 @@ class BladeDamage extends AbstractBase
     /**
      * @return int
      */
+    public function getDistanceScaled()
+    {
+        return $this->distance > 999 ? number_format(($this->distance / 1000), 1, ',', '.') : $this->distance;
+    }
+
+    /**
+     * @return int
+     */
     public function getDistanceString()
     {
         $dist = $this->distance . 'cm';
@@ -223,6 +231,16 @@ class BladeDamage extends AbstractBase
         }
 
         return $this->position == BladeDamagePositionEnum::EDGE_IN || $this->position == BladeDamagePositionEnum::EDGE_OUT ? '-' : $dist . ' ' . $this->getEdgeString();
+    }
+
+    /**
+     * @return int
+     */
+    public function getLocalizedDistanceString()
+    {
+        $modifier = $this->distance > 999 ? 'm' : 'cm';
+
+        return $this->position == BladeDamagePositionEnum::EDGE_IN || $this->position == BladeDamagePositionEnum::EDGE_OUT ? 'pdf.damage_table_body.none' : 'pdf.damage_table_body.' . $this->getEdgeString() . '_dist_' . $modifier;
     }
 
     /**

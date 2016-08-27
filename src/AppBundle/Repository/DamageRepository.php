@@ -2,9 +2,11 @@
 
 namespace AppBundle\Repository;
 
+use AppBundle\Entity\Damage;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
+use Gedmo\Translatable\TranslatableListener;
 
 /**
  * Class DamageRepository
@@ -56,5 +58,70 @@ class DamageRepository extends EntityRepository
     public function findAllEnabledSortedByCode($limit = null, $order = 'ASC')
     {
         return $this->findAllEnabledSortedByCodeQ($limit, $order)->getResult();
+    }
+
+    /**
+     * @param integer $id
+     *
+     * @return QueryBuilder
+     */
+    public function localizedFindQB($id)
+    {
+        $query = $this
+            ->createQueryBuilder('d')
+            ->where('d.id = :id')
+            ->setParameter('id', $id);
+
+        return $query;
+    }
+
+    /**
+     * @param integer $id
+     * @param string  $locale
+     *
+     * @return Query
+     */
+    public function localizedFindQ($id, $locale)
+    {
+        $query = $this->localizedFindQB($id)->getQuery();
+        $query
+            ->setHint(Query::HINT_CUSTOM_OUTPUT_WALKER, 'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker')
+            ->setHint(TranslatableListener::HINT_TRANSLATABLE_LOCALE, $locale)
+            ->setHint(TranslatableListener::HINT_FALLBACK, 1);
+
+        return $query;
+    }
+
+    /**
+     * @param integer $id
+     * @param string  $locale
+     *
+     * @return Damage
+     */
+    public function localizedFind($id, $locale)
+    {
+        return $this->localizedFindQ($id, $locale)->getOneOrNullResult();
+    }
+
+    /**
+     * @param integer $id
+     * @param string  $locale
+     *
+     * @return string
+     */
+    public function getlocalizedDesciption($id, $locale)
+    {
+        $queryBuilder = $this
+            ->createQueryBuilder('d')
+            ->select('d.description')
+            ->where('d.id = :id')
+            ->setParameter('id', $id);
+
+        $query = $queryBuilder
+            ->getQuery()
+            ->setHint(Query::HINT_CUSTOM_OUTPUT_WALKER, 'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker')
+            ->setHint(TranslatableListener::HINT_TRANSLATABLE_LOCALE, $locale);
+
+        return $query->getOneOrNullResult()['description'];
     }
 }

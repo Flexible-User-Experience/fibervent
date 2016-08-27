@@ -36,7 +36,7 @@ pdf:
     2_description: 'The blade’s number scheme (1, 2, 3) is described in the next picture:'
   audit_blade_damage:
     1_title: INDIVIDUAL DAMAGES SUMMARY BLADE
-    2_description: The result of the inspection including categorization, descriptions and location of the damages is shown in the following table:
+    2_description: 'The result of the inspection including categorization, descriptions and location of the damages is shown in the following table:'
   observations_table:
     1_damage: DAMAGE
     2_observations: OBSERVATIONS
@@ -57,6 +57,12 @@ pdf:
     6_size: SIZE
     7_description: DESCRIPTION
     8_distance: Distance
+  damage_table_body:
+    none: -
+    BA_dist_cm: '%dist%cm LE'
+    BS_dist_cm: '%dist%cm TE'
+    BA_dist_m: '%dist%m LE'
+    BS_dist_m: '%dist%m TE'
   set_document_information:
     1_title: 'Auditoria #'
     2_subject: Inspección palas parque eólico
@@ -71,3 +77,7 @@ enum:
     2_VS: SS
     3_BA: LE
     4_BS: TE
+  audit_type:
+    ground: GROUND (Telephoto lens FIBERVENT)
+    rope: ROPE ACCESS
+    inside: BLADE INTERIOR

@@ -14,6 +14,7 @@ use AppBundle\Entity\Windmill;
 use AppBundle\Enum\AuditLanguageEnum;
 use AppBundle\Enum\BladeDamagePositionEnum;
 use AppBundle\Pdf\CustomTcpdf;
+use AppBundle\Repository\DamageRepository;
 use AppBundle\Repository\BladeDamageRepository;
 use AppBundle\Repository\DamageCategoryRepository;
 use Symfony\Bundle\FrameworkBundle\Translation\Translator;
@@ -59,6 +60,11 @@ class AuditPdfBuilderService
     private $ts;
 
     /**
+     * @var DamageRepository
+     */
+    private $dr;
+
+    /**
      * @var DamageCategoryRepository
      */
     private $dcr;
@@ -94,17 +100,19 @@ class AuditPdfBuilderService
      * @param UploaderHelper                 $uh
      * @param AssetsHelper                   $tha
      * @param Translator                     $ts
+     * @param DamageRepository               $dr
      * @param DamageCategoryRepository       $dcr
      * @param BladeDamageRepository          $bdr
      * @param AuditModelDiagramBridgeService $amdb
      */
-    public function __construct(TCPDFController $tcpdf, CacheManager $cm, UploaderHelper $uh, AssetsHelper $tha, Translator $ts, DamageCategoryRepository $dcr, BladeDamageRepository $bdr, AuditModelDiagramBridgeService $amdb)
+    public function __construct(TCPDFController $tcpdf, CacheManager $cm, UploaderHelper $uh, AssetsHelper $tha, Translator $ts, DamageRepository $dr, DamageCategoryRepository $dcr, BladeDamageRepository $bdr, AuditModelDiagramBridgeService $amdb)
     {
         $this->tcpdf = $tcpdf;
         $this->cm    = $cm;
         $this->uh    = $uh;
         $this->tha   = $tha;
         $this->ts    = $ts;
+        $this->dr    = $dr;
         $this->dcr   = $dcr;
         $this->bdr   = $bdr;
         $this->amdb  = $amdb;
@@ -165,7 +173,7 @@ class AuditPdfBuilderService
         $pdf->MultiCell(0, 0, $this->ts->trans('pdf.damage_catalog.table.4_action'), 1, 'C', 1, 1, '', '', true);
         $pdf->setFontStyle(null, '', 9);
         /** @var DamageCategory $item */
-        foreach ($this->dcr->findAllSortedByCategory() as $item) {
+        foreach ($this->dcr->findAllSortedByCategoryLocalized($this->locale) as $item) {
             $pdf->setBackgroundHexColor($item->getColour());
             $pdf->MultiCell(20, 14, $item->getCategory(), 1, 'C', 1, 0, '', '', true, 0, false, true, 14, 'M');
             $pdf->MultiCell(20, 14, $item->getPriority(), 1, 'C', 1, 0, '', '', true, 0, false, true, 14, 'M');
@@ -521,7 +529,7 @@ class AuditPdfBuilderService
         $pdf->Cell(70, 6, $this->ts->trans('pdf.cover.12_audit_type'), 'TB', 0, 'R', true);
         $pdf->setFontStyle(null, '', 10);
         $pdf->setWhiteBackground();
-        $pdf->Cell(0, 6, $this->ts->trans('pdf.cover.12_audit_type_value'), 'TB', 1, 'L', true);
+        $pdf->Cell(0, 6, $this->ts->trans($audit->getTypeStringLocalized()), 'TB', 1, 'L', true);
         $pdf->setFontStyle(null, 'B', 10);
         $pdf->setBlueBackground();
         $pdf->Cell(70, 6, $this->ts->trans('pdf.cover.13_audit_date'), 'TB', 0, 'R', true);
@@ -594,9 +602,9 @@ class AuditPdfBuilderService
         $pdf->Cell(9, 0, $bladeDamage->getDamage()->getCode(), 1, 0, 'C', true);
         $pdf->Cell(8, 0, $this->ts->trans($bladeDamage->getPositionStringLocalized()), 1, 0, 'C', true);
         $pdf->Cell(12, 0, $bladeDamage->getRadius() . 'm', 1, 0, 'C', true);
-        $pdf->Cell(17, 0, $bladeDamage->getDistanceString(), 1, 0, 'C', true);
+        $pdf->Cell(17, 0, $this->ts->trans($bladeDamage->getLocalizedDistanceString(), array('%dist%' => $bladeDamage->getDistanceScaled())), 1, 0, 'C', true);
         $pdf->Cell(16, 0, $bladeDamage->getSize() . 'cm', 1, 0, 'C', true);
-        $pdf->Cell(86, 0, $bladeDamage->getDamage()->getDescription(), 1, 0, 'L', true);
+        $pdf->Cell(86, 0, $this->dr->getlocalizedDesciption($bladeDamage->getDamage()->getId(), $this->locale), 1, 0, 'L', true);
         $pdf->setBackgroundHexColor($bladeDamage->getDamageCategory()->getColour());
         $pdf->Cell(0, 0, $bladeDamage->getDamageCategory()->getCategory(), 1, 1, 'C', true);
         $pdf->setWhiteBackground();
