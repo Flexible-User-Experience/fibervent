@@ -46,6 +46,15 @@ class CustomerAdmin extends AbstractBaseAdmin
         $formMapper
             ->with('General', $this->getFormMdSuccessBoxArray(4))
             ->add(
+                'imageFile',
+                'file',
+                array(
+                    'label'    => 'Logo',
+                    'help'     => $this->getImageHelperFormMapperWithThumbnail(),
+                    'required' => false,
+                )
+            )
+            ->add(
                 'code',
                 null,
                 array(

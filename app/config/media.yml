@@ -14,6 +14,10 @@ vich_uploader:
             namer:              vich_uploader.namer_uniqid
             uri_prefix:         /uploads/images/blade
             upload_destination: "%kernel.root_dir%/../web/uploads/images/blade"
+        customer:
+            namer:              vich_uploader.namer_uniqid
+            uri_prefix:         /uploads/images/customer
+            upload_destination: "%kernel.root_dir%/../web/uploads/images/customer"
 
 # Liip Imagine
 liip_imagine:
