@@ -152,6 +152,7 @@ AppBundle\Entity\State:
 AppBundle\Entity\Customer:
   customer{1..10}:
     name: <company()> <companySuffix()>
+    imageName: <current()>.jpg
     email: <email()>
     code(unique): <bothify('?#########')>
     phone: <e164PhoneNumber()>
