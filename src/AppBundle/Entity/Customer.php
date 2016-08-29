@@ -76,7 +76,7 @@ class Customer extends AbstractBase
      *     maxSize = "10M",
      *     mimeTypes = {"image/jpg", "image/jpeg", "image/png", "image/gif"}
      * )
-     * @Assert\Image(minWidth = 320)
+     * @Assert\Image(minWidth = 250)
      */
     private $imageFile;
 
