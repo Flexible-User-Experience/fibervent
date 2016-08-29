@@ -14,6 +14,7 @@ use AppBundle\Entity\Windmill;
 use AppBundle\Enum\AuditLanguageEnum;
 use AppBundle\Enum\BladeDamagePositionEnum;
 use AppBundle\Pdf\CustomTcpdf;
+use AppBundle\Repository\CustomerRepository;
 use AppBundle\Repository\DamageRepository;
 use AppBundle\Repository\BladeDamageRepository;
 use AppBundle\Repository\DamageCategoryRepository;
@@ -75,6 +76,11 @@ class AuditPdfBuilderService
     private $bdr;
 
     /**
+     * @var CustomerRepository
+     */
+    private $cr;
+
+    /**
      * @var AuditModelDiagramBridgeService
      */
     private $amdb;
@@ -103,9 +109,10 @@ class AuditPdfBuilderService
      * @param DamageRepository               $dr
      * @param DamageCategoryRepository       $dcr
      * @param BladeDamageRepository          $bdr
+     * @param CustomerRepository             $cr
      * @param AuditModelDiagramBridgeService $amdb
      */
-    public function __construct(TCPDFController $tcpdf, CacheManager $cm, UploaderHelper $uh, AssetsHelper $tha, Translator $ts, DamageRepository $dr, DamageCategoryRepository $dcr, BladeDamageRepository $bdr, AuditModelDiagramBridgeService $amdb)
+    public function __construct(TCPDFController $tcpdf, CacheManager $cm, UploaderHelper $uh, AssetsHelper $tha, Translator $ts, DamageRepository $dr, DamageCategoryRepository $dcr, BladeDamageRepository $bdr, CustomerRepository $cr, AuditModelDiagramBridgeService $amdb)
     {
         $this->tcpdf = $tcpdf;
         $this->cm    = $cm;
@@ -115,6 +122,7 @@ class AuditPdfBuilderService
         $this->dr    = $dr;
         $this->dcr   = $dcr;
         $this->bdr   = $bdr;
+        $this->cr    = $cr;
         $this->amdb  = $amdb;
     }
 
@@ -449,6 +457,8 @@ class AuditPdfBuilderService
 
         // logo
         $pdf->Image($this->tha->getUrl('/bundles/app/images/fibervent_logo_white_landscape.jpg'), 30, 45);
+//        $pdf->Image($this->tha->getUrl('/bundles/app/images/logo_cobra.jpg'), 30, 45);
+//        $pdf->Image($this->cr->find();
 
         // main detail section
         $pdf->SetXY(CustomTcpdf::PDF_MARGIN_LEFT, 100);
