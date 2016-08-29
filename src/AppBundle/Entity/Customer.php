@@ -5,13 +5,16 @@ namespace AppBundle\Entity;
 use AppBundle\Entity\Traits\AddresTrait;
 use AppBundle\Entity\Traits\CityTrait;
 use AppBundle\Entity\Traits\CodeTrait;
+use AppBundle\Entity\Traits\ImageTrait;
 use AppBundle\Entity\Traits\NameTrait;
 use AppBundle\Entity\Traits\PostalCodeTrait;
 use AppBundle\Entity\Traits\StateTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * Customer
@@ -23,6 +26,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="AppBundle\Repository\CustomerRepository")
  * @Gedmo\SoftDeleteable(fieldName="removedAt", timeAware=false)
+ * @Vich\Uploadable
  */
 class Customer extends AbstractBase
 {
@@ -32,6 +36,7 @@ class Customer extends AbstractBase
     use StateTrait;
     use CityTrait;
     use CodeTrait;
+    use ImageTrait;
 
     /**
      * @var string
@@ -62,6 +67,18 @@ class Customer extends AbstractBase
      * @Assert\Url(checkDNS=true)
      */
     private $web;
+
+    /**
+     * @var File
+     *
+     * @Vich\UploadableField(mapping="customer", fileNameProperty="imageName")
+     * @Assert\File(
+     *     maxSize = "10M",
+     *     mimeTypes = {"image/jpg", "image/jpeg", "image/png", "image/gif"}
+     * )
+     * @Assert\Image(minWidth = 320)
+     */
+    private $imageFile;
 
     /**
      * @var State
