@@ -456,9 +456,12 @@ class AuditPdfBuilderService
         $pdf->startPage(PDF_PAGE_ORIENTATION, PDF_PAGE_FORMAT);
 
         // logo
-        $pdf->Image($this->tha->getUrl('/bundles/app/images/fibervent_logo_white_landscape.jpg'), 30, 45);
-//        $pdf->Image($this->tha->getUrl('/bundles/app/images/logo_cobra.jpg'), 30, 45);
-//        $pdf->Image($this->cr->find();
+        if ($audit->getCustomer()->getImageName()) {
+            $pdf->Image($this->uh->asset($audit->getCustomer(), 'imageFile'), 43, 45, 32);
+            $pdf->Image($this->tha->getUrl('/bundles/app/images/fibervent_logo_white_landscape.jpg'), 100, 45, 78);
+        } else {
+            $pdf->Image($this->tha->getUrl('/bundles/app/images/fibervent_logo_white_landscape.jpg'), 30, 45);
+        }
 
         // main detail section
         $pdf->SetXY(CustomTcpdf::PDF_MARGIN_LEFT, 100);
