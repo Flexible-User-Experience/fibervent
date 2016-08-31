@@ -50,7 +50,7 @@ class CustomerAdmin extends AbstractBaseAdmin
                 'file',
                 array(
                     'label'    => 'Logo',
-                    'help'     => $this->getImageHelperFormMapperWithThumbnail(),
+                    'help'     => $this->getImageHelperFormMapperWithThumbnail(250),
                     'required' => false,
                 )
             )
