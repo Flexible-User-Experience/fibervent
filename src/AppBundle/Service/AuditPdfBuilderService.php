@@ -207,7 +207,7 @@ class AuditPdfBuilderService
         foreach ($audit->getAuditWindmillBlades() as $key => $auditWindmillBlade) {
             $bladeDamages = $this->bdr->getItemsOfAuditWindmillBladeSortedByRadius($auditWindmillBlade);
             $pdf->setFontStyle(null, 'B', 11);
-            $pdf->Write(0, '3.' . ($key + 1) . ' ' . $this->ts->trans('pdf.audit_blade_damage.1_title') . ' ' . ($key + 1) . ' - S/N: (' . ($auditWindmillBlade->getWindmillBlade()->getCode()) . ')', '', false, 'L', true);
+            $pdf->Write(0, '3.' . ($key + 1) . ' ' . $this->ts->trans('pdf.audit_blade_damage.1_title') . ' ' . ($key + 1) . ' - (S/N: ' . ($auditWindmillBlade->getWindmillBlade()->getCode()) . ')', '', false, 'L', true);
             $pdf->Ln(5);
             $pdf->setFontStyle(null, '', 9);
             $pdf->Write(0, $this->ts->trans('pdf.audit_blade_damage.2_description'), '', false, 'L', true);
