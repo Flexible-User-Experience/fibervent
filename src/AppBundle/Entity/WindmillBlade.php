@@ -32,7 +32,7 @@ class WindmillBlade extends AbstractBase
     /**
      * @var integer windmill blade order (1, 2, 3)
      *
-     * @ORM\Column(type="integer", options={"default"=0})
+     * @ORM\Column(name="`order`", type="integer", options={"default"=0})
      */
     private $order;
 
