@@ -2,6 +2,7 @@
 
 namespace AppBundle\Command;
 
+use Doctrine\ORM\EntityManager;
 use Liip\ImagineBundle\Imagine\Cache\CacheManager;
 use Liip\ImagineBundle\Imagine\Data\DataManager;
 use Liip\ImagineBundle\Imagine\Filter\FilterManager;
@@ -10,10 +11,14 @@ use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
 abstract class AbstractBaseCommand extends ContainerAwareCommand
 {
-    /** @var \Doctrine\ORM\EntityManager */
+    /**
+     * @var EntityManager
+     */
     protected $em;
 
-    /** @var bool */
+    /**
+     * @var bool
+     */
     protected $forceOptionIsEnabled = false;
 
     /**
