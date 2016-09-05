@@ -261,15 +261,15 @@ class WindmillAdmin extends AbstractBaseAdmin
         $blade1 = new WindmillBlade();
         $blade1
             ->setWindmill($object)
-            ->setCode($object->getCode() . '/1');
+            ->setOrder(1);
         $blade2 = new WindmillBlade();
         $blade2
             ->setWindmill($object)
-            ->setCode($object->getCode() . '/2');
+            ->setOrder(2);
         $blade3 = new WindmillBlade();
         $blade3
             ->setWindmill($object)
-            ->setCode($object->getCode() . '/3');
+            ->setOrder(3);
         $object
             ->addWindmillBlade($blade1)
             ->addWindmillBlade($blade2)
