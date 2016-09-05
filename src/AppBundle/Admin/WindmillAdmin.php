@@ -259,17 +259,11 @@ class WindmillAdmin extends AbstractBaseAdmin
     public function prePersist($object)
     {
         $blade1 = new WindmillBlade();
-        $blade1
-            ->setWindmill($object)
-            ->setCode($object->getCode() . '/1');
+        $blade1->setWindmill($object);
         $blade2 = new WindmillBlade();
-        $blade2
-            ->setWindmill($object)
-            ->setCode($object->getCode() . '/2');
+        $blade2->setWindmill($object);
         $blade3 = new WindmillBlade();
-        $blade3
-            ->setWindmill($object)
-            ->setCode($object->getCode() . '/3');
+        $blade3->setWindmill($object);
         $object
             ->addWindmillBlade($blade1)
             ->addWindmillBlade($blade2)
