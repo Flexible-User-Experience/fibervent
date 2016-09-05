@@ -96,6 +96,6 @@ class WindmillBlade extends AbstractBase
      */
     public function __toString()
     {
-        return $this->getOrder() ? $this->getOrder() : '---';
+        return $this->getOrder() ? strval($this->getOrder()) : '---';
     }
 }
