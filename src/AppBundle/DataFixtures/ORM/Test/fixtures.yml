@@ -59,6 +59,7 @@ AppBundle\Entity\Blade:
 AppBundle\Entity\WindmillBlade:
   windmillblade{1..3}:
     code(unique): <bothify('?###??')>
+    order: 1
     windmill: @windmill<numberBetween(1, 8)>
 
 # Audit
