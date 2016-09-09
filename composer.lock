@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "e00122d394fe0e09496cd7cab13dc74f",
-    "content-hash": "0cbe8775bbffa9d89e8290745b8aba57",
+    "hash": "2fd9d1b7f8a189e6474e084981217ea6",
+    "content-hash": "a751a097c4c75c70e52c7ee496c60ceb",
     "packages": [
         {
             "name": "a2lix/translation-form-bundle",
@@ -3175,16 +3175,16 @@
         },
         {
             "name": "sensio/distribution-bundle",
-            "version": "v5.0.8",
+            "version": "v5.0.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sensiolabs/SensioDistributionBundle.git",
-                "reference": "f8ace5c71ee309492b027ef71215577f5a52b4ea"
+                "reference": "e5e0d8d06b07864b2752bd865537b0817edf4c5a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sensiolabs/SensioDistributionBundle/zipball/f8ace5c71ee309492b027ef71215577f5a52b4ea",
-                "reference": "f8ace5c71ee309492b027ef71215577f5a52b4ea",
+                "url": "https://api.github.com/repos/sensiolabs/SensioDistributionBundle/zipball/e5e0d8d06b07864b2752bd865537b0817edf4c5a",
+                "reference": "e5e0d8d06b07864b2752bd865537b0817edf4c5a",
                 "shasum": ""
             },
             "require": {
@@ -3223,7 +3223,7 @@
                 "configuration",
                 "distribution"
             ],
-            "time": "2016-08-17 18:16:49"
+            "time": "2016-09-06 01:05:01"
         },
         {
             "name": "sensio/framework-extra-bundle",
@@ -3333,16 +3333,16 @@
         },
         {
             "name": "sonata-project/admin-bundle",
-            "version": "3.6.0",
+            "version": "3.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataAdminBundle.git",
-                "reference": "280c412dd94ce3cf2251658b82047be5d1d22f94"
+                "reference": "e9c99801c20ff85f7b954c61e48a63ad578d2179"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataAdminBundle/zipball/280c412dd94ce3cf2251658b82047be5d1d22f94",
-                "reference": "280c412dd94ce3cf2251658b82047be5d1d22f94",
+                "url": "https://api.github.com/repos/sonata-project/SonataAdminBundle/zipball/e9c99801c20ff85f7b954c61e48a63ad578d2179",
+                "reference": "e9c99801c20ff85f7b954c61e48a63ad578d2179",
                 "shasum": ""
             },
             "require": {
@@ -3426,7 +3426,7 @@
                 "bootstrap",
                 "sonata"
             ],
-            "time": "2016-09-01 14:58:27"
+            "time": "2016-09-07 09:35:10"
         },
         {
             "name": "sonata-project/block-bundle",
@@ -4894,16 +4894,16 @@
         },
         {
             "name": "symfony/symfony",
-            "version": "v2.8.10",
+            "version": "v2.8.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "84e8eb7690eea267526c3d40050b4c54f1878b7a"
+                "reference": "f588c92c3e263b2eaa2f96a7b1359199eb209b3d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/84e8eb7690eea267526c3d40050b4c54f1878b7a",
-                "reference": "84e8eb7690eea267526c3d40050b4c54f1878b7a",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/f588c92c3e263b2eaa2f96a7b1359199eb209b3d",
+                "reference": "f588c92c3e263b2eaa2f96a7b1359199eb209b3d",
                 "shasum": ""
             },
             "require": {
@@ -5024,7 +5024,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2016-09-02 20:40:06"
+            "time": "2016-09-07 02:04:25"
         },
         {
             "name": "tecnickcom/tcpdf",
@@ -5526,16 +5526,16 @@
     "packages-dev": [
         {
             "name": "sensio/generator-bundle",
-            "version": "v3.0.7",
+            "version": "v3.0.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sensiolabs/SensioGeneratorBundle.git",
-                "reference": "d1be460925376703a470a3ac6ec034eb7eab3892"
+                "reference": "3c20d16512f37d2be159eca0411b99a141b90fa4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sensiolabs/SensioGeneratorBundle/zipball/d1be460925376703a470a3ac6ec034eb7eab3892",
-                "reference": "d1be460925376703a470a3ac6ec034eb7eab3892",
+                "url": "https://api.github.com/repos/sensiolabs/SensioGeneratorBundle/zipball/3c20d16512f37d2be159eca0411b99a141b90fa4",
+                "reference": "3c20d16512f37d2be159eca0411b99a141b90fa4",
                 "shasum": ""
             },
             "require": {
@@ -5574,7 +5574,7 @@
                 }
             ],
             "description": "This bundle generates code for you",
-            "time": "2016-06-20 05:58:05"
+            "time": "2016-09-06 01:30:19"
         }
     ],
     "aliases": [],
