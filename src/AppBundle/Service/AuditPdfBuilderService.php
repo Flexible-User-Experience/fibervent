@@ -207,7 +207,8 @@ class AuditPdfBuilderService
         foreach ($audit->getAuditWindmillBlades() as $key => $auditWindmillBlade) {
             $bladeDamages = $this->bdr->getItemsOfAuditWindmillBladeSortedByRadius($auditWindmillBlade);
             $pdf->setFontStyle(null, 'B', 11);
-            $pdf->Write(0, '3.' . ($key + 1) . ' ' . $this->ts->trans('pdf.audit_blade_damage.1_title') . ' ' . ($key + 1), '', false, 'L', true);
+            $serialNumberSuffix = $auditWindmillBlade->getWindmillBlade()->getCode() ? ' - (S/N: ' . ($auditWindmillBlade->getWindmillBlade()->getCode()) . ')' : '';
+            $pdf->Write(0, '3.' . ($key + 1) . ' ' . $this->ts->trans('pdf.audit_blade_damage.1_title') . ' ' . ($key + 1) . $serialNumberSuffix, '', false, 'L', true);
             $pdf->Ln(5);
             $pdf->setFontStyle(null, '', 9);
             $pdf->Write(0, $this->ts->trans('pdf.audit_blade_damage.2_description'), '', false, 'L', true);
@@ -456,9 +457,12 @@ class AuditPdfBuilderService
         $pdf->startPage(PDF_PAGE_ORIENTATION, PDF_PAGE_FORMAT);
 
         // logo
-        $pdf->Image($this->tha->getUrl('/bundles/app/images/fibervent_logo_white_landscape.jpg'), 30, 45);
-//        $pdf->Image($this->tha->getUrl('/bundles/app/images/logo_cobra.jpg'), 30, 45);
-//        $pdf->Image($this->cr->find();
+        if ($audit->getCustomer()->getImageName()) {
+            $pdf->Image($this->uh->asset($audit->getCustomer(), 'imageFile'), 43, 45, 32);
+            $pdf->Image($this->tha->getUrl('/bundles/app/images/fibervent_logo_white_landscape.jpg'), 100, 45, 78);
+        } else {
+            $pdf->Image($this->tha->getUrl('/bundles/app/images/fibervent_logo_white_landscape.jpg'), 30, 45);
+        }
 
         // main detail section
         $pdf->SetXY(CustomTcpdf::PDF_MARGIN_LEFT, 100);

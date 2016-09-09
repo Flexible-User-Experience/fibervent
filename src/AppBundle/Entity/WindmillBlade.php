@@ -5,7 +5,6 @@ namespace AppBundle\Entity;
 use AppBundle\Entity\Traits\CodeTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -17,7 +16,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="AppBundle\Repository\WindmillBladeRepository")
- * @UniqueEntity("code")
  * @Gedmo\SoftDeleteable(fieldName="removedAt", timeAware=false)
  */
 class WindmillBlade extends AbstractBase
@@ -25,11 +23,18 @@ class WindmillBlade extends AbstractBase
     use CodeTrait;
 
     /**
-     * @var string
+     * @var string serial number
      *
-     * @ORM\Column(type="string", length=255, unique=true)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $code;
+
+    /**
+     * @var integer windmill blade order (1, 2, 3)
+     *
+     * @ORM\Column(name="`order`", type="integer", options={"default"=0})
+     */
+    private $order;
 
     /**
      * @var Windmill
@@ -67,10 +72,30 @@ class WindmillBlade extends AbstractBase
     }
 
     /**
+     * @return int
+     */
+    public function getOrder()
+    {
+        return $this->order;
+    }
+
+    /**
+     * @param int $order
+     *
+     * @return WindmillBlade
+     */
+    public function setOrder($order)
+    {
+        $this->order = $order;
+
+        return $this;
+    }
+
+    /**
      * @return string
      */
     public function __toString()
     {
-        return $this->getCode() ? $this->getCode() : '---';
+        return $this->getOrder() ? strval($this->getOrder()) : '---';
     }
 }
