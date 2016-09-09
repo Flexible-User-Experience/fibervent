@@ -83,7 +83,11 @@ class AuditWindmillBladeAdmin extends AbstractBaseAdmin
             /** @var AuditWindmillBlade $awb */
             $awb = $this->getSubject();
             $order = $awb->getWindmillBlade() ? $awb->getWindmillBlade()->getOrder() : '';
-            $code = $awb->getWindmillBlade()->getCode() ? '(S/N: ' . $awb->getWindmillBlade()->getCode() . ')' : '';
+            if ($awb->getWindmillBlade() && $awb->getWindmillBlade()->getCode()) {
+                $code = '(S/N: ' . $awb->getWindmillBlade()->getCode() . ')';
+            } else {
+                $code = '';
+            }
             $formMapper
                 ->with('Situació i descripció dels danys · Pala ' . $order . ' ' . $code, $this->getFormMdSuccessBoxArray(12))
                 ->add(
