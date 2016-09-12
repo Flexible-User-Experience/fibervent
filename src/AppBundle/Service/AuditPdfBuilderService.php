@@ -461,7 +461,7 @@ class AuditPdfBuilderService
             $pdf->Image($this->uh->asset($audit->getCustomer(), 'imageFile'), 43, 45, 32);
             $pdf->Image($this->tha->getUrl('/bundles/app/images/fibervent_logo_white_landscape.jpg'), 100, 45, 78);
         } else {
-            $pdf->Image($this->tha->getUrl('/bundles/app/images/fibervent_logo_white_landscape.jpg'), 40, 45);
+            $pdf->Image($this->tha->getUrl('/bundles/app/images/fibervent_logo_white_landscape.jpg'), '', 45, '', '', 'JPEG', '', 'T', false, 300, 'C', false, false, 0, false, false, false);
         }
 
         // main detail section
