@@ -1,6 +1,6 @@
 # Block
 sonata_block:
-    default_contexts: [ cms ]
+    default_contexts: [ admin ]
     blocks:
         sonata.admin.block.admin_list:  ~
         sonata.user.block.menu:         ~
@@ -38,12 +38,15 @@ sonata_admin:
             Client:
                 icon:  "<i class='fa fa-users' aria-hidden='true'></i>"
                 label: "Clients"
+                roles: [ ROLE_ADMIN ]
             Parc_Eolic:
                 icon:  "<i class='fa fa-recycle' aria-hidden='true'></i>"
                 label: "Parcs Eòlics"
+                roles: [ ROLE_ADMIN ]
             Auditoria:
                 icon:  "<i class='fa fa-list-alt' aria-hidden='true'></i>"
                 label: "Inspeccions"
+                roles: [ ROLE_ADMIN ]
         blocks:
             -
                 position: top
