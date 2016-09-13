@@ -38,15 +38,12 @@ sonata_admin:
             Client:
                 icon:  "<i class='fa fa-users' aria-hidden='true'></i>"
                 label: "Clients"
-                roles: [ ROLE_ADMIN ]
             Parc_Eolic:
                 icon:  "<i class='fa fa-recycle' aria-hidden='true'></i>"
                 label: "Parcs Eòlics"
-                roles: [ ROLE_ADMIN ]
             Auditoria:
                 icon:  "<i class='fa fa-list-alt' aria-hidden='true'></i>"
                 label: "Inspeccions"
-                roles: [ ROLE_ADMIN ]
         blocks:
             -
                 position: top
@@ -77,7 +74,6 @@ sonata_admin:
                 position: top
                 type: admin.block.audits
                 class: col-md-6
-                roles: [ ROLE_OPERATOR ]
             -
                 position: bottom
                 type: sonata.block.service.text
