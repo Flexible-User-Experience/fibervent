@@ -44,7 +44,8 @@
         "symfony/swiftmailer-bundle": "~2.3",
         "twig/extensions": "^1.3",
         "vich/uploader-bundle": "^1.1",
-        "whiteoctober/tcpdf-bundle": "^1.0"
+        "whiteoctober/tcpdf-bundle": "^1.0",
+        "mewesk/twig-excel-bundle": "^2.0"
     },
     "require-dev": {
         "sensio/generator-bundle": "~3.0"
