@@ -74,4 +74,33 @@ class WindfarmAdminController extends AbstractBaseAdminController
             )
         );
     }
+
+    /**
+     * Export Windmill blades from each Wind Farm in excel format action
+     *
+     * @param Request $request
+     *
+     * @return Response
+     * @throws NotFoundHttpException If the object does not exist
+     * @throws AccessDeniedHttpException If access is not granted
+     */
+    public function excelAction(Request $request = null)
+    {
+        $request = $this->resolveRequest($request);
+        $id = $request->get($this->admin->getIdParameter());
+
+        /** @var Windfarm $object */
+        $object = $this->admin->getObject($id);
+        if (!$object) {
+            throw $this->createNotFoundException(sprintf('Unable to find windfarm record with id: %s', $id));
+        }
+
+        return $this->render(
+            ':Admin/Windfarm:excel.html.twig',
+            array(
+                'action' => 'show',
+                'object' => $object,
+            )
+        );
+    }
 }
