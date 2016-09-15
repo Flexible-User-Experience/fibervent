@@ -1,0 +1,12 @@
+{% xlsdocument %}
+    {% xlssheet 'hoja1' %}
+        {% xlsrow %}
+            {% xlscell { style: { font: { size: '18' } } } %}RESUMEN DAÑOS AEROGENERADORES DEL PARQUE {{ windfarm.name }}{% endxlscell %}
+        {% endxlsrow %}
+        {#{% for value in data %}#}
+            {#{% xlsrow %}#}
+            {#{% xlscell %}{{ value }}{% endxlscell %}#}
+            {#{% endxlsrow %}#}
+        {#{% endfor %}#}
+    {% endxlssheet %}
+{% endxlsdocument %}

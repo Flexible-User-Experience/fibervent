@@ -96,10 +96,10 @@ class WindfarmAdminController extends AbstractBaseAdminController
         }
 
         return $this->render(
-            ':Admin/Windfarm:excel.html.twig',
+            ':Admin/Windfarm:excel.xls.twig',
             array(
                 'action' => 'show',
-                'object' => $object,
+                'windfarm' => $object,
             )
         );
     }
