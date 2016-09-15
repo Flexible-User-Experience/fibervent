@@ -1,12 +1,39 @@
 {% xlsdocument %}
     {% xlssheet 'hoja1' %}
-        {% xlsrow %}
-            {% xlscell { style: { font: { size: '18' } } } %}RESUMEN DAÑOS AEROGENERADORES DEL PARQUE {{ windfarm.name }}{% endxlscell %}
-        {% endxlsrow %}
-        {#{% for value in data %}#}
-            {#{% xlsrow %}#}
-            {#{% xlscell %}{{ value }}{% endxlscell %}#}
-            {#{% endxlsrow %}#}
-        {#{% endfor %}#}
+        {% xlsheader %}
+            {% xlsrow %}
+                {% xlscell { style: { font: { size: '18' } } } %}RESUMEN DAÑOS AEROGENERADORES DEL PARQUE {{ windfarm.name }}{% endxlscell %}
+            {% endxlsrow %}
+            {% xlsrow %}
+                {% xlscell { style: { font: { size: '14' } } } %}ID{% endxlscell %}
+                {% xlscell { style: { font: { size: '14' } } } %}WTG{% endxlscell %}
+                {% xlscell { style: { font: { size: '14' } } } %}DAÑO Nº{% endxlscell %}
+                {% xlscell { style: { font: { size: '14' } } } %}DAÑO COD.{% endxlscell %}
+                {% xlscell { style: { font: { size: '14' } } } %}POS.{% endxlscell %}
+                {% xlscell { style: { font: { size: '14' } } } %}RADIO{% endxlscell %}
+                {% xlscell { style: { font: { size: '14' } } } %}DIST{% endxlscell %}
+                {% xlscell { style: { font: { size: '14' } } } %}TAMAÑO{% endxlscell %}
+                {% xlscell { style: { font: { size: '14' } } } %}DESCRIPCION{% endxlscell %}
+                {% xlscell { style: { fill: { type: 'solid', color: {rgb: 'FF0000'} } } } %}CAT{% endxlscell %}
+            {% endxlsrow %}
+        {% endxlsheader %}
+        {% for audit in audits %}
+            {% for auditWindmillBlade in audit.auditWindmillBlades %}
+                {% for bladeDamage in auditWindmillBlade.bladeDamages %}
+                    {% xlsrow %}
+                    {% xlscell %}{{ audit.id }}{% endxlscell %}
+                    {% xlscell %}{{ audit.windmill.id }}{% endxlscell %}
+                    {% xlscell %}{{ bladeDamage.id }}{% endxlscell %}
+                    {% xlscell %}{{ bladeDamage.damage.code }}{% endxlscell %}
+                    {% xlscell %}{{ bladeDamage.position }}{% endxlscell %}
+                    {% xlscell %}{{ bladeDamage.radius }}{% endxlscell %}
+                    {% xlscell %}{{ bladeDamage.distance }}{% endxlscell %}
+                    {% xlscell %}{{ bladeDamage.size }}{% endxlscell %}
+                    {% xlscell %}{{ bladeDamage.damage.description }}{% endxlscell %}
+                    {% xlscell %}{{ bladeDamage.damageCategory.category }}{% endxlscell %}
+                    {% endxlsrow %}
+                {% endfor %}
+            {% endfor %}
+        {% endfor %}
     {% endxlssheet %}
 {% endxlsdocument %}

@@ -95,11 +95,14 @@ class WindfarmAdminController extends AbstractBaseAdminController
             throw $this->createNotFoundException(sprintf('Unable to find windfarm record with id: %s', $id));
         }
 
+        $audits = $this->getDoctrine()->getRepository('AppBundle:Audit')->getInvoicedOrDoneAuditsByWindfarmSortedByBeginDate($object);
+
         return $this->render(
             ':Admin/Windfarm:excel.xls.twig',
             array(
                 'action' => 'show',
                 'windfarm' => $object,
+                'audits' => $audits,
             )
         );
     }
