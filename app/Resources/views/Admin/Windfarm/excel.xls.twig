@@ -14,11 +14,11 @@
             footer: 0.5
         },
         pageSetup: {
-            fitToHeight: 1,
+            fitToHeight: 0,
             fitToPage: true,
             fitToWidth: 1,
             horizontalCentered: false,
-            orientation: 'default',
+            orientation: 'portrait',
             paperSize: 9,
             printArea: 'A1:J50',
             scale: 100,
@@ -35,10 +35,6 @@
                 visible: true,
                 xfIndex: 0,
                 zeroHeight:false
-            },
-        '1': {
-            visible: true,
-
             }
         },
         sheetState: 'visible',
@@ -47,21 +43,33 @@
         zoomScale: 100
     } %}
         {#{% xlsheader %}#}
-            {% xlsrow %}
+            {% xlsrow 1 %}
                 {% xlscell { style: { font: { size: '18' } } } %}RESUMEN DAÑOS AEROGENERADORES DEL PARQUE {{ windfarm.name }}{% endxlscell %}
             {% endxlsrow %}
-            {% xlsrow %}
+            {% xlsrow 2 %}
                 {#{% xlscell { style: { font: { size: '14' } } } %}ID{% endxlscell %}#}
-                {% xlscell { style: { font: { size: '14' } } } %}WTG{% endxlscell %}
-                {% xlscell { style: { font: { size: '14' } } } %}PALA{% endxlscell %}
-                {% xlscell { style: { font: { size: '14' } } } %}DAÑO Nº{% endxlscell %}
-                {% xlscell { style: { font: { size: '14' } } } %}DAÑO COD.{% endxlscell %}
-                {% xlscell { style: { font: { size: '14' } } } %}POS.{% endxlscell %}
-                {% xlscell { style: { font: { size: '14' } } } %}RADIO{% endxlscell %}
-                {% xlscell { style: { font: { size: '14' } } } %}DIST{% endxlscell %}
-                {% xlscell { style: { font: { size: '14' } } } %}TAMAÑO{% endxlscell %}
-                {% xlscell { style: { font: { size: '14' } } } %}DESCRIPCION{% endxlscell %}
-                {% xlscell { style: { font: { size: '14' } } } %}CAT{% endxlscell %}
+                {% xlscell 0 { style: { font: { size: '14', bold: true, alignment: 'ctr' } } } %}WTG{% endxlscell %}
+                {% xlscell 1 { style: { font: { size: '14', bold: true } } } %}PALA{% endxlscell %}
+                {% xlscell 2 { style: { font: { size: '14', bold: true } } } %}DAÑO{% endxlscell %}
+                {% xlscell 3 { style: { font: { size: '14', bold: true } } } %}DAÑO{% endxlscell %}
+                {% xlscell 4 { style: { font: { size: '14', bold: true } } } %}LOCALIZACIÓN{% endxlscell %}
+                {% xlscell 5 { style: { font: { size: '14', bold: true } } } %}LOCALIZACIÓN{% endxlscell %}
+                {% xlscell 6 { style: { font: { size: '14', bold: true } } } %}LOCALIZACIÓN{% endxlscell %}
+                {% xlscell 7 { style: { font: { size: '14', bold: true } } } %}TAMAÑO{% endxlscell %}
+                {% xlscell 8 { style: { font: { size: '14', bold: true } } } %}DESCRIPCION{% endxlscell %}
+                {% xlscell 9 { style: { font: { size: '14', bold: true } } } %}CAT{% endxlscell %}
+            {% endxlsrow %}
+            {% xlsrow 3 %}
+                {% xlscell 0 { style: { font: { size: '14', bold: true } } } %}{% endxlscell %}
+                {% xlscell 1 { style: { font: { size: '14', bold: true } } } %}{% endxlscell %}
+                {% xlscell 2 { style: { font: { size: '14', bold: true } } } %}Nº{% endxlscell %}
+                {% xlscell 3 { style: { font: { size: '14', bold: true } } } %}Cód..{% endxlscell %}
+                {% xlscell 4 { style: { font: { size: '14', bold: true } } } %}Pos.{% endxlscell %}
+                {% xlscell 5 { style: { font: { size: '14', bold: true } } } %}Radio{% endxlscell %}
+                {% xlscell 6 { style: { font: { size: '14', bold: true } } } %}Dist.{% endxlscell %}
+                {% xlscell 7 { style: { font: { size: '14', bold: true } } } %}{% endxlscell %}
+                {% xlscell 8 { style: { font: { size: '14', bold: true } } } %}{% endxlscell %}
+                {% xlscell 9 { style: { font: { size: '14', bold: true } } } %}{% endxlscell %}
             {% endxlsrow %}
         {#{% endxlsheader %}#}
         {% for audit in audits %}
