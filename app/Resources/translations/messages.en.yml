@@ -81,3 +81,4 @@ enum:
     ground: GROUND (Telephoto lens FIBERVENT)
     rope: ROPE ACCESS
     inside: BLADE INTERIOR
+    platform: PLATFORM
