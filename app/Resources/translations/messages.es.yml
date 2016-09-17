@@ -81,3 +81,4 @@ enum:
     ground: SUELO (Telescopio FIBERVENT)
     rope: CUERDAS
     inside: INTERIOR PALA
+    platform: PLATAFORMA

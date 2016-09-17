@@ -13,9 +13,10 @@ use AppBundle\Entity\Audit;
  */
 class AuditTypeEnum
 {
-    const GROUND = 0;
-    const ROPE   = 1;
-    const INSIDE = 2;
+    const GROUND   = 0;
+    const ROPE     = 1;
+    const INSIDE   = 2;
+    const PLATFORM = 3;
 
     /**
      * @return array
@@ -26,6 +27,7 @@ class AuditTypeEnum
             self::GROUND => 'terra (telescopi Fibervent)',
             self::ROPE   => 'cordes',
             self::INSIDE => 'interior pala',
+            self::PLATFORM => 'plataforma',
         );
     }
 
@@ -35,9 +37,10 @@ class AuditTypeEnum
     public static function getLocalizedEnumArray()
     {
         return array(
-            self::GROUND => 'enum.audit_type.ground',
-            self::ROPE   => 'enum.audit_type.rope',
-            self::INSIDE => 'enum.audit_type.inside',
+            self::GROUND   => 'enum.audit_type.ground',
+            self::ROPE     => 'enum.audit_type.rope',
+            self::INSIDE   => 'enum.audit_type.inside',
+            self::PLATFORM => 'enum.audit_type.platform',
         );
     }
 
