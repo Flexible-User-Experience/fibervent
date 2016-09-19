@@ -1,111 +1,85 @@
 {% xlsdocument %}
     {% xlssheet 'hoja1' {
-        columnDimension: {
-            'I': {
-                autoSize: true,
-            }
-        },
-        pageMargins: {
-            top: 1,
-            bottom: 1,
-            left: 0.75,
-            right: 0.75,
-            header: 0.5,
-            footer: 0.5
-        },
-        pageSetup: {
-            fitToHeight: 0,
-            fitToPage: true,
-            fitToWidth: 1,
-            horizontalCentered: false,
-            orientation: 'portrait',
-            paperSize: 9,
-            printArea: 'A1:J50',
-            scale: 100,
-            verticalCentered: false
-        },
-        printGridlines: true,
-        rightToLeft: false,
-        rowDimension: {
-            'default': {
-                collapsed: false,
-                outlineLevel: 0,
-                rowHeight: -1,
-                rowIndex: '1',
-                visible: true,
-                xfIndex: 0,
-                zeroHeight:false
-            }
-        },
-        sheetState: 'visible',
-        showGridlines: true,
-        tabColor: 'FF0000',
-        zoomScale: 100
+    columnDimension: {
+    'J': {
+    autoSize: true,
+    }
+    },
+    pageMargins: {
+    top: 1,
+    bottom: 1,
+    left: 0.75,
+    right: 0.75,
+    header: 0.5,
+    footer: 0.5
+    },
+    pageSetup: {
+    fitToHeight: 0,
+    fitToPage: true,
+    fitToWidth: 1,
+    horizontalCentered: false,
+    orientation: 'portrait',
+    paperSize: 9,
+    printArea: 'A1:J50',
+    scale: 100,
+    verticalCentered: false
+    },
+    printGridlines: true,
+    rightToLeft: false,
+    rowDimension: {
+    'default': {
+    collapsed: false,
+    outlineLevel: 0,
+    rowHeight: -1,
+    rowIndex: '1',
+    visible: true,
+    xfIndex: 0,
+    zeroHeight:false
+    }
+    },
+    sheetState: 'visible',
+    showGridlines: true,
+    tabColor: 'FF0000',
+    zoomScale: 100
     } %}
         {#{% xlsheader %}#}
             {% xlsrow 1 %}
-                {% xlscell { style: { font: { size: '18' } } } %}RESUMEN DAÑOS AEROGENERADORES DEL PARQUE {{ windfarm.name }}{% endxlscell %}
+                {% xlscell { style: { font: { size: '18' } }, 'merge': 10 } %}RESUMEN DAÑOS AEROGENERADORES DEL PARQUE {{ windfarm.name }}{% endxlscell %}
             {% endxlsrow %}
             {% xlsrow 2 %}
-                {#{% xlscell { style: { font: { size: '14' } } } %}ID{% endxlscell %}#}
-                {% xlscell 0  { style: { borders: { bottom: { style: 'thick', color: { rgb: '#FF0000'}}}}} %}WTG{% endxlscell %}
-                {% xlscell 1 {
-                    style: { fill: {
-                        type: 'solid',
-                        startcolor: {
-                            rgb: '#FF0000'
-                        }
-                    }
-                    },
-                    borders: {
-                        bottom: {
-                            style: 'thick',
-                            color: {
-                                rgb: '#000000'
-                            }
-                        }
-                    }
-                } %}PALA{% endxlscell %}
-                {% xlscell 2 { style: { fill: { type: 'solid', startcolor: { rgb: '#0000FF' } } } } %}DAÑO{% endxlscell %}
-                {% xlscell 3 { style: { font: { size: '14', bold: true } } } %}DAÑO{% endxlscell %}
-                {% xlscell 4 { style: { font: { size: '14', bold: true } } } %}LOCALIZACIÓN{% endxlscell %}
-                {% xlscell 5 { style: { font: { size: '14', bold: true } } } %}LOCALIZACIÓN{% endxlscell %}
-                {% xlscell 6 { style: { font: { size: '14', bold: true } } } %}LOCALIZACIÓN{% endxlscell %}
-                {% xlscell 7 { merge: 'H2:H3' } %}TAMAÑO{% endxlscell %}
-                {% xlscell 8 { style: { font: { size: '14', bold: true } } } %}DESCRIPCION{% endxlscell %}
-                {% xlscell 9 { style: { font: { size: '14', bold: true } } } %}CAT{% endxlscell %}
+                {% xlscell 0 { style: { font: { size: '14' } }, 'merge': 'A3' } %}ID{% endxlscell %}
+                {% xlscell 1 { style: { borders: { bottom: { style: 'thick', color: { rgb: '#FF0000'} } } }, 'merge': 'B3' } %}WTG{% endxlscell %}
+                {% xlscell 2 { style: { fill: { type: 'solid', startcolor: { rgb: '#0000FF' } } }, 'merge': 'C3' } %}PALA{% endxlscell %}
+                {% xlscell 3 { style: { fill: { type: 'solid', startcolor: { rgb: '#0000FF' } } }, 'merge': 'E2' } %}DAÑO{% endxlscell %}
+                {% xlscell 5 { style: { font: { size: '14', bold: true } }, 'merge': 'H2' } %}LOCALIZACIÓN{% endxlscell %}
+                {% xlscell 8 { style: { font: { size: '14', bold: true } } } %}TAMAÑO{% endxlscell %}
+                {% xlscell 9 { style: { font: { size: '14', bold: true } } } %}DESCRIPCION{% endxlscell %}
+                {% xlscell 10 { style: { font: { size: '14', bold: true } } } %}CAT{% endxlscell %}
             {% endxlsrow %}
-            {% xlsrow 3 %}
-                {% xlscell 0 { style: { font: { size: '14', bold: true } } } %}{% endxlscell %}
-                {% xlscell 1 { style: { font: { size: '14', bold: true } } } %}{% endxlscell %}
-                {% xlscell 2 { style: { font: { size: '14', bold: true } } } %}Nº{% endxlscell %}
-                {% xlscell 3 { style: { font: { size: '14', bold: true } } } %}Cód..{% endxlscell %}
-                {% xlscell 4 { style: { font: { size: '14', bold: true } } } %}Pos.{% endxlscell %}
-                {% xlscell 5 { style: { font: { size: '14', bold: true } } } %}Radio{% endxlscell %}
-                {% xlscell 6 { style: { font: { size: '14', bold: true } } } %}Dist.{% endxlscell %}
-                {% xlscell 7 { style: { font: { size: '14', bold: true } } } %}{% endxlscell %}
-                {% xlscell 8 { style: { font: { size: '14', bold: true } } } %}{% endxlscell %}
-                {% xlscell 9 { style: { font: { size: '14', bold: true } } } %}{% endxlscell %}
+            {% xlsrow 3%}
+                {% xlscell 3 { style: { font: { size: '14', bold: true } } } %}Nº{% endxlscell %}
+                {% xlscell 4 { style: { font: { size: '14', bold: true } } } %}Cód.{% endxlscell %}
+                {% xlscell 5 { style: { font: { size: '14', bold: true } } } %}Pos.{% endxlscell %}
+                {% xlscell 6 { style: { font: { size: '14', bold: true } } } %}Radio{% endxlscell %}
+                {% xlscell 7 { style: { font: { size: '14', bold: true } } } %}Dist.{% endxlscell %}
             {% endxlsrow %}
         {#{% endxlsheader %}#}
         {% for audit in audits %}
             {% for auditWindmillBlade in audit.auditWindmillBlades %}
                 {% for bladeDamage in auditWindmillBlade.bladeDamages %}
-                    {% for windmillBlade in audit.windmill.windmillBlades %}
-                        {% xlsrow %}
-                            {#{% xlscell %}{{ audit.id }}{% endxlscell %}#}
-                            {% xlscell %}{{ audit.windmill.id }}{% endxlscell %}
-                            {% xlscell %}{{ windmillBlade.order }}{% endxlscell %}
-                            {% xlscell %}{{ bladeDamage.id }}{% endxlscell %}
-                            {% xlscell %}{{ bladeDamage.damage.code }}{% endxlscell %}
-                            {% xlscell %}{{ bladeDamage.position }}{% endxlscell %}
-                            {% xlscell %}{{ bladeDamage.radius }} m{% endxlscell %}
-                            {% xlscell %}{{ bladeDamage.distanceString }}{% endxlscell %}
-                            {% xlscell %}{{ bladeDamage.size }} cm{% endxlscell %}
-                            {% xlscell %}{{ bladeDamage.damage.description }}{% endxlscell %}
-                            {% xlscell %}{{ bladeDamage.damageCategory.category }}{% endxlscell %}
-                        {% endxlsrow %}
-                    {% endfor %}
+                    {% xlsrow %}
+                        {% xlscell 0 %}{{ audit.id }}{% endxlscell %}
+                        {% xlscell 1 %}{{ audit.windmill.id }}{% endxlscell %}
+                        {% xlscell 2 %}{{ auditWindmillBlade.windmillBlade.order }}{% endxlscell %}
+                        {% xlscell 3 %}{{ bladeDamage.id }}{% endxlscell %}
+                        {% xlscell 4 %}{{ bladeDamage.damage.code }}{% endxlscell %}
+                        {% xlscell 5 %}{{ bladeDamage.position }}{% endxlscell %}
+                        {% xlscell 6 %}{{ bladeDamage.radius }} m{% endxlscell %}
+                        {% xlscell 7 %}{{ bladeDamage.distanceString }}{% endxlscell %}
+                        {% xlscell 8 %}{{ bladeDamage.size }} cm{% endxlscell %}
+                        {% xlscell 9 %}{{ bladeDamage.damage.description }}{% endxlscell %}
+                        {% xlscell 10 %}{{ bladeDamage.damageCategory.category }}{% endxlscell %}
+                    {% endxlsrow %}
                 {% endfor %}
             {% endfor %}
         {% endfor %}
