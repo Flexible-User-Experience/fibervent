@@ -48,14 +48,30 @@
             {% endxlsrow %}
             {% xlsrow 2 %}
                 {#{% xlscell { style: { font: { size: '14' } } } %}ID{% endxlscell %}#}
-                {% xlscell 0 { style: { font: { size: '14', bold: true, alignment: 'ctr' } } } %}WTG{% endxlscell %}
-                {% xlscell 1 { style: { font: { size: '14', bold: true } } } %}PALA{% endxlscell %}
-                {% xlscell 2 { style: { font: { size: '14', bold: true } } } %}DAÑO{% endxlscell %}
+                {% xlscell 0  { style: { borders: { bottom: { style: 'thick', color: { rgb: '#FF0000'}}}}} %}WTG{% endxlscell %}
+                {% xlscell 1 {
+                    style: { fill: {
+                        type: 'solid',
+                        startcolor: {
+                            rgb: '#FF0000'
+                        }
+                    }
+                    },
+                    borders: {
+                        bottom: {
+                            style: 'thick',
+                            color: {
+                                rgb: '#000000'
+                            }
+                        }
+                    }
+                } %}PALA{% endxlscell %}
+                {% xlscell 2 { style: { fill: { type: 'solid', startcolor: { rgb: '#0000FF' } } } } %}DAÑO{% endxlscell %}
                 {% xlscell 3 { style: { font: { size: '14', bold: true } } } %}DAÑO{% endxlscell %}
                 {% xlscell 4 { style: { font: { size: '14', bold: true } } } %}LOCALIZACIÓN{% endxlscell %}
                 {% xlscell 5 { style: { font: { size: '14', bold: true } } } %}LOCALIZACIÓN{% endxlscell %}
                 {% xlscell 6 { style: { font: { size: '14', bold: true } } } %}LOCALIZACIÓN{% endxlscell %}
-                {% xlscell 7 { style: { font: { size: '14', bold: true } } } %}TAMAÑO{% endxlscell %}
+                {% xlscell 7 { merge: 'H2:H3' } %}TAMAÑO{% endxlscell %}
                 {% xlscell 8 { style: { font: { size: '14', bold: true } } } %}DESCRIPCION{% endxlscell %}
                 {% xlscell 9 { style: { font: { size: '14', bold: true } } } %}CAT{% endxlscell %}
             {% endxlsrow %}
