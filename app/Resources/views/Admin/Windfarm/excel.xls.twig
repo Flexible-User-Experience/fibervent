@@ -88,7 +88,7 @@
                 {% xlscell 1 {
                     style: {
                         borders: {
-                            outline: {
+                            allborders: {
                                 style: 'thin',
                                 color: {
                                     rgb: '8FABD9'
@@ -235,6 +235,45 @@
                 } %}CAT{% endxlscell %}
             {% endxlsrow %}
             {% xlsrow 3 %}
+                {% xlscell 0 {
+                    style: {
+                        borders: {
+                            allborders: {
+                                style: 'thin',
+                                color: {
+                                    rgb: '8FABD9'
+                                }
+                            }
+                        }
+                    }
+                } %}
+                {% endxlscell %}
+                {% xlscell 1 {
+                    style: {
+                        borders: {
+                            allborders: {
+                                style: 'thin',
+                                color: {
+                                    rgb: '8FABD9'
+                                }
+                            }
+                        }
+                    }
+                } %}
+                {% endxlscell %}
+                {% xlscell 2 {
+                    style: {
+                        borders: {
+                            allborders: {
+                                style: 'thin',
+                                color: {
+                                    rgb: '8FABD9'
+                                }
+                            }
+                        }
+                    }
+                } %}
+                {% endxlscell %}
                 {% xlscell 3 {
                     style: {
                         borders: {
@@ -385,7 +424,16 @@
                         {% xlscell 7 %}{{ bladeDamage.distanceString }}{% endxlscell %}
                         {% xlscell 8 %}{{ bladeDamage.size }} cm{% endxlscell %}
                         {% xlscell 9 %}{{ bladeDamage.damage.description }}{% endxlscell %}
-                        {% xlscell 10 %}{{ bladeDamage.damageCategory.category }}{% endxlscell %}
+                        {% xlscell 10 {
+                            style: {
+                                fill: {
+                                    type: 'solid',
+                                    color: {
+                                        rgb: bladeDamage.damageCategory.colourWithoutPad
+                                    }
+                                }
+                            }
+                        } %}{{ bladeDamage.damageCategory.category }}{% endxlscell %}
                     {% endxlsrow %}
                 {% endfor %}
             {% endfor %}
