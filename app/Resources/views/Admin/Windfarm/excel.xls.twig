@@ -61,7 +61,7 @@
                 {% xlscell 0 {
                     style: {
                         borders: {
-                            outline: {
+                            allborders: {
                                 style: 'thin',
                                 color: {
                                     rgb: '8FABD9'
@@ -114,6 +114,14 @@
                 } %}WTG{% endxlscell %}
                 {% xlscell 2 {
                     style: {
+                        borders: {
+                            allborders: {
+                                style: 'thin',
+                                color: {
+                                    rgb: '8FABD9'
+                                }
+                            }
+                        },
                         alignment: {
                             horizontal: 'center',
                             vertical: 'center'
@@ -158,9 +166,30 @@
                     },
                     merge: 'E2'
                 } %}DAÑO{% endxlscell %}
+                {% xlscell 4 {
+                    style: {
+                        borders: {
+                            allborders: {
+                                style: 'thin',
+                                color: {
+                                    rgb: '8FABD9'
+                                }
+                            }
+                        }
+                    }
+                } %}
+                {% endxlscell %}
                 {% xlscell 5 {
                     style: {
-                        alignment: {
+                        borders: {
+                            top: {
+                                style: 'thin',
+                                color: {
+                                    rgb: '8FABD9'
+                                }
+                            }
+                        },
+                alignment: {
                             horizontal: 'center',
                             vertical: 'center'
                         },
@@ -177,8 +206,42 @@
                     },
                     merge: 'H2'
                 } %}LOCALIZACIÓN{% endxlscell %}
+                {% xlscell 6 {
+                    style: {
+                        borders: {
+                            top: {
+                                style: 'thin',
+                                color: {
+                                    rgb: '8FABD9'
+                                }
+                            }
+                        }
+                    }
+                } %}
+                {% endxlscell %}
+                {% xlscell 7 {
+                    style: {
+                        borders: {
+                            allborders: {
+                                style: 'thin',
+                                color: {
+                                    rgb: '8FABD9'
+                                }
+                            }
+                        }
+                    }
+                } %}
+                {% endxlscell %}
                 {% xlscell 8 {
                     style: {
+                        borders: {
+                            allborders: {
+                                style: 'thin',
+                                color: {
+                                    rgb: '8FABD9'
+                                }
+                            }
+                        },
                         alignment: {
                             horizontal: 'center',
                             vertical: 'center'
@@ -198,6 +261,14 @@
                 } %}TAMAÑO{% endxlscell %}
                 {% xlscell 9 {
                     style: {
+                        borders: {
+                            allborders: {
+                                style: 'thin',
+                                color: {
+                                    rgb: '8FABD9'
+                                }
+                            }
+                        },
                         alignment: {
                             horizontal: 'center',
                             vertical: 'center' },
@@ -216,6 +287,14 @@
                 } %}DESCRIPCION{% endxlscell %}
                 {% xlscell 10 {
                     style: {
+                        borders: {
+                            allborders: {
+                                style: 'thin',
+                                color: {
+                                    rgb: '8FABD9'
+                                }
+                            }
+                        },
                         alignment: {
                             horizontal: 'center',
                             vertical: 'center'
@@ -303,7 +382,7 @@
                 {% xlscell 4 {
                     style: {
                         borders: {
-                            outline: {
+                            allborders: {
                                 style: 'thin',
                                 color: {
                                     rgb: '8FABD9'
@@ -329,7 +408,7 @@
                 {% xlscell 5 {
                     style: {
                         borders: {
-                            outline: {
+                            allborders: {
                                 style: 'thin',
                                     color: {
                                         rgb: '8FABD9'
@@ -355,7 +434,7 @@
                 {% xlscell 6 {
                     style: {
                         borders: {
-                            outline: {
+                            allborders: {
                                 style: 'thin',
                                 color: {
                                     rgb: '8FABD9'
@@ -381,7 +460,7 @@
                 {% xlscell 7 {
                     style: {
                         borders: {
-                            outline: {
+                            allborders: {
                                 style: 'thin',
                                 color: {
                                     rgb: '8FABD9'
@@ -404,6 +483,42 @@
                         }
                     }
                 } %}Dist.{% endxlscell %}
+                {% xlscell 8 {
+                    style: {
+                        borders: {
+                            allborders: {
+                                style: 'thin',
+                                color: {
+                                    rgb: '8FABD9'
+                                }
+                            }
+                        }
+                    }
+                } %}{% endxlscell %}
+                {% xlscell 9 {
+                    style: {
+                        borders: {
+                            allborders: {
+                                style: 'thin',
+                                color: {
+                                    rgb: '8FABD9'
+                                }
+                            }
+                        }
+                    }
+                } %}{% endxlscell %}
+                {% xlscell 10 {
+                    style: {
+                        borders: {
+                            allborders: {
+                                style: 'thin',
+                                color: {
+                                    rgb: '8FABD9'
+                                }
+                            }
+                        }
+                    }
+                } %}{% endxlscell %}
             {% endxlsrow %}
         {#{% endxlsheader %}#}
         {% for audit in audits %}
