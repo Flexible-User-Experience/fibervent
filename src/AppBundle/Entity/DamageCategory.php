@@ -150,6 +150,14 @@ class DamageCategory extends AbstractBase
     }
 
     /**
+     * @return string
+     */
+    public function getColourWithoutPad()
+    {
+        return strtoupper(substr($this->colour, -6));
+    }
+
+    /**
      * @param string $colour
      *
      * @return DamageCategory

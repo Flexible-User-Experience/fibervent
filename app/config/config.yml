@@ -120,3 +120,7 @@ swiftmailer:
 # TCPDF
 white_october_tcpdf:
     class: 'AppBundle\Pdf\CustomTcpdf'
+
+# Twig Excel
+mewes_k_twig_excel:
+    disk_caching_directory: "%kernel.cache_dir%/phpexcel"

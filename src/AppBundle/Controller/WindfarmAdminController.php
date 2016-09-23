@@ -2,6 +2,8 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Audit;
+use AppBundle\Entity\AuditWindmillBlade;
 use AppBundle\Entity\Windfarm;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -71,6 +73,50 @@ class WindfarmAdminController extends AbstractBaseAdminController
             array(
                 'action' => 'show',
                 'object' => $object,
+            )
+        );
+    }
+
+    /**
+     * Export Windmill blades from each Wind Farm in excel format action
+     *
+     * @param Request $request
+     *
+     * @return Response
+     * @throws NotFoundHttpException If the object does not exist
+     * @throws AccessDeniedHttpException If access is not granted
+     */
+    public function excelAction(Request $request = null)
+    {
+        $request = $this->resolveRequest($request);
+        $id = $request->get($this->admin->getIdParameter());
+
+        /** @var Windfarm $object */
+        $object = $this->admin->getObject($id);
+        if (!$object) {
+            throw $this->createNotFoundException(sprintf('Unable to find windfarm record with id: %s', $id));
+        }
+
+        $audits = $this->getDoctrine()->getRepository('AppBundle:Audit')->getInvoicedOrDoneAuditsByWindfarmSortedByBeginDate($object);
+
+        /** @var Audit $audit */
+        foreach ($audits as $audit) {
+            $auditWindmillBlades = $audit->getAuditWindmillBlades();
+            /** @var AuditWindmillBlade $auditWindmillBlade */
+            foreach ($auditWindmillBlades as $auditWindmillBlade) {
+                $bladeDamages = $this->getDoctrine()->getRepository('AppBundle:BladeDamage')->getItemsOfAuditWindmillBladeSortedByRadius($auditWindmillBlade);
+                if (count($bladeDamages) > 0) {
+                    $auditWindmillBlade->setBladeDamages($bladeDamages);
+                }
+            }
+        }
+
+        return $this->render(
+            ':Admin/Windfarm:excel.xls.twig',
+            array(
+                'action' => 'show',
+                'windfarm' => $object,
+                'audits' => $audits,
             )
         );
     }

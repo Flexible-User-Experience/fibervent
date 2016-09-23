@@ -2,6 +2,7 @@
 
 namespace AppBundle\Repository;
 
+use AppBundle\Entity\Windfarm;
 use AppBundle\Enum\AuditStatusEnum;
 use Doctrine\ORM\EntityRepository;
 
@@ -38,5 +39,24 @@ class AuditRepository extends EntityRepository
             ->getQuery();
 
         return count($query->getResult());
+    }
+
+    /**
+     * @param Windfarm $windfarm
+     *
+     * @return array
+     */
+    public function getInvoicedOrDoneAuditsByWindfarmSortedByBeginDate(Windfarm $windfarm)
+    {
+        $query = $this->createQueryBuilder('a')
+            ->where('a.windfarm = :windfarm' )
+            ->andWhere('a.status = :done OR a.status = :invoiced')
+            ->setParameter('windfarm', $windfarm)
+            ->setParameter('done', AuditStatusEnum::DONE)
+            ->setParameter('invoiced', AuditStatusEnum::INVOICED)
+            ->orderBy('a.beginDate', 'ASC')
+            ->getQuery();
+
+        return $query->getResult();
     }
 }

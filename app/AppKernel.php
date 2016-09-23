@@ -31,6 +31,7 @@ class AppKernel extends Kernel
             new Hautelook\AliceBundle\HautelookAliceBundle(),
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
             new Liip\ImagineBundle\LiipImagineBundle(),
+            new MewesK\TwigExcelBundle\MewesKTwigExcelBundle(),
             new Oh\GoogleMapFormTypeBundle\OhGoogleMapFormTypeBundle(),
             new Vich\UploaderBundle\VichUploaderBundle(),
             new WhiteOctober\TCPDFBundle\WhiteOctoberTCPDFBundle(),
