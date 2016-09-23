@@ -111,12 +111,18 @@ class WindfarmAdminController extends AbstractBaseAdminController
             }
         }
 
-        return $this->render(
+        $template = $this->renderView(
             ':Admin/Windfarm:excel.xls.twig',
             array(
                 'action' => 'show',
                 'windfarm' => $object,
                 'audits' => $audits,
+            )
+        );
+
+        return new Response($template, 200, array(
+            'Content-type' => 'application/vnd.ms-excel',
+            'Content-Disposition' => 'attachment; filename="' . $object->getSlug() . '.xls"'
             )
         );
     }
