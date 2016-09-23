@@ -111,11 +111,11 @@ class Turbine extends AbstractBase
     }
 
     /**
-     * @param ArrayCollection $windmills
+     * @param ArrayCollection|array $windmills
      *
      * @return Turbine
      */
-    public function setWindmills(ArrayCollection $windmills)
+    public function setWindmills($windmills)
     {
         $this->windmills = $windmills;
 

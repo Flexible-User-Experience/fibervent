@@ -1,0 +1,557 @@
+{% xlsdocument %}
+    {% xlssheet 'hoja1' {
+        columnDimension: {
+            'J': {
+                autoSize: true,
+            }
+        },
+        pageMargins: {
+            top: 1,
+            bottom: 1,
+            left: 0.75,
+            right: 0.75,
+            header: 0.5,
+            footer: 0.5
+        },
+        pageSetup: {
+            fitToHeight: 0,
+            fitToPage: true,
+            fitToWidth: 1,
+            horizontalCentered: false,
+            orientation: 'portrait',
+            paperSize: 9,
+            printArea: 'A1:J50',
+            scale: 100,
+            verticalCentered: false
+        },
+        printGridlines: true,
+        rightToLeft: false,
+        rowDimension: {
+            'default': {
+                collapsed: false,
+                outlineLevel: 0,
+                rowHeight: -1,
+                rowIndex: '1',
+                visible: true,
+                xfIndex: 0,
+                zeroHeight:false
+            }
+        },
+        sheetState: 'visible',
+        showGridlines: true,
+        tabColor: 'FF0000',
+        zoomScale: 100
+    } %}
+        {#{% xlsheader %}#}
+            {% xlsrow 1 %}
+                {% xlscell {
+                    style: {
+                        alignment: {
+                            horizontal: 'center',
+                            vertical: 'center'
+                        },
+                        font: {
+                            size: '18'
+                            }
+                        },
+                        'merge': 10
+                } %}RESUMEN DAÑOS AEROGENERADORES DEL PARQUE {{ windfarm.name }}{% endxlscell %}
+            {% endxlsrow %}
+            {% xlsrow 2 %}
+                {% xlscell 0 {
+                    style: {
+                        borders: {
+                            allborders: {
+                                style: 'thin',
+                                color: {
+                                    rgb: '8FABD9'
+                                }
+                            }
+                        },
+                        alignment: {
+                            horizontal: 'center',
+                            vertical: 'center'
+                        },
+                        font: {
+                            size: '14',
+                            bold: true
+                            },
+                        fill: {
+                            type: 'solid',
+                            color: {
+                                rgb: 'D9E2F2'
+                            }
+                        }
+                    },
+                    merge: 'A3'
+                } %}AUDIT{% endxlscell %}
+                {% xlscell 1 {
+                    style: {
+                        borders: {
+                            allborders: {
+                                style: 'thin',
+                                color: {
+                                    rgb: '8FABD9'
+                                }
+                            }
+                        },
+                        alignment: {
+                            horizontal: 'center',
+                            vertical: 'center'
+                        },
+                        font: {
+                            size: '14',
+                            bold: true
+                        },
+                        fill: {
+                            type: 'solid',
+                            color: {
+                                rgb: 'D9E2F2'
+                            }
+                        }
+                    },
+                    merge: 'B3'
+                } %}WTG{% endxlscell %}
+                {% xlscell 2 {
+                    style: {
+                        borders: {
+                            allborders: {
+                                style: 'thin',
+                                color: {
+                                    rgb: '8FABD9'
+                                }
+                            }
+                        },
+                        alignment: {
+                            horizontal: 'center',
+                            vertical: 'center'
+                        },
+                        font: {
+                            size: '14',
+                            bold: true
+                        },
+                        fill: {
+                            type: 'solid',
+                            color: {
+                                rgb: 'D9E2F2'
+                            }
+                        }
+                    },
+                    merge: 'C3'
+                } %}PALA{% endxlscell %}
+                {% xlscell 3 {
+                    style: {
+                        borders: {
+                            allborders: {
+                                style: 'thin',
+                                color: {
+                                    rgb: '8FABD9'
+                                }
+                            }
+                        },
+                        alignment: {
+                            horizontal: 'center',
+                            vertical: 'center'
+                        },
+                        font: {
+                            size: '14',
+                            bold: true
+                        },
+                        fill: {
+                            type: 'solid',
+                            color: {
+                                rgb: 'D9E2F2'
+                            }
+                        }
+                    },
+                    merge: 'E2'
+                } %}DAÑO{% endxlscell %}
+                {% xlscell 4 {
+                    style: {
+                        borders: {
+                            allborders: {
+                                style: 'thin',
+                                color: {
+                                    rgb: '8FABD9'
+                                }
+                            }
+                        }
+                    }
+                } %}
+                {% endxlscell %}
+                {% xlscell 5 {
+                    style: {
+                        borders: {
+                            top: {
+                                style: 'thin',
+                                color: {
+                                    rgb: '8FABD9'
+                                }
+                            }
+                        },
+                alignment: {
+                            horizontal: 'center',
+                            vertical: 'center'
+                        },
+                        font: {
+                            size: '14',
+                            bold: true
+                        },
+                        fill: {
+                            type: 'solid',
+                            color: {
+                                rgb: 'D9E2F2'
+                            }
+                        }
+                    },
+                    merge: 'H2'
+                } %}LOCALIZACIÓN{% endxlscell %}
+                {% xlscell 6 {
+                    style: {
+                        borders: {
+                            top: {
+                                style: 'thin',
+                                color: {
+                                    rgb: '8FABD9'
+                                }
+                            }
+                        }
+                    }
+                } %}
+                {% endxlscell %}
+                {% xlscell 7 {
+                    style: {
+                        borders: {
+                            allborders: {
+                                style: 'thin',
+                                color: {
+                                    rgb: '8FABD9'
+                                }
+                            }
+                        }
+                    }
+                } %}
+                {% endxlscell %}
+                {% xlscell 8 {
+                    style: {
+                        borders: {
+                            allborders: {
+                                style: 'thin',
+                                color: {
+                                    rgb: '8FABD9'
+                                }
+                            }
+                        },
+                        alignment: {
+                            horizontal: 'center',
+                            vertical: 'center'
+                        },
+                        font: {
+                            size: '14',
+                            bold: true
+                        },
+                        fill: {
+                            type: 'solid',
+                            color: {
+                                rgb: 'D9E2F2'
+                            }
+                        }
+                    },
+                    merge: 'I3'
+                } %}TAMAÑO{% endxlscell %}
+                {% xlscell 9 {
+                    style: {
+                        borders: {
+                            allborders: {
+                                style: 'thin',
+                                color: {
+                                    rgb: '8FABD9'
+                                }
+                            }
+                        },
+                        alignment: {
+                            horizontal: 'center',
+                            vertical: 'center' },
+                        font: {
+                            size: '14',
+                            bold: true
+                        },
+                        fill: {
+                            type: 'solid',
+                            color: {
+                                rgb: 'D9E2F2'
+                            }
+                        }
+                    },
+                    merge: 'J3'
+                } %}DESCRIPCION{% endxlscell %}
+                {% xlscell 10 {
+                    style: {
+                        borders: {
+                            allborders: {
+                                style: 'thin',
+                                color: {
+                                    rgb: '8FABD9'
+                                }
+                            }
+                        },
+                        alignment: {
+                            horizontal: 'center',
+                            vertical: 'center'
+                        },
+                        font: {
+                            size: '14',
+                            bold: true
+                        },
+                        fill: {
+                            type: 'solid',
+                            color: {
+                                rgb: 'D9E2F2'
+                            }
+                        }
+                    },
+                    merge: 'K3'
+                } %}CAT{% endxlscell %}
+            {% endxlsrow %}
+            {% xlsrow 3 %}
+                {% xlscell 0 {
+                    style: {
+                        borders: {
+                            allborders: {
+                                style: 'thin',
+                                color: {
+                                    rgb: '8FABD9'
+                                }
+                            }
+                        }
+                    }
+                } %}
+                {% endxlscell %}
+                {% xlscell 1 {
+                    style: {
+                        borders: {
+                            allborders: {
+                                style: 'thin',
+                                color: {
+                                    rgb: '8FABD9'
+                                }
+                            }
+                        }
+                    }
+                } %}
+                {% endxlscell %}
+                {% xlscell 2 {
+                    style: {
+                        borders: {
+                            allborders: {
+                                style: 'thin',
+                                color: {
+                                    rgb: '8FABD9'
+                                }
+                            }
+                        }
+                    }
+                } %}
+                {% endxlscell %}
+                {% xlscell 3 {
+                    style: {
+                        borders: {
+                            allborders: {
+                                style: 'thin',
+                                color: {
+                                    rgb: '8FABD9'
+                                }
+                            }
+                        },
+                        alignment: {
+                            horizontal: 'center',
+                            vertical: 'center'
+                        },
+                        font: {
+                            size: '14',
+                            bold: true
+                        },
+                        fill: {
+                            type: 'solid',
+                            color: {
+                                rgb: 'D9E2F2'
+                            }
+                        }
+                    }
+                } %}Nº{% endxlscell %}
+                {% xlscell 4 {
+                    style: {
+                        borders: {
+                            allborders: {
+                                style: 'thin',
+                                color: {
+                                    rgb: '8FABD9'
+                                }
+                            }
+                        },
+                        alignment: {
+                            horizontal: 'center',
+                            vertical: 'center'
+                        },
+                        font: {
+                            size: '14',
+                            bold: true
+                        },
+                        fill: {
+                            type: 'solid',
+                            color: {
+                                rgb: 'D9E2F2'
+                            }
+                        }
+                    }
+                } %}Cód.{% endxlscell %}
+                {% xlscell 5 {
+                    style: {
+                        borders: {
+                            allborders: {
+                                style: 'thin',
+                                    color: {
+                                        rgb: '8FABD9'
+                                    }
+                            }
+                        },
+                        alignment: {
+                            horizontal: 'center',
+                            vertical: 'center'
+                        },
+                        font: {
+                            size: '14',
+                            bold: true
+                        },
+                        fill: {
+                            type: 'solid',
+                            color: {
+                                rgb: 'D9E2F2'
+                            }
+                        }
+                    }
+                } %}Pos.{% endxlscell %}
+                {% xlscell 6 {
+                    style: {
+                        borders: {
+                            allborders: {
+                                style: 'thin',
+                                color: {
+                                    rgb: '8FABD9'
+                                }
+                            }
+                        },
+                        alignment: {
+                            horizontal: 'center',
+                            vertical: 'center'
+                        },
+                        font: {
+                            size: '14',
+                            bold: true
+                        },
+                        fill: {
+                            type: 'solid',
+                            color: {
+                                rgb: 'D9E2F2'
+                            }
+                        }
+                    }
+                } %}Radio{% endxlscell %}
+                {% xlscell 7 {
+                    style: {
+                        borders: {
+                            allborders: {
+                                style: 'thin',
+                                color: {
+                                    rgb: '8FABD9'
+                                }
+                            }
+                        },
+                        alignment: {
+                            horizontal: 'center',
+                            vertical: 'center'
+                        },
+                        font: {
+                            size: '14',
+                            bold: true
+                        },
+                        fill: {
+                            type: 'solid',
+                            color: {
+                                rgb: 'D9E2F2'
+                            }
+                        }
+                    }
+                } %}Dist.{% endxlscell %}
+                {% xlscell 8 {
+                    style: {
+                        borders: {
+                            allborders: {
+                                style: 'thin',
+                                color: {
+                                    rgb: '8FABD9'
+                                }
+                            }
+                        }
+                    }
+                } %}{% endxlscell %}
+                {% xlscell 9 {
+                    style: {
+                        borders: {
+                            allborders: {
+                                style: 'thin',
+                                color: {
+                                    rgb: '8FABD9'
+                                }
+                            }
+                        }
+                    }
+                } %}{% endxlscell %}
+                {% xlscell 10 {
+                    style: {
+                        borders: {
+                            allborders: {
+                                style: 'thin',
+                                color: {
+                                    rgb: '8FABD9'
+                                }
+                            }
+                        }
+                    }
+                } %}{% endxlscell %}
+            {% endxlsrow %}
+        {#{% endxlsheader %}#}
+        {% for audit in audits %}
+            {% for auditWindmillBlade in audit.auditWindmillBlades %}
+                {% for bladeDamage in auditWindmillBlade.bladeDamages %}
+                    {% xlsrow %}
+                        {% xlscell 0 %}{{ audit.id }}{% endxlscell %}
+                        {#{% if loop.parent.loop.index == 1 %}#}
+                            {% xlscell 1 %}{{ audit.windmill.id }}{% endxlscell %}
+                        {#{% endif %}#}
+                        {#{% if loop.index == 1 %}#}
+                            {% xlscell 2 %}{{ auditWindmillBlade.windmillBlade.order }}{% endxlscell %}
+                        {#{% endif %}#}
+                        {% xlscell 3 %}{{ loop.index }}{% endxlscell %}
+                        {% xlscell 4 %}{{ bladeDamage.damage.code }}{% endxlscell %}
+                        {% xlscell 5 %}{{ bladeDamage.positionString }}{% endxlscell %}
+                        {% xlscell 6 %}{{ bladeDamage.radius }} m{% endxlscell %}
+                        {% xlscell 7 %}{{ bladeDamage.distanceString }}{% endxlscell %}
+                        {% xlscell 8 %}{{ bladeDamage.size }} cm{% endxlscell %}
+                        {% xlscell 9 %}{{ bladeDamage.damage.description }}{% endxlscell %}
+                        {% xlscell 10 {
+                            style: {
+                                fill: {
+                                    type: 'solid',
+                                    color: {
+                                        rgb: bladeDamage.damageCategory.colourWithoutPad
+                                    }
+                                }
+                            }
+                        } %}{{ bladeDamage.damageCategory.category }}{% endxlscell %}
+                    {% endxlsrow %}
+                {% endfor %}
+            {% endfor %}
+        {% endfor %}
+    {% endxlssheet %}
+{% endxlsdocument %}
