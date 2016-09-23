@@ -2,6 +2,8 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Audit;
+use AppBundle\Entity\AuditWindmillBlade;
 use AppBundle\Entity\Windfarm;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -96,6 +98,18 @@ class WindfarmAdminController extends AbstractBaseAdminController
         }
 
         $audits = $this->getDoctrine()->getRepository('AppBundle:Audit')->getInvoicedOrDoneAuditsByWindfarmSortedByBeginDate($object);
+
+        /** @var Audit $audit */
+        foreach ($audits as $audit) {
+            $auditWindmillBlades = $audit->getAuditWindmillBlades();
+            /** @var AuditWindmillBlade $auditWindmillBlade */
+            foreach ($auditWindmillBlades as $auditWindmillBlade) {
+                $bladeDamages = $this->getDoctrine()->getRepository('AppBundle:BladeDamage')->getItemsOfAuditWindmillBladeSortedByRadius($auditWindmillBlade);
+                if (count($bladeDamages) > 0) {
+                    $auditWindmillBlade->setBladeDamages($bladeDamages);
+                }
+            }
+        }
 
         return $this->render(
             ':Admin/Windfarm:excel.xls.twig',

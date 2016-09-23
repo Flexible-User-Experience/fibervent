@@ -84,7 +84,7 @@
                         }
                     },
                     merge: 'A3'
-                } %}ID{% endxlscell %}
+                } %}AUDIT{% endxlscell %}
                 {% xlscell 1 {
                     style: {
                         borders: {
@@ -526,15 +526,15 @@
                 {% for bladeDamage in auditWindmillBlade.bladeDamages %}
                     {% xlsrow %}
                         {% xlscell 0 %}{{ audit.id }}{% endxlscell %}
-                        {% if loop.parent.loop.index == 1 %}
+                        {#{% if loop.parent.loop.index == 1 %}#}
                             {% xlscell 1 %}{{ audit.windmill.id }}{% endxlscell %}
-                        {% endif %}
-                        {% if loop.index == 1 %}
+                        {#{% endif %}#}
+                        {#{% if loop.index == 1 %}#}
                             {% xlscell 2 %}{{ auditWindmillBlade.windmillBlade.order }}{% endxlscell %}
-                        {% endif %}
+                        {#{% endif %}#}
                         {% xlscell 3 %}{{ loop.index }}{% endxlscell %}
                         {% xlscell 4 %}{{ bladeDamage.damage.code }}{% endxlscell %}
-                        {% xlscell 5 %}{{ bladeDamage.position }}{% endxlscell %}
+                        {% xlscell 5 %}{{ bladeDamage.positionString }}{% endxlscell %}
                         {% xlscell 6 %}{{ bladeDamage.radius }} m{% endxlscell %}
                         {% xlscell 7 %}{{ bladeDamage.distanceString }}{% endxlscell %}
                         {% xlscell 8 %}{{ bladeDamage.size }} cm{% endxlscell %}

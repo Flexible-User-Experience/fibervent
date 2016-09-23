@@ -129,7 +129,7 @@ class AuditWindmillBlade extends AbstractBase
      *
      * @return AuditWindmillBlade
      */
-    public function setBladeDamages(ArrayCollection $bladeDamages)
+    public function setBladeDamages($bladeDamages)
     {
         $this->bladeDamages = $bladeDamages;
 
