@@ -311,7 +311,7 @@ class Audit extends AbstractBase
      *
      * @return $this
      */
-    public function setAuditWindmillBlades(ArrayCollection $auditWindmillBlades)
+    public function setAuditWindmillBlades($auditWindmillBlades)
     {
         $this->auditWindmillBlades = $auditWindmillBlades;
 
@@ -356,7 +356,7 @@ class Audit extends AbstractBase
      *
      * @return Audit
      */
-    public function setOperators(ArrayCollection $operators)
+    public function setOperators($operators)
     {
         $this->operators = $operators;
 

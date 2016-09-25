@@ -525,22 +525,181 @@
             {% for auditWindmillBlade in audit.auditWindmillBlades %}
                 {% for bladeDamage in auditWindmillBlade.bladeDamages %}
                     {% xlsrow %}
-                        {% xlscell 0 %}{{ audit.id }}{% endxlscell %}
+                        {% xlscell 0 {
+                            style: {
+                                borders: {
+                                    allborders: {
+                                        style: 'thin',
+                                        color: {
+                                            rgb: '8FABD9'
+                                        }
+                                    }
+                                },
+                                alignment: {
+                                    horizontal: 'center',
+                                    vertical: 'center'
+                                }
+                            },
+                        }%}
+                    {{ audit.id }}{% endxlscell %}
                         {#{% if loop.parent.loop.index == 1 %}#}
-                            {% xlscell 1 %}{{ audit.windmill.id }}{% endxlscell %}
+                            {% xlscell 1 {
+                                style: {
+                                    borders: {
+                                        allborders: {
+                                            style: 'thin',
+                                            color: {
+                                                rgb: '8FABD9'
+                                            }
+                                        }
+                                    },
+                                    alignment: {
+                                        horizontal: 'center',
+                                        vertical: 'center'
+                                    }
+                                },
+                            }%}{{ audit.windmill.id }}{% endxlscell %}
                         {#{% endif %}#}
                         {#{% if loop.index == 1 %}#}
-                            {% xlscell 2 %}{{ auditWindmillBlade.windmillBlade.order }}{% endxlscell %}
+                            {% xlscell 2 {
+                                style: {
+                                    borders: {
+                                        allborders: {
+                                            style: 'thin',
+                                            color: {
+                                                rgb: '8FABD9'
+                                            }
+                                        }
+                                    },
+                                    alignment: {
+                                        horizontal: 'center',
+                                        vertical: 'center'
+                                    }
+                                },
+                            }%}{{ auditWindmillBlade.windmillBlade.order }}{% endxlscell %}
                         {#{% endif %}#}
-                        {% xlscell 3 %}{{ loop.index }}{% endxlscell %}
-                        {% xlscell 4 %}{{ bladeDamage.damage.code }}{% endxlscell %}
-                        {% xlscell 5 %}{{ bladeDamage.positionString }}{% endxlscell %}
-                        {% xlscell 6 %}{{ bladeDamage.radius }} m{% endxlscell %}
-                        {% xlscell 7 %}{{ bladeDamage.distanceString }}{% endxlscell %}
-                        {% xlscell 8 %}{{ bladeDamage.size }} cm{% endxlscell %}
-                        {% xlscell 9 %}{{ bladeDamage.damage.description }}{% endxlscell %}
+                        {% xlscell 3 {
+                            style: {
+                                borders: {
+                                    allborders: {
+                                        style: 'thin',
+                                        color: {
+                                            rgb: '8FABD9'
+                                        }
+                                    }
+                                },
+                                alignment: {
+                                    horizontal: 'center',
+                                    vertical: 'center'
+                                }
+                            },
+                        }%}{{ loop.index }}{% endxlscell %}
+                        {% xlscell 4 {
+                            style: {
+                            borders: {
+                                allborders: {
+                                    style: 'thin',
+                                    color: {
+                                        rgb: '8FABD9'
+                                    }
+                                }
+                            },
+                                alignment: {
+                                    horizontal: 'center',
+                                    vertical: 'center'
+                                }
+                            },
+                        }%}{{ bladeDamage.damage.code }}{% endxlscell %}
+                        {% xlscell 5 {
+                            style: {
+                            borders: {
+                                allborders: {
+                                    style: 'thin',
+                                    color: {
+                                        rgb: '8FABD9'
+                                    }
+                                }
+                            },
+                                alignment: {
+                                    horizontal: 'center',
+                                    vertical: 'center'
+                                }
+                            },
+                        }%}{{ bladeDamage.positionString }}{% endxlscell %}
+                        {% xlscell 6 {
+                            style: {
+                                borders: {
+                                    allborders: {
+                                        style: 'thin',
+                                        color: {
+                                            rgb: '8FABD9'
+                                        }
+                                    }
+                                },
+                                alignment: {
+                                    horizontal: 'center',
+                                    vertical: 'center'
+                                }
+                            },
+                        }%}{{ bladeDamage.radius }} m{% endxlscell %}
+                        {% xlscell 7 {
+                            style: {
+                                borders: {
+                                    allborders: {
+                                        style: 'thin',
+                                        color: {
+                                            rgb: '8FABD9'
+                                        }
+                                    }
+                                },
+                                alignment: {
+                                    horizontal: 'center',
+                                    vertical: 'center'
+                                }
+                            },
+                        }%}{{ bladeDamage.distanceString }}{% endxlscell %}
+                        {% xlscell 8 {
+                            style: {
+                                borders: {
+                                    allborders: {
+                                        style: 'thin',
+                                        color: {
+                                            rgb: '8FABD9'
+                                        }
+                                    }
+                                },
+                                alignment: {
+                                    horizontal: 'center',
+                                    vertical: 'center'
+                                }
+                            },
+                        }%}{{ bladeDamage.size }} cm{% endxlscell %}
+                        {% xlscell 9 {
+                            style: {
+                                borders: {
+                                    allborders: {
+                                        style: 'thin',
+                                        color: {
+                                            rgb: '8FABD9'
+                                        }
+                                    }
+                                }
+                            }
+                        }%}{{ bladeDamage.damage.description }}{% endxlscell %}
                         {% xlscell 10 {
                             style: {
+                                borders: {
+                                    allborders: {
+                                        style: 'thin',
+                                        color: {
+                                            rgb: '8FABD9'
+                                        }
+                                    }
+                                },
+                                alignment: {
+                                    horizontal: 'center',
+                                    vertical: 'center'
+                                },
                                 fill: {
                                     type: 'solid',
                                     color: {

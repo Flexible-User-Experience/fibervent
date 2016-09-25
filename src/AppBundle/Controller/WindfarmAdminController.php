@@ -122,7 +122,7 @@ class WindfarmAdminController extends AbstractBaseAdminController
 
         return new Response($template, 200, array(
             'Content-type' => 'application/vnd.ms-excel',
-            'Content-Disposition' => 'attachment; filename="' . $object->getSlug() . '.xls"'
+            'Content-Disposition' => 'attachment; filename="' . date('YmdHi') . '_' . $object->getSlug() . '.xls"'
             )
         );
     }
