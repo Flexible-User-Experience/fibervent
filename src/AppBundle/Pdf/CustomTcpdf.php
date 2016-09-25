@@ -91,7 +91,7 @@ class CustomTcpdf extends \TCPDF
     /**
      * Page header
      */
-    public function Header()
+    public function header()
     {
         // logo
         $this->Image($this->tha->getUrl('/bundles/app/images/fibervent_logo_white_landscape_lowres.jpg'), self::PDF_MARGIN_LEFT, 7);
@@ -104,7 +104,7 @@ class CustomTcpdf extends \TCPDF
     /**
      * Page footer
      */
-    public function Footer()
+    public function footer()
     {
         $this->SetXY(self::PDF_MARGIN_LEFT, 280);
         $this->setFontStyle(null, 'I', 8);
