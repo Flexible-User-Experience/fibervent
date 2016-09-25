@@ -191,7 +191,7 @@ class Customer extends AbstractBase
      *
      * @return Customer
      */
-    public function setWindfarms(ArrayCollection $windfarms)
+    public function setWindfarms($windfarms)
     {
         $this->windfarms = $windfarms;
 
@@ -237,7 +237,7 @@ class Customer extends AbstractBase
      *
      * @return Customer
      */
-    public function setContacts(ArrayCollection $contacts)
+    public function setContacts($contacts)
     {
         $this->contacts = $contacts;
         

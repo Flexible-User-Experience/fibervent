@@ -174,7 +174,7 @@ class AuditWindmillBlade extends AbstractBase
      *
      * @return AuditWindmillBlade
      */
-    public function setObservations(ArrayCollection $observations)
+    public function setObservations($observations)
     {
         $this->observations = $observations;
 
@@ -219,7 +219,7 @@ class AuditWindmillBlade extends AbstractBase
      *
      * @return AuditWindmillBlade
      */
-    public function setBladePhotos(ArrayCollection $bladePhotos)
+    public function setBladePhotos($bladePhotos)
     {
         $this->bladePhotos = $bladePhotos;
 
