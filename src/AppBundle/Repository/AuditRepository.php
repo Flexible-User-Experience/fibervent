@@ -54,7 +54,7 @@ class AuditRepository extends EntityRepository
             ->setParameter('windfarm', $windfarm)
             ->setParameter('done', AuditStatusEnum::DONE)
             ->setParameter('invoiced', AuditStatusEnum::INVOICED)
-            ->orderBy('a.beginDate', 'ASC')
+            ->orderBy('a.beginDate', 'DESC')
             ->getQuery();
 
         return $query->getResult();

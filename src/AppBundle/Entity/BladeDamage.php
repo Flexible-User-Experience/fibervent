@@ -388,7 +388,7 @@ class BladeDamage extends AbstractBase
      *
      * @return BladeDamage
      */
-    public function setPhotos(ArrayCollection $photos)
+    public function setPhotos($photos)
     {
         $this->photos = $photos;
 

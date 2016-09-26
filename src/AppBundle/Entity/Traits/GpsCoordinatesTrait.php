@@ -4,6 +4,7 @@ namespace AppBundle\Entity\Traits;
 
 use Symfony\Component\Validator\Constraints as Assert;
 use Oh\GoogleMapFormTypeBundle\Validator\Constraints as OhAssert;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * GpsCoordinates trait

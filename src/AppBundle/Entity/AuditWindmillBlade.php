@@ -2,7 +2,6 @@
 
 namespace AppBundle\Entity;
 
-use AppBundle\Entity\Traits\ObservationsTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -174,7 +173,7 @@ class AuditWindmillBlade extends AbstractBase
      *
      * @return AuditWindmillBlade
      */
-    public function setObservations(ArrayCollection $observations)
+    public function setObservations($observations)
     {
         $this->observations = $observations;
 
@@ -219,7 +218,7 @@ class AuditWindmillBlade extends AbstractBase
      *
      * @return AuditWindmillBlade
      */
-    public function setBladePhotos(ArrayCollection $bladePhotos)
+    public function setBladePhotos($bladePhotos)
     {
         $this->bladePhotos = $bladePhotos;
 

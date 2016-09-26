@@ -120,9 +120,11 @@ class WindfarmAdminController extends AbstractBaseAdminController
             )
         );
 
+        $currentDate = new \DateTime();
+
         return new Response($template, 200, array(
             'Content-type' => 'application/vnd.ms-excel',
-            'Content-Disposition' => 'attachment; filename="' . $object->getSlug() . '.xls"'
+            'Content-Disposition' => 'attachment; filename="' . $currentDate->format('Y-m-d') . '_' . $object->getSlug() . '.xls"'
             )
         );
     }

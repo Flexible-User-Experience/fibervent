@@ -190,7 +190,7 @@ class Windfarm extends AbstractBase
      *
      * @return Windfarm
      */
-    public function setWindmills(ArrayCollection $windmills)
+    public function setWindmills($windmills)
     {
         $this->windmills = $windmills;
 
