@@ -58,33 +58,6 @@
                 } %}RESUMEN DAÑOS AEROGENERADORES DEL PARQUE {{ windfarm.name }}{% endxlscell %}
             {% endxlsrow %}
             {% xlsrow 2 %}
-                {% xlscell 0 {
-                    style: {
-                        borders: {
-                            allborders: {
-                                style: 'thin',
-                                color: {
-                                    rgb: '8FABD9'
-                                }
-                            }
-                        },
-                        alignment: {
-                            horizontal: 'center',
-                            vertical: 'center'
-                        },
-                        font: {
-                            size: '14',
-                            bold: true
-                            },
-                        fill: {
-                            type: 'solid',
-                            color: {
-                                rgb: 'D9E2F2'
-                            }
-                        }
-                    },
-                    merge: 'A3'
-                } %}AUDIT{% endxlscell %}
                 {% xlscell 1 {
                     style: {
                         borders: {
@@ -314,19 +287,6 @@
                 } %}CAT{% endxlscell %}
             {% endxlsrow %}
             {% xlsrow 3 %}
-                {% xlscell 0 {
-                    style: {
-                        borders: {
-                            allborders: {
-                                style: 'thin',
-                                color: {
-                                    rgb: '8FABD9'
-                                }
-                            }
-                        }
-                    }
-                } %}
-                {% endxlscell %}
                 {% xlscell 1 {
                     style: {
                         borders: {
@@ -525,23 +485,6 @@
             {% for auditWindmillBlade in audit.auditWindmillBlades %}
                 {% for bladeDamage in auditWindmillBlade.bladeDamages %}
                     {% xlsrow %}
-                        {% xlscell 0 {
-                            style: {
-                                borders: {
-                                    allborders: {
-                                        style: 'thin',
-                                        color: {
-                                            rgb: '8FABD9'
-                                        }
-                                    }
-                                },
-                                alignment: {
-                                    horizontal: 'center',
-                                    vertical: 'center'
-                                }
-                            },
-                        }%}
-                    {{ audit.id }}{% endxlscell %}
                         {#{% if loop.parent.loop.index == 1 %}#}
                             {% xlscell 1 {
                                 style: {
@@ -558,7 +501,7 @@
                                         vertical: 'center'
                                     }
                                 },
-                            }%}{{ audit.windmill.id }}{% endxlscell %}
+                            }%}{{ audit.windmill.code }}{% endxlscell %}
                         {#{% endif %}#}
                         {#{% if loop.index == 1 %}#}
                             {% xlscell 2 {
@@ -609,6 +552,7 @@
                                     vertical: 'center'
                                 }
                             },
+                            dataType: 's'
                         }%}{{ bladeDamage.damage.code }}{% endxlscell %}
                         {% xlscell 5 {
                             style: {
