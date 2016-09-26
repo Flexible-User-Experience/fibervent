@@ -1,6 +1,9 @@
 {% xlsdocument %}
     {% xlssheet 'hoja1' {
         columnDimension: {
+            'A': {
+                autoSize: true,
+            },
             'I': {
                 autoSize: true,
             }
@@ -55,7 +58,7 @@
                             }
                         },
                         'merge': 9
-                } %}RESUMEN DAÑOS AEROGENERADORES DEL PARQUE {{ windfarm.name }}{% endxlscell %}
+                } %}RESUMEN DAÑOS AEROGENERADORES DEL PARQUE EÓLICO {{ windfarm.name }}{% endxlscell %}
             {% endxlsrow %}
             {% xlsrow 2 %}
                 {% xlscell 0 {
@@ -257,7 +260,7 @@
                         }
                     },
                     merge: 'I3'
-                } %}DESCRIPCION{% endxlscell %}
+                } %}DESCRIPCIÓN{% endxlscell %}
                 {% xlscell 9 {
                     style: {
                         borders: {
