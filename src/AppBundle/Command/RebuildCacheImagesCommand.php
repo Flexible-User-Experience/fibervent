@@ -7,7 +7,7 @@ use AppBundle\Entity\Photo;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class RecordSetPictureCommand extends AbstractBaseCommand
+class RebuildCacheImagesCommand extends AbstractBaseCommand
 {
     /**
      * @var int
@@ -37,16 +37,27 @@ class RecordSetPictureCommand extends AbstractBaseCommand
      *
      */
 
+    /**
+     * Configure command
+     */
     protected function configure()
     {
         $this
-            ->setName('app:recordset:picture')
-            ->setDescription('Picture RecordSet from Photo and BladePhoto entities');
+            ->setName('app:rebuild:cache:images')
+            ->setDescription('Rebuild cache images command');
     }
 
+    /**
+     * Execute command
+     *
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     *
+     * @return int|null|void
+     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $output->writeln('<info>Welcome to RecordSet Picture command</info>');
+        $output->writeln('<info>Welcome to Rebuild cache images command</info>');
 
         // Validate arguments
         $this->em             = $this->getContainer()->get('doctrine');
@@ -55,7 +66,7 @@ class RecordSetPictureCommand extends AbstractBaseCommand
         $this->dataManager    = $this->getContainer()->get('liip_imagine.data.manager');
         $this->uploaderHelper = $this->getContainer()->get('vich_uploader.templating.helper.uploader_helper');
 
-        $output->writeln('RecordSetting pictures, please wait...');
+        $output->writeln('Loading pictures, please wait...');
 
         $photos = $this->em->getRepository('AppBundle:Photo')->findAll();
         $this->buildImagesCacheCollection($photos, $output, 'Photo');
@@ -66,8 +77,10 @@ class RecordSetPictureCommand extends AbstractBaseCommand
         $output->writeln('Total records ' . ($this->photosFound + $this->photosNotFound + $this->blPhotosFound + $this->blPhotosNotFound));
         $output->writeln('Created Photos '. $this->photosFound);
         $output->writeln('Errors Photos '. $this->photosNotFound);
-        $output->writeln('Created BlPhotos '. $this->blPhotosFound);
-        $output->writeln('Errors BlPhotos '. $this->blPhotosNotFound);
+        $output->writeln('Created BladePhotos '. $this->blPhotosFound);
+        $output->writeln('Errors BladePhotos '. $this->blPhotosNotFound);
+
+        return true;
     }
 
     /**
