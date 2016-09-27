@@ -23,7 +23,6 @@
             horizontalCentered: false,
             orientation: 'portrait',
             paperSize: 9,
-            printArea: 'A1:J50',
             scale: 100,
             verticalCentered: false
         },
@@ -54,10 +53,10 @@
                         vertical: 'center'
                     },
                     font: {
-                        size: '18'
+                        size: 18
                         }
                     },
-                    'merge': 9
+                    merge: 9
             } %}RESUMEN DAÑOS AEROGENERADORES DEL PARQUE EÓLICO {{ windfarm.name }}{% endxlscell %}
         {% endxlsrow %}
         {% xlsrow 2 %}
@@ -150,6 +149,12 @@
                             color: {
                                 rgb: '8FABD9'
                             }
+                        }
+                    },
+                    fill: {
+                        type: 'solid',
+                        color: {
+                            rgb: 'D9E2F2'
                         }
                     }
                 }
