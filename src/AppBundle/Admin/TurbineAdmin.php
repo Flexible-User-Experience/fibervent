@@ -133,26 +133,26 @@ class TurbineAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'towerHeight',
-                null,
-                array(
-                    'label'    => 'Alçada',
-                    'editable' => true,
-                )
-            )
-            ->add(
                 'rotorDiameter',
-                null,
+                'decimal',
                 array(
-                    'label'    => 'Diàmetre',
+                    'label'    => 'Diàmetre (m)',
                     'editable' => true,
                 )
             )
             ->add(
                 'power',
+                'decimal',
+                array(
+                    'label'    => 'Potència (MW)',
+                    'editable' => true,
+                )
+            )
+            ->add(
+                'towerHeight',
                 null,
                 array(
-                    'label'    => 'Potència',
+                    'label'    => 'Alçada (m)',
                     'editable' => true,
                 )
             )
