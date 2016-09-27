@@ -535,42 +535,38 @@
             {% for auditWindmillBlade in audit.auditWindmillBlades %}
                 {% for bladeDamage in auditWindmillBlade.bladeDamages %}
                     {% xlsrow %}
-                        {#{% if loop.parent.loop.index == 1 %}#}
-                            {% xlscell 0 {
-                                style: {
-                                    borders: {
-                                        allborders: {
-                                            style: 'thin',
-                                            color: {
-                                                rgb: '8FABD9'
-                                            }
+                        {% xlscell 0 {
+                            style: {
+                                borders: {
+                                    allborders: {
+                                        style: 'thin',
+                                        color: {
+                                            rgb: '8FABD9'
                                         }
-                                    },
-                                    alignment: {
-                                        horizontal: 'center',
-                                        vertical: 'center'
                                     }
                                 },
-                            }%}{{ audit.windmill.code }}{% endxlscell %}
-                        {#{% endif %}#}
-                        {#{% if loop.index == 1 %}#}
-                            {% xlscell 1 {
-                                style: {
-                                    borders: {
-                                        allborders: {
-                                            style: 'thin',
-                                            color: {
-                                                rgb: '8FABD9'
-                                            }
+                                alignment: {
+                                    horizontal: 'center',
+                                    vertical: 'center'
+                                }
+                            },
+                        }%}{{ audit.windmill.code }}{% endxlscell %}
+                        {% xlscell 1 {
+                            style: {
+                                borders: {
+                                    allborders: {
+                                        style: 'thin',
+                                        color: {
+                                            rgb: '8FABD9'
                                         }
-                                    },
-                                    alignment: {
-                                        horizontal: 'center',
-                                        vertical: 'center'
                                     }
                                 },
-                            }%}{{ auditWindmillBlade.windmillBlade.order }}{% endxlscell %}
-                        {#{% endif %}#}
+                                alignment: {
+                                    horizontal: 'center',
+                                    vertical: 'center'
+                                }
+                            },
+                        }%}{{ auditWindmillBlade.windmillBlade.order }}{% endxlscell %}
                         {% xlscell 2 {
                             style: {
                                 borders: {
