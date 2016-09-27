@@ -27,7 +27,7 @@ services:
         class: AppBundle\Admin\TurbineAdmin
         arguments: [ ~, AppBundle\Entity\Turbine, AppBundle:TurbineAdmin, "@app.repositories_service", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: "Turbina", group: "Parc_Eolic", show_in_dashboard: false }
+            - { name: sonata.admin, manager_type: orm, label: "Turbina", group: "Parc_Eolic" }
     admin.blade:
         class: AppBundle\Admin\BladeAdmin
         arguments: [ ~, AppBundle\Entity\Blade, AppBundle:BladeAdmin, "@app.repositories_service", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
