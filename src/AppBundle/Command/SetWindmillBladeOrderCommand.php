@@ -9,6 +9,9 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class SetWindmillBladeOrderCommand extends AbstractBaseCommand
 {
+    /**
+     * Configure command
+     */
     protected function configure()
     {
         $this
@@ -28,6 +31,14 @@ class SetWindmillBladeOrderCommand extends AbstractBaseCommand
             );
     }
 
+    /**
+     * Execute command
+     *
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     *
+     * @return int|null|void
+     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $output->writeln('<info>Welcome to set windmill blade sort order command</info>');
@@ -63,5 +74,7 @@ class SetWindmillBladeOrderCommand extends AbstractBaseCommand
         $output->writeln('<comment>--------------------------------------</comment>');
         $output->writeln('<info>' . $itemsFound . ' items managed in ' . $dtStart->diff($dtEnd)->format('%H:%I:%S') . ' seconds</info>');
         $output->writeln('<comment>END OF FILE.</comment>');
+
+        return true;
     }
 }
