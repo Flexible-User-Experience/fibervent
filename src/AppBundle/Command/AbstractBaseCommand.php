@@ -41,6 +41,13 @@ abstract class AbstractBaseCommand extends ContainerAwareCommand
      */
     protected $filterManager;
 
+    /**
+     *
+     *
+     * Methods
+     *
+     *
+     */
 
     /**
      * Load column data from searched array if exists, else throws an exception.
@@ -59,18 +66,6 @@ abstract class AbstractBaseCommand extends ContainerAwareCommand
         }
 
         return $searchArray[$colIndex];
-    }
-
-    /**
-     * Read line from CSV file.
-     *
-     * @param resource $fr a valid file pointer to a file successfully opened
-     *
-     * @return array
-     */
-    protected function readCSVLine($fr)
-    {
-        return fgetcsv($fr, 0, $this->delimiter);
     }
 
     /**
@@ -100,12 +95,8 @@ abstract class AbstractBaseCommand extends ContainerAwareCommand
     protected function persistObject($object)
     {
         if ($this->forceOptionIsEnabled) {
-//            try {
                 $this->em->persist($object);
                 $this->em->flush();
-//            } catch (\Exception $e) {
-//                $this->exceptionsCatchedAmount++;
-//            }
         }
     }
 }

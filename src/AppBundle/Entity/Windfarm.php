@@ -13,6 +13,7 @@ use AppBundle\Entity\Traits\StateTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Cocur\Slugify\Slugify;
 
 /**
  * Windfarm
@@ -189,7 +190,7 @@ class Windfarm extends AbstractBase
      *
      * @return Windfarm
      */
-    public function setWindmills(ArrayCollection $windmills)
+    public function setWindmills($windmills)
     {
         $this->windmills = $windmills;
 
@@ -219,6 +220,16 @@ class Windfarm extends AbstractBase
         $this->windmills->removeElement($windmill);
 
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSlug()
+    {
+        $slugify = new Slugify();
+
+        return $slugify->slugify($this->name);
     }
 
     /**

@@ -111,11 +111,11 @@ class Turbine extends AbstractBase
     }
 
     /**
-     * @param ArrayCollection $windmills
+     * @param ArrayCollection|array $windmills
      *
      * @return Turbine
      */
-    public function setWindmills(ArrayCollection $windmills)
+    public function setWindmills($windmills)
     {
         $this->windmills = $windmills;
 
@@ -125,8 +125,16 @@ class Turbine extends AbstractBase
     /**
      * @return string
      */
-    public function __toString()
+    public function pdfToString()
     {
         return $this->getModel() ? $this->getModel() . ' (' . $this->getPower() . 'MW)' : '---';
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getModel() ? $this->getModel() . ' (' . $this->getPower() . 'MW) ' . $this->getTowerHeight() . 'm' : '---';
     }
 }

@@ -495,7 +495,7 @@ class AuditPdfBuilderService
         $pdf->Cell(70, 6, $this->ts->trans('pdf.cover.5_turbine_model'), 'TB', 0, 'R', true);
         $pdf->setFontStyle(null, '', 10);
         $pdf->setWhiteBackground();
-        $pdf->Cell(0, 6, $windmill->getTurbine(), 'TB', 1, 'L', true);
+        $pdf->Cell(0, 6, $windmill->getTurbine()->pdfToString(), 'TB', 1, 'L', true);
         $pdf->setFontStyle(null, 'B', 10);
         $pdf->setBlueBackground();
         $pdf->Cell(70, 6, $this->ts->trans('pdf.cover.6_turbine_size'), 'TB', 0, 'R', true);

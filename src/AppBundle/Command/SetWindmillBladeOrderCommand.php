@@ -9,6 +9,9 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class SetWindmillBladeOrderCommand extends AbstractBaseCommand
 {
+    /**
+     * Configure command
+     */
     protected function configure()
     {
         $this
@@ -28,11 +31,19 @@ class SetWindmillBladeOrderCommand extends AbstractBaseCommand
             );
     }
 
+    /**
+     * Execute command
+     *
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     *
+     * @return int|null|void
+     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $output->writeln('<info>Welcome to set windmill blade sort order command</info>');
 
-        if ($input->getOption('force') == true) {
+        if ($input->getOption('force') === true) {
             $output->writeln(
                 '<comment>--force option enabled (this option persists changes in database)</comment>'
             );
@@ -49,13 +60,13 @@ class SetWindmillBladeOrderCommand extends AbstractBaseCommand
             $lastChar = substr($windmillBlade->getCode(), -1);
             $windmillBlade->setOrder(intval($lastChar));
             $output->writeln('ID: ' . $windmillBlade->getId() . ' | code: ' . $windmillBlade->getCode() . ' | order: ' . $windmillBlade->getOrder());
-            if ($input->getOption('remove-code') == true) {
+            if ($input->getOption('remove-code') === true) {
                 $windmillBlade->setCode('');
             }
             $itemsFound = $itemsFound + 1;
         }
 
-        if ($input->getOption('force') == true) {
+        if ($input->getOption('force') === true) {
             $this->em->flush();
         }
         $dtEnd = new \DateTime();
@@ -63,5 +74,7 @@ class SetWindmillBladeOrderCommand extends AbstractBaseCommand
         $output->writeln('<comment>--------------------------------------</comment>');
         $output->writeln('<info>' . $itemsFound . ' items managed in ' . $dtStart->diff($dtEnd)->format('%H:%I:%S') . ' seconds</info>');
         $output->writeln('<comment>END OF FILE.</comment>');
+
+        return true;
     }
 }

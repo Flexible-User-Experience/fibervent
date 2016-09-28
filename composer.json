@@ -29,6 +29,7 @@
         "it-blaster/color-picker-type-bundle": "^1.0",
         "liip/functional-test-bundle": "^1.0",
         "liip/imagine-bundle": "^1.0",
+        "mewesk/twig-excel-bundle": "2.x-dev",
         "ocramius/proxy-manager": "1.0.2",
         "oh/google-map-form-type-bundle": "dev-master",
         "php": ">=5.3.9",
