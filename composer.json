@@ -50,6 +50,12 @@
     "require-dev": {
         "sensio/generator-bundle": "~3.0"
     },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url":  "git@github.com:aserratorta/TwigExcelBundle.git"
+        }
+    ],
     "scripts": {
         "post-install-cmd": [
             "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
