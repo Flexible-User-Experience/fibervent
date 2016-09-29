@@ -2,7 +2,6 @@
 
 namespace AppBundle\Entity;
 
-use AppBundle\Entity\Traits\ModelTrait;
 use AppBundle\Entity\Traits\PowerTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -16,14 +15,20 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @package  AppBundle\Entity
  * @author   Anton Serra <aserratorta@gmail.com>
  *
- * @ORM\Table()
+ * @ORM\Table(uniqueConstraints={@ORM\UniqueConstraint(name="model_unique", columns={"model", "power", "tower_height"})})
  * @ORM\Entity(repositoryClass="AppBundle\Repository\TurbineRepository")
  * @Gedmo\SoftDeleteable(fieldName="removedAt", timeAware=false)
  */
 class Turbine extends AbstractBase
 {
-    use ModelTrait;
     use PowerTrait;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", length=255)
+     */
+    private $model;
 
     /**
      * @var integer
@@ -60,6 +65,26 @@ class Turbine extends AbstractBase
     public function __construct()
     {
         $this->windmills = new ArrayCollection();
+    }
+
+    /**
+     * @return string
+     */
+    public function getModel()
+    {
+        return $this->model;
+    }
+
+    /**
+     * @param string $model
+     *
+     * @return Turbine
+     */
+    public function setModel($model)
+    {
+        $this->model = $model;
+
+        return $this;
     }
 
     /**
