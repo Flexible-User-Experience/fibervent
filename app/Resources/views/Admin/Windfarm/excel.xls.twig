@@ -585,31 +585,32 @@
                         }%}{{ loop.index }}{% endxlscell %}
                         {% xlscell 3 {
                             style: {
-                            borders: {
-                                allborders: {
-                                    style: 'thin',
-                                    color: {
-                                        rgb: '8FABD9'
+                                borders: {
+                                    allborders: {
+                                        style: 'thin',
+                                        color: {
+                                            rgb: '8FABD9'
+                                        }
                                     }
-                                }
-                            },
+                                },
                                 alignment: {
                                     horizontal: 'center',
                                     vertical: 'center'
                                 }
                             },
-                            dataType: 's'
+                            dataType: 's',
+                            isExplicitValue: true
                         }%}{{ bladeDamage.damage.code }}{% endxlscell %}
                         {% xlscell 4 {
                             style: {
-                            borders: {
-                                allborders: {
-                                    style: 'thin',
-                                    color: {
-                                        rgb: '8FABD9'
+                                borders: {
+                                    allborders: {
+                                        style: 'thin',
+                                        color: {
+                                            rgb: '8FABD9'
+                                        }
                                     }
-                                }
-                            },
+                                },
                                 alignment: {
                                     horizontal: 'center',
                                     vertical: 'center'
