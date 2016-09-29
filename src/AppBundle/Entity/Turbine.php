@@ -6,6 +6,7 @@ use AppBundle\Entity\Traits\PowerTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -18,6 +19,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(uniqueConstraints={@ORM\UniqueConstraint(name="model_unique", columns={"model", "power", "tower_height"})})
  * @ORM\Entity(repositoryClass="AppBundle\Repository\TurbineRepository")
  * @Gedmo\SoftDeleteable(fieldName="removedAt", timeAware=false)
+ * @UniqueEntity({"model", "power", "towerHeight"})
  */
 class Turbine extends AbstractBase
 {
