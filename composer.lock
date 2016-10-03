@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "f17e05b464e8b019a436e4d4b66a68ca",
-    "content-hash": "31a116e4c5fb3faef71bea5243219088",
+    "hash": "baec4762b3a53693c67f54f0173babd1",
+    "content-hash": "8b19790f5b5bc3414e2996942272d023",
     "packages": [
         {
             "name": "a2lix/translation-form-bundle",
@@ -2364,7 +2364,7 @@
                     "email": "stof@notk.org"
                 },
                 {
-                    "name": "KnpLabs",
+                    "name": "Knplabs",
                     "homepage": "http://knplabs.com"
                 },
                 {
@@ -2610,13 +2610,13 @@
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/MewesK/TwigExcelBundle.git",
-                "reference": "b5a8e667a92a06c2e4105d3a0aec8be9669b379d"
+                "url": "https://github.com/aserratorta/TwigExcelBundle.git",
+                "reference": "385df20c8d7671cf63f71aca4b7ee29f147d344b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/MewesK/TwigExcelBundle/zipball/b5a8e667a92a06c2e4105d3a0aec8be9669b379d",
-                "reference": "b5a8e667a92a06c2e4105d3a0aec8be9669b379d",
+                "url": "https://api.github.com/repos/aserratorta/TwigExcelBundle/zipball/385df20c8d7671cf63f71aca4b7ee29f147d344b",
+                "reference": "385df20c8d7671cf63f71aca4b7ee29f147d344b",
                 "shasum": ""
             },
             "require": {
@@ -2643,7 +2643,6 @@
                     "MewesK\\TwigExcelBundle\\": ""
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -2656,12 +2655,15 @@
             "description": "This Symfony bundle provides a PhpExcel integration for Twig",
             "homepage": "https://github.com/MewesK/TwigExcelBundle",
             "keywords": [
-                "PHPExcel",
                 "excel",
+                "phpexcel",
                 "symfony",
                 "twig"
             ],
-            "time": "2016-04-03 20:22:12"
+            "support": {
+                "source": "https://github.com/aserratorta/TwigExcelBundle/tree/master"
+            },
+            "time": "2016-09-29 17:24:48"
         },
         {
             "name": "michelf/php-markdown",
