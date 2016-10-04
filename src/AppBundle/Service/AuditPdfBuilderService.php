@@ -343,10 +343,10 @@ class AuditPdfBuilderService
                         $pdf->Ln(100);
                     }
                 }
+                $pdf->AddPage();
             }
         }
         // Contact section
-        $pdf->AddPage();
         $pdf->setFontStyle(null, 'B', 11);
         $pdf->Write(0, $this->ts->trans('pdf.inspection_description.1_contact'), '', false, 'L', true);
         $pdf->Ln(5);
