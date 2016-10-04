@@ -21,7 +21,7 @@ class CustomTcpdf extends \TCPDF
     const PDF_MARGIN_LEFT   = 25;
     const PDF_MARGIN_RIGHT  = 20;
     const PDF_MARGIN_TOP    = 30;
-    const PDF_MARGIN_BOTTOM = 20;
+    const PDF_MARGIN_BOTTOM = 10;
     
     private $colorBlueLight = array('red' => 143, 'green' => 171, 'blue' => 217);
     private $colorBlue      = array('red' => 50,  'green' => 118, 'blue' => 179);
