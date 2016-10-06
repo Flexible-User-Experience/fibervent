@@ -140,17 +140,6 @@ class AuditAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'language',
-                ChoiceType::class,
-                array(
-                    'label'    => 'Idioma PDF',
-                    'choices'  => AuditLanguageEnum::getEnumArrayString(),
-                    'multiple' => false,
-                    'expanded' => true,
-                    'required' => true,
-                )
-            )
-            ->add(
                 'status',
                 ChoiceType::class,
                 array(
