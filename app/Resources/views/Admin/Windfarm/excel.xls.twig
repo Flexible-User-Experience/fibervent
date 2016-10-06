@@ -113,7 +113,7 @@
                     }
                 },
                 merge: 'B3'
-            } %}PALA{% endxlscell %}
+            } %}{{ 'excel.2_blade' | trans({}, 'messages', locale) }}{% endxlscell %}
             {% xlscell 2 {
                 style: {
                     borders: {
@@ -616,7 +616,7 @@
                                     vertical: 'center'
                                 }
                             },
-                        }%}{{ bladeDamage.positionString }}{% endxlscell %}
+                        }%}{{ bladeDamage.positionStringLocalized | trans({}, 'messages', locale) }}{% endxlscell %}
                         {% xlscell 5 {
                             style: {
                                 borders: {
@@ -648,7 +648,7 @@
                                     vertical: 'center'
                                 }
                             },
-                        }%}{{ bladeDamage.distanceString }}{% endxlscell %}
+                        }%}{{ bladeDamage.localizedDistanceString | trans({'%dist%': bladeDamage.distanceScaled}, 'messages', locale) }}{% endxlscell %}
                         {% xlscell 7 {
                             style: {
                                 borders: {

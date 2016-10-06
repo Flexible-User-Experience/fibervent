@@ -82,3 +82,16 @@ enum:
     rope: ROPE ACCESS
     inside: BLADE INTERIOR
     platform: PLATFORM
+excel:
+  1_title: '%windfarm%'
+  2_blade: BLADE
+  3_damage: DAMAGE
+  4_number: Nr
+  5_code: Code
+  6_localization: LOCALIZATION
+  7_radius: Radius
+  8_size: SIZE
+  9_description: DESCRIPTION
+
+
+

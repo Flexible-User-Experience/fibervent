@@ -82,3 +82,13 @@ enum:
     rope: CUERDAS
     inside: INTERIOR PALA
     platform: PLATAFORMA
+excel:
+  1_title: 'RESUMEN DAÑOS AEROGENERADORES DEL PARQUE EÓLICO %windfarm%'
+  2_blade: PALA
+  3_damage: DAÑO
+  4_number: Nº
+  5_code: Cód.
+  6_localization: LOCALIZACIÓN
+  7_radius: Radio
+  8_size: TAMAÑO
+  9_description: DESCRIPCION
