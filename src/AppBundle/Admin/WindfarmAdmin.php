@@ -2,11 +2,13 @@
 
 namespace AppBundle\Admin;
 
+use AppBundle\Enum\WindfarmLanguageEnum;
 use Oh\GoogleMapFormTypeBundle\Form\Type\GoogleMapType;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 /**
  * Class WindfarmAdmin
@@ -152,6 +154,17 @@ class WindfarmAdmin extends AbstractBaseAdmin
                     'required'    => false,
                     'help'        => 'MW',
                     'sonata_help' => 'MW',
+                )
+            )
+            ->add(
+                'language',
+                ChoiceType::class,
+                array(
+                    'label'    => 'Idioma PDF',
+                    'choices'  => WindfarmLanguageEnum::getEnumArrayString(),
+                    'multiple' => false,
+                    'expanded' => true,
+                    'required' => true,
                 )
             )
             ->end()

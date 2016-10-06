@@ -52,6 +52,14 @@ class Windfarm extends AbstractBase
     private $code;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(type="integer", options={"default"=0})
+     */
+    protected $language = 0;
+
+
+    /**
      * @var State
      *
      * @ORM\ManyToOne(targetEntity="State")
@@ -121,6 +129,26 @@ class Windfarm extends AbstractBase
     public function setYear($year)
     {
         $this->year = $year;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getLanguage()
+    {
+        return $this->language;
+    }
+
+    /**
+     * @param int $language
+     *
+     * @return $this
+     */
+    public function setLanguage($language)
+    {
+        $this->language = $language;
 
         return $this;
     }
