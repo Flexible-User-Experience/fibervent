@@ -57,7 +57,7 @@
                         }
                     },
                     merge: 9
-            } %}{{ 'pdf.damage_table_header.9_excel_title' | trans({}, 'messages', locale) }} {{ windfarm.name }}{% endxlscell %}
+            } %}{{ 'pdf.damage_table_header.9_excel_title' | trans({}, 'messages', locale) | raw }} {{ windfarm.name }}{% endxlscell %}
         {% endxlsrow %}
         {% xlsrow 2 %}
             {% xlscell 0 {
