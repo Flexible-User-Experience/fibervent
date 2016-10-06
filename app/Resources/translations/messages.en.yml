@@ -57,6 +57,8 @@ pdf:
     6_size: SIZE
     7_description: DESCRIPTION
     8_distance: Distance
+    9_excel_title: 'RESUMEN DAÑOS AEROGENERADORES DEL PARQUE EÓLICO'
+    10_blade: BLADE
   damage_table_body:
     none: -
     BA_dist_cm: '%dist%cm LE'
@@ -82,16 +84,3 @@ enum:
     rope: ROPE ACCESS
     inside: BLADE INTERIOR
     platform: PLATFORM
-excel:
-  1_title: '%windfarm%'
-  2_blade: BLADE
-  3_damage: DAMAGE
-  4_number: Nr
-  5_code: Code
-  6_localization: LOCALIZATION
-  7_radius: Radius
-  8_size: SIZE
-  9_description: DESCRIPTION
-
-
-

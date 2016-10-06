@@ -123,3 +123,10 @@ services:
     app.notification:
         class: AppBundle\Service\NotificationService
         arguments: [ "@app.courier" ]
+# Twig
+    app.twig_extension:
+        class: AppBundle\Twig\AppExtension
+        public: false
+        tags:
+            - { name: twig.extension }
+        arguments: [ "@app.damage_repository" ]

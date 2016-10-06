@@ -57,7 +57,7 @@
                         }
                     },
                     merge: 9
-            } %}RESUMEN DAÑOS AEROGENERADORES DEL PARQUE EÓLICO {{ windfarm.name }}{% endxlscell %}
+            } %}{{ 'pdf.damage_table_header.9_excel_title' | trans({}, 'messages', locale) }} {{ windfarm.name }}{% endxlscell %}
         {% endxlsrow %}
         {% xlsrow 2 %}
             {% xlscell 0 {
@@ -113,7 +113,7 @@
                     }
                 },
                 merge: 'B3'
-            } %}{{ 'excel.2_blade' | trans({}, 'messages', locale) }}{% endxlscell %}
+            } %}{{ 'pdf.damage_table_header.10_blade' | trans({}, 'messages', locale) }}{% endxlscell %}
             {% xlscell 2 {
                 style: {
                     borders: {
@@ -140,7 +140,7 @@
                     }
                 },
                 merge: 'D2'
-            } %}DAÑO{% endxlscell %}
+            } %}{{ 'pdf.damage_table_header.1_damage' | trans({}, 'messages', locale) }}{% endxlscell %}
             {% xlscell 3 {
                 style: {
                     borders: {
@@ -186,7 +186,7 @@
                     }
                 },
                 merge: 'G2'
-            } %}LOCALIZACIÓN{% endxlscell %}
+            } %}{{ 'pdf.damage_table_header.2_position' | trans({}, 'messages', locale) }}{% endxlscell %}
             {% xlscell 5 {
                 style: {
                     borders: {
@@ -251,7 +251,7 @@
                     }
                 },
                 merge: 'H3'
-            } %}TAMAÑO{% endxlscell %}
+            } %}{{ 'pdf.damage_table_header.6_size' | trans({}, 'messages', locale) }}{% endxlscell %}
             {% xlscell 8 {
                 style: {
                     borders: {
@@ -277,7 +277,7 @@
                     }
                 },
                 merge: 'I3'
-            } %}DESCRIPCIÓN{% endxlscell %}
+            } %}{{ 'pdf.damage_table_header.7_description' | trans({}, 'messages', locale) }}{% endxlscell %}
             {% xlscell 9 {
                 style: {
                     borders: {
@@ -370,7 +370,7 @@
                         }
                     }
                 }
-            } %}Nº{% endxlscell %}
+            } %}{{ 'pdf.damage_table_header.3_number' | trans({}, 'messages', locale) }}{% endxlscell %}
             {% xlscell 3 {
                 style: {
                     borders: {
@@ -396,7 +396,7 @@
                         }
                     }
                 }
-            } %}Cód.{% endxlscell %}
+            } %}{{ 'pdf.damage_table_header.4_code' | trans({}, 'messages', locale) }}{% endxlscell %}
             {% xlscell 4 {
                 style: {
                     borders: {
@@ -448,7 +448,7 @@
                         }
                     }
                 }
-            } %}Radio{% endxlscell %}
+            } %}{{ 'pdf.damage_table_header.5_radius' | trans({}, 'messages', locale) }}{% endxlscell %}
             {% xlscell 6 {
                 style: {
                     borders: {
@@ -676,7 +676,7 @@
                                     }
                                 }
                             }
-                        }%}{{ bladeDamage.damage.description }}{% endxlscell %}
+                        }%}{{ get_localized_description(bladeDamage.damage, locale) }}{% endxlscell %}
                         {% xlscell 9 {
                             style: {
                                 borders: {
