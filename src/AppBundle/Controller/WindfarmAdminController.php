@@ -10,7 +10,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Translation\Translator;
 
 /**
  * Class WindfarmAdminController
@@ -21,11 +20,6 @@ use Symfony\Component\Translation\Translator;
  */
 class WindfarmAdminController extends AbstractBaseAdminController
 {
-    /**
-     * @var Translator
-     */
-    private $ts;
-
     /**
      * Show windfarm audits list view
      *
@@ -118,15 +112,13 @@ class WindfarmAdminController extends AbstractBaseAdminController
             }
         }
 
-        $locale = WindfarmLanguageEnum::getEnumArray()[$object->getLanguage()];
-
         $template = $this->renderView(
             ':Admin/Windfarm:excel.xls.twig',
             array(
                 'action' => 'show',
                 'windfarm' => $object,
                 'audits' => $audits,
-                'locale' => $locale,
+                'locale' => WindfarmLanguageEnum::getEnumArray()[$object->getLanguage()],
             )
         );
 
