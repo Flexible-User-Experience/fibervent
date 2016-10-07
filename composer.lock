@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "baec4762b3a53693c67f54f0173babd1",
-    "content-hash": "8b19790f5b5bc3414e2996942272d023",
+    "hash": "bc8f69083f412d6b04780f2da60910d9",
+    "content-hash": "e34838a2ec2143b8decb16822a71c889",
     "packages": [
         {
             "name": "a2lix/translation-form-bundle",
@@ -3007,7 +3007,7 @@
         },
         {
             "name": "oh/google-map-form-type-bundle",
-            "version": "dev-master",
+            "version": "v1.0",
             "target-dir": "Oh/GoogleMapFormTypeBundle",
             "source": {
                 "type": "git",
@@ -5710,8 +5710,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "mewesk/twig-excel-bundle": 20,
-        "oh/google-map-form-type-bundle": 20
+        "mewesk/twig-excel-bundle": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
