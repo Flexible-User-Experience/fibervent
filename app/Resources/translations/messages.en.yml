@@ -57,7 +57,7 @@ pdf:
     6_size: SIZE
     7_description: DESCRIPTION
     8_distance: Distance
-    9_excel_title: "WINDMILL'S DAMAGES SUMMARY OF WIND FARM"
+    9_excel_title: "BLADE DAMAGE SUMMARY %name% WIND FARM"
     10_blade: BLADE
   damage_table_body:
     none: -
