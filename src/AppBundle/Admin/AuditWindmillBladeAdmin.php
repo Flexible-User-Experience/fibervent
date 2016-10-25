@@ -82,9 +82,10 @@ class AuditWindmillBladeAdmin extends AbstractBaseAdmin
             // else is normal admin view
             /** @var AuditWindmillBlade $awb */
             $awb = $this->getSubject();
-            $text = $awb->getWindmillBlade() ? $awb->getWindmillBlade()->getCode() : '';
+            $order = $awb->getWindmillBlade() ? $awb->getWindmillBlade()->getOrder() : '';
+            $code = $awb->getWindmillBlade() && $awb->getWindmillBlade()->getCode() ? '(S/N: ' . $awb->getWindmillBlade()->getCode() . ')' : '';
             $formMapper
-                ->with('Situació i descripció dels danys · Pala ' . $text, $this->getFormMdSuccessBoxArray(12))
+                ->with('Situació i descripció dels danys · Pala ' . $order . ' ' . $code, $this->getFormMdSuccessBoxArray(12))
                 ->add(
                     'bladeDamages',
                     'sonata_type_collection',
@@ -101,7 +102,7 @@ class AuditWindmillBladeAdmin extends AbstractBaseAdmin
                     )
                 )
                 ->end()
-                ->with('Observacions · Pala ' . $text, $this->getFormMdSuccessBoxArray(8))
+                ->with('Observacions · Pala ' . $order . ' ' . $code, $this->getFormMdSuccessBoxArray(8))
                 ->add(
                     'observations',
                     'sonata_type_collection',
@@ -118,7 +119,7 @@ class AuditWindmillBladeAdmin extends AbstractBaseAdmin
                     )
                 )
                 ->end()
-                ->with('Fotos generals · Pala ' . $text, $this->getFormMdSuccessBoxArray(4))
+                ->with('Fotos generals · Pala ' . $order . ' ' . $code, $this->getFormMdSuccessBoxArray(4))
                 ->add(
                     'bladePhotos',
                     'sonata_type_collection',

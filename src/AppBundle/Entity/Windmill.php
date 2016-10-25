@@ -7,7 +7,6 @@ use AppBundle\Entity\Traits\GpsCoordinatesTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Windmill
@@ -137,7 +136,7 @@ class Windmill extends AbstractBase
      *
      * @return Windmill
      */
-    public function setWindmillBlades(ArrayCollection $windmillBlades)
+    public function setWindmillBlades($windmillBlades)
     {
         $this->windmillBlades = $windmillBlades;
 
@@ -227,7 +226,7 @@ class Windmill extends AbstractBase
      *
      * @return Windmill
      */
-    public function setAudits(ArrayCollection $audits)
+    public function setAudits($audits)
     {
         $this->audits = $audits;
 

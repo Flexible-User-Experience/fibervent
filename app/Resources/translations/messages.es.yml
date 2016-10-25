@@ -57,6 +57,8 @@ pdf:
     6_size: TAMAÑO
     7_description: DESCRIPCIÓN
     8_distance: Dist.
+    9_excel_title: 'RESUMEN DAÑOS AEROGENERADORES DEL PARQUE EÓLICO'
+    10_blade: PALA
   damage_table_body:
     none: -
     BA_dist_cm: '%dist%cm BA'
@@ -67,7 +69,7 @@ pdf:
     1_title: 'Auditoria #'
     2_subject: Inspección palas parque eólico
   header:
-    1_description: 'Parque eólico %name%'
+    1_description: 'Parque Eólico %name%'
   footer:
     1_page: Página
     2_of: de
@@ -81,3 +83,4 @@ enum:
     ground: SUELO (Telescopio FIBERVENT)
     rope: CUERDAS
     inside: INTERIOR PALA
+    platform: PLATAFORMA

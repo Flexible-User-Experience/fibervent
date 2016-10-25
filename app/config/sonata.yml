@@ -1,6 +1,6 @@
 # Block
 sonata_block:
-    default_contexts: [ cms ]
+    default_contexts: [ admin ]
     blocks:
         sonata.admin.block.admin_list:  ~
         sonata.user.block.menu:         ~
@@ -74,7 +74,6 @@ sonata_admin:
                 position: top
                 type: admin.block.audits
                 class: col-md-6
-                roles: [ ROLE_OPERATOR ]
             -
                 position: bottom
                 type: sonata.block.service.text

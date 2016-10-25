@@ -11,8 +11,8 @@ use AppBundle\Entity\Observation;
 use AppBundle\Entity\Photo;
 use AppBundle\Entity\Windfarm;
 use AppBundle\Entity\Windmill;
-use AppBundle\Enum\AuditLanguageEnum;
 use AppBundle\Enum\BladeDamagePositionEnum;
+use AppBundle\Enum\WindfarmLanguageEnum;
 use AppBundle\Pdf\CustomTcpdf;
 use AppBundle\Repository\CustomerRepository;
 use AppBundle\Repository\DamageRepository;
@@ -135,7 +135,7 @@ class AuditPdfBuilderService
     {
         $windmill = $audit->getWindmill();
         $windfarm = $windmill->getWindfarm();
-        $this->locale = AuditLanguageEnum::getEnumArray()[$audit->getLanguage()];
+        $this->locale = WindfarmLanguageEnum::getEnumArray()[$windfarm->getLanguage()];
         $this->ts->setLocale($this->locale);
 
         /** @var CustomTcpdf $pdf */
@@ -207,7 +207,8 @@ class AuditPdfBuilderService
         foreach ($audit->getAuditWindmillBlades() as $key => $auditWindmillBlade) {
             $bladeDamages = $this->bdr->getItemsOfAuditWindmillBladeSortedByRadius($auditWindmillBlade);
             $pdf->setFontStyle(null, 'B', 11);
-            $pdf->Write(0, '3.' . ($key + 1) . ' ' . $this->ts->trans('pdf.audit_blade_damage.1_title') . ' ' . ($key + 1), '', false, 'L', true);
+            $serialNumberSuffix = $auditWindmillBlade->getWindmillBlade()->getCode() ? ' - (S/N: ' . ($auditWindmillBlade->getWindmillBlade()->getCode()) . ')' : '';
+            $pdf->Write(0, '3.' . ($key + 1) . ' ' . $this->ts->trans('pdf.audit_blade_damage.1_title') . ' ' . ($key + 1) . $serialNumberSuffix, '', false, 'L', true);
             $pdf->Ln(5);
             $pdf->setFontStyle(null, '', 9);
             $pdf->Write(0, $this->ts->trans('pdf.audit_blade_damage.2_description'), '', false, 'L', true);
@@ -345,7 +346,7 @@ class AuditPdfBuilderService
                 $pdf->AddPage();
             }
         }
-        // Inspection description
+        // Contact section
         $pdf->setFontStyle(null, 'B', 11);
         $pdf->Write(0, $this->ts->trans('pdf.inspection_description.1_contact'), '', false, 'L', true);
         $pdf->Ln(5);
@@ -460,7 +461,7 @@ class AuditPdfBuilderService
             $pdf->Image($this->uh->asset($audit->getCustomer(), 'imageFile'), 43, 45, 32);
             $pdf->Image($this->tha->getUrl('/bundles/app/images/fibervent_logo_white_landscape.jpg'), 100, 45, 78);
         } else {
-            $pdf->Image($this->tha->getUrl('/bundles/app/images/fibervent_logo_white_landscape.jpg'), 30, 45);
+            $pdf->Image($this->tha->getUrl('/bundles/app/images/fibervent_logo_white_landscape.jpg'), '', 45, '', '', 'JPEG', '', 'T', false, 300, 'C', false, false, 0, false, false, false);
         }
 
         // main detail section
@@ -494,7 +495,7 @@ class AuditPdfBuilderService
         $pdf->Cell(70, 6, $this->ts->trans('pdf.cover.5_turbine_model'), 'TB', 0, 'R', true);
         $pdf->setFontStyle(null, '', 10);
         $pdf->setWhiteBackground();
-        $pdf->Cell(0, 6, $windmill->getTurbine(), 'TB', 1, 'L', true);
+        $pdf->Cell(0, 6, $windmill->getTurbine()->pdfToString(), 'TB', 1, 'L', true);
         $pdf->setFontStyle(null, 'B', 10);
         $pdf->setBlueBackground();
         $pdf->Cell(70, 6, $this->ts->trans('pdf.cover.6_turbine_size'), 'TB', 0, 'R', true);

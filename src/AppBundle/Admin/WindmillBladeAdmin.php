@@ -33,7 +33,7 @@ class WindmillBladeAdmin extends AbstractBaseAdmin
                 'code',
                 null,
                 array(
-                    'label'    => 'Codi',
+                    'label'    => 'S/N',
                     'required' => true,
                 )
             )

@@ -3,7 +3,6 @@
 namespace AppBundle\Service;
 
 use \Swift_Message;
-use \Swift_Attachment;
 
 /**
  * Class CourierService

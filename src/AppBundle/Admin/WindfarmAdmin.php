@@ -2,11 +2,13 @@
 
 namespace AppBundle\Admin;
 
+use AppBundle\Enum\WindfarmLanguageEnum;
 use Oh\GoogleMapFormTypeBundle\Form\Type\GoogleMapType;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 /**
  * Class WindfarmAdmin
@@ -35,6 +37,11 @@ class WindfarmAdmin extends AbstractBaseAdmin
         $collection
             ->add('audits', $this->getRouterIdParameter() . '/audits')
             ->add('map', $this->getRouterIdParameter() . '/map')
+            ->add('excel', $this->getRouterIdParameter() . '/excel', array(
+                '_format' => 'xls'
+            ), array(
+                '_format' => 'csv|xls|xlsx'
+            ))
             ->remove('delete');
     }
 
@@ -147,6 +154,17 @@ class WindfarmAdmin extends AbstractBaseAdmin
                     'required'    => false,
                     'help'        => 'MW',
                     'sonata_help' => 'MW',
+                )
+            )
+            ->add(
+                'language',
+                ChoiceType::class,
+                array(
+                    'label'    => 'Idioma PDF',
+                    'choices'  => WindfarmLanguageEnum::getEnumArrayString(),
+                    'multiple' => false,
+                    'expanded' => true,
+                    'required' => true,
                 )
             )
             ->end()
@@ -307,6 +325,7 @@ class WindfarmAdmin extends AbstractBaseAdmin
                     'actions' => array(
                         'edit'   => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
                         'audits' => array('template' => '::Admin/Buttons/list__action_audits_button.html.twig'),
+                        'excel' => array('template'  => '::Admin/Buttons/list__action_excel_button.html.twig'),
                         'map'    => array('template' => '::Admin/Buttons/list__action_map_button.html.twig'),
                     )
                 )

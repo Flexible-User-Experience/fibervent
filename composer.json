@@ -26,10 +26,12 @@
         "hautelook/alice-bundle": "^1.0",
         "incenteev/composer-parameter-handler": "~2.0",
         "ircmaxell/password-compat": "~1.0",
+        "it-blaster/color-picker-type-bundle": "^1.0",
         "liip/functional-test-bundle": "^1.0",
         "liip/imagine-bundle": "^1.0",
+        "mewesk/twig-excel-bundle": "2.x-dev",
         "ocramius/proxy-manager": "1.0.2",
-        "oh/google-map-form-type-bundle": "dev-master",
+        "oh/google-map-form-type-bundle": "^1.0",
         "php": ">=5.3.9",
         "sensio/distribution-bundle": "~5.0",
         "sensio/framework-extra-bundle": "^3.0.2",
@@ -43,12 +45,17 @@
         "symfony/swiftmailer-bundle": "~2.3",
         "twig/extensions": "^1.3",
         "vich/uploader-bundle": "^1.1",
-        "whiteoctober/tcpdf-bundle": "^1.0",
-        "it-blaster/color-picker-type-bundle": "^1.0"
+        "whiteoctober/tcpdf-bundle": "^1.0"
     },
     "require-dev": {
         "sensio/generator-bundle": "~3.0"
     },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url":  "git@github.com:aserratorta/TwigExcelBundle.git"
+        }
+    ],
     "scripts": {
         "post-install-cmd": [
             "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",

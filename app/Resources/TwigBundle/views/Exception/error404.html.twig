@@ -1,5 +1,11 @@
 {% extends 'TwigBundle:Exception:error.html.twig' %}
 
-{% block title %}Error 404 · {{ parent() }}{% endblock %}
+{% block title %}{{ parent() }} 404{% endblock %}
 
-{% block error_text %}Error 404 · Page not found{% endblock %}
+{% block error_text %}
+    Error 404 · Página no encontrada
+{% endblock %}
+
+{% block image %}
+    <img src="{{ asset('bundles/app/images/404.png') }}" alt="404 image"  />
+{% endblock %}

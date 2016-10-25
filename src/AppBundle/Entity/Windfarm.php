@@ -13,6 +13,7 @@ use AppBundle\Entity\Traits\StateTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Cocur\Slugify\Slugify;
 
 /**
  * Windfarm
@@ -49,6 +50,14 @@ class Windfarm extends AbstractBase
      * @ORM\Column(type="string", length=45, nullable=true)
      */
     private $code;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(type="integer", options={"default"=0})
+     */
+    protected $language = 0;
+
 
     /**
      * @var State
@@ -125,6 +134,26 @@ class Windfarm extends AbstractBase
     }
 
     /**
+     * @return int
+     */
+    public function getLanguage()
+    {
+        return $this->language;
+    }
+
+    /**
+     * @param int $language
+     *
+     * @return $this
+     */
+    public function setLanguage($language)
+    {
+        $this->language = $language;
+
+        return $this;
+    }
+
+    /**
      * @return Customer
      */
     public function getCustomer()
@@ -189,7 +218,7 @@ class Windfarm extends AbstractBase
      *
      * @return Windfarm
      */
-    public function setWindmills(ArrayCollection $windmills)
+    public function setWindmills($windmills)
     {
         $this->windmills = $windmills;
 
@@ -219,6 +248,16 @@ class Windfarm extends AbstractBase
         $this->windmills->removeElement($windmill);
 
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSlug()
+    {
+        $slugify = new Slugify();
+
+        return $slugify->slugify($this->name);
     }
 
     /**

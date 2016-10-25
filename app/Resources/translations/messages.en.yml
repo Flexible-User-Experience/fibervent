@@ -57,6 +57,8 @@ pdf:
     6_size: SIZE
     7_description: DESCRIPTION
     8_distance: Distance
+    9_excel_title: "BLADE DAMAGE SUMMARY %name% WIND FARM"
+    10_blade: BLADE
   damage_table_body:
     none: -
     BA_dist_cm: '%dist%cm LE'
@@ -81,3 +83,4 @@ enum:
     ground: GROUND (Telephoto lens FIBERVENT)
     rope: ROPE ACCESS
     inside: BLADE INTERIOR
+    platform: PLATFORM

@@ -5,7 +5,6 @@ namespace AppBundle\Admin;
 use AppBundle\Entity\Audit;
 use AppBundle\Entity\AuditWindmillBlade;
 use AppBundle\Enum\AuditDiagramTypeEnum;
-use AppBundle\Enum\AuditLanguageEnum;
 use AppBundle\Enum\AuditStatusEnum;
 use AppBundle\Enum\AuditTypeEnum;
 use AppBundle\Form\Type\AuditDiagramTypeFormType;
@@ -136,17 +135,6 @@ class AuditAdmin extends AbstractBaseAdmin
                     'choices'  => AuditTypeEnum::getEnumArray(),
                     'multiple' => false,
                     'expanded' => false,
-                    'required' => true,
-                )
-            )
-            ->add(
-                'language',
-                ChoiceType::class,
-                array(
-                    'label'    => 'Idioma PDF',
-                    'choices'  => AuditLanguageEnum::getEnumArrayString(),
-                    'multiple' => false,
-                    'expanded' => true,
                     'required' => true,
                 )
             )

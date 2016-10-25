@@ -143,7 +143,7 @@ class State extends AbstractBase
      *
      * @return State
      */
-    public function setCustomers(ArrayCollection $customers)
+    public function setCustomers($customers)
     {
         $this->customers = $customers;
 
