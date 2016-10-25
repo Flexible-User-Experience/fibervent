@@ -140,7 +140,7 @@ class AuditPdfBuilderService
 
         /** @var CustomTcpdf $pdf */
         $pdf = $this->doInitialConfig($audit, $windmill, $windfarm);
-
+/**
         // Add a page
         $pdf->setPrintHeader(true);
         $pdf->AddPage(PDF_PAGE_ORIENTATION, PDF_PAGE_FORMAT, true, true);
@@ -180,7 +180,7 @@ class AuditPdfBuilderService
         $pdf->MultiCell(60, 0, $this->ts->trans('pdf.damage_catalog.table.3_description'), 1, 'C', 1, 0, '', '', true);
         $pdf->MultiCell(0, 0, $this->ts->trans('pdf.damage_catalog.table.4_action'), 1, 'C', 1, 1, '', '', true);
         $pdf->setFontStyle(null, '', 9);
-        /** @var DamageCategory $item */
+        /** @var DamageCategory $item *
         foreach ($this->dcr->findAllSortedByCategoryLocalized($this->locale) as $item) {
             $pdf->setBackgroundHexColor($item->getColour());
             $pdf->MultiCell(20, 14, $item->getCategory(), 1, 'C', 1, 0, '', '', true, 0, false, true, 14, 'M');
@@ -455,7 +455,7 @@ class AuditPdfBuilderService
 
         // Add start page
         $pdf->startPage(PDF_PAGE_ORIENTATION, PDF_PAGE_FORMAT);
-
+/*
         // logo
         if ($audit->getCustomer()->getImageName()) {
             $pdf->Image($this->uh->asset($audit->getCustomer(), 'imageFile'), 43, 45, 32);
@@ -573,7 +573,7 @@ class AuditPdfBuilderService
         $pdf->setFontStyle(null, null, 8);
         $pdf->Write(0, 'www.fibervent.com', 'http://www.fibervent.com/', false, 'L');
         $pdf->setBlackText();
-
+*/
         return $pdf;
     }
 
