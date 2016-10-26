@@ -660,4 +660,38 @@ class AuditModelDiagramBridgeService
 
         return $this;
     }
+
+    /**
+     * Draw a blade damage center point reference
+     *
+     * @param \TCPDF $pdf
+     * @param BladeDamage $bladeDamage
+     */
+    public function drawCenterPoint(\TCPDF $pdf, BladeDamage $bladeDamage)
+    {
+//        $this->Line($x, $y, $x + 0.5, $y, array('width' => 0.5, 'color' => $this->hex2rgb($hexColor)));
+        $pdf->Line($this->getGapX($bladeDamage), $this->getGapY($bladeDamage), $this->getGapX($bladeDamage) + 0.5, $this->getGapY($bladeDamage), array('width' => 0.5, 'color' => $this->hex2rgb($bladeDamage->getDamageCategory()->getColour())));
+    }
+
+    /**
+     * @param string $hex
+     *
+     * @return array
+     */
+    public function hex2rgb($hex)
+    {
+        $hex = str_replace('#', '', $hex);
+
+        if(strlen($hex) == 3) {
+            $r = hexdec(substr($hex,0,1).substr($hex,0,1));
+            $g = hexdec(substr($hex,1,1).substr($hex,1,1));
+            $b = hexdec(substr($hex,2,1).substr($hex,2,1));
+        } else {
+            $r = hexdec(substr($hex,0,2));
+            $g = hexdec(substr($hex,2,2));
+            $b = hexdec(substr($hex,4,2));
+        }
+
+        return array($r, $g, $b);
+    }
 }
