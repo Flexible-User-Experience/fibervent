@@ -41,7 +41,7 @@ class AuditLanguageEnum
         return array(
             self::SPANISH    => 'espanyol',
             self::ENGLISH    => 'anglès',
-//            self::FRENCH     => 'francès',
+            self::FRENCH     => 'francès',
 //            self::PORTUGUESE => 'portuguès',
 //            self::GERMAN     => 'alemany',
 //            self::ITALIAN    => 'italià',
