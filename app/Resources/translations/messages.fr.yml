@@ -8,7 +8,7 @@ pdf:
     6_turbine_size: DIMENSIONS EOLIENNE
     6_turbine_size_value: 'Tour %height%m / Rotor Ø%diameter%m / Pale %length%m'
     7_blade_type: MODELE PALE
-    8_total_turbines: TOTAL Nº EOLIENNES / CAPACITE PE
+    8_total_turbines: TOT. Nº EOLIENNES / CAPACITE PE
     8_total_turbines_value: '%windmills% éoliennes / %power%MW'
     9_startup_year: Mise en œuvre (années du PE)
     9_startup_year_value: '%year% (%diff% ans)'
@@ -38,7 +38,7 @@ pdf:
     1_title: RÉSUME INDIVIDUEL DOMMAGES PALE
     2_description: 'Le résultat de l’inspection est décrit dans le tableau suivant avec la catégorisation, les descriptions, l’emplacement et les liens aux photos des dommages.'
   observations_table:
-    1_damage: DOMMAGE
+    1_damage: DOMMA.
     2_observations: OBSERVATIONS
   blade_damage_images:
     1_general_blade_views: 1 VUES GÉNÉRALES PALE
@@ -49,7 +49,7 @@ pdf:
     4_phones_emails: 'Téléphones et courriel de contact'
     5_gratitude: 'Nous vous remercions de votre confiance envers l’équipe technique de FIBERVENT'
   damage_table_header:
-    1_damage: DOMMAGE
+    1_damage: DOMMA.
     2_position: LOCALISATION
     3_number: 'Nº'
     4_code: 'Code'
