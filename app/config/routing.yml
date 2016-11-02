@@ -12,7 +12,7 @@ sonata_user_admin_security:
     prefix:   /admin
 
 sonata_user_admin_resetting:
-    resource: '@SonataUserBundle/Resources/config/routing/admin_resetting.xml'
+    resource: "@SonataUserBundle/Resources/config/routing/sonata_resetting_1.xml"
     prefix:   /admin/resetting
 
 app_front:
