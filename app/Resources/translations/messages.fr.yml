@@ -75,10 +75,10 @@ pdf:
     2_of: sur
 enum:
   blade_damage_position:
-    1_VP: VP
-    2_VS: VS
+    1_VP: SP
+    2_VS: SS
     3_BA: BA
-    4_BS: BS
+    4_BS: BF
   audit_type:
     ground: AU SOL (télescope FIBERVENT)
     rope: CORDES
