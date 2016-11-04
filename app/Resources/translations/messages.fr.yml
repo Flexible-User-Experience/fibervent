@@ -69,7 +69,7 @@ pdf:
     1_title: 'Auditoria #'
     2_subject: Inspection des pales du parc eolien
   header:
-    1_description: 'Parc éolien %name%'
+    1_description: 'Parc Éolien %name%'
   footer:
     1_page: Page
     2_of: sur
