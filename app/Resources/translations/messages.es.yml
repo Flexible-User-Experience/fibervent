@@ -128,6 +128,26 @@ admin:
     edge: Esquina
     size: Dimesnión (cm)
     damagecategory: Cat.
+  bladephoto:
+    title: Foto Pala
+  customer:
+    title: Cliente
+    image: Logo
+    code: CIF
+    name: Nombre
+    contacto: Contacto
+    email: Correo Electrónico
+    phone: Teléfono
+    web: Web
+    postal_data: Datos Postales
+    address: Dirección
+    zip: Código Postal
+    city: Ciudad
+    state: Província
+    contacts: Contactos
+
+
+
 
 
 
