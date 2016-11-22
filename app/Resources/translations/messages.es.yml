@@ -96,6 +96,7 @@ admin:
     windmillblade: Pala
     photos: Fotos
     status: Estado
+    translations: Traducciones
   audit:
     title: Inspección
     begindate: Fecha inicio
@@ -145,6 +146,21 @@ admin:
     city: Ciudad
     state: Província
     contacts: Contactos
+  damage:
+    title: Tipo Daño
+    section: Sección
+    code: Código
+    description: Descripción
+  damagecategory:
+    title: Categoría Daño
+    category: Categoría
+    priority: Prioridad
+    description: Descripción
+    recommendeaction: Acción Recomendada
+    colour: Color
+
+
+
 
 
 
