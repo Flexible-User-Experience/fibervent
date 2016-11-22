@@ -49,7 +49,7 @@ twig:
         - "::Admin/Form/audit_diagram_type_form_template.html.twig"
         - "::OhGoogleMaps/google_maps_form_widget.html.twig"
     globals:
-        admin_tag_version:        "v1.2.48"
+        admin_tag_version:        "v1.2.51"
         main_brand_title:         "%project_web_title%"
         google_analytics_enabled: "%google_analytics_enabled%"
         google_analytics_account: "%google_analytics_account%"
@@ -104,7 +104,7 @@ fos_user:
 
 # A2lix Translations
 a2lix_translation_form:
-    locales:          %locale_i18n%
+    locales:          "%locale_i18n%"
     default_required: true
     manager_registry: doctrine
     templating:       "::A2lix/form_template.html.twig"
@@ -119,7 +119,7 @@ swiftmailer:
 
 # TCPDF
 white_october_tcpdf:
-    class: "AppBundle\Pdf\CustomTcpdf"
+    class: AppBundle\Pdf\CustomTcpdf
 
 # Twig Excel
 mewes_k_twig_excel:
