@@ -119,7 +119,7 @@ swiftmailer:
 
 # TCPDF
 white_october_tcpdf:
-    class: 'AppBundle\Pdf\CustomTcpdf'
+    class: "AppBundle\Pdf\CustomTcpdf"
 
 # Twig Excel
 mewes_k_twig_excel:

@@ -231,22 +231,24 @@ class AuditModelDiagramBridgeService
             // Edge in
             if ($bladeDamage->getPosition() == BladeDamagePositionEnum::VALVE_PRESSURE) {
                 // Valve pressure
-                $gap = $this->yQ2 - $this->yCalculateFactor($bladeDamage) - self::GAP_SQUARE_HALF_SIZE;
+                $gap = $this->yQ2 - $this->yCalculateFactor($bladeDamage);
 
             } elseif ($bladeDamage->getPosition() == BladeDamagePositionEnum::VALVE_SUCTION) {
                 // Valve suction
-                $gap = $this->yQ3 + $this->yCalculateFactor($bladeDamage) - self::GAP_SQUARE_HALF_SIZE;
+                $gap = $this->yQ3 + $this->yCalculateFactor($bladeDamage);
             }
 
         } elseif ($bladeDamage->getEdge() == BladeDamageEdgeEnum::EDGE_OUT) {
             // Edge out
             if ($bladeDamage->getPosition() == BladeDamagePositionEnum::VALVE_PRESSURE) {
                 // Valve pressure
-                $gap = $this->yQ2 - $this->yCalculateFactorEdgeOut($bladeDamage) - self::GAP_SQUARE_HALF_SIZE;
+//                $gap = $this->yQ2 - $this->yCalculateFactorEdgeOut($bladeDamage);
+                $y = $this->isolatedDeltaY($bladeDamage->getRadius(), $bladeDamage->getAuditWindmillBlade()->getWindmillBlade()->getWindmill()->getBladeType()->getLength());
+                $gap = $this->yQ2 - (($y / $this->getMaxFunctionYPoint() * $this->yScaleGap));
 
             } elseif ($bladeDamage->getPosition() == BladeDamagePositionEnum::VALVE_SUCTION) {
                 // Valve suction
-                $gap = $this->yQ3 + $this->yCalculateFactorEdgeOut($bladeDamage) - self::GAP_SQUARE_HALF_SIZE;
+                $gap = $this->yQ3 + $this->yCalculateFactorEdgeOut($bladeDamage);
             }
 
         } elseif ($bladeDamage->getEdge() == BladeDamageEdgeEnum::EDGE_UNDEFINED) {
@@ -297,12 +299,12 @@ class AuditModelDiagramBridgeService
      */
     private function isolatedDeltaY($x, $bladeLength)
     {
-        $n = 20 + $bladeLength;
-        $factor = (10 * $x) / $n;
+        $n = ($this->xScaleGap / 20) * 4.5;
+        $factor = (200 * ($x / $bladeLength)) / $n;
         $base = pow(M_E, (pow((0.7 * pow($factor, 1.5) - 0.4), 2) * -1)) * $n * 0.07;
         $bladeBase = (atan((pow($factor, 3) - pow($factor, 2) * 0.5)) / ($factor + 3)) * $n * 0.4;
 
-        return $bladeBase + $base;
+        return ($bladeBase / 1.5) + $base;
     }
 
     /**
@@ -670,7 +672,7 @@ class AuditModelDiagramBridgeService
     public function drawCenterPoint(\TCPDF $pdf, BladeDamage $bladeDamage)
     {
 //        $this->Line($x, $y, $x + 0.5, $y, array('width' => 0.5, 'color' => $this->hex2rgb($hexColor)));
-        $pdf->Line($this->getGapX($bladeDamage), $this->getGapY($bladeDamage), $this->getGapX($bladeDamage) + 0.5, $this->getGapY($bladeDamage), array('width' => 0.5, 'color' => $this->hex2rgb($bladeDamage->getDamageCategory()->getColour())));
+        $pdf->Line($this->getGapX($bladeDamage), $this->getGapY($bladeDamage), $this->getGapX($bladeDamage) + 0.5, $this->getGapY($bladeDamage), array('width' => 0.5, 'dash' => false, 'color' => $this->hex2rgb($bladeDamage->getDamageCategory()->getColour())));
     }
 
     /**

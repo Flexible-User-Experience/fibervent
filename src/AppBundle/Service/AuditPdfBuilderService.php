@@ -25,10 +25,10 @@ use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 use Symfony\Bundle\FrameworkBundle\Templating\Helper\AssetsHelper;
 
 /**
- * Class abstract base test
+ * Class Audit Pdf Builder Service
  *
- * @category Test
- * @package  AppBundle\Tests
+ * @category Service
+ * @package  AppBundle\Service
  * @author   David Romaní <david@flux.cat>
  */
 class AuditPdfBuilderService
@@ -243,19 +243,19 @@ class AuditPdfBuilderService
             $yQuarter3 = $this->amdb->getYQ3();
             $yQuarter4 = $this->amdb->getYQ4();
 
-            $pdf->Image($this->tha->getUrl('/bundles/app/images/blade_diagrams/blade_blueprint_' . $this->locale . '.jpg'), $x1, $y1, ($x2 - $x1), null);
+            $pdf->Image($this->tha->getUrl('/bundles/app/images/blade_diagrams/blade_blueprint_' . $this->locale . '.jpg'), $x1, $y1, ($x2 - $x1) + 0.5, null);
 
             if (self::SHOW_GRID_DEBUG) {
-                $pdf->Line($xQuarter1, $y1, $xQuarter1, $y1 + ($y2 - $y1));
-                $pdf->Line($xQuarter2, $y1, $xQuarter2, $y1 + ($y2 - $y1));
-                $pdf->Line($xQuarter3, $y1, $xQuarter3, $y1 + ($y2 - $y1));
-                $pdf->Line($xQuarter4, $y1, $xQuarter4, $y1 + ($y2 - $y1));
-                $pdf->Line($xQuarter5, $y1, $xQuarter5, $y1 + ($y2 - $y1));
-                $pdf->Line($x1, $yQuarter1, $x2, $yQuarter1);
-                $pdf->Line($x1, $yQuarter2, $x2, $yQuarter2);
-                $pdf->Line($x1, $yMiddle, $x2, $yMiddle);
-                $pdf->Line($x1, $yQuarter3, $x2, $yQuarter3);
-                $pdf->Line($x1, $yQuarter4, $x2, $yQuarter4);
+                $pdf->Line($xQuarter1, $y1, $xQuarter1, $y1 + ($y2 - $y1), array('dash' => '2,1', 'color' => array(150, 150, 150)));
+                $pdf->Line($xQuarter2, $y1, $xQuarter2, $y1 + ($y2 - $y1), array('dash' => '2,1'));
+                $pdf->Line($xQuarter3, $y1, $xQuarter3, $y1 + ($y2 - $y1), array('dash' => '2,1'));
+                $pdf->Line($xQuarter4, $y1, $xQuarter4, $y1 + ($y2 - $y1), array('dash' => '2,1'));
+                $pdf->Line($xQuarter5, $y1, $xQuarter5, $y1 + ($y2 - $y1), array('dash' => '2,1'));
+                $pdf->Line($x1, $yQuarter1, $x2, $yQuarter1, array('dash' => '2,1'));
+                $pdf->Line($x1, $yQuarter2, $x2, $yQuarter2, array('dash' => '2,1'));
+                $pdf->Line($x1, $yMiddle, $x2, $yMiddle, array('dash' => '2,1'));
+                $pdf->Line($x1, $yQuarter3, $x2, $yQuarter3, array('dash' => '2,1'));
+                $pdf->Line($x1, $yQuarter4, $x2, $yQuarter4, array('dash' => '2,1'));
             }
 
             $txt = $auditWindmillBlade->getWindmillBlade()->getWindmill()->getBladeType()->getQ1LengthString();
@@ -266,7 +266,6 @@ class AuditPdfBuilderService
             $pdf->Text(($xQuarter4 - $pdf->GetStringWidth($txt) - 2), $yMiddle - 5.75, $txt);
             $txt = $auditWindmillBlade->getWindmillBlade()->getWindmill()->getBladeType()->getQ4LengthString();
             $pdf->Text(($xQuarter5 - $pdf->GetStringWidth($txt) - 2), $yMiddle - 5.75, $txt);
-
 
             /** @var BladeDamage $bladeDamage */
             foreach ($bladeDamages as $sKey => $bladeDamage) {
