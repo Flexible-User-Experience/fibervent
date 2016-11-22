@@ -97,6 +97,7 @@ admin:
     photos: Fotos
     status: Estado
     translations: Traducciones
+    model: Modelo
   audit:
     title: Inspección
     begindate: Fecha inicio
@@ -117,7 +118,6 @@ admin:
     blade_photos: 'Fotos generals · Pala '
   blade:
     title: Pala
-    model: Modelo
     length: Longitud
   bladedamage:
     title: Daño Pala
@@ -158,6 +158,28 @@ admin:
     description: Descripción
     recommendeaction: Acción Recomendada
     colour: Color
+  observation:
+    title: Observaciones Daños Pala
+    position: Orden
+    damagenumber: Número Daño
+  foto:
+    title: Foto
+    imagefile: Foto
+    imagename: Nombre
+  state:
+    title: Provincia
+    name: Nombre
+    country: País
+  turbine:
+    title: Turbina
+    height: Altura
+    diameter: Diámetro
+    power: Potencia
+
+
+
+
+
 
 
 
