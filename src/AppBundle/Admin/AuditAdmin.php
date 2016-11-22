@@ -25,7 +25,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
  */
 class AuditAdmin extends AbstractBaseAdmin
 {
-    protected $classnameLabel = 'Inspecció';
+    protected $classnameLabel = 'admin.audit.title';
     protected $baseRoutePattern = 'audits/audit';
     protected $datagridValues = array(
         '_sort_by'    => 'beginDate',
@@ -72,12 +72,12 @@ class AuditAdmin extends AbstractBaseAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->with('General', $this->getFormMdSuccessBoxArray(7))
+            ->with('admin.common.general', $this->getFormMdSuccessBoxArray(7))
             ->add(
                 'windmill',
                 'sonata_type_model',
                 array(
-                    'label'      => 'Aerogenerador',
+                    'label'      => 'admin.audit.windmill',
                     'btn_add'    => false,
                     'btn_delete' => false,
                     'required'   => true,
@@ -88,7 +88,7 @@ class AuditAdmin extends AbstractBaseAdmin
                 'observations',
                 TextareaType::class,
                 array(
-                    'label'    => 'Observacions',
+                    'label'    => 'admin.audit.observations',
                     'required' => false,
                     'attr'     => array(
                         'rows' => 10,
@@ -96,12 +96,12 @@ class AuditAdmin extends AbstractBaseAdmin
                 )
             )
             ->end()
-            ->with('Controls', $this->getFormMdSuccessBoxArray(5))
+            ->with('admin.common.controls', $this->getFormMdSuccessBoxArray(5))
             ->add(
                 'beginDate',
                 'sonata_type_date_picker',
                 array(
-                    'label'  => 'Data inici',
+                    'label'  => 'admin.audit.begindate',
                     'format' => 'd/M/y',
                 )
             )
@@ -109,7 +109,7 @@ class AuditAdmin extends AbstractBaseAdmin
                 'endDate',
                 'sonata_type_date_picker',
                 array(
-                    'label'    => 'Data fi',
+                    'label'    => 'admin.audit.enddate',
                     'format'   => 'd/M/y',
                     'required' => false,
                 )
@@ -118,7 +118,7 @@ class AuditAdmin extends AbstractBaseAdmin
                 'operators',
                 'sonata_type_model',
                 array(
-                    'label'      => 'Tècnics Inspecció',
+                    'label'      => 'admin.audit.operators',
                     'multiple'   => true,
                     'required'   => false,
                     'btn_add'    => false,
@@ -131,7 +131,7 @@ class AuditAdmin extends AbstractBaseAdmin
                 'type',
                 ChoiceType::class,
                 array(
-                    'label'    => 'Tipus d\'Inspecció',
+                    'label'    => 'admin.audit.type',
                     'choices'  => AuditTypeEnum::getEnumArray(),
                     'multiple' => false,
                     'expanded' => false,
@@ -142,7 +142,7 @@ class AuditAdmin extends AbstractBaseAdmin
                 'status',
                 ChoiceType::class,
                 array(
-                    'label'    => 'Estat',
+                    'label'    => 'admin.audit.status',
                     'choices'  => AuditStatusEnum::getEnumArray(),
                     'multiple' => false,
                     'expanded' => false,
@@ -150,12 +150,12 @@ class AuditAdmin extends AbstractBaseAdmin
                 )
             )
             ->end()
-            ->with('Diagrama de pales', $this->getFormMdSuccessBoxArray(8))
+            ->with('admin.audit.diagramtype_title', $this->getFormMdSuccessBoxArray(8))
             ->add(
                 'diagramType',
                 AuditDiagramTypeFormType::class,
                 array(
-                    'label'    => 'Tipus',
+                    'label'    => 'diagramtype',
                     'choices'  => AuditDiagramTypeEnum::getEnumArray(),
                     'multiple' => false,
                     'expanded' => true,
@@ -165,7 +165,7 @@ class AuditAdmin extends AbstractBaseAdmin
             ->end();
         if ($this->id($this->getSubject())) { // is edit mode, disable on new subjects
             $formMapper
-                ->with('Pales inspeccionades', $this->getFormMdSuccessBoxArray(4))
+                ->with('admin.audit.auditwindmillblade_title', $this->getFormMdSuccessBoxArray(4))
                 ->add(
                     'auditWindmillBlades',
                     'sonata_type_collection',
@@ -197,7 +197,7 @@ class AuditAdmin extends AbstractBaseAdmin
                 'beginDate',
                 'doctrine_orm_date',
                 array(
-                    'label'      => 'Data inici',
+                    'label'      => 'admin.audit.begindate',
                     'field_type' => 'sonata_type_date_picker',
                 )
             )
@@ -205,7 +205,7 @@ class AuditAdmin extends AbstractBaseAdmin
                 'endDate',
                 'doctrine_orm_date',
                 array(
-                    'label'      => 'Data fi',
+                    'label'      => 'admin.audit.enddate',
                     'field_type' => 'sonata_type_date_picker',
                 )
             )
@@ -213,35 +213,35 @@ class AuditAdmin extends AbstractBaseAdmin
                 'windmill.windfarm.customer',
                 null,
                 array(
-                    'label' => 'Client',
+                    'label' => 'admin.windfarm.customer',
                 )
             )
             ->add(
                 'windmill.windfarm',
                 null,
                 array(
-                    'label' => 'Parc Eòlic',
+                    'label' => 'admin.windmill.windfarm',
                 )
             )
             ->add(
                 'windmill',
                 null,
                 array(
-                    'label' => 'Aerogenerador',
+                    'label' => 'admin.audit.windmill',
                 )
             )
             ->add(
                 'operators',
                 null,
                 array(
-                    'label' => 'Tècnics Inspecció',
+                    'label' => 'admin.audit.operators',
                 )
             )
             ->add(
                 'status',
                 null,
                 array(
-                    'label' => 'Estat',
+                    'label' => 'admin.audit.status',
                 ),
                 'choice',
                 array(
@@ -254,7 +254,7 @@ class AuditAdmin extends AbstractBaseAdmin
                 'diagramType',
                 null,
                 array(
-                    'label' => 'Tipus de diagrama',
+                    'label' => 'admin.audit.diagramtype',
                 ),
                 'choice',
                 array(
@@ -267,7 +267,7 @@ class AuditAdmin extends AbstractBaseAdmin
                 'observations',
                 null,
                 array(
-                    'label' => 'Observacions',
+                    'label' => 'admin.audit.observations',
                 )
             );
     }
@@ -283,7 +283,7 @@ class AuditAdmin extends AbstractBaseAdmin
                 'beginDate',
                 null,
                 array(
-                    'label'  => 'Data inici',
+                    'label'  => 'admin.audit.begindate',
                     'format' => 'd/m/Y'
                 )
             )
@@ -291,7 +291,7 @@ class AuditAdmin extends AbstractBaseAdmin
                 'windmill.windfarm.customer',
                 null,
                 array(
-                    'label'                            => 'Client',
+                    'label'                            => 'admin.windfarm.customer',
                     'associated_property'              => 'name',
                     'sortable'                         => true,
                     'sort_field_mapping'               => array('fieldName' => 'name'),
@@ -302,7 +302,7 @@ class AuditAdmin extends AbstractBaseAdmin
                 'windmill.windfarm',
                 null,
                 array(
-                    'label'                            => 'Parc Eòlic',
+                    'label'                            => 'admin.windmill.windfarm',
                     'associated_property'              => 'name',
                     'sortable'                         => true,
                     'sort_field_mapping'               => array('fieldName' => 'name'),
@@ -313,7 +313,7 @@ class AuditAdmin extends AbstractBaseAdmin
                 'windmill',
                 null,
                 array(
-                    'label'                            => 'Aerogenerador',
+                    'label'                            => 'admin.audit.windmill',
                     'associated_property'              => 'code',
                     'sortable'                         => true,
                     'sort_field_mapping'               => array('fieldName' => 'code'),
@@ -324,14 +324,14 @@ class AuditAdmin extends AbstractBaseAdmin
                 'operators',
                 null,
                 array(
-                    'label' => 'Tècnics Inspecció',
+                    'label' => 'admin.audit.operators',
                 )
             )
             ->add(
                 'status',
                 null,
                 array(
-                    'label'    => 'Estat',
+                    'label'    => 'admin.audit.status',
                     'template' => '::Admin/Cells/list__cell_audit_status.html.twig',
                 )
             )
@@ -339,7 +339,7 @@ class AuditAdmin extends AbstractBaseAdmin
                 '_action',
                 'actions',
                 array(
-                    'label'   => 'Accions',
+                    'label'   => 'admin.common.action',
                     'actions' => array(
                         'edit'   => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
                         'show'   => array('template' => '::Admin/Buttons/list__action_show_button.html.twig'),
