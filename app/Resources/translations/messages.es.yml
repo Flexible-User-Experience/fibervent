@@ -84,3 +84,61 @@ enum:
     rope: CUERDAS
     inside: INTERIOR PALA
     platform: PLATAFORMA
+admin:
+  common:
+    general: General
+    controls: Control
+    action: Acciones
+    observations: Observaciones
+    enabled: Activo
+    windfarm: Parque Eólico
+    windmill: Aerogenerador
+    windmillblade: Pala
+    photos: Fotos
+    status: Estado
+  audit:
+    title: Inspección
+    begindate: Fecha inicio
+    enddate: Fecha fin
+    operators: Técnicos Inspección
+    type: Tipo de Inspección
+    diagramtype_title: Diagrama de palas
+    diagramtype: Tipo diagrama
+    auditwindmillblade_title: Palas inspeccionadas
+    customer: Cliente
+  auditwindmillblade:
+    title: Auditoria Pala Aerogenerador
+    audit: Auditoria
+    damages: Daños
+    damage_position: 'Situación y descripción de los daños · Pala '
+    bladedamages: Daños
+    blade_observations: 'Observaciones · Pala '
+    blade_photos: 'Fotos generals · Pala '
+  blade:
+    title: Pala
+    model: Modelo
+    length: Longitud
+  bladedamage:
+    title: Daño Pala
+    number: Núm.
+    damage: Código
+    position: Posición
+    radius: Radio (m)
+    distance: Distancia (m)
+    edge: Esquina
+    size: Dimesnión (cm)
+    damagecategory: Cat.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
