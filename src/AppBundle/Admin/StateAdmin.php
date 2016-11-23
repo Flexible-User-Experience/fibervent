@@ -16,7 +16,7 @@ use Symfony\Component\Form\Extension\Core\Type\CountryType;
  */
 class StateAdmin extends AbstractBaseAdmin
 {
-    protected $classnameLabel = 'Província';
+    protected $classnameLabel = 'admin.state.title';
     protected $baseRoutePattern = 'customers/state';
     protected $datagridValues = array(
         '_sort_by'    => 'name',
@@ -29,19 +29,19 @@ class StateAdmin extends AbstractBaseAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->with('General', $this->getFormMdSuccessBoxArray(4))
+            ->with('admin.common.general', $this->getFormMdSuccessBoxArray(4))
             ->add(
                 'name',
                 null,
                 array(
-                    'label' => 'Nom',
+                    'label' => 'admin.customer.name',
                 )
             )
             ->add(
                 'countryCode',
                 CountryType::class,
                 array(
-                    'label' => 'País',
+                    'label' => 'admin.state.country',
                 )
             )
             ->end();
@@ -57,21 +57,21 @@ class StateAdmin extends AbstractBaseAdmin
                 'name',
                 null,
                 array(
-                    'label' => 'Nom',
+                    'label' => 'admin.customer.name',
                 )
             )
             ->add(
                 'countryCode',
                 null,
                 array(
-                    'label' => 'País',
+                    'label' => 'admin.state.country',
                 )
             )
             ->add(
                 'enabled',
                 null,
                 array(
-                    'label'    => 'Actiu',
+                    'label'    => 'admin.common.enabled',
                     'editable' => true,
                 )
             );
@@ -88,7 +88,7 @@ class StateAdmin extends AbstractBaseAdmin
                 'name',
                 null,
                 array(
-                    'label'    => 'Nom',
+                    'label'    => 'admin.customer.name',
                     'editable' => true,
                 )
             )
@@ -96,14 +96,14 @@ class StateAdmin extends AbstractBaseAdmin
                 'countryName',
                 null,
                 array(
-                    'label' => 'País',
+                    'label' => 'admin.state.country',
                 )
             )
             ->add(
                 '_action',
                 'actions',
                 array(
-                    'label'   => 'Accions',
+                    'label'   => 'admin.common.action',
                     'actions' => array(
                         'edit'   => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
                         'delete' => array('template' => '::Admin/Buttons/list__action_delete_button.html.twig'),
