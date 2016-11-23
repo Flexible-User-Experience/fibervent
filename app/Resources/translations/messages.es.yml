@@ -192,6 +192,7 @@ admin:
     language: Idioma PDF
     geoposition: Geolocalización
     latlng: Mapa
+    pdf_language: Idioma PDF
   windmill:
      title: Aerogenerador
      windfarm: Parque Eólico
