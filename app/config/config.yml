@@ -104,7 +104,7 @@ fos_user:
 
 # A2lix Translations
 a2lix_translation_form:
-    locales:          %locale_i18n%
+    locales:          "%locale_i18n%"
     default_required: true
     manager_registry: doctrine
     templating:       "::A2lix/form_template.html.twig"
@@ -119,7 +119,7 @@ swiftmailer:
 
 # TCPDF
 white_october_tcpdf:
-    class: 'AppBundle\Pdf\CustomTcpdf'
+    class: AppBundle\Pdf\CustomTcpdf
 
 # Twig Excel
 mewes_k_twig_excel:
