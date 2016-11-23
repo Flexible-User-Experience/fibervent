@@ -37,6 +37,13 @@ pdf:
   audit_blade_damage:
     1_title: RÉSUME INDIVIDUEL DOMMAGES PALE
     2_description: 'Le résultat de l’inspection est décrit dans le tableau suivant avec la catégorisation, les descriptions, l’emplacement et les liens aux photos des dommages.'
+  blade_damage_diagram:
+    1_vp_s: 'SOUPAPE DE PRESSION'
+    2_vs_s: 'SOUPAPE DE SUCCION'
+    3_vp_l: 'SP: Soupape de Pression'
+    4_vs_l: 'SS: Soupape de Succion'
+    5_ba_l: "BA: Bord d'Attaque"
+    6_bs_l: 'BF: Bord de Fuite'
   observations_table:
     1_damage: DOMMA.
     2_observations: OBSERVATIONS
