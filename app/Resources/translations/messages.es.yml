@@ -157,7 +157,7 @@ admin:
     category: Categoría
     priority: Prioridad
     description: Descripción
-    recommendeaction: Acción Recomendada
+    recomended_action: Acción Recomendada
     colour: Color
   observation:
     title: Observaciones Daños Pala
