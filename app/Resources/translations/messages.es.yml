@@ -177,11 +177,13 @@ admin:
   user:
     title: Usuario
     username: Nombre Usuario
-    plainpassword: Password
+    password: Password
     firstname: Nombre
     lastname: Apellido
-    rols: Roles
+    roles: Roles
+    rol: Rol
     locked: Bloqueado
+    language: Idioma
   windfarm:
     title: Parque Eólico
     customer: Cliente
