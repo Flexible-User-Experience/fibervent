@@ -107,6 +107,7 @@ admin:
     audit: Auditoria
     windmillblade: Pala
     damages: Daños
+    actions: Acciones
     damage_position: 'Situación y descripción de los daños · Pala '
     bladedamages: Daños
     photos: Fotos
@@ -198,4 +199,4 @@ admin:
      manager: Administrador
   windmillblade:
     title: Palas Aerogenerador
-    sn: 'S/N'
+    sn: '(S/N: '
