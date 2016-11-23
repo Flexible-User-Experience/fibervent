@@ -37,6 +37,13 @@ pdf:
   audit_blade_damage:
     1_title: RESUMEN INDIVIDUAL DAÑOS PALA
     2_description: En la siguiente tabla se describe el resultado de la inspección con la categorización, descripciones, ubicación y links a fotografías de los daños.
+  blade_damage_diagram:
+    1_vp_s: 'VALVA PRESIÓN'
+    2_vs_s: 'VALVA SUCCIÓN'
+    3_vp_l: 'VP: Valva Presión/Concha Presión'
+    4_vs_l: 'VS: Valva Succión/Concha Succión'
+    5_ba_l: 'BA: Borde Ataque'
+    6_bs_l: 'BS: Borde Salida'
   observations_table:
     1_damage: DAÑO
     2_observations: OBSERVACIONES

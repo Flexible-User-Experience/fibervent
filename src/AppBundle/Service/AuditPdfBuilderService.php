@@ -33,7 +33,7 @@ use Symfony\Bundle\FrameworkBundle\Templating\Helper\AssetsHelper;
  */
 class AuditPdfBuilderService
 {
-    const SHOW_GRID_DEBUG = true;
+    const SHOW_GRID_DEBUG = false;
 
     /**
      * @var TCPDFController
@@ -316,6 +316,7 @@ class AuditPdfBuilderService
                 $pdf->Line($x1, $yQuarter4, $x2, $yQuarter4, array('dash' => '2,1'));
             }
 
+            // Blade diagram middle lines
             $txt = $auditWindmillBlade->getWindmillBlade()->getWindmill()->getBladeType()->getQ1LengthString();
             $pdf->Text(($xQuarter2 - $pdf->GetStringWidth($txt) - 2), $yMiddle - 4, $txt);
             $txt = $auditWindmillBlade->getWindmillBlade()->getWindmill()->getBladeType()->getQ2LengthString();
@@ -333,23 +334,28 @@ class AuditPdfBuilderService
             $pdf->Line($xQuarter4, $yMiddle - 2, $xQuarter4, $yMiddle + 2);
             $pdf->Line($xQuarter5, $yMiddle - 2, $xQuarter5, $yMiddle + 2);
 
+            // Blade diagram help texts
+            $pdf->Text($xQuarter1, $yQuarter1 - 5, $this->ts->trans('pdf.blade_damage_diagram.1_vp_s'));
+            $pdf->Text($xQuarter1, $yQuarter4 + 1, $this->ts->trans('pdf.blade_damage_diagram.2_vs_s'));
+            $pdf->Text($xQuarter3, $yQuarter4 - 2, $this->ts->trans('pdf.blade_damage_diagram.3_vp_l'));
+            $pdf->Text($xQuarter5 - $pdf->GetStringWidth($this->ts->trans('pdf.blade_damage_diagram.5_ba_l')), $yQuarter4 - 2, $this->ts->trans('pdf.blade_damage_diagram.5_ba_l'));
+            $pdf->Text($xQuarter3, $yQuarter4 + 2, $this->ts->trans('pdf.blade_damage_diagram.4_vs_l'));
+            $pdf->Text($xQuarter5 - $pdf->GetStringWidth($this->ts->trans('pdf.blade_damage_diagram.5_ba_l')), $yQuarter4 + 2, $this->ts->trans('pdf.blade_damage_diagram.6_bs_l'));
+
+            // Draw blade diagram
             $polyArray = array();
             $polyArray2 = array();
             $xStep = $xQuarter1;
             $xDelta = ($xQuarter5 - $xQuarter1) / 50;
-//            $yLast = $yQuarter2 - (($yQuarter2 - $yQuarter1) * $this->bladeShape[0]);
             foreach ($this->bladeShape as $yPoint) {
                 $yTransform = $yQuarter2 - (($yQuarter2 - $yQuarter1) * $yPoint);
                 $yTransform2 = $yQuarter3 + (($yQuarter4 - $yQuarter3) * $yPoint);
-//                $pdf->Line($xStep, $yLast, $xStep + $xDelta, $yTransform, array('dash' => 0, 'color' => array(0, 0, 255)));
                 array_push($polyArray, $xStep);
                 array_push($polyArray, $yTransform);
                 array_push($polyArray2, $xStep);
                 array_push($polyArray2, $yTransform2);
                 $xStep += $xDelta;
-//                $yLast = $yTransform;
             }
-
             array_push($polyArray, $xQuarter5);
             array_push($polyArray, $yQuarter2);
             array_push($polyArray, $xQuarter1);
@@ -445,6 +451,7 @@ class AuditPdfBuilderService
                 $pdf->AddPage();
             }
         }
+
         // Contact section
         $pdf->setFontStyle(null, 'B', 11);
         $pdf->Write(0, $this->ts->trans('pdf.inspection_description.1_contact'), '', false, 'L', true);
@@ -452,7 +459,6 @@ class AuditPdfBuilderService
         $pdf->setFontStyle(null, '', 9);
         $pdf->Write(0, $this->ts->trans('pdf.inspection_description.2_description'), '', false, 'L', true);
         $pdf->Ln(10);
-        // Cell($w, $h=0, $txt='', $border=0, $ln=0, $align='', $fill=0, $link='', $stretch=0, $ignore_min_height=false, $calign='T', $valign='M')
         $pdf->Cell(10, 0, '', 0, 0);
         $pdf->Cell(0, 0, $this->ts->trans('pdf.inspection_description.3_offices'), 0, 1, 'L', 0, '');
         $pdf->Ln(5);
@@ -528,31 +534,24 @@ class AuditPdfBuilderService
     {
         /** @var CustomTcpdf $pdf */
         $pdf = $this->tcpdf->create($this->tha, $audit, $this->ts);
-
         // set document information
         $pdf->SetCreator(PDF_CREATOR);
         $pdf->SetAuthor('Fibervent');
         $pdf->SetTitle($this->ts->trans('pdf.set_document_information.1_title') . $audit->getId() . ' ' . $windfarm->getName());
         $pdf->SetSubject($this->ts->trans('pdf.set_document_information.2_subject') . $windfarm->getName());
-
         // set default font subsetting mode
         $pdf->setFontSubsetting(true);
-
         // remove default header/footer
         $pdf->setPrintHeader(false);
         $pdf->setPrintFooter(false);
-
         // set default monospaced font
         $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
-
         // set margins
         $pdf->SetMargins(CustomTcpdf::PDF_MARGIN_LEFT, CustomTcpdf::PDF_MARGIN_TOP, CustomTcpdf::PDF_MARGIN_RIGHT);
         $pdf->SetAutoPageBreak(TRUE, CustomTcpdf::PDF_MARGIN_BOTTOM);
-
         // set image scale factor
         $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
-
-        // Add start page
+        // add start page
         $pdf->startPage(PDF_PAGE_ORIENTATION, PDF_PAGE_FORMAT);
 /*
         // logo
