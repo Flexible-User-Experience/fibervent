@@ -3,6 +3,7 @@
 namespace AppBundle\Admin;
 
 use AppBundle\Enum\UserRolesEnum;
+use AppBundle\Enum\WindfarmLanguageEnum;
 use Sonata\UserBundle\Admin\Model\UserAdmin as ParentUserAdmin;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -154,6 +155,17 @@ class UserAdmin extends ParentUserAdmin
             )
             ->end()
             ->with('Controls', array('class' => 'col-md-3'))
+            ->add(
+                'language',
+                ChoiceType::class,
+                array(
+                    'label'    => 'Idioma',
+                    'choices'  => WindfarmLanguageEnum::getEnumArrayString(),
+                    'multiple' => false,
+                    'expanded' => false,
+                    'required' => true,
+                )
+            )
             ->add(
                 'locked',
                 CheckboxType::class,
