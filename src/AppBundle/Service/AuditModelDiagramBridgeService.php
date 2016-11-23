@@ -673,14 +673,14 @@ class AuditModelDiagramBridgeService
     /**
      * Draw a blade damage center point reference
      *
-     * @param \TCPDF $pdf
+     * @param CustomTcpdf $pdf
      * @param BladeDamage $bladeDamage
      */
-    public function drawCenterPoint(\TCPDF $pdf, BladeDamage $bladeDamage)
+    public function drawCenterPoint(CustomTcpdf $pdf, BladeDamage $bladeDamage)
     {
         $x = $this->getGapX($bladeDamage);
         $y = $this->getGapY($bladeDamage);
-        $pdf->Line($x, $y, $x + 0.5, $y, array('width' => 0.5, 'dash' => false, 'color' => $this->hex2rgb($bladeDamage->getDamageCategory()->getColour())));
+        $pdf->Line($x, $y, $x + 0.5, $y, array('width' => 0.5, 'dash' => 0, 'color' => $this->hex2rgb($bladeDamage->getDamageCategory()->getColour())));
 
         if ($bladeDamage->getEdge() == BladeDamageEdgeEnum::EDGE_UNDEFINED) {
             if ($bladeDamage->getPosition() == BladeDamagePositionEnum::EDGE_IN) {
@@ -691,6 +691,37 @@ class AuditModelDiagramBridgeService
                 // Edge out
                 $deltaY = $this->yQ2 - $y;
                 $pdf->Line($x, $this->yQ3 + $deltaY, $x + 0.5, $this->yQ3 + $deltaY, array('width' => 0.5, 'dash' => false, 'color' => $this->hex2rgb($bladeDamage->getDamageCategory()->getColour())));
+            }
+        }
+    }
+
+    /**
+     * Draw a blade damage rectangle reference
+     *
+     * @param CustomTcpdf $pdf
+     * @param BladeDamage $bladeDamage
+     * @param integer     $damageNumber
+     */
+    public function drawCenterDamage(CustomTcpdf $pdf, BladeDamage $bladeDamage, $damageNumber)
+    {
+        $pdf->setBackgroundHexColor($bladeDamage->getDamageCategory()->getColour());
+        $x = $this->getGapX($bladeDamage);
+        $y = $this->getGapY($bladeDamage);
+        $w = 5;
+        $pdf->Rect($x - self::GAP_SQUARE_HALF_SIZE, $y - self::GAP_SQUARE_HALF_SIZE, $w, self::GAP_SQUARE_SIZE, 'DF', array('all' => array('width' => 0.25, 'cap' => 'butt', 'join' => 'miter', 'dash' => 0, 'color' => array(0, 0, 0))));
+        $pdf->MultiCell($w + 2, self::GAP_SQUARE_SIZE, $damageNumber, 0, 'C', false, 0, $x - self::GAP_SQUARE_HALF_SIZE - 1, $y - self::GAP_SQUARE_HALF_SIZE - 0.25, true);
+
+        if ($bladeDamage->getEdge() == BladeDamageEdgeEnum::EDGE_UNDEFINED) {
+            if ($bladeDamage->getPosition() == BladeDamagePositionEnum::EDGE_IN) {
+                // Edge in
+                $pdf->Rect($x - self::GAP_SQUARE_HALF_SIZE, $y - self::GAP_SQUARE_HALF_SIZE + $this->yQ3 - $this->yQ2, $w, self::GAP_SQUARE_SIZE, 'DF', array('all' => array('width' => 0.25, 'cap' => 'butt', 'join' => 'miter', 'dash' => 0, 'color' => array(0, 0, 0))));
+                $pdf->MultiCell($w + 2, self::GAP_SQUARE_SIZE, $damageNumber, 0, 'C', false, 0, $x - self::GAP_SQUARE_HALF_SIZE - 1, $y - self::GAP_SQUARE_HALF_SIZE + $this->yQ3 - $this->yQ2 - 0.25, true);
+
+            } elseif ($bladeDamage->getPosition() == BladeDamagePositionEnum::EDGE_OUT) {
+                // Edge out
+                $deltaY = $this->yQ2 - $y;
+                $pdf->Rect($x - self::GAP_SQUARE_HALF_SIZE, $this->yQ3 + $deltaY - self::GAP_SQUARE_HALF_SIZE, $w, self::GAP_SQUARE_SIZE, 'DF', array('all' => array('width' => 0.25, 'cap' => 'butt', 'join' => 'miter', 'dash' => 0, 'color' => array(0, 0, 0))));
+                $pdf->MultiCell($w + 2, self::GAP_SQUARE_SIZE, $damageNumber, 0, 'C', false, 0, $x - self::GAP_SQUARE_HALF_SIZE - 1, $this->yQ3 + $deltaY - self::GAP_SQUARE_HALF_SIZE, true);
             }
         }
     }

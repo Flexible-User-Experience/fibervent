@@ -185,22 +185,6 @@ class CustomTcpdf extends \TCPDF
     }
 
     /**
-     * Draw damage in diagram
-     *
-     * @param float   $x
-     * @param float   $y
-     * @param float   $w
-     * @param int     $txt
-     * @param string  $hexColor
-     */
-    public function drawDamage($x, $y, $w, $txt, $hexColor)
-    {
-        $this->setBackgroundHexColor($hexColor);
-        $this->Rect($x, $y, $w, 5, 'DF', array('all' => array('width' => 0.25, 'cap' => 'butt', 'join' => 'miter', 'dash' => 0, 'color' => array(0, 0, 0))));
-        $this->MultiCell($w + 2, 5, $txt, 0, 'C', false, 0, $x - 1, $y - 0.25, true);
-    }
-
-    /**
      * Set available page dimensions
      */
     public function setAvailablePageDimension()

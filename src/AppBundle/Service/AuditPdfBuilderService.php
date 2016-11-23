@@ -303,7 +303,11 @@ class AuditPdfBuilderService
 
             /** @var BladeDamage $bladeDamage */
             foreach ($bladeDamages as $sKey => $bladeDamage) {
-                $this->amdb->drawCenterPoint($pdf, $bladeDamage);
+                if (self::SHOW_GRID_DEBUG) {
+                    $this->amdb->drawCenterPoint($pdf, $bladeDamage);
+                } else {
+                    $this->amdb->drawCenterDamage($pdf, $bladeDamage, $sKey);
+                }
             }
 
             $pdf->setWhiteBackground();
