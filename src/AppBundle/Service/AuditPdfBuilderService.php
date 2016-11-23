@@ -217,9 +217,9 @@ class AuditPdfBuilderService
             $this->drawDamageTableHeader($pdf);
 
             /** @var BladeDamage $bladeDamage */
-//            foreach ($bladeDamages as $sKey => $bladeDamage) {
-//                $this->drawDamageTableBodyRow($pdf, $sKey, $bladeDamage);
-//            }
+            foreach ($bladeDamages as $sKey => $bladeDamage) {
+                $this->drawDamageTableBodyRow($pdf, $sKey, $bladeDamage);
+            }
             $pdf->Ln(7);
             $yBreakpoint = $pdf->GetY();
 
@@ -241,8 +241,6 @@ class AuditPdfBuilderService
             $yQuarter2 = $this->amdb->getYQ2();
             $yQuarter3 = $this->amdb->getYQ3();
             $yQuarter4 = $this->amdb->getYQ4();
-
-//            $pdf->Image($this->tha->getUrl('/bundles/app/images/blade_diagrams/blade_blueprint_' . $this->locale . '.jpg'), $x1, $y1, ($x2 - $x1) + 0.5, null);
 
             if (self::SHOW_GRID_DEBUG) {
                 $pdf->Line($xQuarter1, $y1, $xQuarter1, $y1 + ($y2 - $y1), array('dash' => '2,1', 'color' => array(150, 150, 150)));
@@ -278,9 +276,9 @@ class AuditPdfBuilderService
             // Blade diagram help texts
             $pdf->Text($xQuarter1, $yQuarter1 - 5, $this->ts->trans('pdf.blade_damage_diagram.1_vp_s'));
             $pdf->Text($xQuarter1, $yQuarter4 + 1, $this->ts->trans('pdf.blade_damage_diagram.2_vs_s'));
-            $pdf->Text($xQuarter3, $yQuarter4 - 2, $this->ts->trans('pdf.blade_damage_diagram.3_vp_l'));
+            $pdf->Text($xQuarter3 - 5, $yQuarter4 - 2, $this->ts->trans('pdf.blade_damage_diagram.3_vp_l'));
             $pdf->Text($xQuarter5 - $pdf->GetStringWidth($this->ts->trans('pdf.blade_damage_diagram.5_ba_l')), $yQuarter4 - 2, $this->ts->trans('pdf.blade_damage_diagram.5_ba_l'));
-            $pdf->Text($xQuarter3, $yQuarter4 + 2, $this->ts->trans('pdf.blade_damage_diagram.4_vs_l'));
+            $pdf->Text($xQuarter3 - 5, $yQuarter4 + 2, $this->ts->trans('pdf.blade_damage_diagram.4_vs_l'));
             $pdf->Text($xQuarter5 - $pdf->GetStringWidth($this->ts->trans('pdf.blade_damage_diagram.5_ba_l')), $yQuarter4 + 2, $this->ts->trans('pdf.blade_damage_diagram.6_bs_l'));
 
             // Draw blade diagram
@@ -314,6 +312,7 @@ class AuditPdfBuilderService
             // Observations table
             if (count($auditWindmillBlade->getObservations()) > 0) {
                 $pdf->setBlueLine();
+                $pdf->SetLineStyle(array('width' => 0.25));
                 $pdf->setBlueBackground();
                 $pdf->setFontStyle(null, 'B', 9);
                 $pdf->Cell(16, 0, $this->ts->trans('pdf.observations_table.1_damage'), 1, 0, 'C', true);
@@ -357,7 +356,7 @@ class AuditPdfBuilderService
             /** @var BladeDamage $bladeDamage */
             foreach ($bladeDamages as $sKey => $bladeDamage) {
                 $this->drawDamageTableHeader($pdf);
-//                $this->drawDamageTableBodyRow($pdf, $sKey, $bladeDamage);
+                $this->drawDamageTableBodyRow($pdf, $sKey, $bladeDamage);
                 $pdf->Ln(5);
                 /** @var Photo $photo */
                 foreach ($bladeDamage->getPhotos() as $photo) {
@@ -471,7 +470,6 @@ class AuditPdfBuilderService
         $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
         // add start page
         $pdf->startPage(PDF_PAGE_ORIENTATION, PDF_PAGE_FORMAT);
-/*
         // logo
         if ($audit->getCustomer()->getImageName()) {
             $pdf->Image($this->uh->asset($audit->getCustomer(), 'imageFile'), 43, 45, 32);
@@ -479,7 +477,6 @@ class AuditPdfBuilderService
         } else {
             $pdf->Image($this->tha->getUrl('/bundles/app/images/fibervent_logo_white_landscape.jpg'), '', 45, '', '', 'JPEG', '', 'T', false, 300, 'C', false, false, 0, false, false, false);
         }
-
         // main detail section
         $pdf->SetXY(CustomTcpdf::PDF_MARGIN_LEFT, 100);
         $pdf->setFontStyle(null, 'B', 14);
@@ -491,7 +488,6 @@ class AuditPdfBuilderService
         $pdf->Cell(0, 8, $this->ts->trans('pdf.cover.2_resume') . ' ' . $windmill->getCode(), 'TB', 1, 'C', true);
         $pdf->Cell(0, 8, $windfarm->getPdfLocationString(), 'TB', 1, 'C', true);
         $pdf->setFontStyle();
-
         // table detail section
         $pdf->SetXY(CustomTcpdf::PDF_MARGIN_LEFT, $pdf->GetY() + 10);
         $pdf->setFontStyle(null, 'B', 10);
@@ -542,7 +538,6 @@ class AuditPdfBuilderService
         $pdf->setFontStyle(null, '', 10);
         $pdf->setWhiteBackground();
         $pdf->Cell(0, 6, $windfarm->getMangerFullname(), 'TB', 1, 'L', true);
-
         // operators details
         $pdf->SetXY(CustomTcpdf::PDF_MARGIN_LEFT, $pdf->GetY() + 10);
         $pdf->setFontStyle(null, 'B', 10);
@@ -551,7 +546,6 @@ class AuditPdfBuilderService
         $pdf->setFontStyle(null, '', 10);
         $pdf->setWhiteBackground();
         $pdf->Cell(0, 6, implode(', ', $audit->getOperators()->getValues()), 'TB', 1, 'L', true);
-
         // final details
         $pdf->SetXY(CustomTcpdf::PDF_MARGIN_LEFT, $pdf->GetY() + 10);
         $pdf->setFontStyle(null, 'B', 10);
@@ -572,7 +566,6 @@ class AuditPdfBuilderService
         $pdf->setFontStyle(null, '', 10);
         $pdf->setWhiteBackground();
         $pdf->Cell(0, 6, $this->ts->trans('pdf.cover.14_blades_amout_value'), 'TB', 1, 'L', true);
-
         // footer
         $pdf->SetXY(CustomTcpdf::PDF_MARGIN_LEFT, 250);
         $pdf->setFontStyle(null, null, 8);
@@ -589,7 +582,7 @@ class AuditPdfBuilderService
         $pdf->setFontStyle(null, null, 8);
         $pdf->Write(0, 'www.fibervent.com', 'http://www.fibervent.com/', false, 'L');
         $pdf->setBlackText();
-*/
+
         return $pdf;
     }
 
