@@ -135,7 +135,7 @@ admin:
     image: Logo
     code: CIF
     name: Nombre
-    contacto: Contacto
+    contact: Contacto
     email: Correo Electrónico
     phone: Teléfono
     web: Web
@@ -145,6 +145,7 @@ admin:
     city: Ciudad
     state: Província
     contacts: Contactos
+    windfarms: Parques Eólicos
   damage:
     title: Tipo Daño
     section: Sección
