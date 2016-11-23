@@ -613,54 +613,6 @@ class AuditModelDiagramBridgeService
     }
 
     /**
-     * Get XScaleGap
-     *
-     * @return float
-     */
-    public function getXScaleGap()
-    {
-        return $this->xScaleGap;
-    }
-
-    /**
-     * Set XScaleGap
-     *
-     * @param float $xScaleGap
-     *
-     * @return $this
-     */
-    public function setXScaleGap($xScaleGap)
-    {
-        $this->xScaleGap = $xScaleGap;
-
-        return $this;
-    }
-
-    /**
-     * Get YScaleGap
-     *
-     * @return float
-     */
-    public function getYScaleGap()
-    {
-        return $this->yScaleGap;
-    }
-
-    /**
-     * Set YScaleGap
-     *
-     * @param float $yScaleGap
-     *
-     * @return $this
-     */
-    public function setYScaleGap($yScaleGap)
-    {
-        $this->yScaleGap = $yScaleGap;
-
-        return $this;
-    }
-
-    /**
      * Return blade shape array
      *
      * @return array
@@ -707,7 +659,7 @@ class AuditModelDiagramBridgeService
         $pdf->setBackgroundHexColor($bladeDamage->getDamageCategory()->getColour());
         $x = $this->getGapX($bladeDamage);
         $y = $this->getGapY($bladeDamage);
-        $w = 5;
+        $w = $this->getGapXSize($bladeDamage);
         $pdf->Rect($x - self::GAP_SQUARE_HALF_SIZE, $y - self::GAP_SQUARE_HALF_SIZE, $w, self::GAP_SQUARE_SIZE, 'DF', array('all' => array('width' => 0.25, 'cap' => 'butt', 'join' => 'miter', 'dash' => 0, 'color' => array(0, 0, 0))));
         $pdf->MultiCell($w + 2, self::GAP_SQUARE_SIZE, $damageNumber, 0, 'C', false, 0, $x - self::GAP_SQUARE_HALF_SIZE - 1, $y - self::GAP_SQUARE_HALF_SIZE - 0.25, true);
 
