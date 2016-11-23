@@ -33,7 +33,7 @@ use Symfony\Bundle\FrameworkBundle\Templating\Helper\AssetsHelper;
  */
 class AuditPdfBuilderService
 {
-    const SHOW_GRID_DEBUG = false;
+    const SHOW_GRID_DEBUG = true;
 
     /**
      * @var TCPDFController
@@ -91,11 +91,6 @@ class AuditPdfBuilderService
     private $locale;
 
     /**
-     * @var array
-     */
-    private $bladeShape;
-
-    /**
      *
      *
      * Methods
@@ -129,59 +124,6 @@ class AuditPdfBuilderService
         $this->bdr   = $bdr;
         $this->cr    = $cr;
         $this->amdb  = $amdb;
-        $this->bladeShape = array(
-            0.570574080305441,
-            0.577923063404412,
-            0.590106432909933,
-            0.608062018782336,
-            0.633647645057639,
-            0.668180278884672,
-            0.712354562586671,
-            0.766091601839969,
-            0.827681103816886,
-            0.891980459573338,
-            0.949222288127351,
-            0.987703271941501,
-            1.000000000000000,
-            0.986607024609017,
-            0.954102183264805,
-            0.911196131979670,
-            0.865789976973706,
-            0.823567971555419,
-            0.787670763591748,
-            0.759017362089391,
-            0.736965757137396,
-            0.720058642359332,
-            0.706656262223690,
-            0.695345886163577,
-            0.685115527749747,
-            0.675351354544384,
-            0.665744104299468,
-            0.656176274538586,
-            0.646630532913632,
-            0.637130999745297,
-            0.627712386068213,
-            0.618406897715452,
-            0.609240271624142,
-            0.600231610520974,
-            0.591394401450540,
-            0.582737684783291,
-            0.574267062547622,
-            0.565985499712510,
-            0.557893946124258,
-            0.549991817314795,
-            0.542277366882693,
-            0.534747975756082,
-            0.527400377504407,
-            0.520230834206199,
-            0.513235273908621,
-            0.506409398120520,
-            0.499748765832901,
-            0.493248859088797,
-            0.486905134005711,
-            0.473964410225382,
-            0.273964410225382,
-        );
     }
 
     /**
@@ -347,23 +289,17 @@ class AuditPdfBuilderService
             $polyArray2 = array();
             $xStep = $xQuarter1;
             $xDelta = ($xQuarter5 - $xQuarter1) / 50;
-            foreach ($this->bladeShape as $yPoint) {
+            foreach ($this->amdb->getBladeShape() as $yPoint) {
                 $yTransform = $yQuarter2 - (($yQuarter2 - $yQuarter1) * $yPoint);
                 $yTransform2 = $yQuarter3 + (($yQuarter4 - $yQuarter3) * $yPoint);
-                array_push($polyArray, $xStep);
-                array_push($polyArray, $yTransform);
-                array_push($polyArray2, $xStep);
-                array_push($polyArray2, $yTransform2);
+                array_push($polyArray, $xStep);  array_push($polyArray, $yTransform);
+                array_push($polyArray2, $xStep); array_push($polyArray2, $yTransform2);
                 $xStep += $xDelta;
             }
-            array_push($polyArray, $xQuarter5);
-            array_push($polyArray, $yQuarter2);
-            array_push($polyArray, $xQuarter1);
-            array_push($polyArray, $yQuarter2);
-            array_push($polyArray2, $xQuarter5);
-            array_push($polyArray2, $yQuarter3);
-            array_push($polyArray2, $xQuarter1);
-            array_push($polyArray2, $yQuarter3);
+            array_push($polyArray, $xQuarter5);  array_push($polyArray, $yQuarter2);
+            array_push($polyArray, $xQuarter1);  array_push($polyArray, $yQuarter2);
+            array_push($polyArray2, $xQuarter5); array_push($polyArray2, $yQuarter3);
+            array_push($polyArray2, $xQuarter1); array_push($polyArray2, $yQuarter3);
             $pdf->SetLineStyle(array('dash' => 0, 'width' => 0.35));
             $pdf->Polygon($polyArray);
             $pdf->Polygon($polyArray2);
