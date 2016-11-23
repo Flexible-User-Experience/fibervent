@@ -2,7 +2,6 @@
 
 namespace AppBundle\Service;
 
-use AppBundle\Entity\Blade;
 use AppBundle\Entity\BladeDamage;
 use AppBundle\Enum\BladeDamageEdgeEnum;
 use AppBundle\Enum\BladeDamagePositionEnum;
@@ -101,11 +100,6 @@ class AuditModelDiagramBridgeService
      * @var float
      */
     private $yScaleGap;
-
-    /**
-     * @var
-     */
-    private $maxFunctionYPoint;
 
     /**
      * @var array
@@ -208,50 +202,6 @@ class AuditModelDiagramBridgeService
     }
 
     /**
-     * Get MaxFunctionYPoint
-     *
-     * @return mixed
-     */
-    public function getMaxFunctionYPoint()
-    {
-        return $this->maxFunctionYPoint;
-    }
-
-    /**
-     * Set MaxFunctionYPoint
-     *
-     * @param mixed $maxFunctionYPoint
-     *
-     * @return $this
-     */
-    public function setMaxFunctionYPoint($maxFunctionYPoint)
-    {
-        $this->maxFunctionYPoint = $maxFunctionYPoint;
-
-        return $this;
-    }
-
-    /**
-     * @param Blade $blade
-     *
-     * @return float|int
-     */
-    public function calculateMaxFunctionYPoint(Blade $blade)
-    {
-        $maxY = 0;
-        $bladeLength = $blade->getLength();
-        for ($x = 0; $x <= $bladeLength; $x = $x + 0.5) {
-            $val = $this->isolatedDeltaY($x, $blade->getLength());
-            if ($maxY < $val) {
-                $maxY = $val;
-            }
-        }
-        $this->setMaxFunctionYPoint($maxY);
-
-        return $maxY;
-    }
-
-    /**
      * @param BladeDamage $bladeDamage
      *
      * @return float
@@ -278,11 +228,10 @@ class AuditModelDiagramBridgeService
 
     /**
      * @param BladeDamage $bladeDamage
-     * @param int         $inversed
      *
      * @return float
      */
-    public function getGapY(BladeDamage $bladeDamage, $inversed = 1)
+    public function getGapY(BladeDamage $bladeDamage)
     {
         $gap = 0;
         if ($bladeDamage->getEdge() == BladeDamageEdgeEnum::EDGE_IN) {

@@ -6,6 +6,7 @@ use AppBundle\Entity\Audit;
 use AppBundle\Entity\AuditWindmillBlade;
 use AppBundle\Entity\BladeDamage;
 use AppBundle\Entity\BladePhoto;
+use AppBundle\Entity\DamageCategory;
 use AppBundle\Entity\Observation;
 use AppBundle\Entity\Photo;
 use AppBundle\Entity\Windfarm;
@@ -138,7 +139,7 @@ class AuditPdfBuilderService
 
         /** @var CustomTcpdf $pdf */
         $pdf = $this->doInitialConfig($audit, $windmill, $windfarm);
-/**
+
         // Add a page
         $pdf->setPrintHeader(true);
         $pdf->AddPage(PDF_PAGE_ORIENTATION, PDF_PAGE_FORMAT, true, true);
@@ -178,7 +179,7 @@ class AuditPdfBuilderService
         $pdf->MultiCell(60, 0, $this->ts->trans('pdf.damage_catalog.table.3_description'), 1, 'C', 1, 0, '', '', true);
         $pdf->MultiCell(0, 0, $this->ts->trans('pdf.damage_catalog.table.4_action'), 1, 'C', 1, 1, '', '', true);
         $pdf->setFontStyle(null, '', 9);
-        /** @var DamageCategory $item *
+        /** @var DamageCategory $item */
         foreach ($this->dcr->findAllSortedByCategoryLocalized($this->locale) as $item) {
             $pdf->setBackgroundHexColor($item->getColour());
             $pdf->MultiCell(20, 14, $item->getCategory(), 1, 'C', 1, 0, '', '', true, 0, false, true, 14, 'M');
@@ -199,8 +200,8 @@ class AuditPdfBuilderService
         // Audit description with windmill image schema
         $pdf->Image($this->tha->getUrl('/bundles/app/images/tubrine_diagrams/' . $audit->getDiagramType() . '.jpg'), CustomTcpdf::PDF_MARGIN_LEFT + 50, $pdf->GetY(), null, 40);
         $pdf->AddPage();
- */
-//        $this->amdb->calculateMaxFunctionYPoint($audit->getWindmill()->getBladeType());
+
+
         // Damages section
         /** @var AuditWindmillBlade $auditWindmillBlade */
         foreach ($audit->getAuditWindmillBlades() as $key => $auditWindmillBlade) {
