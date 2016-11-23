@@ -119,7 +119,7 @@ class AuditWindmillBladeAdmin extends AbstractBaseAdmin
                     )
                 )
                 ->end()
-                ->with('admin.auditwindmillblade.blade_photos ' . $order . ' ' . $code, $this->getFormMdSuccessBoxArray(4))
+                ->with('admin.auditwindmillblade.blade_photos' . $order . ' ' . $code, $this->getFormMdSuccessBoxArray(4))
                 ->add(
                     'bladePhotos',
                     'sonata_type_collection',
