@@ -162,7 +162,7 @@ admin:
   observation:
     title: Observaciones Daños Pala
     position: Orden
-    damagenumber: Número Daño
+    damage_number: Número Daño
   foto:
     title: Foto
     imagename: Nombre
