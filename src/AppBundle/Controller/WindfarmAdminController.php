@@ -6,6 +6,7 @@ use AppBundle\Entity\Audit;
 use AppBundle\Entity\AuditWindmillBlade;
 use AppBundle\Entity\Windfarm;
 use AppBundle\Enum\WindfarmLanguageEnum;
+use AppBundle\Form\Type\WindfarmAnnualStatsFormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
@@ -98,35 +99,49 @@ class WindfarmAdminController extends AbstractBaseAdminController
             throw $this->createNotFoundException(sprintf('Unable to find windfarm record with id: %s', $id));
         }
 
-        $audits = $this->getDoctrine()->getRepository('AppBundle:Audit')->getInvoicedOrDoneAuditsByWindfarmSortedByBeginDate($object);
+        $form = $this->createForm(new WindfarmAnnualStatsFormType());
 
-        /** @var Audit $audit */
-        foreach ($audits as $audit) {
-            $auditWindmillBlades = $audit->getAuditWindmillBlades();
-            /** @var AuditWindmillBlade $auditWindmillBlade */
-            foreach ($auditWindmillBlades as $auditWindmillBlade) {
-                $bladeDamages = $this->getDoctrine()->getRepository('AppBundle:BladeDamage')->getItemsOfAuditWindmillBladeSortedByRadius($auditWindmillBlade);
-                if (count($bladeDamages) > 0) {
-                    $auditWindmillBlade->setBladeDamages($bladeDamages);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $audits = $this->getDoctrine()->getRepository('AppBundle:Audit')->getInvoicedOrDoneAuditsByWindfarmSortedByBeginDate($object);
+
+            /** @var Audit $audit */
+            foreach ($audits as $audit) {
+                $auditWindmillBlades = $audit->getAuditWindmillBlades();
+                /** @var AuditWindmillBlade $auditWindmillBlade */
+                foreach ($auditWindmillBlades as $auditWindmillBlade) {
+                    $bladeDamages = $this->getDoctrine()->getRepository('AppBundle:BladeDamage')->getItemsOfAuditWindmillBladeSortedByRadius($auditWindmillBlade);
+                    if (count($bladeDamages) > 0) {
+                        $auditWindmillBlade->setBladeDamages($bladeDamages);
+                    }
                 }
             }
+
+            $template = $this->renderView(
+                ':Admin/Windfarm:excel.xls.twig',
+                array(
+                    'action' => 'show',
+                    'windfarm' => $object,
+                    'audits' => $audits,
+                    'locale' => WindfarmLanguageEnum::getEnumArray()[$object->getLanguage()],
+                )
+            );
+
+            $currentDate = new \DateTime();
+
+            return new Response($template, 200, array(
+                    'Content-type' => 'application/vnd.ms-excel',
+                    'Content-Disposition' => 'attachment; filename="' . $currentDate->format('Y-m-d') . '_' . $object->getSlug() . '.xls"'
+                )
+            );
         }
 
-        $template = $this->renderView(
-            ':Admin/Windfarm:excel.xls.twig',
+        return $this->render(
+            ':Admin/Windfarm:annual_stats.html.twig',
             array(
                 'action' => 'show',
-                'windfarm' => $object,
-                'audits' => $audits,
-                'locale' => WindfarmLanguageEnum::getEnumArray()[$object->getLanguage()],
-            )
-        );
-
-        $currentDate = new \DateTime();
-
-        return new Response($template, 200, array(
-            'Content-type' => 'application/vnd.ms-excel',
-            'Content-Disposition' => 'attachment; filename="' . $currentDate->format('Y-m-d') . '_' . $object->getSlug() . '.xls"'
+                'object' => $object,
+                'form'   => $form->createView(),
             )
         );
     }

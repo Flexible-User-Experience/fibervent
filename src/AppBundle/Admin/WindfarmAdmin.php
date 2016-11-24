@@ -37,11 +37,12 @@ class WindfarmAdmin extends AbstractBaseAdmin
         $collection
             ->add('audits', $this->getRouterIdParameter() . '/audits')
             ->add('map', $this->getRouterIdParameter() . '/map')
-            ->add('excel', $this->getRouterIdParameter() . '/excel', array(
-                '_format' => 'xls'
-            ), array(
-                '_format' => 'csv|xls|xlsx'
-            ))
+            ->add('excel', $this->getRouterIdParameter() . '/excel')
+//            ->add('excel', $this->getRouterIdParameter() . '/excel', array(
+//                '_format' => 'xls'
+//            ), array(
+//                '_format' => 'csv|xls|xlsx'
+//            ))
             ->remove('delete');
     }
 
