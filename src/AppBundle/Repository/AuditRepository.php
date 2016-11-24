@@ -83,15 +83,38 @@ class AuditRepository extends EntityRepository
 
     /**
      * @param Windfarm $windfarm
+     * @param int      $year
+     *
+     * @return QueryBuilder
+     */
+    public function getInvoicedOrDoneAuditsByWindfarmByYearQB(Windfarm $windfarm, $year)
+    {
+        $query = $this->getInvoicedOrDoneAuditsByWindfarmSortedByBeginDateQB($windfarm)
+                ->andWhere('YEAR(a.beginDate) = :year')
+                ->setParameter('year', $year);
+
+        return $query;
+    }
+
+    /**
+     * @param Windfarm $windfarm
+     * @param int      $year
+     *
+     * @return Query
+     */
+    public function getInvoicedOrDoneAuditsByWindfarmByYearQ(Windfarm $windfarm, $year)
+    {
+        return $this->getInvoicedOrDoneAuditsByWindfarmByYearQB($windfarm, $year)->getQuery();
+    }
+
+    /**
+     * @param Windfarm $windfarm
+     * @param int      $year
      *
      * @return array
      */
-    public function getInvoicedOrDoneAuditsByWindfarmByYear(Windfarm $windfarm)
+    public function getInvoicedOrDoneAuditsByWindfarmByYear(Windfarm $windfarm, $year)
     {
-        $query = $this->getInvoicedOrDoneAuditsByWindfarmSortedByBeginDateQB($windfarm)
-                ->andWhere('a.beginDate ');
-
-
-        return $query->getResult();
+        return $this->getInvoicedOrDoneAuditsByWindfarmByYearQ($windfarm, $year)->getResult();
     }
 }

@@ -33,7 +33,11 @@ class WindfarmAnnualStatsFormType extends AbstractType
                     'multiple' => false,
                     'label'    => 'Año',
 //                    'choices'  => $options['to_emails_list'],
-                    'choices'  => array(2017, 2016, 2015),
+                    'choices'  => array(
+                        '2017' => 2017,
+                        '2016' => 2016,
+                        '2015' => 2015
+                    ),
                 )
             )
             ->add(

@@ -103,7 +103,7 @@ class WindfarmAdminController extends AbstractBaseAdminController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $audits = $this->getDoctrine()->getRepository('AppBundle:Audit')->getInvoicedOrDoneAuditsByWindfarmSortedByBeginDate($object);
+            $audits = $this->getDoctrine()->getRepository('AppBundle:Audit')->getInvoicedOrDoneAuditsByWindfarmByYear($object, $form->get('year')->getData());
 
             /** @var Audit $audit */
             foreach ($audits as $audit) {
