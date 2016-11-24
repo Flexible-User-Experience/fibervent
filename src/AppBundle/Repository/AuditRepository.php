@@ -5,6 +5,8 @@ namespace AppBundle\Repository;
 use AppBundle\Entity\Windfarm;
 use AppBundle\Enum\AuditStatusEnum;
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Query;
+use Doctrine\ORM\QueryBuilder;
 
 /**
  * Class AuditRepository
@@ -44,9 +46,9 @@ class AuditRepository extends EntityRepository
     /**
      * @param Windfarm $windfarm
      *
-     * @return array
+     * @return QueryBuilder
      */
-    public function getInvoicedOrDoneAuditsByWindfarmSortedByBeginDate(Windfarm $windfarm)
+    public function getInvoicedOrDoneAuditsByWindfarmSortedByBeginDateQB(Windfarm $windfarm)
     {
         $query = $this->createQueryBuilder('a')
             ->where('a.windfarm = :windfarm' )
@@ -54,8 +56,41 @@ class AuditRepository extends EntityRepository
             ->setParameter('windfarm', $windfarm)
             ->setParameter('done', AuditStatusEnum::DONE)
             ->setParameter('invoiced', AuditStatusEnum::INVOICED)
-            ->orderBy('a.beginDate', 'DESC')
-            ->getQuery();
+            ->orderBy('a.beginDate', 'DESC');
+
+        return $query;
+    }
+
+    /**
+     * @param Windfarm $windfarm
+     *
+     * @return Query
+     */
+    public function getInvoicedOrDoneAuditsByWindfarmSortedByBeginDateQ(Windfarm $windfarm)
+    {
+        return $this->getInvoicedOrDoneAuditsByWindfarmSortedByBeginDateQB($windfarm)->getQuery();
+    }
+
+    /**
+     * @param Windfarm $windfarm
+     *
+     * @return array
+     */
+    public function getInvoicedOrDoneAuditsByWindfarmSortedByBeginDate(Windfarm $windfarm)
+    {
+        return $this->getInvoicedOrDoneAuditsByWindfarmSortedByBeginDateQ($windfarm)->getResult();
+    }
+
+    /**
+     * @param Windfarm $windfarm
+     *
+     * @return array
+     */
+    public function getInvoicedOrDoneAuditsByWindfarmByYear(Windfarm $windfarm)
+    {
+        $query = $this->getInvoicedOrDoneAuditsByWindfarmSortedByBeginDateQB($windfarm)
+                ->andWhere('a.beginDate ');
+
 
         return $query->getResult();
     }
