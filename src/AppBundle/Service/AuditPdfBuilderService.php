@@ -306,7 +306,7 @@ class AuditPdfBuilderService
                 if (self::SHOW_GRID_DEBUG) {
                     $this->amdb->drawCenterPoint($pdf, $bladeDamage);
                 } else {
-                    $this->amdb->drawCenterDamage($pdf, $bladeDamage, $sKey);
+                    $this->amdb->drawCenterDamage($pdf, $bladeDamage, $sKey + 1);
                 }
             }
 
