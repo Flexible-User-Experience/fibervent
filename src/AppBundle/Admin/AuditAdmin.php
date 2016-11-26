@@ -155,7 +155,7 @@ class AuditAdmin extends AbstractBaseAdmin
                 'diagramType',
                 AuditDiagramTypeFormType::class,
                 array(
-                    'label'    => 'diagramtype',
+                    'label'    => 'admin.audit.diagramtype',
                     'choices'  => AuditDiagramTypeEnum::getEnumArray(),
                     'multiple' => false,
                     'expanded' => true,

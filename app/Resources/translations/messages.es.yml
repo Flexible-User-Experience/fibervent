@@ -87,7 +87,7 @@ enum:
 admin:
   common:
     general: General
-    controls: Control
+    controls: Controles
     action: Acciones
     enabled: Activo
   audit:

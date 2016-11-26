@@ -70,7 +70,7 @@ class AuditWindmillBladeAdmin extends AbstractBaseAdmin
                     'fakeAction',
                     ActionButtonFormType::class,
                     array(
-                        'text'     => 'Editar danys',
+                        'text'     => 'Editar daños',
                         'url'      => $this->generateObjectUrl('edit', $this->getSubject()),
                         'label'    => 'admin.auditwindmillblade.actions',
                         'mapped'   => false,
