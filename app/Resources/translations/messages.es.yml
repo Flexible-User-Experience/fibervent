@@ -84,6 +84,11 @@ enum:
     rope: CUERDAS
     inside: INTERIOR PALA
     platform: PLATAFORMA
+  audit_status:
+    pending: Pendiente
+    doing: En proceso
+    done: Realizado
+    invoiced: Facturado
 admin:
   common:
     general: General
