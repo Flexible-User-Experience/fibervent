@@ -89,6 +89,13 @@ enum:
     doing: En proceso
     done: Realizado
     invoiced: Facturado
+  user_roles:
+    user: Usuario
+    customer: Cliente
+    operator: Operario
+    technician: Técnico
+    admin: Administrador
+    super_admin: Superadministrador
 admin:
   common:
     general: General
