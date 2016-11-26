@@ -215,4 +215,4 @@ admin:
      manager: Administrador
   windmillblade:
     title: Palas Aerogenerador
-    sn: '(S/N: '
+    sn: 'S/N'

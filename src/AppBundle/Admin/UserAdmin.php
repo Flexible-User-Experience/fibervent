@@ -248,7 +248,7 @@ class UserAdmin extends ParentUserAdmin
                 'enabled',
                 null,
                 array(
-                    'label' => 'admin.user.enabled',
+                    'label' => 'admin.common.enabled',
                 )
             );
     }
