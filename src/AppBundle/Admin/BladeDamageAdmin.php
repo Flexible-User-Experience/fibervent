@@ -145,7 +145,7 @@ class BladeDamageAdmin extends AbstractBaseAdmin
                     'fakeAction',
                     ActionButtonFormType::class,
                     array(
-                        'text'     => 'Pujar fotos',
+                        'text'     => 'Subir fotos',
                         'url'      => $this->generateObjectUrl('edit', $this->getSubject()),
                         'label'    => 'admin.auditwindmillblade.actions',
                         'mapped'   => false,

@@ -85,7 +85,7 @@ class AuditWindmillBladeAdmin extends AbstractBaseAdmin
             $order = $awb->getWindmillBlade() ? $awb->getWindmillBlade()->getOrder() : '';
             $code = $awb->getWindmillBlade() && $awb->getWindmillBlade()->getCode() ? 'admin.windmillblade.sn' . $awb->getWindmillBlade()->getCode() . ')' : '';
             $formMapper
-                ->with('admin.auditwindmillblade.damage_position ' . $order . ' ' . $code, $this->getFormMdSuccessBoxArray(12))
+                ->with('Situación y descripción de los daños · Pala ' . $order . ' ' . $code, $this->getFormMdSuccessBoxArray(12))
                 ->add(
                     'bladeDamages',
                     'sonata_type_collection',
@@ -102,7 +102,7 @@ class AuditWindmillBladeAdmin extends AbstractBaseAdmin
                     )
                 )
                 ->end()
-                ->with('admin.auditwindmillblade.blade_observations ' . $order . ' ' . $code, $this->getFormMdSuccessBoxArray(8))
+                ->with('Observaciones · Pala ' . $order . ' ' . $code, $this->getFormMdSuccessBoxArray(8))
                 ->add(
                     'observations',
                     'sonata_type_collection',
@@ -119,7 +119,7 @@ class AuditWindmillBladeAdmin extends AbstractBaseAdmin
                     )
                 )
                 ->end()
-                ->with('admin.auditwindmillblade.blade_photos' . $order . ' ' . $code, $this->getFormMdSuccessBoxArray(4))
+                ->with('Fotos generals · Pala ' . $order . ' ' . $code, $this->getFormMdSuccessBoxArray(4))
                 ->add(
                     'bladePhotos',
                     'sonata_type_collection',
