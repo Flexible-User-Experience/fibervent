@@ -102,6 +102,7 @@ admin:
     controls: Controles
     action: Acciones
     enabled: Activo
+    developed: Desarrollado por
   audit:
     title: Inspección
     windmill: Aerogenerador
