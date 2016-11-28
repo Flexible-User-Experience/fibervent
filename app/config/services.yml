@@ -130,3 +130,9 @@ services:
         tags:
             - { name: twig.extension }
         arguments: [ "@app.damage_repository" ]
+# Event listeners
+    app.locale_listener:
+        class: AppBundle\EventListener\LocaleListener
+        arguments: [ '%locale%' ]
+        tags:
+            - { name: kernel.event_subscriber }
