@@ -184,5 +184,6 @@ AppBundle\Entity\User:
         firstname: <{private_admin_test_name}>
         lastname: <{private_admin_test_surname}>
         enabled: true
+        language: 0
         roles:
             - ROLE_SUPER_ADMIN
