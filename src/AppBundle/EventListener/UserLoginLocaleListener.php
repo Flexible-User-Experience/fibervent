@@ -50,7 +50,7 @@ class UserLoginLocaleListener
         /** @var User $user */
         $user = $event->getAuthenticationToken()->getUser();
 
-        if (null !== $user->getLocale()) {
+        if (null !== $user->getLanguage()) {
             $this->session->set('_locale', WindfarmLanguageEnum::getEnumArray()[$user->getLanguage()]);
         }
     }
