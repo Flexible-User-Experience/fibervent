@@ -16,7 +16,7 @@ use Sonata\AdminBundle\Route\RouteCollection;
 class DamageAdmin extends AbstractBaseAdmin
 {
     protected $maxPerPage = 50;
-    protected $classnameLabel = 'Tipus Dany';
+    protected $classnameLabel = 'admin.damage.title';
     protected $baseRoutePattern = 'audits/damage';
     protected $datagridValues = array(
         '_sort_by'    => 'code',
@@ -40,12 +40,12 @@ class DamageAdmin extends AbstractBaseAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->with('General', $this->getFormMdSuccessBoxArray(6))
+            ->with('admin.common.general', $this->getFormMdSuccessBoxArray(6))
             ->add(
                 'section',
                 null,
                 array(
-                    'label'    => 'Secció',
+                    'label'    => 'admin.damage.section',
                     'required' => true,
                 )
             )
@@ -53,7 +53,7 @@ class DamageAdmin extends AbstractBaseAdmin
                 'code',
                 null,
                 array(
-                    'label'    => 'Codi',
+                    'label'    => 'admin.damage.code',
                     'required' => true,
                 )
             )
@@ -61,28 +61,28 @@ class DamageAdmin extends AbstractBaseAdmin
                 'description',
                 null,
                 array(
-                    'label'    => 'Descripció',
+                    'label'    => 'admin.damage.description',
                     'required' => true,
                 )
             )
             ->end()
-            ->with('Controls', $this->getFormMdSuccessBoxArray(6))
+            ->with('admin.common.controls', $this->getFormMdSuccessBoxArray(6))
             ->add(
                 'enabled',
                 null,
                 array(
-                    'label'    => 'Actiu',
+                    'label'    => 'admin.common.enabled',
                     'required' => false,
                 )
             )
             ->end()
-            ->with('Traduccions', $this->getFormMdSuccessBoxArray(6))
+            ->with('admin.damage.translations', $this->getFormMdSuccessBoxArray(6))
             ->add('translations', 'a2lix_translations_gedmo', array(
                 'required' => false,
                 'label' => ' ',
                 'translatable_class' => 'AppBundle\Entity\Translation\DamageTranslation',
                 'fields' => array(
-                    'description' => array('label' => 'Descripció', 'attr' => array('rows' => 8), 'required' => false),
+                    'description' => array('label' => 'admin.damage.description', 'attr' => array('rows' => 8), 'required' => false),
                 ),
             ))
             ->end()
@@ -100,7 +100,7 @@ class DamageAdmin extends AbstractBaseAdmin
                 'section',
                 null,
                 array(
-                    'label'    => 'Secció',
+                    'label'    => 'admin.damage.section',
                     'editable' => true,
                 )
             )
@@ -108,7 +108,7 @@ class DamageAdmin extends AbstractBaseAdmin
                 'code',
                 null,
                 array(
-                    'label'    => 'Codi',
+                    'label'    => 'admin.damage.code',
                     'editable' => true,
                 )
             )
@@ -116,7 +116,7 @@ class DamageAdmin extends AbstractBaseAdmin
                 'description',
                 null,
                 array(
-                    'label'    => 'Descripció',
+                    'label'    => 'admin.damage.description',
                     'editable' => true,
                 )
             )
@@ -124,7 +124,7 @@ class DamageAdmin extends AbstractBaseAdmin
                 'enabled',
                 null,
                 array(
-                    'label'    => 'Actiu',
+                    'label'    => 'admin.common.enabled',
                     'editable' => true,
                 )
             )
@@ -132,7 +132,7 @@ class DamageAdmin extends AbstractBaseAdmin
                 '_action',
                 'actions',
                 array(
-                    'label'   => 'Accions',
+                    'label'   => 'admin.common.action',
                     'actions' => array(
                         'edit' => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
                     )

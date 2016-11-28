@@ -19,7 +19,7 @@ use Sonata\AdminBundle\Route\RouteCollection;
  */
 class WindmillAdmin extends AbstractBaseAdmin
 {
-    protected $classnameLabel = 'Aerogenerador';
+    protected $classnameLabel = 'admin.windmillblade.title';
     protected $baseRoutePattern = 'windfarms/windmill';
     protected $datagridValues = array(
         '_sort_by'    => 'code',
@@ -43,12 +43,12 @@ class WindmillAdmin extends AbstractBaseAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->with('General', $this->getFormMdSuccessBoxArray(4))
+            ->with('admin.common.general', $this->getFormMdSuccessBoxArray(4))
             ->add(
                 'windfarm',
                 'sonata_type_model',
                 array(
-                    'label'    => 'Parc Eòlic',
+                    'label'    => 'admin.windmill.windfarm',
                     'btn_add'  => false,
                     'required' => true,
                     'query'    => $this->wfr->findEnabledSortedByNameQ()
@@ -58,23 +58,23 @@ class WindmillAdmin extends AbstractBaseAdmin
                 'code',
                 null,
                 array(
-                    'label' => 'Número',
+                    'label' => 'admin.windmill.code',
                 )
             )
             ->add(
                 'enabled',
                 null,
                 array(
-                    'label' => 'Actiu',
+                    'label' => 'admin.common.enabled',
                 )
             )
             ->end()
-            ->with('Controls', $this->getFormMdSuccessBoxArray(4))
+            ->with('admin.common.controls', $this->getFormMdSuccessBoxArray(4))
             ->add(
                 'turbine',
                 'sonata_type_model',
                 array(
-                    'label'      => 'Turbina',
+                    'label'      => 'admin.windmill.turbine',
                     'btn_add'    => true,
                     'btn_delete' => false,
                     'required'   => true,
@@ -85,7 +85,7 @@ class WindmillAdmin extends AbstractBaseAdmin
                 'bladeType',
                 'sonata_type_model',
                 array(
-                    'label'      => 'Pala',
+                    'label'      => 'admin.windmill.bladetype',
                     'btn_add'    => true,
                     'btn_delete' => false,
                     'required'   => true,
@@ -95,7 +95,7 @@ class WindmillAdmin extends AbstractBaseAdmin
             ->end();
         if ($this->id($this->getSubject())) { // is edit mode, disable on new subjects
             $formMapper
-                ->with('Pales', $this->getFormMdSuccessBoxArray(4))
+                ->with('admin.windmill.blades', $this->getFormMdSuccessBoxArray(4))
                 ->add(
                     'windmillBlades',
                     'sonata_type_collection',
@@ -117,12 +117,12 @@ class WindmillAdmin extends AbstractBaseAdmin
                 ->end();
         }
         $formMapper
-            ->with('Geolocalització', $this->getFormMdSuccessBoxArray(12))
+            ->with('admin.windfarm.geoposition', $this->getFormMdSuccessBoxArray(12))
             ->add(
                 'latLng',
                 GoogleMapType::class,
                 array(
-                    'label'    => 'Mapa',
+                    'label'    => 'admin.windfarm.latlng',
                     'required' => false
                 )
             )
@@ -139,49 +139,49 @@ class WindmillAdmin extends AbstractBaseAdmin
                 'windfarm.customer',
                 null,
                 array(
-                    'label' => 'Client',
+                    'label' => 'admin.windfarm.customer',
                 )
             )
             ->add(
                 'windfarm',
                 null,
                 array(
-                    'label' => 'Parc Eòlic',
+                    'label' => 'admin.windmill.windfarm',
                 )
             )
             ->add(
                 'code',
                 null,
                 array(
-                    'label' => 'Número',
+                    'label' => 'admin.windmill.code',
                 )
             )
             ->add(
                 'turbine',
                 null,
                 array(
-                    'label' => 'Turbina',
+                    'label' => 'admin.windmill.turbine',
                 )
             )
             ->add(
                 'bladeType',
                 null,
                 array(
-                    'label' => 'Pala',
+                    'label' => 'admin.windmill.bladetype',
                 )
             )
             ->add(
                 'windfarm.manager',
                 null,
                 array(
-                    'label' => 'Administrador',
+                    'label' => 'admin.windmill.manager',
                 )
             )
             ->add(
                 'enabled',
                 null,
                 array(
-                    'label' => 'Actiu',
+                    'label' => 'admin.common.enabled',
                 )
             );
     }
@@ -197,7 +197,7 @@ class WindmillAdmin extends AbstractBaseAdmin
                 'windfarm',
                 null,
                 array(
-                    'label'    => 'Parc Eòlic',
+                    'label'    => 'admin.windmill.windfarm',
                     'sortable'                         => true,
                     'sort_field_mapping'               => array('fieldName' => 'name'),
                     'sort_parent_association_mappings' => array(array('fieldName' => 'windfarm')),
@@ -207,7 +207,7 @@ class WindmillAdmin extends AbstractBaseAdmin
                 'code',
                 null,
                 array(
-                    'label'    => 'Número',
+                    'label'    => 'admin.windmill.code',
                     'editable' => true,
                 )
             )
@@ -215,7 +215,7 @@ class WindmillAdmin extends AbstractBaseAdmin
                 'turbine',
                 null,
                 array(
-                    'label'    => 'Turbina',
+                    'label'    => 'admin.windmill.turbine',
                     'sortable'                         => true,
                     'sort_field_mapping'               => array('fieldName' => 'model'),
                     'sort_parent_association_mappings' => array(array('fieldName' => 'turbine')),
@@ -225,7 +225,7 @@ class WindmillAdmin extends AbstractBaseAdmin
                 'bladeType',
                 null,
                 array(
-                    'label'    => 'Pala',
+                    'label'    => 'admin.windmill.bladetype',
                     'sortable'                         => true,
                     'sort_field_mapping'               => array('fieldName' => 'model'),
                     'sort_parent_association_mappings' => array(array('fieldName' => 'bladeType')),
@@ -235,7 +235,7 @@ class WindmillAdmin extends AbstractBaseAdmin
                 'enabled',
                 null,
                 array(
-                    'label'    => 'Actiu',
+                    'label'    => 'admin.common.enabled',
                     'editable' => true,
                 )
             )
@@ -243,7 +243,7 @@ class WindmillAdmin extends AbstractBaseAdmin
                 '_action',
                 'actions',
                 array(
-                    'label'   => 'Accions',
+                    'label'   => 'admin.common.action',
                     'actions' => array(
                         'edit'   => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
                     )

@@ -15,7 +15,7 @@ use Sonata\AdminBundle\Form\FormMapper;
  */
 class WindmillBladeAdmin extends AbstractBaseAdmin
 {
-    protected $classnameLabel = 'Pales Aerogenerador';
+    protected $classnameLabel = 'admin.windmillblade.title';
     protected $baseRoutePattern = 'windfarms/windmill-blade';
     protected $datagridValues = array(
         '_sort_by'    => 'code',
@@ -28,12 +28,12 @@ class WindmillBladeAdmin extends AbstractBaseAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->with('General', $this->getFormMdSuccessBoxArray(7))
+            ->with('admin.common.general', $this->getFormMdSuccessBoxArray(7))
             ->add(
                 'code',
                 null,
                 array(
-                    'label'    => 'S/N',
+                    'label'    => 'admin.windmillblade.sn',
                     'required' => true,
                 )
             )
@@ -50,14 +50,14 @@ class WindmillBladeAdmin extends AbstractBaseAdmin
                 'code',
                 null,
                 array(
-                    'label' => 'Codi',
+                    'label' => 'admin.damage.code',
                 )
             )
             ->add(
                 'enabled',
                 null,
                 array(
-                    'label'    => 'Actiu',
+                    'label'    => 'admin.common.enabled',
                     'editable' => true,
                 )
             );
@@ -74,7 +74,7 @@ class WindmillBladeAdmin extends AbstractBaseAdmin
                 'code',
                 null,
                 array(
-                    'label'    => 'Code',
+                    'label'    => 'admin.damage.code',
                     'editable' => true,
                 )
             )
@@ -82,7 +82,7 @@ class WindmillBladeAdmin extends AbstractBaseAdmin
                 '_action',
                 'actions',
                 array(
-                    'label'   => 'Accions',
+                    'label'   => 'admin.common.action',
                     'actions' => array(
                         'edit'   => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
                         'delete' => array('template' => '::Admin/Buttons/list__action_delete_button.html.twig'),

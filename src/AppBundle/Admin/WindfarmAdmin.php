@@ -19,7 +19,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
  */
 class WindfarmAdmin extends AbstractBaseAdmin
 {
-    protected $classnameLabel = 'Parc Eòlic';
+    protected $classnameLabel = 'admin.windfarm.title';
     protected $baseRoutePattern = 'windfarms/windfarm';
     protected $datagridValues = array(
         '_sort_by'    => 'name',
@@ -56,12 +56,12 @@ class WindfarmAdmin extends AbstractBaseAdmin
         }
 
         $formMapper
-            ->with('General', $this->getFormMdSuccessBoxArray(4))
+            ->with('admin.common.general', $this->getFormMdSuccessBoxArray(4))
             ->add(
                 'customer',
                 'sonata_type_model',
                 array(
-                    'label'        => 'Client',
+                    'label'        => 'admin.windfarm.customer',
                     'required'     => true,
                     'multiple'     => false,
                     'btn_add'      => false,
@@ -72,7 +72,7 @@ class WindfarmAdmin extends AbstractBaseAdmin
                 'code',
                 null,
                 array(
-                    'label'    => 'CIF',
+                    'label'    => 'admin.customer.code',
                     'required' => false,
                 )
             )
@@ -80,44 +80,44 @@ class WindfarmAdmin extends AbstractBaseAdmin
                 'name',
                 null,
                 array(
-                    'label' => 'Nom',
+                    'label' => 'admin.customer.name',
                 )
             )
             ->add(
                 'enabled',
                 null,
                 array(
-                    'label' => 'Actiu',
+                    'label' => 'admin.common.enabled',
                 )
             )
             ->end()
-            ->with('Dades Postals', $this->getFormMdSuccessBoxArray(4))
+            ->with('admin.customer.postal_data', $this->getFormMdSuccessBoxArray(4))
             ->add(
                 'address',
                 null,
                 array(
-                    'label' => 'Adreça',
+                    'label' => 'admin.customer.address',
                 )
             )
             ->add(
                 'zip',
                 null,
                 array(
-                    'label' => 'Codi Postal',
+                    'label' => 'admin.customer.zip',
                 )
             )
             ->add(
                 'city',
                 null,
                 array(
-                    'label' => 'Ciutat',
+                    'label' => 'admin.customer.city',
                 )
             )
             ->add(
                 'state',
                 'sonata_type_model',
                 array(
-                    'label'      => 'Província',
+                    'label'      => 'admin.customer.state',
                     'btn_add'    => true,
                     'btn_delete' => false,
                     'required'   => true,
@@ -125,12 +125,12 @@ class WindfarmAdmin extends AbstractBaseAdmin
                 )
             )
             ->end()
-            ->with('Controls', $this->getFormMdSuccessBoxArray(4))
+            ->with('admin.common.controls', $this->getFormMdSuccessBoxArray(4))
             ->add(
                 'manager',
                 'sonata_type_model',
                 array(
-                    'label'      => 'O&M Regional Manager',
+                    'label'      => 'admin.windfarm.manager',
                     'btn_add'    => false,
                     'btn_delete' => false,
                     'required'   => false,
@@ -142,7 +142,7 @@ class WindfarmAdmin extends AbstractBaseAdmin
                 'year',
                 null,
                 array(
-                    'label'    => 'Any',
+                    'label'    => 'admin.windfarm.year',
                     'required' => false
                 )
             )
@@ -150,7 +150,7 @@ class WindfarmAdmin extends AbstractBaseAdmin
                 'power',
                 null,
                 array(
-                    'label'       => 'Potència',
+                    'label'       => 'admin.turbine.power',
                     'required'    => false,
                     'help'        => 'MW',
                     'sonata_help' => 'MW',
@@ -160,7 +160,7 @@ class WindfarmAdmin extends AbstractBaseAdmin
                 'language',
                 ChoiceType::class,
                 array(
-                    'label'    => 'Idioma PDF',
+                    'label'    => 'admin.windfarm.pdf_language',
                     'choices'  => WindfarmLanguageEnum::getEnumArrayString(),
                     'multiple' => false,
                     'expanded' => true,
@@ -168,12 +168,12 @@ class WindfarmAdmin extends AbstractBaseAdmin
                 )
             )
             ->end()
-            ->with('Geolocalització', $this->getFormMdSuccessBoxArray(12))
+            ->with('admin.windfarm.geoposition', $this->getFormMdSuccessBoxArray(12))
             ->add(
                 'latLng',
                 GoogleMapType::class,
                 array(
-                    'label'    => 'Mapa',
+                    'label'    => 'admin.windfarm.latlng',
                     'required' => false
                 )
             )
@@ -190,77 +190,77 @@ class WindfarmAdmin extends AbstractBaseAdmin
                 'customer',
                 null,
                 array(
-                    'label' => 'Client',
+                    'label' => 'admin.windfarm.customer',
                 )
             )
             ->add(
                 'code',
                 null,
                 array(
-                    'label' => 'CIF',
+                    'label' => 'admin.customer.code',
                 )
             )
             ->add(
                 'name',
                 null,
                 array(
-                    'label' => 'Nom',
+                    'label' => 'admin.customer.name',
                 )
             )
             ->add(
                 'address',
                 null,
                 array(
-                    'label' => 'Adreça',
+                    'label' => 'admin.customer.address',
                 )
             )
             ->add(
                 'zip',
                 null,
                 array(
-                    'label' => 'Codi Postal',
+                    'label' => 'admin.customer.zip',
                 )
             )
             ->add(
                 'city',
                 null,
                 array(
-                    'label' => 'Ciutat',
+                    'label' => 'admin.customer.city',
                 )
             )
             ->add(
                 'state',
                 null,
                 array(
-                    'label' => 'Província',
+                    'label' => 'admin.customer.state',
                 )
             )
             ->add(
                 'manager',
                 null,
                 array(
-                    'label' => 'O&M Regional Manager',
+                    'label' => 'admin.windfarm.manager',
                 )
             )
             ->add(
                 'power',
                 null,
                 array(
-                    'label' => 'Potència',
+                    'label' => 'admin.turbine.power',
                 )
             )
             ->add(
                 'year',
                 null,
                 array(
-                    'label' => 'Any',
+                    'label' => 'admin.windfarm.year',
                 )
             )
             ->add(
                 'enabled',
                 null,
                 array(
-                    'label' => 'Actiu',
+                    'label' => 'admin.common.enabled',
                 )
             );
     }
@@ -276,7 +276,7 @@ class WindfarmAdmin extends AbstractBaseAdmin
                 'customer',
                 null,
                 array(
-                    'label'                            => 'Client',
+                    'label'                            => 'admin.windfarm.customer',
                     'sortable'                         => true,
                     'sort_field_mapping'               => array('fieldName' => 'name'),
                     'sort_parent_association_mappings' => array(array('fieldName' => 'customer')),
@@ -286,7 +286,7 @@ class WindfarmAdmin extends AbstractBaseAdmin
                 'name',
                 null,
                 array(
-                    'label'    => 'Nom',
+                    'label'    => 'admin.customer.name',
                     'editable' => true,
                 )
             )
@@ -294,7 +294,7 @@ class WindfarmAdmin extends AbstractBaseAdmin
                 'city',
                 null,
                 array(
-                    'label'    => 'Ciutat',
+                    'label'    => 'admin.customer.city',
                     'editable' => true,
                 )
             )
@@ -302,7 +302,7 @@ class WindfarmAdmin extends AbstractBaseAdmin
                 'manager',
                 null,
                 array(
-                    'label'                            => 'O&M Regional Manager',
+                    'label'                            => 'admin.windfarm.manager',
                     'sortable'                         => true,
                     'sort_field_mapping'               => array('fieldName' => 'lastname'),
                     'sort_parent_association_mappings' => array(array('fieldName' => 'manager')),
@@ -313,7 +313,7 @@ class WindfarmAdmin extends AbstractBaseAdmin
                 'enabled',
                 null,
                 array(
-                    'label'    => 'Actiu',
+                    'label'    => 'admin.common.enabled',
                     'editable' => true,
                 )
             )
@@ -321,7 +321,7 @@ class WindfarmAdmin extends AbstractBaseAdmin
                 '_action',
                 'actions',
                 array(
-                    'label'   => 'Accions',
+                    'label'   => 'admin.common.action',
                     'actions' => array(
                         'edit'   => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
                         'audits' => array('template' => '::Admin/Buttons/list__action_audits_button.html.twig'),

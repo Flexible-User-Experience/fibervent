@@ -7,7 +7,7 @@ services:
         class: AppBundle\Admin\CustomerAdmin
         arguments: [ ~, AppBundle\Entity\Customer, AppBundle:CustomerAdmin, "@app.repositories_service", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: "Client", group: "Client" }
+            - { name: sonata.admin, manager_type: orm, label: "Cliente", group: "Client" }
     admin.state:
         class: AppBundle\Admin\StateAdmin
         arguments: [ ~, AppBundle\Entity\State, ~, "@app.repositories_service", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
@@ -17,7 +17,7 @@ services:
         class: AppBundle\Admin\WindfarmAdmin
         arguments: [ ~, AppBundle\Entity\Windfarm, AppBundle:WindfarmAdmin, "@app.repositories_service", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: "Parc Eòlic", group: "Parc_Eolic" }
+            - { name: sonata.admin, manager_type: orm, label: "Parque Eòlico", group: "Parc_Eolic" }
     admin.windmill:
         class: AppBundle\Admin\WindmillAdmin
         arguments: [ ~, AppBundle\Entity\Windmill, ~, "@app.repositories_service", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
@@ -32,32 +32,32 @@ services:
         class: AppBundle\Admin\BladeAdmin
         arguments: [ ~, AppBundle\Entity\Blade, AppBundle:BladeAdmin, "@app.repositories_service", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: "Tipus Pala", group: "Parc_Eolic", show_in_dashboard: false }
+            - { name: sonata.admin, manager_type: orm, label: "Tipo Pala", group: "Parc_Eolic", show_in_dashboard: false }
     admin.windmill_blade:
         class: AppBundle\Admin\WindmillBladeAdmin
         arguments: [ ~, AppBundle\Entity\WindmillBlade, ~, "@app.repositories_service", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: "Pales", group: "Parc_Eolic", show_in_dashboard: false }
+            - { name: sonata.admin, manager_type: orm, label: "Palas", group: "Parc_Eolic", show_in_dashboard: false }
     admin.audit:
         class: AppBundle\Admin\AuditAdmin
         arguments: [ ~, AppBundle\Entity\Audit, AppBundle:AuditAdmin, "@app.repositories_service", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: "Inspecció", group: "Auditoria" }
+            - { name: sonata.admin, manager_type: orm, label: "Inspección", group: "Auditoria" }
     admin.blade_damage:
         class: AppBundle\Admin\BladeDamageAdmin
         arguments: [ ~, AppBundle\Entity\BladeDamage, AppBundle:BladeDamageAdmin, "@app.repositories_service", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: "Dany Pala", group: "Auditoria", show_in_dashboard: false }
+            - { name: sonata.admin, manager_type: orm, label: "Daño Pala", group: "Auditoria", show_in_dashboard: false }
     admin.damage:
         class: AppBundle\Admin\DamageAdmin
         arguments: [ ~, AppBundle\Entity\Damage, ~, "@app.repositories_service", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: "Tipus Dany", group: "Auditoria" }
+            - { name: sonata.admin, manager_type: orm, label: "Tipo Daño", group: "Auditoria" }
     admin.damage_category:
         class: AppBundle\Admin\DamageCategoryAdmin
         arguments: [ ~, AppBundle\Entity\DamageCategory, ~, "@app.repositories_service", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: "Categoria Dany", group: "Auditoria" }
+            - { name: sonata.admin, manager_type: orm, label: "Categoria Daño", group: "Auditoria" }
     admin.photo:
         class: AppBundle\Admin\PhotoAdmin
         arguments: [ ~, AppBundle\Entity\Photo, ~, "@app.repositories_service", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
@@ -72,17 +72,17 @@ services:
         class: AppBundle\Admin\ObservationAdmin
         arguments: [ ~, AppBundle\Entity\Observation, ~, "@app.repositories_service", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: "Observacions", group: "Auditoria", show_in_dashboard: false }
+            - { name: sonata.admin, manager_type: orm, label: "Observaciones", group: "Auditoria", show_in_dashboard: false }
     admin.audit_windmill_blade:
         class: AppBundle\Admin\AuditWindmillBladeAdmin
         arguments: [ ~, AppBundle\Entity\AuditWindmillBlade, AppBundle:AuditWindmillBladeAdmin, "@app.repositories_service", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: "Audit Dany Pala", group: "Auditoria", show_in_dashboard: false }
+            - { name: sonata.admin, manager_type: orm, label: "Audit Daño Pala", group: "Auditoria", show_in_dashboard: false }
     admin.user:
         class: AppBundle\Admin\UserAdmin
         arguments: [ ~, AppBundle\Entity\User, AppBundle:UserAdmin, "@fos_user.user_manager" ]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: "Usuari", group: "Client" }
+            - { name: sonata.admin, manager_type: orm, label: "Usuario", group: "Client" }
 # Sonata Blocks
     admin.block.audits:
         class: AppBundle\Admin\Block\AuditsBlock
@@ -130,3 +130,14 @@ services:
         tags:
             - { name: twig.extension }
         arguments: [ "@app.damage_repository" ]
+# Event listeners
+    app.locale_listener:
+        class: AppBundle\EventListener\LocaleListener
+        arguments: [ "%locale%" ]
+        tags:
+            - { name: kernel.event_subscriber }
+    app.user_login_locale_listener:
+        class: AppBundle\EventListener\UserLoginLocaleListener
+        arguments: [ "@session" ]
+        tags:
+            - { name: kernel.event_listener, event: security.interactive_login, method: onInteractiveLogin }

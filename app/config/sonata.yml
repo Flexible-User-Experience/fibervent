@@ -37,13 +37,13 @@ sonata_admin:
         groups:
             Client:
                 icon:  "<i class='fa fa-users' aria-hidden='true'></i>"
-                label: "Clients"
+                label: "Clientes"
             Parc_Eolic:
                 icon:  "<i class='fa fa-recycle' aria-hidden='true'></i>"
-                label: "Parcs Eòlics"
+                label: "Parques Eòlicos"
             Auditoria:
                 icon:  "<i class='fa fa-list-alt' aria-hidden='true'></i>"
-                label: "Inspeccions"
+                label: "Inspecciones"
         blocks:
             -
                 position: top

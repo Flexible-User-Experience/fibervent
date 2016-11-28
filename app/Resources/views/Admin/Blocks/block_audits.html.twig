@@ -3,13 +3,13 @@
 {% block block %}
     <div class="box">
         <div class="box-header">
-            <h3 class="box-title">Estat Inspeccions</h3>
+            <h3 class="box-title">Estado Inspecciones</h3>
         </div>
         <div class="box-body">
             <table class="table table-hover">
                 <tbody>
                 <tr>
-                    <td class="sonata-ba-list-label" width="40%">Pendents</td>
+                    <td class="sonata-ba-list-label" width="40%">{{ 'enum.audit_status.pending' | trans }}</td>
                     <td>
                         <div class="btn-group">
                             <a href="{{ path('admin_app_audit_list') }}?filter%5Bstatus%5D%5Btype%5D=&filter%5Bstatus%5D%5Bvalue%5D={{ status_pending }}" class="btn btn-link btn-flat"><i class="fa fa-pause-circle"></i> {{ pending_audits }}</a>
@@ -17,7 +17,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td class="sonata-ba-list-label" width="40%">En procés</td>
+                    <td class="sonata-ba-list-label" width="40%">{{ 'enum.audit_status.doing' | trans }}</td>
                     <td>
                         <div class="btn-group">
                             <a href="{{ path('admin_app_audit_list') }}?filter%5Bstatus%5D%5Btype%5D=&filter%5Bstatus%5D%5Bvalue%5D={{ status_doing }}" class="btn btn-link btn-flat"><i class="fa fa-play-circle"></i> {{ doing_audits }}</a>

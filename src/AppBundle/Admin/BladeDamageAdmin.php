@@ -21,7 +21,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 class BladeDamageAdmin extends AbstractBaseAdmin
 {
     protected $maxPerPage = 50;
-    protected $classnameLabel = 'Dany Pala';
+    protected $classnameLabel = 'admin.bladedamage.title';
     protected $baseRoutePattern = 'audits/blade-damage';
     protected $datagridValues = array(
         '_sort_by'    => 'status',
@@ -45,12 +45,12 @@ class BladeDamageAdmin extends AbstractBaseAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->with('General', $this->getFormMdSuccessBoxArray(3))
+            ->with('admin.common.general', $this->getFormMdSuccessBoxArray(3))
             ->add(
                 'number',
                 null,
                 array(
-                    'label'    => 'Núm.',
+                    'label'    => 'admin.bladedamage.number',
                     'required' => false,
                 )
             )
@@ -58,7 +58,7 @@ class BladeDamageAdmin extends AbstractBaseAdmin
                 'damage',
                 'sonata_type_model',
                 array(
-                    'label'      => 'Codi',
+                    'label'      => 'admin.bladedamage.damage',
                     'btn_add'    => false,
                     'btn_delete' => false,
                     'required'   => true,
@@ -69,7 +69,7 @@ class BladeDamageAdmin extends AbstractBaseAdmin
                 'position',
                 ChoiceType::class,
                 array(
-                    'label'    => 'Posició',
+                    'label'    => 'admin.bladedamage.position',
                     'choices'  => BladeDamagePositionEnum::getEnumArray(),
                     'multiple' => false,
                     'expanded' => false,
@@ -80,7 +80,7 @@ class BladeDamageAdmin extends AbstractBaseAdmin
                 'radius',
                 null,
                 array(
-                    'label'       => 'Radi (m)',
+                    'label'       => 'admin.bladedamage.radius',
                     'required'    => true,
                     'sonata_help' => 'm',
                 )
@@ -89,7 +89,7 @@ class BladeDamageAdmin extends AbstractBaseAdmin
                 'distance',
                 null,
                 array(
-                    'label'       => 'Distància (cm)',
+                    'label'       => 'admin.bladedamage.distance',
                     'required'    => true,
                     'sonata_help' => 'cm',
                 )
@@ -98,7 +98,7 @@ class BladeDamageAdmin extends AbstractBaseAdmin
                 'edge',
                 ChoiceType::class,
                 array(
-                    'label'    => 'Vora',
+                    'label'    => 'admin.bladedamage.edge',
                     'choices'  => BladeDamageEdgeEnum::getEnumArray(),
                     'multiple' => false,
                     'expanded' => false,
@@ -109,7 +109,7 @@ class BladeDamageAdmin extends AbstractBaseAdmin
                 'size',
                 null,
                 array(
-                    'label'       => 'Dimensió (cm)',
+                    'label'       => 'admin.bladedamage.size',
                     'required'    => true,
                     'sonata_help' => 'cm',
                 )
@@ -118,7 +118,7 @@ class BladeDamageAdmin extends AbstractBaseAdmin
                 'damageCategory',
                 'sonata_type_model',
                 array(
-                    'label'      => 'Cat.',
+                    'label'      => 'admin.bladedamage.damagecategory',
                     'btn_add'    => false,
                     'btn_delete' => false,
                     'required'   => true,
@@ -129,7 +129,7 @@ class BladeDamageAdmin extends AbstractBaseAdmin
                 'auditWindmillBlade',
                 null,
                 array(
-                    'label'    => 'Pala',
+                    'label'    => 'admin.auditwindmillblade.windmillblade',
                     'required' => true,
                     'disabled' => false,
                     'attr'     => array(
@@ -145,9 +145,9 @@ class BladeDamageAdmin extends AbstractBaseAdmin
                     'fakeAction',
                     ActionButtonFormType::class,
                     array(
-                        'text'     => 'Pujar fotos',
+                        'text'     => 'Subir fotos',
                         'url'      => $this->generateObjectUrl('edit', $this->getSubject()),
-                        'label'    => 'Accions',
+                        'label'    => 'admin.auditwindmillblade.actions',
                         'mapped'   => false,
                         'required' => false,
                     )
@@ -156,7 +156,7 @@ class BladeDamageAdmin extends AbstractBaseAdmin
         } else if ($this->id($this->getSubject())) {
             // is edit mode, disable on new subjects and is children
             $formMapper
-                ->with('Fotos', $this->getFormMdSuccessBoxArray(9))
+                ->with('admin.auditwindmillblade.photos', $this->getFormMdSuccessBoxArray(9))
                 ->add(
                     'photos',
                     'sonata_type_collection',
@@ -184,42 +184,42 @@ class BladeDamageAdmin extends AbstractBaseAdmin
                 'position',
                 null,
                 array(
-                    'label' => 'Posició',
+                    'label' => 'admin.bladedamage.position',
                 )
             )
             ->add(
                 'radius',
                 null,
                 array(
-                    'label' => 'Radi',
+                    'label' => 'admin.bladedamage.radius',
                 )
             )
             ->add(
                 'distance',
                 null,
                 array(
-                    'label' => 'Distància',
+                    'label' => 'admin.bladedamage.distance',
                 )
             )
             ->add(
                 'size',
                 null,
                 array(
-                    'label' => 'Mesura',
+                    'label' => 'admin.bladedamage.size',
                 )
             )
             ->add(
                 'status',
                 null,
                 array(
-                    'label' => 'Estat',
+                    'label' => 'admin.audit.status',
                 )
             )
             ->add(
                 'enabled',
                 null,
                 array(
-                    'label'    => 'Actiu',
+                    'label'    => 'admin.common.enabled',
                     'editable' => true,
                 )
             );
@@ -236,7 +236,7 @@ class BladeDamageAdmin extends AbstractBaseAdmin
                 'status',
                 null,
                 array(
-                    'label'    => 'Estat',
+                    'label'    => 'admin.audit.status',
                     'editable' => true,
                 )
             )
@@ -244,7 +244,7 @@ class BladeDamageAdmin extends AbstractBaseAdmin
                 'enabled',
                 null,
                 array(
-                    'label'    => 'Actiu',
+                    'label'    => 'admin.common.enabled',
                     'editable' => true,
                 )
             )
@@ -252,7 +252,7 @@ class BladeDamageAdmin extends AbstractBaseAdmin
                 '_action',
                 'actions',
                 array(
-                    'label'   => 'Accions',
+                    'label'   => 'admin.common.action',
                     'actions' => array(
                         'edit'   => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
                     )

@@ -58,6 +58,13 @@ class User extends BaseUser
     private $customer;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(type="integer", options={"default"=0})
+     */
+    private $language;
+
+    /**
      *
      *
      * Methods
@@ -91,6 +98,26 @@ class User extends BaseUser
     public function setCustomer($customer)
     {
         $this->customer = $customer;
+
+        return $this;
+    }
+
+    /**
+     * @return integer
+     */
+    public function getLanguage()
+    {
+        return $this->language;
+    }
+
+    /**
+     * @param integer $language
+     *
+     * @return User
+     */
+    public function setLanguage($language)
+    {
+        $this->language = $language;
 
         return $this;
     }
