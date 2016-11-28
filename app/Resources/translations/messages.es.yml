@@ -184,9 +184,9 @@ admin:
     country: País
   turbine:
     title: Turbina
-    height: Altura
-    diameter: Diámetro
-    power: Potencia
+    height: Altura (m)
+    diameter: Diámetro (m)
+    power: Potencia (MW)
   user:
     title: Usuario
     username: Nombre Usuario
