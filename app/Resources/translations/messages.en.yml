@@ -91,3 +91,9 @@ enum:
     rope: ROPE ACCESS
     inside: BLADE INTERIOR
     platform: PLATFORM
+admin:
+  common:
+    general: General
+    controls: Controls
+    action: Actions
+    enabled: Enabled

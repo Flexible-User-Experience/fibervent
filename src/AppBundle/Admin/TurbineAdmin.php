@@ -16,7 +16,7 @@ use Sonata\AdminBundle\Route\RouteCollection;
  */
 class TurbineAdmin extends AbstractBaseAdmin
 {
-    protected $classnameLabel = 'Turbina';
+    protected $classnameLabel = 'admin.turbine.title';
     protected $baseRoutePattern = 'windfarms/turbine';
     protected $datagridValues = array(
         '_sort_by'    => 'model',
@@ -40,12 +40,12 @@ class TurbineAdmin extends AbstractBaseAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->with('General', $this->getFormMdSuccessBoxArray(7))
+            ->with('admin.common.general', $this->getFormMdSuccessBoxArray(7))
             ->add(
                 'model',
                 null,
                 array(
-                    'label'    => 'Model',
+                    'label'    => 'admin.blade.model',
                     'required' => true,
                 )
             )
@@ -53,7 +53,7 @@ class TurbineAdmin extends AbstractBaseAdmin
                 'towerHeight',
                 null,
                 array(
-                    'label'       => 'Alçada',
+                    'label'       => 'admin.turbine.height',
                     'required'    => true,
                     'help'        => 'm',
                     'sonata_help' => 'm',
@@ -63,7 +63,7 @@ class TurbineAdmin extends AbstractBaseAdmin
                 'rotorDiameter',
                 null,
                 array(
-                    'label'       => 'Diàmetre',
+                    'label'       => 'admin.turbine.diameter',
                     'required'    => true,
                     'help'        => 'm',
                     'sonata_help' => 'm',
@@ -73,7 +73,7 @@ class TurbineAdmin extends AbstractBaseAdmin
                 'power',
                 null,
                 array(
-                    'label'       => 'Potència',
+                    'label'       => 'admin.turbine.power',
                     'help'        => 'MW',
                     'sonata_help' => 'MW',
                 )
@@ -91,28 +91,28 @@ class TurbineAdmin extends AbstractBaseAdmin
                 'model',
                 null,
                 array(
-                    'label' => 'Model',
+                    'label' => 'admin.blade.model',
                 )
             )
             ->add(
                 'towerHeight',
                 null,
                 array(
-                    'label' => 'Alçada',
+                    'label' => 'admin.turbine.height',
                 )
             )
             ->add(
                 'rotorDiameter',
                 null,
                 array(
-                    'label' => 'Diàmetre',
+                    'label' => 'admin.turbine.diameter',
                 )
             )
             ->add(
                 'power',
                 null,
                 array(
-                    'label' => 'Potència',
+                    'label' => 'admin.turbine.power',
                 )
             );
     }
@@ -128,7 +128,7 @@ class TurbineAdmin extends AbstractBaseAdmin
                 'model',
                 null,
                 array(
-                    'label'    => 'Model',
+                    'label'    => 'admin.blade.model',
                     'editable' => true,
                 )
             )
@@ -136,7 +136,7 @@ class TurbineAdmin extends AbstractBaseAdmin
                 'rotorDiameter',
                 'decimal',
                 array(
-                    'label'    => 'Diàmetre (m)',
+                    'label'    => 'admin.turbine.diameter',
                     'editable' => true,
                 )
             )
@@ -144,7 +144,7 @@ class TurbineAdmin extends AbstractBaseAdmin
                 'power',
                 'decimal',
                 array(
-                    'label'    => 'Potència (MW)',
+                    'label'    => 'admin.turbine.power',
                     'editable' => true,
                 )
             )
@@ -152,7 +152,7 @@ class TurbineAdmin extends AbstractBaseAdmin
                 'towerHeight',
                 null,
                 array(
-                    'label'    => 'Alçada (m)',
+                    'label'    => 'admin.turbine.height',
                     'editable' => true,
                 )
             )
@@ -160,7 +160,7 @@ class TurbineAdmin extends AbstractBaseAdmin
                 '_action',
                 'actions',
                 array(
-                    'label'   => 'Accions',
+                    'label'   => 'admin.common.action',
                     'actions' => array(
                         'edit'   => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
                         'delete' => array('template' => '::Admin/Buttons/list__action_delete_button.html.twig'),

@@ -16,7 +16,7 @@ use Sonata\AdminBundle\Form\FormMapper;
 class PhotoAdmin extends AbstractBaseAdmin
 {
     protected $maxPerPage = 50;
-    protected $classnameLabel = 'Foto';
+    protected $classnameLabel = 'admin.photo.title';
     protected $baseRoutePattern = 'audits/photo';
     protected $datagridValues = array(
         '_sort_by'    => 'imageName',
@@ -29,7 +29,7 @@ class PhotoAdmin extends AbstractBaseAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->with('General', $this->getFormMdSuccessBoxArray(5))
+            ->with('admin.common.general', $this->getFormMdSuccessBoxArray(5))
             ->add(
                 'bladeDamage',
                 null,
@@ -43,7 +43,7 @@ class PhotoAdmin extends AbstractBaseAdmin
                 'imageFile',
                 'file',
                 array(
-                    'label'       => 'Foto',
+                    'label'       => 'admin.bladephoto.imagefile',
                     'help'        => $this->getImageHelperFormMapperWithThumbnail(),
                     'sonata_help' => $this->getImageHelperFormMapperWithThumbnail(),
                     'required'    => false,
@@ -62,14 +62,14 @@ class PhotoAdmin extends AbstractBaseAdmin
                 'imageName',
                 null,
                 array(
-                    'label' => 'Nom',
+                    'label' => 'admin.photo.imagename',
                 )
             )
             ->add(
                 'enabled',
                 null,
                 array(
-                    'label'    => 'Actiu',
+                    'label'    => 'admin.common.enabled',
                     'editable' => true,
                 )
             );
@@ -86,7 +86,7 @@ class PhotoAdmin extends AbstractBaseAdmin
                 'imageName',
                 null,
                 array(
-                    'label'    => 'Nom',
+                    'label'    => 'admin.photo.imagename',
                     'editable' => true,
                 )
             )
@@ -94,7 +94,7 @@ class PhotoAdmin extends AbstractBaseAdmin
                 'enabled',
                 null,
                 array(
-                    'label'    => 'Actiu',
+                    'label'    => 'admin.common.enabled',
                     'editable' => true,
                 )
             )
@@ -102,7 +102,7 @@ class PhotoAdmin extends AbstractBaseAdmin
                 '_action',
                 'actions',
                 array(
-                    'label'   => 'Accions',
+                    'label'   => 'admin.common.action',
                     'actions' => array(
                         'edit'   => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
                         'delete' => array('template' => '::Admin/Buttons/list__action_delete_button.html.twig'),
