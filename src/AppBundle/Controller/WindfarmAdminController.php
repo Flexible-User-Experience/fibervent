@@ -117,23 +117,21 @@ class WindfarmAdminController extends AbstractBaseAdminController
                 }
             }
 
-            $template = $this->renderView(
+            $response = $this->render(
                 ':Admin/Windfarm:excel.xls.twig',
                 array(
-                    'action' => 'show',
+                    'action'   => 'show',
                     'windfarm' => $object,
-                    'audits' => $audits,
-                    'locale' => WindfarmLanguageEnum::getEnumArray()[$object->getLanguage()],
+                    'audits'   => $audits,
+                    'locale'   => WindfarmLanguageEnum::getEnumArray()[$object->getLanguage()],
                 )
             );
 
             $currentDate = new \DateTime();
+            $response->headers->set('Content-Type', 'application/vnd.ms-excel');
+            $response->headers->set('Content-Disposition', 'attachment; filename="' . $currentDate->format('Y-m-d') . '_' . $object->getSlug() . '.xls"');
 
-            return new Response($template, 200, array(
-                    'Content-type' => 'application/vnd.ms-excel',
-                    'Content-Disposition' => 'attachment; filename="' . $currentDate->format('Y-m-d') . '_' . $object->getSlug() . '.xls"'
-                )
-            );
+            return $response;
         }
 
         return $this->render(
