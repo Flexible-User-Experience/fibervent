@@ -17,12 +17,22 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
  */
 class WindfarmAnnualStatsFormType extends AbstractType
 {
+    const FIRST_AUDIT_YEAR = 2016;
+
     /**
      * @param FormBuilderInterface $builder
      * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $yearsArray = array();
+        $now = new \DateTime();
+        $currentYear = intval($now->format('Y'));
+        for ($i = 0; $i <= $currentYear - self::FIRST_AUDIT_YEAR; $i++) {
+            $result = $currentYear - $i;
+            $yearsArray["$result"] = $result;
+        }
+
         $builder
             ->add(
                 'year',
@@ -33,11 +43,7 @@ class WindfarmAnnualStatsFormType extends AbstractType
                     'multiple' => false,
                     'label'    => 'Año',
 //                    'choices'  => $options['to_emails_list'],
-                    'choices'  => array(
-                        '2017' => 2017,
-                        '2016' => 2016,
-                        '2015' => 2015
-                    ),
+                    'choices'  => $yearsArray,
                 )
             )
             ->add(
