@@ -117,4 +117,12 @@ class AuditRepository extends EntityRepository
     {
         return $this->getInvoicedOrDoneAuditsByWindfarmByYearQ($windfarm, $year)->getResult();
     }
+
+    /**
+     * @return int
+     */
+    public function getFirstYearAudit()
+    {
+        return 2014;
+    }
 }

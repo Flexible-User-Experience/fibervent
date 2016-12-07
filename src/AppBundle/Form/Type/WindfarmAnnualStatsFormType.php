@@ -2,6 +2,7 @@
 
 namespace AppBundle\Form\Type;
 
+use AppBundle\Repository\AuditRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -17,7 +18,20 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
  */
 class WindfarmAnnualStatsFormType extends AbstractType
 {
-    const FIRST_AUDIT_YEAR = 2016;
+    /**
+     * @var AuditRepository
+     */
+    private $ar;
+
+    /**
+     * WindfarmAnnualStatsFormType constructor.
+     *
+     * @param AuditRepository $ar
+     */
+    public function __construct(AuditRepository $ar)
+    {
+        $this->ar = $ar;
+    }
 
     /**
      * @param FormBuilderInterface $builder
@@ -28,7 +42,7 @@ class WindfarmAnnualStatsFormType extends AbstractType
         $yearsArray = array();
         $now = new \DateTime();
         $currentYear = intval($now->format('Y'));
-        for ($i = 0; $i <= $currentYear - self::FIRST_AUDIT_YEAR; $i++) {
+        for ($i = 0; $i <= $currentYear - $this->ar->getFirstYearAudit(); $i++) {
             $result = $currentYear - $i;
             $yearsArray["$result"] = $result;
         }

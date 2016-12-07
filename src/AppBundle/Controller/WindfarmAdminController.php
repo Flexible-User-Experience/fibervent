@@ -99,7 +99,7 @@ class WindfarmAdminController extends AbstractBaseAdminController
             throw $this->createNotFoundException(sprintf('Unable to find windfarm record with id: %s', $id));
         }
 
-        $form = $this->createForm(new WindfarmAnnualStatsFormType());
+        $form = $this->createForm(WindfarmAnnualStatsFormType::class);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {

@@ -49,6 +49,11 @@ services:
         factory: [ "@doctrine", getRepository ]
         arguments:
             - AppBundle:DamageCategory
+    app.audit_repository:
+        class: AppBundle\Repository\AuditRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - AppBundle:Audit
     app.repositories_service:
         class: AppBundle\Service\RepositoriesService
         arguments:
