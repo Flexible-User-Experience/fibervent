@@ -18,6 +18,8 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
  */
 class WindfarmAnnualStatsFormType extends AbstractType
 {
+    const BLOCK_PREFIX = 'windfarm_annual_stat';
+
     /**
      * @var AuditRepository
      */
@@ -74,26 +76,12 @@ class WindfarmAnnualStatsFormType extends AbstractType
     }
 
     /**
-     * Set oferta default form options
-     *
-     * @param OptionsResolver $resolver
-     */
-    public function configureOptions(OptionsResolver $resolver)
-    {
-        $resolver->setDefaults(
-            array(
-//                'default_msg'    => null,
-            )
-        );
-    }
-
-    /**
      * Returns the blockname of this type.
      *
      * @return string The name of this type
      */
     public function getBlockPrefix()
     {
-        return 'windfar_annual_stat';
+        return self::BLOCK_PREFIX;
     }
 }
