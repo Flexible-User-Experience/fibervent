@@ -111,6 +111,12 @@ class WindfarmAdminController extends AbstractBaseAdminController
         );
     }
 
+    /**
+     * @param Request|null $request
+     *
+     * @throws NotFoundHttpException If the object does not exist
+     * @return Response
+     */
     public function excelAttachmentAction(Request $request = null)
     {
         $year = intval($request->query->get(WindfarmAnnualStatsFormType::BLOCK_PREFIX)['year']);
