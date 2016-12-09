@@ -2,9 +2,12 @@
 
 namespace AppBundle\Repository;
 
+use AppBundle\Entity\Audit;
 use AppBundle\Entity\Windfarm;
 use AppBundle\Enum\AuditStatusEnum;
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Query;
+use Doctrine\ORM\QueryBuilder;
 
 /**
  * Class AuditRepository
@@ -44,9 +47,9 @@ class AuditRepository extends EntityRepository
     /**
      * @param Windfarm $windfarm
      *
-     * @return array
+     * @return QueryBuilder
      */
-    public function getInvoicedOrDoneAuditsByWindfarmSortedByBeginDate(Windfarm $windfarm)
+    public function getInvoicedOrDoneAuditsByWindfarmSortedByBeginDateQB(Windfarm $windfarm)
     {
         $query = $this->createQueryBuilder('a')
             ->where('a.windfarm = :windfarm' )
@@ -54,9 +57,85 @@ class AuditRepository extends EntityRepository
             ->setParameter('windfarm', $windfarm)
             ->setParameter('done', AuditStatusEnum::DONE)
             ->setParameter('invoiced', AuditStatusEnum::INVOICED)
-            ->orderBy('a.beginDate', 'DESC')
-            ->getQuery();
+            ->orderBy('a.beginDate', 'DESC');
 
-        return $query->getResult();
+        return $query;
+    }
+
+    /**
+     * @param Windfarm $windfarm
+     *
+     * @return Query
+     */
+    public function getInvoicedOrDoneAuditsByWindfarmSortedByBeginDateQ(Windfarm $windfarm)
+    {
+        return $this->getInvoicedOrDoneAuditsByWindfarmSortedByBeginDateQB($windfarm)->getQuery();
+    }
+
+    /**
+     * @param Windfarm $windfarm
+     *
+     * @return array
+     */
+    public function getInvoicedOrDoneAuditsByWindfarmSortedByBeginDate(Windfarm $windfarm)
+    {
+        return $this->getInvoicedOrDoneAuditsByWindfarmSortedByBeginDateQ($windfarm)->getResult();
+    }
+
+    /**
+     * @param Windfarm $windfarm
+     * @param int      $year
+     *
+     * @return QueryBuilder
+     */
+    public function getInvoicedOrDoneAuditsByWindfarmByYearQB(Windfarm $windfarm, $year)
+    {
+        $query = $this->getInvoicedOrDoneAuditsByWindfarmSortedByBeginDateQB($windfarm)
+                ->andWhere('YEAR(a.beginDate) = :year')
+                ->setParameter('year', $year);
+
+        return $query;
+    }
+
+    /**
+     * @param Windfarm $windfarm
+     * @param int      $year
+     *
+     * @return Query
+     */
+    public function getInvoicedOrDoneAuditsByWindfarmByYearQ(Windfarm $windfarm, $year)
+    {
+        return $this->getInvoicedOrDoneAuditsByWindfarmByYearQB($windfarm, $year)->getQuery();
+    }
+
+    /**
+     * @param Windfarm $windfarm
+     * @param int      $year
+     *
+     * @return array
+     */
+    public function getInvoicedOrDoneAuditsByWindfarmByYear(Windfarm $windfarm, $year)
+    {
+        return $this->getInvoicedOrDoneAuditsByWindfarmByYearQ($windfarm, $year)->getResult();
+    }
+
+    /**
+     * @return int
+     */
+    public function getFirstYearAudit()
+    {
+        $query = $this->createQueryBuilder('a')
+            ->orderBy('a.beginDate', 'ASC')
+            ->setMaxResults(1);
+
+        $audits = $query->getQuery()->getResult();
+        if (count($audits) === 0) {
+            return 2000;
+        }
+
+        /** @var Audit $firstAudit */
+        $firstAudit = $audits[0];
+
+        return intval($firstAudit->getBeginDate()->format('Y'));
     }
 }
