@@ -17,7 +17,7 @@ use Sonata\AdminBundle\Route\RouteCollection;
  */
 class AuditWindmillBladeAdmin extends AbstractBaseAdmin
 {
-    protected $classnameLabel = 'Auditoria Pala Aerogenerador';
+    protected $classnameLabel = 'admin.auditwindmillblade.title';
     protected $baseRoutePattern = 'audits/audit-windmill-blade';
     protected $datagridValues = array(
         '_sort_by'    => 'audit',
@@ -43,12 +43,12 @@ class AuditWindmillBladeAdmin extends AbstractBaseAdmin
         if ($this->id($this->getSubject()) && $this->getRootCode() != $this->getCode()) {
             // is edit mode, disable on new subjects and is children
             $formMapper
-                ->with('General', $this->getFormMdSuccessBoxArray(3))
+                ->with('admin.common.general', $this->getFormMdSuccessBoxArray(3))
                 ->add(
                     'audit',
                     null,
                     array(
-                        'label'    => 'Auditoria',
+                        'label'    => 'admin.auditwindmillblade.audit',
                         'required' => true,
                         'attr'     => array(
                             'hidden' => true,
@@ -59,20 +59,20 @@ class AuditWindmillBladeAdmin extends AbstractBaseAdmin
                     'windmillBlade',
                     null,
                     array(
-                        'label'    => 'Pala',
+                        'label'    => 'admin.auditwindmillblade.windmillblade',
                         'required' => true,
                         'disabled' => true,
                     )
                 )
                 ->end()
-                ->with('Danys', $this->getFormMdSuccessBoxArray(3))
+                ->with('admin.auditwindmillblade.damages', $this->getFormMdSuccessBoxArray(3))
                 ->add(
                     'fakeAction',
                     ActionButtonFormType::class,
                     array(
-                        'text'     => 'Editar danys',
+                        'text'     => 'Editar daños',
                         'url'      => $this->generateObjectUrl('edit', $this->getSubject()),
-                        'label'    => 'Accions',
+                        'label'    => 'admin.auditwindmillblade.actions',
                         'mapped'   => false,
                         'required' => false,
                     )
@@ -83,14 +83,14 @@ class AuditWindmillBladeAdmin extends AbstractBaseAdmin
             /** @var AuditWindmillBlade $awb */
             $awb = $this->getSubject();
             $order = $awb->getWindmillBlade() ? $awb->getWindmillBlade()->getOrder() : '';
-            $code = $awb->getWindmillBlade() && $awb->getWindmillBlade()->getCode() ? '(S/N: ' . $awb->getWindmillBlade()->getCode() . ')' : '';
+            $code = $awb->getWindmillBlade() && $awb->getWindmillBlade()->getCode() ? 'admin.windmillblade.sn' . $awb->getWindmillBlade()->getCode() . ')' : '';
             $formMapper
-                ->with('Situació i descripció dels danys · Pala ' . $order . ' ' . $code, $this->getFormMdSuccessBoxArray(12))
+                ->with('Situación y descripción de los daños · Pala ' . $order . ' ' . $code, $this->getFormMdSuccessBoxArray(12))
                 ->add(
                     'bladeDamages',
                     'sonata_type_collection',
                     array(
-                        'label'              => 'Danys',
+                        'label'              => 'admin.auditwindmillblade.damages',
                         'required'           => true,
                         'cascade_validation' => true,
                         'error_bubbling'     => true,
@@ -102,12 +102,12 @@ class AuditWindmillBladeAdmin extends AbstractBaseAdmin
                     )
                 )
                 ->end()
-                ->with('Observacions · Pala ' . $order . ' ' . $code, $this->getFormMdSuccessBoxArray(8))
+                ->with('Observaciones · Pala ' . $order . ' ' . $code, $this->getFormMdSuccessBoxArray(8))
                 ->add(
                     'observations',
                     'sonata_type_collection',
                     array(
-                        'label'              => 'Observacions',
+                        'label'              => 'admin.audit.observations',
                         'required'           => true,
                         'cascade_validation' => true,
                         'error_bubbling'     => true,
@@ -124,7 +124,7 @@ class AuditWindmillBladeAdmin extends AbstractBaseAdmin
                     'bladePhotos',
                     'sonata_type_collection',
                     array(
-                        'label'              => 'Fotos',
+                        'label'              => 'admin.auditwindmillblade.photos',
                         'required'           => true,
                         'cascade_validation' => true,
                         'error_bubbling'     => true,
@@ -149,7 +149,7 @@ class AuditWindmillBladeAdmin extends AbstractBaseAdmin
                 'audit',
                 null,
                 array(
-                    'label'    => 'Auditoria',
+                    'label'    => 'admin.auditwindmillblade.audit',
                     'editable' => true,
                 )
             )
@@ -157,7 +157,7 @@ class AuditWindmillBladeAdmin extends AbstractBaseAdmin
                 'windmillBlade',
                 null,
                 array(
-                    'label'    => 'Pala',
+                    'label'    => 'admin.auditwindmillblade.windmillblade',
                     'editable' => true,
                 )
             )
@@ -165,7 +165,7 @@ class AuditWindmillBladeAdmin extends AbstractBaseAdmin
                 '_action',
                 'actions',
                 array(
-                    'label'   => 'Accions',
+                    'label'   => 'admin.common.action',
                     'actions' => array(
                         'edit'   => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
                         'delete' => array('template' => '::Admin/Buttons/list__action_delete_button.html.twig'),

@@ -16,7 +16,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 class ObservationAdmin extends AbstractBaseAdmin
 {
     protected $maxPerPage = 50;
-    protected $classnameLabel = 'Observacions Danys Pala';
+    protected $classnameLabel = 'admin.observation.title';
     protected $baseRoutePattern = 'audits/observation';
     protected $datagridValues = array(
         '_sort_by'    => 'position',
@@ -41,7 +41,7 @@ class ObservationAdmin extends AbstractBaseAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->with('General', $this->getFormMdSuccessBoxArray(5))
+            ->with('admin.common.general', $this->getFormMdSuccessBoxArray(5))
             ->add(
                 'auditWindmillBlade',
                 null,
@@ -55,7 +55,7 @@ class ObservationAdmin extends AbstractBaseAdmin
                 'position',
                 null,
                 array(
-                    'label'    => 'Ordre',
+                    'label'    => 'admin.observation.position',
                     'required' => false,
                 )
             )
@@ -63,7 +63,7 @@ class ObservationAdmin extends AbstractBaseAdmin
                 'damageNumber',
                 null,
                 array(
-                    'label'    => 'Número Dany',
+                    'label'    => 'admin.observation.damage_number',
                     'required' => true,
                 )
             )
@@ -71,7 +71,7 @@ class ObservationAdmin extends AbstractBaseAdmin
                 'observations',
                 TextareaType::class,
                 array(
-                    'label'    => 'Observació',
+                    'label'    => 'admin.audit.observations',
                     'required' => true,
                     'attr'     => array(
                         'rows' => 5,

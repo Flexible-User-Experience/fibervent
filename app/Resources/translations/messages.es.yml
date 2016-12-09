@@ -91,3 +91,135 @@ enum:
     rope: CUERDAS
     inside: INTERIOR PALA
     platform: PLATAFORMA
+  audit_status:
+    pending: Pendiente
+    doing: En proceso
+    done: Realizado
+    invoiced: Facturado
+  user_roles:
+    user: Usuario
+    customer: Cliente
+    operator: Operario
+    technician: Técnico
+    admin: Administrador
+    super_admin: Superadministrador
+admin:
+  common:
+    general: General
+    controls: Controles
+    action: Acciones
+    enabled: Activo
+  audit:
+    title: Inspección
+    windmill: Aerogenerador
+    observations: Observaciones
+    begindate: Fecha inicio
+    enddate: Fecha fin
+    operators: Técnicos Inspección
+    type: Tipo de Inspección
+    status: Estado
+    diagramtype_title: Diagrama de palas
+    diagramtype: Tipo de diagrama
+    auditwindmillblade_title: Palas inspeccionadas
+  auditwindmillblade:
+    title: Auditoria Pala Aerogenerador
+    audit: Auditoria
+    windmillblade: Pala
+    damages: Daños
+    actions: Acciones
+    damage_position: 'Situación y descripción de los daños · Pala '
+    bladedamages: Daños
+    photos: Fotos
+    blade_observations: 'Observaciones · Pala '
+    blade_photos: 'Fotos generals · Pala '
+  blade:
+    title: Pala
+    model: Modelo
+    length: Longitud
+  bladedamage:
+    title: Daño Pala
+    number: Núm.
+    damage: Código
+    position: Posición
+    radius: Radio (m)
+    distance: Distancia (m)
+    edge: Esquina
+    size: Dimesnión (cm)
+    damagecategory: Cat.
+  bladephoto:
+    title: Foto Pala
+    imagefile: Foto
+  customer:
+    title: Cliente
+    image: Logo
+    code: CIF
+    name: Nombre
+    contact: Contacto
+    email: Correo Electrónico
+    phone: Teléfono
+    web: Web
+    postal_data: Datos Postales
+    address: Dirección
+    zip: Código Postal
+    city: Ciudad
+    state: Província
+    contacts: Contactos
+    windfarms: Parques Eólicos
+  damage:
+    title: Tipo Daño
+    section: Sección
+    code: Código
+    description: Descripción
+    translations: Traducciones
+  damagecategory:
+    title: Categoría Daño
+    category: Categoría
+    priority: Prioridad
+    description: Descripción
+    recomended_action: Acción Recomendada
+    colour: Color
+  observation:
+    title: Observaciones Daños Pala
+    position: Orden
+    damage_number: Número Daño
+  photo:
+    title: Foto
+    imagename: Nombre
+  state:
+    title: Provincia
+    country: País
+  turbine:
+    title: Turbina
+    height: Altura
+    diameter: Diámetro
+    power: Potencia
+  user:
+    title: Usuario
+    username: Nombre Usuario
+    password: Password
+    firstname: Nombre
+    lastname: Apellido
+    roles: Roles
+    rol: Rol
+    locked: Bloqueado
+    language: Idioma
+  windfarm:
+    title: Parque Eólico
+    customer: Cliente
+    manager: 'O&M Regional Manager'
+    year: Año
+    language: Idioma PDF
+    geoposition: Geolocalización
+    latlng: Mapa
+    pdf_language: Idioma PDF
+  windmill:
+     title: Aerogenerador
+     windfarm: Parque Eólico
+     code: Número
+     turbine: Turbina
+     bladetype: Pala
+     blades: Palas
+     manager: Administrador
+  windmillblade:
+    title: Palas Aerogenerador
+    sn: 'S/N'

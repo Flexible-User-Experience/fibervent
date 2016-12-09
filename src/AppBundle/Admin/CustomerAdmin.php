@@ -18,7 +18,7 @@ use Symfony\Component\Form\Extension\Core\Type\UrlType;
  */
 class CustomerAdmin extends AbstractBaseAdmin
 {
-    protected $classnameLabel = 'Client';
+    protected $classnameLabel = 'admin.customer.title';
     protected $baseRoutePattern = 'customers/customer';
     protected $datagridValues = array(
         '_sort_by'    => 'name',
@@ -44,12 +44,12 @@ class CustomerAdmin extends AbstractBaseAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->with('General', $this->getFormMdSuccessBoxArray(4))
+            ->with('admin.common.general', $this->getFormMdSuccessBoxArray(4))
             ->add(
                 'imageFile',
                 'file',
                 array(
-                    'label'    => 'Logo',
+                    'label'    => 'admin.customer.image',
                     'help'     => $this->getImageHelperFormMapperWithThumbnail(250),
                     'required' => false,
                 )
@@ -58,7 +58,7 @@ class CustomerAdmin extends AbstractBaseAdmin
                 'code',
                 null,
                 array(
-                    'label'    => 'CIF',
+                    'label'    => 'admin.customer.code',
                     'required' => false,
                 )
             )
@@ -66,23 +66,23 @@ class CustomerAdmin extends AbstractBaseAdmin
                 'name',
                 null,
                 array(
-                    'label' => 'Nom',
+                    'label' => 'admin.customer.name',
                 )
             )
             ->add(
                 'enabled',
                 null,
                 array(
-                    'label'    => 'Actiu',
+                    'label'    => 'admin.common.enabled',
                 )
             )
             ->end()
-            ->with('Contacte', $this->getFormMdSuccessBoxArray(4))
+            ->with('admin.customer.contact', $this->getFormMdSuccessBoxArray(4))
             ->add(
                 'email',
                 EmailType::class,
                 array(
-                    'label'    => 'Correu Electrònic',
+                    'label'    => 'admin.customer.email',
                     'required' => false,
                 )
             )
@@ -90,47 +90,47 @@ class CustomerAdmin extends AbstractBaseAdmin
                 'phone',
                 null,
                 array(
-                    'label' => 'Telèfon',
+                    'label' => 'admin.customer.phone',
                 )
             )
             ->add(
                 'web',
                 UrlType::class,
                 array(
-                    'label'       => 'Web',
+                    'label'       => 'admin.customer.web',
                     'required'    => false,
                     'help'        => 'http://...',
                     'sonata_help' => 'http://...',
                 )
             )
             ->end()
-            ->with('Dades Postals', $this->getFormMdSuccessBoxArray(4))
+            ->with('admin.customer.postal_data', $this->getFormMdSuccessBoxArray(4))
             ->add(
                 'address',
                 null,
                 array(
-                    'label' => 'Adreça',
+                    'label' => 'admin.customer.address',
                 )
             )
             ->add(
                 'zip',
                 null,
                 array(
-                    'label' => 'Codi Postal',
+                    'label' => 'admin.customer.zip',
                 )
             )
             ->add(
                 'city',
                 null,
                 array(
-                    'label' => 'Ciutat',
+                    'label' => 'admin.customer.city',
                 )
             )
             ->add(
                 'state',
                 'sonata_type_model',
                 array(
-                    'label'      => 'Província',
+                    'label'      => 'admin.customer.state',
                     'btn_add'    => true,
                     'btn_delete' => false,
                     'required'   => true,
@@ -140,7 +140,7 @@ class CustomerAdmin extends AbstractBaseAdmin
             ->end();
         if ($this->id($this->getSubject())) { // is edit mode, disable on new subjects
             $formMapper
-                ->with('Contactes', $this->getFormMdSuccessBoxArray(8))
+                ->with('admin.customer.contacts', $this->getFormMdSuccessBoxArray(8))
                 ->add(
                     'contacts',
                     'sonata_type_model',
@@ -155,7 +155,7 @@ class CustomerAdmin extends AbstractBaseAdmin
                     )
                 )
                 ->end()
-                ->with('Parcs Eòlics', $this->getFormMdSuccessBoxArray(4))
+                ->with('admin.customer.windfarms', $this->getFormMdSuccessBoxArray(4))
                 ->add(
                     'windfarms',
                     'sonata_type_model',
@@ -182,63 +182,63 @@ class CustomerAdmin extends AbstractBaseAdmin
                 'code',
                 null,
                 array(
-                    'label' => 'CIF',
+                    'label' => 'admin.customer.code',
                 )
             )
             ->add(
                 'name',
                 null,
                 array(
-                    'label' => 'Nom',
+                    'label' => 'admin.customer.name',
                 )
             )
             ->add(
                 'email',
                 null,
                 array(
-                    'label' => 'Correu Electrònic',
+                    'label' => 'admin.customer.email',
                 )
             )
             ->add(
                 'phone',
                 null,
                 array(
-                    'label' => 'Telèfon',
+                    'label' => 'admin.customer.phone',
                 )
             )
             ->add(
                 'web',
                 null,
                 array(
-                    'label' => 'Web',
+                    'label' => 'admin.customer.web',
                 )
             )
             ->add(
                 'address',
                 null,
                 array(
-                    'label' => 'Adreça',
+                    'label' => 'admin.customer.address',
                 )
             )
             ->add(
                 'zip',
                 null,
                 array(
-                    'label' => 'Codi Postal',
+                    'label' => 'admin.customer.zip',
                 )
             )
             ->add(
                 'city',
                 null,
                 array(
-                    'label' => 'Ciutat',
+                    'label' => 'admin.customer.city',
                 )
             )
             ->add(
                 'state',
                 null,
                 array(
-                    'label' => 'Província',
+                    'label' => 'admin.customer.state',
                     'query' => $this->sr->findAllSortedByNameQ(),
                 )
             )
@@ -246,7 +246,7 @@ class CustomerAdmin extends AbstractBaseAdmin
                 'enabled',
                 null,
                 array(
-                    'label'    => 'Actiu',
+                    'label'    => 'admin.common.enabled',
                 )
             );
     }
@@ -262,7 +262,7 @@ class CustomerAdmin extends AbstractBaseAdmin
                 'code',
                 null,
                 array(
-                    'label'    => 'CIF',
+                    'label'    => 'admin.customer.code',
                     'editable' => true,
                 )
             )
@@ -270,7 +270,7 @@ class CustomerAdmin extends AbstractBaseAdmin
                 'name',
                 null,
                 array(
-                    'label'    => 'Nom',
+                    'label'    => 'admin.customer.name',
                     'editable' => true,
                 )
             )
@@ -278,7 +278,7 @@ class CustomerAdmin extends AbstractBaseAdmin
                 'email',
                 null,
                 array(
-                    'label'    => 'Correu Electrònic',
+                    'label'    => 'admin.customer.email',
                     'editable' => true,
                 )
             )
@@ -286,7 +286,7 @@ class CustomerAdmin extends AbstractBaseAdmin
                 'phone',
                 null,
                 array(
-                    'label'    => 'Telèfon',
+                    'label'    => 'admin.customer.phone',
                     'editable' => true,
                 )
             )
@@ -294,7 +294,7 @@ class CustomerAdmin extends AbstractBaseAdmin
                 'city',
                 null,
                 array(
-                    'label'    => 'Ciutat',
+                    'label'    => 'admin.customer.city',
                     'editable' => true,
                 )
             )
@@ -302,7 +302,7 @@ class CustomerAdmin extends AbstractBaseAdmin
                 'enabled',
                 null,
                 array(
-                    'label'    => 'Actiu',
+                    'label'    => 'admin.common.enabled',
                     'editable' => true,
                 )
             )
@@ -310,7 +310,7 @@ class CustomerAdmin extends AbstractBaseAdmin
                 '_action',
                 'actions',
                 array(
-                    'label'   => 'Accions',
+                    'label'   => 'admin.common.action',
                     'actions' => array(
                         'edit'   => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
                         'map'    => array('template' => '::Admin/Buttons/list__action_map_button.html.twig'),

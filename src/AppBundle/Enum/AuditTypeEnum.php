@@ -24,10 +24,10 @@ class AuditTypeEnum
     public static function getEnumArray()
     {
         return array(
-            self::GROUND => 'terra (telescopi Fibervent)',
-            self::ROPE   => 'cordes',
-            self::INSIDE => 'interior pala',
-            self::PLATFORM => 'plataforma',
+            self::GROUND   => 'enum.audit_type.ground',
+            self::ROPE     => 'enum.audit_type.rope',
+            self::INSIDE   => 'enum.audit_type.inside',
+            self::PLATFORM => 'enum.audit_type.platform',
         );
     }
 

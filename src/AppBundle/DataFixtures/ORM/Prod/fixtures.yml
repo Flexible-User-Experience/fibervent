@@ -361,6 +361,7 @@ AppBundle\Entity\User:
         firstname: <{private_admin_test_name}>
         lastname: <{private_admin_test_surname}>
         enabled: true
+        language: 0
         roles:
             - ROLE_SUPER_ADMIN
     manager:
@@ -370,5 +371,6 @@ AppBundle\Entity\User:
         firstname: <{private_editor_test_name}>
         lastname: <{private_editor_test_surname}>
         enabled: true
+        language: 0
         roles:
             - ROLE_ADMIN

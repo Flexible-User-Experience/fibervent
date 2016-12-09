@@ -15,7 +15,7 @@ use Sonata\AdminBundle\Route\RouteCollection;
 class BladePhotoAdmin extends AbstractBaseAdmin
 {
     protected $maxPerPage = 50;
-    protected $classnameLabel = 'Foto Pala';
+    protected $classnameLabel = 'admin.bladephoto.title';
     protected $baseRoutePattern = 'audits/blade-photo';
     protected $datagridValues = array(
         '_sort_by'    => 'imageName',
@@ -40,7 +40,7 @@ class BladePhotoAdmin extends AbstractBaseAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->with('General', $this->getFormMdSuccessBoxArray(5))
+            ->with('admin.common.general', $this->getFormMdSuccessBoxArray(5))
             ->add(
                 'auditWindmillBlade',
                 null,
@@ -54,7 +54,7 @@ class BladePhotoAdmin extends AbstractBaseAdmin
                 'imageFile',
                 'file',
                 array(
-                    'label'       => 'Foto',
+                    'label'       => 'admin.bladephoto.imagefile',
                     'help'        => $this->getImageHelperFormMapperWithThumbnail(),
                     'sonata_help' => $this->getImageHelperFormMapperWithThumbnail(),
                     'required'    => false,

@@ -4,13 +4,13 @@
     {% spaceless %}
         <div>
             {% if object.status == 0 %}
-                <span class="label label-danger">Pendent</span>
+                <span class="label label-danger">{{ 'enum.audit_status.pending' | trans }}</span>
             {% elseif object.status == 1 %}
-                <span class="label label-warning">En procés</span>
+                <span class="label label-warning">{{ 'enum.audit_status.doing' | trans }}</span>
             {% elseif object.status == 2 %}
-                <span class="label label-info">Fet</span>
+                <span class="label label-info">{{ 'enum.audit_status.done' | trans }}</span>
             {% elseif object.status == 3 %}
-                <span class="label label-success">Facturat</span>
+                <span class="label label-success">{{ 'enum.audit_status.invoiced' | trans }}</span>
             {% else %}
                 ---
             {% endif %}

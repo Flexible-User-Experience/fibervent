@@ -474,6 +474,7 @@ AppBundle\Entity\User:
         firstname: <{private_admin_test_name}>
         lastname: <{private_admin_test_surname}>
         enabled: true
+        language: 0
         roles:
             - ROLE_SUPER_ADMIN
     admin:
@@ -484,6 +485,7 @@ AppBundle\Entity\User:
         firstname: <{private_editor_test_name}>
         lastname: <{private_editor_test_surname}>
         enabled: true
+        language: 0
         roles:
             - ROLE_ADMIN
     technician{1..2}:
@@ -494,6 +496,7 @@ AppBundle\Entity\User:
         firstname: <name()>
         lastname: <lastname()>
         enabled: true
+        language: 0
         roles:
             - ROLE_TECHNICIAN
     operator{1..4}:
@@ -504,6 +507,7 @@ AppBundle\Entity\User:
         firstname: <name()>
         lastname: <lastname()>
         enabled: true
+        language: 0
         roles:
             - ROLE_OPERATOR
     owner{1..10}:
@@ -514,6 +518,7 @@ AppBundle\Entity\User:
         firstname: <name()>
         lastname: <lastname()>
         enabled: true
+        language: 0
         customer: @customer<numberBetween(1, 10)>
         roles:
             - ROLE_CUSTOMER

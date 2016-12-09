@@ -39,9 +39,9 @@ class AuditLanguageEnum
     public static function getEnumArrayString()
     {
         return array(
-            self::SPANISH    => 'espanyol',
-            self::ENGLISH    => 'anglès',
-            self::FRENCH     => 'francès',
+            self::SPANISH    => 'español',
+            self::ENGLISH    => 'english',
+            self::FRENCH     => 'français',
 //            self::PORTUGUESE => 'portuguès',
 //            self::GERMAN     => 'alemany',
 //            self::ITALIAN    => 'italià',

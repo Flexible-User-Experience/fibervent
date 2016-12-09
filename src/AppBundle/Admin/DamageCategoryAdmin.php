@@ -15,7 +15,7 @@ use Sonata\AdminBundle\Route\RouteCollection;
  */
 class DamageCategoryAdmin extends AbstractBaseAdmin
 {
-    protected $classnameLabel = 'Categoria Dany';
+    protected $classnameLabel = 'admin.damagecategory.title';
     protected $baseRoutePattern = 'audits/damage-category';
     protected $datagridValues = array(
         '_sort_by'    => 'category',
@@ -39,12 +39,12 @@ class DamageCategoryAdmin extends AbstractBaseAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->with('General', $this->getFormMdSuccessBoxArray(6))
+            ->with('admin.common.general', $this->getFormMdSuccessBoxArray(6))
             ->add(
                 'category',
                 null,
                 array(
-                    'label'    => 'Categoria',
+                    'label'    => 'admin.damagecategory.category',
                     'required' => true,
                 )
             )
@@ -52,7 +52,7 @@ class DamageCategoryAdmin extends AbstractBaseAdmin
                 'priority',
                 null,
                 array(
-                    'label'    => 'Prioritat',
+                    'label'    => 'admin.damagecategory.priority',
                     'required' => true,
                 )
             )
@@ -60,7 +60,7 @@ class DamageCategoryAdmin extends AbstractBaseAdmin
                 'description',
                 null,
                 array(
-                    'label'    => 'Descripció',
+                    'label'    => 'admin.damagecategory.description',
                     'required' => true,
                 )
             )
@@ -68,29 +68,29 @@ class DamageCategoryAdmin extends AbstractBaseAdmin
                 'recommendedAction',
                 null,
                 array(
-                    'label'    => 'Acció Recomanada',
+                    'label'    => 'admin.damagecategory.recomended_action',
                     'required' => true,
                 )
             )
             ->end()
-            ->with('Traduccions', $this->getFormMdSuccessBoxArray(6))
+            ->with('admin.damage.translations', $this->getFormMdSuccessBoxArray(6))
             ->add('translations', 'a2lix_translations_gedmo', array(
                 'required' => false,
                 'label' => ' ',
                 'translatable_class' => 'AppBundle\Entity\Translation\DamageTranslation',
                 'fields' => array(
-                    'priority' => array('label' => 'Prioritat', 'required' => false),
-                    'description' => array('label' => 'Descripció', 'attr' => array('rows' => 8), 'required' => false),
-                    'recommendedAction' => array('label' => 'Acció Recomanada', 'required' => false),
+                    'priority' => array('label' => 'admin.damagecategory.priority', 'required' => false),
+                    'description' => array('label' => 'admin.damagecategory.description', 'attr' => array('rows' => 8), 'required' => false),
+                    'recommendedAction' => array('label' => 'admin.damagecategory.recomended_action', 'required' => false),
                 ),
             ))
             ->end()
-            ->with('Controls', $this->getFormMdSuccessBoxArray(6))
+            ->with('admin.common.controls', $this->getFormMdSuccessBoxArray(6))
             ->add(
                 'colour',
                 'color_picker',
                 array(
-                    'label'          => 'Color',
+                    'label'          => 'admin.damagecategory.colour',
                     'required'       => true,
                     'picker_options' => array(
                         'color'    => false,
@@ -112,7 +112,7 @@ class DamageCategoryAdmin extends AbstractBaseAdmin
                 'enabled',
                 null,
                 array(
-                    'label'    => 'Actiu',
+                    'label'    => 'admin.common.enabled',
                     'required' => false,
                 )
             )
@@ -140,7 +140,7 @@ class DamageCategoryAdmin extends AbstractBaseAdmin
                 'category',
                 null,
                 array(
-                    'label'    => 'Categoria',
+                    'label'    => 'admin.damagecategory.category',
                     'editable' => true,
                 )
             )
@@ -148,7 +148,7 @@ class DamageCategoryAdmin extends AbstractBaseAdmin
                 'priority',
                 null,
                 array(
-                    'label'    => 'Prioritat',
+                    'label'    => 'admin.damagecategory.priority',
                     'editable' => true,
                 )
             )
@@ -156,7 +156,7 @@ class DamageCategoryAdmin extends AbstractBaseAdmin
                 'description',
                 null,
                 array(
-                    'label'    => 'Descripció',
+                    'label'    => 'admin.damagecategory.description',
                     'editable' => true,
                 )
             )
@@ -164,7 +164,7 @@ class DamageCategoryAdmin extends AbstractBaseAdmin
                 'recommendedAction',
                 null,
                 array(
-                    'label'    => 'Acció Recomanada',
+                    'label'    => 'admin.damagecategory.recomended_action',
                     'editable' => true,
                 )
             )
@@ -172,7 +172,7 @@ class DamageCategoryAdmin extends AbstractBaseAdmin
                 'enabled',
                 null,
                 array(
-                    'label'    => 'Actiu',
+                    'label'    => 'admin.common.enabled',
                     'editable' => true,
                 )
             )
@@ -180,7 +180,7 @@ class DamageCategoryAdmin extends AbstractBaseAdmin
                 '_action',
                 'actions',
                 array(
-                    'label'   => 'Accions',
+                    'label'   => 'admin.common.action',
                     'actions' => array(
                         'edit' => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
                     )
