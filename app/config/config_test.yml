@@ -16,6 +16,10 @@ doctrine:
     dbal:
         driver: "pdo_sqlite"
         path:   "%kernel.root_dir%/database/test.db3"
+    orm:
+        dql:
+            datetime_functions:
+                year: DoctrineExtensions\Query\Sqlite\Year
 
 swiftmailer:
     disable_delivery: true
