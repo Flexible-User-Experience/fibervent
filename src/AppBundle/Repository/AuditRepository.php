@@ -8,6 +8,7 @@ use AppBundle\Enum\AuditStatusEnum;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
+use ProxyManagerTestAsset\HydratedObject;
 
 /**
  * Class AuditRepository
@@ -120,30 +121,24 @@ class AuditRepository extends EntityRepository
     }
 
     /**
-     * @param Windfarm $windfarm
+     * @param integer $windfarmId
      *
-     * @return int
+     * @return array
      */
-    public function getFirstYearOfInvoicedOrDoneAuditsByWindfarm(Windfarm $windfarm)
+    public function getFirstYearOfInvoicedOrDoneAuditsByWindfarm($windfarmId)
     {
         $query = $this->createQueryBuilder('a')
-            ->select('a.id, YEAR(a.beginDate) AS a.year')
+            ->select('YEAR(a.beginDate) AS year')
             ->where('a.windfarm = :windfarm')
             ->andWhere('a.status = :done OR a.status = :invoiced')
-            ->setParameter('windfarm', $windfarm)
+            ->setParameter('windfarm', $windfarmId)
             ->setParameter('done', AuditStatusEnum::DONE)
             ->setParameter('invoiced', AuditStatusEnum::INVOICED)
-            ->orderBy('a.beginDate', 'ASC')
-            ->groupBy('a.year');
+            ->orderBy('year', 'ASC')
+            ->groupBy('year');
 
-        $audits = $query->getQuery()->getResult();
-        if (count($audits) === 0) {
-            return 2016;
-        }
+        $yearsArray = $query->getQuery()->getArrayResult();
 
-        /** @var Audit $firstAudit */
-        $firstAudit = $audits[0];
-
-        return intval($firstAudit->getBeginDate()->format('Y'));
+        return count($yearsArray) === 0 ? array(array('year' => 2016)) : $yearsArray;
     }
 }

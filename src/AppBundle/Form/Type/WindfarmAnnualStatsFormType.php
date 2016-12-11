@@ -7,6 +7,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
  * WindfarmAnnualStatsFormType class
@@ -48,12 +50,11 @@ class WindfarmAnnualStatsFormType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $yearsArray = array();
-        $now = new \DateTime();
-        $currentYear = intval($now->format('Y'));
-        for ($i = 0; $i <= $currentYear - $this->ar->getFirstYearOfInvoicedOrDoneAuditsByWindfarm(); $i++) {
-            $result = $currentYear - $i;
-            $yearsArray["$result"] = $result;
+        $choicesArray = array();
+        $yearsArray = $this->ar->getFirstYearOfInvoicedOrDoneAuditsByWindfarm($options['windfarm_id']);
+        foreach ($yearsArray as $year) {
+            $value = $year['year'];
+            $choicesArray["$value"] = intval($value);
         }
 
         $builder
@@ -65,7 +66,7 @@ class WindfarmAnnualStatsFormType extends AbstractType
                     'required' => true,
                     'multiple' => false,
                     'label'    => 'Año',
-                    'choices'  => $yearsArray,
+                    'choices'  => $choicesArray,
                 )
             )
             ->add(
@@ -79,6 +80,20 @@ class WindfarmAnnualStatsFormType extends AbstractType
                 )
             )
         ;
+    }
+
+    /**
+     * Set default form options
+     *
+     * @param OptionsResolver $resolver
+     */
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults(
+            array(
+                'windfarm_id' => null,
+            )
+        );
     }
 
     /**
