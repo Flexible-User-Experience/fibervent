@@ -124,11 +124,15 @@ class AuditRepository extends EntityRepository
      *
      * @return int
      */
-    public function getFirstYearAuditByWindfarm(Windfarm $windfarm)
+    public function getFirstYearOfInvoicedOrDoneAuditsByWindfarm(Windfarm $windfarm)
     {
         $query = $this->createQueryBuilder('a')
             ->select('a.id, YEAR(a.beginDate) AS a.year')
-            ->where('')
+            ->where('a.windfarm = :windfarm')
+            ->andWhere('a.status = :done OR a.status = :invoiced')
+            ->setParameter('windfarm', $windfarm)
+            ->setParameter('done', AuditStatusEnum::DONE)
+            ->setParameter('invoiced', AuditStatusEnum::INVOICED)
             ->orderBy('a.beginDate', 'ASC')
             ->groupBy('a.year');
 
