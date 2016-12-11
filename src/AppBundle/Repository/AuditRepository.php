@@ -2,13 +2,11 @@
 
 namespace AppBundle\Repository;
 
-use AppBundle\Entity\Audit;
 use AppBundle\Entity\Windfarm;
 use AppBundle\Enum\AuditStatusEnum;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
-use ProxyManagerTestAsset\HydratedObject;
 
 /**
  * Class AuditRepository
@@ -134,7 +132,7 @@ class AuditRepository extends EntityRepository
             ->setParameter('windfarm', $windfarmId)
             ->setParameter('done', AuditStatusEnum::DONE)
             ->setParameter('invoiced', AuditStatusEnum::INVOICED)
-            ->orderBy('year', 'ASC')
+            ->orderBy('year', 'DESC')
             ->groupBy('year');
 
         $yearsArray = $query->getQuery()->getArrayResult();
