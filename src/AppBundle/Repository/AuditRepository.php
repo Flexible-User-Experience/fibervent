@@ -2,7 +2,6 @@
 
 namespace AppBundle\Repository;
 
-use AppBundle\Entity\Audit;
 use AppBundle\Entity\Windfarm;
 use AppBundle\Enum\AuditStatusEnum;
 use Doctrine\ORM\EntityRepository;
@@ -120,22 +119,24 @@ class AuditRepository extends EntityRepository
     }
 
     /**
-     * @return int
+     * @param integer $windfarmId
+     *
+     * @return array
      */
-    public function getFirstYearAudit()
+    public function getFirstYearOfInvoicedOrDoneAuditsByWindfarm($windfarmId)
     {
         $query = $this->createQueryBuilder('a')
-            ->orderBy('a.beginDate', 'ASC')
-            ->setMaxResults(1);
+            ->select('YEAR(a.beginDate) AS year')
+            ->where('a.windfarm = :windfarm')
+            ->andWhere('a.status = :done OR a.status = :invoiced')
+            ->setParameter('windfarm', $windfarmId)
+            ->setParameter('done', AuditStatusEnum::DONE)
+            ->setParameter('invoiced', AuditStatusEnum::INVOICED)
+            ->orderBy('year', 'DESC')
+            ->groupBy('year');
 
-        $audits = $query->getQuery()->getResult();
-        if (count($audits) === 0) {
-            return 2000;
-        }
+        $yearsArray = $query->getQuery()->getArrayResult();
 
-        /** @var Audit $firstAudit */
-        $firstAudit = $audits[0];
-
-        return intval($firstAudit->getBeginDate()->format('Y'));
+        return count($yearsArray) === 0 ? array(array('year' => 2016)) : $yearsArray;
     }
 }
