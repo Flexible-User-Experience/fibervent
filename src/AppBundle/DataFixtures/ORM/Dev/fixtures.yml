@@ -203,14 +203,15 @@ AppBundle\Entity\Blade:
 AppBundle\Entity\WindmillBlade:
   windmillblade{1..3}:
     code(unique): <bothify('?###??')>
+    order: 1
     windmill: @windmill1
 
 # Audit
 AppBundle\Entity\Audit:
-  audit{1..5}:
-    beginDate: <dateTimeThisMonth($max = 'now')>
-    endDate: <dateTimeThisMonth($max = 'now')>
-    type: <word()>
+  audit{1..25}:
+    beginDate: <dateTimeThisYear($max = 'now')>
+    endDate: <dateTimeThisYear($max = 'now')>
+    type: <numberBetween(1, 5)>
     status: <numberBetween(0, 3)>
     diagramType: <numberBetween(1, 6)>
     tools: <sentence()>

@@ -120,17 +120,21 @@ class AuditRepository extends EntityRepository
     }
 
     /**
+     * @param Windfarm $windfarm
+     *
      * @return int
      */
-    public function getFirstYearAudit()
+    public function getFirstYearAuditByWindfarm(Windfarm $windfarm)
     {
         $query = $this->createQueryBuilder('a')
+            ->select('a.id, YEAR(a.beginDate) AS a.year')
+            ->where('')
             ->orderBy('a.beginDate', 'ASC')
-            ->setMaxResults(1);
+            ->groupBy('a.year');
 
         $audits = $query->getQuery()->getResult();
         if (count($audits) === 0) {
-            return 2000;
+            return 2016;
         }
 
         /** @var Audit $firstAudit */
