@@ -265,30 +265,56 @@ class AuditAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'year',
-                'doctrine_orm_callback',
+                'fakedYear',
+                'doctrine_orm_choice',
                 array(
-                    'callback' => function($queryBuilder, $alias, $year, $value) {
-                        if (!$value['value']) {
+                    'label' => 'admin.audit.year',
+                    'show_filter' => true,
+                    'mapped' => false,
+                    'callback' => function(QueryBuilder $queryBuilder, $alias, $year, $value) {
+                        if (!$value) {
                             return;
                         }
 
-                        $queryBuilder->andWhere($alias. 'YEAR(a.beginDate) = :year');
-                        $queryBuilder->setParameter('year', $year);
+                        $queryBuilder->andWhere('YEAR(' . $alias .  '.beginDate) = :year');
+                        $queryBuilder->setParameter('year', $value);
 
                         return true;
                     },
-                    'sonata_type_model',
-                    array(
-                        'label'        => 'Año',
-                        'required'     => false,
-                        'multiple'     => false,
-                        'btn_add'      => false,
-//                        'query'        => $this->ar->getInvoicedOrDoneAuditsByWindfarmSortedByBeginDateQ(9),
-                    ),
-//                    'label' => 'Año',
-                    'show_filter' => true,
+                ),
+                'choice',
+                array(
+                    'expanded'  => false,
+                    'required' => true,
+                    'multiple'  => false,
+                    'mapped' => false,
+                    'choices'   => ['2014' => 2014, '2015' => 2015, '2016' => 2016],
                 )
+//                'year',
+//                'doctrine_orm_choice',
+//                array(
+//                    'callback' => function($queryBuilder, $alias, $year, $value) {
+//                        if (!$value['value']) {
+//                            return;
+//                        }
+//
+//                        $queryBuilder->andWhere($alias. 'YEAR(a.beginDate) = :year');
+//                        $queryBuilder->setParameter('year', $year);
+//
+//                        return true;
+//                    },
+//                    'sonata_type_model',
+//                    array(
+//                        'label'        => 'Año',
+//                        'required'     => false,
+//                        'multiple'     => false,
+//                        'btn_add'      => false,
+//                        'query'        => $this->ar->getInvoicedOrDoneAuditsByWindfarmSortedByBeginDateQ(9),
+//                    ),
+//                    'label' => 'Año',
+//
+//                    'choices' => ['2014' => 2014, '2015' => 2015, '2016' => 2016]
+//                )
             )
             ->add(
                 'observations',
