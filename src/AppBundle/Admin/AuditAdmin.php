@@ -8,6 +8,7 @@ use AppBundle\Enum\AuditDiagramTypeEnum;
 use AppBundle\Enum\AuditStatusEnum;
 use AppBundle\Enum\AuditTypeEnum;
 use AppBundle\Form\Type\AuditDiagramTypeFormType;
+use AppBundle\Repository\AuditRepository;
 use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
@@ -261,6 +262,32 @@ class AuditAdmin extends AbstractBaseAdmin
                     'expanded' => false,
                     'multiple' => false,
                     'choices'  => AuditDiagramTypeEnum::getEnumArray(),
+                )
+            )
+            ->add(
+                'year',
+                'doctrine_orm_callback',
+                array(
+                    'callback' => function($queryBuilder, $alias, $year, $value) {
+                        if (!$value['value']) {
+                            return;
+                        }
+
+                        $queryBuilder->andWhere($alias. 'YEAR(a.beginDate) = :year');
+                        $queryBuilder->setParameter('year', $year);
+
+                        return true;
+                    },
+                    'sonata_type_model',
+                    array(
+                        'label'        => 'Año',
+                        'required'     => false,
+                        'multiple'     => false,
+                        'btn_add'      => false,
+                        'query'        => $this->ar->getInvoicedOrDoneAuditsByWindfarmSortedByBeginDateQ(9),
+                    ),
+//                    'label' => 'Año',
+                    'show_filter' => true,
                 )
             )
             ->add(

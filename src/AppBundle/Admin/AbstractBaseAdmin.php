@@ -2,6 +2,7 @@
 
 namespace AppBundle\Admin;
 
+use AppBundle\Repository\AuditRepository;
 use AppBundle\Repository\BladeRepository;
 use AppBundle\Repository\CustomerRepository;
 use AppBundle\Repository\DamageCategoryRepository;
@@ -72,6 +73,11 @@ abstract class AbstractBaseAdmin extends AbstractAdmin
     protected $dcr;
 
     /**
+     * @var AuditRepository
+     */
+    protected $ar;
+
+    /**
      * @var UploaderHelper
      */
     protected $vus;
@@ -82,14 +88,15 @@ abstract class AbstractBaseAdmin extends AbstractAdmin
     protected $lis;
 
     /**
-     * @param string                     $code
-     * @param string                     $class
-     * @param string                     $baseControllerName
-     * @param RepositoriesService        $rs
-     * @param UploaderHelper             $vus
-     * @param CacheManager               $lis
+     * @param string              $code
+     * @param string              $class
+     * @param string              $baseControllerName
+     * @param RepositoriesService $rs
+     * @param AuditRepository     $ar
+     * @param UploaderHelper      $vus
+     * @param CacheManager        $lis
      */
-    public function __construct($code, $class, $baseControllerName, RepositoriesService $rs, UploaderHelper $vus, CacheManager $lis)
+    public function __construct($code, $class, $baseControllerName, RepositoriesService $rs, AuditRepository $ar, UploaderHelper $vus, CacheManager $lis)
     {
         parent::__construct($code, $class, $baseControllerName);
         $this->cr  = $rs->getCr();
@@ -101,6 +108,7 @@ abstract class AbstractBaseAdmin extends AbstractAdmin
         $this->sr  = $rs->getSr();
         $this->dr  = $rs->getDr();
         $this->dcr = $rs->getDcr();
+        $this->ar  = $ar;
         $this->vus = $vus;
         $this->lis = $lis;
     }
