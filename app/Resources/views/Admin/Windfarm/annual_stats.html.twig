@@ -8,9 +8,16 @@
                 <div class="box-header with-border">
                     <h4 class="box-title"><strong>Generar informe anual {{ object.name }}</strong></h4><br>
                     <div class="box-body table-responsive no-padding">
-                        {{ form_start(form, {action: path('admin_app_windfarm_excelAttachment', {id: object.id}), method: 'GET'}) }}
-                        {{ form_rest(form) }}
-                        {{ form_end(form) }}
+                        {% if form.year.vars.label is defined %}
+                            {{ form_start(form, {action: path('admin_app_windfarm_excelAttachment', {id: object.id}), method: 'GET'}) }}
+                            {{ form_rest(form) }}
+                            {{ form_end(form) }}
+                        {% else %}
+                            <div class="alert alert-danger" role="alert">
+                                {# TODO #}
+                                Este parque no tiene audiatorias.
+                            </div>
+                        {% endif %}
                     </div>
                 </div>
             </div>

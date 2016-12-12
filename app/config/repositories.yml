@@ -66,3 +66,4 @@ services:
             - "@app.state_repository"
             - "@app.damage_repository"
             - "@app.damage_category_repository"
+            - "@app.audit_repository"

@@ -50,36 +50,33 @@ class WindfarmAnnualStatsFormType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $choicesArray = array();
-        $yearsArray = $this->ar->getFirstYearOfInvoicedOrDoneAuditsByWindfarm($options['windfarm_id']);
-        foreach ($yearsArray as $year) {
-            $value = $year['year'];
-            $choicesArray["$value"] = intval($value);
-        }
+        $yearsArray = $this->ar->getYearsOfInvoicedOrDoneAuditsByWindfarm($options['windfarm_id']);
 
-        $builder
-            ->add(
-                'year',
-                ChoiceType::class,
-                array(
-                    'mapped'   => false,
-                    'required' => true,
-                    'multiple' => false,
-                    'label'    => 'Año',
-                    'choices'  => $choicesArray,
-                )
-            )
-            ->add(
-                'send',
-                SubmitType::class,
-                array(
-                    'label' => 'Generar informe',
-                    'attr'  => array(
-                        'class' => 'btn btn-success',
+        if (count($yearsArray) > 0) {
+            $builder
+                ->add(
+                    'year',
+                    ChoiceType::class,
+                    array(
+                        'mapped'   => false,
+                        'required' => true,
+                        'multiple' => false,
+                        'label'    => 'Año',
+                        'choices'  => $yearsArray,
                     )
                 )
-            )
-        ;
+                ->add(
+                    'send',
+                    SubmitType::class,
+                    array(
+                        'label' => 'Generar informe',
+                        'attr'  => array(
+                            'class' => 'btn btn-success',
+                        )
+                    )
+                )
+            ;
+        }
     }
 
     /**

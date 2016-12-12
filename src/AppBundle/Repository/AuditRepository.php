@@ -123,7 +123,7 @@ class AuditRepository extends EntityRepository
      *
      * @return array
      */
-    public function getFirstYearOfInvoicedOrDoneAuditsByWindfarm($windfarmId)
+    public function getYearsOfInvoicedOrDoneAuditsByWindfarm($windfarmId)
     {
         $query = $this->createQueryBuilder('a')
             ->select('YEAR(a.beginDate) AS year')
@@ -136,7 +136,12 @@ class AuditRepository extends EntityRepository
             ->groupBy('year');
 
         $yearsArray = $query->getQuery()->getArrayResult();
+        $choicesArray = array();
+        foreach ($yearsArray as $year) {
+            $value = $year['year'];
+            $choicesArray["$value"] = intval($value);
+        }
 
-        return count($yearsArray) === 0 ? array(array('year' => 2016)) : $yearsArray;
+        return $choicesArray;
     }
 }

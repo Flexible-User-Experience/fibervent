@@ -284,7 +284,7 @@ class AuditAdmin extends AbstractBaseAdmin
                         'required'     => false,
                         'multiple'     => false,
                         'btn_add'      => false,
-                        'query'        => $this->ar->getInvoicedOrDoneAuditsByWindfarmSortedByBeginDateQ(9),
+//                        'query'        => $this->ar->getInvoicedOrDoneAuditsByWindfarmSortedByBeginDateQ(9),
                     ),
 //                    'label' => 'Año',
                     'show_filter' => true,
