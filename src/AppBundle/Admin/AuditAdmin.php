@@ -8,7 +8,6 @@ use AppBundle\Enum\AuditDiagramTypeEnum;
 use AppBundle\Enum\AuditStatusEnum;
 use AppBundle\Enum\AuditTypeEnum;
 use AppBundle\Form\Type\AuditDiagramTypeFormType;
-use AppBundle\Repository\AuditRepository;
 use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
@@ -265,56 +264,29 @@ class AuditAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'fakedYear',
-                'doctrine_orm_choice',
+                'year',
+                'doctrine_orm_callback',
                 array(
                     'label' => 'admin.audit.year',
                     'show_filter' => true,
-                    'mapped' => false,
-                    'callback' => function(QueryBuilder $queryBuilder, $alias, $year, $value) {
-                        if (!$value) {
-                            return;
+                    'callback' => function($queryBuilder, $alias, $field, $value) {
+                        if (!$value['value']) {
+                            return null;
                         }
 
+                        /** @var QueryBuilder $queryBuilder */
                         $queryBuilder->andWhere('YEAR(' . $alias .  '.beginDate) = :year');
-                        $queryBuilder->setParameter('year', $value);
+                        $queryBuilder->setParameter('year', $value['value']);
 
                         return true;
                     },
                 ),
                 'choice',
                 array(
-                    'expanded'  => false,
+//                    'choices'   => ['2014' => 2014, '2015' => 2015, '2016' => 2016],
+                    'choices'   => $this->ar->getYearChoices(),
                     'required' => true,
-                    'multiple'  => false,
-                    'mapped' => false,
-                    'choices'   => ['2014' => 2014, '2015' => 2015, '2016' => 2016],
                 )
-//                'year',
-//                'doctrine_orm_choice',
-//                array(
-//                    'callback' => function($queryBuilder, $alias, $year, $value) {
-//                        if (!$value['value']) {
-//                            return;
-//                        }
-//
-//                        $queryBuilder->andWhere($alias. 'YEAR(a.beginDate) = :year');
-//                        $queryBuilder->setParameter('year', $year);
-//
-//                        return true;
-//                    },
-//                    'sonata_type_model',
-//                    array(
-//                        'label'        => 'Año',
-//                        'required'     => false,
-//                        'multiple'     => false,
-//                        'btn_add'      => false,
-//                        'query'        => $this->ar->getInvoicedOrDoneAuditsByWindfarmSortedByBeginDateQ(9),
-//                    ),
-//                    'label' => 'Año',
-//
-//                    'choices' => ['2014' => 2014, '2015' => 2015, '2016' => 2016]
-//                )
             )
             ->add(
                 'observations',
