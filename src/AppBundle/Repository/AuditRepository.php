@@ -2,6 +2,7 @@
 
 namespace AppBundle\Repository;
 
+use AppBundle\Entity\Audit;
 use AppBundle\Entity\Windfarm;
 use AppBundle\Enum\AuditStatusEnum;
 use Doctrine\ORM\EntityRepository;
@@ -143,5 +144,29 @@ class AuditRepository extends EntityRepository
         }
 
         return $choicesArray;
+    }
+
+    public function getYearChoices()
+    {
+        $query = $this->createQueryBuilder('a')
+            ->orderBy('a.beginDate', 'ASC')
+            ->setMaxResults(1);
+
+        $audits = $query->getQuery()->getResult();
+        if (count($audits) === 0) {
+            return array('2016' => 2016);
+        }
+
+        /** @var Audit $firstAudit */
+        $firstAudit = $audits[0];
+
+        $yearsArray = array();
+        $currentYear = new \DateTime();
+        $currentYear = intval($currentYear->format('Y'));
+        for ($firstYear = intval($firstAudit->getBeginDate()->format('Y')); $firstYear <= $currentYear; $firstYear++) {
+            $yearsArray["$firstYear"] = $firstYear;
+        }
+
+        return $yearsArray;
     }
 }
