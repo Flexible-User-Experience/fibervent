@@ -113,6 +113,7 @@ admin:
     title:
     windmill:
     observations:
+    year: year
     begindate:
     enddate:
     operators:

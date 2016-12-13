@@ -2,6 +2,7 @@
 
 namespace AppBundle\Repository;
 
+use AppBundle\Entity\Audit;
 use AppBundle\Entity\Windfarm;
 use AppBundle\Enum\AuditStatusEnum;
 use Doctrine\ORM\EntityRepository;
@@ -123,7 +124,7 @@ class AuditRepository extends EntityRepository
      *
      * @return array
      */
-    public function getFirstYearOfInvoicedOrDoneAuditsByWindfarm($windfarmId)
+    public function getYearsOfInvoicedOrDoneAuditsByWindfarm($windfarmId)
     {
         $query = $this->createQueryBuilder('a')
             ->select('YEAR(a.beginDate) AS year')
@@ -136,7 +137,48 @@ class AuditRepository extends EntityRepository
             ->groupBy('year');
 
         $yearsArray = $query->getQuery()->getArrayResult();
+        $choicesArray = array();
+        foreach ($yearsArray as $year) {
+            $value = $year['year'];
+            $choicesArray["$value"] = intval($value);
+        }
 
-        return count($yearsArray) === 0 ? array(array('year' => 2016)) : $yearsArray;
+        return $choicesArray;
+    }
+
+    /**
+     * @return array
+     */
+    public function getYearChoices()
+    {
+        $query = $this->createQueryBuilder('a')
+            ->orderBy('a.beginDate', 'ASC')
+            ->setMaxResults(1);
+
+        $audits = $query->getQuery()->getResult();
+        if (count($audits) === 0) {
+            return array('2016' => 2016);
+        }
+
+        /** @var Audit $firstAudit */
+        $firstAudit = $audits[0];
+
+        $query = $this->createQueryBuilder('a')
+            ->orderBy('a.beginDate', 'DESC')
+            ->setMaxResults(1);
+
+        $audits = $query->getQuery()->getResult();
+
+        /** @var Audit $lastAudit */
+        $lastAudit = $audits[0];
+
+        $yearsArray = array();
+        $firstYear = intval($firstAudit->getBeginDate()->format('Y'));
+        $lastYear = intval($lastAudit->getBeginDate()->format('Y'));
+        for ($currentYear = $lastYear; $currentYear >= $firstYear; $currentYear--) {
+            $yearsArray["$currentYear"] = $currentYear;
+        }
+
+        return $yearsArray;
     }
 }
