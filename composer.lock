@@ -3115,16 +3115,16 @@
         },
         {
             "name": "sonata-project/admin-bundle",
-            "version": "3.10.0",
+            "version": "3.10.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataAdminBundle.git",
-                "reference": "4549ad641c0734b6d6803104760b939a244c94ae"
+                "reference": "5cc62fad5fa358e9f3b5213f8d0e7ebf1ace53d4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataAdminBundle/zipball/4549ad641c0734b6d6803104760b939a244c94ae",
-                "reference": "4549ad641c0734b6d6803104760b939a244c94ae",
+                "url": "https://api.github.com/repos/sonata-project/SonataAdminBundle/zipball/5cc62fad5fa358e9f3b5213f8d0e7ebf1ace53d4",
+                "reference": "5cc62fad5fa358e9f3b5213f8d0e7ebf1ace53d4",
                 "shasum": ""
             },
             "require": {
@@ -3208,7 +3208,7 @@
                 "bootstrap",
                 "sonata"
             ],
-            "time": "2016-11-25 14:46:43"
+            "time": "2016-12-13 13:58:25"
         },
         {
             "name": "sonata-project/block-bundle",
@@ -4690,16 +4690,16 @@
         },
         {
             "name": "symfony/symfony",
-            "version": "v2.8.14",
+            "version": "v2.8.15",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "6ceca5b4154c80839270c38aa65373de76127df7"
+                "reference": "3ec15b9379ebb0758e296d4193926a7b4121a964"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/6ceca5b4154c80839270c38aa65373de76127df7",
-                "reference": "6ceca5b4154c80839270c38aa65373de76127df7",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/3ec15b9379ebb0758e296d4193926a7b4121a964",
+                "reference": "3ec15b9379ebb0758e296d4193926a7b4121a964",
                 "shasum": ""
             },
             "require": {
@@ -4821,7 +4821,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2016-11-21 02:24:51"
+            "time": "2016-12-13 12:16:34"
         },
         {
             "name": "tecnickcom/tcpdf",

@@ -146,6 +146,9 @@ class AuditRepository extends EntityRepository
         return $choicesArray;
     }
 
+    /**
+     * @return array
+     */
     public function getYearChoices()
     {
         $query = $this->createQueryBuilder('a')
@@ -168,7 +171,6 @@ class AuditRepository extends EntityRepository
 
         /** @var Audit $lastAudit */
         $lastAudit = $audits[0];
-
 
         $yearsArray = array();
         $firstYear = intval($firstAudit->getBeginDate()->format('Y'));
