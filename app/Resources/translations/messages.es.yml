@@ -113,6 +113,7 @@ admin:
     title: Inspección
     windmill: Aerogenerador
     observations: Observaciones
+    year: Año
     begindate: Fecha inicio
     enddate: Fecha fin
     operators: Técnicos Inspección

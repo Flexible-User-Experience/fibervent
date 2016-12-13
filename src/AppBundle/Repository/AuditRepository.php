@@ -120,9 +120,36 @@ class AuditRepository extends EntityRepository
     }
 
     /**
-     * @return int
+     * @param integer $windfarmId
+     *
+     * @return array
      */
-    public function getFirstYearAudit()
+    public function getYearsOfInvoicedOrDoneAuditsByWindfarm($windfarmId)
+    {
+        $query = $this->createQueryBuilder('a')
+            ->select('YEAR(a.beginDate) AS year')
+            ->where('a.windfarm = :windfarm')
+            ->andWhere('a.status = :done OR a.status = :invoiced')
+            ->setParameter('windfarm', $windfarmId)
+            ->setParameter('done', AuditStatusEnum::DONE)
+            ->setParameter('invoiced', AuditStatusEnum::INVOICED)
+            ->orderBy('year', 'DESC')
+            ->groupBy('year');
+
+        $yearsArray = $query->getQuery()->getArrayResult();
+        $choicesArray = array();
+        foreach ($yearsArray as $year) {
+            $value = $year['year'];
+            $choicesArray["$value"] = intval($value);
+        }
+
+        return $choicesArray;
+    }
+
+    /**
+     * @return array
+     */
+    public function getYearChoices()
     {
         $query = $this->createQueryBuilder('a')
             ->orderBy('a.beginDate', 'ASC')
@@ -130,12 +157,28 @@ class AuditRepository extends EntityRepository
 
         $audits = $query->getQuery()->getResult();
         if (count($audits) === 0) {
-            return 2000;
+            return array('2016' => 2016);
         }
 
         /** @var Audit $firstAudit */
         $firstAudit = $audits[0];
 
-        return intval($firstAudit->getBeginDate()->format('Y'));
+        $query = $this->createQueryBuilder('a')
+            ->orderBy('a.beginDate', 'DESC')
+            ->setMaxResults(1);
+
+        $audits = $query->getQuery()->getResult();
+
+        /** @var Audit $lastAudit */
+        $lastAudit = $audits[0];
+
+        $yearsArray = array();
+        $firstYear = intval($firstAudit->getBeginDate()->format('Y'));
+        $lastYear = intval($lastAudit->getBeginDate()->format('Y'));
+        for ($currentYear = $lastYear; $currentYear >= $firstYear; $currentYear--) {
+            $yearsArray["$currentYear"] = $currentYear;
+        }
+
+        return $yearsArray;
     }
 }

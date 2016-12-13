@@ -24,7 +24,7 @@ class WindfarmAdminController extends AbstractBaseAdminController
     /**
      * Show windfarm audits list view
      *
-     * @param Request $request
+     * @param Request|null $request
      *
      * @return Response
      * @throws NotFoundHttpException If the object does not exist
@@ -53,7 +53,7 @@ class WindfarmAdminController extends AbstractBaseAdminController
     /**
      * Create windmills map view
      *
-     * @param Request $request
+     * @param Request|null $request
      *
      * @return Response
      * @throws NotFoundHttpException If the object does not exist
@@ -80,9 +80,10 @@ class WindfarmAdminController extends AbstractBaseAdminController
     }
 
     /**
-     * Export Windmill blades from each Wind Farm in excel format action
+     * Export Windmill blades from each Wind Farm in excel format action.
+     * First step = display a year choice selector from audits
      *
-     * @param Request $request
+     * @param Request|null $request
      *
      * @return Response
      * @throws NotFoundHttpException If the object does not exist
@@ -99,7 +100,7 @@ class WindfarmAdminController extends AbstractBaseAdminController
             throw $this->createNotFoundException(sprintf('Unable to find windfarm record with id: %s', $id));
         }
 
-        $form = $this->createForm(WindfarmAnnualStatsFormType::class);
+        $form = $this->createForm(WindfarmAnnualStatsFormType::class, null, array('windfarm_id' => $object->getId()));
 
         return $this->render(
             ':Admin/Windfarm:annual_stats.html.twig',
@@ -112,10 +113,14 @@ class WindfarmAdminController extends AbstractBaseAdminController
     }
 
     /**
+     * Export Windmill blades from each Wind Farm in excel format action.
+     * Second step = build an excel file and return as an attatchment response
+     *
      * @param Request|null $request
      *
-     * @throws NotFoundHttpException If the object does not exist
      * @return Response
+     * @throws NotFoundHttpException If the object does not exist
+     * @throws AccessDeniedHttpException If access is not granted
      */
     public function excelAttachmentAction(Request $request = null)
     {

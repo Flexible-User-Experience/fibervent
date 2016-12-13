@@ -2,6 +2,7 @@
 
 namespace AppBundle\Service;
 
+use AppBundle\Repository\AuditRepository;
 use AppBundle\Repository\BladeRepository;
 use AppBundle\Repository\CustomerRepository;
 use AppBundle\Repository\DamageCategoryRepository;
@@ -67,6 +68,11 @@ class RepositoriesService
     private $dcr;
 
     /**
+     * @var AuditRepository
+     */
+    private $ar;
+
+    /**
      *
      *
      * Methods
@@ -86,8 +92,9 @@ class RepositoriesService
      * @param StateRepository            $sr
      * @param DamageRepository           $dr
      * @param DamageCategoryRepository   $dcr
+     * @param AuditRepository            $ar
      */
-    public function __construct(CustomerRepository $cr, UserRepository $ur, WindmillRepository $wmr, WindfarmRepository $wfr, BladeRepository $br, TurbineRepository $tr, StateRepository $sr, DamageRepository $dr, DamageCategoryRepository $dcr)
+    public function __construct(CustomerRepository $cr, UserRepository $ur, WindmillRepository $wmr, WindfarmRepository $wfr, BladeRepository $br, TurbineRepository $tr, StateRepository $sr, DamageRepository $dr, DamageCategoryRepository $dcr, AuditRepository $ar)
     {
         $this->cr  = $cr;
         $this->ur  = $ur;
@@ -98,6 +105,7 @@ class RepositoriesService
         $this->sr  = $sr;
         $this->dr  = $dr;
         $this->dcr = $dcr;
+        $this->ar  = $ar;
     }
 
     /**
@@ -170,5 +178,13 @@ class RepositoriesService
     public function getDcr()
     {
         return $this->dcr;
+    }
+
+    /**
+     * @return AuditRepository
+     */
+    public function getAr()
+    {
+        return $this->ar;
     }
 }

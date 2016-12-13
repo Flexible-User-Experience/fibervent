@@ -69,7 +69,7 @@ AppBundle\Entity\Audit:
     endDate: <dateTimeThisMonth($max = 'now')>
     status: <numberBetween(0, 3)>
     diagramType: <numberBetween(1, 6)>
-    type: <word()>
+    type: <numberBetween(1, 5)>
     tools: <sentence()>
     observations: <sentence()>
     windmill: @windmill<numberBetween(1, 8)>

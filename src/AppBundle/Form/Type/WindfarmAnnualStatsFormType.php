@@ -4,10 +4,11 @@ namespace AppBundle\Form\Type;
 
 use AppBundle\Repository\AuditRepository;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
  * WindfarmAnnualStatsFormType class
@@ -26,6 +27,14 @@ class WindfarmAnnualStatsFormType extends AbstractType
     private $ar;
 
     /**
+     *
+     *
+     * Methods
+     *
+     *
+     */
+
+    /**
      * WindfarmAnnualStatsFormType constructor.
      *
      * @param AuditRepository $ar
@@ -41,38 +50,47 @@ class WindfarmAnnualStatsFormType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $yearsArray = array();
-        $now = new \DateTime();
-        $currentYear = intval($now->format('Y'));
-        for ($i = 0; $i <= $currentYear - $this->ar->getFirstYearAudit(); $i++) {
-            $result = $currentYear - $i;
-            $yearsArray["$result"] = $result;
-        }
+        $yearsArray = $this->ar->getYearsOfInvoicedOrDoneAuditsByWindfarm($options['windfarm_id']);
 
-        $builder
-            ->add(
-                'year',
-                ChoiceType::class,
-                array(
-                    'mapped'   => false,
-                    'required' => true,
-                    'multiple' => false,
-                    'label'    => 'Año',
-//                    'choices'  => $options['to_emails_list'],
-                    'choices'  => $yearsArray,
-                )
-            )
-            ->add(
-                'send',
-                SubmitType::class,
-                array(
-                    'label' => 'Generar informe',
-                    'attr'  => array(
-                        'class' => 'btn btn-success',
+        if (count($yearsArray) > 0) {
+            $builder
+                ->add(
+                    'year',
+                    ChoiceType::class,
+                    array(
+                        'mapped'   => false,
+                        'required' => true,
+                        'multiple' => false,
+                        'label'    => 'Año',
+                        'choices'  => $yearsArray,
                     )
                 )
+                ->add(
+                    'send',
+                    SubmitType::class,
+                    array(
+                        'label' => 'Generar informe',
+                        'attr'  => array(
+                            'class' => 'btn btn-success',
+                        )
+                    )
+                )
+            ;
+        }
+    }
+
+    /**
+     * Set default form options
+     *
+     * @param OptionsResolver $resolver
+     */
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults(
+            array(
+                'windfarm_id' => null,
             )
-        ;
+        );
     }
 
     /**
