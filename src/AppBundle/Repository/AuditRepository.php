@@ -160,11 +160,21 @@ class AuditRepository extends EntityRepository
         /** @var Audit $firstAudit */
         $firstAudit = $audits[0];
 
+        $query = $this->createQueryBuilder('a')
+            ->orderBy('a.beginDate', 'DESC')
+            ->setMaxResults(1);
+
+        $audits = $query->getQuery()->getResult();
+
+        /** @var Audit $lastAudit */
+        $lastAudit = $audits[0];
+
+
         $yearsArray = array();
-        $currentYear = new \DateTime();
-        $currentYear = intval($currentYear->format('Y'));
-        for ($firstYear = intval($firstAudit->getBeginDate()->format('Y')); $firstYear <= $currentYear; $firstYear++) {
-            $yearsArray["$firstYear"] = $firstYear;
+        $firstYear = intval($firstAudit->getBeginDate()->format('Y'));
+        $lastYear = intval($lastAudit->getBeginDate()->format('Y'));
+        for ($currentYear = $lastYear; $currentYear >= $firstYear; $currentYear--) {
+            $yearsArray["$currentYear"] = $currentYear;
         }
 
         return $yearsArray;

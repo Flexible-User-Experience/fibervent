@@ -271,7 +271,8 @@ class AuditAdmin extends AbstractBaseAdmin
                     'show_filter' => true,
                     'callback' => function($queryBuilder, $alias, $field, $value) {
                         if (!$value['value']) {
-                            return null;
+                            $currentYear = new \DateTime();
+                            $value['value'] = intval($currentYear->format('Y'));
                         }
 
                         /** @var QueryBuilder $queryBuilder */
@@ -283,7 +284,6 @@ class AuditAdmin extends AbstractBaseAdmin
                 ),
                 'choice',
                 array(
-//                    'choices'   => ['2014' => 2014, '2015' => 2015, '2016' => 2016],
                     'choices'   => $this->ar->getYearChoices(),
                     'required' => true,
                 )
