@@ -110,6 +110,9 @@ admin:
     action:
     enabled:
     developed:
+    send_email:
+    here:
+    for_help:
   audit:
     title:
     windmill:
