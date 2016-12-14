@@ -12,12 +12,12 @@ services:
         class: AppBundle\Admin\StateAdmin
         arguments: [ ~, AppBundle\Entity\State, ~, "@app.repositories_service", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: "Província", group: "Customer", show_in_dashboard: false }
+            - { name: sonata.admin, manager_type: orm, label: "Provincia", group: "Customer", show_in_dashboard: false }
     admin.windfarm:
         class: AppBundle\Admin\WindfarmAdmin
         arguments: [ ~, AppBundle\Entity\Windfarm, AppBundle:WindfarmAdmin, "@app.repositories_service", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: "Parque Eòlico", group: "Parc_Eolic" }
+            - { name: sonata.admin, manager_type: orm, label: "Parque Eólico", group: "Parc_Eolic" }
     admin.windmill:
         class: AppBundle\Admin\WindmillAdmin
         arguments: [ ~, AppBundle\Entity\Windmill, ~, "@app.repositories_service", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
@@ -57,7 +57,7 @@ services:
         class: AppBundle\Admin\DamageCategoryAdmin
         arguments: [ ~, AppBundle\Entity\DamageCategory, ~, "@app.repositories_service", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: "Categoria Daño", group: "Auditoria" }
+            - { name: sonata.admin, manager_type: orm, label: "Categoría Daño", group: "Auditoria" }
     admin.photo:
         class: AppBundle\Admin\PhotoAdmin
         arguments: [ ~, AppBundle\Entity\Photo, ~, "@app.repositories_service", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]

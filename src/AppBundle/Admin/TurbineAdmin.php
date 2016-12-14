@@ -55,8 +55,6 @@ class TurbineAdmin extends AbstractBaseAdmin
                 array(
                     'label'       => 'admin.turbine.height',
                     'required'    => true,
-                    'help'        => 'm',
-                    'sonata_help' => 'm',
                 )
             )
             ->add(
@@ -65,8 +63,6 @@ class TurbineAdmin extends AbstractBaseAdmin
                 array(
                     'label'       => 'admin.turbine.diameter',
                     'required'    => true,
-                    'help'        => 'm',
-                    'sonata_help' => 'm',
                 )
             )
             ->add(
@@ -74,8 +70,6 @@ class TurbineAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label'       => 'admin.turbine.power',
-                    'help'        => 'MW',
-                    'sonata_help' => 'MW',
                 )
             )
             ->end();

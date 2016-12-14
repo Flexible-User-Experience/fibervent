@@ -153,8 +153,6 @@ class WindfarmAdmin extends AbstractBaseAdmin
                 array(
                     'label'       => 'admin.turbine.power',
                     'required'    => false,
-                    'help'        => 'MW',
-                    'sonata_help' => 'MW',
                 )
             )
             ->add(

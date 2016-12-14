@@ -11,7 +11,11 @@
 
  {# custom sidebar footer #}
 {% block side_bar_after_nav %}
-    <p class="text-left small" style="padding:50px 0 0 20px;color:#EEE;">{{ admin_tag_version }}<br><i class="fa fa-code"></i> Desenvolupat per <a href="http://www.flux.cat" target="_blank">Flux</a><br><i class="fa fa-copyright"></i> {{ 'now' | date('Y') }} <a href="http://www.fibervent.com/" target="_blank">Fibervent</a></p>
+    <p class="text-left small" style="padding:50px 0 0 20px;color:#EEE;">
+        {{ admin_tag_version }}<br>
+        <i class="fa fa-code"></i> {{ 'admin.common.developed' | trans }} <a href="http://www.flux.cat" target="_blank">Flux</a><br>
+        <i class="fa fa-copyright"></i> {{ 'now' | date('Y') }} <a href="http://www.fibervent.com/" target="_blank">Fibervent</a>
+    </p>
 {% endblock %}
 
 {# custom top menu #}
