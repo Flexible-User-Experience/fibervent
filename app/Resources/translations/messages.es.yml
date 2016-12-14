@@ -109,6 +109,7 @@ admin:
     controls: Controles
     action: Acciones
     enabled: Activo
+    developed: Desarrollado por
   audit:
     title: Inspección
     windmill: Aerogenerador
@@ -123,8 +124,8 @@ admin:
     diagramtype: Tipo de diagrama
     auditwindmillblade_title: Palas inspeccionadas
   auditwindmillblade:
-    title: Auditoria Pala Aerogenerador
-    audit: Auditoria
+    title: Auditoría Pala Aerogenerador
+    audit: Auditoría
     windmillblade: Pala
     damages: Daños
     actions: Acciones
@@ -132,7 +133,7 @@ admin:
     bladedamages: Daños
     photos: Fotos
     blade_observations: 'Observaciones · Pala '
-    blade_photos: 'Fotos generals · Pala '
+    blade_photos: 'Fotos generales · Pala '
   blade:
     title: Pala
     model: Modelo
@@ -144,8 +145,8 @@ admin:
     position: Posición
     radius: Radio (m)
     distance: Distancia (m)
-    edge: Esquina
-    size: Dimesnión (cm)
+    edge: Borde
+    size: Dimensión (cm)
     damagecategory: Cat.
   bladephoto:
     title: Foto Pala
@@ -163,7 +164,7 @@ admin:
     address: Dirección
     zip: Código Postal
     city: Ciudad
-    state: Província
+    state: Provincia
     contacts: Contactos
     windfarms: Parques Eólicos
   damage:
@@ -191,9 +192,9 @@ admin:
     country: País
   turbine:
     title: Turbina
-    height: Altura
-    diameter: Diámetro
-    power: Potencia
+    height: Altura (m)
+    diameter: Diámetro (m)
+    power: Potencia (MW)
   user:
     title: Usuario
     username: Nombre Usuario
