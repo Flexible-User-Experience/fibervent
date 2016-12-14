@@ -109,6 +109,7 @@ admin:
     controls:
     action:
     enabled:
+    developed:
   audit:
     title:
     windmill:
