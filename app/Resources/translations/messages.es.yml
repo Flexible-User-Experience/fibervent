@@ -110,6 +110,9 @@ admin:
     action: Acciones
     enabled: Activo
     developed: Desarrollado por
+    send_email: Envía un correo
+    here: aquí
+    for_help: para recibir ayuda
   audit:
     title: Inspección
     windmill: Aerogenerador
