@@ -2,7 +2,6 @@
 
 namespace AppBundle\Service;
 
-use AppBundle\Entity\Blade;
 use AppBundle\Entity\BladeDamage;
 use AppBundle\Enum\BladeDamageEdgeEnum;
 use AppBundle\Enum\BladeDamagePositionEnum;
@@ -103,9 +102,9 @@ class AuditModelDiagramBridgeService
     private $yScaleGap;
 
     /**
-     * @var
+     * @var array
      */
-    private $maxFunctionYPoint;
+    private $bladeShape;
 
     /**
      * 
@@ -128,6 +127,59 @@ class AuditModelDiagramBridgeService
         $this->xQ2 = $this->xQ1 + ($this->xScaleGap / 4);
         $this->xQ3 = $this->xQ2 + ($this->xScaleGap / 4);
         $this->xQ4 = $this->xQ3 + ($this->xScaleGap / 4);
+        $this->bladeShape = array(
+            0.570574080305441,
+            0.577923063404412,
+            0.590106432909933,
+            0.608062018782336,
+            0.633647645057639,
+            0.668180278884672,
+            0.712354562586671,
+            0.766091601839969,
+            0.827681103816886,
+            0.891980459573338,
+            0.949222288127351,
+            0.987703271941501,
+            1.000000000000000,
+            0.986607024609017,
+            0.954102183264805,
+            0.911196131979670,
+            0.865789976973706,
+            0.823567971555419,
+            0.787670763591748,
+            0.759017362089391,
+            0.736965757137396,
+            0.720058642359332,
+            0.706656262223690,
+            0.695345886163577,
+            0.685115527749747,
+            0.675351354544384,
+            0.665744104299468,
+            0.656176274538586,
+            0.646630532913632,
+            0.637130999745297,
+            0.627712386068213,
+            0.618406897715452,
+            0.609240271624142,
+            0.600231610520974,
+            0.591394401450540,
+            0.582737684783291,
+            0.574267062547622,
+            0.565985499712510,
+            0.557893946124258,
+            0.549991817314795,
+            0.542277366882693,
+            0.534747975756082,
+            0.527400377504407,
+            0.520230834206199,
+            0.513235273908621,
+            0.506409398120520,
+            0.499748765832901,
+            0.493248859088797,
+            0.486905134005711,
+            0.473964410225382,
+            0.273964410225382,
+        );
     }
     
     /**
@@ -147,50 +199,6 @@ class AuditModelDiagramBridgeService
         $this->yScaleGap = $this->yQ2 - $this->yQ1;
 
         return $this;
-    }
-
-    /**
-     * Get MaxFunctionYPoint
-     *
-     * @return mixed
-     */
-    public function getMaxFunctionYPoint()
-    {
-        return $this->maxFunctionYPoint;
-    }
-
-    /**
-     * Set MaxFunctionYPoint
-     *
-     * @param mixed $maxFunctionYPoint
-     *
-     * @return $this
-     */
-    public function setMaxFunctionYPoint($maxFunctionYPoint)
-    {
-        $this->maxFunctionYPoint = $maxFunctionYPoint;
-
-        return $this;
-    }
-
-    /**
-     * @param Blade $blade
-     *
-     * @return float|int
-     */
-    public function calculateMaxFunctionYPoint(Blade $blade)
-    {
-        $maxY = 0;
-        $bladeLength = $blade->getLength();
-        for ($x = 0; $x <= $bladeLength; $x = $x + 0.5) {
-            $val = $this->isolatedDeltaY($x, $blade->getLength());
-            if ($maxY < $val) {
-                $maxY = $val;
-            }
-        }
-        $this->setMaxFunctionYPoint($maxY);
-
-        return $maxY;
     }
 
     /**
@@ -220,33 +228,62 @@ class AuditModelDiagramBridgeService
 
     /**
      * @param BladeDamage $bladeDamage
-     * @param int         $inversed
      *
      * @return float
      */
-    public function getGapY(BladeDamage $bladeDamage, $inversed = 1)
+    public function getGapY(BladeDamage $bladeDamage)
     {
         $gap = 0;
         if ($bladeDamage->getEdge() == BladeDamageEdgeEnum::EDGE_IN) {
             // Edge in
             if ($bladeDamage->getPosition() == BladeDamagePositionEnum::VALVE_PRESSURE) {
+
                 // Valve pressure
-                $gap = $this->yQ2 - $this->yCalculateFactor($bladeDamage) - self::GAP_SQUARE_HALF_SIZE;
+                $xNormalization = ($bladeDamage->getRadius() * 50) / $bladeDamage->getAuditWindmillBlade()->getWindmillBlade()->getWindmill()->getBladeType()->getLength();
+                $yPoint2 = $this->getBladeShape()[intval(round($xNormalization))];
+                $maxY = (($bladeDamage->getAuditWindmillBlade()->getWindmillBlade()->getWindmill()->getBladeType()->getLength() / 30) - (2/3)) + 2;
+                $yPoint = (($bladeDamage->getDistance() / 100) * $yPoint2) / $maxY;
+
+                $gap = $this->yQ2 - (($this->yQ2 - $this->yQ1) * $yPoint);
 
             } elseif ($bladeDamage->getPosition() == BladeDamagePositionEnum::VALVE_SUCTION) {
+
                 // Valve suction
-                $gap = $this->yQ3 + $this->yCalculateFactor($bladeDamage) - self::GAP_SQUARE_HALF_SIZE;
+                $xNormalization = ($bladeDamage->getRadius() * 50) / $bladeDamage->getAuditWindmillBlade()->getWindmillBlade()->getWindmill()->getBladeType()->getLength();
+                $yPoint2 = $this->getBladeShape()[intval(round($xNormalization))];
+                $maxY = (($bladeDamage->getAuditWindmillBlade()->getWindmillBlade()->getWindmill()->getBladeType()->getLength() / 30) - (2/3)) + 2;
+                $yPoint = (($bladeDamage->getDistance() / 100) * $yPoint2) / $maxY;
+
+                $gap = $this->yQ3 + (($this->yQ2 - $this->yQ1) * $yPoint);
+
             }
 
         } elseif ($bladeDamage->getEdge() == BladeDamageEdgeEnum::EDGE_OUT) {
             // Edge out
             if ($bladeDamage->getPosition() == BladeDamagePositionEnum::VALVE_PRESSURE) {
+
                 // Valve pressure
-                $gap = $this->yQ2 - $this->yCalculateFactorEdgeOut($bladeDamage) - self::GAP_SQUARE_HALF_SIZE;
+                $xNormalization = ($bladeDamage->getRadius() * 50) / $bladeDamage->getAuditWindmillBlade()->getWindmillBlade()->getWindmill()->getBladeType()->getLength();
+                $yPoint = $this->getBladeShape()[intval(round($xNormalization))];
+                $baseGap = $this->yQ2 - (($this->yQ2 - $this->yQ1) * $yPoint);
+                $yPoint2 = $this->getBladeShape()[intval(round($xNormalization))];
+                $maxY = (($bladeDamage->getAuditWindmillBlade()->getWindmillBlade()->getWindmill()->getBladeType()->getLength() / 30) - (2/3)) + 2;
+                $yPoint = (($bladeDamage->getDistance() / 100) * $yPoint2) / $maxY;
+
+                $gap = $baseGap + (($this->yQ2 - $this->yQ1) * $yPoint);
 
             } elseif ($bladeDamage->getPosition() == BladeDamagePositionEnum::VALVE_SUCTION) {
+
                 // Valve suction
-                $gap = $this->yQ3 + $this->yCalculateFactorEdgeOut($bladeDamage) - self::GAP_SQUARE_HALF_SIZE;
+                $xNormalization = ($bladeDamage->getRadius() * 50) / $bladeDamage->getAuditWindmillBlade()->getWindmillBlade()->getWindmill()->getBladeType()->getLength();
+                $yPoint = $this->getBladeShape()[intval(round($xNormalization))];
+                $baseGap = $this->yQ3 + (($this->yQ2 - $this->yQ1) * $yPoint);
+                $yPoint2 = $this->getBladeShape()[intval(round($xNormalization))];
+                $maxY = (($bladeDamage->getAuditWindmillBlade()->getWindmillBlade()->getWindmill()->getBladeType()->getLength() / 30) - (2/3)) + 2;
+                $yPoint = (($bladeDamage->getDistance() / 100) * $yPoint2) / $maxY;
+
+                $gap = $baseGap - (($this->yQ2 - $this->yQ1) * $yPoint);
+
             }
 
         } elseif ($bladeDamage->getEdge() == BladeDamageEdgeEnum::EDGE_UNDEFINED) {
@@ -257,52 +294,14 @@ class AuditModelDiagramBridgeService
 
             } elseif ($bladeDamage->getPosition() == BladeDamagePositionEnum::EDGE_OUT) {
                 // Edge out
-                $gap = $this->yQ3 + $this->yCalculateFactorEdgeOut($bladeDamage, $inversed);
+                $xNormalization = ($bladeDamage->getRadius() * 50) / $bladeDamage->getAuditWindmillBlade()->getWindmillBlade()->getWindmill()->getBladeType()->getLength();
+                $yPoint = $this->getBladeShape()[intval(round($xNormalization))];
+
+                $gap = $this->yQ2 - (($this->yQ2 - $this->yQ1) * $yPoint);
             }
         }
 
         return $gap;
-    }
-
-    /**
-     * @param BladeDamage $bladeDamage
-     *
-     * @return float
-     */
-    public function yCalculateFactor(BladeDamage $bladeDamage)
-    {
-        return (($bladeDamage->getDistance() / 100) * $this->getYScaleGap()) / $this->getMaxFunctionYPoint();
-    }
-
-    /**
-     * @param BladeDamage $bladeDamage
-     * @param int         $inversed
-     *
-     * @return float
-     */
-    public function yCalculateFactorEdgeOut(BladeDamage $bladeDamage, $inversed = 1)
-    {
-        $x = $bladeDamage->getRadius();
-        $pow = $this->isolatedDeltaY($x, $bladeDamage->getAuditWindmillBlade()->getWindmillBlade()->getWindmill()->getBladeType()->getLength());
-        $valve = ($pow * $this->getYScaleGap()) / $this->getMaxFunctionYPoint();
-
-        return $inversed * ($valve - (((($bladeDamage->getDistance() / 100)) * $this->getYScaleGap()) / $this->getMaxFunctionYPoint()));
-    }
-
-    /**
-     * @param float $x
-     * @param float $bladeLength
-     *
-     * @return float
-     */
-    private function isolatedDeltaY($x, $bladeLength)
-    {
-        $n = 20 + $bladeLength;
-        $factor = (10 * $x) / $n;
-        $base = pow(M_E, (pow((0.7 * pow($factor, 1.5) - 0.4), 2) * -1)) * $n * 0.07;
-        $bladeBase = (atan((pow($factor, 3) - pow($factor, 2) * 0.5)) / ($factor + 3)) * $n * 0.4;
-
-        return $bladeBase + $base;
     }
 
     /**
@@ -614,50 +613,90 @@ class AuditModelDiagramBridgeService
     }
 
     /**
-     * Get XScaleGap
+     * Return blade shape array
      *
-     * @return float
+     * @return array
      */
-    public function getXScaleGap()
+    public function getBladeShape()
     {
-        return $this->xScaleGap;
+        return $this->bladeShape;
     }
 
     /**
-     * Set XScaleGap
+     * Draw a blade damage center point reference
      *
-     * @param float $xScaleGap
-     *
-     * @return $this
+     * @param CustomTcpdf $pdf
+     * @param BladeDamage $bladeDamage
      */
-    public function setXScaleGap($xScaleGap)
+    public function drawCenterPoint(CustomTcpdf $pdf, BladeDamage $bladeDamage)
     {
-        $this->xScaleGap = $xScaleGap;
+        $x = $this->getGapX($bladeDamage);
+        $y = $this->getGapY($bladeDamage);
+        $pdf->Line($x, $y, $x + 0.5, $y, array('width' => 0.5, 'dash' => 0, 'color' => $this->hex2rgb($bladeDamage->getDamageCategory()->getColour())));
 
-        return $this;
+        if ($bladeDamage->getEdge() == BladeDamageEdgeEnum::EDGE_UNDEFINED) {
+            if ($bladeDamage->getPosition() == BladeDamagePositionEnum::EDGE_IN) {
+                // Edge in
+                $pdf->Line($x, $y + $this->yQ3 - $this->yQ2, $x + 0.5, $y + $this->yQ3 - $this->yQ2, array('width' => 0.5, 'dash' => false, 'color' => $this->hex2rgb($bladeDamage->getDamageCategory()->getColour())));
+
+            } elseif ($bladeDamage->getPosition() == BladeDamagePositionEnum::EDGE_OUT) {
+                // Edge out
+                $deltaY = $this->yQ2 - $y;
+                $pdf->Line($x, $this->yQ3 + $deltaY, $x + 0.5, $this->yQ3 + $deltaY, array('width' => 0.5, 'dash' => false, 'color' => $this->hex2rgb($bladeDamage->getDamageCategory()->getColour())));
+            }
+        }
     }
 
     /**
-     * Get YScaleGap
+     * Draw a blade damage rectangle reference
      *
-     * @return float
+     * @param CustomTcpdf $pdf
+     * @param BladeDamage $bladeDamage
+     * @param integer     $damageNumber
      */
-    public function getYScaleGap()
+    public function drawCenterDamage(CustomTcpdf $pdf, BladeDamage $bladeDamage, $damageNumber)
     {
-        return $this->yScaleGap;
+        $pdf->setBackgroundHexColor($bladeDamage->getDamageCategory()->getColour());
+        $x = $this->getGapX($bladeDamage);
+        $y = $this->getGapY($bladeDamage);
+        $w = $this->getGapXSize($bladeDamage);
+        $pdf->Rect($x - self::GAP_SQUARE_HALF_SIZE, $y - self::GAP_SQUARE_HALF_SIZE, $w, self::GAP_SQUARE_SIZE, 'DF', array('all' => array('width' => 0.25, 'cap' => 'butt', 'join' => 'miter', 'dash' => 0, 'color' => array(0, 0, 0))));
+        $pdf->MultiCell($w + 2, self::GAP_SQUARE_SIZE, $damageNumber, 0, 'C', false, 0, $x - self::GAP_SQUARE_HALF_SIZE - 1, $y - self::GAP_SQUARE_HALF_SIZE - 0.25, true);
+
+        if ($bladeDamage->getEdge() == BladeDamageEdgeEnum::EDGE_UNDEFINED) {
+            if ($bladeDamage->getPosition() == BladeDamagePositionEnum::EDGE_IN) {
+                // Edge in
+                $pdf->Rect($x - self::GAP_SQUARE_HALF_SIZE, $y - self::GAP_SQUARE_HALF_SIZE + $this->yQ3 - $this->yQ2, $w, self::GAP_SQUARE_SIZE, 'DF', array('all' => array('width' => 0.25, 'cap' => 'butt', 'join' => 'miter', 'dash' => 0, 'color' => array(0, 0, 0))));
+                $pdf->MultiCell($w + 2, self::GAP_SQUARE_SIZE, $damageNumber, 0, 'C', false, 0, $x - self::GAP_SQUARE_HALF_SIZE - 1, $y - self::GAP_SQUARE_HALF_SIZE + $this->yQ3 - $this->yQ2 - 0.25, true);
+
+            } elseif ($bladeDamage->getPosition() == BladeDamagePositionEnum::EDGE_OUT) {
+                // Edge out
+                $deltaY = $this->yQ2 - $y;
+                $pdf->Rect($x - self::GAP_SQUARE_HALF_SIZE, $this->yQ3 + $deltaY - self::GAP_SQUARE_HALF_SIZE, $w, self::GAP_SQUARE_SIZE, 'DF', array('all' => array('width' => 0.25, 'cap' => 'butt', 'join' => 'miter', 'dash' => 0, 'color' => array(0, 0, 0))));
+                $pdf->MultiCell($w + 2, self::GAP_SQUARE_SIZE, $damageNumber, 0, 'C', false, 0, $x - self::GAP_SQUARE_HALF_SIZE - 1, $this->yQ3 + $deltaY - self::GAP_SQUARE_HALF_SIZE, true);
+            }
+        }
     }
 
     /**
-     * Set YScaleGap
+     * @param string $hex
      *
-     * @param float $yScaleGap
-     *
-     * @return $this
+     * @return array
      */
-    public function setYScaleGap($yScaleGap)
+    public function hex2rgb($hex)
     {
-        $this->yScaleGap = $yScaleGap;
+        $hex = str_replace('#', '', $hex);
 
-        return $this;
+        if(strlen($hex) == 3) {
+            $r = hexdec(substr($hex,0,1).substr($hex,0,1));
+            $g = hexdec(substr($hex,1,1).substr($hex,1,1));
+            $b = hexdec(substr($hex,2,1).substr($hex,2,1));
+        } else {
+            $r = hexdec(substr($hex,0,2));
+            $g = hexdec(substr($hex,2,2));
+            $b = hexdec(substr($hex,4,2));
+        }
+
+        return array($r, $g, $b);
     }
 }

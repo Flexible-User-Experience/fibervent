@@ -5,7 +5,7 @@
         <div>
             {% for role in object.roles %}
                 {% if role != 'ROLE_USER' %}
-                    <span class="label label-{{ object.bsStatusRole }}" style="margin-right:10px">{{ object.roleString }}</span>
+                    <span class="label label-{{ object.bsStatusRole }}" style="margin-right:10px">{{ object.roleString | trans }}</span>
                 {% endif %}
             {% endfor %}
         </div>

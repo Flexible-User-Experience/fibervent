@@ -264,6 +264,31 @@ class AuditAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
+                'year',
+                'doctrine_orm_callback',
+                array(
+                    'label' => 'admin.audit.year',
+                    'show_filter' => true,
+                    'callback' => function($queryBuilder, $alias, $field, $value) {
+                        if (!$value['value']) {
+                            $currentYear = new \DateTime();
+                            $value['value'] = intval($currentYear->format('Y'));
+                        }
+
+                        /** @var QueryBuilder $queryBuilder */
+                        $queryBuilder->andWhere('YEAR(' . $alias .  '.beginDate) = :year');
+                        $queryBuilder->setParameter('year', $value['value']);
+
+                        return true;
+                    },
+                ),
+                'choice',
+                array(
+                    'choices'   => $this->ar->getYearChoices(),
+                    'required' => true,
+                )
+            )
+            ->add(
                 'observations',
                 null,
                 array(

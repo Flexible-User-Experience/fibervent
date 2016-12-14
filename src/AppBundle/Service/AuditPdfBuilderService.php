@@ -11,7 +11,6 @@ use AppBundle\Entity\Observation;
 use AppBundle\Entity\Photo;
 use AppBundle\Entity\Windfarm;
 use AppBundle\Entity\Windmill;
-use AppBundle\Enum\BladeDamagePositionEnum;
 use AppBundle\Enum\WindfarmLanguageEnum;
 use AppBundle\Pdf\CustomTcpdf;
 use AppBundle\Repository\CustomerRepository;
@@ -25,10 +24,10 @@ use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 use Symfony\Bundle\FrameworkBundle\Templating\Helper\AssetsHelper;
 
 /**
- * Class abstract base test
+ * Class Audit Pdf Builder Service
  *
- * @category Test
- * @package  AppBundle\Tests
+ * @category Service
+ * @package  AppBundle\Service
  * @author   David Romaní <david@flux.cat>
  */
 class AuditPdfBuilderService
@@ -201,7 +200,8 @@ class AuditPdfBuilderService
         // Audit description with windmill image schema
         $pdf->Image($this->tha->getUrl('/bundles/app/images/tubrine_diagrams/' . $audit->getDiagramType() . '.jpg'), CustomTcpdf::PDF_MARGIN_LEFT + 50, $pdf->GetY(), null, 40);
         $pdf->AddPage();
-        $this->amdb->calculateMaxFunctionYPoint($audit->getWindmill()->getBladeType());
+
+
         // Damages section
         /** @var AuditWindmillBlade $auditWindmillBlade */
         foreach ($audit->getAuditWindmillBlades() as $key => $auditWindmillBlade) {
@@ -242,55 +242,81 @@ class AuditPdfBuilderService
             $yQuarter3 = $this->amdb->getYQ3();
             $yQuarter4 = $this->amdb->getYQ4();
 
-            $pdf->Image($this->tha->getUrl('/bundles/app/images/blade_diagrams/blade_blueprint_' . $this->locale . '.jpg'), $x1, $y1, ($x2 - $x1), null);
-
             if (self::SHOW_GRID_DEBUG) {
-                $pdf->Line($xQuarter1, $y1, $xQuarter1, $y1 + ($y2 - $y1));
-                $pdf->Line($xQuarter2, $y1, $xQuarter2, $y1 + ($y2 - $y1));
-                $pdf->Line($xQuarter3, $y1, $xQuarter3, $y1 + ($y2 - $y1));
-                $pdf->Line($xQuarter4, $y1, $xQuarter4, $y1 + ($y2 - $y1));
-                $pdf->Line($xQuarter5, $y1, $xQuarter5, $y1 + ($y2 - $y1));
-                $pdf->Line($x1, $yQuarter1, $x2, $yQuarter1);
-                $pdf->Line($x1, $yQuarter2, $x2, $yQuarter2);
-                $pdf->Line($x1, $yMiddle, $x2, $yMiddle);
-                $pdf->Line($x1, $yQuarter3, $x2, $yQuarter3);
-                $pdf->Line($x1, $yQuarter4, $x2, $yQuarter4);
+                $pdf->Line($xQuarter1, $y1, $xQuarter1, $y1 + ($y2 - $y1), array('dash' => '2,1', 'color' => array(150, 150, 150)));
+                $pdf->Line($xQuarter2, $y1, $xQuarter2, $y1 + ($y2 - $y1), array('dash' => '2,1'));
+                $pdf->Line($xQuarter3, $y1, $xQuarter3, $y1 + ($y2 - $y1), array('dash' => '2,1'));
+                $pdf->Line($xQuarter4, $y1, $xQuarter4, $y1 + ($y2 - $y1), array('dash' => '2,1'));
+                $pdf->Line($xQuarter5, $y1, $xQuarter5, $y1 + ($y2 - $y1), array('dash' => '2,1'));
+                $pdf->Line($x1, $yQuarter1, $x2, $yQuarter1, array('dash' => '2,1'));
+                $pdf->Line($x1, $yQuarter2, $x2, $yQuarter2, array('dash' => '2,1'));
+                $pdf->Line($x1, $yMiddle, $x2, $yMiddle, array('dash' => '2,1'));
+                $pdf->Line($x1, $yQuarter3, $x2, $yQuarter3, array('dash' => '2,1'));
+                $pdf->Line($x1, $yQuarter4, $x2, $yQuarter4, array('dash' => '2,1'));
             }
 
+            // Blade diagram middle lines
             $txt = $auditWindmillBlade->getWindmillBlade()->getWindmill()->getBladeType()->getQ1LengthString();
-            $pdf->Text(($xQuarter2 - $pdf->GetStringWidth($txt) - 2), $yMiddle - 5.75, $txt);
+            $pdf->Text(($xQuarter2 - $pdf->GetStringWidth($txt) - 2), $yMiddle - 5, $txt);
             $txt = $auditWindmillBlade->getWindmillBlade()->getWindmill()->getBladeType()->getQ2LengthString();
-            $pdf->Text(($xQuarter3 - $pdf->GetStringWidth($txt) - 2), $yMiddle - 5.75, $txt);
+            $pdf->Text(($xQuarter3 - $pdf->GetStringWidth($txt) - 2), $yMiddle - 5, $txt);
             $txt = $auditWindmillBlade->getWindmillBlade()->getWindmill()->getBladeType()->getQ3LengthString();
-            $pdf->Text(($xQuarter4 - $pdf->GetStringWidth($txt) - 2), $yMiddle - 5.75, $txt);
+            $pdf->Text(($xQuarter4 - $pdf->GetStringWidth($txt) - 2), $yMiddle - 5, $txt);
             $txt = $auditWindmillBlade->getWindmillBlade()->getWindmill()->getBladeType()->getQ4LengthString();
-            $pdf->Text(($xQuarter5 - $pdf->GetStringWidth($txt) - 2), $yMiddle - 5.75, $txt);
+            $pdf->Text(($xQuarter5 - $pdf->GetStringWidth($txt) - 2), $yMiddle - 5, $txt);
+            $pdf->setBlackLine();
+            $pdf->SetLineStyle(array('dash' => 0));
+            $pdf->Line($xQuarter1, $yMiddle, $xQuarter5, $yMiddle);
+            $pdf->Line($xQuarter1, $yMiddle - 2, $xQuarter1, $yMiddle + 2);
+            $pdf->Line($xQuarter2, $yMiddle - 2, $xQuarter2, $yMiddle + 2);
+            $pdf->Line($xQuarter3, $yMiddle - 2, $xQuarter3, $yMiddle + 2);
+            $pdf->Line($xQuarter4, $yMiddle - 2, $xQuarter4, $yMiddle + 2);
+            $pdf->Line($xQuarter5, $yMiddle - 2, $xQuarter5, $yMiddle + 2);
+
+            // Blade diagram help texts
+            $pdf->Text($xQuarter1, $yQuarter1 - 5, $this->ts->trans('pdf.blade_damage_diagram.1_vp_s'));
+            $pdf->Text($xQuarter1, $yQuarter4 + 1, $this->ts->trans('pdf.blade_damage_diagram.2_vs_s'));
+            $pdf->Text($xQuarter3 - 5, $yQuarter4 - 2, $this->ts->trans('pdf.blade_damage_diagram.3_vp_l'));
+            $pdf->Text($xQuarter5 - $pdf->GetStringWidth($this->ts->trans('pdf.blade_damage_diagram.5_ba_l')), $yQuarter4 - 2, $this->ts->trans('pdf.blade_damage_diagram.5_ba_l'));
+            $pdf->Text($xQuarter3 - 5, $yQuarter4 + 2, $this->ts->trans('pdf.blade_damage_diagram.4_vs_l'));
+            $pdf->Text($xQuarter5 - $pdf->GetStringWidth($this->ts->trans('pdf.blade_damage_diagram.5_ba_l')), $yQuarter4 + 2, $this->ts->trans('pdf.blade_damage_diagram.6_bs_l'));
+
+            // Draw blade diagram
+            $polyArray = array();
+            $polyArray2 = array();
+            $xStep = $xQuarter1;
+            $xDelta = ($xQuarter5 - $xQuarter1) / 50;
+            foreach ($this->amdb->getBladeShape() as $yPoint) {
+                $yTransform = $yQuarter2 - (($yQuarter2 - $yQuarter1) * $yPoint);
+                $yTransform2 = $yQuarter3 + (($yQuarter4 - $yQuarter3) * $yPoint);
+                array_push($polyArray, $xStep);  array_push($polyArray, $yTransform);
+                array_push($polyArray2, $xStep); array_push($polyArray2, $yTransform2);
+                $xStep += $xDelta;
+            }
+            array_push($polyArray, $xQuarter5);  array_push($polyArray, $yQuarter2);
+            array_push($polyArray, $xQuarter1);  array_push($polyArray, $yQuarter2);
+            array_push($polyArray2, $xQuarter5); array_push($polyArray2, $yQuarter3);
+            array_push($polyArray2, $xQuarter1); array_push($polyArray2, $yQuarter3);
+            $pdf->SetLineStyle(array('dash' => 0, 'width' => 0.35));
+            $pdf->Polygon($polyArray);
+            $pdf->Polygon($polyArray2);
+
             /** @var BladeDamage $bladeDamage */
             foreach ($bladeDamages as $sKey => $bladeDamage) {
-                // MultiCell($w, $h, $txt, $border=0, $align='J', $fill=0, $ln=1, $x='', $y='', $reseth=true, $stretch=0, $ishtml=false, $autopadding=true, $maxh=0)
-                $pdf->setBackgroundHexColor($bladeDamage->getDamageCategory()->getColour());
-
-                if ($bladeDamage->getPosition() == BladeDamagePositionEnum::EDGE_IN) {
-                    // Both Valves {BA} · Double draw
-                    $pdf->drawDamage($this->amdb->getGapX($bladeDamage), $this->amdb->getYQ2() - AuditModelDiagramBridgeService::GAP_SQUARE_HALF_SIZE, $this->amdb->getGapXSize($bladeDamage), $sKey + 1, $bladeDamage->getDamageCategory()->getColour());
-                    $pdf->drawDamage($this->amdb->getGapX($bladeDamage), $this->amdb->getYQ3() - AuditModelDiagramBridgeService::GAP_SQUARE_HALF_SIZE, $this->amdb->getGapXSize($bladeDamage), $sKey + 1, $bladeDamage->getDamageCategory()->getColour());
-
-                } elseif ($bladeDamage->getPosition() == BladeDamagePositionEnum::EDGE_OUT) {
-                    // Both Valves {BS} · Double draw
-                    $pdf->drawDamage($this->amdb->getGapX($bladeDamage), $this->amdb->getGapY($bladeDamage), $this->amdb->getGapXSize($bladeDamage), $sKey + 1, $bladeDamage->getDamageCategory()->getColour());
-                    $pdf->drawDamage($this->amdb->getGapX($bladeDamage), $this->amdb->getGapY($bladeDamage, -1) - $this->amdb->getYScaleGap() - AuditModelDiagramBridgeService::GAP_SQUARE_SIZE, $this->amdb->getGapXSize($bladeDamage), $sKey + 1, $bladeDamage->getDamageCategory()->getColour());
-
+                if (self::SHOW_GRID_DEBUG) {
+                    $this->amdb->drawCenterPoint($pdf, $bladeDamage);
                 } else {
-                    // One valve {VP, VS}
-                    $pdf->drawDamage($this->amdb->getGapX($bladeDamage), $this->amdb->getGapY($bladeDamage), $this->amdb->getGapXSize($bladeDamage), $sKey + 1, $bladeDamage->getDamageCategory()->getColour());
+                    $this->amdb->drawCenterDamage($pdf, $bladeDamage, $sKey + 1);
                 }
             }
+
             $pdf->setWhiteBackground();
             $pdf->SetY($yBreakpoint + AuditModelDiagramBridgeService::DIAGRAM_HEIGHT + 10);
 
             // Observations table
             if (count($auditWindmillBlade->getObservations()) > 0) {
                 $pdf->setBlueLine();
+                $pdf->SetLineStyle(array('width' => 0.25));
                 $pdf->setBlueBackground();
                 $pdf->setFontStyle(null, 'B', 9);
                 $pdf->Cell(16, 0, $this->ts->trans('pdf.observations_table.1_damage'), 1, 0, 'C', true);
@@ -346,6 +372,7 @@ class AuditPdfBuilderService
                 $pdf->AddPage();
             }
         }
+
         // Contact section
         $pdf->setFontStyle(null, 'B', 11);
         $pdf->Write(0, $this->ts->trans('pdf.inspection_description.1_contact'), '', false, 'L', true);
@@ -353,7 +380,6 @@ class AuditPdfBuilderService
         $pdf->setFontStyle(null, '', 9);
         $pdf->Write(0, $this->ts->trans('pdf.inspection_description.2_description'), '', false, 'L', true);
         $pdf->Ln(10);
-        // Cell($w, $h=0, $txt='', $border=0, $ln=0, $align='', $fill=0, $link='', $stretch=0, $ignore_min_height=false, $calign='T', $valign='M')
         $pdf->Cell(10, 0, '', 0, 0);
         $pdf->Cell(0, 0, $this->ts->trans('pdf.inspection_description.3_offices'), 0, 1, 'L', 0, '');
         $pdf->Ln(5);
@@ -429,33 +455,25 @@ class AuditPdfBuilderService
     {
         /** @var CustomTcpdf $pdf */
         $pdf = $this->tcpdf->create($this->tha, $audit, $this->ts);
-
         // set document information
         $pdf->SetCreator(PDF_CREATOR);
         $pdf->SetAuthor('Fibervent');
         $pdf->SetTitle($this->ts->trans('pdf.set_document_information.1_title') . $audit->getId() . ' ' . $windfarm->getName());
         $pdf->SetSubject($this->ts->trans('pdf.set_document_information.2_subject') . $windfarm->getName());
-
         // set default font subsetting mode
         $pdf->setFontSubsetting(true);
-
         // remove default header/footer
         $pdf->setPrintHeader(false);
         $pdf->setPrintFooter(false);
-
         // set default monospaced font
         $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
-
         // set margins
         $pdf->SetMargins(CustomTcpdf::PDF_MARGIN_LEFT, CustomTcpdf::PDF_MARGIN_TOP, CustomTcpdf::PDF_MARGIN_RIGHT);
         $pdf->SetAutoPageBreak(TRUE, CustomTcpdf::PDF_MARGIN_BOTTOM);
-
         // set image scale factor
         $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
-
-        // Add start page
+        // add start page
         $pdf->startPage(PDF_PAGE_ORIENTATION, PDF_PAGE_FORMAT);
-
         // logo
         if ($audit->getCustomer()->getImageName()) {
             $pdf->Image($this->uh->asset($audit->getCustomer(), 'imageFile'), 43, 45, 32);
@@ -463,7 +481,6 @@ class AuditPdfBuilderService
         } else {
             $pdf->Image($this->tha->getUrl('/bundles/app/images/fibervent_logo_white_landscape.jpg'), '', 45, '', '', 'JPEG', '', 'T', false, 300, 'C', false, false, 0, false, false, false);
         }
-
         // main detail section
         $pdf->SetXY(CustomTcpdf::PDF_MARGIN_LEFT, 100);
         $pdf->setFontStyle(null, 'B', 14);
@@ -475,7 +492,6 @@ class AuditPdfBuilderService
         $pdf->Cell(0, 8, $this->ts->trans('pdf.cover.2_resume') . ' ' . $windmill->getCode(), 'TB', 1, 'C', true);
         $pdf->Cell(0, 8, $windfarm->getPdfLocationString(), 'TB', 1, 'C', true);
         $pdf->setFontStyle();
-
         // table detail section
         $pdf->SetXY(CustomTcpdf::PDF_MARGIN_LEFT, $pdf->GetY() + 10);
         $pdf->setFontStyle(null, 'B', 10);
@@ -526,7 +542,6 @@ class AuditPdfBuilderService
         $pdf->setFontStyle(null, '', 10);
         $pdf->setWhiteBackground();
         $pdf->Cell(0, 6, $windfarm->getMangerFullname(), 'TB', 1, 'L', true);
-
         // operators details
         $pdf->SetXY(CustomTcpdf::PDF_MARGIN_LEFT, $pdf->GetY() + 10);
         $pdf->setFontStyle(null, 'B', 10);
@@ -535,7 +550,6 @@ class AuditPdfBuilderService
         $pdf->setFontStyle(null, '', 10);
         $pdf->setWhiteBackground();
         $pdf->Cell(0, 6, implode(', ', $audit->getOperators()->getValues()), 'TB', 1, 'L', true);
-
         // final details
         $pdf->SetXY(CustomTcpdf::PDF_MARGIN_LEFT, $pdf->GetY() + 10);
         $pdf->setFontStyle(null, 'B', 10);
@@ -556,7 +570,6 @@ class AuditPdfBuilderService
         $pdf->setFontStyle(null, '', 10);
         $pdf->setWhiteBackground();
         $pdf->Cell(0, 6, $this->ts->trans('pdf.cover.14_blades_amout_value'), 'TB', 1, 'L', true);
-
         // footer
         $pdf->SetXY(CustomTcpdf::PDF_MARGIN_LEFT, 250);
         $pdf->setFontStyle(null, null, 8);

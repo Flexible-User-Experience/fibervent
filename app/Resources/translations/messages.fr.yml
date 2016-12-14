@@ -37,6 +37,13 @@ pdf:
   audit_blade_damage:
     1_title: RÉSUME INDIVIDUEL DOMMAGES PALE
     2_description: 'Le résultat de l’inspection est décrit dans le tableau suivant avec la catégorisation, les descriptions, l’emplacement et les liens aux photos des dommages.'
+  blade_damage_diagram:
+    1_vp_s: 'SOUPAPE DE PRESSION'
+    2_vs_s: 'SOUPAPE DE SUCCION'
+    3_vp_l: 'SP: Soupape de Pression'
+    4_vs_l: 'SS: Soupape de Succion'
+    5_ba_l: "BA: Bord d'Attaque"
+    6_bs_l: 'BF: Bord de Fuite'
   observations_table:
     1_damage: DOMMA.
     2_observations: OBSERVATIONS
@@ -84,3 +91,136 @@ enum:
     rope: CORDES
     inside: INTÉRIEUR PALE
     platform: PLATEFORME
+  audit_status:
+    pending:
+    doing:
+    done:
+    invoiced:
+  user_roles:
+    user:
+    customer:
+    operator:
+    technician:
+    admin:
+    super_admin:
+admin:
+  common:
+    general:
+    controls:
+    action:
+    enabled:
+  audit:
+    title:
+    windmill:
+    observations:
+    year: year
+    begindate:
+    enddate:
+    operators:
+    type:
+    status:
+    diagramtype_title:
+    diagramtype:
+    auditwindmillblade_title:
+  auditwindmillblade:
+    title:
+    audit:
+    windmillblade:
+    damages:
+    actions:
+    damage_position:
+    bladedamages:
+    photos:
+    blade_observations:
+    blade_photos:
+  blade:
+    title:
+    model:
+    length:
+  bladedamage:
+    title:
+    number:
+    damage:
+    position:
+    radius:
+    distance:
+    edge:
+    size:
+    damagecategory:
+  bladephoto:
+    title:
+    imagefile:
+  customer:
+    title:
+    image:
+    code:
+    name:
+    contact:
+    email:
+    phone:
+    web:
+    postal_data:
+    address:
+    zip:
+    city:
+    state:
+    contacts:
+    windfarms:
+  damage:
+    title:
+    section:
+    code:
+    description:
+    translations:
+  damagecategory:
+    title:
+    category:
+    priority:
+    description:
+    recomended_action:
+    colour:
+  observation:
+    title:
+    position:
+    damage_number:
+  photo:
+    title:
+    imagename:
+  state:
+    title:
+    country:
+  turbine:
+    title:
+    height:
+    diameter:
+    power:
+  user:
+    title:
+    username:
+    password:
+    firstname:
+    lastname:
+    roles:
+    rol:
+    locked:
+    language:
+  windfarm:
+    title:
+    customer:
+    manager:
+    year:
+    language:
+    geoposition:
+    latlng:
+    pdf_language:
+  windmill:
+     title:
+     windfarm:
+     code:
+     turbine:
+     bladetype:
+     blades:
+     manager:
+  windmillblade:
+    title:
+    sn:

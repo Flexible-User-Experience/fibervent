@@ -37,6 +37,13 @@ pdf:
   audit_blade_damage:
     1_title: INDIVIDUAL DAMAGES SUMMARY BLADE
     2_description: 'The result of the inspection including categorization, descriptions and location of the damages is shown in the following table:'
+  blade_damage_diagram:
+    1_vp_s: 'PRESSURE SIDE'
+    2_vs_s: 'SUCTION SIDE'
+    3_vp_l: 'PS: Pressure Side/Windward Side'
+    4_vs_l: 'SS: Suction Side/Leeward Side'
+    5_ba_l: 'LE: Leading Edge'
+    6_bs_l: 'TE: Trailing Edge'
   observations_table:
     1_damage: DAMAGE
     2_observations: OBSERVATIONS
