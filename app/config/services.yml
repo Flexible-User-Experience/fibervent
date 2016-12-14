@@ -57,7 +57,7 @@ services:
         class: AppBundle\Admin\DamageCategoryAdmin
         arguments: [ ~, AppBundle\Entity\DamageCategory, ~, "@app.repositories_service", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: "Categoria Daño", group: "Auditoria" }
+            - { name: sonata.admin, manager_type: orm, label: "Categoría Daño", group: "Auditoria" }
     admin.photo:
         class: AppBundle\Admin\PhotoAdmin
         arguments: [ ~, AppBundle\Entity\Photo, ~, "@app.repositories_service", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
