@@ -145,8 +145,8 @@ admin:
     position: Posición
     radius: Radio (m)
     distance: Distancia (m)
-    edge: Esquina
-    size: Dimesnión (cm)
+    edge: Borde
+    size: Dimensión (cm)
     damagecategory: Cat.
   bladephoto:
     title: Foto Pala
