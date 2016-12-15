@@ -14,8 +14,7 @@
                             {{ form_end(form) }}
                         {% else %}
                             <div class="alert alert-danger" role="alert">
-                                {# TODO Translations and margins#}
-                                Este parque no tiene audiatorias.
+                                {{ 'admin.windfarm.no_audits' | trans }}.
                             </div>
                         {% endif %}
                     </div>

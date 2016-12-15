@@ -217,6 +217,7 @@ admin:
     geoposition:
     latlng:
     pdf_language:
+    no_audits:
   windmill:
      title:
      windfarm:

@@ -217,6 +217,7 @@ admin:
     geoposition: Geolocalización
     latlng: Mapa
     pdf_language: Idioma PDF
+    no_audits: Este parque no tiene auditorias
   windmill:
      title: Aerogenerador
      windfarm: Parque Eólico

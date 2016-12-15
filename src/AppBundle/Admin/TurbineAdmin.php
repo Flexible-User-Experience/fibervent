@@ -144,7 +144,7 @@ class TurbineAdmin extends AbstractBaseAdmin
             )
             ->add(
                 'towerHeight',
-                null,
+                'decimal',
                 array(
                     'label'    => 'admin.turbine.height',
                     'editable' => true,
