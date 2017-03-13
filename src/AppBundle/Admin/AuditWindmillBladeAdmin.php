@@ -83,7 +83,7 @@ class AuditWindmillBladeAdmin extends AbstractBaseAdmin
             /** @var AuditWindmillBlade $awb */
             $awb = $this->getSubject();
             $order = $awb->getWindmillBlade() ? $awb->getWindmillBlade()->getOrder() : '';
-            $code = $awb->getWindmillBlade() && $awb->getWindmillBlade()->getCode() ? 'admin.windmillblade.sn' . $awb->getWindmillBlade()->getCode() . ')' : '';
+            $code = $awb->getWindmillBlade() && empty($awb->getWindmillBlade()->getCode()) ? 'admin.windmillblade.sn' . $awb->getWindmillBlade()->getCode() . ')' : '';
             $formMapper
                 ->with('Situación y descripción de los daños · Pala ' . $order . ' ' . $code, $this->getFormMdSuccessBoxArray(12))
                 ->add(
