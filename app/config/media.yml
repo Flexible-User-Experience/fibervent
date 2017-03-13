@@ -22,6 +22,10 @@ vich_uploader:
 # Liip Imagine
 liip_imagine:
     driver: gd
+    loaders:
+       default:
+          filesystem:
+            locator: filesystem_insecure
     resolvers:
        default:
           web_path: ~
