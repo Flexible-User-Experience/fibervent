@@ -529,7 +529,7 @@ class AuditPdfBuilderService
         $pdf->Cell(70, 6, $this->ts->trans('pdf.cover.8_total_turbines'), 'TB', 0, 'R', true);
         $pdf->setFontStyle(null, '', 10);
         $pdf->setWhiteBackground();
-        $pdf->Cell(0, 6, $this->ts->trans('pdf.cover.8_total_turbines_value', ['%windmills%' => $windfarm->getWindmills()->count(), '%power%' => $windfarm->getPower()]), 'TB', 1, 'L', true);
+        $pdf->Cell(0, 6, $this->ts->trans('pdf.cover.8_total_turbines_value', ['%windmills%' => $windfarm->getWindmillAmount(), '%power%' => $windfarm->getPower()]), 'TB', 1, 'L', true);
         $pdf->setFontStyle(null, 'B', 10);
         $pdf->setBlueBackground();
         $pdf->Cell(70, 6, $this->ts->trans('pdf.cover.9_startup_year'), 'TB', 0, 'R', true);
