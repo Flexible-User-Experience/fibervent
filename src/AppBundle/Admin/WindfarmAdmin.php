@@ -156,6 +156,14 @@ class WindfarmAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
+                'windmillAmount',
+                null,
+                array(
+                    'label'    => 'admin.windfarm.windmill_amount',
+                    'required' => false
+                )
+            )
+            ->add(
                 'language',
                 ChoiceType::class,
                 array(

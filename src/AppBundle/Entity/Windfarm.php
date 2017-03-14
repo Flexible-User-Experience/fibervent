@@ -88,6 +88,13 @@ class Windfarm extends AbstractBase
     private $windmills;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $windmillAmount;
+
+    /**
      *
      *
      * Methods
@@ -246,6 +253,26 @@ class Windfarm extends AbstractBase
     public function removeWindmill(Windmill $windmill)
     {
         $this->windmills->removeElement($windmill);
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getWindmillAmount()
+    {
+        return $this->windmillAmount;
+    }
+
+    /**
+     * @param int $windmillAmount
+     *
+     * @return $this
+     */
+    public function setWindmillAmount($windmillAmount)
+    {
+        $this->windmillAmount = $windmillAmount;
 
         return $this;
     }

@@ -218,6 +218,7 @@ admin:
     latlng:
     pdf_language:
     no_audits:
+    windmill_amount: Windmill Number
   windmill:
      title:
      windfarm:

@@ -218,6 +218,7 @@ admin:
     latlng: Mapa
     pdf_language: Idioma PDF
     no_audits: Este parque no tiene auditorias
+    windmill_amount: Nº Aerogeneradores
   windmill:
      title: Aerogenerador
      windfarm: Parque Eólico
