@@ -58,4 +58,5 @@
 /test.sh
 /Capfile
 /app/config/deploy.rb
+/app/config/deploy.yml
 !/.travis.yml
