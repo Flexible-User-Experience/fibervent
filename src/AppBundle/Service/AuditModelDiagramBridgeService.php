@@ -218,7 +218,7 @@ class AuditModelDiagramBridgeService
      */
     public function getGapXSize(BladeDamage $bladeDamage)
     {
-        $result = (($bladeDamage->getSize() / 100) * $this->xScaleGap) / $bladeDamage->getAuditWindmillBlade()->getWindmillBlade()->getWindmill()->getBladeType()->getLength();
+        $result = ((($bladeDamage->getSize() / 100) * $this->xScaleGap) / $bladeDamage->getAuditWindmillBlade()->getWindmillBlade()->getWindmill()->getBladeType()->getLength()) + self::GAP_SQUARE_HALF_SIZE;
         if ($result < self::GAP_SQUARE_SIZE) {
             $result = self::GAP_SQUARE_SIZE;
         }
