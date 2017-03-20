@@ -54,8 +54,11 @@
 /composer.phar
 
 # Customs
+/ansible/deploy.yml
 /dbreset.sh
 /test.sh
 /Capfile
 /app/config/deploy.rb
+/app/config/deploy.yml
 !/.travis.yml
+/ansible

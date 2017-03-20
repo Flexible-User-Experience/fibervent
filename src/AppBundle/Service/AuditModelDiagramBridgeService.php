@@ -218,7 +218,7 @@ class AuditModelDiagramBridgeService
      */
     public function getGapXSize(BladeDamage $bladeDamage)
     {
-        $result = (($bladeDamage->getSize() / 100) * $this->xScaleGap) / $bladeDamage->getAuditWindmillBlade()->getWindmillBlade()->getWindmill()->getBladeType()->getLength();
+        $result = ((($bladeDamage->getSize() / 100) * $this->xScaleGap) / $bladeDamage->getAuditWindmillBlade()->getWindmillBlade()->getWindmill()->getBladeType()->getLength()) + self::GAP_SQUARE_HALF_SIZE;
         if ($result < self::GAP_SQUARE_SIZE) {
             $result = self::GAP_SQUARE_SIZE;
         }
@@ -662,20 +662,6 @@ class AuditModelDiagramBridgeService
         $w = $this->getGapXSize($bladeDamage);
         $pdf->Rect($x - self::GAP_SQUARE_HALF_SIZE, $y - self::GAP_SQUARE_HALF_SIZE, $w, self::GAP_SQUARE_SIZE, 'DF', array('all' => array('width' => 0.25, 'cap' => 'butt', 'join' => 'miter', 'dash' => 0, 'color' => array(0, 0, 0))));
         $pdf->MultiCell($w + 2, self::GAP_SQUARE_SIZE, $damageNumber, 0, 'C', false, 0, $x - self::GAP_SQUARE_HALF_SIZE - 1, $y - self::GAP_SQUARE_HALF_SIZE - 0.25, true);
-
-        if ($bladeDamage->getEdge() == BladeDamageEdgeEnum::EDGE_UNDEFINED) {
-            if ($bladeDamage->getPosition() == BladeDamagePositionEnum::EDGE_IN) {
-                // Edge in
-                $pdf->Rect($x - self::GAP_SQUARE_HALF_SIZE, $y - self::GAP_SQUARE_HALF_SIZE + $this->yQ3 - $this->yQ2, $w, self::GAP_SQUARE_SIZE, 'DF', array('all' => array('width' => 0.25, 'cap' => 'butt', 'join' => 'miter', 'dash' => 0, 'color' => array(0, 0, 0))));
-                $pdf->MultiCell($w + 2, self::GAP_SQUARE_SIZE, $damageNumber, 0, 'C', false, 0, $x - self::GAP_SQUARE_HALF_SIZE - 1, $y - self::GAP_SQUARE_HALF_SIZE + $this->yQ3 - $this->yQ2 - 0.25, true);
-
-            } elseif ($bladeDamage->getPosition() == BladeDamagePositionEnum::EDGE_OUT) {
-                // Edge out
-                $deltaY = $this->yQ2 - $y;
-                $pdf->Rect($x - self::GAP_SQUARE_HALF_SIZE, $this->yQ3 + $deltaY - self::GAP_SQUARE_HALF_SIZE, $w, self::GAP_SQUARE_SIZE, 'DF', array('all' => array('width' => 0.25, 'cap' => 'butt', 'join' => 'miter', 'dash' => 0, 'color' => array(0, 0, 0))));
-                $pdf->MultiCell($w + 2, self::GAP_SQUARE_SIZE, $damageNumber, 0, 'C', false, 0, $x - self::GAP_SQUARE_HALF_SIZE - 1, $this->yQ3 + $deltaY - self::GAP_SQUARE_HALF_SIZE, true);
-            }
-        }
     }
 
     /**
