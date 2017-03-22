@@ -218,7 +218,7 @@ class AuditModelDiagramBridgeService
      */
     public function getGapXSize(BladeDamage $bladeDamage)
     {
-        $result = ((($bladeDamage->getSize() / 100) * $this->xScaleGap) / $bladeDamage->getAuditWindmillBlade()->getWindmillBlade()->getWindmill()->getBladeType()->getLength()) + self::GAP_SQUARE_HALF_SIZE;
+        $result = (($bladeDamage->getSize() / 100) * $this->xScaleGap) / $bladeDamage->getAuditWindmillBlade()->getWindmillBlade()->getWindmill()->getBladeType()->getLength();
         if ($result < self::GAP_SQUARE_SIZE) {
             $result = self::GAP_SQUARE_SIZE;
         }
@@ -660,8 +660,8 @@ class AuditModelDiagramBridgeService
         $x = $this->getGapX($bladeDamage);
         $y = $this->getGapY($bladeDamage);
         $w = $this->getGapXSize($bladeDamage);
-        $pdf->Rect($x - self::GAP_SQUARE_HALF_SIZE, $y - self::GAP_SQUARE_HALF_SIZE, $w, self::GAP_SQUARE_SIZE, 'DF', array('all' => array('width' => 0.25, 'cap' => 'butt', 'join' => 'miter', 'dash' => 0, 'color' => array(0, 0, 0))));
-        $pdf->MultiCell($w + 2, self::GAP_SQUARE_SIZE, $damageNumber, 0, 'C', false, 0, $x - self::GAP_SQUARE_HALF_SIZE - 1, $y - self::GAP_SQUARE_HALF_SIZE - 0.25, true);
+        $pdf->Rect($x, $y - self::GAP_SQUARE_HALF_SIZE, $w, self::GAP_SQUARE_SIZE, 'DF', array('all' => array('width' => 0.25, 'cap' => 'butt', 'join' => 'miter', 'dash' => 0, 'color' => array(0, 0, 0))));
+        $pdf->MultiCell($w + 2 + self::GAP_SQUARE_SIZE, self::GAP_SQUARE_SIZE, $damageNumber, 0, 'C', false, 0, $x - self::GAP_SQUARE_HALF_SIZE - 1, $y - self::GAP_SQUARE_HALF_SIZE - 0.25, true);
     }
 
     /**
