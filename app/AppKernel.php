@@ -30,6 +30,7 @@ class AppKernel extends Kernel
             new FOS\UserBundle\FOSUserBundle(),
             new Hautelook\AliceBundle\HautelookAliceBundle(),
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
+            new Lexik\Bundle\MaintenanceBundle\LexikMaintenanceBundle(),
             new Liip\ImagineBundle\LiipImagineBundle(),
             new MewesK\TwigExcelBundle\MewesKTwigExcelBundle(),
             new Oh\GoogleMapFormTypeBundle\OhGoogleMapFormTypeBundle(),

@@ -28,6 +28,7 @@
         "incenteev/composer-parameter-handler": "~2.0",
         "ircmaxell/password-compat": "~1.0",
         "it-blaster/color-picker-type-bundle": "^1.0",
+        "lexik/maintenance-bundle": "^2.0",
         "liip/functional-test-bundle": "^1.0",
         "liip/imagine-bundle": "^1.0",
         "mewesk/twig-excel-bundle": "2.x-dev",
