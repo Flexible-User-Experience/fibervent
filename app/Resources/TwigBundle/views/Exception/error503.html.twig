@@ -2,4 +2,7 @@
 
 {% block title %}{{ parent() }} 503{% endblock %}
 
-{% block error_text %}En manteniment. Disculpeu estem treballant per millorar aquesta web{% endblock %}
+{% block error_text %}
+    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> En manteniment.<br>
+    Disculpeu estem treballant per millorar aquesta web.
+{% endblock %}
