@@ -16,4 +16,5 @@
         name: "{{ mysql_db_user }}"
         login_user: "{{ mysql_db_root_user }}"
         login_password: "{{ mysql_db_root_password }}"
+        append_privs: yes
         priv: "{{ mysql_db_name }}.*:ALL"
