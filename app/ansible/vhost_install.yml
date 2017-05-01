@@ -2,7 +2,7 @@
 - hosts: s6
   gather_facts: false
   vars_files:
-    - config.yml
+    - "{{ playbook_dir }}/vars/config.yml"
   tasks:
     - name: install new apache virtual host in production server
       template:

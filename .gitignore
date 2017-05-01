@@ -54,8 +54,8 @@
 /composer.phar
 
 # Ansible
-/app/ansible/config.yml
-/app/ansible/parameters_prod.yml
+/app/ansible/vars/
+!/app/ansible/vars/.gitkeep
 /app/ansible/*.retry
 
 # Customs

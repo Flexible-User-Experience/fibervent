@@ -1,0 +1,18 @@
+---
+- hosts: s6
+  gather_facts: false
+  vars_files:
+    - "{{ playbook_dir }}/vars/config.yml"
+  tasks:
+    - name: copy local pdfs directory to remote
+      copy:
+        src: "{{ ansistrano_deploy_to }}/shared/web/pdfs"
+        dest: "{{ playbook_dir }}/../../web"
+        owner: www-data
+        group: www-data
+    - name: copy local uploads directory to remote
+      copy:
+        src: "{{ ansistrano_deploy_to }}/shared/web/uploads"
+        dest: "{{ playbook_dir }}/../../web"
+        owner: www-data
+        group: www-data

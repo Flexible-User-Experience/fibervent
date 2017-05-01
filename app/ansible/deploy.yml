@@ -6,7 +6,7 @@
     - { role: "carlosbuenosvinos.ansistrano-deploy" }
     - { role: "cbrunnkvist.ansistrano-symfony-deploy" }
   vars_files:
-    - config.yml
+    - "{{ playbook_dir }}/vars/config.yml"
   vars:
     # ansistrano deploys config
     ansistrano_deploy_from: "{{ playbook_dir }}/../../"
