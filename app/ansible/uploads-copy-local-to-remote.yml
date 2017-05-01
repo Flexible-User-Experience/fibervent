@@ -6,13 +6,13 @@
   tasks:
     - name: copy local pdfs directory to remote
       copy:
-        src: "{{ ansistrano_deploy_to }}/shared/web/pdfs"
-        dest: "{{ playbook_dir }}/../../web"
+        src: "{{ playbook_dir }}/../../web/pdfs"
+        dest: "{{ vhost_path }}/shared/web"
         owner: www-data
         group: www-data
     - name: copy local uploads directory to remote
       copy:
-        src: "{{ ansistrano_deploy_to }}/shared/web/uploads"
-        dest: "{{ playbook_dir }}/../../web"
+        src: "{{ playbook_dir }}/../../web/uploads"
+        dest: "{{ vhost_path }}/shared/web"
         owner: www-data
         group: www-data

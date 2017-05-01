@@ -1,7 +1,13 @@
 - name: copy parameters.yml production file
   copy:
-    src: "{{ playbook_dir}}/parameters_prod.yml"
+    src: "{{ playbook_dir}}/vars/parameters_prod.yml"
     dest: "{{ ansistrano_release_path.stdout }}/app/config/parameters.yml"
+- name: refresh cache
+  shell: chdir={{ansistrano_release_path.stdout}}
+    SYMFONY_ENV={{symfony_env}} {{symfony_php_path}} {{symfony_console_path}} cache:clear --no-warmup {{symfony_cache_options}}
+- name: warm-up cache again
+  shell: chdir={{ansistrano_release_path.stdout}}
+    SYMFONY_ENV={{symfony_env}} {{symfony_php_path}} {{symfony_console_path}} cache:warmup {{symfony_cache_options}}
 - name: fix symfony cache directory apache ownership
   file:
     path: "{{ ansistrano_release_path.stdout }}/app/cache/prod"
