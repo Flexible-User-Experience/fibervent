@@ -33,7 +33,7 @@
         "liip/imagine-bundle": "^1.0",
         "mewesk/twig-excel-bundle": "2.x-dev",
         "oh/google-map-form-type-bundle": "^1.0",
-        "php": ">=7.0.0",
+        "php": ">=7.1.0",
         "sensio/distribution-bundle": "~5.0",
         "sensio/framework-extra-bundle": "^3.0.2",
         "sonata-project/admin-bundle": "^3.0",
