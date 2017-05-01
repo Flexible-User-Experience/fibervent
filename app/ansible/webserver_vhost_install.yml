@@ -6,7 +6,7 @@
   tasks:
     - name: install new apache virtual host in production server
       template:
-        src: "{{ playbook_dir}}/templates/vhost.conf"
+        src: "{{ playbook_dir}}/templates/vhost_ssl.conf"
         dest: /etc/apache2/sites-available/{{ vhost_priority }}-{{ vhost_name }}.conf
     - name: enable new apache virtual host in production server
       command: a2ensite {{ vhost_priority }}-{{ vhost_name }}
