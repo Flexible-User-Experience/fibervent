@@ -1,22 +1,16 @@
 - name: copy parameters.yml production file
   copy:
     src: "{{ playbook_dir}}/parameters_prod.yml"
-    dest: "{{ ansistrano_deploy_to }}/current/app/config/parameters.yml"
+    dest: "{{ ansistrano_release_path.stdout }}/app/config/parameters.yml"
 - name: fix symfony cache directory apache ownership
   file:
-    path: "{{ ansistrano_deploy_to }}/current/app/cache/prod"
-    recurse: yes
-    owner: www-data
-    group: www-data
-- name: fix symfony logs directory apache ownership
-  file:
-    path: "{{ ansistrano_deploy_to }}/shared/app/logs"
+    path: "{{ ansistrano_release_path.stdout }}/app/cache/prod"
     recurse: yes
     owner: www-data
     group: www-data
 - name: fix symfony web directory apache ownership
   file:
-    path: "{{ ansistrano_deploy_to }}/current/web"
+    path: "{{ ansistrano_release_path.stdout }}/web"
     recurse: yes
     follow: yes
     owner: www-data

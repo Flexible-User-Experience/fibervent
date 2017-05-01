@@ -1,0 +1,26 @@
+---
+- hosts: s6
+  gather_facts: false
+  vars_files:
+    - "{{ playbook_dir }}/vars/config.yml"
+  tasks:
+    - name: dump remote database
+      mysql_db:
+        state: dump
+        name: "{{ mysql_db_name }}"
+        login_user: "{{ mysql_db_user }}"
+        login_password: "{{ mysql_db_password }}"
+        target: "/tmp/remote-{{ mysql_db_name }}.sql.bz2"
+    - name: copy remote database dump file to local
+      fetch:
+        src: "/tmp/remote-{{ mysql_db_name }}.sql.bz2"
+        dest: "/tmp"
+        flat: yes
+    - name: load dumb file to local database
+      delegate_to: mother
+      mysql_db:
+        state: import
+        name: "{{ mysql_db_name }}"
+        login_user: "{{ mysql_db_user }}"
+        login_password: "{{ mysql_db_password }}"
+        target: "/tmp/remote-{{ mysql_db_name }}.sql.bz2"

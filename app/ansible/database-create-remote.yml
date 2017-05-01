@@ -1,0 +1,19 @@
+---
+- hosts: s6
+  gather_facts: false
+  vars_files:
+    - "{{ playbook_dir }}/vars/config.yml"
+  tasks:
+    - name: create remote database
+      mysql_db:
+        state: present
+        name: "{{ mysql_db_name }}"
+        login_user: "{{ mysql_db_root_user }}"
+        login_password: "{{ mysql_db_root_password }}"
+    - name: set user privileges
+      mysql_user:
+        state: present
+        name: "{{ mysql_db_user }}"
+        login_user: "{{ mysql_db_root_user }}"
+        login_password: "{{ mysql_db_root_password }}"
+        priv: "{{ mysql_db_name }}.*:ALL"
