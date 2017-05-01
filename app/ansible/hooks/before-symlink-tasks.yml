@@ -1,6 +1,6 @@
 - name: copy parameters.yml production file
   copy:
-    src: "{{ playbook_dir}}/parameters_prod.yml"
+    src: "{{ playbook_dir}}/vars/parameters_prod.yml"
     dest: "{{ ansistrano_release_path.stdout }}/app/config/parameters.yml"
 - name: fix symfony cache directory apache ownership
   file:
