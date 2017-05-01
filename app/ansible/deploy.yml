@@ -1,0 +1,37 @@
+---
+- name: Deploy project to production server
+  hosts: s6
+  gather_facts: false
+  roles:
+    - { role: "carlosbuenosvinos.ansistrano-deploy" }
+    - { role: "cbrunnkvist.ansistrano-symfony-deploy" }
+  vars_files:
+    - config.yml
+  vars:
+    # ansistrano deploys config
+    ansistrano_deploy_from: "{{ playbook_dir }}/../../"
+    ansistrano_deploy_to: "{{ vhost_path }}"
+    ansistrano_keep_releases: 3
+    # ansistrano shared resources
+    ansistrano_shared_paths:
+      - "app/logs"
+      - "web/media"
+    ansistrano_shared_files: []
+    ansistrano_ensure_shared_paths_exist: yes
+    ansistrano_ensure_basedirs_shared_files_exist: yes
+    # ansistrano repository config
+    ansistrano_deploy_via: "git"
+    ansistrano_git_repo: "{{ vhost_git_clone_repo }}"
+    ansistrano_git_branch: "master"
+    # ansistrano hooks
+    ansistrano_before_symlink_shared_tasks_file: "{{ playbook_dir }}/hooks/before-symlink-tasks.yml"
+    # symfony config
+    symfony_console_path: "app/console"
+    symfony_run_composer: true
+    symfony_composer_path: "{{ ansistrano_deploy_to }}/composer.phar"
+    symfony_composer_options: "--no-dev --optimize-autoloader --no-interaction"
+    symfony_composer_self_update: false
+    symfony_run_assets_install: true
+    symfony_run_assetic_dump: true
+    symfony_run_cache_clear_and_warmup: true
+    symfony_run_doctrine_migrations: false
