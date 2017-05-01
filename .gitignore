@@ -56,6 +56,7 @@
 # Ansible
 /app/ansible/config.yml
 /app/ansible/parameters_prod.yml
+/app/ansible/*.retry
 
 # Customs
 /dbreset.sh
