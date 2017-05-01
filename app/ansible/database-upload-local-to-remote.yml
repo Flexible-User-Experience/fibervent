@@ -16,12 +16,10 @@
       copy:
         src: "/tmp/local-{{ mysql_db_name }}.sql.bz2"
         dest: "/tmp/local-{{ mysql_db_name }}.sql.bz2"
-
-#    - name: load dumb file to local database
-#      delegate_to: mother
-#      mysql_db:
-#        state: import
-#        name: "{{ mysql_db_name }}"
-#        login_user: "{{ mysql_db_user }}"
-#        login_password: "{{ mysql_db_password }}"
-#        target: "/tmp/{{ mysql_db_name }}.sql.bz2"
+    - name: load dumb file to remote database
+      mysql_db:
+        state: import
+        name: "{{ mysql_db_name }}"
+        login_user: "{{ mysql_db_user }}"
+        login_password: "{{ mysql_db_password }}"
+        target: "/tmp/local-{{ mysql_db_name }}.sql.bz2"
