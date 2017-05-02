@@ -54,7 +54,7 @@
 /composer.phar
 
 # Ansible
-/app/ansible/vars/
+/app/ansible/vars/*
 !/app/ansible/vars/.gitkeep
 /app/ansible/*.retry
 
