@@ -4,6 +4,7 @@ namespace AppBundle\Admin;
 
 use AppBundle\Entity\Audit;
 use AppBundle\Entity\AuditWindmillBlade;
+use AppBundle\Entity\BladePhoto;
 use AppBundle\Enum\AuditDiagramTypeEnum;
 use AppBundle\Enum\AuditStatusEnum;
 use AppBundle\Enum\AuditTypeEnum;
@@ -396,6 +397,27 @@ class AuditAdmin extends AbstractBaseAdmin
         $auditWindmillBlade3
             ->setAudit($object)
             ->setWindmillBlade($windmillBlades[2]);
+
+        // create 4 empty photos slots per blade
+        $auditWindmillBlade1
+            ->addBladePhoto(new BladePhoto())
+            ->addBladePhoto(new BladePhoto())
+            ->addBladePhoto(new BladePhoto())
+            ->addBladePhoto(new BladePhoto())
+        ;
+        $auditWindmillBlade2
+            ->addBladePhoto(new BladePhoto())
+            ->addBladePhoto(new BladePhoto())
+            ->addBladePhoto(new BladePhoto())
+            ->addBladePhoto(new BladePhoto())
+        ;
+        $auditWindmillBlade3
+            ->addBladePhoto(new BladePhoto())
+            ->addBladePhoto(new BladePhoto())
+            ->addBladePhoto(new BladePhoto())
+            ->addBladePhoto(new BladePhoto())
+        ;
+
         $object
             ->addAuditWindmillBlade($auditWindmillBlade1)
             ->addAuditWindmillBlade($auditWindmillBlade2)
