@@ -4,6 +4,7 @@ namespace AppBundle\Admin;
 
 use AppBundle\Entity\Audit;
 use AppBundle\Entity\AuditWindmillBlade;
+use AppBundle\Entity\BladePhoto;
 use AppBundle\Enum\AuditDiagramTypeEnum;
 use AppBundle\Enum\AuditStatusEnum;
 use AppBundle\Enum\AuditTypeEnum;
@@ -381,7 +382,7 @@ class AuditAdmin extends AbstractBaseAdmin
      */
     public function prePersist($object)
     {
-        //Set three auditwindmillblade entities
+        // create the related three auditwindmillblade entities
         $windmillBlades = $object->getWindmill()->getWindmillBlades();
 
         $auditWindmillBlade1 = new AuditWindmillBlade();
@@ -396,6 +397,27 @@ class AuditAdmin extends AbstractBaseAdmin
         $auditWindmillBlade3
             ->setAudit($object)
             ->setWindmillBlade($windmillBlades[2]);
+
+        // create 4 empty photos slots per blade
+        $auditWindmillBlade1
+            ->addBladePhoto(new BladePhoto())
+            ->addBladePhoto(new BladePhoto())
+            ->addBladePhoto(new BladePhoto())
+            ->addBladePhoto(new BladePhoto())
+        ;
+        $auditWindmillBlade2
+            ->addBladePhoto(new BladePhoto())
+            ->addBladePhoto(new BladePhoto())
+            ->addBladePhoto(new BladePhoto())
+            ->addBladePhoto(new BladePhoto())
+        ;
+        $auditWindmillBlade3
+            ->addBladePhoto(new BladePhoto())
+            ->addBladePhoto(new BladePhoto())
+            ->addBladePhoto(new BladePhoto())
+            ->addBladePhoto(new BladePhoto())
+        ;
+
         $object
             ->addAuditWindmillBlade($auditWindmillBlade1)
             ->addAuditWindmillBlade($auditWindmillBlade2)
@@ -409,7 +431,22 @@ class AuditAdmin extends AbstractBaseAdmin
      */
     public function preUpdate($object)
     {
+        //// update the related three auditwindmillblade entities
         $this->commomPreEvent($object);
+
+        // fetch new windmill blades
+        $newWindmillBlades = $object->getWindmill()->getWindmillBlades();
+        // replace old relations
+        $currentAuditWindmillBlades = $object->getAuditWindmillBlades();
+        $currentAuditWindmillBlades[0]
+            ->setAudit($object)
+            ->setWindmillBlade($newWindmillBlades[0]);
+        $currentAuditWindmillBlades[1]
+            ->setAudit($object)
+            ->setWindmillBlade($newWindmillBlades[1]);
+        $currentAuditWindmillBlades[2]
+            ->setAudit($object)
+            ->setWindmillBlade($newWindmillBlades[2]);
     }
 
     /**

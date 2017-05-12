@@ -114,7 +114,7 @@ admin:
     here:
     for_help:
   audit:
-    title:
+    title: Audit
     windmill:
     observations:
     year: year

@@ -8,8 +8,8 @@
       mysql_db:
         state: dump
         name: "{{ mysql_db_name }}"
-        login_user: "{{ mysql_db_user }}"
-        login_password: "{{ mysql_db_password }}"
+        login_user: "{{ mysql_db_remote_user }}"
+        login_password: "{{ mysql_db_remote_password }}"
         target: "/tmp/remote-{{ mysql_db_name }}.sql.bz2"
     - name: copy remote database dump file to local
       fetch:
@@ -21,6 +21,6 @@
       mysql_db:
         state: import
         name: "{{ mysql_db_name }}"
-        login_user: "{{ mysql_db_user }}"
-        login_password: "{{ mysql_db_password }}"
+        login_user: "{{ mysql_db_local_user }}"
+        login_password: "{{ mysql_db_local_password }}"
         target: "/tmp/remote-{{ mysql_db_name }}.sql.bz2"

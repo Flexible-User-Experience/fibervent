@@ -1,0 +1,4 @@
+- name: reloaded apache service
+  service:
+    state: reloaded
+    name: "php{{ vhost_php_version }}-fpm"
