@@ -8,6 +8,7 @@
   vars_files:
     - "{{ playbook_dir }}/vars/config.yml"
   vars:
+    # sy
     # ansistrano deploys config
     ansistrano_deploy_from: "{{ playbook_dir }}/../../"
     ansistrano_deploy_to: "{{ vhost_path }}"
