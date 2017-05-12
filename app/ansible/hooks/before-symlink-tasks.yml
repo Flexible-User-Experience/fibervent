@@ -1,7 +1,3 @@
-- name: copy parameters.yml production file
-  copy:
-    src: "{{ playbook_dir}}/vars/parameters_prod.yml"
-    dest: "{{ ansistrano_release_path.stdout }}/app/config/parameters.yml"
 - name: refresh cache
   shell: chdir={{ansistrano_release_path.stdout}}
     SYMFONY_ENV={{symfony_env}} {{symfony_php_path}} {{symfony_console_path}} cache:clear --no-warmup {{symfony_cache_options}}

@@ -1,0 +1,4 @@
+- name: copy parameters.yml production file
+  copy:
+    src: "{{ playbook_dir}}/vars/parameters_prod.yml"
+    dest: "{{ ansistrano_release_path.stdout }}/app/config/parameters.yml"

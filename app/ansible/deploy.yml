@@ -27,8 +27,10 @@
     ansistrano_git_repo: "{{ vhost_git_clone_repo }}"
     ansistrano_git_branch: "master"
     # ansistrano hooks
+    ansistrano_before_symlink_shared_tasks_file: "{{ playbook_dir }}/hooks/before-symlink-shared-tasks.yml"
     ansistrano_before_symlink_tasks_file: "{{ playbook_dir }}/hooks/before-symlink-tasks.yml"
     ansistrano_after_symlink_tasks_file: "{{ playbook_dir }}/hooks/after-symlink-tasks.yml"
+    ansistrano_after_cleanup_tasks_file: "{{ playbook_dir }}/hooks/after-cleanup-tasks.yml"
     # symfony config
     symfony_console_path: "app/console"
     symfony_run_composer: true
