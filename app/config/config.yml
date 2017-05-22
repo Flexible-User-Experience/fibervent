@@ -105,6 +105,9 @@ fos_user:
             handler:            fos_user.profile.form.handler.default
             name:               fos_user_profile_form
             validation_groups:  [ Authentication ]
+    from_email:
+        address:     "%private_editor_test_email%"
+        sender_name: "%project_web_title%"
 
 # A2lix Translations
 a2lix_translation_form:

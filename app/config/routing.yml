@@ -1,19 +1,28 @@
-sonata:
+admin_area:
     resource: "@SonataAdminBundle/Resources/config/routing/sonata_admin.xml"
     prefix:   /admin
+    options:  { i18n: false }
 
 _sonata_admin:
     resource: .
     type:     sonata_admin
     prefix:   /admin
+    options:  { i18n: false }
 
 sonata_user_admin_security:
-    resource: '@SonataUserBundle/Resources/config/routing/admin_security.xml'
+    resource: "@SonataUserBundle/Resources/config/routing/admin_security.xml"
     prefix:   /admin
+    options:  { i18n: false }
 
 sonata_user_admin_resetting:
-    resource: "@SonataUserBundle/Resources/config/routing/sonata_resetting_1.xml"
+    resource: "@SonataUserBundle/Resources/config/routing/admin_resetting.xml"
     prefix:   /admin/resetting
+    options:  { i18n: false }
+
+fos_user_resetting:
+    resource: "@FOSUserBundle/Resources/config/routing/resetting.xml"
+    prefix:   /admin/resetting
+    options:  { i18n: false }
 
 app_front:
     resource: '@AppBundle/Controller'
