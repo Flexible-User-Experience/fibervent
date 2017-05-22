@@ -10,18 +10,7 @@
 
 {% block sonata_wrapper %}
     <div class="login-box">
-        <div class="login-logo">
-            <a href="{{ path('sonata_admin_dashboard') }}">
-                {% if 'single_image' == sonata_admin.adminPool.getOption('title_mode') or 'both' == sonata_admin.adminPool.getOption('title_mode') %}
-                    <div>
-                        <img src="{{ asset(sonata_admin.adminPool.titlelogo) }}" alt="{{ sonata_admin.adminPool.title }}">
-                    </div>
-                {% endif %}
-                {#{% if 'single_text' == sonata_admin.adminPool.getOption('title_mode') or 'both' == sonata_admin.adminPool.getOption('title_mode') %}#}
-                    {#<span>{{ sonata_admin.adminPool.title }}</span>#}
-                {#{% endif %}#}
-            </a>
-        </div>
+        <img src="{{ asset('bundles/app/images/fibervent_logo_black_login.png') }}" alt="{{ sonata_admin.adminPool.title }}" class="img-responsive">
         <div class="login-box-body">
             {% block sonata_user_login_form %}
                 {% block sonata_user_login_error %}
