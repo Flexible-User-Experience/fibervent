@@ -10,7 +10,7 @@
 
 {% block sonata_wrapper %}
     <div class="login-box">
-        <img src="{{ asset('bundles/app/images/fibervent_logo_black_login.png') }}" alt="{{ sonata_admin.adminPool.title }}" class="img-responsive">
+        {% include '@SonataUser/Includes/login_logo_fragment.html.twig' %}
         <div class="login-box-body">
             {% block sonata_user_login_form %}
                 {% block sonata_user_login_error %}
@@ -48,8 +48,6 @@
                 <a href="{{ reset_route }}">{{ 'forgotten_password' | trans({}, 'SonataUserBundle') }}</a>
             {% endblock %}
         </div>
-        <div class="login-box-bottom" style="margin-top:5px">
-            <span>{{ admin_tag_version }}</span>
-        </div>
+        {% include '@SonataUser/Includes/login_footer_fragment.html.twig' %}
     </div>
 {% endblock sonata_wrapper %}
