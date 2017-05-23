@@ -68,9 +68,9 @@ class BladeDamage extends AbstractBase
     /**
      * @var integer
      *
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", options={"default"=1})
      */
-    protected $number;
+    protected $number = 1;
 
     /**
      * @var Damage
@@ -99,6 +99,11 @@ class BladeDamage extends AbstractBase
      * @ORM\OneToMany(targetEntity="Photo", mappedBy="bladeDamage", cascade={"persist", "remove"}, orphanRemoval=true))
      */
     private $photos;
+
+    /**
+     * @var integer
+     */
+    private $calculatedNumberByRadius;
 
     /**
      *
@@ -416,6 +421,26 @@ class BladeDamage extends AbstractBase
     public function removePhoto(Photo $photo)
     {
         $this->photos->removeElement($photo);
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getCalculatedNumberByRadius()
+    {
+        return $this->getAuditWindmillBlade()->getCalculatedNumberByRadius($this);
+    }
+
+    /**
+     * @param int $calculatedNumberByRadius
+     *
+     * @return $this
+     */
+    public function setCalculatedNumberByRadius($calculatedNumberByRadius)
+    {
+        $this->calculatedNumberByRadius = $calculatedNumberByRadius;
 
         return $this;
     }

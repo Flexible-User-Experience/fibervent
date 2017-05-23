@@ -38,7 +38,7 @@ class AuditWindmillBlade extends AbstractBase
      * @var ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="BladeDamage", mappedBy="auditWindmillBlade", cascade={"persist", "remove"}, orphanRemoval=true))
-     * @ORM\OrderBy({"number"="ASC"})
+     * @ORM\OrderBy({"radius"="ASC"})
      */
     private $bladeDamages;
 
@@ -248,6 +248,30 @@ class AuditWindmillBlade extends AbstractBase
         $this->bladePhotos->removeElement($bladePhoto);
 
         return $this;
+    }
+
+    /**
+     * @param BladeDamage $bladeDamage
+     *
+     * @return integer|null
+     */
+    public function getCalculatedNumberByRadius(BladeDamage $bladeDamage)
+    {
+        $result = null;
+        if (count($this->getBladeDamages()) > 0) {
+            $result = 1;
+            /** @var BladeDamage $item */
+            foreach ($this->getBladeDamages() as $item) {
+                if ($item->getId() == $bladeDamage->getId()) {
+                    break;
+                }
+                $result++;
+            }
+        } else {
+            $result = 1;
+        }
+
+        return $result;
     }
 
     /**
