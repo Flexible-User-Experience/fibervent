@@ -10,6 +10,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 
 /**
  * Class BladeDamageAdmin
@@ -47,11 +48,12 @@ class BladeDamageAdmin extends AbstractBaseAdmin
         $formMapper
             ->with('admin.common.general', $this->getFormMdSuccessBoxArray(3))
             ->add(
-                'number',
-                null,
+                'calculatedNumberByRadius',
+                NumberType::class,
                 array(
                     'label'    => 'admin.bladedamage.number',
                     'required' => false,
+                    'disabled' => true,
                 )
             )
             ->add(
