@@ -45,17 +45,21 @@ class BladeDamageAdmin extends AbstractBaseAdmin
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
+        $formMapper->with('admin.common.general', $this->getFormMdSuccessBoxArray(3));
+        if ($this->getRootCode() != $this->getCode()) {
+            // only available on embeded admin
+            $formMapper
+                ->add(
+                    'calculatedNumberByRadius',
+                    NumberType::class,
+                    array(
+                        'label'    => 'admin.bladedamage.number',
+                        'required' => false,
+                        'disabled' => true,
+                    )
+                );
+        }
         $formMapper
-            ->with('admin.common.general', $this->getFormMdSuccessBoxArray(3))
-            ->add(
-                'calculatedNumberByRadius',
-                NumberType::class,
-                array(
-                    'label'    => 'admin.bladedamage.number',
-                    'required' => false,
-                    'disabled' => true,
-                )
-            )
             ->add(
                 'damage',
                 'sonata_type_model',
