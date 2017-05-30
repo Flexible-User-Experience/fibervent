@@ -72,6 +72,7 @@ pdf:
     BS_dist_cm: '%dist%cm BF'
     BA_dist_m: '%dist%m SP'
     BS_dist_m: '%dist%m SS'
+    no_damages_found: No damages found in blade
   set_document_information:
     1_title: 'Auditoria #'
     2_subject: Inspection des pales du parc eolien

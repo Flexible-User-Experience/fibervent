@@ -700,6 +700,173 @@
                             }
                         } %}{{ bladeDamage.damageCategory.category }}{% endxlscell %}
                     {% endxlsrow %}
+                {% else %}
+                    {% xlsrow %}
+                        {% xlscell 0 {
+                            style: {
+                                borders: {
+                                    allborders: {
+                                        style: 'thin',
+                                        color: {
+                                            rgb: '8FABD9'
+                                        }
+                                    }
+                                },
+                                alignment: {
+                                    horizontal: 'center',
+                                    vertical: 'center'
+                                }
+                            },
+                        }%}{{ audit.windmill.code }}{% endxlscell %}
+                        {% xlscell 1 {
+                            style: {
+                                borders: {
+                                    allborders: {
+                                        style: 'thin',
+                                        color: {
+                                            rgb: '8FABD9'
+                                        }
+                                    }
+                                },
+                                alignment: {
+                                    horizontal: 'center',
+                                    vertical: 'center'
+                                }
+                            },
+                        }%}{{ auditWindmillBlade.windmillBlade.order }}{% endxlscell %}
+                        {% xlscell 2 {
+                            style: {
+                                borders: {
+                                    allborders: {
+                                        style: 'thin',
+                                        color: {
+                                            rgb: '8FABD9'
+                                        }
+                                    }
+                                },
+                                alignment: {
+                                    horizontal: 'center',
+                                    vertical: 'center'
+                                }
+                            },
+                        }%}-{% endxlscell %}
+                        {% xlscell 3 {
+                            style: {
+                                borders: {
+                                    allborders: {
+                                        style: 'thin',
+                                        color: {
+                                            rgb: '8FABD9'
+                                        }
+                                    }
+                                },
+                                alignment: {
+                                    horizontal: 'center',
+                                    vertical: 'center'
+                                }
+                            },
+                            dataType: 's',
+                            isExplicitValue: true
+                        }%}0.00{% endxlscell %}
+                        {% xlscell 4 {
+                            style: {
+                                borders: {
+                                    allborders: {
+                                        style: 'thin',
+                                        color: {
+                                            rgb: '8FABD9'
+                                        }
+                                    }
+                                },
+                                alignment: {
+                                    horizontal: 'center',
+                                    vertical: 'center'
+                                }
+                            },
+                        }%}-{% endxlscell %}
+                        {% xlscell 5 {
+                            style: {
+                                borders: {
+                                    allborders: {
+                                        style: 'thin',
+                                        color: {
+                                            rgb: '8FABD9'
+                                        }
+                                    }
+                                },
+                                alignment: {
+                                    horizontal: 'center',
+                                    vertical: 'center'
+                                }
+                            },
+                        }%}-{% endxlscell %}
+                        {% xlscell 6 {
+                            style: {
+                                borders: {
+                                    allborders: {
+                                        style: 'thin',
+                                        color: {
+                                            rgb: '8FABD9'
+                                        }
+                                    }
+                                },
+                                alignment: {
+                                    horizontal: 'center',
+                                    vertical: 'center'
+                                }
+                            },
+                        }%}-{% endxlscell %}
+                        {% xlscell 7 {
+                            style: {
+                                borders: {
+                                    allborders: {
+                                        style: 'thin',
+                                        color: {
+                                            rgb: '8FABD9'
+                                        }
+                                    }
+                                },
+                                alignment: {
+                                    horizontal: 'center',
+                                    vertical: 'center'
+                                }
+                            },
+                        }%}-{% endxlscell %}
+                        {% xlscell 8 {
+                            style: {
+                                borders: {
+                                    allborders: {
+                                        style: 'thin',
+                                        color: {
+                                            rgb: '8FABD9'
+                                        }
+                                    }
+                                }
+                            }
+                        }%}{{ 'pdf.damage_table_body.no_damages_found' | trans({}, 'messages', locale) }}{% endxlscell %}
+                        {% xlscell 9 {
+                            style: {
+                                borders: {
+                                    allborders: {
+                                        style: 'thin',
+                                        color: {
+                                            rgb: '8FABD9'
+                                        }
+                                    }
+                                },
+                                alignment: {
+                                    horizontal: 'center',
+                                    vertical: 'center'
+                                },
+                                fill: {
+                                    type: 'solid',
+                                    color: {
+                                        rgb: 'FFFFFF'
+                                    }
+                                }
+                            }
+                        } %}0{% endxlscell %}
+                    {% endxlsrow %}
                 {% endfor %}
             {% endfor %}
         {% endfor %}
