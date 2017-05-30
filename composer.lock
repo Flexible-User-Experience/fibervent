@@ -4922,16 +4922,16 @@
         },
         {
             "name": "symfony/symfony",
-            "version": "v2.8.20",
+            "version": "v2.8.21",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "bbe1eae0c213e45da9fb0c6abb43aff415a3dcdd"
+                "reference": "17002cbb4be8b3b0d6516defe4ed839ad459994b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/bbe1eae0c213e45da9fb0c6abb43aff415a3dcdd",
-                "reference": "bbe1eae0c213e45da9fb0c6abb43aff415a3dcdd",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/17002cbb4be8b3b0d6516defe4ed839ad459994b",
+                "reference": "17002cbb4be8b3b0d6516defe4ed839ad459994b",
                 "shasum": ""
             },
             "require": {
@@ -5055,7 +5055,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2017-05-01T16:14:31+00:00"
+            "time": "2017-05-29T19:15:13+00:00"
         },
         {
             "name": "tecnickcom/tcpdf",
@@ -5122,23 +5122,24 @@
         },
         {
             "name": "twig/extensions",
-            "version": "v1.4.1",
+            "version": "v1.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig-extensions.git",
-                "reference": "f0bb8431c8691f5a39f1017d9a5967a082bf01ff"
+                "reference": "d6d74d6f3213a9574c460c4390c25a1a67c17cc3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig-extensions/zipball/f0bb8431c8691f5a39f1017d9a5967a082bf01ff",
-                "reference": "f0bb8431c8691f5a39f1017d9a5967a082bf01ff",
+                "url": "https://api.github.com/repos/twigphp/Twig-extensions/zipball/d6d74d6f3213a9574c460c4390c25a1a67c17cc3",
+                "reference": "d6d74d6f3213a9574c460c4390c25a1a67c17cc3",
                 "shasum": ""
             },
             "require": {
-                "twig/twig": "~1.20|~2.0"
+                "twig/twig": "~1.27|~2.0"
             },
             "require-dev": {
-                "symfony/translation": "~2.3"
+                "symfony/phpunit-bridge": "~3.3@dev",
+                "symfony/translation": "~2.3|~3.0"
             },
             "suggest": {
                 "symfony/translation": "Allow the time_diff output to be translated"
@@ -5146,12 +5147,15 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.4-dev"
+                    "dev-master": "1.5-dev"
                 }
             },
             "autoload": {
                 "psr-0": {
                     "Twig_Extensions_": "lib/"
+                },
+                "psr-4": {
+                    "Twig\\Extensions\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -5170,7 +5174,7 @@
                 "i18n",
                 "text"
             ],
-            "time": "2016-10-25T17:34:14+00:00"
+            "time": "2017-05-24T06:24:07+00:00"
         },
         {
             "name": "twig/twig",
@@ -5319,17 +5323,17 @@
         },
         {
             "name": "whiteoctober/tcpdf-bundle",
-            "version": "1.0.2",
+            "version": "1.0.3",
             "target-dir": "WhiteOctober/TCPDFBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/whiteoctober/WhiteOctoberTCPDFBundle.git",
-                "reference": "e134861af736518ca24f4eab69699073460e4c08"
+                "reference": "3a705b0f416792351fc531eb086e6f5caf5339a5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/whiteoctober/WhiteOctoberTCPDFBundle/zipball/e134861af736518ca24f4eab69699073460e4c08",
-                "reference": "e134861af736518ca24f4eab69699073460e4c08",
+                "url": "https://api.github.com/repos/whiteoctober/WhiteOctoberTCPDFBundle/zipball/3a705b0f416792351fc531eb086e6f5caf5339a5",
+                "reference": "3a705b0f416792351fc531eb086e6f5caf5339a5",
                 "shasum": ""
             },
             "require": {
@@ -5359,7 +5363,7 @@
                 "TCPDF",
                 "pdf"
             ],
-            "time": "2015-09-18T08:47:03+00:00"
+            "time": "2017-05-25T07:39:11+00:00"
         },
         {
             "name": "zendframework/zend-code",
