@@ -50,6 +50,10 @@ class AuthCustomerService
      */
     public function isAuditOwnResource(Audit $audit)
     {
+        if ($this->acs->isGranted(UserRolesEnum::ROLE_ADMIN)) {
+            return true;
+        }
+
         if ($this->acs->isGranted(UserRolesEnum::ROLE_CUSTOMER) && $audit->getCustomer()->getId() == $this->getUser()->getCustomer()->getId()) {
             return true;
         }
