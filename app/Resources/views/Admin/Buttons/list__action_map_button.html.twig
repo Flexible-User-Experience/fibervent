@@ -1,3 +1,3 @@
-{% if admin.isGranted('EDIT', object) and admin.hasRoute('map') %}
+{% if admin.isGranted('MAP', object) and admin.hasRoute('map') %}
     <a href="{{ admin.generateObjectUrl('map', object) }}" class="btn btn-sm btn-default edit_link" title="Mapa"><i class="fa fa-map-marker"></i></a>
 {% endif %}

@@ -51,6 +51,28 @@ class WindfarmAdmin extends AbstractBaseAdmin
     }
 
     /**
+     * @param string $context
+     *
+     * @return QueryBuilder
+     */
+    public function createQuery($context = 'list')
+    {
+        /** @var QueryBuilder $query */
+        $query = parent::createQuery($context);
+        // Customer filter
+        if ($this->acs->isGranted(UserRolesEnum::ROLE_CUSTOMER)) {
+            /** @var User $user */
+            $user = $this->tss->getToken()->getUser();
+            $query
+                ->andWhere($query->getRootAliases()[0].'.customer = :customer')
+                ->setParameter('customer', $user->getCustomer())
+            ;
+        }
+
+        return $query;
+    }
+
+    /**
      * @param FormMapper $formMapper
      */
     protected function configureFormFields(FormMapper $formMapper)
@@ -342,27 +364,5 @@ class WindfarmAdmin extends AbstractBaseAdmin
                     ),
                 )
             );
-    }
-
-    /**
-     * @param string $context
-     *
-     * @return QueryBuilder
-     */
-    public function createQuery($context = 'list')
-    {
-        /** @var QueryBuilder $query */
-        $query = parent::createQuery($context);
-        // Customer filter
-        if ($this->acs->isGranted(UserRolesEnum::ROLE_CUSTOMER) && !$this->acs->isGranted(UserRolesEnum::ROLE_OPERATOR)) {
-            /** @var User $user */
-            $user = $this->tss->getToken()->getUser();
-            $query
-                ->andWhere($query->getRootAliases()[0].'.customer = :customer')
-                ->setParameter('customer', $user->getCustomer())
-            ;
-        }
-
-        return $query;
     }
 }
