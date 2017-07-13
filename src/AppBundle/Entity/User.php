@@ -144,13 +144,13 @@ class User extends BaseUser
     public function getBsStatusRole()
     {
         $status = 'primary';
-        if ($this->hasRole('ROLE_OPERATOR')) {
+        if ($this->hasRole(UserRolesEnum::ROLE_OPERATOR)) {
             $status = 'success';
-        } elseif ($this->hasRole('ROLE_TECHNICIAN')) {
+        } elseif ($this->hasRole(UserRolesEnum::ROLE_TECHNICIAN)) {
             $status = 'info';
-        } elseif ($this->hasRole('ROLE_ADMIN')) {
+        } elseif ($this->hasRole(UserRolesEnum::ROLE_ADMIN)) {
             $status = 'warning';
-        } elseif ($this->hasRole('ROLE_SUPER_ADMIN')) {
+        } elseif ($this->hasRole(UserRolesEnum::ROLE_SUPER_ADMIN)) {
             $status = 'danger';
         }
         
@@ -163,13 +163,15 @@ class User extends BaseUser
     public function getRoleString()
     {
         $role = UserRolesEnum::getEnumArray()[UserRolesEnum::ROLE_CUSTOMER];
-        if ($this->hasRole('ROLE_OPERATOR')) {
+        if ($this->hasRole(UserRolesEnum::ROLE_CUSTOMER)) {
+            $role = UserRolesEnum::getEnumArray()[UserRolesEnum::ROLE_CUSTOMER];
+        } elseif ($this->hasRole(UserRolesEnum::ROLE_OPERATOR)) {
             $role = UserRolesEnum::getEnumArray()[UserRolesEnum::ROLE_OPERATOR];
-        } elseif ($this->hasRole('ROLE_TECHNICIAN')) {
+        } elseif ($this->hasRole(UserRolesEnum::ROLE_TECHNICIAN)) {
             $role = UserRolesEnum::getEnumArray()[UserRolesEnum::ROLE_TECHNICIAN];
-        } elseif ($this->hasRole('ROLE_ADMIN')) {
+        } elseif ($this->hasRole(UserRolesEnum::ROLE_ADMIN)) {
             $role = UserRolesEnum::getEnumArray()[UserRolesEnum::ROLE_ADMIN];
-        } elseif ($this->hasRole('ROLE_SUPER_ADMIN')) {
+        } elseif ($this->hasRole(UserRolesEnum::ROLE_SUPER_ADMIN)) {
             $role = UserRolesEnum::getEnumArray()[UserRolesEnum::ROLE_SUPER_ADMIN];
         }
 

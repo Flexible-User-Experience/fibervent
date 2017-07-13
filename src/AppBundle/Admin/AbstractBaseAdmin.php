@@ -16,7 +16,6 @@ use AppBundle\Service\RepositoriesService;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Liip\ImagineBundle\Imagine\Cache\CacheManager;
-use Symfony\Bundle\FrameworkBundle\Translation\Translator;
 use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
 /**
