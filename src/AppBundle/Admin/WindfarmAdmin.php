@@ -2,7 +2,10 @@
 
 namespace AppBundle\Admin;
 
+use AppBundle\Entity\User;
+use AppBundle\Enum\UserRolesEnum;
 use AppBundle\Enum\WindfarmLanguageEnum;
+use Doctrine\ORM\QueryBuilder;
 use Oh\GoogleMapFormTypeBundle\Form\Type\GoogleMapType;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
@@ -337,5 +340,27 @@ class WindfarmAdmin extends AbstractBaseAdmin
                     )
                 )
             );
+    }
+
+    /**
+     * @param string $context
+     *
+     * @return QueryBuilder
+     */
+    public function createQuery($context = 'list')
+    {
+        /** @var QueryBuilder $query */
+        $query = parent::createQuery($context);
+        // Customer filter
+        if ($this->acs->isGranted(UserRolesEnum::ROLE_CUSTOMER) && !$this->acs->isGranted(UserRolesEnum::ROLE_OPERATOR)) {
+            /** @var User $user */
+            $user = $this->tss->getToken()->getUser();
+            $query
+                ->andWhere($query->getRootAliases()[0].'.customer = :customer')
+                ->setParameter('customer', $user->getCustomer())
+            ;
+        }
+
+        return $query;
     }
 }
