@@ -20,3 +20,7 @@ textarea { resize: vertical; }
 .logo img {
     max-width: 100%;
 }
+
+.main-header .logo {
+    width: 231px;
+}
