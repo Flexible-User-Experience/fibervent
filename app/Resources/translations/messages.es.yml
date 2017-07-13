@@ -211,6 +211,7 @@ admin:
     rol: Rol
     locked: Bloqueado
     language: Idioma
+    profile_flash: Tu perfil se ha actualizado correctamente.
   windfarm:
     title: Parque Eólico
     customer: Cliente

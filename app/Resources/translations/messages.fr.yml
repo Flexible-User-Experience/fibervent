@@ -211,6 +211,7 @@ admin:
     rol:
     locked:
     language:
+    profile_flash:
   windfarm:
     title:
     customer:
