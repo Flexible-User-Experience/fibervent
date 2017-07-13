@@ -49,6 +49,7 @@ pdf:
     2_observations: OBSERVACIONES
   blade_damage_images:
     1_general_blade_views: 1 VISTAS GENERALES PALA
+    1_general_blade_views_short: VISTAS GENERALES PALA
   inspection_description:
     1_contact: 4. CONTACTO
     2_description: 'Podrá contactar con nosotros en las siguientes direcciones y teléfonos:'

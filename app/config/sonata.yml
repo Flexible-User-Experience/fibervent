@@ -32,7 +32,7 @@ sonata_admin:
         handler: sonata.admin.security.handler.role
     templates:
         layout:    "::Admin/layout.html.twig"
-        dashboard: "::Admin/dashboard.html.twig"
+#        dashboard: "::Admin/dashboard.html.twig" # enable/disable support email at footer
         edit:      "::Admin/edit.html.twig"
     dashboard:
         groups:

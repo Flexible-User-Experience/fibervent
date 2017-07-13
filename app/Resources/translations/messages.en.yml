@@ -49,6 +49,7 @@ pdf:
     2_observations: OBSERVATIONS
   blade_damage_images:
     1_general_blade_views: 1 GENERAL OVERVIEWS BLADE
+    1_general_blade_views_short: GENERAL OVERVIEWS BLADE
   inspection_description:
     1_contact: 4. CONTACT
     2_description: 'You can contact us in the following addresses and phone numbers:'
