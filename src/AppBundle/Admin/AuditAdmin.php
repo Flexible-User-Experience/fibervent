@@ -5,9 +5,11 @@ namespace AppBundle\Admin;
 use AppBundle\Entity\Audit;
 use AppBundle\Entity\AuditWindmillBlade;
 use AppBundle\Entity\BladePhoto;
+use AppBundle\Entity\User;
 use AppBundle\Enum\AuditDiagramTypeEnum;
 use AppBundle\Enum\AuditStatusEnum;
 use AppBundle\Enum\AuditTypeEnum;
+use AppBundle\Enum\UserRolesEnum;
 use AppBundle\Form\Type\AuditDiagramTypeFormType;
 use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -18,10 +20,10 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 /**
- * Class AuditAdmin
+ * Class AuditAdmin.
  *
  * @category Admin
- * @package  AppBundle\Admin
+ *
  * @author   Anton Serra <aserratorta@gmail.com>
  */
 class AuditAdmin extends AbstractBaseAdmin
@@ -29,12 +31,12 @@ class AuditAdmin extends AbstractBaseAdmin
     protected $classnameLabel = 'admin.audit.title';
     protected $baseRoutePattern = 'audits/audit';
     protected $datagridValues = array(
-        '_sort_by'    => 'beginDate',
+        '_sort_by' => 'beginDate',
         '_sort_order' => 'desc',
     );
 
     /**
-     * Configure route collection
+     * Configure route collection.
      *
      * @param RouteCollection $collection
      */
@@ -42,12 +44,12 @@ class AuditAdmin extends AbstractBaseAdmin
     {
         $collection
             ->remove('batch')
-            ->add('pdf', $this->getRouterIdParameter() . '/pdf')
-            ->add('email', $this->getRouterIdParameter() . '/email');
+            ->add('pdf', $this->getRouterIdParameter().'/pdf')
+            ->add('email', $this->getRouterIdParameter().'/email');
     }
 
     /**
-     * Override query list to reduce queries amount on list view (apply join strategy)
+     * Override query list to reduce queries amount on list view (apply join strategy).
      *
      * @param string $context context
      *
@@ -58,11 +60,20 @@ class AuditAdmin extends AbstractBaseAdmin
         /** @var QueryBuilder $query */
         $query = parent::createQuery($context);
         $query
-            ->select($query->getRootAliases()[0] . ', wm, wf, c, u')
-            ->join($query->getRootAliases()[0] . '.windmill', 'wm')
+            ->select($query->getRootAliases()[0].', wm, wf, c, u')
+            ->join($query->getRootAliases()[0].'.windmill', 'wm')
             ->join('wm.windfarm', 'wf')
             ->join('wf.customer', 'c')
-            ->leftJoin($query->getRootAliases()[0] . '.operators', 'u');
+            ->leftJoin($query->getRootAliases()[0].'.operators', 'u');
+        // Customer filter
+        if ($this->acs->isGranted(UserRolesEnum::ROLE_CUSTOMER)) {
+            /** @var User $user */
+            $user = $this->tss->getToken()->getUser();
+            $query
+                ->andWhere($query->getRootAliases()[0].'.customer = :customer')
+                ->setParameter('customer', $user->getCustomer())
+            ;
+        }
 
         return $query;
     }
@@ -78,22 +89,22 @@ class AuditAdmin extends AbstractBaseAdmin
                 'windmill',
                 'sonata_type_model',
                 array(
-                    'label'      => 'admin.audit.windmill',
-                    'btn_add'    => false,
+                    'label' => 'admin.audit.windmill',
+                    'btn_add' => false,
                     'btn_delete' => false,
-                    'required'   => true,
-                    'query'      => $this->wmr->findEnabledSortedByCustomerWindfarmAndWindmillCodeQ(),
+                    'required' => true,
+                    'query' => $this->wmr->findEnabledSortedByCustomerWindfarmAndWindmillCodeQ(),
                 )
             )
             ->add(
                 'observations',
                 TextareaType::class,
                 array(
-                    'label'    => 'admin.audit.observations',
+                    'label' => 'admin.audit.observations',
                     'required' => false,
-                    'attr'     => array(
+                    'attr' => array(
                         'rows' => 10,
-                    )
+                    ),
                 )
             )
             ->end()
@@ -102,7 +113,7 @@ class AuditAdmin extends AbstractBaseAdmin
                 'beginDate',
                 'sonata_type_date_picker',
                 array(
-                    'label'  => 'admin.audit.begindate',
+                    'label' => 'admin.audit.begindate',
                     'format' => 'd/M/y',
                 )
             )
@@ -110,8 +121,8 @@ class AuditAdmin extends AbstractBaseAdmin
                 'endDate',
                 'sonata_type_date_picker',
                 array(
-                    'label'    => 'admin.audit.enddate',
-                    'format'   => 'd/M/y',
+                    'label' => 'admin.audit.enddate',
+                    'format' => 'd/M/y',
                     'required' => false,
                 )
             )
@@ -119,21 +130,21 @@ class AuditAdmin extends AbstractBaseAdmin
                 'operators',
                 'sonata_type_model',
                 array(
-                    'label'      => 'admin.audit.operators',
-                    'multiple'   => true,
-                    'required'   => false,
-                    'btn_add'    => false,
+                    'label' => 'admin.audit.operators',
+                    'multiple' => true,
+                    'required' => false,
+                    'btn_add' => false,
                     'btn_delete' => false,
-                    'property'   => 'contactInfoString',
-                    'query'      => $this->ur->findAllTechniciansSortedByNameQ(),
+                    'property' => 'contactInfoString',
+                    'query' => $this->ur->findAllTechniciansSortedByNameQ(),
                 )
             )
             ->add(
                 'type',
                 ChoiceType::class,
                 array(
-                    'label'    => 'admin.audit.type',
-                    'choices'  => AuditTypeEnum::getEnumArray(),
+                    'label' => 'admin.audit.type',
+                    'choices' => AuditTypeEnum::getEnumArray(),
                     'multiple' => false,
                     'expanded' => false,
                     'required' => true,
@@ -143,8 +154,8 @@ class AuditAdmin extends AbstractBaseAdmin
                 'status',
                 ChoiceType::class,
                 array(
-                    'label'    => 'admin.audit.status',
-                    'choices'  => AuditStatusEnum::getEnumArray(),
+                    'label' => 'admin.audit.status',
+                    'choices' => AuditStatusEnum::getEnumArray(),
                     'multiple' => false,
                     'expanded' => false,
                     'required' => true,
@@ -156,8 +167,8 @@ class AuditAdmin extends AbstractBaseAdmin
                 'diagramType',
                 AuditDiagramTypeFormType::class,
                 array(
-                    'label'    => 'admin.audit.diagramtype',
-                    'choices'  => AuditDiagramTypeEnum::getEnumArray(),
+                    'label' => 'admin.audit.diagramtype',
+                    'choices' => AuditDiagramTypeEnum::getEnumArray(),
                     'multiple' => false,
                     'expanded' => true,
                     'required' => true,
@@ -171,16 +182,16 @@ class AuditAdmin extends AbstractBaseAdmin
                     'auditWindmillBlades',
                     'sonata_type_collection',
                     array(
-                        'label'              => ' ',
-                        'required'           => false,
-                        'btn_add'            => false,
+                        'label' => ' ',
+                        'required' => false,
+                        'btn_add' => false,
                         'cascade_validation' => true,
-                        'type_options'       => array(
+                        'type_options' => array(
                             'delete' => false,
-                        )
+                        ),
                     ),
                     array(
-                        'edit'   => 'inline',
+                        'edit' => 'inline',
                         'inline' => 'table',
                     )
                 )
@@ -198,7 +209,7 @@ class AuditAdmin extends AbstractBaseAdmin
                 'beginDate',
                 'doctrine_orm_date',
                 array(
-                    'label'      => 'admin.audit.begindate',
+                    'label' => 'admin.audit.begindate',
                     'field_type' => 'sonata_type_date_picker',
                 )
             )
@@ -206,7 +217,7 @@ class AuditAdmin extends AbstractBaseAdmin
                 'endDate',
                 'doctrine_orm_date',
                 array(
-                    'label'      => 'admin.audit.enddate',
+                    'label' => 'admin.audit.enddate',
                     'field_type' => 'sonata_type_date_picker',
                 )
             )
@@ -248,7 +259,7 @@ class AuditAdmin extends AbstractBaseAdmin
                 array(
                     'expanded' => false,
                     'multiple' => false,
-                    'choices'  => AuditStatusEnum::getEnumArray(),
+                    'choices' => AuditStatusEnum::getEnumArray(),
                 )
             )
             ->add(
@@ -261,7 +272,7 @@ class AuditAdmin extends AbstractBaseAdmin
                 array(
                     'expanded' => false,
                     'multiple' => false,
-                    'choices'  => AuditDiagramTypeEnum::getEnumArray(),
+                    'choices' => AuditDiagramTypeEnum::getEnumArray(),
                 )
             )
             ->add(
@@ -270,14 +281,14 @@ class AuditAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'admin.audit.year',
                     'show_filter' => true,
-                    'callback' => function($queryBuilder, $alias, $field, $value) {
+                    'callback' => function ($queryBuilder, $alias, $field, $value) {
                         if (!$value['value']) {
                             $currentYear = new \DateTime();
                             $value['value'] = intval($currentYear->format('Y'));
                         }
 
-                        /** @var QueryBuilder $queryBuilder */
-                        $queryBuilder->andWhere('YEAR(' . $alias .  '.beginDate) = :year');
+                        /* @var QueryBuilder $queryBuilder */
+                        $queryBuilder->andWhere('YEAR('.$alias.'.beginDate) = :year');
                         $queryBuilder->setParameter('year', $value['value']);
 
                         return true;
@@ -285,7 +296,7 @@ class AuditAdmin extends AbstractBaseAdmin
                 ),
                 'choice',
                 array(
-                    'choices'   => $this->ar->getYearChoices(),
+                    'choices' => $this->ar->getYearChoices(),
                     'required' => true,
                 )
             )
@@ -309,18 +320,18 @@ class AuditAdmin extends AbstractBaseAdmin
                 'beginDate',
                 null,
                 array(
-                    'label'  => 'admin.audit.begindate',
-                    'format' => 'd/m/Y'
+                    'label' => 'admin.audit.begindate',
+                    'format' => 'd/m/Y',
                 )
             )
             ->add(
                 'windmill.windfarm.customer',
                 null,
                 array(
-                    'label'                            => 'admin.windfarm.customer',
-                    'associated_property'              => 'name',
-                    'sortable'                         => true,
-                    'sort_field_mapping'               => array('fieldName' => 'name'),
+                    'label' => 'admin.windfarm.customer',
+                    'associated_property' => 'name',
+                    'sortable' => true,
+                    'sort_field_mapping' => array('fieldName' => 'name'),
                     'sort_parent_association_mappings' => array(array('fieldName' => 'customer')),
                 )
             )
@@ -328,10 +339,10 @@ class AuditAdmin extends AbstractBaseAdmin
                 'windmill.windfarm',
                 null,
                 array(
-                    'label'                            => 'admin.windmill.windfarm',
-                    'associated_property'              => 'name',
-                    'sortable'                         => true,
-                    'sort_field_mapping'               => array('fieldName' => 'name'),
+                    'label' => 'admin.windmill.windfarm',
+                    'associated_property' => 'name',
+                    'sortable' => true,
+                    'sort_field_mapping' => array('fieldName' => 'name'),
                     'sort_parent_association_mappings' => array(array('fieldName' => 'windfarm')),
                 )
             )
@@ -339,10 +350,10 @@ class AuditAdmin extends AbstractBaseAdmin
                 'windmill',
                 null,
                 array(
-                    'label'                            => 'admin.audit.windmill',
-                    'associated_property'              => 'code',
-                    'sortable'                         => true,
-                    'sort_field_mapping'               => array('fieldName' => 'code'),
+                    'label' => 'admin.audit.windmill',
+                    'associated_property' => 'code',
+                    'sortable' => true,
+                    'sort_field_mapping' => array('fieldName' => 'code'),
                     'sort_parent_association_mappings' => array(array('fieldName' => 'windmill')),
                 )
             )
@@ -357,7 +368,7 @@ class AuditAdmin extends AbstractBaseAdmin
                 'status',
                 null,
                 array(
-                    'label'    => 'admin.audit.status',
+                    'label' => 'admin.audit.status',
                     'template' => '::Admin/Cells/list__cell_audit_status.html.twig',
                 )
             )
@@ -365,14 +376,14 @@ class AuditAdmin extends AbstractBaseAdmin
                 '_action',
                 'actions',
                 array(
-                    'label'   => 'admin.common.action',
+                    'label' => 'admin.common.action',
                     'actions' => array(
-                        'edit'   => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
-                        'show'   => array('template' => '::Admin/Buttons/list__action_show_button.html.twig'),
-                        'pdf'    => array('template' => '::Admin/Buttons/list__action_pdf_button.html.twig'),
-                        'email'  => array('template' => '::Admin/Buttons/list__action_email_button.html.twig'),
+                        'edit' => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
+                        'show' => array('template' => '::Admin/Buttons/list__action_show_button.html.twig'),
+                        'pdf' => array('template' => '::Admin/Buttons/list__action_pdf_button.html.twig'),
+                        'email' => array('template' => '::Admin/Buttons/list__action_email_button.html.twig'),
                         'delete' => array('template' => '::Admin/Buttons/list__action_delete_button.html.twig'),
-                    )
+                    ),
                 )
             );
     }

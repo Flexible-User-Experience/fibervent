@@ -12,3 +12,15 @@ textarea { resize: vertical; }
     margin-right: 10px;
     margin-top: -6px;
 }
+
+.skin-black .main-header > .logo, .skin-black .main-header > .logo:hover {
+    background-color: #1D1D1B;
+}
+
+.logo img {
+    max-width: 100%;
+}
+
+.main-header .logo {
+    width: 231px;
+}

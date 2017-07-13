@@ -14,21 +14,22 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
- * Class AuditAdminController
+ * Class AuditAdminController.
  *
  * @category Controller
- * @package  AppBundle\Controller
+ *
  * @author   David Romaní <david@flux.cat>
  */
 class AuditAdminController extends AbstractBaseAdminController
 {
     /**
-     * Export Audit in PDF format action
+     * Export Audit in PDF format action.
      *
      * @param Request $request
      *
      * @return Response
-     * @throws NotFoundHttpException If the object does not exist
+     *
+     * @throws NotFoundHttpException     If the object does not exist
      * @throws AccessDeniedHttpException If access is not granted
      */
     public function pdfAction(Request $request = null)
@@ -46,15 +47,16 @@ class AuditAdminController extends AbstractBaseAdminController
         $apbs = $this->get('app.audit_pdf_builder');
         $pdf = $apbs->build($object);
 
-        return new Response($pdf->Output('informe_auditoria_' . $object->getId() . '.pdf', 'I'), 200, array('Content-type' => 'application/pdf'));
+        return new Response($pdf->Output('informe_auditoria_'.$object->getId().'.pdf', 'I'), 200, array('Content-type' => 'application/pdf'));
     }
 
     /**
-     * Custom show action redirect to public frontend view
+     * Custom show action redirect to public frontend view.
      *
      * @param null $id
      *
      * @return Response
+     *
      * @throws NotFoundHttpException If the object does not exist
      * @throws AccessDeniedException If access is not granted
      */
@@ -69,6 +71,11 @@ class AuditAdminController extends AbstractBaseAdminController
             throw $this->createNotFoundException(sprintf('Unable to find audit record with id: %s', $id));
         }
 
+        // Customer filter
+        if (!$this->get('app.auth_customer')->isAuditOwnResource($object)) {
+            throw new AccessDeniedException();
+        }
+
         $sortedBladeDamages = array();
         $bdr = $this->get('app.blade_damage_repository');
         foreach ($object->getAuditWindmillBlades() as $auditWindmillBlade) {
@@ -78,15 +85,15 @@ class AuditAdminController extends AbstractBaseAdminController
         return $this->render(
             ':Admin/Audit:show.html.twig',
             array(
-                'action'             => 'show',
-                'object'             => $object,
+                'action' => 'show',
+                'object' => $object,
                 'sortedBladeDamages' => $sortedBladeDamages,
             )
         );
     }
 
     /**
-     * Custom email action
+     * Custom email action.
      *
      * @param Request $request
      *
@@ -107,9 +114,9 @@ class AuditAdminController extends AbstractBaseAdminController
         $apbs = $this->get('app.audit_pdf_builder');
         $pdf = $apbs->build($object);
         $pdf->Output($this->getDestAuditFilePath($object), 'F');
-        
+
         $form = $this->createForm(new AuditEmailSendFormType(), $object, array(
-            'default_msg'    => 'Adjunto archivo resultado auditoria número ' . $object->getId(),
+            'default_msg' => 'Adjunto archivo resultado auditoria número '.$object->getId(),
             'to_emails_list' => $this->getToEmailsList($object),
             'cc_emails_list' => $this->getCcEmailsList($object),
         ));
@@ -118,7 +125,7 @@ class AuditAdminController extends AbstractBaseAdminController
             $to = $form->get('to')->getData();
             $cc = $form->get('cc')->getData();
             $this->get('app.notification')->deliverAuditEmail($form, $this->getDestAuditFilePath($object));
-            $this->addFlash('sonata_flash_success', 'La auditoria núm. ' . $object->getId() . ' s\'ha enviat correctament a ' . $to . ($cc ? ' amb còpia per a ' . $cc : ''));
+            $this->addFlash('sonata_flash_success', 'La auditoria núm. '.$object->getId().' s\'ha enviat correctament a '.$to.($cc ? ' amb còpia per a '.$cc : ''));
 
             return new RedirectResponse($this->admin->generateUrl('list'));
         }
@@ -126,9 +133,9 @@ class AuditAdminController extends AbstractBaseAdminController
         return $this->render(
             ':Admin/Audit:email.html.twig',
             array(
-                'action'         => 'show',
-                'object'         => $object,
-                'form'           => $form->createView(),
+                'action' => 'show',
+                'object' => $object,
+                'form' => $form->createView(),
                 'pdf_short_path' => $this->getShortAuditFilePath($object),
             )
         );
@@ -142,8 +149,8 @@ class AuditAdminController extends AbstractBaseAdminController
     private function getDestAuditFilePath(Audit $audit)
     {
         $krd = $this->getParameter('kernel.root_dir');
-        $path = $krd . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'web' . $this->getShortAuditFilePath($audit);
-        
+        $path = $krd.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'web'.$this->getShortAuditFilePath($audit);
+
         return $path;
     }
 
@@ -154,7 +161,7 @@ class AuditAdminController extends AbstractBaseAdminController
      */
     private function getShortAuditFilePath(Audit $audit)
     {
-        return DIRECTORY_SEPARATOR . 'pdfs' . DIRECTORY_SEPARATOR . 'Auditoria-' . $audit->getId() . '.pdf';
+        return DIRECTORY_SEPARATOR.'pdfs'.DIRECTORY_SEPARATOR.'Auditoria-'.$audit->getId().'.pdf';
     }
 
     /**
@@ -180,7 +187,7 @@ class AuditAdminController extends AbstractBaseAdminController
         $users = $this->get('app.user_repository')->findOnlyAvailableSortedByName($audit->getCustomer());
         /** @var User $user */
         foreach ($users as $user) {
-            $availableMails[$user->getEmail()] = $user->getFullname() . ' <' . $user->getEmail() . '>';
+            $availableMails[$user->getEmail()] = $user->getFullname().' <'.$user->getEmail().'>';
         }
 
         return $availableMails;
@@ -195,16 +202,16 @@ class AuditAdminController extends AbstractBaseAdminController
     {
         $availableMails = array();
         if ($audit->getCustomer()->getEmail()) {
-            $availableMails[$audit->getCustomer()->getEmail()] = $audit->getCustomer()->getName() . ' <' . $audit->getCustomer()->getEmail() . '>';
+            $availableMails[$audit->getCustomer()->getEmail()] = $audit->getCustomer()->getName().' <'.$audit->getCustomer()->getEmail().'>';
         }
         if ($audit->getWindfarm() && $audit->getWindfarm()->getManager()) {
-            $availableMails[$audit->getWindfarm()->getManager()->getEmail()] = $audit->getWindfarm()->getMangerFullname() . ' <' . $audit->getWindfarm()->getManager()->getEmail() . '>';
+            $availableMails[$audit->getWindfarm()->getManager()->getEmail()] = $audit->getWindfarm()->getMangerFullname().' <'.$audit->getWindfarm()->getManager()->getEmail().'>';
         }
         if ($audit->getCustomer()) {
             /** @var User $user */
             foreach ($audit->getCustomer()->getContacts() as $user) {
                 if ($user->isEnabled()) {
-                    $availableMails[$user->getEmail()] = $user->getFullname() . ' <' . $user->getEmail() . '>';
+                    $availableMails[$user->getEmail()] = $user->getFullname().' <'.$user->getEmail().'>';
                 }
             }
         }

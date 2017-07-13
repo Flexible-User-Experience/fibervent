@@ -16,6 +16,8 @@ use AppBundle\Service\RepositoriesService;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Liip\ImagineBundle\Imagine\Cache\CacheManager;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
+use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
 use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
 /**
@@ -27,6 +29,16 @@ use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
  */
 abstract class AbstractBaseAdmin extends AbstractAdmin
 {
+    /**
+     * @var AuthorizationChecker
+     */
+    protected $acs;
+
+    /**
+     * @var TokenStorage
+     */
+    protected $tss;
+
     /**
      * @var CustomerRepository
      */
@@ -91,13 +103,17 @@ abstract class AbstractBaseAdmin extends AbstractAdmin
      * @param string              $code
      * @param string              $class
      * @param string              $baseControllerName
+     * @param AuthorizationChecker $acs
+     * @param TokenStorage        $tss
      * @param RepositoriesService $rs
      * @param UploaderHelper      $vus
      * @param CacheManager        $lis
      */
-    public function __construct($code, $class, $baseControllerName, RepositoriesService $rs, UploaderHelper $vus, CacheManager $lis)
+    public function __construct($code, $class, $baseControllerName, AuthorizationChecker $acs, TokenStorage $tss, RepositoriesService $rs, UploaderHelper $vus, CacheManager $lis)
     {
         parent::__construct($code, $class, $baseControllerName);
+        $this->acs = $acs;
+        $this->tss = $tss;
         $this->cr  = $rs->getCr();
         $this->ur  = $rs->getUr();
         $this->wmr = $rs->getWmr();
@@ -197,6 +213,6 @@ abstract class AbstractBaseAdmin extends AbstractAdmin
         return ($this->getSubject() ? $this->getSubject()->getImageName() ? '<img src="' . $this->lis->getBrowserPath(
                 $this->vus->asset($this->getSubject(), 'imageFile'),
                 '480xY'
-            ) . '" class="admin-preview img-responsive" alt="thumbnail"/>' : '' : '') . '<span style="width:100%;display:block;">Fins a 10MB amb format PNG, JPG or GIF. Amplada mínima ' . $minWidth . 'px.</span>';
+            ) . '" class="admin-preview img-responsive" alt="thumbnail"/>' : '' : '') . '<span style="width:100%;display:block;">'.$this->trans('admin.photo.help', ['width' => $minWidth]).'</span>';
     }
 }

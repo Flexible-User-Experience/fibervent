@@ -10,6 +10,7 @@
         recursive: yes
         perms: yes
         times: yes
+        checksum: no
         src: "{{ vhost_path }}/shared/web/pdfs"
         dest: "{{ playbook_dir }}/../../web"
     - name: copy remote uploads directory to local
@@ -18,6 +19,7 @@
         recursive: yes
         perms: yes
         times: yes
+        checksum: no
         src: "{{ vhost_path }}/shared/web/uploads"
         dest: "{{ playbook_dir }}/../../web"
     - name: fix ownership in downloaded files locally

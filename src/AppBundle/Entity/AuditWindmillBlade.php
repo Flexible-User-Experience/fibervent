@@ -7,19 +7,18 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * AuditWindmillBlade
+ * AuditWindmillBlade.
  *
  * @category Entity
- * @package  AppBundle\Entity
+ *
  * @author   Anton Serra <aserratorta@gmail.com>
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="AppBundle\Repository\AuditWindmillBladeRepository")
- * @Gedmo\SoftDeleteable(fieldName="removedAt", timeAware=false)           
+ * @Gedmo\SoftDeleteable(fieldName="removedAt", timeAware=false)
  */
 class AuditWindmillBlade extends AbstractBase
 {
-
     /**
      * @var Audit
      *
@@ -58,11 +57,7 @@ class AuditWindmillBlade extends AbstractBase
     private $bladePhotos;
 
     /**
-     *
-     *
-     * Methods
-     *
-     *
+     * Methods.
      */
 
     /**
@@ -124,7 +119,7 @@ class AuditWindmillBlade extends AbstractBase
     }
 
     /**
-     * @param ArrayCollection $bladeDamages
+     * @param array|ArrayCollection $bladeDamages
      *
      * @return AuditWindmillBlade
      */
@@ -253,7 +248,7 @@ class AuditWindmillBlade extends AbstractBase
     /**
      * @param BladeDamage $bladeDamage
      *
-     * @return integer|null
+     * @return int|null
      */
     public function getCalculatedNumberByRadius(BladeDamage $bladeDamage)
     {
@@ -265,7 +260,7 @@ class AuditWindmillBlade extends AbstractBase
                 if ($item->getId() == $bladeDamage->getId()) {
                     break;
                 }
-                $result++;
+                ++$result;
             }
         } else {
             $result = 1;
@@ -279,6 +274,6 @@ class AuditWindmillBlade extends AbstractBase
      */
     public function __toString()
     {
-        return $this->getId() ? $this->getAudit() . ' · ' . $this->getWindmillBlade()->getCode() : '---';
+        return $this->getId() ? $this->getAudit().' · '.$this->getWindmillBlade()->getCode() : '---';
     }
 }

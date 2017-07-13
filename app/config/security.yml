@@ -6,8 +6,15 @@ security:
             - ROLE_USER
             - ROLE_SONATA_ADMIN
             - ROLE_ADMIN_STATE_ALL
+            - ROLE_ADMIN_WINDFARM_LIST
+            - ROLE_ADMIN_WINDFARM_SHOW
+            - ROLE_ADMIN_WINDFARM_MAP
+            - ROLE_ADMIN_AUDIT_LIST
+            - ROLE_ADMIN_AUDIT_SHOW
         ROLE_OPERATOR:
-            - ROLE_CUSTOMER
+            - ROLE_USER
+            - ROLE_SONATA_ADMIN
+            - ROLE_ADMIN_STATE_ALL
             - ROLE_ADMIN_AUDIT_ALL
             - ROLE_ADMIN_AUDIT_WINDMILL_BLADE_ALL
             - ROLE_ADMIN_WINDMILL_BLADE_ALL

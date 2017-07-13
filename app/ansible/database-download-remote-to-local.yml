@@ -16,6 +16,7 @@
         src: "/tmp/remote-{{ mysql_db_name }}.sql.bz2"
         dest: "/tmp"
         flat: yes
+        validate_checksum: no
     - name: load dumb file to local database
       delegate_to: mother
       mysql_db:

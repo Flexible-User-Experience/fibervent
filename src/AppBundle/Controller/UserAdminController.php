@@ -43,7 +43,7 @@ class UserAdminController extends AbstractBaseAdminController
             $em->flush();
 
             // build flash message
-            $this->addFlash('success', 'El teu perfil s\'ha actualitzat correctament.');
+            $this->addFlash('success', $this->trans('admin.user.profile_flash'));
 
             return $this->redirectToRoute('sonata_admin_dashboard');
         }

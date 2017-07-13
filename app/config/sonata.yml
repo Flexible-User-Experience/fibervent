@@ -20,7 +20,7 @@ sonata_user:
 
 # Admin
 sonata_admin:
-    title: "%project_web_title%"
+    title:      "%project_web_title%"
     title_logo: "/bundles/app/images/fibervent_logo_black_landscape.jpg"
     options:
         html5_validate: true
@@ -39,6 +39,7 @@ sonata_admin:
             Client:
                 icon:  "<i class='fa fa-users' aria-hidden='true'></i>"
                 label: "Clientes"
+#                roles: [ ROLE_OPERATOR ]
             Parc_Eolic:
                 icon:  "<i class='fa fa-recycle' aria-hidden='true'></i>"
                 label: "Parques Eólicos"
