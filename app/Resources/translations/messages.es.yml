@@ -191,6 +191,7 @@ admin:
   photo:
     title: Foto
     imagename: Nombre
+    help: 'hasta 10MB con formato PNG, JPG o GIF y anchura mínima de %width%px.'
   state:
     title: Provincia
     country: País
@@ -202,6 +203,7 @@ admin:
   user:
     title: Usuario
     username: Nombre Usuario
+    username_help: utilizar sólo letras en minúscula sin espacios en blanco.
     password: Password
     firstname: Nombre
     lastname: Apellido

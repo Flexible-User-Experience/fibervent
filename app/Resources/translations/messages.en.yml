@@ -191,6 +191,7 @@ admin:
   photo:
     title:
     imagename:
+    help:
   state:
     title:
     country:
@@ -202,6 +203,7 @@ admin:
   user:
     title:
     username:
+    username_help:
     password:
     firstname:
     lastname:

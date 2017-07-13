@@ -16,6 +16,7 @@ use AppBundle\Service\RepositoriesService;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Liip\ImagineBundle\Imagine\Cache\CacheManager;
+use Symfony\Bundle\FrameworkBundle\Translation\Translator;
 use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
 /**
@@ -197,6 +198,6 @@ abstract class AbstractBaseAdmin extends AbstractAdmin
         return ($this->getSubject() ? $this->getSubject()->getImageName() ? '<img src="' . $this->lis->getBrowserPath(
                 $this->vus->asset($this->getSubject(), 'imageFile'),
                 '480xY'
-            ) . '" class="admin-preview img-responsive" alt="thumbnail"/>' : '' : '') . '<span style="width:100%;display:block;">Fins a 10MB amb format PNG, JPG or GIF. Amplada mínima ' . $minWidth . 'px.</span>';
+            ) . '" class="admin-preview img-responsive" alt="thumbnail"/>' : '' : '') . '<span style="width:100%;display:block;">'.$this->trans('admin.photo.help', ['width' => $minWidth]).'</span>';
     }
 }

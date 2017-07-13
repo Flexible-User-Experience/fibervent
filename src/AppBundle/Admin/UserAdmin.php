@@ -29,6 +29,16 @@ class UserAdmin extends ParentUserAdmin
      */
     protected $userManager;
 
+    /**
+     * @var array
+     */
+    protected $perPageOptions = array(25, 50, 100, 200);
+
+    /**
+     * @var int
+     */
+    protected $maxPerPage = 25;
+
     protected $classnameLabel = 'admin.user.title';
     protected $baseRoutePattern = 'users';
     protected $datagridValues = array(
@@ -100,6 +110,7 @@ class UserAdmin extends ParentUserAdmin
                 null,
                 array(
                     'label' => 'admin.user.username',
+                    'help'  => 'admin.user.username_help',
                 )
             )
             ->add(
@@ -349,6 +360,6 @@ class UserAdmin extends ParentUserAdmin
         return ($this->getSubject() ? $this->getSubject()->getImageName() ? '<img src="' . $lis->getBrowserPath(
                 $vus->asset($this->getSubject(), 'imageFile'),
                 '480xY'
-            ) . '" class="admin-preview img-responsive" alt="thumbnail"/>' : '' : '') . '<span style="width:100%;display:block;">Fins a 10MB amb format PNG, JPG or GIF. Amplada mínima 320px.</span>';
+            ) . '" class="admin-preview img-responsive" alt="thumbnail"/>' : '' : '') . '<span style="width:100%;display:block;">'.$this->trans('admin.photo.help', ['width' => 320]).'</span>';
     }
 }
