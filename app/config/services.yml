@@ -128,6 +128,10 @@ services:
     app.notification:
         class: AppBundle\Service\NotificationService
         arguments: [ "@app.courier" ]
+# Auth
+    app.auth_customer:
+        class: AppBundle\Service\AuthCustomerService
+        arguments: [ "@security.authorization_checker", "@security.token_storage" ]
 # Twig
     app.twig_extension:
         class: AppBundle\Twig\AppExtension
