@@ -14,10 +14,10 @@ use Sonata\AdminBundle\Route\RouteCollection;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 /**
- * Class WindfarmAdmin
+ * Class WindfarmAdmin.
  *
  * @category Admin
- * @package  AppBundle\Admin
+ *
  * @author   Anton Serra <aserratorta@gmail.com>
  */
 class WindfarmAdmin extends AbstractBaseAdmin
@@ -25,12 +25,12 @@ class WindfarmAdmin extends AbstractBaseAdmin
     protected $classnameLabel = 'admin.windfarm.title';
     protected $baseRoutePattern = 'windfarms/windfarm';
     protected $datagridValues = array(
-        '_sort_by'    => 'name',
+        '_sort_by' => 'name',
         '_sort_order' => 'asc',
     );
 
     /**
-     * Configure route collection
+     * Configure route collection.
      *
      * @param RouteCollection $collection
      */
@@ -38,13 +38,14 @@ class WindfarmAdmin extends AbstractBaseAdmin
     {
         parent::configureRoutes($collection);
         $collection
-            ->add('audits', $this->getRouterIdParameter() . '/audits')
-            ->add('map', $this->getRouterIdParameter() . '/map')
-            ->add('excel', $this->getRouterIdParameter() . '/excel')
-            ->add('excelAttachment', $this->getRouterIdParameter() . '/excel-attachment', array(
-                '_format' => 'xls'
+            ->add('show', $this->getRouterIdParameter().'/show')
+            ->add('audits', $this->getRouterIdParameter().'/audits')
+            ->add('map', $this->getRouterIdParameter().'/map')
+            ->add('excel', $this->getRouterIdParameter().'/excel')
+            ->add('excelAttachment', $this->getRouterIdParameter().'/excel-attachment', array(
+                '_format' => 'xls',
             ), array(
-                '_format' => 'csv|xls|xlsx'
+                '_format' => 'csv|xls|xlsx',
             ))
             ->remove('delete');
     }
@@ -65,18 +66,18 @@ class WindfarmAdmin extends AbstractBaseAdmin
                 'customer',
                 'sonata_type_model',
                 array(
-                    'label'        => 'admin.windfarm.customer',
-                    'required'     => true,
-                    'multiple'     => false,
-                    'btn_add'      => false,
-                    'query'        => $this->cr->findEnabledSortedByNameQ(),
+                    'label' => 'admin.windfarm.customer',
+                    'required' => true,
+                    'multiple' => false,
+                    'btn_add' => false,
+                    'query' => $this->cr->findEnabledSortedByNameQ(),
                 )
             )
             ->add(
                 'code',
                 null,
                 array(
-                    'label'    => 'admin.customer.code',
+                    'label' => 'admin.customer.code',
                     'required' => false,
                 )
             )
@@ -121,11 +122,11 @@ class WindfarmAdmin extends AbstractBaseAdmin
                 'state',
                 'sonata_type_model',
                 array(
-                    'label'      => 'admin.customer.state',
-                    'btn_add'    => true,
+                    'label' => 'admin.customer.state',
+                    'btn_add' => true,
                     'btn_delete' => false,
-                    'required'   => true,
-                    'query'      => $this->sr->findAllSortedByNameQ(),
+                    'required' => true,
+                    'query' => $this->sr->findAllSortedByNameQ(),
                 )
             )
             ->end()
@@ -134,44 +135,44 @@ class WindfarmAdmin extends AbstractBaseAdmin
                 'manager',
                 'sonata_type_model',
                 array(
-                    'label'      => 'admin.windfarm.manager',
-                    'btn_add'    => false,
+                    'label' => 'admin.windfarm.manager',
+                    'btn_add' => false,
                     'btn_delete' => false,
-                    'required'   => false,
-                    'property'   => 'contactInfoString',
-                    'query'      => $this->ur->findEnabledSortedByNameQ($customer),
+                    'required' => false,
+                    'property' => 'contactInfoString',
+                    'query' => $this->ur->findEnabledSortedByNameQ($customer),
                 )
             )
             ->add(
                 'year',
                 null,
                 array(
-                    'label'    => 'admin.windfarm.year',
-                    'required' => false
+                    'label' => 'admin.windfarm.year',
+                    'required' => false,
                 )
             )
             ->add(
                 'power',
                 null,
                 array(
-                    'label'       => 'admin.turbine.power',
-                    'required'    => false,
+                    'label' => 'admin.turbine.power',
+                    'required' => false,
                 )
             )
             ->add(
                 'windmillAmount',
                 null,
                 array(
-                    'label'    => 'admin.windfarm.windmill_amount',
-                    'required' => false
+                    'label' => 'admin.windfarm.windmill_amount',
+                    'required' => false,
                 )
             )
             ->add(
                 'language',
                 ChoiceType::class,
                 array(
-                    'label'    => 'admin.windfarm.pdf_language',
-                    'choices'  => WindfarmLanguageEnum::getEnumArrayString(),
+                    'label' => 'admin.windfarm.pdf_language',
+                    'choices' => WindfarmLanguageEnum::getEnumArrayString(),
                     'multiple' => false,
                     'expanded' => true,
                     'required' => true,
@@ -183,8 +184,8 @@ class WindfarmAdmin extends AbstractBaseAdmin
                 'latLng',
                 GoogleMapType::class,
                 array(
-                    'label'    => 'admin.windfarm.latlng',
-                    'required' => false
+                    'label' => 'admin.windfarm.latlng',
+                    'required' => false,
                 )
             )
             ->end();
@@ -286,9 +287,9 @@ class WindfarmAdmin extends AbstractBaseAdmin
                 'customer',
                 null,
                 array(
-                    'label'                            => 'admin.windfarm.customer',
-                    'sortable'                         => true,
-                    'sort_field_mapping'               => array('fieldName' => 'name'),
+                    'label' => 'admin.windfarm.customer',
+                    'sortable' => true,
+                    'sort_field_mapping' => array('fieldName' => 'name'),
                     'sort_parent_association_mappings' => array(array('fieldName' => 'customer')),
                 )
             )
@@ -296,7 +297,7 @@ class WindfarmAdmin extends AbstractBaseAdmin
                 'name',
                 null,
                 array(
-                    'label'    => 'admin.customer.name',
+                    'label' => 'admin.customer.name',
                     'editable' => true,
                 )
             )
@@ -304,7 +305,7 @@ class WindfarmAdmin extends AbstractBaseAdmin
                 'city',
                 null,
                 array(
-                    'label'    => 'admin.customer.city',
+                    'label' => 'admin.customer.city',
                     'editable' => true,
                 )
             )
@@ -312,18 +313,18 @@ class WindfarmAdmin extends AbstractBaseAdmin
                 'manager',
                 null,
                 array(
-                    'label'                            => 'admin.windfarm.manager',
-                    'sortable'                         => true,
-                    'sort_field_mapping'               => array('fieldName' => 'lastname'),
+                    'label' => 'admin.windfarm.manager',
+                    'sortable' => true,
+                    'sort_field_mapping' => array('fieldName' => 'lastname'),
                     'sort_parent_association_mappings' => array(array('fieldName' => 'manager')),
-                    'template'                         => '::Admin/Cells/list__windfarm_manager_fullname.html.twig',
+                    'template' => '::Admin/Cells/list__windfarm_manager_fullname.html.twig',
                 )
             )
             ->add(
                 'enabled',
                 null,
                 array(
-                    'label'    => 'admin.common.enabled',
+                    'label' => 'admin.common.enabled',
                     'editable' => true,
                 )
             )
@@ -331,13 +332,14 @@ class WindfarmAdmin extends AbstractBaseAdmin
                 '_action',
                 'actions',
                 array(
-                    'label'   => 'admin.common.action',
+                    'label' => 'admin.common.action',
                     'actions' => array(
-                        'edit'   => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
+                        'edit' => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
+                        'show' => array('template' => '::Admin/Buttons/list__action_show_button.html.twig'),
                         'audits' => array('template' => '::Admin/Buttons/list__action_audits_button.html.twig'),
-                        'excel' => array('template'  => '::Admin/Buttons/list__action_excel_button.html.twig'),
-                        'map'    => array('template' => '::Admin/Buttons/list__action_map_button.html.twig'),
-                    )
+                        'excel' => array('template' => '::Admin/Buttons/list__action_excel_button.html.twig'),
+                        'map' => array('template' => '::Admin/Buttons/list__action_map_button.html.twig'),
+                    ),
                 )
             );
     }
