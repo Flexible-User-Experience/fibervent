@@ -172,7 +172,8 @@ class UserAdmin extends ParentUserAdmin
                 'customer',
                 EntityType::class,
                 array(
-                    'label' => 'admin.user.customer',
+                    'label' => 'admin.customer.title',
+                    'required' => false,
                     'class' => Customer::class,
                     'query_builder' => $this->getConfigurationPool()->getContainer()->get('app.customer_repository')->findAllSortedByNameQB(),
                 )
