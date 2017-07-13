@@ -3,6 +3,7 @@
 namespace AppBundle\Service;
 
 use AppBundle\Entity\Audit;
+use AppBundle\Entity\Customer;
 use AppBundle\Entity\User;
 use AppBundle\Enum\UserRolesEnum;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
@@ -59,6 +60,30 @@ class AuthCustomerService
         }
 
         return false;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isCustomerUser()
+    {
+        if ($this->acs->isGranted(UserRolesEnum::ROLE_ADMIN)) {
+            return false;
+        }
+
+        if ($this->acs->isGranted(UserRolesEnum::ROLE_CUSTOMER)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * @return Customer
+     */
+    public function getCustomer()
+    {
+        return $this->getUser()->getCustomer();
     }
 
     /**

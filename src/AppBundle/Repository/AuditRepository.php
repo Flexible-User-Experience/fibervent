@@ -3,6 +3,7 @@
 namespace AppBundle\Repository;
 
 use AppBundle\Entity\Audit;
+use AppBundle\Entity\Customer;
 use AppBundle\Entity\Windfarm;
 use AppBundle\Enum\AuditStatusEnum;
 use Doctrine\ORM\EntityRepository;
@@ -10,23 +11,32 @@ use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 
 /**
- * Class AuditRepository
+ * Class AuditRepository.
  *
  * @category Repository
- * @package  AppBundle\Repository
+ *
  * @author   Anton Serra <aserratorta@gmail.com>
  */
 class AuditRepository extends EntityRepository
 {
     /**
+     * @param int $status
+     *
+     * @return QueryBuilder
+     */
+    public function getDoingAuditsByStatusQB($status)
+    {
+        return $this->createQueryBuilder('a')
+            ->where('a.status = :status')
+            ->setParameter('status', $status);
+    }
+
+    /**
      * @return int
      */
     public function getDoingAuditsAmount()
     {
-        $query = $this->createQueryBuilder('a')
-            ->where('a.status = :status' )
-            ->setParameter('status', AuditStatusEnum::DOING)
-            ->getQuery();
+        $query = $this->getDoingAuditsByStatusQB(AuditStatusEnum::DOING)->getQuery();
 
         return count($query->getResult());
     }
@@ -36,9 +46,36 @@ class AuditRepository extends EntityRepository
      */
     public function getPendingAuditsAmount()
     {
-        $query = $this->createQueryBuilder('a')
-            ->where('a.status = :status')
-            ->setParameter('status', AuditStatusEnum::PENDING)
+        $query = $this->getDoingAuditsByStatusQB(AuditStatusEnum::PENDING)->getQuery();
+
+        return count($query->getResult());
+    }
+
+    /**
+     * @param Customer $customer
+     *
+     * @return int
+     */
+    public function getDoingAuditsByCustomerAmount(Customer $customer)
+    {
+        $query = $this->getDoingAuditsByStatusQB(AuditStatusEnum::DOING)
+            ->andWhere('a.customer = :customer')
+            ->setParameter('customer', $customer)
+            ->getQuery();
+
+        return count($query->getResult());
+    }
+
+    /**
+     * @param Customer $customer
+     *
+     * @return int
+     */
+    public function getPendingAuditsByCustomerAmount(Customer $customer)
+    {
+        $query = $this->getDoingAuditsByStatusQB(AuditStatusEnum::PENDING)
+            ->andWhere('a.customer = :customer')
+            ->setParameter('customer', $customer)
             ->getQuery();
 
         return count($query->getResult());
@@ -52,7 +89,7 @@ class AuditRepository extends EntityRepository
     public function getInvoicedOrDoneAuditsByWindfarmSortedByBeginDateQB(Windfarm $windfarm)
     {
         $query = $this->createQueryBuilder('a')
-            ->where('a.windfarm = :windfarm' )
+            ->where('a.windfarm = :windfarm')
             ->andWhere('a.status = :done OR a.status = :invoiced')
             ->setParameter('windfarm', $windfarm)
             ->setParameter('done', AuditStatusEnum::DONE)
@@ -120,7 +157,7 @@ class AuditRepository extends EntityRepository
     }
 
     /**
-     * @param integer $windfarmId
+     * @param int $windfarmId
      *
      * @return array
      */
@@ -175,7 +212,7 @@ class AuditRepository extends EntityRepository
         $yearsArray = array();
         $firstYear = intval($firstAudit->getBeginDate()->format('Y'));
         $lastYear = intval($lastAudit->getBeginDate()->format('Y'));
-        for ($currentYear = $lastYear; $currentYear >= $firstYear; $currentYear--) {
+        for ($currentYear = $lastYear; $currentYear >= $firstYear; --$currentYear) {
             $yearsArray["$currentYear"] = $currentYear;
         }
 
