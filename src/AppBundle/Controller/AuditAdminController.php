@@ -11,7 +11,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * Class AuditAdminController.
@@ -57,8 +56,8 @@ class AuditAdminController extends AbstractBaseAdminController
      *
      * @return Response
      *
-     * @throws NotFoundHttpException If the object does not exist
-     * @throws AccessDeniedException If access is not granted
+     * @throws NotFoundHttpException     If the object does not exist
+     * @throws AccessDeniedHttpException If access is not granted
      */
     public function showAction($id = null)
     {
@@ -73,7 +72,7 @@ class AuditAdminController extends AbstractBaseAdminController
 
         // Customer filter
         if (!$this->get('app.auth_customer')->isAuditOwnResource($object)) {
-            throw new AccessDeniedException();
+            throw new AccessDeniedHttpException();
         }
 
         $sortedBladeDamages = array();

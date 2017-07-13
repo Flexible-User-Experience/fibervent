@@ -3,7 +3,9 @@
 namespace AppBundle\Service;
 
 use AppBundle\Entity\Audit;
+use AppBundle\Entity\Customer;
 use AppBundle\Entity\User;
+use AppBundle\Entity\Windfarm;
 use AppBundle\Enum\UserRolesEnum;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
@@ -44,6 +46,24 @@ class AuthCustomerService
     }
 
     /**
+     * @param Windfarm $windfarm
+     *
+     * @return bool
+     */
+    public function isWindfarmOwnResource(Windfarm $windfarm)
+    {
+        if ($this->acs->isGranted(UserRolesEnum::ROLE_ADMIN)) {
+            return true;
+        }
+
+        if ($this->acs->isGranted(UserRolesEnum::ROLE_CUSTOMER) && $windfarm->getCustomer()->getId() == $this->getUser()->getCustomer()->getId()) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
      * @param Audit $audit
      *
      * @return bool
@@ -59,6 +79,30 @@ class AuthCustomerService
         }
 
         return false;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isCustomerUser()
+    {
+        if ($this->acs->isGranted(UserRolesEnum::ROLE_ADMIN)) {
+            return false;
+        }
+
+        if ($this->acs->isGranted(UserRolesEnum::ROLE_CUSTOMER)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * @return Customer
+     */
+    public function getCustomer()
+    {
+        return $this->getUser()->getCustomer();
     }
 
     /**

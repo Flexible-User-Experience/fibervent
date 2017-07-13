@@ -13,21 +13,22 @@ use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
- * Class WindfarmAdminController
+ * Class WindfarmAdminController.
  *
  * @category Controller
- * @package  AppBundle\Controller
+ *
  * @author   David Romaní <david@flux.cat>
  */
 class WindfarmAdminController extends AbstractBaseAdminController
 {
     /**
-     * Show windfarm audits list view
+     * Show windfarm audits list view.
      *
      * @param Request|null $request
      *
      * @return Response
-     * @throws NotFoundHttpException If the object does not exist
+     *
+     * @throws NotFoundHttpException     If the object does not exist
      * @throws AccessDeniedHttpException If access is not granted
      */
     public function auditsAction(Request $request = null)
@@ -41,6 +42,11 @@ class WindfarmAdminController extends AbstractBaseAdminController
             throw $this->createNotFoundException(sprintf('Unable to find windfarm record with id: %s', $id));
         }
 
+        // Customer filter
+        if (!$this->get('app.auth_customer')->isWindfarmOwnResource($object)) {
+            throw new AccessDeniedHttpException();
+        }
+
         return $this->render(
             ':Admin/Windfarm:map.html.twig',
             array(
@@ -51,12 +57,13 @@ class WindfarmAdminController extends AbstractBaseAdminController
     }
 
     /**
-     * Create windmills map view
+     * Create windmills map view.
      *
      * @param Request|null $request
      *
      * @return Response
-     * @throws NotFoundHttpException If the object does not exist
+     *
+     * @throws NotFoundHttpException     If the object does not exist
      * @throws AccessDeniedHttpException If access is not granted
      */
     public function mapAction(Request $request = null)
@@ -70,6 +77,11 @@ class WindfarmAdminController extends AbstractBaseAdminController
             throw $this->createNotFoundException(sprintf('Unable to find windfarm record with id: %s', $id));
         }
 
+        // Customer filter
+        if (!$this->get('app.auth_customer')->isWindfarmOwnResource($object)) {
+            throw new AccessDeniedHttpException();
+        }
+
         return $this->render(
             ':Admin/Windfarm:map.html.twig',
             array(
@@ -81,12 +93,13 @@ class WindfarmAdminController extends AbstractBaseAdminController
 
     /**
      * Export Windmill blades from each Wind Farm in excel format action.
-     * First step = display a year choice selector from audits
+     * First step = display a year choice selector from audits.
      *
      * @param Request|null $request
      *
      * @return Response
-     * @throws NotFoundHttpException If the object does not exist
+     *
+     * @throws NotFoundHttpException     If the object does not exist
      * @throws AccessDeniedHttpException If access is not granted
      */
     public function excelAction(Request $request = null)
@@ -100,6 +113,11 @@ class WindfarmAdminController extends AbstractBaseAdminController
             throw $this->createNotFoundException(sprintf('Unable to find windfarm record with id: %s', $id));
         }
 
+        // Customer filter
+        if (!$this->get('app.auth_customer')->isWindfarmOwnResource($object)) {
+            throw new AccessDeniedHttpException();
+        }
+
         $form = $this->createForm(WindfarmAnnualStatsFormType::class, null, array('windfarm_id' => $object->getId()));
 
         return $this->render(
@@ -107,19 +125,20 @@ class WindfarmAdminController extends AbstractBaseAdminController
             array(
                 'action' => 'show',
                 'object' => $object,
-                'form'   => $form->createView(),
+                'form' => $form->createView(),
             )
         );
     }
 
     /**
      * Export Windmill blades from each Wind Farm in excel format action.
-     * Second step = build an excel file and return as an attatchment response
+     * Second step = build an excel file and return as an attatchment response.
      *
      * @param Request|null $request
      *
      * @return Response
-     * @throws NotFoundHttpException If the object does not exist
+     *
+     * @throws NotFoundHttpException     If the object does not exist
      * @throws AccessDeniedHttpException If access is not granted
      */
     public function excelAttachmentAction(Request $request = null)
@@ -132,6 +151,11 @@ class WindfarmAdminController extends AbstractBaseAdminController
         $object = $this->admin->getObject($id);
         if (!$object) {
             throw $this->createNotFoundException(sprintf('Unable to find windfarm record with id: %s', $id));
+        }
+
+        // Customer filter
+        if (!$this->get('app.auth_customer')->isWindfarmOwnResource($object)) {
+            throw new AccessDeniedHttpException();
         }
 
         $audits = $this->getDoctrine()->getRepository('AppBundle:Audit')->getInvoicedOrDoneAuditsByWindfarmByYear($object, $year);
@@ -151,17 +175,17 @@ class WindfarmAdminController extends AbstractBaseAdminController
         $response = $this->render(
             ':Admin/Windfarm:excel.xls.twig',
             array(
-                'action'   => 'show',
+                'action' => 'show',
                 'windfarm' => $object,
-                'audits'   => $audits,
-                'year'     => $year,
-                'locale'   => WindfarmLanguageEnum::getEnumArray()[$object->getLanguage()],
+                'audits' => $audits,
+                'year' => $year,
+                'locale' => WindfarmLanguageEnum::getEnumArray()[$object->getLanguage()],
             )
         );
 
         $currentDate = new \DateTime();
         $response->headers->set('Content-Type', 'application/vnd.ms-excel');
-        $response->headers->set('Content-Disposition', 'attachment; filename="' . $currentDate->format('Y-m-d') . '_' . $object->getSlug() . '.xls"');
+        $response->headers->set('Content-Disposition', 'attachment; filename="'.$currentDate->format('Y-m-d').'_'.$object->getSlug().'.xls"');
 
         return $response;
     }

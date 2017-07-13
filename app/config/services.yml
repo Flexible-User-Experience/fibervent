@@ -88,7 +88,7 @@ services:
         class: AppBundle\Admin\Block\AuditsBlock
         tags:
             - { name: sonata.block }
-        arguments: [ "sonata.admin.block.audits", "@templating", "@doctrine.orm.entity_manager" ]
+        arguments: [ "sonata.admin.block.audits", "@templating", "@doctrine.orm.entity_manager", "@app.auth_customer" ]
 # PDF service builders
     app.custom_tcpdf:
         class: AppBundle\Pdf\CustomTcpdf
