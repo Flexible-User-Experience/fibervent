@@ -59,9 +59,6 @@ class AuditsBlock extends AbstractBlockService
      */
     public function execute(BlockContextInterface $blockContext, Response $response = null)
     {
-        $doingAudits = array();
-        $pendingAudits = array();
-
         if ($this->acs->isCustomerUser()) {
             $doingAudits = $this->em->getRepository('AppBundle:Audit')->getDoingAuditsByCustomerAmount($this->acs->getCustomer());
             $pendingAudits = $this->em->getRepository('AppBundle:Audit')->getPendingAuditsByCustomerAmount($this->acs->getCustomer());
