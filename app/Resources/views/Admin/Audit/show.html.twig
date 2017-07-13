@@ -10,12 +10,10 @@
                             <table class="table">
                                 <thead>
                                 <tr class="info">
-                                    <th colspan="2" class="text-center">INSPECCIÓN DE PALAS DEL PARQUE
-                                        EÓLICO {{ object.windmill.windfarm.name }}</th>
+                                    <th colspan="2" class="text-center">INSPECCIÓN DE PALAS DEL PARQUE EÓLICO {{ object.windmill.windfarm.name }}</th>
                                 </tr>
                                 <tr>
-                                    <th colspan="2" class="text-center">INFORME INDIVIDUAL
-                                        AEROGENERADOR {{ object.windmill.code }}</th>
+                                    <th colspan="2" class="text-center">INFORME INDIVIDUAL AEROGENERADOR {{ object.windmill.code }}</th>
                                 </tr>
                                 <tr>
                                     <th colspan="2"
@@ -27,57 +25,57 @@
                                 </tr>
                                 <tbody>
                                 <tr>
-                                    <th class="info text-right" style="width:30%">PAÍS/REGIÓ</th>
+                                    <th class="info text-right" style="width:30%">{{ 'pdf.cover.3_country' | trans }}</th>
                                     <td>{{ object.windmill.windfarm.state.name }}</td>
                                 </tr>
                                 <tr>
-                                    <th class="info text-right">PARC EÒLIC</th>
+                                    <th class="info text-right">{{ 'pdf.cover.4_windfarm' | trans }}</th>
                                     <td>{{ object.windmill.windfarm }}</td>
                                 </tr>
                                 <tr>
-                                    <th class="info text-right">MODEL AEROGENERADOR</th>
+                                    <th class="info text-right">{{ 'pdf.cover.5_turbine_model' | trans }}</th>
                                     <td>{{ object.windmill.turbine }}</td>
                                 </tr>
                                 <tr>
-                                    <th class="info text-right">DIMENSIONS AEROGENERADOR</th>
+                                    <th class="info text-right">{{ 'pdf.cover.6_turbine_size' | trans }}</th>
                                     <td>{{ object.windmill.pdfModelDimensionString }}</td>
                                 </tr>
                                 <tr>
-                                    <th class="info text-right">MODEL PALA</th>
+                                    <th class="info text-right">{{ 'pdf.cover.7_blade_type' | trans }}</th>
                                     <td>{{ object.windmill.bladeType }}</td>
                                 </tr>
                                 <tr>
-                                    <th class="info text-right">TOTAL No. AG / Capacitat PE</th>
+                                    <th class="info text-right">{{ 'pdf.cover.8_total_turbines' | trans }}</th>
                                     <td>{{ object.windmill.windfarm.pdfTotalPowerString }}</td>
                                 </tr>
                                 <tr>
-                                    <th class="info text-right">Posada en servei (anys del PE)</th>
+                                    <th class="info text-right">{{ 'pdf.cover.9_startup_year' | trans }}</th>
                                     <td>{{ object.windmill.windfarm.pdfYearString }}</td>
                                 </tr>
                                 <tr>
-                                    <th class="info text-right">O&M REGIONAL MANAGER</th>
+                                    <th class="info text-right">{{ 'pdf.cover.10_om_regional_manager' | trans }}</th>
                                     <td>{{ object.windmill.windfarm.manager }}</td>
                                 </tr>
                                 <tr>
                                     <th colspan="2"></th>
                                 </tr>
                                 <tr>
-                                    <th class="info text-right">TÈCNICS D'INSPECCIÓ</th>
+                                    <th class="info text-right">{{ 'pdf.cover.11_technicians' | trans }}</th>
                                     <td>{{ object.operators | join(', ') }}</td>
                                 </tr>
                                 <tr>
                                     <th colspan="2"></th>
                                 </tr>
                                 <tr>
-                                    <th class="info text-right">TIPUS D'INSPECCIÓ</th>
+                                    <th class="info text-right">{{ 'pdf.cover.12_audit_type' | trans }}</th>
                                     <td>TERRA (Telescopi FIBERVENT)</td>
                                 </tr>
                                 <tr>
-                                    <th class="info text-right">DATA D'INSPECCIÓ</th>
+                                    <th class="info text-right">{{ 'pdf.cover.13_audit_date' | trans }}</th>
                                     <td>{{ object.pdfEndDateString }}</td>
                                 </tr>
                                 <tr>
-                                    <th class="info text-right">Num. AG / Pales inspeccionades</th>
+                                    <th class="info text-right">{{ 'pdf.cover.14_blades_amout' | trans }}</th>
                                     <td>1 AG / 3 palas</td>
                                 </tr>
                                 </tbody>
@@ -90,10 +88,10 @@
                 <div class="col-md-12">
                     <div class="box box-primary">
                         <div class="box-header with-border">
-                            <h4 class="box-title">DESCRIPCIÓ DE DANYS PALA {{ loop.index }}</h4>
+                            <h4 class="box-title">{{ 'pdf.audit_blade_damage.1_title' | trans }} {{ loop.index }}</h4>
                             <div class="box-body table-responsive">
                                 {% if auditWindmillBlade.bladePhotos | length > 0 %}
-                                    <h5>VISTES GENERALS PALA {{ loop.index }}</h5>
+                                    <h5>{{ 'pdf.blade_damage_images.1_general_blade_views_short' | trans }} {{ loop.index }}</h5>
                                     <table class="table">
                                         <tbody>
                                         <tr>
@@ -109,14 +107,14 @@
                                     {% for bladeDamage in sortedBladeDamages[loop.index - 1] %}
                                     <thead>
                                     <tr class="sonata-ba-view-container">
-                                        <th>N. Dany</th>
-                                        <th>Codi</th>
-                                        <th>Posició</th>
-                                        <th>Radi</th>
-                                        <th>Distància</th>
-                                        <th>Mesura</th>
-                                        <th style="width: 30%">Descripció</th>
-                                        <th>Categoria</th>
+                                        <th>{{ 'pdf.damage_table_header.1_damage' | trans | upper }}</th>
+                                        <th>{{ 'pdf.damage_table_header.4_code' | trans | upper }}</th>
+                                        <th>{{ 'pdf.damage_table_header.2_position' | trans | upper }}</th>
+                                        <th>{{ 'pdf.damage_table_header.5_radius' | trans | upper }}</th>
+                                        <th>{{ 'pdf.damage_table_header.8_distance' | trans | upper }}</th>
+                                        <th>{{ 'pdf.damage_table_header.6_size' | trans | upper }}</th>
+                                        <th style="width: 30%">{{ 'pdf.damage_table_header.7_description' | trans | upper }}</th>
+                                        <th>{{ 'admin.bladedamage.damagecategory' | trans | upper }}</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -145,8 +143,8 @@
                                     <table class="table">
                                         <thead>
                                         <tr class="sonata-ba-view-container">
-                                            <th>DANY</th>
-                                            <th>OBSERVACIONS</th>
+                                            <th>{{ 'pdf.observations_table.1_damage' | trans }}</th>
+                                            <th>{{ 'pdf.observations_table.2_observations' | trans }}</th>
                                         </tr>
                                         </thead>
                                         <tbody>

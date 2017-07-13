@@ -49,6 +49,7 @@ pdf:
     2_observations: OBSERVATIONS
   blade_damage_images:
     1_general_blade_views: 1 VUES GÉNÉRALES PALE
+    1_general_blade_views_short: VUES GÉNÉRALES PALE
   inspection_description:
     1_contact: 4. CONTACT
     2_description: 'Vous pourrez nous contacter aux adresses et téléphones suivants:'
