@@ -2,6 +2,7 @@
 
 namespace AppBundle\Admin;
 
+use AppBundle\Entity\Customer;
 use AppBundle\Enum\UserRolesEnum;
 use AppBundle\Enum\WindfarmLanguageEnum;
 use Sonata\UserBundle\Admin\Model\UserAdmin as ParentUserAdmin;
@@ -10,16 +11,17 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use FOS\UserBundle\Model\UserManagerInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
 /**
- * Class UserAdmin
+ * Class UserAdmin.
  *
  * @category Admin
- * @package  AppBundle\Admin
+ *
  * @author   David Romaní <david@flux.cat>
  */
 class UserAdmin extends ParentUserAdmin
@@ -42,7 +44,7 @@ class UserAdmin extends ParentUserAdmin
     protected $classnameLabel = 'admin.user.title';
     protected $baseRoutePattern = 'users';
     protected $datagridValues = array(
-        '_sort_by'    => 'lastname',
+        '_sort_by' => 'lastname',
         '_sort_order' => 'asc',
     );
 
@@ -61,7 +63,7 @@ class UserAdmin extends ParentUserAdmin
     }
 
     /**
-     * Available routes
+     * Available routes.
      *
      * @param RouteCollection $collection
      */
@@ -76,7 +78,7 @@ class UserAdmin extends ParentUserAdmin
     }
 
     /**
-     * Remove batch action list view first column
+     * Remove batch action list view first column.
      *
      * @return array
      */
@@ -93,15 +95,15 @@ class UserAdmin extends ParentUserAdmin
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
-        /** @var object $formMapper */
+        /* @var object $formMapper */
         $formMapper
             ->with('admin.common.general', array('class' => 'col-md-6'))
             ->add(
                 'imageFile',
                 'file',
                 array(
-                    'label'    => 'admin.bladephoto.imagefile',
-                    'help'     => $this->getImageHelperFormMapperWithThumbnail(),
+                    'label' => 'admin.bladephoto.imagefile',
+                    'help' => $this->getImageHelperFormMapperWithThumbnail(),
                     'required' => false,
                 )
             )
@@ -110,7 +112,7 @@ class UserAdmin extends ParentUserAdmin
                 null,
                 array(
                     'label' => 'admin.user.username',
-                    'help'  => 'admin.user.username_help',
+                    'help' => 'admin.user.username_help',
                 )
             )
             ->add(
@@ -124,15 +126,15 @@ class UserAdmin extends ParentUserAdmin
                 'plainPassword',
                 PasswordType::class,
                 array(
-                    'label'    => 'admin.user.password',
-                    'required' => (!$this->getSubject() || is_null($this->getSubject()->getId()))
+                    'label' => 'admin.user.password',
+                    'required' => (!$this->getSubject() || is_null($this->getSubject()->getId())),
                 )
             )
             ->add(
                 'firstname',
                 null,
                 array(
-                    'label'    => 'admin.user.firstname',
+                    'label' => 'admin.user.firstname',
                     'required' => false,
                 )
             )
@@ -140,7 +142,7 @@ class UserAdmin extends ParentUserAdmin
                 'lastname',
                 null,
                 array(
-                    'label'    => 'admin.user.lastname',
+                    'label' => 'admin.user.lastname',
                     'required' => false,
                 )
             )
@@ -157,8 +159,8 @@ class UserAdmin extends ParentUserAdmin
                 'roles',
                 ChoiceType::class,
                 array(
-                    'label'    => 'admin.user.rol',
-                    'choices'  => UserRolesEnum::getEnumArray(),
+                    'label' => 'admin.user.rol',
+                    'choices' => UserRolesEnum::getEnumArray(),
                     'multiple' => true,
                     'expanded' => true,
                     'required' => false,
@@ -167,11 +169,20 @@ class UserAdmin extends ParentUserAdmin
             ->end()
             ->with('admin.common.controls', array('class' => 'col-md-3'))
             ->add(
+                'customer',
+                EntityType::class,
+                array(
+                    'label' => 'admin.user.customer',
+                    'class' => Customer::class,
+                    'query_builder' => $this->getConfigurationPool()->getContainer()->get('app.customer_repository')->findAllSortedByNameQB(),
+                )
+            )
+            ->add(
                 'language',
                 ChoiceType::class,
                 array(
-                    'label'    => 'admin.user.language',
-                    'choices'  => WindfarmLanguageEnum::getEnumArrayString(),
+                    'label' => 'admin.user.language',
+                    'choices' => WindfarmLanguageEnum::getEnumArrayString(),
                     'multiple' => false,
                     'expanded' => false,
                     'required' => true,
@@ -181,7 +192,7 @@ class UserAdmin extends ParentUserAdmin
                 'locked',
                 CheckboxType::class,
                 array(
-                    'label'    => 'admin.user.locked',
+                    'label' => 'admin.user.locked',
                     'required' => false,
                 )
             )
@@ -189,7 +200,7 @@ class UserAdmin extends ParentUserAdmin
                 'enabled',
                 CheckboxType::class,
                 array(
-                    'label'    => 'admin.common.enabled',
+                    'label' => 'admin.common.enabled',
                     'required' => false,
                 )
             )
@@ -241,8 +252,8 @@ class UserAdmin extends ParentUserAdmin
                 'roles',
                 'doctrine_orm_choice',
                 array(
-                    'label'         => 'admin.user.roles',
-                    'field_type'    => 'choice',
+                    'label' => 'admin.user.roles',
+                    'field_type' => 'choice',
                     'field_options' => array(
                         'choices' => UserRolesEnum::getEnumArray(),
                     ),
@@ -275,15 +286,15 @@ class UserAdmin extends ParentUserAdmin
                 'image',
                 null,
                 array(
-                    'label'    => 'admin.bladephoto.imagefile',
-                    'template' => '::Admin/Cells/list__cell_image_field.html.twig'
+                    'label' => 'admin.bladephoto.imagefile',
+                    'template' => '::Admin/Cells/list__cell_image_field.html.twig',
                 )
             )
             ->add(
                 'firstname',
                 null,
                 array(
-                    'label'    => 'admin.user.firstname',
+                    'label' => 'admin.user.firstname',
                     'editable' => true,
                 )
             )
@@ -291,7 +302,7 @@ class UserAdmin extends ParentUserAdmin
                 'lastname',
                 null,
                 array(
-                    'label'    => 'admin.user.lastname',
+                    'label' => 'admin.user.lastname',
                     'editable' => true,
                 )
             )
@@ -299,7 +310,7 @@ class UserAdmin extends ParentUserAdmin
                 'email',
                 null,
                 array(
-                    'label'    => 'admin.customer.email',
+                    'label' => 'admin.customer.email',
                     'editable' => true,
                 )
             )
@@ -307,7 +318,7 @@ class UserAdmin extends ParentUserAdmin
                 'phone',
                 null,
                 array(
-                    'label'    => 'admin.customer.phone',
+                    'label' => 'admin.customer.phone',
                     'editable' => true,
                 )
             )
@@ -315,7 +326,7 @@ class UserAdmin extends ParentUserAdmin
                 'roles',
                 null,
                 array(
-                    'label'    => 'admin.user.roles',
+                    'label' => 'admin.user.roles',
                     'template' => '::Admin/Cells/list__cell_user_roles.html.twig',
                 )
             )
@@ -323,7 +334,7 @@ class UserAdmin extends ParentUserAdmin
                 'locked',
                 null,
                 array(
-                    'label'    => 'admin.user.locked',
+                    'label' => 'admin.user.locked',
                     'editable' => true,
                 )
             )
@@ -331,7 +342,7 @@ class UserAdmin extends ParentUserAdmin
                 'enabled',
                 null,
                 array(
-                    'label'    => 'admin.common.enabled',
+                    'label' => 'admin.common.enabled',
                     'editable' => true,
                 )
             )
@@ -339,16 +350,16 @@ class UserAdmin extends ParentUserAdmin
                 '_action',
                 'actions',
                 array(
-                    'label'   => 'admin.common.action',
+                    'label' => 'admin.common.action',
                     'actions' => array(
-                        'edit'   => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
+                        'edit' => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
                     ),
                 )
             );
     }
 
     /**
-     * Get image helper form mapper with thumbnail
+     * Get image helper form mapper with thumbnail.
      *
      * @return string
      */
@@ -357,9 +368,9 @@ class UserAdmin extends ParentUserAdmin
         $lis = $this->getConfigurationPool()->getContainer()->get('liip_imagine.cache.manager');
         $vus = $this->getConfigurationPool()->getContainer()->get('vich_uploader.templating.helper.uploader_helper');
 
-        return ($this->getSubject() ? $this->getSubject()->getImageName() ? '<img src="' . $lis->getBrowserPath(
+        return ($this->getSubject() ? $this->getSubject()->getImageName() ? '<img src="'.$lis->getBrowserPath(
                 $vus->asset($this->getSubject(), 'imageFile'),
                 '480xY'
-            ) . '" class="admin-preview img-responsive" alt="thumbnail"/>' : '' : '') . '<span style="width:100%;display:block;">'.$this->trans('admin.photo.help', ['width' => 320]).'</span>';
+            ).'" class="admin-preview img-responsive" alt="thumbnail"/>' : '' : '').'<span style="width:100%;display:block;">'.$this->trans('admin.photo.help', ['width' => 320]).'</span>';
     }
 }
