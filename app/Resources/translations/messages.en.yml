@@ -21,8 +21,8 @@ pdf:
     14_blades_amout_value: 1 WTG / 3 blades
   intro:
     1_title: 1. INTRODUCTION
-    2_description: 'This report is the result of the visual inspection done by telephoto lens on the ground in the "%windfarm%" Wind Farm between %begin% and %end%. The equipment, property of FIBERVENT, used in this inspection is the following:'
-    3_list: '<ul><li>Telephoto lens kit SWAROVSKI ATS 80-HD + OCULAR ZOOM 25-50X</li><li>Photo adaptor SWAROVSKI TLS APO</li><li>Camera kit OLYMPUS EPL 5 16 Mpx + remote switch</li><li>Battery OLYMPUS BLS-5</li><li>Camera lens OLYMPUS 14-42 mm</li><li>Adaptor OLYMPUS T-MICRO 4/3</li><li>Carbon tripod kit MANFROTTO NAT DOS</li><li>Tripod bag MANFROTTO BAG 80</li><li>Backpack LOWEPRO TRAVEL 200 AW</li></ul>'
+    2_description: 'This report is the result of the visual inspection done by telephoto lens on the ground in the "%windfarm%" Wind Farm. The equipment, property of FIBERVENT, used in this inspection is the following:'
+    3_list: 'CAMERAS<ul><li>Canon Eos 5D MARK II // Canon Eos 70D</li></ul>LENS<ul><li>Canon zoom lens EF 24-105 mm. 1:4 L IS USM</li><li>Canon zoom lens EF 100-400 mm. 1:4.5-5.6 L IS USM</li><li>Canon lens EF 500 mm. F4 L IS USM</li><li>Canon extender EF 1.4x II // EF 2x II</li></ul>TRIPOD<ul><li>Trípode Feisol Tournament Carbon CT-3342</li></ul>'
   damage_catalog:
     1_title: 2. DAMAGES CATEGORIZATION
     2_subtitle: 'All the damages found have been categorized by the following criteria:'
