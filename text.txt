@@ -1,0 +1,30 @@
+Bones @davidromani , hauriem de canviar aquest text de la segona pàgina dels informes on surt la info de l'equip fotogràfic, ja que desde l'any passat que l'hem canviar però encara no ho hem reflectit als informes:
+
+CÁMARAS
+- Canon Eos 5D MARK II // Canon Eos 70D
+
+LENTES
+- Canon zoom lens EF 24-105 mm. 1:4 L IS USM
+- Canon zoom lens EF 100-400 mm. 1:4.5-5.6 L IS USM
+- Canon lens EF 500 mm. F4 L IS USM
+- Canon extender EF 1.4x II // EF 2x II
+
+TRÍPODE
+- Trípode Feisol Tournament Carbon CT-3342
+
+Aquest text és més llarg que l'anterior, pel que no sé com anirem d'espai. Hauriem de ficar-ho de tal manera que ens continuéssin cabent els punts 1, 2 i 3. Potser podriem estertir el marge superior que és mol alt.
+
+També hauriem d'escurçar el text que surt. L'original és aquest:
+
+"Este informe es el resultado de la inspección visual realizada con telescopio desde suelo en el Parque
+Eólico "Sierra del Boquerón" entre el 13/07/2017 y el 13/07/2017. El equipo, propiedad de
+FIBERVENT, y utilizado para la inspección es el siguiente:"
+
+Jo el deixaría així:
+"Este informe es el resultado de la inspección visual realizada con telescopio desde suelo en el Parque
+Eólico "Sierra del Boquerón". El equipo, propiedad de
+FIBERVENT, y utilizado para la inspección es el siguiente:"
+
+Ja em dius com ho veus. Preparo la traducció a l'anglès i te la envio ara.
+
+Merci.
