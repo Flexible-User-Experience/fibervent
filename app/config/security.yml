@@ -9,6 +9,8 @@ security:
             - ROLE_ADMIN_WINDFARM_LIST
             - ROLE_ADMIN_WINDFARM_SHOW
             - ROLE_ADMIN_WINDFARM_MAP
+            - ROLE_ADMIN_WINDFARM_EXCEL
+            - ROLE_ADMIN_WINDFARM_AUDITS
             - ROLE_ADMIN_AUDIT_LIST
             - ROLE_ADMIN_AUDIT_SHOW
         ROLE_OPERATOR:
