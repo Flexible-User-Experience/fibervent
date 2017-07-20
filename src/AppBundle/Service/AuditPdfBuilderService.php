@@ -143,28 +143,28 @@ class AuditPdfBuilderService
         $pdf->setPrintFooter(true);
 
         // Introduction page
-        $pdf->SetXY(CustomTcpdf::PDF_MARGIN_LEFT, CustomTcpdf::PDF_MARGIN_TOP - 3);
+        $pdf->SetXY(CustomTcpdf::PDF_MARGIN_LEFT, CustomTcpdf::PDF_MARGIN_TOP);
         $pdf->setBlackText();
         $pdf->setFontStyle(null, 'B', 11);
         $pdf->Write(0, $this->ts->trans('pdf.intro.1_title'), '', false, 'L', true);
-        $pdf->Ln(5);
+        $pdf->Ln(2);
         $pdf->setFontStyle(null, '', 9);
         $pdf->Write(0, $this->ts->trans('pdf.intro.2_description', ['%windfarm%' => $windfarm->getName(), '%begin%' => $audit->getPdfBeginDateString(), '%end%' => $audit->getPdfEndDateString()]), '', false, 'L', true);
-        $pdf->Ln(5);
+        $pdf->Ln(2);
         // Introduction table
         $pdf->setCellPaddings(20, 2, 20, 2);
         $pdf->setCellMargins(0, 0, 0, 0);
         $pdf->MultiCell(0, 0, $this->ts->trans('pdf.intro.3_list'), 1, 'L', false, 1, '', '', true, 0, true);
         $pdf->setCellPaddings(1, 1, 1, 1);
         $pdf->setCellMargins(0, 0, 0, 0);
-        $pdf->Ln(5);
+        $pdf->Ln(10);
         // Damages categorization
         $pdf->setFontStyle(null, 'B', 11);
         $pdf->Write(0, $this->ts->trans('pdf.damage_catalog.1_title'), '', false, 'L', true);
-        $pdf->Ln(5);
+        $pdf->Ln(2);
         $pdf->setFontStyle(null, '', 9);
         $pdf->Write(0, $this->ts->trans('pdf.damage_catalog.2_subtitle'), '', false, 'L', true);
-        $pdf->Ln(5);
+        $pdf->Ln(2);
         // Damages table
         $pdf->setBlackLine();
         $pdf->setBlueBackground();
@@ -185,14 +185,14 @@ class AuditPdfBuilderService
         }
         $pdf->setBlueLine();
         $pdf->setWhiteBackground();
-        $pdf->Ln(5);
+        $pdf->Ln(10);
         // Inspection description
         $pdf->setFontStyle(null, 'B', 11);
         $pdf->Write(0, $this->ts->trans('pdf.audit_description.1_title'), '', false, 'L', true);
-        $pdf->Ln(5);
+        $pdf->Ln(2);
         $pdf->setFontStyle(null, '', 9);
         $pdf->Write(0, $this->ts->trans('pdf.audit_description.2_description'), '', false, 'L', true);
-        $pdf->Ln(5);
+        $pdf->Ln(2);
         // Audit description with windmill image schema
         $pdf->Image($this->tha->getUrl('/bundles/app/images/tubrine_diagrams/'.$audit->getDiagramType().'.jpg'), CustomTcpdf::PDF_MARGIN_LEFT + 50, $pdf->GetY(), null, 40);
         $pdf->AddPage();
