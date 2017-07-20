@@ -11,6 +11,7 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
+use Sonata\CoreBundle\Form\Type\EqualType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 /**
@@ -25,6 +26,7 @@ class WindfarmAdmin extends AbstractBaseAdmin
     protected $classnameLabel = 'admin.windfarm.title';
     protected $baseRoutePattern = 'windfarms/windfarm';
     protected $datagridValues = array(
+        'enabled' => array('type' => EqualType::TYPE_IS_EQUAL, 'value' => true),
         '_sort_by' => 'name',
         '_sort_order' => 'asc',
     );
