@@ -22,6 +22,41 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class WindfarmAdminController extends AbstractBaseAdminController
 {
     /**
+     * Custom show action redirect to public frontend view.
+     *
+     * @param null $id
+     *
+     * @return Response
+     *
+     * @throws NotFoundHttpException     If the object does not exist
+     * @throws AccessDeniedHttpException If access is not granted
+     */
+    public function showAction($id = null)
+    {
+        $request = $this->resolveRequest();
+        $id = $request->get($this->admin->getIdParameter());
+
+        /** @var Windfarm $object */
+        $object = $this->admin->getObject($id);
+        if (!$object) {
+            throw $this->createNotFoundException(sprintf('Unable to find windfarm record with id: %s', $id));
+        }
+
+        // Customer filter
+        if (!$this->get('app.auth_customer')->isWindfarmOwnResource($object)) {
+            throw new AccessDeniedHttpException();
+        }
+
+        return $this->render(
+            ':Admin/Windfarm:show.html.twig',
+            array(
+                'action' => 'show',
+                'object' => $object,
+            )
+        );
+    }
+
+    /**
      * Show windfarm audits list view.
      *
      * @param Request|null $request
