@@ -8,6 +8,7 @@ security:
             - ROLE_ADMIN_STATE_ALL
             - ROLE_ADMIN_WINDFARM_LIST
             - ROLE_ADMIN_WINDFARM_SHOW
+            - ROLE_ADMIN_WINDFARM_VIEW
             - ROLE_ADMIN_WINDFARM_MAP
             - ROLE_ADMIN_WINDFARM_EXCEL
             - ROLE_ADMIN_WINDFARM_AUDITS
