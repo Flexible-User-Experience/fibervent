@@ -220,19 +220,24 @@ class AuditAdmin extends AbstractBaseAdmin
                     'label' => 'admin.audit.enddate',
                     'field_type' => 'sonata_type_date_picker',
                 )
-            )
-            ->add(
-                'windmill.windfarm.customer',
-                null,
-                array(
-                    'label' => 'admin.windfarm.customer',
-                )
-            )
+            );
+        if ($this->acs->isGranted(UserRolesEnum::ROLE_OPERATOR)) {
+            $datagridMapper
+                ->add(
+                    'windmill.windfarm.customer',
+                    null,
+                    array(
+                        'label' => 'admin.windfarm.customer',
+                    )
+                );
+        }
+        $datagridMapper
             ->add(
                 'windmill.windfarm',
-                null,
+                null, // or 'doctrine_orm_callback' to enable callback behaviour,
                 array(
                     'label' => 'admin.windmill.windfarm',
+//                    'callback' => array($this, 'getFilteredWidfarmsByUserRole'),
                 )
             )
             ->add(
@@ -241,14 +246,18 @@ class AuditAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'admin.audit.windmill',
                 )
-            )
-            ->add(
-                'operators',
-                null,
-                array(
-                    'label' => 'admin.audit.operators',
-                )
-            )
+            );
+        if ($this->acs->isGranted(UserRolesEnum::ROLE_OPERATOR)) {
+            $datagridMapper
+                ->add(
+                    'operators',
+                    null,
+                    array(
+                        'label' => 'admin.audit.operators',
+                    )
+                );
+        }
+        $datagridMapper
             ->add(
                 'status',
                 null,
@@ -261,20 +270,24 @@ class AuditAdmin extends AbstractBaseAdmin
                     'multiple' => false,
                     'choices' => AuditStatusEnum::getEnumArray(),
                 )
-            )
-            ->add(
-                'diagramType',
-                null,
-                array(
-                    'label' => 'admin.audit.diagramtype',
-                ),
-                'choice',
-                array(
-                    'expanded' => false,
-                    'multiple' => false,
-                    'choices' => AuditDiagramTypeEnum::getEnumArray(),
-                )
-            )
+            );
+        if ($this->acs->isGranted(UserRolesEnum::ROLE_OPERATOR)) {
+            $datagridMapper
+                ->add(
+                    'diagramType',
+                    null,
+                    array(
+                        'label' => 'admin.audit.diagramtype',
+                    ),
+                    'choice',
+                    array(
+                        'expanded' => false,
+                        'multiple' => false,
+                        'choices' => AuditDiagramTypeEnum::getEnumArray(),
+                    )
+                );
+        }
+        $datagridMapper
             ->add(
                 'year',
                 'doctrine_orm_callback',
@@ -299,14 +312,37 @@ class AuditAdmin extends AbstractBaseAdmin
                     'choices' => $this->ar->getYearChoices(),
                     'required' => true,
                 )
-            )
-            ->add(
-                'observations',
-                null,
-                array(
-                    'label' => 'admin.audit.observations',
-                )
             );
+        if ($this->acs->isGranted(UserRolesEnum::ROLE_OPERATOR)) {
+            $datagridMapper
+                ->add(
+                    'observations',
+                    null,
+                    array(
+                        'label' => 'admin.audit.observations',
+                    )
+                );
+        }
+    }
+
+    /**
+     * @param QueryBuilder $queryBuilder
+     * @param string       $alias
+     * @param string       $field
+     * @param $value
+     *
+     * @return bool|null
+     */
+    public function getFilteredWidfarmsByUserRole($queryBuilder, $alias, $field, $value)
+    {
+        if ($this->acs->isGranted(UserRolesEnum::ROLE_CUSTOMER)) {
+            $queryBuilder->andWhere('wf.customer = :customer');
+            $queryBuilder->setParameter('customer', $this->tss->getToken()->getUser()->getCustomer());
+
+            return true;
+        }
+
+        return null;
     }
 
     /**
