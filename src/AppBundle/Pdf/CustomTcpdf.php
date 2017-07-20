@@ -10,25 +10,25 @@ use Symfony\Bundle\FrameworkBundle\Templating\Helper\AssetsHelper;
 use Symfony\Bundle\FrameworkBundle\Translation\Translator;
 
 /**
- * Class CustomTcpdf
+ * Class CustomTcpdf.
  *
  * @category PdfGenerator
- * @package  AppBundle\Pdf
+ *
  * @author   David Romaní <david@flux.cat>
  */
 class CustomTcpdf extends \TCPDF
 {
-    const PDF_MARGIN_LEFT   = 25;
-    const PDF_MARGIN_RIGHT  = 20;
-    const PDF_MARGIN_TOP    = 30;
+    const PDF_MARGIN_LEFT = 25;
+    const PDF_MARGIN_RIGHT = 20;
+    const PDF_MARGIN_TOP = 25;
     const PDF_MARGIN_BOTTOM = 10;
-    
+
     private $colorBlueLight = array('red' => 143, 'green' => 171, 'blue' => 217);
-    private $colorBlue      = array('red' => 50,  'green' => 118, 'blue' => 179);
-    private $colorBlueDark  = array('red' => 217, 'green' => 226, 'blue' => 242);
+    private $colorBlue = array('red' => 50,  'green' => 118, 'blue' => 179);
+    private $colorBlueDark = array('red' => 217, 'green' => 226, 'blue' => 242);
 
     /**
-     * @var AssetsHelper $tha
+     * @var AssetsHelper
      */
     protected $tha;
 
@@ -63,15 +63,11 @@ class CustomTcpdf extends \TCPDF
     public $availablePageWithDimension;
 
     /**
-     * 
-     * 
-     * Methods
-     * 
-     * 
+     * Methods.
      */
 
     /**
-     * CustomTcpdf constructor
+     * CustomTcpdf constructor.
      *
      * @param AssetsHelper $tha
      * @param Audit        $audit
@@ -80,16 +76,16 @@ class CustomTcpdf extends \TCPDF
     public function __construct(AssetsHelper $tha, Audit $audit, Translator $ts)
     {
         parent::__construct();
-        $this->tha      = $tha;
-        $this->audit    = $audit;
-        $this->ts       = $ts;
+        $this->tha = $tha;
+        $this->audit = $audit;
+        $this->ts = $ts;
         $this->windmill = $audit->getWindmill();
         $this->windfarm = $audit->getWindmill()->getWindfarm();
         $this->customer = $audit->getWindmill()->getWindfarm()->getCustomer();
     }
 
     /**
-     * Page header
+     * Page header.
      */
     public function header()
     {
@@ -102,14 +98,14 @@ class CustomTcpdf extends \TCPDF
     }
 
     /**
-     * Page footer
+     * Page footer.
      */
     public function footer()
     {
         $this->SetXY(self::PDF_MARGIN_LEFT, 280);
         $this->setFontStyle(null, 'I', 8);
         $this->setBlueLine();
-        $this->Cell(0, 0, $this->ts->trans('pdf.footer.1_page') . ' ' . $this->getAliasNumPage() . ' ' . $this->ts->trans('pdf.footer.2_of') . ' ' . $this->getAliasNbPages(), 'T', 0, 'C');
+        $this->Cell(0, 0, $this->ts->trans('pdf.footer.1_page').' '.$this->getAliasNumPage().' '.$this->ts->trans('pdf.footer.2_of').' '.$this->getAliasNbPages(), 'T', 0, 'C');
     }
 
     /**
@@ -126,7 +122,7 @@ class CustomTcpdf extends \TCPDF
     }
 
     /**
-     * Set blue text color
+     * Set blue text color.
      */
     public function setBlueText()
     {
@@ -134,7 +130,7 @@ class CustomTcpdf extends \TCPDF
     }
 
     /**
-     * Set black text color
+     * Set black text color.
      */
     public function setBlackText()
     {
@@ -142,7 +138,7 @@ class CustomTcpdf extends \TCPDF
     }
 
     /**
-     * Set blue background color
+     * Set blue background color.
      */
     public function setBlueBackground()
     {
@@ -150,7 +146,7 @@ class CustomTcpdf extends \TCPDF
     }
 
     /**
-     * Set white background color
+     * Set white background color.
      */
     public function setWhiteBackground()
     {
@@ -158,7 +154,7 @@ class CustomTcpdf extends \TCPDF
     }
 
     /**
-     * Set background color
+     * Set background color.
      *
      * @param string $hex
      */
@@ -169,7 +165,7 @@ class CustomTcpdf extends \TCPDF
     }
 
     /**
-     * Set blue line color
+     * Set blue line color.
      */
     public function setBlueLine()
     {
@@ -177,7 +173,7 @@ class CustomTcpdf extends \TCPDF
     }
 
     /**
-     * Set blue line color
+     * Set blue line color.
      */
     public function setBlackLine()
     {
@@ -185,7 +181,7 @@ class CustomTcpdf extends \TCPDF
     }
 
     /**
-     * Set available page dimensions
+     * Set available page dimensions.
      */
     public function setAvailablePageDimension()
     {
@@ -201,14 +197,14 @@ class CustomTcpdf extends \TCPDF
     {
         $hex = str_replace('#', '', $hex);
 
-        if(strlen($hex) == 3) {
-            $r = hexdec(substr($hex,0,1).substr($hex,0,1));
-            $g = hexdec(substr($hex,1,1).substr($hex,1,1));
-            $b = hexdec(substr($hex,2,1).substr($hex,2,1));
+        if (strlen($hex) == 3) {
+            $r = hexdec(substr($hex, 0, 1).substr($hex, 0, 1));
+            $g = hexdec(substr($hex, 1, 1).substr($hex, 1, 1));
+            $b = hexdec(substr($hex, 2, 1).substr($hex, 2, 1));
         } else {
-            $r = hexdec(substr($hex,0,2));
-            $g = hexdec(substr($hex,2,2));
-            $b = hexdec(substr($hex,4,2));
+            $r = hexdec(substr($hex, 0, 2));
+            $g = hexdec(substr($hex, 2, 2));
+            $b = hexdec(substr($hex, 4, 2));
         }
 
         return array($r, $g, $b);
