@@ -234,9 +234,10 @@ class AuditAdmin extends AbstractBaseAdmin
         $datagridMapper
             ->add(
                 'windmill.windfarm',
-                null,
+                null, // or 'doctrine_orm_callback' to enable callback behaviour,
                 array(
                     'label' => 'admin.windmill.windfarm',
+//                    'callback' => array($this, 'getFilteredWidfarmsByUserRole'),
                 )
             )
             ->add(
@@ -257,7 +258,6 @@ class AuditAdmin extends AbstractBaseAdmin
                 );
         }
         $datagridMapper
-
             ->add(
                 'status',
                 null,
@@ -323,6 +323,26 @@ class AuditAdmin extends AbstractBaseAdmin
                     )
                 );
         }
+    }
+
+    /**
+     * @param QueryBuilder $queryBuilder
+     * @param string       $alias
+     * @param string       $field
+     * @param $value
+     *
+     * @return bool|null
+     */
+    public function getFilteredWidfarmsByUserRole($queryBuilder, $alias, $field, $value)
+    {
+        if ($this->acs->isGranted(UserRolesEnum::ROLE_CUSTOMER)) {
+            $queryBuilder->andWhere('wf.customer = :customer');
+            $queryBuilder->setParameter('customer', $this->tss->getToken()->getUser()->getCustomer());
+
+            return true;
+        }
+
+        return null;
     }
 
     /**
