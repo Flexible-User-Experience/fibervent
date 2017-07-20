@@ -32,6 +32,38 @@
             };
             var map = new google.maps.Map(document.getElementById('gmap'), mapOptions);
             var bounds = new google.maps.LatLngBounds();
+            var windfarm = {
+                id: {{ object.id }},
+                name: '{{ object.name }}',
+                url:  '{{ path('admin_app_windfarm_edit', {id: object.id}) }}',
+                lat: {{ object.gpsLatitude }},
+                lng: {{ object.gpsLongitude }}
+            };
+            {# Windfarm #}
+            windfarm.position = new google.maps.LatLng(windfarm.lat, windfarm.lng);
+            windfarm.marker = new google.maps.Marker({
+                position: windfarm.position,
+                map: map,
+                title: windfarm.name,
+                animation: google.maps.Animation.DROP,
+                icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
+                bounds: true
+            });
+            windfarm.info = new google.maps.InfoWindow({
+                {% if admin.isGranted('EDIT', object) and admin.hasRoute('edit') %}
+                content: '<span class="span-gmap-info"><a href="' + windfarm.url + '">{{ 'gmap.general' | trans }}</a></span>'
+                {% else %}
+                content: '<span class="span-gmap-info">{{ 'gmap.general' | trans }}</span>'
+                {% endif %}
+            });
+            google.maps.event.addListener(windfarm.marker, 'click', function() {
+                return function () {
+                    windfarm.info.open(map, windfarm.marker);
+                };
+            }());
+            bounds.extend(windfarm.position);
+            map.fitBounds(bounds);
+            {# Windmills #}
             var windmillsMatrix = [];
             {% for windmill in object.windmills %}
             windmillsMatrix[{{ loop.index - 1 }}] = {
@@ -49,10 +81,15 @@
                     map: map,
                     title: windmillsMatrix[i].name,
                     animation: google.maps.Animation.DROP,
+                    icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
                     bounds: true
                 });
                 windmillsMatrix[i].info = new google.maps.InfoWindow({
+                    {% if admin.isGranted('EDIT', object) and admin.hasRoute('edit') %}
                     content: '<span class="span-gmap-info"><a href="' + windmillsMatrix[i].url + '">' + windmillsMatrix[i].marker.title + '</a></span>'
+                    {% else %}
+                    content: '<span class="span-gmap-info">' + windmillsMatrix[i].marker.title + '</span>'
+                    {% endif %}
                 });
                 google.maps.event.addListener(windmillsMatrix[i].marker, 'click', function (innerKey) {
                     return function () {
