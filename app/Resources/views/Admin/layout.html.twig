@@ -22,7 +22,7 @@
 {% block sonata_top_nav_menu %}
     <div class="navbar-custom-menu">
         <ul class="nav navbar-nav navbar-right">
-            <li><a href="{{ path('admin_app_user_profile') }}"><img id="profile_image" src="{% if app.user.imageName %}{{ vich_uploader_asset(app.user, 'imageFile') | imagine_filter('32x32') }}{% else %}http://placehold.it/32x32?text=?{% endif %}" alt="32x32 profile photo"/> {{ app.user.fullname }}</a></li>
+            <li><a href="{{ path('admin_app_user_profile') }}">{% if app.user.imageName %}<img id="profile_image" src="{{ vich_uploader_asset(app.user, 'imageFile') | imagine_filter('32x32') }}" alt="32x32 profile photo"/>{% endif %} {{ app.user.fullname }}</a></li>
             <li><a href="{{ path('sonata_user_admin_security_logout') }}"><i class="fa fa-power-off text-success"></i></a></li>
         </ul>
     </div>
