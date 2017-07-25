@@ -364,17 +364,23 @@ class AuditAdmin extends AbstractBaseAdmin
                     'format' => 'd/m/Y',
                 )
             )
-            ->add(
-                'windmill.windfarm.customer',
-                null,
-                array(
-                    'label' => 'admin.windfarm.customer',
-                    'associated_property' => 'name',
-                    'sortable' => true,
-                    'sort_field_mapping' => array('fieldName' => 'name'),
-                    'sort_parent_association_mappings' => array(array('fieldName' => 'customer')),
+        ;
+        if ($this->acs->isGranted(UserRolesEnum::ROLE_OPERATOR)) {
+            $listMapper
+                ->add(
+                    'windmill.windfarm.customer',
+                    null,
+                    array(
+                        'label' => 'admin.windfarm.customer',
+                        'associated_property' => 'name',
+                        'sortable' => true,
+                        'sort_field_mapping' => array('fieldName' => 'name'),
+                        'sort_parent_association_mappings' => array(array('fieldName' => 'customer')),
+                    )
                 )
-            )
+            ;
+        }
+        $listMapper
             ->add(
                 'windmill.windfarm',
                 null,
