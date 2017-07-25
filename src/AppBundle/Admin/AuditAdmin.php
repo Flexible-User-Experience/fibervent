@@ -6,6 +6,7 @@ use AppBundle\Entity\Audit;
 use AppBundle\Entity\AuditWindmillBlade;
 use AppBundle\Entity\BladePhoto;
 use AppBundle\Entity\User;
+use AppBundle\Entity\Windfarm;
 use AppBundle\Enum\AuditDiagramTypeEnum;
 use AppBundle\Enum\AuditStatusEnum;
 use AppBundle\Enum\AuditTypeEnum;
@@ -231,19 +232,36 @@ class AuditAdmin extends AbstractBaseAdmin
                     )
                 );
         }
+        if ($this->acs->isGranted(UserRolesEnum::ROLE_OPERATOR)) {
+            $datagridMapper
+                ->add(
+                    'windmill.windfarm',
+                    null,
+                    array(
+                        'label' => 'admin.windmill.windfarm',
+                    ),
+                    'entity',
+                    array(
+                        'class' => Windfarm::class,
+                        'query_builder' => $this->wfr->findEnabledSortedByNameQB(),
+                    )
+                );
+        } else {
+            $datagridMapper
+                ->add(
+                    'windmill.windfarm',
+                    null,
+                    array(
+                        'label' => 'admin.windmill.windfarm',
+                    ),
+                    'entity',
+                    array(
+                        'class' => Windfarm::class,
+                        'query_builder' => $this->wfr->findCustomerEnabledSortedByNameQB($this->tss->getToken()->getUser()->getCustomer()),
+                    )
+                );
+        }
         $datagridMapper
-            ->add(
-                'windmill.windfarm',
-                'doctrine_orm_callback',
-                array(
-                    'label' => 'admin.windmill.windfarm',
-                    'callback' => array($this, 'getFilteredWidfarmsByUserRole'),
-                ),
-                'choice',
-                array(
-                    'choices' => $this->wfr->findAllSortedByName(),
-                )
-            )
             ->add(
                 'windmill',
                 null,
