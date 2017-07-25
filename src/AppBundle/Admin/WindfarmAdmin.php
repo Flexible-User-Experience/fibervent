@@ -220,21 +220,25 @@ class WindfarmAdmin extends AbstractBaseAdmin
      */
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
+        if ($this->acs->isGranted(UserRolesEnum::ROLE_OPERATOR)) {
+            $datagridMapper
+                ->add(
+                    'customer',
+                    null,
+                    array(
+                        'label' => 'admin.windfarm.customer',
+                    )
+                )
+                ->add(
+                    'code',
+                    null,
+                    array(
+                        'label' => 'admin.customer.code',
+                    )
+                )
+            ;
+        }
         $datagridMapper
-            ->add(
-                'customer',
-                null,
-                array(
-                    'label' => 'admin.windfarm.customer',
-                )
-            )
-            ->add(
-                'code',
-                null,
-                array(
-                    'label' => 'admin.customer.code',
-                )
-            )
             ->add(
                 'name',
                 null,
@@ -242,27 +246,33 @@ class WindfarmAdmin extends AbstractBaseAdmin
                     'label' => 'admin.customer.name',
                 )
             )
-            ->add(
-                'address',
-                null,
-                array(
-                    'label' => 'admin.customer.address',
+        ;
+        if ($this->acs->isGranted(UserRolesEnum::ROLE_OPERATOR)) {
+            $datagridMapper
+                ->add(
+                    'address',
+                    null,
+                    array(
+                        'label' => 'admin.customer.address',
+                    )
                 )
-            )
-            ->add(
-                'zip',
-                null,
-                array(
-                    'label' => 'admin.customer.zip',
+                ->add(
+                    'zip',
+                    null,
+                    array(
+                        'label' => 'admin.customer.zip',
+                    )
                 )
-            )
-            ->add(
-                'city',
-                null,
-                array(
-                    'label' => 'admin.customer.city',
+                ->add(
+                    'city',
+                    null,
+                    array(
+                        'label' => 'admin.customer.city',
+                    )
                 )
-            )
+            ;
+        }
+        $datagridMapper
             ->add(
                 'state',
                 null,
@@ -270,20 +280,28 @@ class WindfarmAdmin extends AbstractBaseAdmin
                     'label' => 'admin.customer.state',
                 )
             )
+        ;
+        $datagridMapper
             ->add(
-                'manager',
+                'manager', // TODO dynamic choices according to user logged role
                 null,
                 array(
                     'label' => 'admin.windfarm.manager',
                 )
             )
-            ->add(
-                'power',
-                null,
-                array(
-                    'label' => 'admin.turbine.power',
+        ;
+        if ($this->acs->isGranted(UserRolesEnum::ROLE_OPERATOR)) {
+            $datagridMapper
+                ->add(
+                    'power',
+                    null,
+                    array(
+                        'label' => 'admin.turbine.power',
+                    )
                 )
-            )
+            ;
+        }
+        $datagridMapper
             ->add(
                 'year',
                 null,
