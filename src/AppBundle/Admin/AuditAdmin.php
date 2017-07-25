@@ -234,10 +234,14 @@ class AuditAdmin extends AbstractBaseAdmin
         $datagridMapper
             ->add(
                 'windmill.windfarm',
-                null, // or 'doctrine_orm_callback' to enable callback behaviour,
+                'doctrine_orm_callback',
                 array(
                     'label' => 'admin.windmill.windfarm',
-//                    'callback' => array($this, 'getFilteredWidfarmsByUserRole'),
+                    'callback' => array($this, 'getFilteredWidfarmsByUserRole'),
+                ),
+                'choice',
+                array(
+                    'choices' => $this->wfr->findAllSortedByName(),
                 )
             )
             ->add(
