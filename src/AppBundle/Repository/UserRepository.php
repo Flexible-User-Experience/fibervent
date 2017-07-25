@@ -9,17 +9,17 @@ use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 
 /**
- * Class UserRepository
+ * Class UserRepository.
  *
  * @category Repository
- * @package  AppBundle\Repository
+ *
  * @author   Anton Serra <aserratorta@gmail.com>
  */
 class UserRepository extends EntityRepository
 {
     /**
-     * @param integer|null $limit
-     * @param string       $order
+     * @param int|null $limit
+     * @param string   $order
      *
      * @return QueryBuilder
      */
@@ -38,8 +38,8 @@ class UserRepository extends EntityRepository
     }
 
     /**
-     * @param integer|null $limit
-     * @param string       $order
+     * @param int|null $limit
+     * @param string   $order
      *
      * @return Query
      */
@@ -49,8 +49,8 @@ class UserRepository extends EntityRepository
     }
 
     /**
-     * @param integer|null $limit
-     * @param string       $order
+     * @param int|null $limit
+     * @param string   $order
      *
      * @return array
      */
@@ -61,7 +61,7 @@ class UserRepository extends EntityRepository
 
     /**
      * @param Customer|null $customer
-     * @param integer|null  $limit
+     * @param int|null      $limit
      * @param string        $order
      *
      * @return QueryBuilder
@@ -79,7 +79,7 @@ class UserRepository extends EntityRepository
 
     /**
      * @param Customer|null $customer
-     * @param integer|null  $limit
+     * @param int|null      $limit
      * @param string        $order
      *
      * @return Query
@@ -91,7 +91,7 @@ class UserRepository extends EntityRepository
 
     /**
      * @param Customer|null $customer
-     * @param integer|null  $limit
+     * @param int|null      $limit
      * @param string        $order
      *
      * @return array
@@ -102,8 +102,8 @@ class UserRepository extends EntityRepository
     }
 
     /**
-     * @param integer|null $limit
-     * @param string       $order
+     * @param int|null $limit
+     * @param string   $order
      *
      * @return QueryBuilder
      */
@@ -113,12 +113,12 @@ class UserRepository extends EntityRepository
             ->findAllSortedByNameQB($limit, $order)
             ->where('u.roles NOT LIKE :role')
             ->andWhere('u.enabled = true')
-            ->setParameter('role', '%' . UserRolesEnum::ROLE_CUSTOMER . '%');
+            ->setParameter('role', '%'.UserRolesEnum::ROLE_CUSTOMER.'%');
     }
 
     /**
-     * @param integer|null $limit
-     * @param string       $order
+     * @param int|null $limit
+     * @param string   $order
      *
      * @return Query
      */
@@ -128,8 +128,8 @@ class UserRepository extends EntityRepository
     }
 
     /**
-     * @param integer|null $limit
-     * @param string       $order
+     * @param int|null $limit
+     * @param string   $order
      *
      * @return array
      */
@@ -140,7 +140,7 @@ class UserRepository extends EntityRepository
 
     /**
      * @param Customer|null $customer
-     * @param integer|null  $limit
+     * @param int|null      $limit
      * @param string        $order
      *
      * @return QueryBuilder
@@ -158,7 +158,7 @@ class UserRepository extends EntityRepository
 
     /**
      * @param Customer|null $customer
-     * @param integer|null  $limit
+     * @param int|null      $limit
      * @param string        $order
      *
      * @return Query
@@ -170,7 +170,7 @@ class UserRepository extends EntityRepository
 
     /**
      * @param Customer|null $customer
-     * @param integer|null  $limit
+     * @param int|null      $limit
      * @param string        $order
      *
      * @return array
@@ -178,5 +178,46 @@ class UserRepository extends EntityRepository
     public function findEnabledSortedByName($customer, $limit = null, $order = 'ASC')
     {
         return $this->findEnabledSortedByNameQ($customer, $limit, $order)->getResult();
+    }
+
+    /**
+     * @param Customer $customer
+     * @param int|null $limit
+     * @param string   $order
+     *
+     * @return QueryBuilder
+     */
+    public function findRegionalManagersByCustomerQB(Customer $customer, $limit = null, $order = 'ASC')
+    {
+        return $this->findAllSortedByNameQB($limit, $order)
+            ->where('u.customer = :customer')
+            ->andWhere('u.roles LIKE :role')
+            ->setParameter('customer', $customer)
+            ->setParameter('role', '%'.UserRolesEnum::ROLE_CUSTOMER.'%')
+        ;
+    }
+
+    /**
+     * @param Customer $customer
+     * @param int|null $limit
+     * @param string   $order
+     *
+     * @return Query
+     */
+    public function findRegionalManagersByCustomerQ(Customer $customer, $limit = null, $order = 'ASC')
+    {
+        return $this->findRegionalManagersByCustomerQB($customer, $limit, $order)->getQuery();
+    }
+
+    /**
+     * @param Customer $customer
+     * @param int|null $limit
+     * @param string   $order
+     *
+     * @return array
+     */
+    public function findRegionalManagersByCustomer(Customer $customer, $limit = null, $order = 'ASC')
+    {
+        return $this->findRegionalManagersByCustomerQ($customer, $limit, $order)->getResult();
     }
 }

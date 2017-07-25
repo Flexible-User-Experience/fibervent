@@ -8,17 +8,17 @@ use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 
 /**
- * Class WindfarmRepository
+ * Class WindfarmRepository.
  *
  * @category Repository
- * @package  AppBundle\Repository
+ *
  * @author   Anton Serra <aserratorta@gmail.com>
  */
 class WindfarmRepository extends EntityRepository
 {
     /**
-     * @param integer|null $limit
-     * @param string       $order
+     * @param int|null $limit
+     * @param string   $order
      *
      * @return QueryBuilder
      */
@@ -36,8 +36,8 @@ class WindfarmRepository extends EntityRepository
     }
 
     /**
-     * @param integer|null $limit
-     * @param string       $order
+     * @param int|null $limit
+     * @param string   $order
      *
      * @return Query
      */
@@ -47,8 +47,8 @@ class WindfarmRepository extends EntityRepository
     }
 
     /**
-     * @param integer|null $limit
-     * @param string       $order
+     * @param int|null $limit
+     * @param string   $order
      *
      * @return array
      */
@@ -58,8 +58,8 @@ class WindfarmRepository extends EntityRepository
     }
 
     /**
-     * @param integer|null $limit
-     * @param string       $order
+     * @param int|null $limit
+     * @param string   $order
      *
      * @return QueryBuilder
      */
@@ -73,8 +73,8 @@ class WindfarmRepository extends EntityRepository
     }
 
     /**
-     * @param integer|null $limit
-     * @param string       $order
+     * @param int|null $limit
+     * @param string   $order
      *
      * @return Query
      */
@@ -84,8 +84,8 @@ class WindfarmRepository extends EntityRepository
     }
 
     /**
-     * @param integer|null $limit
-     * @param string       $order
+     * @param int|null $limit
+     * @param string   $order
      *
      * @return array
      */
@@ -95,9 +95,9 @@ class WindfarmRepository extends EntityRepository
     }
 
     /**
-     * @param Customer     $customer
-     * @param integer|null $limit
-     * @param string       $order
+     * @param Customer $customer
+     * @param int|null $limit
+     * @param string   $order
      *
      * @return QueryBuilder
      */
@@ -113,9 +113,9 @@ class WindfarmRepository extends EntityRepository
     }
 
     /**
-     * @param Customer     $customer
-     * @param integer|null $limit
-     * @param string       $order
+     * @param Customer $customer
+     * @param int|null $limit
+     * @param string   $order
      *
      * @return Query
      */
@@ -125,14 +125,53 @@ class WindfarmRepository extends EntityRepository
     }
 
     /**
-     * @param Customer     $customer
-     * @param integer|null $limit
-     * @param string       $order
+     * @param Customer $customer
+     * @param int|null $limit
+     * @param string   $order
      *
      * @return array
      */
     public function findOnlyAvailableSortedByName(Customer $customer, $limit = null, $order = 'ASC')
     {
         return $this->findOnlyAvailableSortedByNameQ($customer, $limit, $order)->getResult();
+    }
+
+    /**
+     * @param Customer $customer
+     * @param int|null $limit
+     * @param string   $order
+     *
+     * @return QueryBuilder
+     */
+    public function findCustomerEnabledSortedByNameQB(Customer $customer, $limit = null, $order = 'ASC')
+    {
+        return $this->findEnabledSortedByNameQB($limit, $order)
+            ->andWhere('w.customer = :customer')
+            ->setParameter('customer', $customer)
+        ;
+    }
+
+    /**
+     * @param Customer $customer
+     * @param int|null $limit
+     * @param string   $order
+     *
+     * @return Query
+     */
+    public function findCustomerEnabledSortedByNameQ(Customer $customer, $limit = null, $order = 'ASC')
+    {
+        return $this->findCustomerEnabledSortedByNameQB($customer, $limit, $order)->getQuery();
+    }
+
+    /**
+     * @param Customer $customer
+     * @param int|null $limit
+     * @param string   $order
+     *
+     * @return array
+     */
+    public function findCustomerEnabledSortedByName(Customer $customer, $limit = null, $order = 'ASC')
+    {
+        return $this->findCustomerEnabledSortedByNameQ($customer, $limit, $order)->getResult();
     }
 }

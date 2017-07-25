@@ -6,6 +6,8 @@ use AppBundle\Entity\Audit;
 use AppBundle\Entity\AuditWindmillBlade;
 use AppBundle\Entity\BladePhoto;
 use AppBundle\Entity\User;
+use AppBundle\Entity\Windfarm;
+use AppBundle\Entity\Windmill;
 use AppBundle\Enum\AuditDiagramTypeEnum;
 use AppBundle\Enum\AuditStatusEnum;
 use AppBundle\Enum\AuditTypeEnum;
@@ -231,26 +233,64 @@ class AuditAdmin extends AbstractBaseAdmin
                     )
                 );
         }
-        $datagridMapper
-            ->add(
-                'windmill.windfarm',
-                'doctrine_orm_callback',
-                array(
-                    'label' => 'admin.windmill.windfarm',
-                    'callback' => array($this, 'getFilteredWidfarmsByUserRole'),
-                ),
-                'choice',
-                array(
-                    'choices' => $this->wfr->findAllSortedByName(),
-                )
-            )
-            ->add(
-                'windmill',
-                null,
-                array(
-                    'label' => 'admin.audit.windmill',
-                )
-            );
+        if ($this->acs->isGranted(UserRolesEnum::ROLE_OPERATOR)) {
+            $datagridMapper
+                ->add(
+                    'windmill.windfarm',
+                    null,
+                    array(
+                        'label' => 'admin.windmill.windfarm',
+                    ),
+                    'entity',
+                    array(
+                        'class' => Windfarm::class,
+                        'query_builder' => $this->wfr->findEnabledSortedByNameQB(),
+                    )
+                );
+        } else {
+            $datagridMapper
+                ->add(
+                    'windmill.windfarm',
+                    null,
+                    array(
+                        'label' => 'admin.windmill.windfarm',
+                    ),
+                    'entity',
+                    array(
+                        'class' => Windfarm::class,
+                        'query_builder' => $this->wfr->findCustomerEnabledSortedByNameQB($this->tss->getToken()->getUser()->getCustomer()),
+                    )
+                );
+        }
+        if ($this->acs->isGranted(UserRolesEnum::ROLE_OPERATOR)) {
+            $datagridMapper
+                ->add(
+                    'windmill',
+                    null,
+                    array(
+                        'label' => 'admin.audit.windmill',
+                    ),
+                    'entity',
+                    array(
+                        'class' => Windmill::class,
+                        'query_builder' => $this->wmr->findEnabledSortedByCustomerWindfarmAndWindmillCodeQB(),
+                    )
+                );
+        } else {
+            $datagridMapper
+                ->add(
+                    'windmill',
+                    null,
+                    array(
+                        'label' => 'admin.audit.windmill',
+                    ),
+                    'entity',
+                    array(
+                        'class' => Windmill::class,
+                        'query_builder' => $this->wmr->findCustomerSortedByCustomerWindfarmAndWindmillCodeQB($this->tss->getToken()->getUser()->getCustomer()),
+                    )
+                );
+        }
         if ($this->acs->isGranted(UserRolesEnum::ROLE_OPERATOR)) {
             $datagridMapper
                 ->add(
@@ -330,26 +370,6 @@ class AuditAdmin extends AbstractBaseAdmin
     }
 
     /**
-     * @param QueryBuilder $queryBuilder
-     * @param string       $alias
-     * @param string       $field
-     * @param $value
-     *
-     * @return bool|null
-     */
-    public function getFilteredWidfarmsByUserRole($queryBuilder, $alias, $field, $value)
-    {
-        if ($this->acs->isGranted(UserRolesEnum::ROLE_CUSTOMER)) {
-            $queryBuilder->andWhere('wf.customer = :customer');
-            $queryBuilder->setParameter('customer', $this->tss->getToken()->getUser()->getCustomer());
-
-            return true;
-        }
-
-        return null;
-    }
-
-    /**
      * @param ListMapper $listMapper
      */
     protected function configureListFields(ListMapper $listMapper)
@@ -364,17 +384,23 @@ class AuditAdmin extends AbstractBaseAdmin
                     'format' => 'd/m/Y',
                 )
             )
-            ->add(
-                'windmill.windfarm.customer',
-                null,
-                array(
-                    'label' => 'admin.windfarm.customer',
-                    'associated_property' => 'name',
-                    'sortable' => true,
-                    'sort_field_mapping' => array('fieldName' => 'name'),
-                    'sort_parent_association_mappings' => array(array('fieldName' => 'customer')),
+        ;
+        if ($this->acs->isGranted(UserRolesEnum::ROLE_OPERATOR)) {
+            $listMapper
+                ->add(
+                    'windmill.windfarm.customer',
+                    null,
+                    array(
+                        'label' => 'admin.windfarm.customer',
+                        'associated_property' => 'name',
+                        'sortable' => true,
+                        'sort_field_mapping' => array('fieldName' => 'name'),
+                        'sort_parent_association_mappings' => array(array('fieldName' => 'customer')),
+                    )
                 )
-            )
+            ;
+        }
+        $listMapper
             ->add(
                 'windmill.windfarm',
                 null,
