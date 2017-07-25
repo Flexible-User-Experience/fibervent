@@ -346,17 +346,21 @@ class WindfarmAdmin extends AbstractBaseAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         unset($this->listModes['mosaic']);
-        $listMapper
-            ->add(
-                'customer',
-                null,
-                array(
-                    'label' => 'admin.windfarm.customer',
-                    'sortable' => true,
-                    'sort_field_mapping' => array('fieldName' => 'name'),
-                    'sort_parent_association_mappings' => array(array('fieldName' => 'customer')),
+        if ($this->acs->isGranted(UserRolesEnum::ROLE_OPERATOR)) {
+            $listMapper
+                ->add(
+                    'customer',
+                    null,
+                    array(
+                        'label' => 'admin.windfarm.customer',
+                        'sortable' => true,
+                        'sort_field_mapping' => array('fieldName' => 'name'),
+                        'sort_parent_association_mappings' => array(array('fieldName' => 'customer')),
+                    )
                 )
-            )
+            ;
+        }
+        $listMapper
             ->add(
                 'name',
                 null,
