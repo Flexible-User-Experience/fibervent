@@ -5,16 +5,16 @@ namespace AppBundle\Tests\Controller;
 use AppBundle\Tests\AbstractBaseTest;
 
 /**
- * Class BackendControllerTest
+ * Class BackendControllerTest.
  *
  * @category Test
- * @package  AppBundle\Tests\Controller
+ *
  * @author   Anton Serra <aserratorta@gmail.com.cat>
  */
 class BackendControllerTest extends AbstractBaseTest
 {
     /**
-     * Test admin login request is successful
+     * Test admin login request is successful.
      */
     public function testAdminLoginPageIsSuccessful()
     {
@@ -25,9 +25,10 @@ class BackendControllerTest extends AbstractBaseTest
     }
 
     /**
-     * Test HTTP request is successful
+     * Test HTTP request is successful.
      *
      * @dataProvider provideSuccessfulUrls
+     *
      * @param string $url
      */
     public function testAdminPagesAreSuccessful($url)
@@ -39,7 +40,7 @@ class BackendControllerTest extends AbstractBaseTest
     }
 
     /**
-     * Successful Urls provider
+     * Successful Urls provider.
      *
      * @return array
      */
@@ -58,6 +59,7 @@ class BackendControllerTest extends AbstractBaseTest
             array('/admin/windfarms/windfarm/list'),
             array('/admin/windfarms/windfarm/create'),
             array('/admin/windfarms/windfarm/1/edit'),
+            array('/admin/windfarms/windfarm/1/show'),
             array('/admin/windfarms/windfarm/1/map'),
             array('/admin/windfarms/windfarm/1/excel'),
             array('/admin/windfarms/windmill/list'),
@@ -109,9 +111,10 @@ class BackendControllerTest extends AbstractBaseTest
     }
 
     /**
-     * Test HTTP request is not found
+     * Test HTTP request is not found.
      *
      * @dataProvider provideNotFoundUrls
+     *
      * @param string $url
      */
     public function testAdminPagesAreNotFound($url)
@@ -123,7 +126,7 @@ class BackendControllerTest extends AbstractBaseTest
     }
 
     /**
-     * Not found Urls provider
+     * Not found Urls provider.
      *
      * @return array
      */
