@@ -281,15 +281,37 @@ class WindfarmAdmin extends AbstractBaseAdmin
                 )
             )
         ;
-        $datagridMapper
-            ->add(
-                'manager', // TODO dynamic choices according to user logged role
-                null,
-                array(
-                    'label' => 'admin.windfarm.manager',
+        if ($this->acs->isGranted(UserRolesEnum::ROLE_OPERATOR)) {
+            $datagridMapper
+                ->add(
+                    'manager',
+                    null,
+                    array(
+                        'label' => 'admin.windfarm.manager',
+                    ),
+                    'entity',
+                    array(
+                        'class' => User::class,
+                        'query_builder' => $this->ur->findAllSortedByNameQB(),
+                    )
                 )
-            )
-        ;
+            ;
+        } else {
+            $datagridMapper
+                ->add(
+                    'manager',
+                    null,
+                    array(
+                        'label' => 'admin.windfarm.manager',
+                    ),
+                    'entity',
+                    array(
+                        'class' => User::class,
+                        'query_builder' => $this->ur->findRegionalManagersByCustomerQB($this->tss->getToken()->getUser()->getCustomer()),
+                    )
+                )
+            ;
+        }
         if ($this->acs->isGranted(UserRolesEnum::ROLE_OPERATOR)) {
             $datagridMapper
                 ->add(
