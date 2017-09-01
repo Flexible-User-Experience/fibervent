@@ -8,13 +8,12 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
- * WindfarmAnnualStatsFormType class
+ * WindfarmAnnualStatsFormType class.
  *
  * @category FormType
- * @package  AppBundle\Form\Type
+ *
  * @author   David Romaní <david@flux.cat>
  */
 class WindfarmAnnualStatsFormType extends AbstractType
@@ -27,11 +26,7 @@ class WindfarmAnnualStatsFormType extends AbstractType
     private $ar;
 
     /**
-     *
-     *
-     * Methods
-     *
-     *
+     * Methods.
      */
 
     /**
@@ -50,7 +45,9 @@ class WindfarmAnnualStatsFormType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $yearsArray = $this->ar->getYearsOfInvoicedOrDoneAuditsByWindfarm($options['windfarm_id']);
+        //        TODO replace this patch until fix it
+//        $yearsArray = $this->ar->getYearsOfInvoicedOrDoneAuditsByWindfarm($options['windfarm_id']);
+        $yearsArray = $this->ar->getYearsOfAllAuditsByWindfarm($options['windfarm_id']);
 
         if (count($yearsArray) > 0) {
             $builder
@@ -58,11 +55,11 @@ class WindfarmAnnualStatsFormType extends AbstractType
                     'year',
                     ChoiceType::class,
                     array(
-                        'mapped'   => false,
+                        'mapped' => false,
                         'required' => true,
                         'multiple' => false,
-                        'label'    => 'Año',
-                        'choices'  => $yearsArray,
+                        'label' => 'Año',
+                        'choices' => $yearsArray,
                     )
                 )
                 ->add(
@@ -70,9 +67,9 @@ class WindfarmAnnualStatsFormType extends AbstractType
                     SubmitType::class,
                     array(
                         'label' => 'Generar informe',
-                        'attr'  => array(
+                        'attr' => array(
                             'class' => 'btn btn-success',
-                        )
+                        ),
                     )
                 )
             ;
@@ -80,7 +77,7 @@ class WindfarmAnnualStatsFormType extends AbstractType
     }
 
     /**
-     * Set default form options
+     * Set default form options.
      *
      * @param OptionsResolver $resolver
      */
