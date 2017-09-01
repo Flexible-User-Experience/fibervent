@@ -117,6 +117,9 @@ admin:
     for_help: para recibir ayuda
   audit:
     title: Inspección
+    title_list: Inspección
+    title_show: Mostrar
+    title_delete: Borrar
     windmill: Aerogenerador
     observations: Observaciones
     year: Año
@@ -130,6 +133,7 @@ admin:
     auditwindmillblade_title: Palas inspeccionadas
   auditwindmillblade:
     title: Auditoría Pala Aerogenerador
+    title_list: Auditoría Pala Aerogenerador
     audit: Auditoría
     windmillblade: Pala
     damages: Daños
@@ -141,10 +145,12 @@ admin:
     blade_photos: 'Fotos generales · Pala '
   blade:
     title: Pala
+    title_list: Pala
     model: Modelo
     length: Longitud
   bladedamage:
     title: Daño Pala
+    title_list: Daño Pala
     number: Núm.
     damage: Código
     position: Posición
@@ -155,9 +161,12 @@ admin:
     damagecategory: Cat.
   bladephoto:
     title: Foto Pala
+    title_list: Foto Pala
     imagefile: Foto
   customer:
     title: Cliente
+    title_list: Cliente
+    title_show: Mapa
     image: Logo
     code: CIF
     name: Nombre
@@ -174,12 +183,14 @@ admin:
     windfarms: Parques Eólicos
   damage:
     title: Tipo Daño
+    title_list: Tipo Daño
     section: Sección
     code: Código
     description: Descripción
     translations: Traducciones
   damagecategory:
     title: Categoría Daño
+    title_list: Categoría Daño
     category: Categoría
     priority: Prioridad
     description: Descripción
@@ -187,22 +198,27 @@ admin:
     colour: Color
   observation:
     title: Observaciones Daños Pala
+    title_list: Observaciones Daños Pala
     position: Orden
     damage_number: Número Daño
   photo:
     title: Foto
+    title_list: Foto
     imagename: Nombre
     help: 'hasta 10MB con formato PNG, JPG o GIF y anchura mínima de %width%px.'
   state:
     title: Provincia
+    title_list: Provincia
     country: País
   turbine:
     title: Turbina
+    title_list: Turbina
     height: Altura (m)
     diameter: Diámetro (m)
     power: Potencia (MW)
   user:
     title: Usuario
+    title_list: Usuario
     username: Nombre Usuario
     username_help: utilizar sólo letras en minúscula sin espacios en blanco.
     password: Password
@@ -215,6 +231,8 @@ admin:
     profile_flash: Tu perfil se ha actualizado correctamente.
   windfarm:
     title: Parque Eólico
+    title_list: Parque Eólico
+    title_show: Mostrar
     customer: Cliente
     manager: 'O&M Regional Manager'
     year: Año
@@ -226,6 +244,7 @@ admin:
     windmill_amount: Nº Aerogeneradores
   windmill:
      title: Aerogenerador
+     title_list: Aerogenerador
      windfarm: Parque Eólico
      code: Número
      turbine: Turbina
@@ -234,6 +253,7 @@ admin:
      manager: Administrador
   windmillblade:
     title: Palas Aerogenerador
+    title_list: Palas Aerogenerador
     sn: 'S/N'
 gmap:
   general: ubicación general

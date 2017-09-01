@@ -117,6 +117,9 @@ admin:
     for_help:
   audit:
     title:
+    title_list:
+    title_show:
+    title_delete:
     windmill:
     observations:
     year: year
@@ -130,6 +133,7 @@ admin:
     auditwindmillblade_title:
   auditwindmillblade:
     title:
+    title_list:
     audit:
     windmillblade:
     damages:
@@ -141,10 +145,12 @@ admin:
     blade_photos:
   blade:
     title:
+    title_list:
     model:
     length:
   bladedamage:
     title:
+    title_list:
     number:
     damage:
     position:
@@ -155,9 +161,12 @@ admin:
     damagecategory:
   bladephoto:
     title:
+    title_list:
     imagefile:
   customer:
     title:
+    title_list:
+    title_show:
     image:
     code:
     name:
@@ -174,12 +183,14 @@ admin:
     windfarms:
   damage:
     title:
+    title_list:
     section:
     code:
     description:
     translations:
   damagecategory:
     title:
+    title_list:
     category:
     priority:
     description:
@@ -187,22 +198,27 @@ admin:
     colour:
   observation:
     title:
+    title_list:
     position:
     damage_number:
   photo:
     title:
+    title_list:
     imagename:
     help:
   state:
     title:
+    title_list:
     country:
   turbine:
     title:
+    title_list:
     height:
     diameter:
     power:
   user:
     title:
+    title_list:
     username:
     username_help:
     password:
@@ -215,6 +231,8 @@ admin:
     profile_flash:
   windfarm:
     title:
+    title_list:
+    title_show:
     customer:
     manager:
     year:
@@ -226,6 +244,7 @@ admin:
     windmill_amount:
   windmill:
      title:
+     title_list:
      windfarm:
      code:
      turbine:
@@ -234,6 +253,7 @@ admin:
      manager:
   windmillblade:
     title:
+    title_list:
     sn:
 gmap:
   general: emplacement général
