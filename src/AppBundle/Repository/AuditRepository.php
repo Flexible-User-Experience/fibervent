@@ -125,6 +125,50 @@ class AuditRepository extends EntityRepository
      *
      * @return QueryBuilder
      */
+    public function getAllAuditsByWindfarmByYearQB(Windfarm $windfarm, $year)
+    {
+        $query = $this->createQueryBuilder('a')
+            ->where('a.windfarm = :windfarm')
+            ->setParameter('windfarm', $windfarm)
+//            ->andWhere('a.status = :done OR a.status = :invoiced')
+//            ->setParameter('done', AuditStatusEnum::DONE)
+//            ->setParameter('invoiced', AuditStatusEnum::INVOICED)
+            ->andWhere('YEAR(a.beginDate) = :year')
+            ->setParameter('year', $year)
+            ->orderBy('a.beginDate', 'DESC')
+        ;
+
+        return $query;
+    }
+
+    /**
+     * @param Windfarm $windfarm
+     * @param int      $year
+     *
+     * @return Query
+     */
+    public function getAllAuditsByWindfarmByYearQ(Windfarm $windfarm, $year)
+    {
+        return $this->getAllAuditsByWindfarmByYearQB($windfarm, $year)->getQuery();
+    }
+
+    /**
+     * @param Windfarm $windfarm
+     * @param int      $year
+     *
+     * @return array
+     */
+    public function getAllAuditsByWindfarmByYear(Windfarm $windfarm, $year)
+    {
+        return $this->getAllAuditsByWindfarmByYearQ($windfarm, $year)->getResult();
+    }
+
+    /**
+     * @param Windfarm $windfarm
+     * @param int      $year
+     *
+     * @return QueryBuilder
+     */
     public function getInvoicedOrDoneAuditsByWindfarmByYearQB(Windfarm $windfarm, $year)
     {
         $query = $this->getInvoicedOrDoneAuditsByWindfarmSortedByBeginDateQB($windfarm)
