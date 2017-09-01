@@ -193,7 +193,9 @@ class WindfarmAdminController extends AbstractBaseAdminController
             throw new AccessDeniedHttpException();
         }
 
-        $audits = $this->getDoctrine()->getRepository('AppBundle:Audit')->getInvoicedOrDoneAuditsByWindfarmByYear($object, $year);
+//        TODO replace this patch until fix it
+//        $audits = $this->getDoctrine()->getRepository('AppBundle:Audit')->getInvoicedOrDoneAuditsByWindfarmByYear($object, $year);
+        $audits = $this->getDoctrine()->getRepository('AppBundle:Audit')->getAllAuditsByWindfarmByYear($object, $year);
 
         /** @var Audit $audit */
         foreach ($audits as $audit) {
