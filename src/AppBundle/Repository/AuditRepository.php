@@ -130,9 +130,6 @@ class AuditRepository extends EntityRepository
         $query = $this->createQueryBuilder('a')
             ->where('a.windfarm = :windfarm')
             ->setParameter('windfarm', $windfarm)
-//            ->andWhere('a.status = :done OR a.status = :invoiced')
-//            ->setParameter('done', AuditStatusEnum::DONE)
-//            ->setParameter('invoiced', AuditStatusEnum::INVOICED)
             ->andWhere('YEAR(a.beginDate) = :year')
             ->setParameter('year', $year)
             ->orderBy('a.beginDate', 'DESC')
@@ -214,6 +211,30 @@ class AuditRepository extends EntityRepository
             ->setParameter('windfarm', $windfarmId)
             ->setParameter('done', AuditStatusEnum::DONE)
             ->setParameter('invoiced', AuditStatusEnum::INVOICED)
+            ->orderBy('year', 'DESC')
+            ->groupBy('year');
+
+        $yearsArray = $query->getQuery()->getArrayResult();
+        $choicesArray = array();
+        foreach ($yearsArray as $year) {
+            $value = $year['year'];
+            $choicesArray["$value"] = intval($value);
+        }
+
+        return $choicesArray;
+    }
+
+    /**
+     * @param int $windfarmId
+     *
+     * @return array
+     */
+    public function getYearsOfAllAuditsByWindfarm($windfarmId)
+    {
+        $query = $this->createQueryBuilder('a')
+            ->select('YEAR(a.beginDate) AS year')
+            ->where('a.windfarm = :windfarm')
+            ->setParameter('windfarm', $windfarmId)
             ->orderBy('year', 'DESC')
             ->groupBy('year');
 
