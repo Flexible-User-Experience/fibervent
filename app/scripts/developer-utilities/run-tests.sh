@@ -1,5 +1,6 @@
 #!/bin/bash
 
+echo "Excuting test suite."
 echo "Started at `date +"%T %d/%m/%Y"`"
 
 if [ -z "$1" ]

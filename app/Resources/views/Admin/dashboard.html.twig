@@ -1,9 +1,0 @@
-{% extends "SonataAdminBundle:Core:dashboard.html.twig" %}
-
-{% block content %}
-    {{ parent() }}
-    <hr style="margin-top:40px;border-top:solid 1px #d2d6de">
-    <div>
-        <p><i class="fa fa-info-circle"></i> {{ 'admin.common.send_email' | trans }} <a href="mailto:suport@flux.cat?subject=iFiber support" style="color:#000;text-decoration:underline">{{ 'admin.common.here' | trans }}</a> {{ 'admin.common.for_help' | trans }}.</p>
-    </div>
-{% endblock %}
