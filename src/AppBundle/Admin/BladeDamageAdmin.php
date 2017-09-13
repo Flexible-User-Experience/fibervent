@@ -178,6 +178,8 @@ class BladeDamageAdmin extends AbstractBaseAdmin
                 )
                 ->end();
         }
+
+        $this->setTemplate('edit', '::Admin/BladeDamage/edit.html.twig');
     }
 
     /**
