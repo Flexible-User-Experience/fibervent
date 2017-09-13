@@ -131,7 +131,7 @@ class DamageCategoryAdmin extends AbstractBaseAdmin
                 'fakecolour',
                 null,
                 array(
-                    'label'    => ' ',
+                    'label'    => 'admin.damagecategory.colour',
                     'template' => '::Admin/Cells/list__cell_colour.html.twig',
                     'editable' => false,
                 )
