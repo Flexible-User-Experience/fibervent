@@ -132,6 +132,13 @@ admin:
     diagramtype_title: Diagrama de palas
     diagramtype: Tipo de diagrama
     auditwindmillblade_title: Palas inspeccionadas
+    email:
+      to: Para
+      cc: Con copia para
+      subject: Asunto
+      subject_placeholder: Resultado inspección Fibervent
+      message: Mensaje
+      send: Enviar email
   auditwindmillblade:
     title: Auditoría Pala Aerogenerador
     title_list: Auditoría Pala Aerogenerador
