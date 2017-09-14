@@ -178,6 +178,10 @@ class WindfarmAdminController extends AbstractBaseAdminController
      */
     public function excelAttachmentAction(Request $request = null)
     {
+        $statuses = null;
+        if (array_key_exists('audit_status', $request->query->get(WindfarmAnnualStatsFormType::BLOCK_PREFIX))) {
+            $statuses = $request->query->get(WindfarmAnnualStatsFormType::BLOCK_PREFIX)['audit_status'];
+        }
         $year = intval($request->query->get(WindfarmAnnualStatsFormType::BLOCK_PREFIX)['year']);
         $request = $this->resolveRequest($request);
         $id = $request->get($this->admin->getIdParameter());
@@ -193,9 +197,7 @@ class WindfarmAdminController extends AbstractBaseAdminController
             throw new AccessDeniedHttpException();
         }
 
-//        TODO replace this patch until fix it
-//        $audits = $this->getDoctrine()->getRepository('AppBundle:Audit')->getInvoicedOrDoneAuditsByWindfarmByYear($object, $year);
-        $audits = $this->getDoctrine()->getRepository('AppBundle:Audit')->getAllAuditsByWindfarmByYear($object, $year);
+        $audits = $this->getDoctrine()->getRepository('AppBundle:Audit')->getAuditsByWindfarmByStatusesAndYear($object, $statuses, $year);
 
         /** @var Audit $audit */
         foreach ($audits as $audit) {

@@ -162,6 +162,48 @@ class AuditRepository extends EntityRepository
 
     /**
      * @param Windfarm $windfarm
+     * @param array    $statuses
+     * @param int      $year
+     *
+     * @return QueryBuilder
+     */
+    public function getAuditsByWindfarmByStatusesAndYearQB(Windfarm $windfarm, $statuses, $year)
+    {
+        $query = $this->getAllAuditsByWindfarmByYearQB($windfarm, $year);
+        if (!is_null($statuses)) {
+            $filter = 'a.status = '.implode(' OR a.status = ', $statuses);
+            $query->andWhere($filter);
+        }
+
+        return $query;
+    }
+
+    /**
+     * @param Windfarm $windfarm
+     * @param array    $statuses
+     * @param int      $year
+     *
+     * @return Query
+     */
+    public function getAuditsByWindfarmByStatusesAndYearQ(Windfarm $windfarm, $statuses, $year)
+    {
+        return $this->getAuditsByWindfarmByStatusesAndYearQB($windfarm, $statuses, $year)->getQuery();
+    }
+
+    /**
+     * @param Windfarm $windfarm
+     * @param array    $statuses
+     * @param int      $year
+     *
+     * @return array
+     */
+    public function getAuditsByWindfarmByStatusesAndYear(Windfarm $windfarm, $statuses, $year)
+    {
+        return $this->getAuditsByWindfarmByStatusesAndYearQ($windfarm, $statuses, $year)->getResult();
+    }
+
+    /**
+     * @param Windfarm $windfarm
      * @param int      $year
      *
      * @return QueryBuilder

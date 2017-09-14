@@ -123,6 +123,7 @@ admin:
     windmill:
     observations:
     year: year
+    generate_xls:
     begindate:
     enddate:
     operators:
