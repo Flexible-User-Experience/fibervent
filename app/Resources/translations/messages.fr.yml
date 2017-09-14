@@ -123,6 +123,7 @@ admin:
     windmill:
     observations:
     year: year
+    generate_xls:
     begindate:
     enddate:
     operators:
@@ -131,6 +132,13 @@ admin:
     diagramtype_title:
     diagramtype:
     auditwindmillblade_title:
+    email:
+      to:
+      cc:
+      subject:
+      subject_placeholder:
+      message:
+      send:
   auditwindmillblade:
     title:
     title_list:

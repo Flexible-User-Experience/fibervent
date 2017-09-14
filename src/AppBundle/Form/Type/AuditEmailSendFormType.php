@@ -33,7 +33,7 @@ class AuditEmailSendFormType extends AbstractType
                     'mapped'   => false,
                     'required' => true,
                     'multiple' => false,
-                    'label'    => 'Per a',
+                    'label'    => 'admin.audit.email.to',
                     'choices'  => $options['to_emails_list'],
                 )
             )
@@ -44,7 +44,7 @@ class AuditEmailSendFormType extends AbstractType
                     'mapped'   => false,
                     'required' => false,
                     'multiple' => false,
-                    'label'    => 'Amb còpia per a',
+                    'label'    => 'admin.audit.email.cc',
                     'choices'  => $options['cc_emails_list'],
                 )
             )
@@ -54,7 +54,7 @@ class AuditEmailSendFormType extends AbstractType
                 array(
                     'mapped'   => false,
                     'required' => false,
-                    'label'    => 'Assumpte',
+                    'label'    => 'admin.audit.email.subject',
                     'data'     => 'Resultado inspección Fibervent',
                 )
             )
@@ -67,7 +67,7 @@ class AuditEmailSendFormType extends AbstractType
                     ),
                     'mapped'   => false,
                     'required' => false,
-                    'label'    => 'Missatge',
+                    'label'    => 'admin.audit.email.message',
                     'data'     => $options['default_msg'],
                 )
             )
@@ -75,7 +75,7 @@ class AuditEmailSendFormType extends AbstractType
                 'send',
                 SubmitType::class,
                 array(
-                    'label' => 'Enviar email',
+                    'label' => 'admin.audit.email.send',
                     'attr'  => array(
                         'class' => 'btn btn-success',
                     )

@@ -2,6 +2,7 @@
 
 namespace AppBundle\Form\Type;
 
+use AppBundle\Enum\AuditStatusEnum;
 use AppBundle\Repository\AuditRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -45,12 +46,24 @@ class WindfarmAnnualStatsFormType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        //        TODO replace this patch until fix it
-//        $yearsArray = $this->ar->getYearsOfInvoicedOrDoneAuditsByWindfarm($options['windfarm_id']);
         $yearsArray = $this->ar->getYearsOfAllAuditsByWindfarm($options['windfarm_id']);
 
         if (count($yearsArray) > 0) {
             $builder
+                ->add(
+                    'audit_status',
+                    ChoiceType::class,
+                    array(
+                        'mapped' => false,
+                        'required' => false,
+                        'multiple' => true,
+                        'expanded' => true,
+                        'label' => 'admin.audit.status',
+                        'choices' => AuditStatusEnum::getReversedEnumArray(),
+                        'choices_as_values' => true,
+                        'data' => array(AuditStatusEnum::DONE, AuditStatusEnum::INVOICED),
+                    )
+                )
                 ->add(
                     'year',
                     ChoiceType::class,
@@ -58,7 +71,7 @@ class WindfarmAnnualStatsFormType extends AbstractType
                         'mapped' => false,
                         'required' => true,
                         'multiple' => false,
-                        'label' => 'Año',
+                        'label' => 'admin.audit.year',
                         'choices' => $yearsArray,
                     )
                 )
@@ -66,7 +79,7 @@ class WindfarmAnnualStatsFormType extends AbstractType
                     'send',
                     SubmitType::class,
                     array(
-                        'label' => 'Generar informe',
+                        'label' => 'admin.audit.generate_xls',
                         'attr' => array(
                             'class' => 'btn btn-success',
                         ),
