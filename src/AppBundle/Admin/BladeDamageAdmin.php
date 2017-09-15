@@ -9,6 +9,7 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
+use Sonata\CoreBundle\Form\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 
@@ -165,7 +166,7 @@ class BladeDamageAdmin extends AbstractBaseAdmin
                 ->with('admin.auditwindmillblade.photos', $this->getFormMdSuccessBoxArray(9))
                 ->add(
                     'photos',
-                    'sonata_type_collection',
+                    CollectionType::class,
                     array(
                         'label'              => ' ',
                         'required'           => false,
