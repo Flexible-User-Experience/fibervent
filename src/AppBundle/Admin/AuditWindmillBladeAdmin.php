@@ -97,8 +97,8 @@ class AuditWindmillBladeAdmin extends AbstractBaseAdmin
                         'error_bubbling'     => true,
                     ),
                     array(
-                        'edit'     => 'inline',
-                        'inline'   => 'table',
+                        'edit'   => 'inline',
+                        'inline' => 'table',
                     )
                 )
                 ->end()
