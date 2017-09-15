@@ -9,6 +9,7 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
+use Sonata\CoreBundle\Form\Type\CollectionType;
 
 /**
  * Class WindmillAdmin
@@ -98,7 +99,7 @@ class WindmillAdmin extends AbstractBaseAdmin
                 ->with('admin.windmill.blades', $this->getFormMdSuccessBoxArray(4))
                 ->add(
                     'windmillBlades',
-                    'sonata_type_collection',
+                    CollectionType::class,
                     array(
                         'label'              => ' ',
                         'required'           => false,

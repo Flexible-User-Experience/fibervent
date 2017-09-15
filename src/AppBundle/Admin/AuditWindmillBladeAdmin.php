@@ -7,6 +7,7 @@ use AppBundle\Form\Type\ActionButtonFormType;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
+use Sonata\CoreBundle\Form\Type\CollectionType;
 
 /**
  * Class AuditWindmillBladeAdmin
@@ -88,7 +89,7 @@ class AuditWindmillBladeAdmin extends AbstractBaseAdmin
                 ->with('Situación y descripción de los daños · Pala ' . $order . ' ' . $code, $this->getFormMdSuccessBoxArray(12))
                 ->add(
                     'bladeDamages',
-                    'sonata_type_collection',
+                    CollectionType::class,
                     array(
                         'label'              => 'admin.auditwindmillblade.damages',
                         'required'           => true,
@@ -104,7 +105,7 @@ class AuditWindmillBladeAdmin extends AbstractBaseAdmin
                 ->with('Observaciones · Pala ' . $order . ' ' . $code, $this->getFormMdSuccessBoxArray(8))
                 ->add(
                     'observations',
-                    'sonata_type_collection',
+                    CollectionType::class,
                     array(
                         'label'              => 'admin.audit.observations',
                         'required'           => true,
@@ -121,7 +122,7 @@ class AuditWindmillBladeAdmin extends AbstractBaseAdmin
                 ->with('Fotos generals · Pala ' . $order . ' ' . $code, $this->getFormMdSuccessBoxArray(4))
                 ->add(
                     'bladePhotos',
-                    'sonata_type_collection',
+                    CollectionType::class,
                     array(
                         'label'              => 'admin.auditwindmillblade.photos',
                         'required'           => true,

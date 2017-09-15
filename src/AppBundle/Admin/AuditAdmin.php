@@ -17,6 +17,7 @@ use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\CoreBundle\Form\Type\CollectionType;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -182,7 +183,7 @@ class AuditAdmin extends AbstractBaseAdmin
                 ->with('admin.audit.auditwindmillblade_title', $this->getFormMdSuccessBoxArray(4))
                 ->add(
                     'auditWindmillBlades',
-                    'sonata_type_collection',
+                    CollectionType::class,
                     array(
                         'label' => ' ',
                         'required' => false,
@@ -498,7 +499,8 @@ class AuditAdmin extends AbstractBaseAdmin
         $object
             ->addAuditWindmillBlade($auditWindmillBlade1)
             ->addAuditWindmillBlade($auditWindmillBlade2)
-            ->addAuditWindmillBlade($auditWindmillBlade3);
+            ->addAuditWindmillBlade($auditWindmillBlade3)
+        ;
 
         $this->commomPreEvent($object);
     }
