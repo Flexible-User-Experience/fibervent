@@ -135,9 +135,9 @@ class AuditWindmillBladeAdmin extends AbstractBaseAdmin
                     )
                 )
                 ->end();
-        }
 
-        $this->setTemplate('edit', '::Admin/AuditWindmillBlade/edit.html.twig');
+            $this->setTemplate('edit', '::Admin/AuditWindmillBlade/edit.html.twig');
+        }
     }
 
     /**

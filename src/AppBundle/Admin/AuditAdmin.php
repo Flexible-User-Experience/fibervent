@@ -17,7 +17,10 @@ use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Form\Type\ModelType;
+use Sonata\CoreBundle\Form\FormHelper;
 use Sonata\CoreBundle\Form\Type\CollectionType;
+use Sonata\CoreBundle\Form\Type\DatePickerType;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -90,7 +93,7 @@ class AuditAdmin extends AbstractBaseAdmin
             ->with('admin.common.general', $this->getFormMdSuccessBoxArray(7))
             ->add(
                 'windmill',
-                'sonata_type_model',
+                ModelType::class,
                 array(
                     'label' => 'admin.audit.windmill',
                     'btn_add' => false,
@@ -114,7 +117,7 @@ class AuditAdmin extends AbstractBaseAdmin
             ->with('admin.common.controls', $this->getFormMdSuccessBoxArray(5))
             ->add(
                 'beginDate',
-                'sonata_type_date_picker',
+                DatePickerType::class,
                 array(
                     'label' => 'admin.audit.begindate',
                     'format' => 'd/M/y',
@@ -122,7 +125,7 @@ class AuditAdmin extends AbstractBaseAdmin
             )
             ->add(
                 'endDate',
-                'sonata_type_date_picker',
+                DatePickerType::class,
                 array(
                     'label' => 'admin.audit.enddate',
                     'format' => 'd/M/y',
@@ -131,7 +134,7 @@ class AuditAdmin extends AbstractBaseAdmin
             )
             ->add(
                 'operators',
-                'sonata_type_model',
+                ModelType::class,
                 array(
                     'label' => 'admin.audit.operators',
                     'multiple' => true,
@@ -189,6 +192,7 @@ class AuditAdmin extends AbstractBaseAdmin
                         'required' => false,
                         'btn_add' => false,
                         'cascade_validation' => true,
+                        'error_bubbling' => true,
                         'type_options' => array(
                             'delete' => false,
                         ),
@@ -513,19 +517,19 @@ class AuditAdmin extends AbstractBaseAdmin
         //// update the related three auditwindmillblade entities
         $this->commomPreEvent($object);
 
-        // fetch new windmill blades
-        $newWindmillBlades = $object->getWindmill()->getWindmillBlades();
-        // replace old relations
-        $currentAuditWindmillBlades = $object->getAuditWindmillBlades();
-        $currentAuditWindmillBlades[0]
-            ->setAudit($object)
-            ->setWindmillBlade($newWindmillBlades[0]);
-        $currentAuditWindmillBlades[1]
-            ->setAudit($object)
-            ->setWindmillBlade($newWindmillBlades[1]);
-        $currentAuditWindmillBlades[2]
-            ->setAudit($object)
-            ->setWindmillBlade($newWindmillBlades[2]);
+        // TODO fix this error behaviour: fetch new windmill blades
+//        $newWindmillBlades = $object->getWindmill()->getWindmillBlades();
+//        // replace old relations
+//        $currentAuditWindmillBlades = $object->getAuditWindmillBlades();
+//        $currentAuditWindmillBlades[0]
+//            ->setAudit($object)
+//            ->setWindmillBlade($newWindmillBlades[0]);
+//        $currentAuditWindmillBlades[1]
+//            ->setAudit($object)
+//            ->setWindmillBlade($newWindmillBlades[1]);
+//        $currentAuditWindmillBlades[2]
+//            ->setAudit($object)
+//            ->setWindmillBlade($newWindmillBlades[2]);
     }
 
     /**
