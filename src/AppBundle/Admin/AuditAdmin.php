@@ -517,7 +517,8 @@ class AuditAdmin extends AbstractBaseAdmin
         //// update the related three auditwindmillblade entities
         $this->commomPreEvent($object);
 
-        // TODO fix this error behaviour: fetch new windmill blades
+        // TODO fix this error behaviour: when windmill blades are changed after an existing audit makes inconsistent references
+//        // fetch new windmill blades
 //        $newWindmillBlades = $object->getWindmill()->getWindmillBlades();
 //        // replace old relations
 //        $currentAuditWindmillBlades = $object->getAuditWindmillBlades();
