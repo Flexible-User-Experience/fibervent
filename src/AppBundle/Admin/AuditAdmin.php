@@ -18,7 +18,6 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Form\Type\ModelType;
-use Sonata\CoreBundle\Form\FormHelper;
 use Sonata\CoreBundle\Form\Type\CollectionType;
 use Sonata\CoreBundle\Form\Type\DatePickerType;
 use Sonata\AdminBundle\Route\RouteCollection;
@@ -510,28 +509,29 @@ class AuditAdmin extends AbstractBaseAdmin
     }
 
     // TODO fix this error behaviour: when windmill blades are changed after an existing audit makes inconsistent references
+    // TODO related problem with Sonata >3.20.1 upgrade
     /**
      * @param Audit $object
      */
-//    public function preUpdate($object)
-//    {
-//        //// update the related three auditwindmillblade entities
-//        $this->commomPreEvent($object);
-//
-//        // fetch new windmill blades
-//        $newWindmillBlades = $object->getWindmill()->getWindmillBlades();
-//        // replace old relations
-//        $currentAuditWindmillBlades = $object->getAuditWindmillBlades();
-//        $currentAuditWindmillBlades[0]
-//            ->setAudit($object)
-//            ->setWindmillBlade($newWindmillBlades[0]);
-//        $currentAuditWindmillBlades[1]
-//            ->setAudit($object)
-//            ->setWindmillBlade($newWindmillBlades[1]);
-//        $currentAuditWindmillBlades[2]
-//            ->setAudit($object)
-//            ->setWindmillBlade($newWindmillBlades[2]);
-//    }
+    public function preUpdate($object)
+    {
+        //// update the related three auditwindmillblade entities
+        $this->commomPreEvent($object);
+
+        // fetch new windmill blades
+        $newWindmillBlades = $object->getWindmill()->getWindmillBlades();
+        // replace old relations
+        $currentAuditWindmillBlades = $object->getAuditWindmillBlades();
+        $currentAuditWindmillBlades[0]
+            ->setAudit($object)
+            ->setWindmillBlade($newWindmillBlades[0]);
+        $currentAuditWindmillBlades[1]
+            ->setAudit($object)
+            ->setWindmillBlade($newWindmillBlades[1]);
+        $currentAuditWindmillBlades[2]
+            ->setAudit($object)
+            ->setWindmillBlade($newWindmillBlades[2]);
+    }
 
     /**
      * @param Audit $object
