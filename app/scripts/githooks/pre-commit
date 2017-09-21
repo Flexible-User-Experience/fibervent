@@ -8,14 +8,14 @@
 #$ ln -s app/scripts/githooks/pre-commit .git/hooks/pre-commit
 
 if [ -x "$(command -v php-cs-fixer)" ]; then
-    FILES=`git diff --name-only`
+    FILES=`git diff --name-only --diff-filter=AM`
     printf '%s\n' "$FILES" | while IFS= read -r FILE
     do
         if [[ $FILE == "src/"* ]]; then
             php-cs-fixer fix "$FILE" --rules=@Symfony
         fi
     done
-    FILES=`git diff --name-only --staged`
+    FILES=`git diff --name-only --staged --diff-filter=AM`
     printf '%s\n' "$FILES" | while IFS= read -r FILE
     do
         if [[ $FILE == "src/"* ]]; then
