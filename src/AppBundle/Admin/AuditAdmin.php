@@ -509,15 +509,15 @@ class AuditAdmin extends AbstractBaseAdmin
         $this->commomPreEvent($object);
     }
 
+    // TODO fix this error behaviour: when windmill blades are changed after an existing audit makes inconsistent references
     /**
      * @param Audit $object
      */
-    public function preUpdate($object)
-    {
-        //// update the related three auditwindmillblade entities
-        $this->commomPreEvent($object);
-
-        // TODO fix this error behaviour: when windmill blades are changed after an existing audit makes inconsistent references
+//    public function preUpdate($object)
+//    {
+//        //// update the related three auditwindmillblade entities
+//        $this->commomPreEvent($object);
+//
 //        // fetch new windmill blades
 //        $newWindmillBlades = $object->getWindmill()->getWindmillBlades();
 //        // replace old relations
@@ -531,7 +531,7 @@ class AuditAdmin extends AbstractBaseAdmin
 //        $currentAuditWindmillBlades[2]
 //            ->setAudit($object)
 //            ->setWindmillBlade($newWindmillBlades[2]);
-    }
+//    }
 
     /**
      * @param Audit $object
