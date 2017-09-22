@@ -123,7 +123,8 @@ admin:
     windmill: Aerogenerador
     observations: Observaciones
     year: Año
-    generate_xls: Generar informe anual
+    generate: Generar informe anual
+    download_xls: Descargar informe anual en XLS
     begindate: Fecha inicio
     enddate: Fecha fin
     operators: Técnicos Inspección

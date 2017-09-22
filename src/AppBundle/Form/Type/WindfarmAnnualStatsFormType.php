@@ -91,7 +91,7 @@ class WindfarmAnnualStatsFormType extends AbstractType
                     array(
                         'label' => 'admin.audit.download_xls',
                         'attr' => array(
-                            'class' => 'btn btn-success',
+                            'class' => 'btn btn-info',
                         ),
                     )
                 )
