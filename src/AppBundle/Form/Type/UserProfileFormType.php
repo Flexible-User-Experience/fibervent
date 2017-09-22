@@ -32,7 +32,7 @@ class UserProfileFormType extends AbstractType
                 'username',
                 TextType::class,
                 array(
-                    'label'     => 'Nom Usuari',
+                    'label'     => 'admin.user.username',
                     'required'  => false,
                     'read_only' => true,
                 )
@@ -41,7 +41,7 @@ class UserProfileFormType extends AbstractType
                 'email',
                 EmailType::class,
                 array(
-                    'label'     => 'Correu Electrònic',
+                    'label'     => 'admin.user.email',
                     'required'  => false,
                     'read_only' => true,
                 )
@@ -50,7 +50,7 @@ class UserProfileFormType extends AbstractType
                 'firstname',
                 TextType::class,
                 array(
-                    'label'    => 'Nom',
+                    'label'    => 'admin.user.firstname',
                     'required' => true,
                 )
             )
@@ -58,7 +58,7 @@ class UserProfileFormType extends AbstractType
                 'lastname',
                 TextType::class,
                 array(
-                    'label'    => 'Cognom',
+                    'label'    => 'admin.user.lastname',
                     'required' => true,
                 )
             )
@@ -66,7 +66,7 @@ class UserProfileFormType extends AbstractType
                 'phone',
                 TextType::class,
                 array(
-                    'label'    => 'Telèfon',
+                    'label'    => 'admin.user.phone',
                     'required' => false,
                 )
             )
@@ -93,7 +93,7 @@ class UserProfileFormType extends AbstractType
                 'submit',
                 SubmitType::class,
                 array(
-                    'label' => 'Actualitza',
+                    'label' => 'admin.user.update',
                     'attr'  => array(
                         'class' => 'btn btn-success',
                     )

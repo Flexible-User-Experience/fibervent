@@ -237,6 +237,9 @@ admin:
     locked: Bloqueado
     language: Idioma
     profile_flash: Tu perfil se ha actualizado correctamente.
+    email: Correo electrónico
+    phone: Teléfono
+    update: Actualizar
   windfarm:
     title: Parque Eólico
     title_list: Parque Eólico

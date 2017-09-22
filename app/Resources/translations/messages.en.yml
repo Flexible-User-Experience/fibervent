@@ -237,6 +237,9 @@ admin:
     locked:
     language:
     profile_flash:
+    email:
+    phone:
+    update:
   windfarm:
     title:
     title_list:
