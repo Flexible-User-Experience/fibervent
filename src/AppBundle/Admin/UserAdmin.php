@@ -12,6 +12,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use FOS\UserBundle\Model\UserManagerInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -74,7 +75,8 @@ class UserAdmin extends ParentUserAdmin
             ->remove('batch')
             ->remove('delete')
             ->remove('export')
-            ->remove('show');
+            ->remove('show')
+        ;
     }
 
     /**
@@ -100,7 +102,7 @@ class UserAdmin extends ParentUserAdmin
             ->with('admin.common.general', array('class' => 'col-md-6'))
             ->add(
                 'imageFile',
-                'file',
+                FileType::class,
                 array(
                     'label' => 'admin.bladephoto.imagefile',
                     'help' => $this->getImageHelperFormMapperWithThumbnail(),

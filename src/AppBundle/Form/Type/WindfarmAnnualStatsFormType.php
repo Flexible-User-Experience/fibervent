@@ -76,10 +76,20 @@ class WindfarmAnnualStatsFormType extends AbstractType
                     )
                 )
                 ->add(
-                    'send',
+                    'generate',
                     SubmitType::class,
                     array(
-                        'label' => 'admin.audit.generate_xls',
+                        'label' => 'admin.audit.generate',
+                        'attr' => array(
+                            'class' => 'btn btn-success',
+                        ),
+                    )
+                )
+                ->add(
+                    'download_xls',
+                    SubmitType::class,
+                    array(
+                        'label' => 'admin.audit.download_xls',
                         'attr' => array(
                             'class' => 'btn btn-success',
                         ),
