@@ -254,6 +254,7 @@ admin:
     pdf_language:
     no_audits:
     windmill_amount:
+    map:
   windmill:
      title:
      title_list:

@@ -1,8 +1,6 @@
 {% extends 'SonataAdminBundle:CRUD:base_show.html.twig' %}
 
-{% block navbar_title %}
-    {{ 'admin.audit.generate' | trans }} {{ object.name }}
-{% endblock %}
+{% block navbar_title %}{{ 'admin.audit.generate' | trans }} {{ object.name }}{% endblock %}
 
 {% block sonata_admin_content %}
 <div class="sonata-ba-show">

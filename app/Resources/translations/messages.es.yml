@@ -254,6 +254,7 @@ admin:
     pdf_language: Idioma PDF
     no_audits: Este parque no tiene auditorias
     windmill_amount: Nº Aerogeneradores
+    map: Mapa de aerogeneradores
   windmill:
      title: Aerogenerador
      title_list: Aerogenerador
