@@ -4,6 +4,8 @@ namespace AppBundle\Form\Type;
 
 use AppBundle\Enum\AuditStatusEnum;
 use AppBundle\Repository\AuditRepository;
+use AppBundle\Repository\DamageCategoryRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -27,6 +29,11 @@ class WindfarmAnnualStatsFormType extends AbstractType
     private $ar;
 
     /**
+     * @var DamageCategoryRepository
+     */
+    private $dcr;
+
+    /**
      * Methods.
      */
 
@@ -34,10 +41,12 @@ class WindfarmAnnualStatsFormType extends AbstractType
      * WindfarmAnnualStatsFormType constructor.
      *
      * @param AuditRepository $ar
+     * @param DamageCategoryRepository $dcr
      */
-    public function __construct(AuditRepository $ar)
+    public function __construct(AuditRepository $ar, DamageCategoryRepository $dcr)
     {
         $this->ar = $ar;
+        $this->dcr = $dcr;
     }
 
     /**
@@ -50,6 +59,21 @@ class WindfarmAnnualStatsFormType extends AbstractType
 
         if (count($yearsArray) > 0) {
             $builder
+                ->add(
+                    'damage_category',
+                    EntityType::class,
+                    array(
+                        'mapped' => false,
+                        'required' => false,
+                        'multiple' => true,
+                        'expanded' => true,
+                        'label' => 'admin.bladedamage.damagecategory_long',
+                        'class' => 'AppBundle\Entity\DamageCategory',
+                        'query_builder' => $this->dcr->findAllSortedByCategoryQB(),
+//                        'choices_as_values' => false,
+//                        'data' => array(AuditStatusEnum::DONE, AuditStatusEnum::INVOICED),
+                    )
+                )
                 ->add(
                     'audit_status',
                     ChoiceType::class,

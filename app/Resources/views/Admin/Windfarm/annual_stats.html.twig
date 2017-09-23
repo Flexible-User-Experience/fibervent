@@ -12,6 +12,9 @@
                         {% if form.year.vars.label is defined %}
                             {{ form_start(form) }}
                                 <div class="col-xs-1">
+                                    {{ form_row(form.damage_category) }}
+                                </div>
+                                <div class="col-xs-1">
                                     {{ form_row(form.audit_status) }}
                                 </div>
                                 <div class="col-xs-1">

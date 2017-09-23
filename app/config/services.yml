@@ -120,7 +120,9 @@ services:
         class: AppBundle\Form\Type\WindfarmAnnualStatsFormType
         tags:
             - { name: form.type }
-        arguments: ['@app.audit_repository']
+        arguments:
+            - "@app.audit_repository"
+            - "@app.damage_category_repository"
 # Messaging
     app.courier:
         class: AppBundle\Service\CourierService

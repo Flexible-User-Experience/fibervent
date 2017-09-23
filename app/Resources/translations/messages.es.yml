@@ -168,6 +168,7 @@ admin:
     edge: Borde
     size: Dimensión (cm)
     damagecategory: Cat.
+    damagecategory_long: Categoría de daño
   bladephoto:
     title: Foto Pala
     title_list: Foto Pala

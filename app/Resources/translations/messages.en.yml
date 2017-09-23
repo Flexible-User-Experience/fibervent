@@ -168,6 +168,7 @@ admin:
     edge:
     size:
     damagecategory:
+    damagecategory_long:
   bladephoto:
     title:
     title_list:
