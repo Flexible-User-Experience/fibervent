@@ -121,6 +121,7 @@ services:
         tags:
             - { name: form.type }
         arguments:
+            - "@doctrine.orm.entity_manager"
             - "@app.audit_repository"
             - "@app.damage_category_repository"
 # Messaging
