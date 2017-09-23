@@ -73,9 +73,10 @@ class WindfarmAnnualStatsFormType extends AbstractType
             foreach ($damageCategories as $damageCategory) {
                 $defaultDamageCategoryData[] = $this->em->getReference('AppBundle:DamageCategory', $damageCategory->getId());
             }
+
             $builder
                 ->add(
-                    'damage_category',
+                    'damage_categories',
                     EntityType::class,
                     array(
                         'mapped' => false,
@@ -85,7 +86,6 @@ class WindfarmAnnualStatsFormType extends AbstractType
                         'label' => 'admin.bladedamage.damagecategory_long',
                         'class' => 'AppBundle\Entity\DamageCategory',
                         'query_builder' => $this->dcr->findAllSortedByCategoryQB(),
-                        'choices_as_values' => true,
                         'data' => $defaultDamageCategoryData,
                     )
                 )
