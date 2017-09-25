@@ -24,7 +24,7 @@
                                     {{ form_row(form.generate, {attr: {style: 'margin-top:25px;'}}) }}
                                     {{ form_rest(form) }}
                                 </div>
-                                {% if show_download_xls_button is defined and show_download_xls_button %}
+                                {% if show_download_xls_button is defined and show_download_xls_button and audits is defined and audits | length > 0 %}
                                     <div class="col-xs-7 text-right">
                                         <a href="{{ path('admin_app_windfarm_excelAttachment', {id: object.id}) }}?year={{ year }}{% if form.damage_categories.vars.value %}&damage_categories={{ form.damage_categories.vars.value | join('-') }}{% endif %}{% if form.audit_status.vars.value %}&audit_status={{ form.audit_status.vars.value | join('-') }}{% endif %}" class="btn btn-warning" style="margin-top:25px;"><i class="fa fa-cloud-download"></i> {{ 'admin.audit.download_xls' | trans }}</a>
                                     </div>
@@ -98,6 +98,16 @@
                             </tfoot>
                         </table>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% else %}
+    <div class="sonata-ba-show">
+        <div class="sonata-ba-view row">
+            <div class="col-xs-12">
+                <div class="alert alert-warning">
+                    <h5><i class="fa fa-warning"></i> {{ 'pdf.damage_table_footer.total_records_displayed' | trans }}: 0</h5>
                 </div>
             </div>
         </div>
