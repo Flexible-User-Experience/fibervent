@@ -66,9 +66,11 @@
                             </tr>
                             </thead>
                             <tbody>
+                            {% set total_records_displayed = 0 %}
                             {% for audit in audits %}
                                 {% for auditWindmillBlade in audit.auditWindmillBlades %}
-                                    {% for bladeDamage in auditWindmillBlade.bladeDamages %}
+                                    {% for bladeDamage in auditWindmillBlade.bladeDamages if is_row_available(bladeDamage.damageCategory, form.damage_categories.vars.value) %}
+                                        {% set total_records_displayed = total_records_displayed + 1 %}
                                         <tr>
                                             <td class="text-center">{{ audit.windmill.code }}</td>
                                             <td class="text-center">{{ auditWindmillBlade.windmillBlade.order }}</td>
@@ -85,6 +87,11 @@
                                 {% endfor %}
                             {% endfor %}
                             </tbody>
+                            <tfoot>
+                            <tr>
+                                <th colspan="10">{{ 'pdf.damage_table_footer.total_records_displayed' | trans }}: {{ total_records_displayed }}</th>
+                            </tr>
+                            </tfoot>
                         </table>
                     </div>
                 </div>

@@ -74,6 +74,8 @@ pdf:
     BA_dist_m: '%dist%m BA'
     BS_dist_m: '%dist%m BS'
     no_damages_found: No se detectan daños en pala
+  damage_table_footer:
+    total_records_displayed: Total daños encontrados
   set_document_information:
     1_title: 'Auditoria #'
     2_subject: Inspección palas parque eólico
