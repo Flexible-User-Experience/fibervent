@@ -87,6 +87,19 @@
                                             <td>{{ get_localized_description(bladeDamage.damage, app.request.locale) }}</td>
                                             <td class="text-center" style="background-color:{{ bladeDamage.damageCategory.colour }};">{{ bladeDamage.damageCategory.category }}</td>
                                         </tr>
+                                    {% else %}
+                                        <tr>
+                                            <td class="text-center">{{ audit.windmill.code }}</td>
+                                            <td class="text-center">{{ auditWindmillBlade.windmillBlade.order }}</td>
+                                            <td class="text-center">-</td>
+                                            <td class="text-center">0.00</td>
+                                            <td class="text-center">-</td>
+                                            <td class="text-center">-</td>
+                                            <td class="text-center">-</td>
+                                            <td class="text-center">-</td>
+                                            <td>{{ 'pdf.damage_table_body.no_damages_found' | trans }}</td>
+                                            <td class="text-center">0</td>
+                                        </tr>
                                     {% endfor %}
                                 {% endfor %}
                             {% endfor %}

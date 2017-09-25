@@ -533,7 +533,7 @@
         {# BODY #}
         {% for audit in audits %}
             {% for auditWindmillBlade in audit.auditWindmillBlades %}
-                {% for bladeDamage in auditWindmillBlade.bladeDamages %}
+                {% for bladeDamage in auditWindmillBlade.bladeDamages if is_row_available(bladeDamage.damageCategory, damage_categories) %}
                     {% xlsrow %}
                         {% xlscell 0 {
                             style: {
