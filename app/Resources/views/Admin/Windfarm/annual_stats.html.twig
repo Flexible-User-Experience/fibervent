@@ -1,4 +1,4 @@
-{% extends 'SonataAdminBundle:CRUD:base_show.html.twig' %}
+{% extends "SonataAdminBundle:CRUD:base_show.html.twig" %}
 
 {% block navbar_title %}{{ 'admin.audit.generate' | trans }} {{ object.name }}{% endblock %}
 
@@ -21,10 +21,14 @@
                                     {{ form_row(form.year) }}
                                 </div>
                                 <div class="col-xs-2">
-                                    {{ form_row(form.generate, {attr: {style: 'margin-top:24px;'}}) }}
-                                    {{ form_row(form.download_xls) }}
+                                    {{ form_row(form.generate, {attr: {style: 'margin-top:25px;'}}) }}
                                     {{ form_rest(form) }}
                                 </div>
+                                {% if show_download_xls_button is defined and show_download_xls_button %}
+                                    <div class="col-xs-7 text-right">
+                                        <a href="{{ path('admin_app_windfarm_excelAttachment', {id: object.id}) }}?year={{ year }}{% if form.damage_categories.vars.value %}&damage_categories={{ form.damage_categories.vars.value | join('-') }}{% endif %}{% if form.audit_status.vars.value %}&audit_status={{ form.audit_status.vars.value | join('-') }}{% endif %}" class="btn btn-warning" style="margin-top:25px;"><i class="fa fa-cloud-download"></i> {{ 'admin.audit.download_xls' | trans }}</a>
+                                    </div>
+                                {% endif %}
                             {{ form_end(form) }}
                         {% else %}
                             <div class="alert alert-warning" role="alert">

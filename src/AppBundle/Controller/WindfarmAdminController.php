@@ -169,53 +169,38 @@ class WindfarmAdminController extends AbstractBaseAdminController
 
             $year = intval($request->get(WindfarmAnnualStatsFormType::BLOCK_PREFIX)['year']);
 
-            $audits = $this->getDoctrine()->getRepository('AppBundle:Audit')->getAuditsByWindfarmByStatusesAndYear($object, $statuses, $year);
+            $audits = $this->getDoctrine()->getRepository('AppBundle:Audit')->getAuditsByWindfarmByStatusesAndYear(
+                $object,
+                $statuses,
+                $year
+            );
 
             /** @var Audit $audit */
             foreach ($audits as $audit) {
                 $auditWindmillBlades = $audit->getAuditWindmillBlades();
                 /** @var AuditWindmillBlade $auditWindmillBlade */
                 foreach ($auditWindmillBlades as $auditWindmillBlade) {
-                    $bladeDamages = $this->getDoctrine()->getRepository('AppBundle:BladeDamage')->getItemsOfAuditWindmillBladeSortedByRadius($auditWindmillBlade);
+                    $bladeDamages = $this->getDoctrine()->getRepository(
+                        'AppBundle:BladeDamage'
+                    )->getItemsOfAuditWindmillBladeSortedByRadius($auditWindmillBlade);
                     if (count($bladeDamages) > 0) {
                         $auditWindmillBlade->setBladeDamages($bladeDamages);
                     }
                 }
             }
 
-            if ($form->getClickedButton()->getName() == 'generate') {
-                // generate web preview
-                return $this->render(
-                    ':Admin/Windfarm:annual_stats.html.twig',
-                    array(
-                        'action' => 'show',
-                        'object' => $object,
-                        'form' => $form->createView(),
-                        'damage_categories' => $damage_categories,
-                        'year' => $year,
-                        'audits' => $audits,
-                    )
-                );
-            } else {
-                // download attached file
-                $this->redirectToRoute('admin_app_windfarm_excelAttachment', array('id' => $object->getId()));
-//                $response = $this->render(
-//                    ':Admin/Windfarm:excel.xls.twig',
-//                    array(
-//                        'action' => 'show',
-//                        'windfarm' => $object,
-//                        'audits' => $audits,
-//                        'year' => $year,
-//                        'locale' => WindfarmLanguageEnum::getEnumArray()[$object->getLanguage()],
-//                    )
-//                );
-//
-//                $currentDate = new \DateTime();
-//                $response->headers->set('Content-Type', 'application/vnd.ms-excel');
-//                $response->headers->set('Content-Disposition', 'attachment; filename="'.$currentDate->format('Y-m-d').'_'.$object->getSlug().'.xls"');
-//
-//                return $response;
-            }
+            return $this->render(
+                ':Admin/Windfarm:annual_stats.html.twig',
+                array(
+                    'action' => 'show',
+                    'object' => $object,
+                    'form' => $form->createView(),
+                    'damage_categories' => $damage_categories,
+                    'year' => $year,
+                    'audits' => $audits,
+                    'show_download_xls_button' => true,
+                )
+            );
         }
 
         return $this->render(
@@ -242,10 +227,10 @@ class WindfarmAdminController extends AbstractBaseAdminController
     public function excelAttachmentAction(Request $request = null)
     {
         $statuses = null;
-        if (array_key_exists('audit_status', $request->query->get(WindfarmAnnualStatsFormType::BLOCK_PREFIX))) {
-            $statuses = $request->query->get(WindfarmAnnualStatsFormType::BLOCK_PREFIX)['audit_status'];
-        }
-        $year = intval($request->query->get(WindfarmAnnualStatsFormType::BLOCK_PREFIX)['year']);
+//        if (array_key_exists('audit_status', $request->query->get(WindfarmAnnualStatsFormType::BLOCK_PREFIX))) {
+//            $statuses = $request->query->get(WindfarmAnnualStatsFormType::BLOCK_PREFIX)['audit_status'];
+//        }
+        $year = intval($request->get('year'));
         $request = $this->resolveRequest($request);
         $id = $request->get($this->admin->getIdParameter());
 

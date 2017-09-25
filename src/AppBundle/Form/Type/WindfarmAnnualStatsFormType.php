@@ -124,16 +124,6 @@ class WindfarmAnnualStatsFormType extends AbstractType
                         ),
                     )
                 )
-                ->add(
-                    'download_xls',
-                    SubmitType::class,
-                    array(
-                        'label' => 'admin.audit.download_xls',
-                        'attr' => array(
-                            'class' => 'btn btn-info',
-                        ),
-                    )
-                )
             ;
         }
     }
