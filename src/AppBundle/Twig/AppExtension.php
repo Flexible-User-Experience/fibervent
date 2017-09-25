@@ -3,6 +3,7 @@
 namespace AppBundle\Twig;
 
 use AppBundle\Entity\Damage;
+use AppBundle\Entity\DamageCategory;
 use AppBundle\Repository\DamageRepository;
 
 /**
@@ -48,10 +49,13 @@ class AppExtension extends \Twig_Extension
     {
         return array(
             new \Twig_SimpleFunction('get_localized_description', array($this, 'getlocalizedDescription')),
+            new \Twig_SimpleFunction('is_row_available', array($this, 'isRowAvailable')),
         );
     }
 
     /**
+     * Get localized description from a Damage object
+     *
      * @param Damage $object
      * @param string $locale
      *
@@ -60,5 +64,23 @@ class AppExtension extends \Twig_Extension
     public function getlocalizedDescription(Damage $object, $locale)
     {
       return $this->dr->getlocalizedDesciption($object->getId(), $locale);
+    }
+
+    /**
+     * Decide if a row is hidden or not by DamageCategory and an array of codes
+     *
+     * @param DamageCategory $object
+     * @param array $availableCodes
+     *
+     * @return bool
+     */
+    public function isRowAvailable(DamageCategory $object, $availableCodes)
+    {
+        $result = false;
+        if (in_array((string)$object->getCategory(), $availableCodes)) {
+            $result = true;
+        }
+
+        return $result;
     }
 }

@@ -40,7 +40,7 @@ class TurbineAdmin extends AbstractBaseAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->with('admin.common.general', $this->getFormMdSuccessBoxArray(7))
+            ->with('admin.common.general', $this->getFormMdSuccessBoxArray(4))
             ->add(
                 'model',
                 null,

@@ -74,6 +74,8 @@ pdf:
     BA_dist_m: '%dist%m LE'
     BS_dist_m: '%dist%m TE'
     no_damages_found: No damages found in blade
+  damage_table_footer:
+    total_records_displayed:
   set_document_information:
     1_title: 'Auditoria #'
     2_subject: Inspección palas parque eólico
@@ -123,7 +125,8 @@ admin:
     windmill:
     observations:
     year: year
-    generate_xls:
+    generate:
+    download_xls:
     begindate:
     enddate:
     operators:
@@ -167,6 +170,7 @@ admin:
     edge:
     size:
     damagecategory:
+    damagecategory_long:
   bladephoto:
     title:
     title_list:
@@ -237,6 +241,9 @@ admin:
     locked:
     language:
     profile_flash:
+    email:
+    phone:
+    update:
   windfarm:
     title:
     title_list:
@@ -250,6 +257,7 @@ admin:
     pdf_language:
     no_audits:
     windmill_amount: Windmill Number
+    map:
   windmill:
      title:
      title_list:

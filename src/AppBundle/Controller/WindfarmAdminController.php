@@ -154,6 +154,54 @@ class WindfarmAdminController extends AbstractBaseAdminController
         }
 
         $form = $this->createForm(WindfarmAnnualStatsFormType::class, null, array('windfarm_id' => $object->getId()));
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $damage_categories = null;
+            if (array_key_exists('damage_categories', $request->get(WindfarmAnnualStatsFormType::BLOCK_PREFIX))) {
+                $damage_categories = $request->get(WindfarmAnnualStatsFormType::BLOCK_PREFIX)['damage_categories'];
+            }
+
+            $statuses = null;
+            if (array_key_exists('audit_status', $request->get(WindfarmAnnualStatsFormType::BLOCK_PREFIX))) {
+                $statuses = $request->get(WindfarmAnnualStatsFormType::BLOCK_PREFIX)['audit_status'];
+            }
+
+            $year = intval($request->get(WindfarmAnnualStatsFormType::BLOCK_PREFIX)['year']);
+
+            $audits = $this->getDoctrine()->getRepository('AppBundle:Audit')->getAuditsByWindfarmByStatusesAndYear(
+                $object,
+                $statuses,
+                $year
+            );
+
+            /** @var Audit $audit */
+            foreach ($audits as $audit) {
+                $auditWindmillBlades = $audit->getAuditWindmillBlades();
+                /** @var AuditWindmillBlade $auditWindmillBlade */
+                foreach ($auditWindmillBlades as $auditWindmillBlade) {
+                    $bladeDamages = $this->getDoctrine()->getRepository(
+                        'AppBundle:BladeDamage'
+                    )->getItemsOfAuditWindmillBladeSortedByRadius($auditWindmillBlade);
+                    if (count($bladeDamages) > 0) {
+                        $auditWindmillBlade->setBladeDamages($bladeDamages);
+                    }
+                }
+            }
+
+            return $this->render(
+                ':Admin/Windfarm:annual_stats.html.twig',
+                array(
+                    'action' => 'show',
+                    'object' => $object,
+                    'form' => $form->createView(),
+                    'damage_categories' => $damage_categories,
+                    'year' => $year,
+                    'audits' => $audits,
+                    'show_download_xls_button' => true,
+                )
+            );
+        }
 
         return $this->render(
             ':Admin/Windfarm:annual_stats.html.twig',
@@ -178,11 +226,6 @@ class WindfarmAdminController extends AbstractBaseAdminController
      */
     public function excelAttachmentAction(Request $request = null)
     {
-        $statuses = null;
-        if (array_key_exists('audit_status', $request->query->get(WindfarmAnnualStatsFormType::BLOCK_PREFIX))) {
-            $statuses = $request->query->get(WindfarmAnnualStatsFormType::BLOCK_PREFIX)['audit_status'];
-        }
-        $year = intval($request->query->get(WindfarmAnnualStatsFormType::BLOCK_PREFIX)['year']);
         $request = $this->resolveRequest($request);
         $id = $request->get($this->admin->getIdParameter());
 
@@ -197,7 +240,23 @@ class WindfarmAdminController extends AbstractBaseAdminController
             throw new AccessDeniedHttpException();
         }
 
-        $audits = $this->getDoctrine()->getRepository('AppBundle:Audit')->getAuditsByWindfarmByStatusesAndYear($object, $statuses, $year);
+        $damage_categories = null;
+        if (!is_null($request->get('damage_categories'))) {
+            $damage_categories = explode('-', $request->get('damage_categories'));
+        }
+
+        $statuses = null;
+        if (!is_null($request->get('audit_status'))) {
+            $statuses = explode('-', $request->get('audit_status'));
+        }
+
+        $year = intval($request->get('year'));
+
+        $audits = $this->getDoctrine()->getRepository('AppBundle:Audit')->getAuditsByWindfarmByStatusesAndYear(
+            $object,
+            $statuses,
+            $year
+        );
 
         /** @var Audit $audit */
         foreach ($audits as $audit) {
@@ -217,6 +276,7 @@ class WindfarmAdminController extends AbstractBaseAdminController
                 'action' => 'show',
                 'windfarm' => $object,
                 'audits' => $audits,
+                'damage_categories' => $damage_categories,
                 'year' => $year,
                 'locale' => WindfarmLanguageEnum::getEnumArray()[$object->getLanguage()],
             )

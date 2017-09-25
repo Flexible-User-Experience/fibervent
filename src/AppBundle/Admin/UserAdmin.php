@@ -12,6 +12,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use FOS\UserBundle\Model\UserManagerInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -54,9 +55,9 @@ class UserAdmin extends ParentUserAdmin
      * @param string $code
      * @param string $class
      * @param string $baseControllerName
-     * @param        $userManager
+     * @param UserManagerInterface $userManager
      */
-    public function __construct($code, $class, $baseControllerName, $userManager)
+    public function __construct($code, $class, $baseControllerName, UserManagerInterface $userManager)
     {
         parent::__construct($code, $class, $baseControllerName);
         $this->userManager = $userManager;
@@ -74,7 +75,8 @@ class UserAdmin extends ParentUserAdmin
             ->remove('batch')
             ->remove('delete')
             ->remove('export')
-            ->remove('show');
+            ->remove('show')
+        ;
     }
 
     /**
@@ -100,7 +102,7 @@ class UserAdmin extends ParentUserAdmin
             ->with('admin.common.general', array('class' => 'col-md-6'))
             ->add(
                 'imageFile',
-                'file',
+                FileType::class,
                 array(
                     'label' => 'admin.bladephoto.imagefile',
                     'help' => $this->getImageHelperFormMapperWithThumbnail(),
@@ -119,7 +121,7 @@ class UserAdmin extends ParentUserAdmin
                 'email',
                 EmailType::class,
                 array(
-                    'label' => 'admin.customer.email',
+                    'label' => 'admin.user.email',
                 )
             )
             ->add(
@@ -150,7 +152,7 @@ class UserAdmin extends ParentUserAdmin
                 'phone',
                 null,
                 array(
-                    'label' => 'admin.customer.phone',
+                    'label' => 'admin.user.phone',
                 )
             )
             ->end()
@@ -239,14 +241,14 @@ class UserAdmin extends ParentUserAdmin
                 'email',
                 null,
                 array(
-                    'label' => 'admin.customer.email',
+                    'label' => 'admin.user.email',
                 )
             )
             ->add(
                 'phone',
                 null,
                 array(
-                    'label' => 'admin.customer.phone',
+                    'label' => 'admin.user.phone',
                 )
             )
             ->add(
@@ -311,7 +313,7 @@ class UserAdmin extends ParentUserAdmin
                 'email',
                 null,
                 array(
-                    'label' => 'admin.customer.email',
+                    'label' => 'admin.user.email',
                     'editable' => true,
                 )
             )
@@ -319,7 +321,7 @@ class UserAdmin extends ParentUserAdmin
                 'phone',
                 null,
                 array(
-                    'label' => 'admin.customer.phone',
+                    'label' => 'admin.user.phone',
                     'editable' => true,
                 )
             )

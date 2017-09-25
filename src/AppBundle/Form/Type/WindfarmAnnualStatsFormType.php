@@ -2,8 +2,12 @@
 
 namespace AppBundle\Form\Type;
 
+use AppBundle\Entity\DamageCategory;
 use AppBundle\Enum\AuditStatusEnum;
 use AppBundle\Repository\AuditRepository;
+use AppBundle\Repository\DamageCategoryRepository;
+use Doctrine\ORM\EntityManager;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -22,9 +26,19 @@ class WindfarmAnnualStatsFormType extends AbstractType
     const BLOCK_PREFIX = 'windfarm_annual_stat';
 
     /**
+     * @var EntityManager
+     */
+    private $em;
+
+    /**
      * @var AuditRepository
      */
     private $ar;
+
+    /**
+     * @var DamageCategoryRepository
+     */
+    private $dcr;
 
     /**
      * Methods.
@@ -33,11 +47,15 @@ class WindfarmAnnualStatsFormType extends AbstractType
     /**
      * WindfarmAnnualStatsFormType constructor.
      *
+     * @param EntityManager $em
      * @param AuditRepository $ar
+     * @param DamageCategoryRepository $dcr
      */
-    public function __construct(AuditRepository $ar)
+    public function __construct(EntityManager $em, AuditRepository $ar, DamageCategoryRepository $dcr)
     {
+        $this->em = $em;
         $this->ar = $ar;
+        $this->dcr = $dcr;
     }
 
     /**
@@ -49,7 +67,28 @@ class WindfarmAnnualStatsFormType extends AbstractType
         $yearsArray = $this->ar->getYearsOfAllAuditsByWindfarm($options['windfarm_id']);
 
         if (count($yearsArray) > 0) {
+            $defaultDamageCategoryData = array();
+            $damageCategories = $this->dcr->findAllSortedByCategory();
+            /** @var DamageCategory $damageCategory */
+            foreach ($damageCategories as $damageCategory) {
+                $defaultDamageCategoryData[] = $this->em->getReference('AppBundle:DamageCategory', $damageCategory->getId());
+            }
+
             $builder
+                ->add(
+                    'damage_categories',
+                    EntityType::class,
+                    array(
+                        'mapped' => false,
+                        'required' => false,
+                        'multiple' => true,
+                        'expanded' => true,
+                        'label' => 'admin.bladedamage.damagecategory_long',
+                        'class' => 'AppBundle\Entity\DamageCategory',
+                        'query_builder' => $this->dcr->findAllSortedByCategoryQB(),
+                        'data' => $defaultDamageCategoryData,
+                    )
+                )
                 ->add(
                     'audit_status',
                     ChoiceType::class,
@@ -76,10 +115,10 @@ class WindfarmAnnualStatsFormType extends AbstractType
                     )
                 )
                 ->add(
-                    'send',
+                    'generate',
                     SubmitType::class,
                     array(
-                        'label' => 'admin.audit.generate_xls',
+                        'label' => 'admin.audit.generate',
                         'attr' => array(
                             'class' => 'btn btn-success',
                         ),

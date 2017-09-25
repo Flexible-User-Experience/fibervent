@@ -1,20 +1,38 @@
-{% extends 'SonataAdminBundle:CRUD:base_show.html.twig' %}
+{% extends "SonataAdminBundle:CRUD:base_show.html.twig" %}
+
+{% block navbar_title %}{{ 'admin.audit.generate' | trans }} {{ object.name }}{% endblock %}
 
 {% block sonata_admin_content %}
 <div class="sonata-ba-show">
     <div class="sonata-ba-view row">
-        <div class="col-md-6">
+        <div class="col-xs-12">
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <h4 class="box-title" style="margin-bottom:30px;"><strong>{{ 'admin.audit.generate_xls' | trans }} {{ object.name }}</strong></h4><br>
                     <div class="box-body table-responsive no-padding">
                         {% if form.year.vars.label is defined %}
-                            {{ form_start(form, {action: path('admin_app_windfarm_excelAttachment', {id: object.id}), method: 'GET'}) }}
-                            {{ form_rest(form) }}
+                            {{ form_start(form) }}
+                                <div class="col-xs-1">
+                                    {{ form_row(form.damage_categories) }}
+                                </div>
+                                <div class="col-xs-1">
+                                    {{ form_row(form.audit_status) }}
+                                </div>
+                                <div class="col-xs-1">
+                                    {{ form_row(form.year) }}
+                                </div>
+                                <div class="col-xs-2">
+                                    {{ form_row(form.generate, {attr: {style: 'margin-top:25px;'}}) }}
+                                    {{ form_rest(form) }}
+                                </div>
+                                {% if show_download_xls_button is defined and show_download_xls_button and audits is defined and audits | length > 0 %}
+                                    <div class="col-xs-7 text-right">
+                                        <a href="{{ path('admin_app_windfarm_excelAttachment', {id: object.id}) }}?year={{ year }}{% if form.damage_categories.vars.value %}&damage_categories={{ form.damage_categories.vars.value | join('-') }}{% endif %}{% if form.audit_status.vars.value %}&audit_status={{ form.audit_status.vars.value | join('-') }}{% endif %}" class="btn btn-warning" style="margin-top:25px;"><i class="fa fa-cloud-download"></i> {{ 'admin.audit.download_xls' | trans }}</a>
+                                    </div>
+                                {% endif %}
                             {{ form_end(form) }}
                         {% else %}
-                            <div class="alert alert-danger" role="alert">
-                                {{ 'admin.windfarm.no_audits' | trans }}.
+                            <div class="alert alert-warning" role="alert">
+                                <i class="fa fa-exclamation-triangle"></i> {{ 'admin.windfarm.no_audits' | trans }}.
                             </div>
                         {% endif %}
                     </div>
@@ -23,4 +41,89 @@
         </div>
     </div>
 </div>
+{% if audits is defined and audits | length > 0 %}
+    <div class="sonata-ba-show">
+        <div class="sonata-ba-view row">
+            <div class="col-xs-12">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th colspan="10">{{ 'pdf.damage_table_header.9_excel_title' | trans({'%name%': object.name | upper}) }} {{ year }}</th>
+                            </tr>
+                            <tr>
+                                <th rowspan="2" class="text-center" style="background-color:#8FABD9;border-right:2px solid #f4f4f4;vertical-align:middle;">WTG</th>
+                                <th rowspan="2" class="text-center" style="background-color:#8FABD9;border-right:2px solid #f4f4f4;vertical-align:middle;">{{ 'pdf.damage_table_header.10_blade' | trans }}</th>
+                                <th colspan="2" class="text-center" style="background-color:#8FABD9;border-right:2px solid #f4f4f4;">{{ 'pdf.damage_table_header.1_damage' | trans }}</th>
+                                <th colspan="3" class="text-center" style="background-color:#8FABD9;border-right:2px solid #f4f4f4;">{{ 'pdf.damage_table_header.2_position' | trans }}</th>
+                                <th rowspan="2" class="text-center" style="background-color:#8FABD9;border-right:2px solid #f4f4f4;vertical-align:middle;">{{ 'pdf.damage_table_header.6_size' | trans }}</th>
+                                <th rowspan="2" class="text-center" style="background-color:#8FABD9;border-right:2px solid #f4f4f4;vertical-align:middle;">{{ 'pdf.damage_table_header.7_description' | trans }}</th>
+                                <th rowspan="2" class="text-center" style="background-color:#8FABD9;vertical-align:middle;">CAT</th>
+                            </tr>
+                            <tr>
+                                <th class="text-center" style="background-color:#8FABD9;border-right:2px solid #f4f4f4;">{{ 'pdf.damage_table_header.3_number' | trans }}</th>
+                                <th class="text-center" style="background-color:#8FABD9;border-right:2px solid #f4f4f4;">{{ 'pdf.damage_table_header.4_code' | trans }}</th>
+                                <th class="text-center" style="background-color:#8FABD9;border-right:2px solid #f4f4f4;">Pos.</th>
+                                <th class="text-center" style="background-color:#8FABD9;border-right:2px solid #f4f4f4;">{{ 'pdf.damage_table_header.5_radius' | trans }}</th>
+                                <th class="text-center" style="background-color:#8FABD9;border-right:2px solid #f4f4f4;">{{ 'pdf.damage_table_header.8_distance' | trans }}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% set total_records_displayed = 0 %}
+                            {% for audit in audits %}
+                                {% for auditWindmillBlade in audit.auditWindmillBlades %}
+                                    {% for bladeDamage in auditWindmillBlade.bladeDamages if is_row_available(bladeDamage.damageCategory, form.damage_categories.vars.value) %}
+                                        {% set total_records_displayed = total_records_displayed + 1 %}
+                                        <tr>
+                                            <td class="text-center">{{ audit.windmill.code }}</td>
+                                            <td class="text-center">{{ auditWindmillBlade.windmillBlade.order }}</td>
+                                            <td class="text-center">{{ loop.index }}</td>
+                                            <td class="text-center">{{ bladeDamage.damage.code }}</td>
+                                            <td class="text-center">{{ bladeDamage.positionStringLocalized | trans }}</td>
+                                            <td class="text-center">{{ bladeDamage.radius }} m</td>
+                                            <td class="text-center">{{ bladeDamage.localizedDistanceString | trans({'%dist%': bladeDamage.distanceScaled}) }}</td>
+                                            <td class="text-center">{{ bladeDamage.size }} cm</td>
+                                            <td>{{ get_localized_description(bladeDamage.damage, app.request.locale) }}</td>
+                                            <td class="text-center" style="background-color:{{ bladeDamage.damageCategory.colour }};">{{ bladeDamage.damageCategory.category }}</td>
+                                        </tr>
+                                    {% else %}
+                                        <tr>
+                                            <td class="text-center">{{ audit.windmill.code }}</td>
+                                            <td class="text-center">{{ auditWindmillBlade.windmillBlade.order }}</td>
+                                            <td class="text-center">-</td>
+                                            <td class="text-center">0.00</td>
+                                            <td class="text-center">-</td>
+                                            <td class="text-center">-</td>
+                                            <td class="text-center">-</td>
+                                            <td class="text-center">-</td>
+                                            <td>{{ 'pdf.damage_table_body.no_damages_found' | trans }}</td>
+                                            <td class="text-center">0</td>
+                                        </tr>
+                                    {% endfor %}
+                                {% endfor %}
+                            {% endfor %}
+                            </tbody>
+                            <tfoot>
+                            <tr>
+                                <th colspan="10">{{ 'pdf.damage_table_footer.total_records_displayed' | trans }}: {{ total_records_displayed }}</th>
+                            </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% else %}
+    <div class="sonata-ba-show">
+        <div class="sonata-ba-view row">
+            <div class="col-xs-12">
+                <div class="alert alert-warning">
+                    <h5><i class="fa fa-warning"></i> {{ 'pdf.damage_table_footer.total_records_displayed' | trans }}: 0</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}
 {% endblock %}
