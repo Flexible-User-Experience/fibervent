@@ -273,3 +273,12 @@ admin:
     sn:
 gmap:
   general: emplacement général
+# Admin defaults
+Cliente:
+Usuario:
+Inspección:
+"Tipo Daño":
+"Categoría Daño":
+"Parque Eólico":
+Aerogenerador:
+Turbina:
