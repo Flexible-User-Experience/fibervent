@@ -13,6 +13,11 @@ services:
         arguments: [ ~, AppBundle\Entity\State, ~, "@security.authorization_checker", "@security.token_storage", "@app.repositories_service", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Provincia", group: "Client", label_translator_strategy: "sonata.admin.label.strategy.noop", show_in_dashboard: false }
+    admin.user:
+        class: AppBundle\Admin\UserAdmin
+        arguments: [ ~, AppBundle\Entity\User, AppBundle:UserAdmin, "@fos_user.user_manager" ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Usuario", group: "Client", label_translator_strategy: "sonata.admin.label.strategy.noop" }
     admin.windfarm:
         class: AppBundle\Admin\WindfarmAdmin
         arguments: [ ~, AppBundle\Entity\Windfarm, AppBundle:WindfarmAdmin, "@security.authorization_checker", "@security.token_storage", "@app.repositories_service", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
@@ -42,7 +47,7 @@ services:
         class: AppBundle\Admin\AuditAdmin
         arguments: [ ~, AppBundle\Entity\Audit, AppBundle:AuditAdmin, "@security.authorization_checker", "@security.token_storage", "@app.repositories_service", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: "Inspección", group: "Auditoria", label_translator_strategy: "sonata.admin.label.strategy.noop" }
+            - { name: sonata.admin, manager_type: orm, label: "Inspección", group: "Audit", label_translator_strategy: "sonata.admin.label.strategy.noop" }
     admin.blade_damage:
         class: AppBundle\Admin\BladeDamageAdmin
         arguments: [ ~, AppBundle\Entity\BladeDamage, AppBundle:BladeDamageAdmin, "@security.authorization_checker", "@security.token_storage", "@app.repositories_service", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
@@ -78,11 +83,6 @@ services:
         arguments: [ ~, AppBundle\Entity\AuditWindmillBlade, AppBundle:AuditWindmillBladeAdmin, "@security.authorization_checker", "@security.token_storage", "@app.repositories_service", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Audit Daño Pala", group: "Audit", label_translator_strategy: "sonata.admin.label.strategy.noop", show_in_dashboard: false }
-    admin.user:
-        class: AppBundle\Admin\UserAdmin
-        arguments: [ ~, AppBundle\Entity\User, AppBundle:UserAdmin, "@fos_user.user_manager" ]
-        tags:
-            - { name: sonata.admin, manager_type: orm, label: "Usuario", group: "Client", label_translator_strategy: "sonata.admin.label.strategy.noop" }
 # Sonata Blocks
     admin.block.audits:
         class: AppBundle\Admin\Block\AuditsBlock

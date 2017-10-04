@@ -213,6 +213,6 @@ abstract class AbstractBaseAdmin extends AbstractAdmin
         return ($this->getSubject() ? $this->getSubject()->getImageName() ? '<img src="' . $this->lis->getBrowserPath(
                 $this->vus->asset($this->getSubject(), 'imageFile'),
                 '480xY'
-            ) . '" class="admin-preview img-responsive" alt="thumbnail"/>' : '' : '') . '<span style="width:100%;display:block;">'.$this->trans('admin.photo.help', ['width' => $minWidth]).'</span>';
+            ) . '" class="admin-preview img-responsive" alt="thumbnail"/>' : '' : '') . '<span style="width:100%;display:block;">'.$this->trans('admin.photo.help', ['%width%' => $minWidth]).'</span>';
     }
 }
