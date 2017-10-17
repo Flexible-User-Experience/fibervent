@@ -23,8 +23,19 @@ class CustomTcpdf extends \TCPDF
     const PDF_MARGIN_TOP = 25;
     const PDF_MARGIN_BOTTOM = 10;
 
+    /**
+     * @var array
+     */
     private $colorBlueLight = array('red' => 143, 'green' => 171, 'blue' => 217);
+
+    /**
+     * @var array
+     */
     private $colorBlue = array('red' => 50,  'green' => 118, 'blue' => 179);
+
+    /**
+     * @var array
+     */
     private $colorBlueDark = array('red' => 217, 'green' => 226, 'blue' => 242);
 
     /**

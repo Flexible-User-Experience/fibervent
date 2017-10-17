@@ -32,7 +32,7 @@ use Symfony\Bundle\FrameworkBundle\Templating\Helper\AssetsHelper;
  */
 class AuditPdfBuilderService
 {
-    const SHOW_GRID_DEBUG = false;
+    const SHOW_GRID_DEBUG = true;
 
     /**
      * @var TCPDFController
