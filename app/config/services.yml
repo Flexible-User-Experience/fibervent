@@ -12,77 +12,77 @@ services:
         class: AppBundle\Admin\StateAdmin
         arguments: [ ~, AppBundle\Entity\State, ~, "@security.authorization_checker", "@security.token_storage", "@app.repositories_service", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: "Provincia", group: "Customer", label_translator_strategy: "sonata.admin.label.strategy.noop", show_in_dashboard: false }
-    admin.windfarm:
-        class: AppBundle\Admin\WindfarmAdmin
-        arguments: [ ~, AppBundle\Entity\Windfarm, AppBundle:WindfarmAdmin, "@security.authorization_checker", "@security.token_storage", "@app.repositories_service", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
-        tags:
-            - { name: sonata.admin, manager_type: orm, label: "Parque Eólico", group: "Parc_Eolic", label_translator_strategy: "sonata.admin.label.strategy.noop" }
-    admin.windmill:
-        class: AppBundle\Admin\WindmillAdmin
-        arguments: [ ~, AppBundle\Entity\Windmill, ~, "@security.authorization_checker", "@security.token_storage", "@app.repositories_service", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
-        tags:
-            - { name: sonata.admin, manager_type: orm, label: "Aerogenerador", group: "Parc_Eolic", label_translator_strategy: "sonata.admin.label.strategy.noop" }
-    admin.turbine:
-        class: AppBundle\Admin\TurbineAdmin
-        arguments: [ ~, AppBundle\Entity\Turbine, AppBundle:TurbineAdmin, "@security.authorization_checker", "@security.token_storage", "@app.repositories_service", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
-        tags:
-            - { name: sonata.admin, manager_type: orm, label: "Turbina", group: "Parc_Eolic", label_translator_strategy: "sonata.admin.label.strategy.noop" }
-    admin.blade:
-        class: AppBundle\Admin\BladeAdmin
-        arguments: [ ~, AppBundle\Entity\Blade, AppBundle:BladeAdmin, "@security.authorization_checker", "@security.token_storage", "@app.repositories_service", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
-        tags:
-            - { name: sonata.admin, manager_type: orm, label: "Tipo Pala", group: "Parc_Eolic", label_translator_strategy: "sonata.admin.label.strategy.noop", show_in_dashboard: false }
-    admin.windmill_blade:
-        class: AppBundle\Admin\WindmillBladeAdmin
-        arguments: [ ~, AppBundle\Entity\WindmillBlade, ~, "@security.authorization_checker", "@security.token_storage", "@app.repositories_service", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
-        tags:
-            - { name: sonata.admin, manager_type: orm, label: "Palas", group: "Parc_Eolic", label_translator_strategy: "sonata.admin.label.strategy.noop", show_in_dashboard: false }
-    admin.audit:
-        class: AppBundle\Admin\AuditAdmin
-        arguments: [ ~, AppBundle\Entity\Audit, AppBundle:AuditAdmin, "@security.authorization_checker", "@security.token_storage", "@app.repositories_service", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
-        tags:
-            - { name: sonata.admin, manager_type: orm, label: "Inspección", group: "Auditoria", label_translator_strategy: "sonata.admin.label.strategy.noop" }
-    admin.blade_damage:
-        class: AppBundle\Admin\BladeDamageAdmin
-        arguments: [ ~, AppBundle\Entity\BladeDamage, AppBundle:BladeDamageAdmin, "@security.authorization_checker", "@security.token_storage", "@app.repositories_service", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
-        tags:
-            - { name: sonata.admin, manager_type: orm, label: "Daño Pala", group: "Auditoria", label_translator_strategy: "sonata.admin.label.strategy.noop", show_in_dashboard: false }
-    admin.damage:
-        class: AppBundle\Admin\DamageAdmin
-        arguments: [ ~, AppBundle\Entity\Damage, ~, "@security.authorization_checker", "@security.token_storage", "@app.repositories_service", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
-        tags:
-            - { name: sonata.admin, manager_type: orm, label: "Tipo Daño", group: "Auditoria", label_translator_strategy: "sonata.admin.label.strategy.noop" }
-    admin.damage_category:
-        class: AppBundle\Admin\DamageCategoryAdmin
-        arguments: [ ~, AppBundle\Entity\DamageCategory, ~, "@security.authorization_checker", "@security.token_storage", "@app.repositories_service", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
-        tags:
-            - { name: sonata.admin, manager_type: orm, label: "Categoría Daño", group: "Auditoria", label_translator_strategy: "sonata.admin.label.strategy.noop" }
-    admin.photo:
-        class: AppBundle\Admin\PhotoAdmin
-        arguments: [ ~, AppBundle\Entity\Photo, ~, "@security.authorization_checker", "@security.token_storage", "@app.repositories_service", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
-        tags:
-            - { name: sonata.admin, manager_type: orm, label: "Foto", group: "Auditoria", label_translator_strategy: "sonata.admin.label.strategy.noop", show_in_dashboard: false }
-    admin.blade_photo:
-        class: AppBundle\Admin\BladePhotoAdmin
-        arguments: [ ~, AppBundle\Entity\BladePhoto, ~, "@security.authorization_checker", "@security.token_storage", "@app.repositories_service", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
-        tags:
-            - { name: sonata.admin, manager_type: orm, label: "Foto Pala", group: "Auditoria", label_translator_strategy: "sonata.admin.label.strategy.noop", show_in_dashboard: false }
-    admin.observation:
-        class: AppBundle\Admin\ObservationAdmin
-        arguments: [ ~, AppBundle\Entity\Observation, ~, "@security.authorization_checker", "@security.token_storage", "@app.repositories_service", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
-        tags:
-            - { name: sonata.admin, manager_type: orm, label: "Observaciones", group: "Auditoria", label_translator_strategy: "sonata.admin.label.strategy.noop", show_in_dashboard: false }
-    admin.audit_windmill_blade:
-        class: AppBundle\Admin\AuditWindmillBladeAdmin
-        arguments: [ ~, AppBundle\Entity\AuditWindmillBlade, AppBundle:AuditWindmillBladeAdmin, "@security.authorization_checker", "@security.token_storage", "@app.repositories_service", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
-        tags:
-            - { name: sonata.admin, manager_type: orm, label: "Audit Daño Pala", group: "Auditoria", label_translator_strategy: "sonata.admin.label.strategy.noop", show_in_dashboard: false }
+            - { name: sonata.admin, manager_type: orm, label: "Provincia", group: "Client", label_translator_strategy: "sonata.admin.label.strategy.noop", show_in_dashboard: false }
     admin.user:
         class: AppBundle\Admin\UserAdmin
         arguments: [ ~, AppBundle\Entity\User, AppBundle:UserAdmin, "@fos_user.user_manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Usuario", group: "Client", label_translator_strategy: "sonata.admin.label.strategy.noop" }
+    admin.windfarm:
+        class: AppBundle\Admin\WindfarmAdmin
+        arguments: [ ~, AppBundle\Entity\Windfarm, AppBundle:WindfarmAdmin, "@security.authorization_checker", "@security.token_storage", "@app.repositories_service", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Parque Eólico", group: "Windfarm", label_translator_strategy: "sonata.admin.label.strategy.noop" }
+    admin.windmill:
+        class: AppBundle\Admin\WindmillAdmin
+        arguments: [ ~, AppBundle\Entity\Windmill, ~, "@security.authorization_checker", "@security.token_storage", "@app.repositories_service", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Aerogenerador", group: "Windfarm", label_translator_strategy: "sonata.admin.label.strategy.noop" }
+    admin.turbine:
+        class: AppBundle\Admin\TurbineAdmin
+        arguments: [ ~, AppBundle\Entity\Turbine, AppBundle:TurbineAdmin, "@security.authorization_checker", "@security.token_storage", "@app.repositories_service", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Turbina", group: "Windfarm", label_translator_strategy: "sonata.admin.label.strategy.noop" }
+    admin.blade:
+        class: AppBundle\Admin\BladeAdmin
+        arguments: [ ~, AppBundle\Entity\Blade, AppBundle:BladeAdmin, "@security.authorization_checker", "@security.token_storage", "@app.repositories_service", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Tipo Pala", group: "Windfarm", label_translator_strategy: "sonata.admin.label.strategy.noop", show_in_dashboard: false }
+    admin.windmill_blade:
+        class: AppBundle\Admin\WindmillBladeAdmin
+        arguments: [ ~, AppBundle\Entity\WindmillBlade, ~, "@security.authorization_checker", "@security.token_storage", "@app.repositories_service", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Palas", group: "Windfarm", label_translator_strategy: "sonata.admin.label.strategy.noop", show_in_dashboard: false }
+    admin.audit:
+        class: AppBundle\Admin\AuditAdmin
+        arguments: [ ~, AppBundle\Entity\Audit, AppBundle:AuditAdmin, "@security.authorization_checker", "@security.token_storage", "@app.repositories_service", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Inspección", group: "Audit", label_translator_strategy: "sonata.admin.label.strategy.noop" }
+    admin.blade_damage:
+        class: AppBundle\Admin\BladeDamageAdmin
+        arguments: [ ~, AppBundle\Entity\BladeDamage, AppBundle:BladeDamageAdmin, "@security.authorization_checker", "@security.token_storage", "@app.repositories_service", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Daño Pala", group: "Audit", label_translator_strategy: "sonata.admin.label.strategy.noop", show_in_dashboard: false }
+    admin.damage:
+        class: AppBundle\Admin\DamageAdmin
+        arguments: [ ~, AppBundle\Entity\Damage, ~, "@security.authorization_checker", "@security.token_storage", "@app.repositories_service", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Tipo Daño", group: "Audit", label_translator_strategy: "sonata.admin.label.strategy.noop" }
+    admin.damage_category:
+        class: AppBundle\Admin\DamageCategoryAdmin
+        arguments: [ ~, AppBundle\Entity\DamageCategory, ~, "@security.authorization_checker", "@security.token_storage", "@app.repositories_service", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Categoría Daño", group: "Audit", label_translator_strategy: "sonata.admin.label.strategy.noop" }
+    admin.photo:
+        class: AppBundle\Admin\PhotoAdmin
+        arguments: [ ~, AppBundle\Entity\Photo, ~, "@security.authorization_checker", "@security.token_storage", "@app.repositories_service", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Foto", group: "Audit", label_translator_strategy: "sonata.admin.label.strategy.noop", show_in_dashboard: false }
+    admin.blade_photo:
+        class: AppBundle\Admin\BladePhotoAdmin
+        arguments: [ ~, AppBundle\Entity\BladePhoto, ~, "@security.authorization_checker", "@security.token_storage", "@app.repositories_service", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Foto Pala", group: "Audit", label_translator_strategy: "sonata.admin.label.strategy.noop", show_in_dashboard: false }
+    admin.observation:
+        class: AppBundle\Admin\ObservationAdmin
+        arguments: [ ~, AppBundle\Entity\Observation, ~, "@security.authorization_checker", "@security.token_storage", "@app.repositories_service", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Observaciones", group: "Audit", label_translator_strategy: "sonata.admin.label.strategy.noop", show_in_dashboard: false }
+    admin.audit_windmill_blade:
+        class: AppBundle\Admin\AuditWindmillBladeAdmin
+        arguments: [ ~, AppBundle\Entity\AuditWindmillBlade, AppBundle:AuditWindmillBladeAdmin, "@security.authorization_checker", "@security.token_storage", "@app.repositories_service", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Audit Daño Pala", group: "Audit", label_translator_strategy: "sonata.admin.label.strategy.noop", show_in_dashboard: false }
 # Sonata Blocks
     admin.block.audits:
         class: AppBundle\Admin\Block\AuditsBlock

@@ -31,17 +31,17 @@ sonata_admin:
     security:
         handler: sonata.admin.security.handler.role
     templates:
-        layout:    "::Admin/layout.html.twig"
-        edit:      "::Admin/edit.html.twig"
+        layout: "::Admin/layout.html.twig"
+        edit:   "::Admin/edit.html.twig"
     dashboard:
         groups:
             Client:
                 icon:  "<i class='fa fa-users' aria-hidden='true'></i>"
                 label: "Clientes"
-            Parc_Eolic:
+            Windfarm:
                 icon:  "<i class='fa fa-recycle' aria-hidden='true'></i>"
                 label: "Parques Eólicos"
-            Auditoria:
+            Audit:
                 icon:  "<i class='fa fa-list-alt' aria-hidden='true'></i>"
                 label: "Inspecciones"
         blocks:
@@ -57,13 +57,13 @@ sonata_admin:
                 type: sonata.admin.block.admin_list
                 class: col-md-6
                 settings:
-                    groups: [ Client, Auditoria ]
+                    groups: [ Client, Audit ]
             -
                 position: top
                 type: sonata.admin.block.admin_list
                 class: col-md-6
                 settings:
-                    groups: [ Parc_Eolic ]
+                    groups: [ Windfarm ]
             -
                 position: top
                 type: admin.block.audits

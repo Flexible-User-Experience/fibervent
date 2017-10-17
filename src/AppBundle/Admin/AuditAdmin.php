@@ -99,6 +99,7 @@ class AuditAdmin extends AbstractBaseAdmin
                     'btn_delete' => false,
                     'required' => true,
                     'query' => $this->wmr->findEnabledSortedByCustomerWindfarmAndWindmillCodeQ(),
+                    'choices_as_values' => true,
                 )
             )
             ->add(
@@ -142,6 +143,7 @@ class AuditAdmin extends AbstractBaseAdmin
                     'btn_delete' => false,
                     'property' => 'contactInfoString',
                     'query' => $this->ur->findAllTechniciansSortedByNameQ(),
+                    'choices_as_values' => true,
                 )
             )
             ->add(
@@ -509,7 +511,7 @@ class AuditAdmin extends AbstractBaseAdmin
     }
 
     // TODO fix this error behaviour: when windmill blades are changed after an existing audit makes inconsistent references
-    // TODO related problem with Sonata >3.20.1 upgrade
+    // TODO related problem with Sonata >3.20.1 upgrade (but it works with Sonata v1.15.0)
     /**
      * @param Audit $object
      */

@@ -9,6 +9,7 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
+use Sonata\AdminBundle\Form\Type\ModelType;
 use Sonata\CoreBundle\Form\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -63,13 +64,14 @@ class BladeDamageAdmin extends AbstractBaseAdmin
         $formMapper
             ->add(
                 'damage',
-                'sonata_type_model',
+                ModelType::class,
                 array(
                     'label'      => 'admin.bladedamage.damage',
                     'btn_add'    => false,
                     'btn_delete' => false,
                     'required'   => true,
                     'query'      => $this->dr->findAllEnabledSortedByCodeQ(),
+                    'choices_as_values' => true,
                 )
             )
             ->add(
@@ -123,13 +125,14 @@ class BladeDamageAdmin extends AbstractBaseAdmin
             )
             ->add(
                 'damageCategory',
-                'sonata_type_model',
+                ModelType::class,
                 array(
                     'label'      => 'admin.bladedamage.damagecategory',
                     'btn_add'    => false,
                     'btn_delete' => false,
                     'required'   => true,
                     'query'      => $this->dcr->findEnabledSortedByCategoryQ(),
+                    'choices_as_values' => true,
                 )
             )
             ->add(
