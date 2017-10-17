@@ -10,6 +10,7 @@ use Oh\GoogleMapFormTypeBundle\Form\Type\GoogleMapType;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Form\Type\ModelType;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\CoreBundle\Form\Type\EqualType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -88,13 +89,14 @@ class WindfarmAdmin extends AbstractBaseAdmin
             ->with('admin.common.general', $this->getFormMdSuccessBoxArray(4))
             ->add(
                 'customer',
-                'sonata_type_model',
+                ModelType::class,
                 array(
                     'label' => 'admin.windfarm.customer',
                     'required' => true,
                     'multiple' => false,
                     'btn_add' => false,
                     'query' => $this->cr->findEnabledSortedByNameQ(),
+                    'choices_as_values' => true,
                 )
             )
             ->add(
@@ -144,20 +146,21 @@ class WindfarmAdmin extends AbstractBaseAdmin
             )
             ->add(
                 'state',
-                'sonata_type_model',
+                ModelType::class,
                 array(
                     'label' => 'admin.customer.state',
                     'btn_add' => true,
                     'btn_delete' => false,
                     'required' => true,
                     'query' => $this->sr->findAllSortedByNameQ(),
+                    'choices_as_values' => true,
                 )
             )
             ->end()
             ->with('admin.common.controls', $this->getFormMdSuccessBoxArray(4))
             ->add(
                 'manager',
-                'sonata_type_model',
+                ModelType::class,
                 array(
                     'label' => 'admin.windfarm.manager',
                     'btn_add' => false,
@@ -165,6 +168,7 @@ class WindfarmAdmin extends AbstractBaseAdmin
                     'required' => false,
                     'property' => 'contactInfoString',
                     'query' => $this->ur->findEnabledSortedByNameQ($customer),
+                    'choices_as_values' => true,
                 )
             )
             ->add(

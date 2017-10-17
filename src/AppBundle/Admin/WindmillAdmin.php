@@ -8,6 +8,7 @@ use Oh\GoogleMapFormTypeBundle\Form\Type\GoogleMapType;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Form\Type\ModelType;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\CoreBundle\Form\Type\CollectionType;
 
@@ -47,12 +48,13 @@ class WindmillAdmin extends AbstractBaseAdmin
             ->with('admin.common.general', $this->getFormMdSuccessBoxArray(4))
             ->add(
                 'windfarm',
-                'sonata_type_model',
+                ModelType::class,
                 array(
                     'label'    => 'admin.windmill.windfarm',
                     'btn_add'  => false,
                     'required' => true,
-                    'query'    => $this->wfr->findEnabledSortedByNameQ()
+                    'query'    => $this->wfr->findEnabledSortedByNameQ(),
+                    'choices_as_values' => true,
                 )
             )
             ->add(
@@ -73,24 +75,26 @@ class WindmillAdmin extends AbstractBaseAdmin
             ->with('admin.common.controls', $this->getFormMdSuccessBoxArray(4))
             ->add(
                 'turbine',
-                'sonata_type_model',
+                ModelType::class,
                 array(
                     'label'      => 'admin.windmill.turbine',
                     'btn_add'    => true,
                     'btn_delete' => false,
                     'required'   => true,
-                    'query'      => $this->tr->findAllSortedByModelQ()
+                    'query'      => $this->tr->findAllSortedByModelQ(),
+                    'choices_as_values' => true,
                 )
             )
             ->add(
                 'bladeType',
-                'sonata_type_model',
+                ModelType::class,
                 array(
                     'label'      => 'admin.windmill.bladetype',
                     'btn_add'    => true,
                     'btn_delete' => false,
                     'required'   => true,
-                    'query'      => $this->br->findAllSortedByModelQ()
+                    'query'      => $this->br->findAllSortedByModelQ(),
+                    'choices_as_values' => true,
                 )
             )
             ->end();

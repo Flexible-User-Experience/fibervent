@@ -5,6 +5,7 @@ namespace AppBundle\Admin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Form\Type\ModelType;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
@@ -128,13 +129,14 @@ class CustomerAdmin extends AbstractBaseAdmin
             )
             ->add(
                 'state',
-                'sonata_type_model',
+                ModelType::class,
                 array(
                     'label'      => 'admin.customer.state',
                     'btn_add'    => true,
                     'btn_delete' => false,
                     'required'   => true,
                     'query'      => $this->sr->findAllSortedByNameQ(),
+                    'choices_as_values' => true,
                 )
             )
             ->end();
@@ -143,7 +145,7 @@ class CustomerAdmin extends AbstractBaseAdmin
                 ->with('admin.customer.contacts', $this->getFormMdSuccessBoxArray(8))
                 ->add(
                     'contacts',
-                    'sonata_type_model',
+                    ModelType::class,
                     array(
                         'label'        => ' ',
                         'property'     => 'fullContactInfoString',
@@ -152,13 +154,14 @@ class CustomerAdmin extends AbstractBaseAdmin
                         'btn_add'      => false,
                         'by_reference' => false,
                         'query'        => $this->ur->findOnlyAvailableSortedByNameQ($this->getSubject()),
+                        'choices_as_values' => true,
                     )
                 )
                 ->end()
                 ->with('admin.customer.windfarms', $this->getFormMdSuccessBoxArray(4))
                 ->add(
                     'windfarms',
-                    'sonata_type_model',
+                    ModelType::class,
                     array(
                         'label'        => ' ',
                         'required'     => false,
@@ -166,6 +169,7 @@ class CustomerAdmin extends AbstractBaseAdmin
                         'btn_add'      => false,
                         'by_reference' => false,
                         'query'        => $this->wfr->findOnlyAvailableSortedByNameQ($this->getSubject()),
+                        'choices_as_values' => true,
                     )
                 )
                 ->end();
