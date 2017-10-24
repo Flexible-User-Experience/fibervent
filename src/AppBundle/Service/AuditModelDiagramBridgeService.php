@@ -11,13 +11,13 @@ use AppBundle\Pdf\CustomTcpdf;
  * Class AuditModelDiagramBridgeService
  *
  * @category Service
- * @package  AppBundle\Service
+ *
  * @author   David Romaní <david@flux.cat>
  */
 class AuditModelDiagramBridgeService
 {
     const PDF_TOTAL_WIDHT      = 210;
-    const DIAGRAM_HEIGHT       = 60;
+    const DIAGRAM_HEIGHT       = 160;
     const GAP_SQUARE_SIZE      = 5;
     const GAP_SQUARE_HALF_SIZE = 2.5;
 
@@ -107,11 +107,7 @@ class AuditModelDiagramBridgeService
     private $bladeShape;
 
     /**
-     * 
-     * 
      * Methods
-     * 
-     * 
      */
 
     /**
