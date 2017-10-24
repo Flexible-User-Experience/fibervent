@@ -17,7 +17,7 @@ use AppBundle\Pdf\CustomTcpdf;
 class AuditModelDiagramBridgeService
 {
     const PDF_TOTAL_WIDHT      = 210;
-    const DIAGRAM_HEIGHT       = 160;
+    const DIAGRAM_HEIGHT       = 80;
     const GAP_SQUARE_SIZE      = 5;
     const GAP_SQUARE_HALF_SIZE = 2.5;
 
@@ -628,17 +628,17 @@ class AuditModelDiagramBridgeService
     {
         $x = $this->getGapX($bladeDamage);
         $y = $this->getGapY($bladeDamage);
-        $pdf->Line($x, $y, $x + 0.5, $y, array('width' => 0.5, 'dash' => 0, 'color' => $this->hex2rgb($bladeDamage->getDamageCategory()->getColour())));
+        $pdf->Line($x, $y, $x + 0.5, $y, array('width' => 0.5, 'dash' => 0, 'color' => CustomTcpdf::hex2rgb($bladeDamage->getDamageCategory()->getColour())));
 
         if ($bladeDamage->getEdge() == BladeDamageEdgeEnum::EDGE_UNDEFINED) {
             if ($bladeDamage->getPosition() == BladeDamagePositionEnum::EDGE_IN) {
                 // Edge in
-                $pdf->Line($x, $y + $this->yQ3 - $this->yQ2, $x + 0.5, $y + $this->yQ3 - $this->yQ2, array('width' => 0.5, 'dash' => false, 'color' => $this->hex2rgb($bladeDamage->getDamageCategory()->getColour())));
+                $pdf->Line($x, $y + $this->yQ3 - $this->yQ2, $x + 0.5, $y + $this->yQ3 - $this->yQ2, array('width' => 0.5, 'dash' => false, 'color' => CustomTcpdf::hex2rgb($bladeDamage->getDamageCategory()->getColour())));
 
             } elseif ($bladeDamage->getPosition() == BladeDamagePositionEnum::EDGE_OUT) {
                 // Edge out
                 $deltaY = $this->yQ2 - $y;
-                $pdf->Line($x, $this->yQ3 + $deltaY, $x + 0.5, $this->yQ3 + $deltaY, array('width' => 0.5, 'dash' => false, 'color' => $this->hex2rgb($bladeDamage->getDamageCategory()->getColour())));
+                $pdf->Line($x, $this->yQ3 + $deltaY, $x + 0.5, $this->yQ3 + $deltaY, array('width' => 0.5, 'dash' => false, 'color' => CustomTcpdf::hex2rgb($bladeDamage->getDamageCategory()->getColour())));
             }
         }
     }
@@ -661,24 +661,21 @@ class AuditModelDiagramBridgeService
     }
 
     /**
-     * @param string $hex
+     * @param CustomTcpdf $pdf
+     * @param bool $enable
      *
-     * @return array
+     * @return bool
      */
-    public function hex2rgb($hex)
+    public function enableDebugLineStyles(CustomTcpdf $pdf, $enable)
     {
-        $hex = str_replace('#', '', $hex);
-
-        if(strlen($hex) == 3) {
-            $r = hexdec(substr($hex,0,1).substr($hex,0,1));
-            $g = hexdec(substr($hex,1,1).substr($hex,1,1));
-            $b = hexdec(substr($hex,2,1).substr($hex,2,1));
+        if ($enable) {
+            $pdf->SetDrawColor(150, 150, 150);
+            $pdf->SetLineStyle(array('dash' => '2,1'));
         } else {
-            $r = hexdec(substr($hex,0,2));
-            $g = hexdec(substr($hex,2,2));
-            $b = hexdec(substr($hex,4,2));
+            $pdf->setBlackLine();
+            $pdf->SetLineStyle(array('dash' => 0));
         }
 
-        return array($r, $g, $b);
+        return true;
     }
 }

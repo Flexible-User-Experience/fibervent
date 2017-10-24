@@ -171,7 +171,7 @@ class CustomTcpdf extends \TCPDF
      */
     public function setBackgroundHexColor($hex)
     {
-        $rgb = $this->hex2rgb($hex);
+        $rgb = self::hex2rgb($hex);
         $this->SetFillColor($rgb[0], $rgb[1], $rgb[2]);
     }
 
@@ -204,7 +204,7 @@ class CustomTcpdf extends \TCPDF
      *
      * @return array
      */
-    private function hex2rgb($hex)
+    public static function hex2rgb($hex)
     {
         $hex = str_replace('#', '', $hex);
 
