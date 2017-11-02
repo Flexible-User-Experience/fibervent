@@ -237,26 +237,30 @@ class AuditPdfBuilderService
             $xQuarter5 = $this->amdb->getXQ5();
 
             $yMiddle = $this->amdb->getYMiddle();
+            $yMiddle2 = $this->amdb->getYMiddle2();
             $yQuarter1 = $this->amdb->getYQ1();
             $yQuarter2 = $this->amdb->getYQ2();
             $yQuarter3 = $this->amdb->getYQ3();
             $yQuarter4 = $this->amdb->getYQ4();
 
+            $this->amdb->enableDebugLineStyles($pdf, true);
+            // verticals
+            $pdf->Line($xQuarter1, $y1, $xQuarter1, $y1 + ($y2 - $y1));
+            $pdf->Line($xQuarter2, $y1, $xQuarter2, $y1 + ($y2 - $y1));
+            $pdf->Line($xQuarter3, $y1, $xQuarter3, $y1 + ($y2 - $y1));
+            $pdf->Line($xQuarter4, $y1, $xQuarter4, $y1 + ($y2 - $y1));
+            $pdf->Line($xQuarter5, $y1, $xQuarter5, $y1 + ($y2 - $y1));
+            // hortizontals
+            $pdf->Line($x1, $y1 + 3, $x2, $y1 + 3);
+            $pdf->Line($x1, $yMiddle2 + 8, $x2, $yMiddle2 + 8);
+
             if (self::SHOW_GRID_DEBUG) {
-                $this->amdb->enableDebugLineStyles($pdf, true);
-                // verticals
-                $pdf->Line($xQuarter1, $y1, $xQuarter1, $y1 + ($y2 - $y1));
-                $pdf->Line($xQuarter2, $y1, $xQuarter2, $y1 + ($y2 - $y1));
-                $pdf->Line($xQuarter3, $y1, $xQuarter3, $y1 + ($y2 - $y1));
-                $pdf->Line($xQuarter4, $y1, $xQuarter4, $y1 + ($y2 - $y1));
-                $pdf->Line($xQuarter5, $y1, $xQuarter5, $y1 + ($y2 - $y1));
-                // hortizontals
-                $pdf->Line($x1, $y1 + 3, $x2, $y1 + 3);
                 $pdf->Line($x1, $yQuarter1, $x2, $yQuarter1);
                 $pdf->Line($x1, $yQuarter2, $x2, $yQuarter2);
                 $pdf->Line($x1, $yMiddle, $x2, $yMiddle);
                 $pdf->Line($x1, $yQuarter3, $x2, $yQuarter3);
                 $pdf->Line($x1, $yQuarter4, $x2, $yQuarter4);
+                $pdf->Line($x1, $yMiddle2, $x2, $yMiddle2);
                 $this->amdb->enableDebugLineStyles($pdf, false);
             }
 
@@ -320,19 +324,26 @@ class AuditPdfBuilderService
 
             // Draw edge blade diagram
             $polyArray = array();
+            $polyArray2 = array();
             $xStep = $xQuarter1;
             $xDelta = ($xQuarter5 - $xQuarter1) / 50;
             foreach ($this->amdb->getEdgeBladeShape() as $yPoint) {
-                $yTransform = $yQuarter3 - 7.7 - ((($yQuarter2 - $yQuarter1) / 2) * $yPoint);
+                $yTransform = $yMiddle - ((($yQuarter2 - $yQuarter1) / 2) * $yPoint);
+                $yTransform2 = $yMiddle2 - ((($yQuarter2 - $yQuarter1) / 2) * $yPoint);
                 array_push($polyArray, $xStep);
                 array_push($polyArray, $yTransform);
+                array_push($polyArray2, $xStep);
+                array_push($polyArray2, $yTransform2);
                 $xStep += $xDelta;
             }
             $xStep = $xQuarter5;
             foreach (array_reverse($this->amdb->getEdgeBladeShape()) as $yPoint) {
-                $yTransform = $yQuarter3 - 7.7 + ((($yQuarter2 - $yQuarter1) / 2) * $yPoint);
+                $yTransform = $yMiddle + ((($yQuarter2 - $yQuarter1) / 2) * $yPoint);
+                $yTransform2 = $yMiddle2 + ((($yQuarter2 - $yQuarter1) / 2) * $yPoint);
                 array_push($polyArray, $xStep);
                 array_push($polyArray, $yTransform);
+                array_push($polyArray2, $xStep);
+                array_push($polyArray2, $yTransform2);
                 $xStep -= $xDelta;
             }
 //            array_push($polyArray, $xQuarter5);
@@ -341,6 +352,7 @@ class AuditPdfBuilderService
 //            array_push($polyArray, $yQuarter2);
             $pdf->SetLineStyle(array('dash' => 0, 'width' => 0.35));
             $pdf->Polygon($polyArray);
+            $pdf->Polygon($polyArray2);
 
             /** @var BladeDamage $bladeDamage */
             foreach ($bladeDamages as $sKey => $bladeDamage) {

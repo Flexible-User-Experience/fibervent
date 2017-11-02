@@ -17,7 +17,7 @@ use AppBundle\Pdf\CustomTcpdf;
 class AuditModelDiagramBridgeService
 {
     const PDF_TOTAL_WIDHT      = 210;
-    const DIAGRAM_HEIGHT       = 80;
+    const DIAGRAM_HEIGHT       = 85;
     const GAP_SQUARE_SIZE      = 5;
     const GAP_SQUARE_HALF_SIZE = 2.5;
 
@@ -80,6 +80,11 @@ class AuditModelDiagramBridgeService
      * @var float
      */
     private $yMiddle;
+
+    /**
+     * @var float
+     */
+    private $yMiddle2;
 
     /**
      * @var float
@@ -247,9 +252,10 @@ class AuditModelDiagramBridgeService
         $this->y2 = $y + self::DIAGRAM_HEIGHT;
         $this->yQ1 = $this->y1  + 5;
         $this->yQ2 = $this->yQ1 + 17;
-        $this->yQ3 = $this->yQ2 + 16.75;
+        $this->yQ3 = $this->yQ2 + 23;//16.75;
         $this->yQ4 = $this->yQ3 + 17;
         $this->yMiddle = $this->yQ2 + (($this->yQ3 - $this->yQ2) / 2) + 0.75;
+        $this->yMiddle2 = $this->yQ4 + (($this->yQ3 - $this->yQ2) / 2) + 0.75;
         $this->yScaleGap = $this->yQ2 - $this->yQ1;
 
         return $this;
@@ -618,6 +624,28 @@ class AuditModelDiagramBridgeService
     public function setYMiddle($yMiddle)
     {
         $this->yMiddle = $yMiddle;
+
+        return $this;
+    }
+
+    /**
+     * Get YMiddle2
+     *
+     * @return float
+     */
+    public function getYMiddle2()
+    {
+        return $this->yMiddle2;
+    }
+
+    /**
+     * @param float $yMiddle2
+     *
+     * @return $this
+     */
+    public function setYMiddle2($yMiddle2)
+    {
+        $this->yMiddle2 = $yMiddle2;
 
         return $this;
     }
