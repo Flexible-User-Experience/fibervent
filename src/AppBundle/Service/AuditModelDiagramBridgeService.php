@@ -187,7 +187,7 @@ class AuditModelDiagramBridgeService
     {
         $this->y1 = $y;
         $this->y2 = $y + self::DIAGRAM_HEIGHT;
-        $this->yQ1 = $this->y1  + 5.5;
+        $this->yQ1 = $this->y1  + 10;
         $this->yQ2 = $this->yQ1 + 17;
         $this->yQ3 = $this->yQ2 + 16.75;
         $this->yQ4 = $this->yQ3 + 17;

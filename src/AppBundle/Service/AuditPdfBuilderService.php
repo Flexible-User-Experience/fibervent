@@ -244,11 +244,14 @@ class AuditPdfBuilderService
 
             if (self::SHOW_GRID_DEBUG) {
                 $this->amdb->enableDebugLineStyles($pdf, true);
+                // verticals
                 $pdf->Line($xQuarter1, $y1, $xQuarter1, $y1 + ($y2 - $y1));
                 $pdf->Line($xQuarter2, $y1, $xQuarter2, $y1 + ($y2 - $y1));
                 $pdf->Line($xQuarter3, $y1, $xQuarter3, $y1 + ($y2 - $y1));
                 $pdf->Line($xQuarter4, $y1, $xQuarter4, $y1 + ($y2 - $y1));
                 $pdf->Line($xQuarter5, $y1, $xQuarter5, $y1 + ($y2 - $y1));
+                // hortizontals
+                $pdf->Line($x1, $y1 + 5, $x2, $y1 + 5);
                 $pdf->Line($x1, $yQuarter1, $x2, $yQuarter1);
                 $pdf->Line($x1, $yQuarter2, $x2, $yQuarter2);
                 $pdf->Line($x1, $yMiddle, $x2, $yMiddle);
@@ -258,14 +261,16 @@ class AuditPdfBuilderService
             }
 
             // Blade diagram middle lines
+            $txt = $auditWindmillBlade->getWindmillBlade()->getWindmill()->getBladeType()->getQ0LengthString();
+            $pdf->Text(($x1 - $pdf->GetStringWidth($txt) - 2), $y1, $txt);
             $txt = $auditWindmillBlade->getWindmillBlade()->getWindmill()->getBladeType()->getQ1LengthString();
-            $pdf->Text(($xQuarter2 - $pdf->GetStringWidth($txt) - 2), $yMiddle - 5, $txt);
+            $pdf->Text(($xQuarter2 - $pdf->GetStringWidth($txt) - 2), $y1, $txt);
             $txt = $auditWindmillBlade->getWindmillBlade()->getWindmill()->getBladeType()->getQ2LengthString();
-            $pdf->Text(($xQuarter3 - $pdf->GetStringWidth($txt) - 2), $yMiddle - 5, $txt);
+            $pdf->Text(($xQuarter3 - $pdf->GetStringWidth($txt) - 2), $y1, $txt);
             $txt = $auditWindmillBlade->getWindmillBlade()->getWindmill()->getBladeType()->getQ3LengthString();
-            $pdf->Text(($xQuarter4 - $pdf->GetStringWidth($txt) - 2), $yMiddle - 5, $txt);
+            $pdf->Text(($xQuarter4 - $pdf->GetStringWidth($txt) - 2), $y1, $txt);
             $txt = $auditWindmillBlade->getWindmillBlade()->getWindmill()->getBladeType()->getQ4LengthString();
-            $pdf->Text(($xQuarter5 - $pdf->GetStringWidth($txt) - 2), $yMiddle - 5, $txt);
+            $pdf->Text(($xQuarter5 - $pdf->GetStringWidth($txt) - 2), $y1, $txt);
             $pdf->setBlackLine();
             $pdf->SetLineStyle(array('dash' => 0));
             $pdf->Line($xQuarter1, $yMiddle, $xQuarter5, $yMiddle);
