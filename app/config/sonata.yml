@@ -48,23 +48,29 @@ sonata_admin:
             -
                 position: top
                 type: sonata.block.service.text
-                class: col-md-12
+                class: "col-md-12"
                 settings:
                     content: >
                         <h1 class="text-center" style="margin:0 0 25px 0">%project_web_title%</h1>
             -
                 position: top
                 type: sonata.admin.block.admin_list
-                class: col-md-6
+                class: "col-lg-4 col-md-6 col-sm-12"
                 settings:
-                    groups: [ Client, Audit ]
+                    groups: [ Client ]
             -
                 position: top
                 type: sonata.admin.block.admin_list
-                class: col-md-6
+                class: "col-lg-4 col-md-6 col-sm-12"
                 settings:
                     groups: [ Windfarm ]
             -
                 position: top
+                type: sonata.admin.block.admin_list
+                class: "col-lg-4 col-md-6 col-sm-12"
+                settings:
+                    groups: [ Audit ]
+            -
+                position: top
                 type: admin.block.audits
-                class: col-md-6
+                class: "col-lg-4 col-lg-offset-8 col-md-6 col-sm-12"

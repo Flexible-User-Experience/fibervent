@@ -115,7 +115,7 @@ class AuditModelDiagramBridgeService
      */
     public function __construct()
     {
-        $this->x1 = CustomTcpdf::PDF_MARGIN_LEFT;
+        $this->x1 = CustomTcpdf::PDF_MARGIN_LEFT + 10;
         $this->x2 = self::PDF_TOTAL_WIDHT - CustomTcpdf::PDF_MARGIN_RIGHT;
         $this->xQ1 = $this->x1 + 0.25;
         $this->xQ5 = $this->x2 - 0.25;
@@ -628,17 +628,17 @@ class AuditModelDiagramBridgeService
     {
         $x = $this->getGapX($bladeDamage);
         $y = $this->getGapY($bladeDamage);
-        $pdf->Line($x, $y, $x + 0.5, $y, array('width' => 0.5, 'dash' => 0, 'color' => CustomTcpdf::hex2rgb($bladeDamage->getDamageCategory()->getColour())));
+        $pdf->Line($x, $y, $x + 0.5, $y);
 
         if ($bladeDamage->getEdge() == BladeDamageEdgeEnum::EDGE_UNDEFINED) {
             if ($bladeDamage->getPosition() == BladeDamagePositionEnum::EDGE_IN) {
                 // Edge in
-                $pdf->Line($x, $y + $this->yQ3 - $this->yQ2, $x + 0.5, $y + $this->yQ3 - $this->yQ2, array('width' => 0.5, 'dash' => false, 'color' => CustomTcpdf::hex2rgb($bladeDamage->getDamageCategory()->getColour())));
+                $pdf->Line($x, $y + $this->yQ3 - $this->yQ2, $x + 0.5, $y + $this->yQ3 - $this->yQ2);
 
             } elseif ($bladeDamage->getPosition() == BladeDamagePositionEnum::EDGE_OUT) {
                 // Edge out
                 $deltaY = $this->yQ2 - $y;
-                $pdf->Line($x, $this->yQ3 + $deltaY, $x + 0.5, $this->yQ3 + $deltaY, array('width' => 0.5, 'dash' => false, 'color' => CustomTcpdf::hex2rgb($bladeDamage->getDamageCategory()->getColour())));
+                $pdf->Line($x, $this->yQ3 + $deltaY, $x + 0.5, $this->yQ3 + $deltaY);
             }
         }
     }

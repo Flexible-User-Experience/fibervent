@@ -18,9 +18,9 @@ use Symfony\Bundle\FrameworkBundle\Translation\Translator;
  */
 class CustomTcpdf extends \TCPDF
 {
-    const PDF_MARGIN_LEFT = 25;
-    const PDF_MARGIN_RIGHT = 20;
-    const PDF_MARGIN_TOP = 25;
+    const PDF_MARGIN_LEFT   = 25;
+    const PDF_MARGIN_RIGHT  = 20;
+    const PDF_MARGIN_TOP    = 25;
     const PDF_MARGIN_BOTTOM = 10;
 
     /**
@@ -189,6 +189,14 @@ class CustomTcpdf extends \TCPDF
     public function setBlackLine()
     {
         $this->SetDrawColor(0, 0, 0);
+    }
+
+    /**
+     * Set red line color.
+     */
+    public function setRedLine()
+    {
+        $this->SetDrawColor(255, 0, 0);
     }
 
     /**
