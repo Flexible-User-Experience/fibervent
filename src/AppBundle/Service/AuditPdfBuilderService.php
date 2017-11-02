@@ -251,7 +251,7 @@ class AuditPdfBuilderService
                 $pdf->Line($xQuarter4, $y1, $xQuarter4, $y1 + ($y2 - $y1));
                 $pdf->Line($xQuarter5, $y1, $xQuarter5, $y1 + ($y2 - $y1));
                 // hortizontals
-                $pdf->Line($x1, $y1 + 5, $x2, $y1 + 5);
+                $pdf->Line($x1, $y1 + 3, $x2, $y1 + 3);
                 $pdf->Line($x1, $yQuarter1, $x2, $yQuarter1);
                 $pdf->Line($x1, $yQuarter2, $x2, $yQuarter2);
                 $pdf->Line($x1, $yMiddle, $x2, $yMiddle);
@@ -262,26 +262,30 @@ class AuditPdfBuilderService
 
             // Blade diagram middle lines
             $txt = $auditWindmillBlade->getWindmillBlade()->getWindmill()->getBladeType()->getQ0LengthString();
-            $pdf->Text(($x1 - $pdf->GetStringWidth($txt) - 2), $y1, $txt);
+            $pdf->Text(($x1 - $pdf->GetStringWidth($txt) - 2), $y1 - 2, $txt);
             $txt = $auditWindmillBlade->getWindmillBlade()->getWindmill()->getBladeType()->getQ1LengthString();
-            $pdf->Text(($xQuarter2 - $pdf->GetStringWidth($txt) - 2), $y1, $txt);
+            $pdf->Text(($xQuarter2 - $pdf->GetStringWidth($txt) - 2), $y1 - 2, $txt);
             $txt = $auditWindmillBlade->getWindmillBlade()->getWindmill()->getBladeType()->getQ2LengthString();
-            $pdf->Text(($xQuarter3 - $pdf->GetStringWidth($txt) - 2), $y1, $txt);
+            $pdf->Text(($xQuarter3 - $pdf->GetStringWidth($txt) - 2), $y1 - 2, $txt);
             $txt = $auditWindmillBlade->getWindmillBlade()->getWindmill()->getBladeType()->getQ3LengthString();
-            $pdf->Text(($xQuarter4 - $pdf->GetStringWidth($txt) - 2), $y1, $txt);
+            $pdf->Text(($xQuarter4 - $pdf->GetStringWidth($txt) - 2), $y1 - 2, $txt);
             $txt = $auditWindmillBlade->getWindmillBlade()->getWindmill()->getBladeType()->getQ4LengthString();
-            $pdf->Text(($xQuarter5 - $pdf->GetStringWidth($txt) - 2), $y1, $txt);
+            $pdf->Text(($xQuarter5 - $pdf->GetStringWidth($txt) - 2), $y1 - 2, $txt);
             $pdf->setBlackLine();
             $pdf->SetLineStyle(array('dash' => 0));
-            $pdf->Line($xQuarter1, $yMiddle, $xQuarter5, $yMiddle);
-            $pdf->Line($xQuarter1, $yMiddle - 2, $xQuarter1, $yMiddle + 2);
-            $pdf->Line($xQuarter2, $yMiddle - 2, $xQuarter2, $yMiddle + 2);
-            $pdf->Line($xQuarter3, $yMiddle - 2, $xQuarter3, $yMiddle + 2);
-            $pdf->Line($xQuarter4, $yMiddle - 2, $xQuarter4, $yMiddle + 2);
-            $pdf->Line($xQuarter5, $yMiddle - 2, $xQuarter5, $yMiddle + 2);
+//            $pdf->Line($xQuarter1, $yMiddle, $xQuarter5, $yMiddle);
+//            $pdf->Line($xQuarter1, $yMiddle - 2, $xQuarter1, $yMiddle + 2);
+//            $pdf->Line($xQuarter2, $yMiddle - 2, $xQuarter2, $yMiddle + 2);
+//            $pdf->Line($xQuarter3, $yMiddle - 2, $xQuarter3, $yMiddle + 2);
+//            $pdf->Line($xQuarter4, $yMiddle - 2, $xQuarter4, $yMiddle + 2);
+//            $pdf->Line($xQuarter5, $yMiddle - 2, $xQuarter5, $yMiddle + 2);
 
             // Blade diagram help texts
-//            $pdf->Text($xQuarter1, $yQuarter1 - 5, $this->ts->trans('pdf.blade_damage_diagram.1_vp_s'));
+            $pdf->StartTransform();
+// Rotate 20 degrees counter-clockwise centered by (70,110) which is the lower left corner of the rectangle
+            $pdf->Rotate(90, $xQuarter1 - 10, $yQuarter1 + 5);
+            $pdf->Text($xQuarter1 - 35, $yQuarter1 + 5, $this->ts->trans('pdf.blade_damage_diagram.1_vp_s'));
+            $pdf->StopTransform();
 //            $pdf->Text($xQuarter1, $yQuarter4 + 1, $this->ts->trans('pdf.blade_damage_diagram.2_vs_s'));
 //            $pdf->Text($xQuarter3 - 5, $yQuarter4 - 2, $this->ts->trans('pdf.blade_damage_diagram.3_vp_l'));
 //            $pdf->Text($xQuarter5 - $pdf->GetStringWidth($this->ts->trans('pdf.blade_damage_diagram.5_ba_l')), $yQuarter4 - 2, $this->ts->trans('pdf.blade_damage_diagram.5_ba_l'));
@@ -313,6 +317,30 @@ class AuditPdfBuilderService
             $pdf->SetLineStyle(array('dash' => 0, 'width' => 0.35));
             $pdf->Polygon($polyArray);
             $pdf->Polygon($polyArray2);
+
+            // Draw edge blade diagram
+            $polyArray = array();
+            $xStep = $xQuarter1;
+            $xDelta = ($xQuarter5 - $xQuarter1) / 50;
+            foreach ($this->amdb->getEdgeBladeShape() as $yPoint) {
+                $yTransform = $yQuarter3 - 7.7 - ((($yQuarter2 - $yQuarter1) / 2) * $yPoint);
+                array_push($polyArray, $xStep);
+                array_push($polyArray, $yTransform);
+                $xStep += $xDelta;
+            }
+            $xStep = $xQuarter5;
+            foreach (array_reverse($this->amdb->getEdgeBladeShape()) as $yPoint) {
+                $yTransform = $yQuarter3 - 7.7 + ((($yQuarter2 - $yQuarter1) / 2) * $yPoint);
+                array_push($polyArray, $xStep);
+                array_push($polyArray, $yTransform);
+                $xStep -= $xDelta;
+            }
+//            array_push($polyArray, $xQuarter5);
+//            array_push($polyArray, $yQuarter2);
+//            array_push($polyArray, $xQuarter1);
+//            array_push($polyArray, $yQuarter2);
+            $pdf->SetLineStyle(array('dash' => 0, 'width' => 0.35));
+            $pdf->Polygon($polyArray);
 
             /** @var BladeDamage $bladeDamage */
             foreach ($bladeDamages as $sKey => $bladeDamage) {
