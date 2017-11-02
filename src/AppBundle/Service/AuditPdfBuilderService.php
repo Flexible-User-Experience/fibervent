@@ -143,60 +143,64 @@ class AuditPdfBuilderService
         $pdf->setAvailablePageDimension();
         $pdf->setPrintFooter(true);
 
-        // Introduction page
-        $pdf->SetXY(CustomTcpdf::PDF_MARGIN_LEFT, CustomTcpdf::PDF_MARGIN_TOP);
-        $pdf->setBlackText();
-        $pdf->setFontStyle(null, 'B', 11);
-        $pdf->Write(0, $this->ts->trans('pdf.intro.1_title'), '', false, 'L', true);
-        $pdf->Ln(2);
-        $pdf->setFontStyle(null, '', 9);
-        $pdf->Write(0, $this->ts->trans('pdf.intro.2_description', ['%windfarm%' => $windfarm->getName(), '%begin%' => $audit->getPdfBeginDateString(), '%end%' => $audit->getPdfEndDateString()]), '', false, 'L', true);
-        $pdf->Ln(2);
-        // Introduction table
-        $pdf->setCellPaddings(20, 2, 20, 2);
-        $pdf->setCellMargins(0, 0, 0, 0);
-        $pdf->MultiCell(0, 0, $this->ts->trans('pdf.intro.3_list'), 1, 'L', false, 1, '', '', true, 0, true);
+        if (!self::SHOW_ONLY_DIAGRAM) {
+            // Introduction page
+            $pdf->SetXY(CustomTcpdf::PDF_MARGIN_LEFT, CustomTcpdf::PDF_MARGIN_TOP);
+            $pdf->setBlackText();
+            $pdf->setFontStyle(null, 'B', 11);
+            $pdf->Write(0, $this->ts->trans('pdf.intro.1_title'), '', false, 'L', true);
+            $pdf->Ln(2);
+            $pdf->setFontStyle(null, '', 9);
+            $pdf->Write(0, $this->ts->trans('pdf.intro.2_description', ['%windfarm%' => $windfarm->getName(), '%begin%' => $audit->getPdfBeginDateString(), '%end%' => $audit->getPdfEndDateString()]), '', false, 'L', true);
+            $pdf->Ln(2);
+            // Introduction table
+            $pdf->setCellPaddings(20, 2, 20, 2);
+            $pdf->setCellMargins(0, 0, 0, 0);
+            $pdf->MultiCell(0, 0, $this->ts->trans('pdf.intro.3_list'), 1, 'L', false, 1, '', '', true, 0, true);
+            $pdf->setCellPaddings(1, 1, 1, 1);
+            $pdf->setCellMargins(0, 0, 0, 0);
+            $pdf->Ln(10);
+            // Damages categorization
+            $pdf->setFontStyle(null, 'B', 11);
+            $pdf->Write(0, $this->ts->trans('pdf.damage_catalog.1_title'), '', false, 'L', true);
+            $pdf->Ln(2);
+            $pdf->setFontStyle(null, '', 9);
+            $pdf->Write(0, $this->ts->trans('pdf.damage_catalog.2_subtitle'), '', false, 'L', true);
+            $pdf->Ln(2);
+            // Damages table
+            $pdf->setBlackLine();
+            $pdf->setBlueBackground();
+            $pdf->setFontStyle(null, 'B', 9);
+            // MultiCell($w, $h, $txt, $border=0, $align='J', $fill=0, $ln=1, $x='', $y='', $reseth=true, $stretch=0, $ishtml=false, $autopadding=true, $maxh=0)
+            $pdf->MultiCell(20, 0, $this->ts->trans('pdf.damage_catalog.table.1_category'), 1, 'C', 1, 0, '', '', true);
+            $pdf->MultiCell(20, 0, $this->ts->trans('pdf.damage_catalog.table.2_priority'), 1, 'C', 1, 0, '', '', true);
+            $pdf->MultiCell(60, 0, $this->ts->trans('pdf.damage_catalog.table.3_description'), 1, 'C', 1, 0, '', '', true);
+            $pdf->MultiCell(0, 0, $this->ts->trans('pdf.damage_catalog.table.4_action'), 1, 'C', 1, 1, '', '', true);
+            $pdf->setFontStyle(null, '', 9);
+            /** @var DamageCategory $item */
+            foreach ($this->dcr->findAllSortedByCategoryLocalized($this->locale) as $item) {
+                $pdf->setBackgroundHexColor($item->getColour());
+                $pdf->MultiCell(20, 14, $item->getCategory(), 1, 'C', 1, 0, '', '', true, 0, false, true, 14, 'M');
+                $pdf->MultiCell(20, 14, $item->getPriority(), 1, 'C', 1, 0, '', '', true, 0, false, true, 14, 'M');
+                $pdf->MultiCell(60, 14, $item->getDescription(), 1, 'L', 1, 0, '', '', true, 0, false, true, 14, 'M');
+                $pdf->MultiCell(0, 14, $item->getRecommendedAction(), 1, 'L', 1, 1, '', '', true, 0, false, true, 14, 'M');
+            }
+            $pdf->setBlueLine();
+            $pdf->setWhiteBackground();
+            $pdf->Ln(10);
+            // Inspection description
+            $pdf->setFontStyle(null, 'B', 11);
+            $pdf->Write(0, $this->ts->trans('pdf.audit_description.1_title'), '', false, 'L', true);
+            $pdf->Ln(2);
+            $pdf->setFontStyle(null, '', 9);
+            $pdf->Write(0, $this->ts->trans('pdf.audit_description.2_description'), '', false, 'L', true);
+            $pdf->Ln(2);
+            // Audit description with windmill image schema
+            $pdf->Image($this->tha->getUrl('/bundles/app/images/tubrine_diagrams/'.$audit->getDiagramType().'.jpg'), CustomTcpdf::PDF_MARGIN_LEFT + 50, $pdf->GetY(), null, 40);
+            $pdf->AddPage();
+        }
         $pdf->setCellPaddings(1, 1, 1, 1);
         $pdf->setCellMargins(0, 0, 0, 0);
-        $pdf->Ln(10);
-        // Damages categorization
-        $pdf->setFontStyle(null, 'B', 11);
-        $pdf->Write(0, $this->ts->trans('pdf.damage_catalog.1_title'), '', false, 'L', true);
-        $pdf->Ln(2);
-        $pdf->setFontStyle(null, '', 9);
-        $pdf->Write(0, $this->ts->trans('pdf.damage_catalog.2_subtitle'), '', false, 'L', true);
-        $pdf->Ln(2);
-        // Damages table
-        $pdf->setBlackLine();
-        $pdf->setBlueBackground();
-        $pdf->setFontStyle(null, 'B', 9);
-        // MultiCell($w, $h, $txt, $border=0, $align='J', $fill=0, $ln=1, $x='', $y='', $reseth=true, $stretch=0, $ishtml=false, $autopadding=true, $maxh=0)
-        $pdf->MultiCell(20, 0, $this->ts->trans('pdf.damage_catalog.table.1_category'), 1, 'C', 1, 0, '', '', true);
-        $pdf->MultiCell(20, 0, $this->ts->trans('pdf.damage_catalog.table.2_priority'), 1, 'C', 1, 0, '', '', true);
-        $pdf->MultiCell(60, 0, $this->ts->trans('pdf.damage_catalog.table.3_description'), 1, 'C', 1, 0, '', '', true);
-        $pdf->MultiCell(0, 0, $this->ts->trans('pdf.damage_catalog.table.4_action'), 1, 'C', 1, 1, '', '', true);
-        $pdf->setFontStyle(null, '', 9);
-        /** @var DamageCategory $item */
-        foreach ($this->dcr->findAllSortedByCategoryLocalized($this->locale) as $item) {
-            $pdf->setBackgroundHexColor($item->getColour());
-            $pdf->MultiCell(20, 14, $item->getCategory(), 1, 'C', 1, 0, '', '', true, 0, false, true, 14, 'M');
-            $pdf->MultiCell(20, 14, $item->getPriority(), 1, 'C', 1, 0, '', '', true, 0, false, true, 14, 'M');
-            $pdf->MultiCell(60, 14, $item->getDescription(), 1, 'L', 1, 0, '', '', true, 0, false, true, 14, 'M');
-            $pdf->MultiCell(0, 14, $item->getRecommendedAction(), 1, 'L', 1, 1, '', '', true, 0, false, true, 14, 'M');
-        }
-        $pdf->setBlueLine();
-        $pdf->setWhiteBackground();
-        $pdf->Ln(10);
-        // Inspection description
-        $pdf->setFontStyle(null, 'B', 11);
-        $pdf->Write(0, $this->ts->trans('pdf.audit_description.1_title'), '', false, 'L', true);
-        $pdf->Ln(2);
-        $pdf->setFontStyle(null, '', 9);
-        $pdf->Write(0, $this->ts->trans('pdf.audit_description.2_description'), '', false, 'L', true);
-        $pdf->Ln(2);
-        // Audit description with windmill image schema
-        $pdf->Image($this->tha->getUrl('/bundles/app/images/tubrine_diagrams/'.$audit->getDiagramType().'.jpg'), CustomTcpdf::PDF_MARGIN_LEFT + 50, $pdf->GetY(), null, 40);
-        $pdf->AddPage();
 
         // Damages section
         /** @var AuditWindmillBlade $auditWindmillBlade */
@@ -319,7 +323,7 @@ class AuditPdfBuilderService
             $pdf->SetY($yBreakpoint + AuditModelDiagramBridgeService::DIAGRAM_HEIGHT + 10);
 
             // Observations table
-            if (count($auditWindmillBlade->getObservations()) > 0) {
+            if (count($auditWindmillBlade->getObservations()) > 0 && !self::SHOW_ONLY_DIAGRAM) {
                 $pdf->setBlueLine();
                 $pdf->SetLineStyle(array('width' => 0.25));
                 $pdf->setBlueBackground();
@@ -338,7 +342,7 @@ class AuditPdfBuilderService
             }
 
             // General blade damage images
-            if (count($auditWindmillBlade->getBladePhotos()) > 0) {
+            if (count($auditWindmillBlade->getBladePhotos()) > 0 && !self::SHOW_ONLY_DIAGRAM) {
                 $pdf->AddPage();
                 $pdf->setFontStyle(null, 'B', 11);
                 $pdf->Write(0, '3.'.($key + 1).'.'.$this->ts->trans('pdf.blade_damage_images.1_general_blade_views').' '.($key + 1), '', false, 'L', true);
@@ -359,92 +363,96 @@ class AuditPdfBuilderService
                 $pdf->Ln(5);
             }
 
-            // Damage images pages
             $pdf->AddPage();
-            $pdf->setBlueLine();
-            /** @var BladeDamage $bladeDamage */
-            foreach ($bladeDamages as $sKey => $bladeDamage) {
-                $this->drawDamageTableHeader($pdf);
-                $this->drawDamageTableBodyRow($pdf, $sKey, $bladeDamage);
-                $pdf->Ln(5);
-                /** @var Photo $photo */
-                foreach ($bladeDamage->getPhotos() as $photo) {
-                    if ($photo->getImageName()) {
-                        $pdf->Image($this->cm->getBrowserPath($this->uh->asset($photo, 'imageFile'), '960x540'), CustomTcpdf::PDF_MARGIN_LEFT, $pdf->GetY(), $pdf->availablePageWithDimension, null);
-                        $pdf->Ln(100);
+            if (!self::SHOW_ONLY_DIAGRAM) {
+                // Damage images pages
+                $pdf->setBlueLine();
+                /** @var BladeDamage $bladeDamage */
+                foreach ($bladeDamages as $sKey => $bladeDamage) {
+                    $this->drawDamageTableHeader($pdf);
+                    $this->drawDamageTableBodyRow($pdf, $sKey, $bladeDamage);
+                    $pdf->Ln(5);
+                    /** @var Photo $photo */
+                    foreach ($bladeDamage->getPhotos() as $photo) {
+                        if ($photo->getImageName()) {
+                            $pdf->Image($this->cm->getBrowserPath($this->uh->asset($photo, 'imageFile'), '960x540'), CustomTcpdf::PDF_MARGIN_LEFT, $pdf->GetY(), $pdf->availablePageWithDimension, null);
+                            $pdf->Ln(100);
+                        }
                     }
+                    $pdf->AddPage();
                 }
-                $pdf->AddPage();
             }
         }
 
-        // Contact section
-        $pdf->setFontStyle(null, 'B', 11);
-        $pdf->Write(0, $this->ts->trans('pdf.inspection_description.1_contact'), '', false, 'L', true);
-        $pdf->Ln(5);
-        $pdf->setFontStyle(null, '', 9);
-        $pdf->Write(0, $this->ts->trans('pdf.inspection_description.2_description'), '', false, 'L', true);
-        $pdf->Ln(10);
-        $pdf->Cell(10, 0, '', 0, 0);
-        $pdf->Cell(0, 0, $this->ts->trans('pdf.inspection_description.3_offices'), 0, 1, 'L', 0, '');
-        $pdf->Ln(5);
-        $pdf->Cell(20, 0, '', 0, 0);
-        $pdf->Cell(0, 0, 'Pol. Industrial Pal de Solans, Parcela 2', 0, 1, 'L', 0, '');
-        $pdf->Cell(20, 0, '', 0, 0);
-        $pdf->Cell(0, 0, '43519 El Perelló (Tarragona)', 0, 1, 'L', 0, '');
-        $pdf->Cell(20, 0, '', 0, 0);
-        $pdf->Cell(0, 0, 'Tel: +34 977 490 713', 0, 1, 'L', 0, '');
-        $pdf->setFontStyle(null, 'U', 9);
-        $pdf->setBlueText();
-        $pdf->Cell(20, 0, '', 0, 0);
-        $pdf->Cell(0, 0, 'fibervent@fibervent.com', 0, 1, 'L', 0, 'mailto:fibervent@fibervent.com');
-        $pdf->Cell(20, 0, '', 0, 0);
-        $pdf->Cell(0, 0, 'www.fibervent.com', 0, 1, 'L', 0, 'www.fibervent.com');
-        $pdf->setFontStyle(null, '', 9);
-        $pdf->setBlackText();
-        $pdf->Ln(10);
-        $pdf->Cell(10, 0, '', 0, 0);
-        $pdf->Cell(0, 0, $this->ts->trans('pdf.inspection_description.4_phones_emails'), 0, 1, 'L', 0, '');
-        $pdf->Ln(5);
-        $pdf->Cell(20, 0, '', 0, 0);
-        $pdf->Cell(0, 0, 'David Espasa (+34 636 317 884)', 0, 1, 'L', 0, '');
-        $pdf->setFontStyle(null, 'U', 9);
-        $pdf->setBlueText();
-        $pdf->Cell(20, 0, '', 0, 0);
-        $pdf->Cell(0, 0, 'info@fibervent.com', 0, 1, 'L', 0, 'mailto:info@fibervent.com');
-        $pdf->setFontStyle(null, '', 9);
-        $pdf->setBlackText();
-        $pdf->Ln(3);
-        $pdf->Cell(20, 0, '', 0, 0);
-        $pdf->Cell(0, 0, 'Eduard Borràs (+34 636 690 757)', 0, 1, 'L', 0, '');
-        $pdf->setFontStyle(null, 'U', 9);
-        $pdf->setBlueText();
-        $pdf->Cell(20, 0, '', 0, 0);
-        $pdf->Cell(0, 0, 'fibervent@fibervent.com', 0, 1, 'L', 0, 'mailto:fibervent@fibervent.com');
-        $pdf->setFontStyle(null, '', 9);
-        $pdf->setBlackText();
-        $pdf->Ln(3);
-        $pdf->Cell(20, 0, '', 0, 0);
-        $pdf->Cell(0, 0, 'Josep Marsal (+34 647 610 351)', 0, 1, 'L', 0, '');
-        $pdf->setFontStyle(null, 'U', 9);
-        $pdf->setBlueText();
-        $pdf->Cell(20, 0, '', 0, 0);
-        $pdf->Cell(0, 0, 'tecnic@fibervent.com', 0, 1, 'L', 0, 'mailto:tecnic@fibervent.com');
-        $pdf->setFontStyle(null, '', 9);
-        $pdf->setBlackText();
-        $pdf->Ln(3);
-        $pdf->Cell(20, 0, '', 0, 0);
-        $pdf->Cell(0, 0, 'Sergio López (+34 618 277 158)', 0, 1, 'L', 0, '');
-        $pdf->setFontStyle(null, 'U', 9);
-        $pdf->setBlueText();
-        $pdf->Cell(20, 0, '', 0, 0);
-        $pdf->Cell(0, 0, 'oficinatecnica@fibervent.com', 0, 1, 'L', 0, 'mailto:oficinatecnica@fibervent.com');
-        $pdf->setFontStyle(null, '', 9);
-        $pdf->setBlackText();
-        $pdf->Ln(15);
-        $pdf->Write(0, $this->ts->trans('pdf.inspection_description.5_gratitude'), '', false, 'L', true);
-        $pdf->Ln(5);
-        $pdf->Write(0, 'FIBERVENT, S.L.', '', false, 'L', true);
+        if (!self::SHOW_ONLY_DIAGRAM) {
+            // Contact section
+            $pdf->setFontStyle(null, 'B', 11);
+            $pdf->Write(0, $this->ts->trans('pdf.inspection_description.1_contact'), '', false, 'L', true);
+            $pdf->Ln(5);
+            $pdf->setFontStyle(null, '', 9);
+            $pdf->Write(0, $this->ts->trans('pdf.inspection_description.2_description'), '', false, 'L', true);
+            $pdf->Ln(10);
+            $pdf->Cell(10, 0, '', 0, 0);
+            $pdf->Cell(0, 0, $this->ts->trans('pdf.inspection_description.3_offices'), 0, 1, 'L', 0, '');
+            $pdf->Ln(5);
+            $pdf->Cell(20, 0, '', 0, 0);
+            $pdf->Cell(0, 0, 'Pol. Industrial Pal de Solans, Parcela 2', 0, 1, 'L', 0, '');
+            $pdf->Cell(20, 0, '', 0, 0);
+            $pdf->Cell(0, 0, '43519 El Perelló (Tarragona)', 0, 1, 'L', 0, '');
+            $pdf->Cell(20, 0, '', 0, 0);
+            $pdf->Cell(0, 0, 'Tel: +34 977 490 713', 0, 1, 'L', 0, '');
+            $pdf->setFontStyle(null, 'U', 9);
+            $pdf->setBlueText();
+            $pdf->Cell(20, 0, '', 0, 0);
+            $pdf->Cell(0, 0, 'fibervent@fibervent.com', 0, 1, 'L', 0, 'mailto:fibervent@fibervent.com');
+            $pdf->Cell(20, 0, '', 0, 0);
+            $pdf->Cell(0, 0, 'www.fibervent.com', 0, 1, 'L', 0, 'www.fibervent.com');
+            $pdf->setFontStyle(null, '', 9);
+            $pdf->setBlackText();
+            $pdf->Ln(10);
+            $pdf->Cell(10, 0, '', 0, 0);
+            $pdf->Cell(0, 0, $this->ts->trans('pdf.inspection_description.4_phones_emails'), 0, 1, 'L', 0, '');
+            $pdf->Ln(5);
+            $pdf->Cell(20, 0, '', 0, 0);
+            $pdf->Cell(0, 0, 'David Espasa (+34 636 317 884)', 0, 1, 'L', 0, '');
+            $pdf->setFontStyle(null, 'U', 9);
+            $pdf->setBlueText();
+            $pdf->Cell(20, 0, '', 0, 0);
+            $pdf->Cell(0, 0, 'info@fibervent.com', 0, 1, 'L', 0, 'mailto:info@fibervent.com');
+            $pdf->setFontStyle(null, '', 9);
+            $pdf->setBlackText();
+            $pdf->Ln(3);
+            $pdf->Cell(20, 0, '', 0, 0);
+            $pdf->Cell(0, 0, 'Eduard Borràs (+34 636 690 757)', 0, 1, 'L', 0, '');
+            $pdf->setFontStyle(null, 'U', 9);
+            $pdf->setBlueText();
+            $pdf->Cell(20, 0, '', 0, 0);
+            $pdf->Cell(0, 0, 'fibervent@fibervent.com', 0, 1, 'L', 0, 'mailto:fibervent@fibervent.com');
+            $pdf->setFontStyle(null, '', 9);
+            $pdf->setBlackText();
+            $pdf->Ln(3);
+            $pdf->Cell(20, 0, '', 0, 0);
+            $pdf->Cell(0, 0, 'Josep Marsal (+34 647 610 351)', 0, 1, 'L', 0, '');
+            $pdf->setFontStyle(null, 'U', 9);
+            $pdf->setBlueText();
+            $pdf->Cell(20, 0, '', 0, 0);
+            $pdf->Cell(0, 0, 'tecnic@fibervent.com', 0, 1, 'L', 0, 'mailto:tecnic@fibervent.com');
+            $pdf->setFontStyle(null, '', 9);
+            $pdf->setBlackText();
+            $pdf->Ln(3);
+            $pdf->Cell(20, 0, '', 0, 0);
+            $pdf->Cell(0, 0, 'Sergio López (+34 618 277 158)', 0, 1, 'L', 0, '');
+            $pdf->setFontStyle(null, 'U', 9);
+            $pdf->setBlueText();
+            $pdf->Cell(20, 0, '', 0, 0);
+            $pdf->Cell(0, 0, 'oficinatecnica@fibervent.com', 0, 1, 'L', 0, 'mailto:oficinatecnica@fibervent.com');
+            $pdf->setFontStyle(null, '', 9);
+            $pdf->setBlackText();
+            $pdf->Ln(15);
+            $pdf->Write(0, $this->ts->trans('pdf.inspection_description.5_gratitude'), '', false, 'L', true);
+            $pdf->Ln(5);
+            $pdf->Write(0, 'FIBERVENT, S.L.', '', false, 'L', true);
+        }
 
         return $pdf;
     }
