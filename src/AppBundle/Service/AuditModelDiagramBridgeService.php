@@ -350,14 +350,11 @@ class AuditModelDiagramBridgeService
             // No edge -> check valve position
             if ($bladeDamage->getPosition() == BladeDamagePositionEnum::EDGE_IN) {
                 // Edge in
-                $gap = $this->getYQ2();
+                $gap = $this->getYMiddle();
 
             } elseif ($bladeDamage->getPosition() == BladeDamagePositionEnum::EDGE_OUT) {
                 // Edge out
-                $xNormalization = ($bladeDamage->getRadius() * 50) / $bladeDamage->getAuditWindmillBlade()->getWindmillBlade()->getWindmill()->getBladeType()->getLength();
-                $yPoint = $this->getBladeShape()[intval(round($xNormalization))];
-
-                $gap = $this->yQ2 - (($this->yQ2 - $this->yQ1) * $yPoint);
+                $gap = $this->getYMiddle2();
             }
         }
 

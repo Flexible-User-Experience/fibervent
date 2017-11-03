@@ -32,7 +32,7 @@ use Symfony\Bundle\FrameworkBundle\Templating\Helper\AssetsHelper;
  */
 class AuditPdfBuilderService
 {
-    const SHOW_GRID_DEBUG   = true;
+    const SHOW_GRID_DEBUG   = false;
     const SHOW_ONLY_DIAGRAM = true;
 
     /**
@@ -284,7 +284,7 @@ class AuditPdfBuilderService
             $pdf->setBlackLine();
             $pdf->SetLineStyle(array('dash' => 0));
 
-            // blade diagram text helpers
+            // TODO blade diagram text helpers
 //            $pdf->StartTransform();
             // rotate 20 degrees counter-clockwise centered by (70,110) which is the lower left corner of the rectangle
 //            $pdf->Rotate(90, $xQuarter1 - 10, $yQuarter1 + 5);
