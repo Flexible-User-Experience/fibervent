@@ -32,7 +32,7 @@ use Symfony\Bundle\FrameworkBundle\Templating\Helper\AssetsHelper;
  */
 class AuditPdfBuilderService
 {
-    const SHOW_GRID_DEBUG   = false;
+    const SHOW_GRID_DEBUG   = true;
     const SHOW_ONLY_DIAGRAM = true;
 
     /**
@@ -243,6 +243,7 @@ class AuditPdfBuilderService
             $yQuarter3 = $this->amdb->getYQ3();
             $yQuarter4 = $this->amdb->getYQ4();
 
+            // blade diagram middle lines
             $this->amdb->enableDebugLineStyles($pdf, true);
             // verticals
             $pdf->Line($xQuarter1, $y1, $xQuarter1, $y1 + ($y2 - $y1));
@@ -264,7 +265,7 @@ class AuditPdfBuilderService
                 $this->amdb->enableDebugLineStyles($pdf, false);
             }
 
-            // Blade diagram middle lines
+            // blade diagram radius helper
             $txt = $auditWindmillBlade->getWindmillBlade()->getWindmill()->getBladeType()->getQ0LengthString();
             $pdf->Text(($x1 - $pdf->GetStringWidth($txt) - 2), $y1 - 2, $txt);
             $pdf->Text(($x1 - $pdf->GetStringWidth($txt) - 2), $yMiddle2 + 7, $txt);
@@ -282,19 +283,13 @@ class AuditPdfBuilderService
             $pdf->Text(($xQuarter5 - $pdf->GetStringWidth($txt) - 2), $yMiddle2 + 7, $txt);
             $pdf->setBlackLine();
             $pdf->SetLineStyle(array('dash' => 0));
-//            $pdf->Line($xQuarter1, $yMiddle, $xQuarter5, $yMiddle);
-//            $pdf->Line($xQuarter1, $yMiddle - 2, $xQuarter1, $yMiddle + 2);
-//            $pdf->Line($xQuarter2, $yMiddle - 2, $xQuarter2, $yMiddle + 2);
-//            $pdf->Line($xQuarter3, $yMiddle - 2, $xQuarter3, $yMiddle + 2);
-//            $pdf->Line($xQuarter4, $yMiddle - 2, $xQuarter4, $yMiddle + 2);
-//            $pdf->Line($xQuarter5, $yMiddle - 2, $xQuarter5, $yMiddle + 2);
 
-            // Blade diagram help texts
-            $pdf->StartTransform();
-// Rotate 20 degrees counter-clockwise centered by (70,110) which is the lower left corner of the rectangle
-            $pdf->Rotate(90, $xQuarter1 - 10, $yQuarter1 + 5);
-            $pdf->Text($xQuarter1 - 35, $yQuarter1 + 5, $this->ts->trans('pdf.blade_damage_diagram.1_vp_s'));
-            $pdf->StopTransform();
+            // blade diagram text helpers
+//            $pdf->StartTransform();
+            // rotate 20 degrees counter-clockwise centered by (70,110) which is the lower left corner of the rectangle
+//            $pdf->Rotate(90, $xQuarter1 - 10, $yQuarter1 + 5);
+//            $pdf->Text($xQuarter1 - 35, $yQuarter1 + 5, $this->ts->trans('pdf.blade_damage_diagram.1_vp_s'));
+//            $pdf->StopTransform();
 //            $pdf->Text($xQuarter1, $yQuarter4 + 1, $this->ts->trans('pdf.blade_damage_diagram.2_vs_s'));
 //            $pdf->Text($xQuarter3 - 5, $yQuarter4 - 2, $this->ts->trans('pdf.blade_damage_diagram.3_vp_l'));
 //            $pdf->Text($xQuarter5 - $pdf->GetStringWidth($this->ts->trans('pdf.blade_damage_diagram.5_ba_l')), $yQuarter4 - 2, $this->ts->trans('pdf.blade_damage_diagram.5_ba_l'));
@@ -351,13 +346,11 @@ class AuditPdfBuilderService
                 array_push($polyArray2, $yTransform2);
                 $xStep -= $xDelta;
             }
-//            array_push($polyArray, $xQuarter5);
-//            array_push($polyArray, $yQuarter2);
-//            array_push($polyArray, $xQuarter1);
-//            array_push($polyArray, $yQuarter2);
             $pdf->SetLineStyle(array('dash' => 0, 'width' => 0.35));
             $pdf->Polygon($polyArray);
             $pdf->Polygon($polyArray2);
+            $pdf->SetLineStyle(array('dash' => 0, 'width' => 0.15));
+            $pdf->Line($xQuarter2 - 6, $yMiddle2, $x2, $yMiddle2);
 
             /** @var BladeDamage $bladeDamage */
             foreach ($bladeDamages as $sKey => $bladeDamage) {

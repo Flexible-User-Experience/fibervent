@@ -17,7 +17,7 @@ use AppBundle\Pdf\CustomTcpdf;
 class AuditModelDiagramBridgeService
 {
     const PDF_TOTAL_WIDHT      = 210;
-    const DIAGRAM_HEIGHT       = 85.5;
+    const DIAGRAM_HEIGHT       = 83.5;
     const GAP_SQUARE_SIZE      = 5;
     const GAP_SQUARE_HALF_SIZE = 2.5;
 
@@ -255,7 +255,7 @@ class AuditModelDiagramBridgeService
         $this->yQ3 = $this->yQ2 + 23;//16.75;
         $this->yQ4 = $this->yQ3 + 17;
         $this->yMiddle = $this->yQ2 + (($this->yQ3 - $this->yQ2) / 2) + 0.75;
-        $this->yMiddle2 = $this->yQ4 + (($this->yQ3 - $this->yQ2) / 2) + 0.75;
+        $this->yMiddle2 = $this->yQ4 + (($this->yQ3 - $this->yQ2) / 2) - 2;
         $this->yScaleGap = $this->yQ2 - $this->yQ1;
 
         return $this;
