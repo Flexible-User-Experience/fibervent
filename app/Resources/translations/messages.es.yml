@@ -166,7 +166,7 @@ admin:
     damage: Código
     position: Posición
     radius: Radio (m)
-    distance: Distancia (m)
+    distance: Distancia (cm)
     edge: Borde
     size: Dimensión (cm)
     damagecategory: Cat.
