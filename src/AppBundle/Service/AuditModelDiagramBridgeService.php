@@ -293,7 +293,6 @@ class AuditModelDiagramBridgeService
      */
     public function getGapY(BladeDamage $bladeDamage)
     {
-        $gap = 0;
         if ($bladeDamage->getPosition() == BladeDamagePositionEnum::VALVE_PRESSURE) {
             // Valve pressure
             if ($bladeDamage->getEdge() == BladeDamageEdgeEnum::EDGE_IN) {

@@ -43,7 +43,9 @@ pdf:
     3_vp_l: 'VP: Valva Presión/Concha Presión'
     4_vs_l: 'VS: Valva Succión/Concha Succión'
     5_ba_l: 'BA: Borde Ataque'
+    5_ba_l_short: 'BORDE ATAQUE'
     6_bs_l: 'BS: Borde Salida'
+    6_bs_l_short: 'BORDE SALIDA'
   observations_table:
     1_damage: DAÑO
     2_observations: OBSERVACIONES

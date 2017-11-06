@@ -284,17 +284,15 @@ class AuditPdfBuilderService
             $pdf->setBlackLine();
             $pdf->SetLineStyle(array('dash' => 0));
 
-            // TODO blade diagram text helpers
-//            $pdf->StartTransform();
-            // rotate 20 degrees counter-clockwise centered by (70,110) which is the lower left corner of the rectangle
-//            $pdf->Rotate(90, $xQuarter1 - 10, $yQuarter1 + 5);
-//            $pdf->Text($xQuarter1 - 35, $yQuarter1 + 5, $this->ts->trans('pdf.blade_damage_diagram.1_vp_s'));
-//            $pdf->StopTransform();
-//            $pdf->Text($xQuarter1, $yQuarter4 + 1, $this->ts->trans('pdf.blade_damage_diagram.2_vs_s'));
-//            $pdf->Text($xQuarter3 - 5, $yQuarter4 - 2, $this->ts->trans('pdf.blade_damage_diagram.3_vp_l'));
-//            $pdf->Text($xQuarter5 - $pdf->GetStringWidth($this->ts->trans('pdf.blade_damage_diagram.5_ba_l')), $yQuarter4 - 2, $this->ts->trans('pdf.blade_damage_diagram.5_ba_l'));
-//            $pdf->Text($xQuarter3 - 5, $yQuarter4 + 2, $this->ts->trans('pdf.blade_damage_diagram.4_vs_l'));
-//            $pdf->Text($xQuarter5 - $pdf->GetStringWidth($this->ts->trans('pdf.blade_damage_diagram.5_ba_l')), $yQuarter4 + 2, $this->ts->trans('pdf.blade_damage_diagram.6_bs_l'));
+            $pdf->SetX(CustomTcpdf::PDF_MARGIN_LEFT);
+            $pdf->StartTransform();
+            $pdf->Rotate(90);
+            // MultiCell($w, $h, $txt, $border=0, $align='J', $fill=0, $ln=1, $x='', $y='', $reseth=true, $stretch=0, $ishtml=false, $autopadding=true, $maxh=0)
+            $pdf->MultiCell(18, 0, $this->ts->trans('pdf.blade_damage_diagram.6_bs_l_short'), 1, 'C', 0, 0, '', '', true);
+            $pdf->MultiCell(20, 0, $this->ts->trans('pdf.blade_damage_diagram.2_vs_s'), 1, 'C', 0, 0, '', '', true);
+            $pdf->MultiCell(20, 0, $this->ts->trans('pdf.blade_damage_diagram.5_ba_l_short'), 1, 'C', 0, 0, '', '', true);
+            $pdf->MultiCell(20, 0, $this->ts->trans('pdf.blade_damage_diagram.1_vp_s'), 1, 'C', 0, 0, '', '', true);
+            $pdf->StopTransform();
 
             // Draw blade diagram
             $polyArray = array();
