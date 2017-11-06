@@ -294,68 +294,50 @@ class AuditModelDiagramBridgeService
     public function getGapY(BladeDamage $bladeDamage)
     {
         $gap = 0;
-        if ($bladeDamage->getEdge() == BladeDamageEdgeEnum::EDGE_IN) {
-            // Edge in
-            if ($bladeDamage->getPosition() == BladeDamagePositionEnum::VALVE_PRESSURE) {
-
-                // Valve pressure
+        if ($bladeDamage->getPosition() == BladeDamagePositionEnum::VALVE_PRESSURE) {
+            // Valve pressure
+            if ($bladeDamage->getEdge() == BladeDamageEdgeEnum::EDGE_IN) {
+                // Edge in
                 $xNormalization = ($bladeDamage->getRadius() * 50) / $bladeDamage->getAuditWindmillBlade()->getWindmillBlade()->getWindmill()->getBladeType()->getLength();
                 $yPoint2 = $this->getBladeShape()[intval(round($xNormalization))];
                 $maxY = (($bladeDamage->getAuditWindmillBlade()->getWindmillBlade()->getWindmill()->getBladeType()->getLength() / 30) - (2/3)) + 2;
                 $yPoint = (($bladeDamage->getDistance() / 100) * $yPoint2) / $maxY;
-
                 $gap = $this->yQ2 - (($this->yQ2 - $this->yQ1) * $yPoint);
-
-            } elseif ($bladeDamage->getPosition() == BladeDamagePositionEnum::VALVE_SUCTION) {
-
-                // Valve suction
-                $xNormalization = ($bladeDamage->getRadius() * 50) / $bladeDamage->getAuditWindmillBlade()->getWindmillBlade()->getWindmill()->getBladeType()->getLength();
-                $yPoint2 = $this->getBladeShape()[intval(round($xNormalization))];
-                $maxY = (($bladeDamage->getAuditWindmillBlade()->getWindmillBlade()->getWindmill()->getBladeType()->getLength() / 30) - (2/3)) + 2;
-                $yPoint = (($bladeDamage->getDistance() / 100) * $yPoint2) / $maxY;
-
-                $gap = $this->yQ3 + (($this->yQ2 - $this->yQ1) * $yPoint);
-
-            }
-
-        } elseif ($bladeDamage->getEdge() == BladeDamageEdgeEnum::EDGE_OUT) {
-            // Edge out
-            if ($bladeDamage->getPosition() == BladeDamagePositionEnum::VALVE_PRESSURE) {
-
-                // Valve pressure
+            } else {
+                // Edge out
                 $xNormalization = ($bladeDamage->getRadius() * 50) / $bladeDamage->getAuditWindmillBlade()->getWindmillBlade()->getWindmill()->getBladeType()->getLength();
                 $yPoint = $this->getBladeShape()[intval(round($xNormalization))];
                 $baseGap = $this->yQ2 - (($this->yQ2 - $this->yQ1) * $yPoint);
                 $yPoint2 = $this->getBladeShape()[intval(round($xNormalization))];
                 $maxY = (($bladeDamage->getAuditWindmillBlade()->getWindmillBlade()->getWindmill()->getBladeType()->getLength() / 30) - (2/3)) + 2;
                 $yPoint = (($bladeDamage->getDistance() / 100) * $yPoint2) / $maxY;
-
                 $gap = $baseGap + (($this->yQ2 - $this->yQ1) * $yPoint);
-
-            } elseif ($bladeDamage->getPosition() == BladeDamagePositionEnum::VALVE_SUCTION) {
-
-                // Valve suction
+            }
+        } elseif ($bladeDamage->getPosition() == BladeDamagePositionEnum::VALVE_SUCTION) {
+            // Valve suction
+            if ($bladeDamage->getEdge() == BladeDamageEdgeEnum::EDGE_IN) {
+                // Edge in
+                $xNormalization = ($bladeDamage->getRadius() * 50) / $bladeDamage->getAuditWindmillBlade()->getWindmillBlade()->getWindmill()->getBladeType()->getLength();
+                $yPoint2 = $this->getBladeShape()[intval(round($xNormalization))];
+                $maxY = (($bladeDamage->getAuditWindmillBlade()->getWindmillBlade()->getWindmill()->getBladeType()->getLength() / 30) - (2/3)) + 2;
+                $yPoint = (($bladeDamage->getDistance() / 100) * $yPoint2) / $maxY;
+                $gap = $this->yQ3 + (($this->yQ2 - $this->yQ1) * $yPoint);
+            } else {
+                // Edge out
                 $xNormalization = ($bladeDamage->getRadius() * 50) / $bladeDamage->getAuditWindmillBlade()->getWindmillBlade()->getWindmill()->getBladeType()->getLength();
                 $yPoint = $this->getBladeShape()[intval(round($xNormalization))];
                 $baseGap = $this->yQ3 + (($this->yQ2 - $this->yQ1) * $yPoint);
                 $yPoint2 = $this->getBladeShape()[intval(round($xNormalization))];
                 $maxY = (($bladeDamage->getAuditWindmillBlade()->getWindmillBlade()->getWindmill()->getBladeType()->getLength() / 30) - (2/3)) + 2;
                 $yPoint = (($bladeDamage->getDistance() / 100) * $yPoint2) / $maxY;
-
                 $gap = $baseGap - (($this->yQ2 - $this->yQ1) * $yPoint);
-
             }
-
-        } elseif ($bladeDamage->getEdge() == BladeDamageEdgeEnum::EDGE_UNDEFINED) {
-            // No edge -> check valve position
-            if ($bladeDamage->getPosition() == BladeDamagePositionEnum::EDGE_IN) {
-                // Edge in
-                $gap = $this->getYMiddle();
-
-            } elseif ($bladeDamage->getPosition() == BladeDamagePositionEnum::EDGE_OUT) {
-                // Edge out
-                $gap = $this->getYMiddle2();
-            }
+        } elseif ($bladeDamage->getPosition() == BladeDamagePositionEnum::EDGE_IN) {
+            // Edge in
+            $gap = $this->getYMiddle();
+        } else {
+            // Edge out
+            $gap = $this->getYMiddle2();
         }
 
         return $gap;
