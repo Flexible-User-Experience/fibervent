@@ -18,13 +18,24 @@ use Symfony\Bundle\FrameworkBundle\Translation\Translator;
  */
 class CustomTcpdf extends \TCPDF
 {
-    const PDF_MARGIN_LEFT = 25;
-    const PDF_MARGIN_RIGHT = 20;
-    const PDF_MARGIN_TOP = 25;
+    const PDF_MARGIN_LEFT   = 25;
+    const PDF_MARGIN_RIGHT  = 20;
+    const PDF_MARGIN_TOP    = 25;
     const PDF_MARGIN_BOTTOM = 10;
 
+    /**
+     * @var array
+     */
     private $colorBlueLight = array('red' => 143, 'green' => 171, 'blue' => 217);
+
+    /**
+     * @var array
+     */
     private $colorBlue = array('red' => 50,  'green' => 118, 'blue' => 179);
+
+    /**
+     * @var array
+     */
     private $colorBlueDark = array('red' => 217, 'green' => 226, 'blue' => 242);
 
     /**
@@ -160,7 +171,7 @@ class CustomTcpdf extends \TCPDF
      */
     public function setBackgroundHexColor($hex)
     {
-        $rgb = $this->hex2rgb($hex);
+        $rgb = self::hex2rgb($hex);
         $this->SetFillColor($rgb[0], $rgb[1], $rgb[2]);
     }
 
@@ -181,6 +192,14 @@ class CustomTcpdf extends \TCPDF
     }
 
     /**
+     * Set red line color.
+     */
+    public function setRedLine()
+    {
+        $this->SetDrawColor(255, 0, 0);
+    }
+
+    /**
      * Set available page dimensions.
      */
     public function setAvailablePageDimension()
@@ -193,7 +212,7 @@ class CustomTcpdf extends \TCPDF
      *
      * @return array
      */
-    private function hex2rgb($hex)
+    public static function hex2rgb($hex)
     {
         $hex = str_replace('#', '', $hex);
 

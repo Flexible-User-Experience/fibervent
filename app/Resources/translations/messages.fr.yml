@@ -43,7 +43,9 @@ pdf:
     3_vp_l: 'SP: Soupape de Pression'
     4_vs_l: 'SS: Soupape de Succion'
     5_ba_l: "BA: Bord d'Attaque"
+    5_ba_l_short: "BORD D'ATTAQUE"
     6_bs_l: 'BF: Bord de Fuite'
+    6_bs_l_short: 'BORD DE FUITE'
   observations_table:
     1_damage: DOMMA.
     2_observations: OBSERVATIONS

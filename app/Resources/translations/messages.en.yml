@@ -43,7 +43,9 @@ pdf:
     3_vp_l: 'PS: Pressure Side/Windward Side'
     4_vs_l: 'SS: Suction Side/Leeward Side'
     5_ba_l: 'LE: Leading Edge'
+    5_ba_l_short: 'LEADING EDGE'
     6_bs_l: 'TE: Trailing Edge'
+    6_bs_l_short: 'TAILING EDGE'
   observations_table:
     1_damage: DAMAGE
     2_observations: OBSERVATIONS
