@@ -33,7 +33,7 @@ use Symfony\Bundle\FrameworkBundle\Templating\Helper\AssetsHelper;
 class AuditPdfBuilderService
 {
     const SHOW_GRID_DEBUG   = false;
-    const SHOW_ONLY_DIAGRAM = true;
+    const SHOW_ONLY_DIAGRAM = false;
 
     /**
      * @var TCPDFController
@@ -284,14 +284,14 @@ class AuditPdfBuilderService
             $pdf->setBlackLine();
             $pdf->SetLineStyle(array('dash' => 0));
 
-            $pdf->SetX(CustomTcpdf::PDF_MARGIN_LEFT);
+            $pdf->SetXY(CustomTcpdf::PDF_MARGIN_LEFT, $pdf->GetY() + 3);
             $pdf->StartTransform();
             $pdf->Rotate(90);
             // MultiCell($w, $h, $txt, $border=0, $align='J', $fill=0, $ln=1, $x='', $y='', $reseth=true, $stretch=0, $ishtml=false, $autopadding=true, $maxh=0)
-            $pdf->MultiCell(18, 0, $this->ts->trans('pdf.blade_damage_diagram.6_bs_l_short'), 1, 'C', 0, 0, '', '', true);
-            $pdf->MultiCell(20, 0, $this->ts->trans('pdf.blade_damage_diagram.2_vs_s'), 1, 'C', 0, 0, '', '', true);
-            $pdf->MultiCell(20, 0, $this->ts->trans('pdf.blade_damage_diagram.5_ba_l_short'), 1, 'C', 0, 0, '', '', true);
-            $pdf->MultiCell(20, 0, $this->ts->trans('pdf.blade_damage_diagram.1_vp_s'), 1, 'C', 0, 0, '', '', true);
+            $pdf->MultiCell(20, 0, $this->ts->trans('pdf.blade_damage_diagram.6_bs_l_short'), 0, 'C', 0, 0, '', '', true);
+            $pdf->MultiCell(20, 0, $this->ts->trans('pdf.blade_damage_diagram.2_vs_s'), 0, 'C', 0, 0, '', '', true);
+            $pdf->MultiCell(20, 0, $this->ts->trans('pdf.blade_damage_diagram.5_ba_l_short'), 0, 'C', 0, 0, '', '', true);
+            $pdf->MultiCell(20, 0, $this->ts->trans('pdf.blade_damage_diagram.1_vp_s'), 0, 'C', 0, 0, '', '', true);
             $pdf->StopTransform();
 
             // Draw blade diagram
