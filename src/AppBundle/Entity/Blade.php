@@ -63,6 +63,14 @@ class Blade extends AbstractBase
     /**
      * @return string
      */
+    public function getQ0LengthString()
+    {
+        return number_format(0, 2, ',', '.') . 'm';
+    }
+
+    /**
+     * @return string
+     */
     public function getQ1LengthString()
     {
         return number_format($this->getQuarterLength(1), 2, ',', '.') . 'm';
