@@ -36,7 +36,8 @@ class CustomerAdmin extends AbstractBaseAdmin
         parent::configureRoutes($collection);
         $collection
             ->add('map', $this->getRouterIdParameter() . '/map')
-            ->remove('delete');
+            ->remove('delete')
+        ;
     }
 
     /**
@@ -172,7 +173,8 @@ class CustomerAdmin extends AbstractBaseAdmin
                         'choices_as_values' => true,
                     )
                 )
-                ->end();
+                ->end()
+            ;
         }
     }
 
@@ -252,7 +254,8 @@ class CustomerAdmin extends AbstractBaseAdmin
                 array(
                     'label'    => 'admin.common.enabled',
                 )
-            );
+            )
+        ;
     }
 
     /**
@@ -262,6 +265,14 @@ class CustomerAdmin extends AbstractBaseAdmin
     {
         unset($this->listModes['mosaic']);
         $listMapper
+            ->add(
+                'photo',
+                null,
+                array(
+                    'label'    => 'admin.customer.image',
+                    'template' => '::Admin/Cells/list__cell_customer_image_field.html.twig',
+                )
+            )
             ->add(
                 'code',
                 null,
