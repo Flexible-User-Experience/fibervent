@@ -109,11 +109,7 @@ class Customer extends AbstractBase
     private $showLogoInPdfs = false;
 
     /**
-     *
-     *
      * Methods
-     *
-     *
      */
 
     /**
@@ -290,7 +286,7 @@ class Customer extends AbstractBase
      *
      * @return $this
      */
-    public function setShowLogoInPdfs(bool $showLogoInPdfs)
+    public function setShowLogoInPdfs($showLogoInPdfs)
     {
         $this->showLogoInPdfs = $showLogoInPdfs;
 

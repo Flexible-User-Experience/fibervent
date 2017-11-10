@@ -195,6 +195,7 @@ admin:
     state:
     contacts:
     windfarms:
+    show_logo_in_pdfs:
   damage:
     title:
     title_list:

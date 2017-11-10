@@ -7,7 +7,9 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Form\Type\ModelType;
 use Sonata\AdminBundle\Route\RouteCollection;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 
 /**
@@ -49,10 +51,18 @@ class CustomerAdmin extends AbstractBaseAdmin
             ->with('admin.common.general', $this->getFormMdSuccessBoxArray(4))
             ->add(
                 'imageFile',
-                'file',
+                FileType::class,
                 array(
                     'label'    => 'admin.customer.image',
                     'help'     => $this->getImageHelperFormMapperWithThumbnail(250),
+                    'required' => false,
+                )
+            )
+            ->add(
+                'showLogoInPdfs',
+                CheckboxType::class,
+                array(
+                    'label'    => 'admin.customer.show_logo_in_pdfs',
                     'required' => false,
                 )
             )
