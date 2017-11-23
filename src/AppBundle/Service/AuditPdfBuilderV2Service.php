@@ -201,6 +201,9 @@ class AuditPdfBuilderV2Service
             $pdf->AddPage();
         }
 
+        // TODO new windfarm inspection overview section
+
+
         if (self::SHOW_V1_SECTIONS) {
             $pdf->setCellPaddings(1, 1, 1, 1);
             $pdf->setCellMargins(0, 0, 0, 0);
