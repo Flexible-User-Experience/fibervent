@@ -282,6 +282,14 @@ class Customer extends AbstractBase
     }
 
     /**
+     * @return bool
+     */
+    public function getShowLogoInPdfs()
+    {
+        return $this->showLogoInPdfs;
+    }
+
+    /**
      * @param bool $showLogoInPdfs
      *
      * @return $this

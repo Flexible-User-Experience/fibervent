@@ -259,10 +259,17 @@ class CustomerAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
+                'showLogoInPdfs',
+                null,
+                array(
+                    'label' => 'admin.customer.show_logo_in_pdfs',
+                )
+            )
+            ->add(
                 'enabled',
                 null,
                 array(
-                    'label'    => 'admin.common.enabled',
+                    'label' => 'admin.common.enabled',
                 )
             )
         ;
@@ -320,6 +327,14 @@ class CustomerAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label'    => 'admin.customer.city',
+                    'editable' => true,
+                )
+            )
+            ->add(
+                'showLogoInPdfs',
+                null,
+                array(
+                    'label'    => 'admin.customer.show_logo_in_pdfs',
                     'editable' => true,
                 )
             )
