@@ -45,7 +45,7 @@ pdf:
     5_ba_l: 'LE: Leading Edge'
     5_ba_l_short: 'LEADING EDGE'
     6_bs_l: 'TE: Trailing Edge'
-    6_bs_l_short: 'TAILING EDGE'
+    6_bs_l_short: 'TRAILING EDGE'
   observations_table:
     1_damage: DAMAGE
     2_observations: OBSERVATIONS
