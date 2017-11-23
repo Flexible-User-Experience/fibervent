@@ -195,6 +195,7 @@ admin:
     state: Provincia
     contacts: Contactos
     windfarms: Parques Eólicos
+    show_logo_in_pdfs: Mostrar logo en PDFs
   damage:
     title: Tipo Daño
     title_list: Tipo Daño

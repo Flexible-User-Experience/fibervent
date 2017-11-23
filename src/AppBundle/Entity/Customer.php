@@ -102,11 +102,14 @@ class Customer extends AbstractBase
     private $contacts;
 
     /**
+     * @var bool
      *
-     *
+     * @ORM\Column(type="boolean", options={"default"=0})
+     */
+    private $showLogoInPdfs = false;
+
+    /**
      * Methods
-     *
-     *
      */
 
     /**
@@ -266,6 +269,34 @@ class Customer extends AbstractBase
     {
         $contact->setCustomer(null);
         $this->contacts->removeElement($contact);
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isShowLogoInPdfs()
+    {
+        return $this->showLogoInPdfs;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getShowLogoInPdfs()
+    {
+        return $this->showLogoInPdfs;
+    }
+
+    /**
+     * @param bool $showLogoInPdfs
+     *
+     * @return $this
+     */
+    public function setShowLogoInPdfs($showLogoInPdfs)
+    {
+        $this->showLogoInPdfs = $showLogoInPdfs;
 
         return $this;
     }
