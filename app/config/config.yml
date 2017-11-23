@@ -8,22 +8,22 @@ imports:
 # Symfony Framework
 framework:
     translator:      { fallbacks: [ "%locale%" ] }
+    validation:      { enable_annotations: true }
+    default_locale:  "%locale%"
     secret:          "%secret%"
+    form:            ~
+    csrf_protection: ~
+    trusted_hosts:   ~
+    trusted_proxies: ~
+    fragments:       ~
     router:
         resource:            "%kernel.root_dir%/config/routing.yml"
         strict_requirements: ~
-    form:            ~
-    csrf_protection: ~
-    validation:      { enable_annotations: true }
     templating:
         engines: [ "twig" ]
-    default_locale:  "%locale%"
-    trusted_hosts:   ~
-    trusted_proxies: ~
     session:
         name:        FBSESSID
         handler_id:  ~
-    fragments:       ~
     http_method_override: true
 
 # Assetic
@@ -135,7 +135,7 @@ mewes_k_twig_excel:
 # Maintance Mode
 lexik_maintenance:
     driver:
-        class: '\Lexik\Bundle\MaintenanceBundle\Drivers\FileDriver'
+        class:   Lexik\Bundle\MaintenanceBundle\Drivers\FileDriver
         options: { file_path: "%kernel.root_dir%/cache/lock" }
     response:
         code: 503
