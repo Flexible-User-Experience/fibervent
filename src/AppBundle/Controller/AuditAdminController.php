@@ -5,7 +5,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Audit;
 use AppBundle\Entity\User;
 use AppBundle\Form\Type\AuditEmailSendFormType;
-use AppBundle\Service\AuditPdfBuilderService;
+use AppBundle\Service\AuditPdfBuilderV2Service;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -42,8 +42,8 @@ class AuditAdminController extends AbstractBaseAdminController
             throw $this->createNotFoundException(sprintf('Unable to find audit record with id: %s', $id));
         }
 
-        /** @var AuditPdfBuilderService $apbs */
-        $apbs = $this->get('app.audit_pdf_builder');
+        /** @var AuditPdfBuilderV2Service $apbs */
+        $apbs = $this->get('app.audit_pdf_builder_v2');
         $pdf = $apbs->build($object);
 
         return new Response($pdf->Output('informe_auditoria_'.$object->getId().'.pdf', 'I'), 200, array('Content-type' => 'application/pdf'));
@@ -109,8 +109,8 @@ class AuditAdminController extends AbstractBaseAdminController
             throw $this->createNotFoundException(sprintf('Unable to find audit record with id: %s', $id));
         }
 
-        /** @var AuditPdfBuilderService $apbs */
-        $apbs = $this->get('app.audit_pdf_builder');
+        /** @var AuditPdfBuilderV2Service $apbs */
+        $apbs = $this->get('app.audit_pdf_builder_v2');
         $pdf = $apbs->build($object);
         $pdf->Output($this->getDestAuditFilePath($object), 'F');
 

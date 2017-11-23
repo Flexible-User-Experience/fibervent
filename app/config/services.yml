@@ -109,6 +109,19 @@ services:
             - "@app.blade_damage_repository"
             - "@app.customer_repository"
             - "@app.audit_model_diagram_bridge"
+    app.audit_pdf_builder_v2:
+        class: AppBundle\Service\AuditPdfBuilderV2Service
+        arguments:
+            - "@white_october.tcpdf"
+            - "@liip_imagine.cache.manager"
+            - "@vich_uploader.templating.helper.uploader_helper"
+            - "@templating.helper.assets"
+            - "@translator.default"
+            - "@app.damage_repository"
+            - "@app.damage_category_repository"
+            - "@app.blade_damage_repository"
+            - "@app.customer_repository"
+            - "@app.audit_model_diagram_bridge"
     app.audit_model_diagram_bridge:
         class: AppBundle\Service\AuditModelDiagramBridgeService
 # Form types
