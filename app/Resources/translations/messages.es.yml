@@ -69,6 +69,10 @@ pdf:
     8_distance: Dist.
     9_excel_title: 'RESUMEN DAÑOS AEROGENERADORES DEL PARQUE EÓLICO'
     10_blade: PALA
+  windfarm_inspection_table_header:
+    1_number: No. WTG
+    2_blade: BLADE
+    3_damage_class: DAMAGE CLASS
   damage_table_body:
     none: -
     BA_dist_cm: '%dist%cm BA'

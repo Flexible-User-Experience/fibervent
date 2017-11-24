@@ -139,4 +139,3 @@ lexik_maintenance:
         options: { file_path: "%kernel.root_dir%/cache/lock" }
     response:
         code: 503
-        status: "En manteniment. Disculpeu estem treballant per millorar el servei."

@@ -202,7 +202,10 @@ class AuditPdfBuilderV2Service
         }
 
         // TODO new windfarm inspection overview section
-
+        if (!self::SHOW_V1_SECTIONS) {
+            // damage table
+            $this->drawWindfarmInspectionTableHeader($pdf);
+        }
 
         if (self::SHOW_V1_SECTIONS) {
             $pdf->setCellPaddings(1, 1, 1, 1);
@@ -677,6 +680,22 @@ class AuditPdfBuilderV2Service
         $pdf->Cell(16, 12, $this->ts->trans('pdf.damage_table_header.6_size'), 1, 0, 'C', true);
         $pdf->Cell(86, 12, $this->ts->trans('pdf.damage_table_header.7_description'), 1, 0, 'C', true);
         $pdf->Cell(0, 12, 'CAT', 1, 1, 'C', true);
+        $pdf->setFontStyle(null, '', 9);
+        $pdf->setWhiteBackground();
+    }
+
+    /**
+     * Draw damage table header.
+     *
+     * @param CustomTcpdf $pdf
+     */
+    private function drawWindfarmInspectionTableHeader(CustomTcpdf $pdf)
+    {
+        $pdf->setBlueBackground();
+        $pdf->setFontStyle(null, 'B', 9);
+        $pdf->Cell(50, 0, $this->ts->trans('pdf.windfarm_inspection_table_header.1_number'), 1, 0, 'C', true);
+        $pdf->Cell(35, 0, $this->ts->trans('pdf.windfarm_inspection_table_header.2_blade'), 1, 0, 'C', true);
+        $pdf->Cell(80, 0, $this->ts->trans('pdf.windfarm_inspection_table_header.3_damage_class'), 1, 1, 'C', true);
         $pdf->setFontStyle(null, '', 9);
         $pdf->setWhiteBackground();
     }
