@@ -319,12 +319,14 @@ class WindfarmAdminController extends AbstractBaseAdminController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $damageCategories = $this->get('app.damage_category_repository')->findAllSortedByCategory();
+
             $statuses = null;
-            if (array_key_exists('audit_status', $request->get(WindfarmAnnualStatsFormType::BLOCK_PREFIX))) {
-                $statuses = $request->get(WindfarmAnnualStatsFormType::BLOCK_PREFIX)['audit_status'];
+            if (array_key_exists('audit_status', $request->get(WindfarmAuditStatsFormType::BLOCK_PREFIX))) {
+                $statuses = $request->get(WindfarmAuditStatsFormType::BLOCK_PREFIX)['audit_status'];
             }
 
-            $year = intval($request->get(WindfarmAnnualStatsFormType::BLOCK_PREFIX)['year']);
+            $year = intval($request->get(WindfarmAuditStatsFormType::BLOCK_PREFIX)['year']);
 
             $audits = $this->getDoctrine()->getRepository('AppBundle:Audit')->getAuditsByWindfarmByStatusesAndYear(
                 $object,
@@ -340,7 +342,8 @@ class WindfarmAdminController extends AbstractBaseAdminController
                     'form' => $form->createView(),
                     'year' => $year,
                     'audits' => $audits,
-                    'show_download_xls_button' => true,
+                    'show_download_pdf_button' => true,
+                    'damage_categories' => $damageCategories,
                 )
             );
         }
