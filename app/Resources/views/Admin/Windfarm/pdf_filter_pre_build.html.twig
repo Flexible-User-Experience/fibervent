@@ -63,26 +63,25 @@
                             <tbody>
                             {% set total_records_displayed = 0 %}
                             {% for audit in audits %}
+                                {% set total_records_displayed = total_records_displayed + 1 %}
+                                <tr>
+                                    <td rowspan="4" class="text-center" style="vertical-align:middle;border-right:2px solid #f4f4f4;">{{ audit.windmill.code }}</td>
+                                </tr>
                                 {% for auditWindmillBlade in audit.auditWindmillBlades %}
-                                    {% for bladeDamage in auditWindmillBlade.bladeDamages %}
-                                        {% set total_records_displayed = total_records_displayed + 1 %}
-                                        <tr>
-                                            <td class="text-center">{{ audit.windmill.code }}</td>
-                                            <td class="text-center">{{ auditWindmillBlade.windmillBlade.order }}</td>
-                                            {#<td class="text-center">{{ loop.index }}</td>#}
-                                            <td class="text-center">X</td>
-                                            <td class="text-center">X</td>
-                                            <td class="text-center">X</td>
-                                            <td class="text-center">X</td>
-                                            <td class="text-center">X</td>
-                                        </tr>
-                                    {% endfor %}
+                                    <tr>
+                                        <td class="text-center">{{ loop.index }}</td>
+                                        <td class="text-center">X</td>
+                                        <td class="text-center">X</td>
+                                        <td class="text-center">X</td>
+                                        <td class="text-center">X</td>
+                                        <td class="text-center">X</td>
+                                    </tr>
                                 {% endfor %}
                             {% endfor %}
                             </tbody>
                             <tfoot>
                             <tr>
-                                <th colspan="10">{{ 'pdf.damage_table_footer.total_records_displayed' | trans }}: {{ total_records_displayed }}</th>
+                                <th colspan="10">{{ 'admin.windfarm.table.results.found' | trans }}: {{ total_records_displayed }}</th>
                             </tr>
                             </tfoot>
                         </table>
