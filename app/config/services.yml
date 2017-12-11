@@ -137,6 +137,13 @@ services:
             - "@doctrine.orm.entity_manager"
             - "@app.audit_repository"
             - "@app.damage_category_repository"
+    app.form_type_windfarm_audit_stats:
+        class: AppBundle\Form\Type\WindfarmAuditStatsFormType
+        tags:
+            - { name: form.type }
+        arguments:
+            - "@doctrine.orm.entity_manager"
+            - "@app.audit_repository"
 # Messaging
     app.courier:
         class: AppBundle\Service\CourierService

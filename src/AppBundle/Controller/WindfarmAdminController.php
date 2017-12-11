@@ -7,6 +7,7 @@ use AppBundle\Entity\AuditWindmillBlade;
 use AppBundle\Entity\Windfarm;
 use AppBundle\Enum\WindfarmLanguageEnum;
 use AppBundle\Form\Type\WindfarmAnnualStatsFormType;
+use AppBundle\Form\Type\WindfarmAuditStatsFormType;
 use AppBundle\Service\WindfarmAuditsPdfBuilderService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -181,9 +182,7 @@ class WindfarmAdminController extends AbstractBaseAdminController
                 $auditWindmillBlades = $audit->getAuditWindmillBlades();
                 /** @var AuditWindmillBlade $auditWindmillBlade */
                 foreach ($auditWindmillBlades as $auditWindmillBlade) {
-                    $bladeDamages = $this->getDoctrine()->getRepository(
-                        'AppBundle:BladeDamage'
-                    )->getItemsOfAuditWindmillBladeSortedByRadius($auditWindmillBlade);
+                    $bladeDamages = $this->getDoctrine()->getRepository('AppBundle:BladeDamage')->getItemsOfAuditWindmillBladeSortedByRadius($auditWindmillBlade);
                     if (count($bladeDamages) > 0) {
                         $auditWindmillBlade->setBladeDamages($bladeDamages);
                     }
@@ -311,10 +310,53 @@ class WindfarmAdminController extends AbstractBaseAdminController
             throw $this->createNotFoundException(sprintf('Unable to find windfarm record with id: %s', $id));
         }
 
-        /** @var WindfarmAuditsPdfBuilderService $wapbs */
+        // Customer filter
+        if (!$this->get('app.auth_customer')->isWindfarmOwnResource($object)) {
+            throw new AccessDeniedHttpException();
+        }
+
+        $form = $this->createForm(WindfarmAuditStatsFormType::class, null, array('windfarm_id' => $object->getId()));
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $statuses = null;
+            if (array_key_exists('audit_status', $request->get(WindfarmAnnualStatsFormType::BLOCK_PREFIX))) {
+                $statuses = $request->get(WindfarmAnnualStatsFormType::BLOCK_PREFIX)['audit_status'];
+            }
+
+            $year = intval($request->get(WindfarmAnnualStatsFormType::BLOCK_PREFIX)['year']);
+
+            $audits = $this->getDoctrine()->getRepository('AppBundle:Audit')->getAuditsByWindfarmByStatusesAndYear(
+                $object,
+                $statuses,
+                $year
+            );
+
+            return $this->render(
+                ':Admin/Windfarm:pdf_filter_pre_build.html.twig',
+                array(
+                    'action' => 'show',
+                    'object' => $object,
+                    'form' => $form->createView(),
+                    'year' => $year,
+                    'audits' => $audits,
+                    'show_download_xls_button' => true,
+                )
+            );
+        }
+
+        return $this->render(
+            ':Admin/Windfarm:pdf_filter_pre_build.html.twig',
+            array(
+                'action' => 'show',
+                'object' => $object,
+                'form' => $form->createView(),
+            )
+        );
+        /* @var WindfarmAuditsPdfBuilderService $wapbs /
         $wapbs = $this->get('app.windfarm_audits_pdf_builder');
         $pdf = $wapbs->build($object);
 
-        return new Response($pdf->Output('informe_auditorias_parque_eolico_'.$object->getId().'.pdf', 'I'), 200, array('Content-type' => 'application/pdf'));
+        return new Response($pdf->Output('informe_auditorias_parque_eolico_'.$object->getId().'.pdf', 'I'), 200, array('Content-type' => 'application/pdf'));*/
     }
 }
