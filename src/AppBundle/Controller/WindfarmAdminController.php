@@ -7,6 +7,7 @@ use AppBundle\Entity\AuditWindmillBlade;
 use AppBundle\Entity\Windfarm;
 use AppBundle\Enum\WindfarmLanguageEnum;
 use AppBundle\Form\Type\WindfarmAnnualStatsFormType;
+use AppBundle\Service\WindfarmAuditsPdfBuilderService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
@@ -287,5 +288,33 @@ class WindfarmAdminController extends AbstractBaseAdminController
         $response->headers->set('Content-Disposition', 'attachment; filename="'.$currentDate->format('Y-m-d').'_'.$object->getSlug().'.xls"');
 
         return $response;
+    }
+
+    /**
+     * Export Windfarm Audits in PDF format action.
+     *
+     * @param Request $request
+     *
+     * @return Response
+     *
+     * @throws NotFoundHttpException     If the object does not exist
+     * @throws AccessDeniedHttpException If access is not granted
+     */
+    public function pdfAction(Request $request = null)
+    {
+        $request = $this->resolveRequest($request);
+        $id = $request->get($this->admin->getIdParameter());
+
+        /** @var Windfarm $object */
+        $object = $this->admin->getObject($id);
+        if (!$object) {
+            throw $this->createNotFoundException(sprintf('Unable to find windfarm record with id: %s', $id));
+        }
+
+        /** @var WindfarmAuditsPdfBuilderService $wapbs */
+        $wapbs = $this->get('app.windfarm_audits_pdf_builder');
+        $pdf = $wapbs->build($object);
+
+        return new Response($pdf->Output('informe_auditorias_parque_eolico_'.$object->getId().'.pdf', 'I'), 200, array('Content-type' => 'application/pdf'));
     }
 }

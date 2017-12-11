@@ -125,14 +125,12 @@ class WindfarmAuditsPdfBuilderService
     }
 
     /**
-     * @param Audit $audit
+     * @param Windfarm $windfarm
      *
      * @return \TCPDF
      */
-    public function build(Audit $audit)
+    public function build(Windfarm $windfarm)
     {
-        $windmill = $audit->getWindmill();
-        $windfarm = $windmill->getWindfarm();
         $this->locale = WindfarmLanguageEnum::getEnumArray()[$windfarm->getLanguage()];
         $this->ts->setLocale($this->locale);
 
