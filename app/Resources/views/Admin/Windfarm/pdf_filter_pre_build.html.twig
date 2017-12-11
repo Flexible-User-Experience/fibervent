@@ -70,11 +70,9 @@
                                 {% for auditWindmillBlade in audit.auditWindmillBlades %}
                                     <tr>
                                         <td class="text-center">{{ loop.index }}</td>
-                                        <td class="text-center">X</td>
-                                        <td class="text-center">X</td>
-                                        <td class="text-center">X</td>
-                                        <td class="text-center">X</td>
-                                        <td class="text-center">X</td>
+                                        {% for damage_category in damage_categories %}
+                                            <td class="text-center">{{ mark_damage_category(damage_category, auditWindmillBlade) }}</td>
+                                        {% endfor %}
                                     </tr>
                                 {% endfor %}
                             {% endfor %}
