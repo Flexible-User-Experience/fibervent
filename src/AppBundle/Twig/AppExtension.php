@@ -2,6 +2,8 @@
 
 namespace AppBundle\Twig;
 
+use AppBundle\Entity\AuditWindmillBlade;
+use AppBundle\Entity\BladeDamage;
 use AppBundle\Entity\Damage;
 use AppBundle\Entity\DamageCategory;
 use AppBundle\Repository\DamageRepository;
@@ -21,11 +23,7 @@ class AppExtension extends \Twig_Extension
     private $dr;
 
     /**
-     *
-     *
      * Methods
-     *
-     *
      */
 
     /**
@@ -50,6 +48,7 @@ class AppExtension extends \Twig_Extension
         return array(
             new \Twig_SimpleFunction('get_localized_description', array($this, 'getlocalizedDescription')),
             new \Twig_SimpleFunction('is_row_available', array($this, 'isRowAvailable')),
+            new \Twig_SimpleFunction('mark_damage_category', array($this, 'markDamageCategory')),
         );
     }
 
@@ -79,6 +78,27 @@ class AppExtension extends \Twig_Extension
         $result = false;
         if (in_array((string)$object->getCategory(), $availableCodes)) {
             $result = true;
+        }
+
+        return $result;
+    }
+
+    /**
+     * @param DamageCategory $damageCategory
+     * @param AuditWindmillBlade $auditWindmillBlade
+     *
+     * @return string
+     */
+    public function markDamageCategory(DamageCategory $damageCategory, AuditWindmillBlade $auditWindmillBlade)
+    {
+        $result = '';
+        /** @var BladeDamage $bladeDamage */
+        foreach ($auditWindmillBlade->getBladeDamages() as $bladeDamage) {
+            if ($bladeDamage->getDamageCategory()->getId() == $damageCategory->getId()) {
+                $result = 'X';
+
+                break;
+            }
         }
 
         return $result;
