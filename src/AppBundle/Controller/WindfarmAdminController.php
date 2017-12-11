@@ -356,10 +356,48 @@ class WindfarmAdminController extends AbstractBaseAdminController
                 'form' => $form->createView(),
             )
         );
-        /* @var WindfarmAuditsPdfBuilderService $wapbs /
+    }
+
+    /**
+     * Download PDF attatchment with Windfarm Audits action.
+     *
+     * @param Request $request
+     *
+     * @return Response
+     *
+     * @throws NotFoundHttpException     If the object does not exist
+     * @throws AccessDeniedHttpException If access is not granted
+     */
+    public function pdfAttatchemntAction(Request $request = null)
+    {
+        $request = $this->resolveRequest($request);
+        $id = $request->get($this->admin->getIdParameter());
+
+        /** @var Windfarm $object */
+        $object = $this->admin->getObject($id);
+        if (!$object) {
+            throw $this->createNotFoundException(sprintf('Unable to find windfarm record with id: %s', $id));
+        }
+
+        // Customer filter
+        if (!$this->get('app.auth_customer')->isWindfarmOwnResource($object)) {
+            throw new AccessDeniedHttpException();
+        }
+
+        $damageCategories = $this->get('app.damage_category_repository')->findAllSortedByCategory();
+        $statuses = $request->get('audit_status');
+        $year = intval($request->get('year'));
+
+        $audits = $this->getDoctrine()->getRepository('AppBundle:Audit')->getAuditsByWindfarmByStatusesAndYear(
+            $object,
+            $statuses,
+            $year
+        );
+
+        /** @var WindfarmAuditsPdfBuilderService $wapbs */
         $wapbs = $this->get('app.windfarm_audits_pdf_builder');
         $pdf = $wapbs->build($object);
 
-        return new Response($pdf->Output('informe_auditorias_parque_eolico_'.$object->getId().'.pdf', 'I'), 200, array('Content-type' => 'application/pdf'));*/
+        return new Response($pdf->Output('informe_auditorias_parque_eolico_'.$object->getId().'.pdf', 'I'), 200, array('Content-type' => 'application/pdf'));
     }
 }
