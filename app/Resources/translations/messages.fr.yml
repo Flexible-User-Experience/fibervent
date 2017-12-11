@@ -69,6 +69,7 @@ pdf:
     8_distance: Distance
     9_excel_title: 'RESUMEN DAÑOS AEROGENERADORES DEL PARQUE EÓLICO'
     10_blade: PALE
+    damage_class: DAMAGE CLASS
   windfarm_inspection_table_header:
     main: WIND FARM INSPECTION OVERVIEW
     1_number: No. WTG
@@ -266,6 +267,11 @@ admin:
     no_audits:
     windmill_amount:
     map:
+    select: Audits filter
+    download_pdf: Download PDF
+    table:
+      results:
+        found: Audits found
   windmill:
      title:
      title_list:
