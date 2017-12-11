@@ -109,6 +109,19 @@ services:
             - "@app.blade_damage_repository"
             - "@app.customer_repository"
             - "@app.audit_model_diagram_bridge"
+    app.windfarm_audits_pdf_builder:
+        class: AppBundle\Service\WindfarmAuditsPdfBuilderService
+        arguments:
+            - "@white_october.tcpdf"
+            - "@liip_imagine.cache.manager"
+            - "@vich_uploader.templating.helper.uploader_helper"
+            - "@templating.helper.assets"
+            - "@translator.default"
+            - "@app.damage_repository"
+            - "@app.damage_category_repository"
+            - "@app.blade_damage_repository"
+            - "@app.customer_repository"
+            - "@app.audit_model_diagram_bridge"
     app.audit_model_diagram_bridge:
         class: AppBundle\Service\AuditModelDiagramBridgeService
 # Form types
@@ -124,6 +137,13 @@ services:
             - "@doctrine.orm.entity_manager"
             - "@app.audit_repository"
             - "@app.damage_category_repository"
+    app.form_type_windfarm_audit_stats:
+        class: AppBundle\Form\Type\WindfarmAuditStatsFormType
+        tags:
+            - { name: form.type }
+        arguments:
+            - "@doctrine.orm.entity_manager"
+            - "@app.audit_repository"
 # Messaging
     app.courier:
         class: AppBundle\Service\CourierService

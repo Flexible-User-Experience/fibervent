@@ -45,6 +45,7 @@ class WindfarmAdmin extends AbstractBaseAdmin
             ->add('audits', $this->getRouterIdParameter().'/audits')
             ->add('map', $this->getRouterIdParameter().'/map')
             ->add('excel', $this->getRouterIdParameter().'/excel')
+            ->add('pdf', $this->getRouterIdParameter().'/pdf')
             ->add('excelAttachment', $this->getRouterIdParameter().'/excel-attachment', array(
                 '_format' => 'xls',
             ), array(
@@ -410,6 +411,7 @@ class WindfarmAdmin extends AbstractBaseAdmin
                         'show' => array('template' => '::Admin/Buttons/list__action_show_button.html.twig'),
                         'audits' => array('template' => '::Admin/Buttons/list__action_audits_button.html.twig'),
                         'excel' => array('template' => '::Admin/Buttons/list__action_excel_button.html.twig'),
+                        'pdf' => array('template' => '::Admin/Buttons/list__action_pdf_button.html.twig'),
                         'map' => array('template' => '::Admin/Buttons/list__action_map_button.html.twig'),
                     ),
                 )

@@ -11,10 +11,10 @@
                     <div class="box-body table-responsive no-padding">
                         {% if form.year.vars.label is defined %}
                             {{ form_start(form) }}
-                                <div class="col-xs-1">
+                                <div class="col-xs-2">
                                     {{ form_row(form.damage_categories) }}
                                 </div>
-                                <div class="col-xs-1">
+                                <div class="col-xs-2">
                                     {{ form_row(form.audit_status) }}
                                 </div>
                                 <div class="col-xs-1">
@@ -25,7 +25,7 @@
                                     {{ form_rest(form) }}
                                 </div>
                                 {% if show_download_xls_button is defined and show_download_xls_button and audits is defined and audits | length > 0 %}
-                                    <div class="col-xs-7 text-right">
+                                    <div class="col-xs-5 text-right">
                                         <a href="{{ path('admin_app_windfarm_excelAttachment', {id: object.id}) }}?year={{ year }}{% if form.damage_categories.vars.value %}&damage_categories={{ form.damage_categories.vars.value | join('-') }}{% endif %}{% if form.audit_status.vars.value %}&audit_status={{ form.audit_status.vars.value | join('-') }}{% endif %}" class="btn btn-warning" style="margin-top:25px;"><i class="fa fa-cloud-download"></i> {{ 'admin.audit.download_xls' | trans }}</a>
                                     </div>
                                 {% endif %}
