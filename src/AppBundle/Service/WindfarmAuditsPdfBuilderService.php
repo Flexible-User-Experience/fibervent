@@ -24,14 +24,15 @@ use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 use Symfony\Bundle\FrameworkBundle\Templating\Helper\AssetsHelper;
 
 /**
- * Class Audit Pdf Builder Service.
+ * Class Windfarm Audits Pdf Builder Service.
  *
  * @category Service
  *
  * @author   David Romaní <david@flux.cat>
  */
-class AuditPdfBuilderV2Service
+class WindfarmAuditsPdfBuilderService
 {
+    const SECTION_SPACER_V  = 2;
     const SHOW_V1_SECTIONS  = false;
     const SHOW_GRID_DEBUG   = false;
     const SHOW_ONLY_DIAGRAM = false;
@@ -150,10 +151,10 @@ class AuditPdfBuilderV2Service
             $pdf->setBlackText();
             $pdf->setFontStyle(null, 'B', 11);
             $pdf->Write(0, $this->ts->trans('pdf.intro.1_title'), '', false, 'L', true);
-            $pdf->Ln(2);
+            $pdf->Ln(self::SECTION_SPACER_V);
             $pdf->setFontStyle(null, '', 9);
             $pdf->Write(0, $this->ts->trans('pdf.intro.2_description', ['%windfarm%' => $windfarm->getName(), '%begin%' => $audit->getPdfBeginDateString(), '%end%' => $audit->getPdfEndDateString()]), '', false, 'L', true);
-            $pdf->Ln(2);
+            $pdf->Ln(self::SECTION_SPACER_V);
             // Introduction table
             $pdf->setCellPaddings(20, 2, 20, 2);
             $pdf->setCellMargins(0, 0, 0, 0);
@@ -164,10 +165,10 @@ class AuditPdfBuilderV2Service
             // Damages categorization
             $pdf->setFontStyle(null, 'B', 11);
             $pdf->Write(0, $this->ts->trans('pdf.damage_catalog.1_title'), '', false, 'L', true);
-            $pdf->Ln(2);
+            $pdf->Ln(self::SECTION_SPACER_V);
             $pdf->setFontStyle(null, '', 9);
             $pdf->Write(0, $this->ts->trans('pdf.damage_catalog.2_subtitle'), '', false, 'L', true);
-            $pdf->Ln(2);
+            $pdf->Ln(self::SECTION_SPACER_V);
             // Damages table
             $pdf->setBlackLine();
             $pdf->setBlueBackground();
@@ -192,10 +193,10 @@ class AuditPdfBuilderV2Service
             // Inspection description
             $pdf->setFontStyle(null, 'B', 11);
             $pdf->Write(0, $this->ts->trans('pdf.audit_description.1_title'), '', false, 'L', true);
-            $pdf->Ln(2);
+            $pdf->Ln(self::SECTION_SPACER_V);
             $pdf->setFontStyle(null, '', 9);
             $pdf->Write(0, $this->ts->trans('pdf.audit_description.2_description'), '', false, 'L', true);
-            $pdf->Ln(2);
+            $pdf->Ln(self::SECTION_SPACER_V);
             // Audit description with windmill image schema
             $pdf->Image($this->tha->getUrl('/bundles/app/images/tubrine_diagrams/'.$audit->getDiagramType().'.jpg'), CustomTcpdf::PDF_MARGIN_LEFT + 50, $pdf->GetY(), null, 40);
             $pdf->AddPage();
@@ -203,6 +204,10 @@ class AuditPdfBuilderV2Service
 
         // TODO new windfarm inspection overview section
         if (!self::SHOW_V1_SECTIONS) {
+            $pdf->setFontStyle(null, 'B', 11);
+            $pdf->Write(0, $this->ts->trans('pdf.windfarm_inspection_table_header.main'), '', false, 'L', true);
+            $pdf->Ln(self::SECTION_SPACER_V);
+            $pdf->setFontStyle(null, '', 9);
             // damage table
             $this->drawWindfarmInspectionTableHeader($pdf);
         }
@@ -691,12 +696,20 @@ class AuditPdfBuilderV2Service
      */
     private function drawWindfarmInspectionTableHeader(CustomTcpdf $pdf)
     {
+        $damageHeaderWidth = 80;
         $pdf->setBlueBackground();
         $pdf->setFontStyle(null, 'B', 9);
-        $pdf->Cell(50, 0, $this->ts->trans('pdf.windfarm_inspection_table_header.1_number'), 1, 0, 'C', true);
-        $pdf->Cell(35, 0, $this->ts->trans('pdf.windfarm_inspection_table_header.2_blade'), 1, 0, 'C', true);
-        $pdf->Cell(80, 0, $this->ts->trans('pdf.windfarm_inspection_table_header.3_damage_class'), 1, 1, 'C', true);
+        $pdf->Cell(50, 12, $this->ts->trans('pdf.windfarm_inspection_table_header.1_number'), 1, 0, 'C', true);
+        $pdf->Cell(35, 12, $this->ts->trans('pdf.windfarm_inspection_table_header.2_blade'), 1, 0, 'C', true);
+        $pdf->Cell($damageHeaderWidth, 6, $this->ts->trans('pdf.windfarm_inspection_table_header.3_damage_class'), 1, 1, 'C', true);
+        $pdf->SetX(CustomTcpdf::PDF_MARGIN_LEFT + 85);
         $pdf->setFontStyle(null, '', 9);
+        $dcs = $this->dcr->findEnabledSortedByCategory();
+        /** @var DamageCategory $dc */
+        foreach ($dcs as $dc) {
+            $pdf->setBackgroundHexColor($dc->getColour());
+            $pdf->Cell($damageHeaderWidth / count($dcs), 6, $dc->getCategory(), 1, 0, 'C', true);
+        }
         $pdf->setWhiteBackground();
     }
 

@@ -109,8 +109,8 @@ services:
             - "@app.blade_damage_repository"
             - "@app.customer_repository"
             - "@app.audit_model_diagram_bridge"
-    app.audit_pdf_builder_v2:
-        class: AppBundle\Service\AuditPdfBuilderV2Service
+    app.windfarm_audits_pdf_builder:
+        class: AppBundle\Service\WindfarmAuditsPdfBuilderService
         arguments:
             - "@white_october.tcpdf"
             - "@liip_imagine.cache.manager"

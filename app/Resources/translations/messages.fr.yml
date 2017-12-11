@@ -70,6 +70,7 @@ pdf:
     9_excel_title: 'RESUMEN DAÑOS AEROGENERADORES DEL PARQUE EÓLICO'
     10_blade: PALE
   windfarm_inspection_table_header:
+    main: WIND FARM INSPECTION OVERVIEW
     1_number: No. WTG
     2_blade: BLADE
     3_damage_class: DAMAGE CLASS
