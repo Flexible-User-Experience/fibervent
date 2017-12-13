@@ -97,6 +97,12 @@ class WindfarmAuditsPdfBuilderService extends AbstractPdfBuilderService
             $pdf->Ln(self::SECTION_SPACER_V);
             $pdf->setFontStyle(null, '', 9);
             $pdf->Ln(self::SECTION_SPACER_V_BIG);
+            /** @var Audit $audit */
+            foreach ($audits as $audit) {
+                // Damages section
+                $pdf->AddPage();
+                $this->drawAuditDamager($pdf, $audit);
+            }
         }
 
         // Contact section
