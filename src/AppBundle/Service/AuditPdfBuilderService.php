@@ -6,22 +6,12 @@ use AppBundle\Entity\Audit;
 use AppBundle\Entity\AuditWindmillBlade;
 use AppBundle\Entity\BladeDamage;
 use AppBundle\Entity\BladePhoto;
-use AppBundle\Entity\DamageCategory;
 use AppBundle\Entity\Observation;
 use AppBundle\Entity\Photo;
 use AppBundle\Entity\Windfarm;
 use AppBundle\Entity\Windmill;
 use AppBundle\Enum\WindfarmLanguageEnum;
 use AppBundle\Pdf\CustomTcpdf;
-use AppBundle\Repository\CustomerRepository;
-use AppBundle\Repository\DamageRepository;
-use AppBundle\Repository\BladeDamageRepository;
-use AppBundle\Repository\DamageCategoryRepository;
-use Symfony\Bundle\FrameworkBundle\Translation\Translator;
-use WhiteOctober\TCPDFBundle\Controller\TCPDFController;
-use Liip\ImagineBundle\Imagine\Cache\CacheManager;
-use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
-use Symfony\Bundle\FrameworkBundle\Templating\Helper\AssetsHelper;
 
 /**
  * Class Audit Pdf Builder Service.
@@ -30,98 +20,8 @@ use Symfony\Bundle\FrameworkBundle\Templating\Helper\AssetsHelper;
  *
  * @author   David Romaní <david@flux.cat>
  */
-class AuditPdfBuilderService
+class AuditPdfBuilderService extends AbstractPdfBuilderService
 {
-    const SHOW_GRID_DEBUG   = false;
-    const SHOW_ONLY_DIAGRAM = false;
-
-    /**
-     * @var TCPDFController
-     */
-    private $tcpdf;
-
-    /**
-     * @var CacheManager
-     */
-    private $cm;
-
-    /**
-     * @var UploaderHelper
-     */
-    private $uh;
-
-    /**
-     * @var AssetsHelper
-     */
-    private $tha;
-
-    /**
-     * @var Translator
-     */
-    private $ts;
-
-    /**
-     * @var DamageRepository
-     */
-    private $dr;
-
-    /**
-     * @var DamageCategoryRepository
-     */
-    private $dcr;
-
-    /**
-     * @var BladeDamageRepository
-     */
-    private $bdr;
-
-    /**
-     * @var CustomerRepository
-     */
-    private $cr;
-
-    /**
-     * @var AuditModelDiagramBridgeService
-     */
-    private $amdb;
-
-    /**
-     * @var string
-     */
-    private $locale;
-
-    /**
-     * Methods.
-     */
-
-    /**
-     * AuditPdfBuilderService constructor.
-     *
-     * @param TCPDFController                $tcpdf
-     * @param CacheManager                   $cm
-     * @param UploaderHelper                 $uh
-     * @param AssetsHelper                   $tha
-     * @param Translator                     $ts
-     * @param DamageRepository               $dr
-     * @param DamageCategoryRepository       $dcr
-     * @param BladeDamageRepository          $bdr
-     * @param CustomerRepository             $cr
-     * @param AuditModelDiagramBridgeService $amdb
-     */
-    public function __construct(TCPDFController $tcpdf, CacheManager $cm, UploaderHelper $uh, AssetsHelper $tha, Translator $ts, DamageRepository $dr, DamageCategoryRepository $dcr, BladeDamageRepository $bdr, CustomerRepository $cr, AuditModelDiagramBridgeService $amdb)
-    {
-        $this->tcpdf = $tcpdf;
-        $this->cm = $cm;
-        $this->uh = $uh;
-        $this->tha = $tha;
-        $this->ts = $ts;
-        $this->dr = $dr;
-        $this->dcr = $dcr;
-        $this->bdr = $bdr;
-        $this->cr = $cr;
-        $this->amdb = $amdb;
-    }
-
     /**
      * @param Audit $audit
      *
@@ -168,22 +68,8 @@ class AuditPdfBuilderService
             $pdf->Write(0, $this->ts->trans('pdf.damage_catalog.2_subtitle'), '', false, 'L', true);
             $pdf->Ln(2);
             // Damages table
-            $pdf->setBlackLine();
-            $pdf->setBlueBackground();
-            $pdf->setFontStyle(null, 'B', 9);
-            // MultiCell($w, $h, $txt, $border=0, $align='J', $fill=0, $ln=1, $x='', $y='', $reseth=true, $stretch=0, $ishtml=false, $autopadding=true, $maxh=0)
-            $pdf->MultiCell(20, 0, $this->ts->trans('pdf.damage_catalog.table.1_category'), 1, 'C', 1, 0, '', '', true);
-            $pdf->MultiCell(20, 0, $this->ts->trans('pdf.damage_catalog.table.2_priority'), 1, 'C', 1, 0, '', '', true);
-            $pdf->MultiCell(60, 0, $this->ts->trans('pdf.damage_catalog.table.3_description'), 1, 'C', 1, 0, '', '', true);
-            $pdf->MultiCell(0, 0, $this->ts->trans('pdf.damage_catalog.table.4_action'), 1, 'C', 1, 1, '', '', true);
-            $pdf->setFontStyle(null, '', 9);
-            /** @var DamageCategory $item */
-            foreach ($this->dcr->findAllSortedByCategoryLocalized($this->locale) as $item) {
-                $pdf->setBackgroundHexColor($item->getColour());
-                $pdf->MultiCell(20, 14, $item->getCategory(), 1, 'C', 1, 0, '', '', true, 0, false, true, 14, 'M');
-                $pdf->MultiCell(20, 14, $item->getPriority(), 1, 'C', 1, 0, '', '', true, 0, false, true, 14, 'M');
-                $pdf->MultiCell(60, 14, $item->getDescription(), 1, 'L', 1, 0, '', '', true, 0, false, true, 14, 'M');
-                $pdf->MultiCell(0, 14, $item->getRecommendedAction(), 1, 'L', 1, 1, '', '', true, 0, false, true, 14, 'M');
+            if (!self::SHOW_ONLY_DIAGRAM) {
+                $this->drawDamageCategoriesTable($pdf);
             }
             $pdf->setBlueLine();
             $pdf->setWhiteBackground();
