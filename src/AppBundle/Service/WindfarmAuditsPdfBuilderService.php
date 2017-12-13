@@ -6,7 +6,6 @@ use AppBundle\Entity\Audit;
 use AppBundle\Entity\AuditWindmillBlade;
 use AppBundle\Entity\BladeDamage;
 use AppBundle\Entity\BladePhoto;
-use AppBundle\Entity\DamageCategory;
 use AppBundle\Entity\Observation;
 use AppBundle\Entity\Photo;
 use AppBundle\Entity\Windfarm;
@@ -47,7 +46,14 @@ class WindfarmAuditsPdfBuilderService extends AbstractPdfBuilderService
 
         // Damage categories section
         if (!self::SHOW_V1_SECTIONS) {
+            $pdf->setFontStyle(null, 'B', 11);
+            $pdf->Write(0, $this->ts->trans('pdf_windfarm.damage_catalog.1_title'), '', false, 'L', true);
+            $pdf->Ln(2);
+            $pdf->setFontStyle(null, '', 9);
             $this->drawDamageCategoriesTable($pdf);
+            $pdf->setBlueLine();
+            $pdf->setWhiteBackground();
+            $pdf->Ln(self::SECTION_SPACER_V_BIG);
         }
 
         // Windfarm inspection overview section
@@ -298,7 +304,7 @@ class WindfarmAuditsPdfBuilderService extends AbstractPdfBuilderService
             $pdf->Ln(5);
             $pdf->setFontStyle(null, '', 9);
             $pdf->Write(0, $this->ts->trans('pdf.inspection_description.2_description'), '', false, 'L', true);
-            $pdf->Ln(10);
+            $pdf->Ln(self::SECTION_SPACER_V_BIG);
             $pdf->Cell(10, 0, '', 0, 0);
             $pdf->Cell(0, 0, $this->ts->trans('pdf.inspection_description.3_offices'), 0, 1, 'L', 0, '');
             $pdf->Ln(5);
@@ -316,7 +322,7 @@ class WindfarmAuditsPdfBuilderService extends AbstractPdfBuilderService
             $pdf->Cell(0, 0, 'www.fibervent.com', 0, 1, 'L', 0, 'www.fibervent.com');
             $pdf->setFontStyle(null, '', 9);
             $pdf->setBlackText();
-            $pdf->Ln(10);
+            $pdf->Ln(self::SECTION_SPACER_V_BIG);
             $pdf->Cell(10, 0, '', 0, 0);
             $pdf->Cell(0, 0, $this->ts->trans('pdf.inspection_description.4_phones_emails'), 0, 1, 'L', 0, '');
             $pdf->Ln(5);

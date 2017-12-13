@@ -26,11 +26,12 @@ use Symfony\Bundle\FrameworkBundle\Templating\Helper\AssetsHelper;
  */
 class AbstractPdfBuilderService
 {
-    const SECTION_SPACER_V   = 2;
-    const SHOW_COVER_SECTION = true;
-    const SHOW_V1_SECTIONS   = false;
-    const SHOW_GRID_DEBUG    = true;
-    const SHOW_ONLY_DIAGRAM  = false;
+    const SECTION_SPACER_V     = 2;
+    const SECTION_SPACER_V_BIG = 10;
+    const SHOW_COVER_SECTION   = true;
+    const SHOW_V1_SECTIONS     = false;
+    const SHOW_GRID_DEBUG      = true;
+    const SHOW_ONLY_DIAGRAM    = false;
 
     /**
      * @var TCPDFController

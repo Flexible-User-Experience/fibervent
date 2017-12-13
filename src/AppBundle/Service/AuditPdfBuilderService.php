@@ -73,7 +73,7 @@ class AuditPdfBuilderService extends AbstractPdfBuilderService
             }
             $pdf->setBlueLine();
             $pdf->setWhiteBackground();
-            $pdf->Ln(10);
+            $pdf->Ln(self::SECTION_SPACER_V_BIG);
             // Inspection description
             $pdf->setFontStyle(null, 'B', 11);
             $pdf->Write(0, $this->ts->trans('pdf.audit_description.1_title'), '', false, 'L', true);
@@ -318,7 +318,7 @@ class AuditPdfBuilderService extends AbstractPdfBuilderService
             $pdf->Ln(5);
             $pdf->setFontStyle(null, '', 9);
             $pdf->Write(0, $this->ts->trans('pdf.inspection_description.2_description'), '', false, 'L', true);
-            $pdf->Ln(10);
+            $pdf->Ln(self::SECTION_SPACER_V_BIG);
             $pdf->Cell(10, 0, '', 0, 0);
             $pdf->Cell(0, 0, $this->ts->trans('pdf.inspection_description.3_offices'), 0, 1, 'L', 0, '');
             $pdf->Ln(5);
@@ -336,7 +336,7 @@ class AuditPdfBuilderService extends AbstractPdfBuilderService
             $pdf->Cell(0, 0, 'www.fibervent.com', 0, 1, 'L', 0, 'www.fibervent.com');
             $pdf->setFontStyle(null, '', 9);
             $pdf->setBlackText();
-            $pdf->Ln(10);
+            $pdf->Ln(self::SECTION_SPACER_V_BIG);
             $pdf->Cell(10, 0, '', 0, 0);
             $pdf->Cell(0, 0, $this->ts->trans('pdf.inspection_description.4_phones_emails'), 0, 1, 'L', 0, '');
             $pdf->Ln(5);
