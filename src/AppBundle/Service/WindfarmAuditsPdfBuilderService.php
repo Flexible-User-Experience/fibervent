@@ -750,11 +750,12 @@ class WindfarmAuditsPdfBuilderService
         $damageHeaderWidth = 80;
         $pdf->setWhiteBackground();
         $pdf->setFontStyle(null, '', 9);
-        $pdf->Cell(50, 6, $audit->getWindmill()->getCode(), 1, 0, 'C', true);
+        $pdf->Cell(50, 18, $audit->getWindmill()->getCode(), 1, 0, 'C', true);
         $i = 0;
         /** @var WindmillBlade $windmillBlade */
         foreach ($audit->getAuditWindmillBlades() as $windmillBlade) {
             $i++;
+            $pdf->SetX(CustomTcpdf::PDF_MARGIN_LEFT + 50);
             $pdf->Cell(35, 6, $i, 1, 0, 'C', true);
             /** @var DamageCategory $damageCategory */
             foreach ($damageCategories as $key => $damageCategory) {
