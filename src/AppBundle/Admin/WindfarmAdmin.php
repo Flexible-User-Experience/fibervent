@@ -51,6 +51,7 @@ class WindfarmAdmin extends AbstractBaseAdmin
             ), array(
                 '_format' => 'csv|xls|xlsx',
             ))
+            ->add('pdfAttachment', $this->getRouterIdParameter().'/pdf-attachment')
             ->remove('delete');
     }
 
@@ -411,7 +412,7 @@ class WindfarmAdmin extends AbstractBaseAdmin
                         'show' => array('template' => '::Admin/Buttons/list__action_show_button.html.twig'),
                         'audits' => array('template' => '::Admin/Buttons/list__action_audits_button.html.twig'),
                         'excel' => array('template' => '::Admin/Buttons/list__action_excel_button.html.twig'),
-                        'pdf' => array('template' => '::Admin/Buttons/list__action_pdf_button.html.twig'),
+                        'pdf' => array('template' => '::Admin/Buttons/list__action_pdf_windfarm_button.html.twig'),
                         'map' => array('template' => '::Admin/Buttons/list__action_map_button.html.twig'),
                     ),
                 )

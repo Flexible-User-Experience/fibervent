@@ -2,10 +2,8 @@
 
 namespace AppBundle\Pdf;
 
-use AppBundle\Entity\Audit;
 use AppBundle\Entity\Customer;
 use AppBundle\Entity\Windfarm;
-use AppBundle\Entity\Windmill;
 use Symfony\Bundle\FrameworkBundle\Templating\Helper\AssetsHelper;
 use Symfony\Bundle\FrameworkBundle\Translation\Translator;
 
@@ -41,12 +39,7 @@ class CustomTcpdf extends \TCPDF
     /**
      * @var AssetsHelper
      */
-    protected $tha;
-
-    /**
-     * @var Audit
-     */
-    protected $audit;
+    private $tha;
 
     /**
      * @var Translator
@@ -54,19 +47,14 @@ class CustomTcpdf extends \TCPDF
     private $ts;
 
     /**
-     * @var Windmill
-     */
-    protected $windmill;
-
-    /**
      * @var Windfarm
      */
-    protected $windfarm;
+    private $windfarm;
 
     /**
      * @var Customer
      */
-    protected $customer;
+    private $customer;
 
     /**
      * @var float
@@ -81,18 +69,16 @@ class CustomTcpdf extends \TCPDF
      * CustomTcpdf constructor.
      *
      * @param AssetsHelper $tha
-     * @param Audit        $audit
      * @param Translator   $ts
+     * @param Windfarm     $windfarm
      */
-    public function __construct(AssetsHelper $tha, Audit $audit, Translator $ts)
+    public function __construct(AssetsHelper $tha, Translator $ts, Windfarm $windfarm)
     {
         parent::__construct();
         $this->tha = $tha;
-        $this->audit = $audit;
         $this->ts = $ts;
-        $this->windmill = $audit->getWindmill();
-        $this->windfarm = $audit->getWindmill()->getWindfarm();
-        $this->customer = $audit->getWindmill()->getWindfarm()->getCustomer();
+        $this->windfarm = $windfarm;
+        $this->customer = $windfarm->getCustomer();
     }
 
     /**
@@ -227,5 +213,21 @@ class CustomTcpdf extends \TCPDF
         }
 
         return array($r, $g, $b);
+    }
+
+    /**
+     * @return Windfarm
+     */
+    public function getWindfarm()
+    {
+        return $this->windfarm;
+    }
+
+    /**
+     * @return Customer
+     */
+    public function getCustomer()
+    {
+        return $this->customer;
     }
 }

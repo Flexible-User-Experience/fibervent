@@ -94,8 +94,8 @@ services:
         class: AppBundle\Pdf\CustomTcpdf
         arguments:
             - "@templating.helper.assets"
-            - AppBundle\Entity\Audit
             - "@translator.default"
+            - AppBundle\Entity\Windfarm
     app.audit_pdf_builder:
         class: AppBundle\Service\AuditPdfBuilderService
         arguments:
