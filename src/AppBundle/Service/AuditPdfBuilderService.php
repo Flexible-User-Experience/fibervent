@@ -79,7 +79,7 @@ class AuditPdfBuilderService extends AbstractPdfBuilderService
         }
 
         // Damages section
-        $this->drawAuditDamager($pdf, $audit);
+        $this->drawAuditDamage($pdf, $audit);
 
         // Contact section
         if (self::SHOW_CONTACT_SECTION) {

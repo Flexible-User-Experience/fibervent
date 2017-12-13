@@ -184,9 +184,10 @@ class AbstractPdfBuilderService
 
     /**
      * @param CustomTcpdf $pdf
-     * @param Audit $audit
+     * @param Audit       $audit
+     * @param bool        $showAuditMark
      */
-    protected function drawAuditDamager(CustomTcpdf $pdf, Audit $audit)
+    protected function drawAuditDamage(CustomTcpdf $pdf, Audit $audit, $showAuditMark = false)
     {
         $pdf->setCellPaddings(1, 1, 1, 1);
         $pdf->setCellMargins(0, 0, 0, 0);
@@ -195,7 +196,7 @@ class AbstractPdfBuilderService
             $bladeDamages = $this->bdr->getItemsOfAuditWindmillBladeSortedByRadius($auditWindmillBlade);
             $pdf->setFontStyle(null, 'B', 11);
             $serialNumberSuffix = $auditWindmillBlade->getWindmillBlade()->getCode() ? ' - (S/N: '.($auditWindmillBlade->getWindmillBlade()->getCode()).')' : '';
-            $pdf->Write(0, '3.'.($key + 1).' '.$this->ts->trans('pdf.audit_blade_damage.1_title').' '.($key + 1).$serialNumberSuffix, '', false, 'L', true);
+            $pdf->Write(0, '3.'.($key + 1).' '.$this->ts->trans('pdf.audit_blade_damage.1_title').' '.($key + 1).$serialNumberSuffix.($showAuditMark ? ' ('.$audit->getWindmill()->getCode().')' : ''), '', false, 'L', true);
             $pdf->Ln(5);
             $pdf->setFontStyle(null, '', 9);
             $pdf->Write(0, $this->ts->trans('pdf.audit_blade_damage.2_description'), '', false, 'L', true);
@@ -373,7 +374,7 @@ class AbstractPdfBuilderService
             if (count($auditWindmillBlade->getBladePhotos()) > 0 && !self::SHOW_ONLY_DIAGRAM) {
                 $pdf->AddPage();
                 $pdf->setFontStyle(null, 'B', 11);
-                $pdf->Write(0, '3.'.($key + 1).'.'.$this->ts->trans('pdf.blade_damage_images.1_general_blade_views').' '.($key + 1), '', false, 'L', true);
+                $pdf->Write(0, '3.'.($key + 1).'.'.$this->ts->trans('pdf.blade_damage_images.1_general_blade_views').' '.($key + 1).($showAuditMark ? ' ('.$audit->getWindmill()->getCode().')' : ''), '', false, 'L', true);
                 $pdf->Ln(3);
                 $pdf->setFontStyle(null, '', 9);
                 $i = 0;

@@ -87,6 +87,7 @@ class WindfarmAuditsPdfBuilderService extends AbstractPdfBuilderService
             $pdf->Write(0, $this->ts->trans('pdf_windfarm.inspection_description.1_title'), '', false, 'L', true);
             $pdf->Ln(self::SECTION_SPACER_V);
             $this->drawInspectionDescriptionSection($pdf, 1); // TODO find right diagram type from audits collection
+            $pdf->AddPage();
         }
 
         // Individual summary of damages section
@@ -100,8 +101,8 @@ class WindfarmAuditsPdfBuilderService extends AbstractPdfBuilderService
             /** @var Audit $audit */
             foreach ($audits as $audit) {
                 // Damages section
+                $this->drawAuditDamage($pdf, $audit, true);
                 $pdf->AddPage();
-                $this->drawAuditDamager($pdf, $audit);
             }
         }
 
