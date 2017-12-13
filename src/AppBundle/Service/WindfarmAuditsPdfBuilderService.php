@@ -524,8 +524,8 @@ class WindfarmAuditsPdfBuilderService
         // set document information
         $pdf->SetCreator(PDF_CREATOR);
         $pdf->SetAuthor('Fibervent');
-        $pdf->SetTitle($this->ts->trans('pdf.set_document_information.1_title').$audit->getId().' '.$windfarm->getName());
-        $pdf->SetSubject($this->ts->trans('pdf.set_document_information.2_subject').$windfarm->getName());
+        $pdf->SetTitle($this->ts->trans('pdf_windfarm.set_document_information.1_title').$windfarm->getId().' '.$windfarm->getName());
+        $pdf->SetSubject($this->ts->trans('pdf_windfarm.set_document_information.2_subject').$windfarm->getName());
         // set default font subsetting mode
         $pdf->setFontSubsetting(true);
         // remove default header/footer
@@ -542,10 +542,10 @@ class WindfarmAuditsPdfBuilderService
             // add start page
             $pdf->startPage(PDF_PAGE_ORIENTATION, PDF_PAGE_FORMAT);
             // logo
-            if ($audit->getCustomer()->isShowLogoInPdfs() && $audit->getCustomer()->getImageName()) {
+            if ($pdf->getCustomer()->isShowLogoInPdfs() && $pdf->getCustomer()->getImageName()) {
                 // customer has logo
                 // Image($file, $x='', $y='', $w=0, $h=0, $type='', $link='', $align='', $resize=false, $dpi=300, $palign='', $ismask=false, $imgmask=false, $border=0, $fitbox=false, $hidden=false, $fitonpage=false, $alt=false, $altimgs=array())
-                $pdf->Image($this->uh->asset($audit->getCustomer(), 'imageFile'), CustomTcpdf::PDF_MARGIN_LEFT + 12, 45, 55, 0, '', '', 'T', 2, 300, '', false, false, 0, false, false, false);
+                $pdf->Image($this->uh->asset($pdf->getCustomer(), 'imageFile'), CustomTcpdf::PDF_MARGIN_LEFT + 12, 45, 55, 0, '', '', 'T', 2, 300, '', false, false, 0, false, false, false);
                 $pdf->Image($this->tha->getUrl('/bundles/app/images/fibervent_logo_white_landscape_hires.jpg'), 100, 45, 78, 0, 'JPEG', '', 'T', false, 300, '', false, false, 0, false, false, false);
             } else {
                 // customer hasn't logo
@@ -557,84 +557,84 @@ class WindfarmAuditsPdfBuilderService
             $pdf->setBlackText();
             $pdf->setBlueLine();
             $pdf->setBlueBackground();
-            $pdf->Cell(0, 8, $this->ts->trans('pdf.cover.1_inspection').' '.$windfarm->getName(), 'TB', 1, 'C', true);
+            $pdf->Cell(0, 8, $this->ts->trans('pdf_windfarm.cover.1_inspection').' '.$windfarm->getName(), 'TB', 1, 'C', true);
             $pdf->setWhiteBackground();
-            $pdf->Cell(0, 8, $this->ts->trans('pdf.cover.2_resume').' '.$windmill->getCode(), 'TB', 1, 'C', true);
+//            $pdf->Cell(0, 8, $this->ts->trans('pdf_windfarm.cover.2_resume').' '.$windmill->getCode(), 'TB', 1, 'C', true);
             $pdf->Cell(0, 8, $windfarm->getPdfLocationString(), 'TB', 1, 'C', true);
             $pdf->setFontStyle();
             // table detail section
             $pdf->SetXY(CustomTcpdf::PDF_MARGIN_LEFT, $pdf->GetY() + 10);
             $pdf->setFontStyle(null, 'B', 10);
             $pdf->setBlueBackground();
-            $pdf->Cell(70, 6, $this->ts->trans('pdf.cover.3_country'), 'TB', 0, 'R', true);
+            $pdf->Cell(70, 6, $this->ts->trans('pdf_windfarm.cover.3_country'), 'TB', 0, 'R', true);
             $pdf->setFontStyle(null, '', 10);
             $pdf->setWhiteBackground();
             $pdf->Cell(0, 6, $windfarm->getState()->getCountryName().' ('.$windfarm->getState()->getName().')', 'TB', 1, 'L', true);
             $pdf->setFontStyle(null, 'B', 10);
             $pdf->setBlueBackground();
-            $pdf->Cell(70, 6, $this->ts->trans('pdf.cover.4_windfarm'), 'TB', 0, 'R', true);
+            $pdf->Cell(70, 6, $this->ts->trans('pdf_windfarm.cover.4_windfarm'), 'TB', 0, 'R', true);
             $pdf->setFontStyle(null, '', 10);
             $pdf->setWhiteBackground();
             $pdf->Cell(0, 6, $windfarm->getName(), 'TB', 1, 'L', true);
             $pdf->setFontStyle(null, 'B', 10);
+//            $pdf->setBlueBackground();
+//            $pdf->Cell(70, 6, $this->ts->trans('pdf_windfarm.cover.5_turbine_model'), 'TB', 0, 'R', true);
+//            $pdf->setFontStyle(null, '', 10);
+//            $pdf->setWhiteBackground();
+//            $pdf->Cell(0, 6, $windmill->getTurbine()->pdfToString(), 'TB', 1, 'L', true);
+//            $pdf->setFontStyle(null, 'B', 10);
+//            $pdf->setBlueBackground();
+//            $pdf->Cell(70, 6, $this->ts->trans('pdf_windfarm.cover.6_turbine_size'), 'TB', 0, 'R', true);
+//            $pdf->setFontStyle(null, '', 10);
+//            $pdf->setWhiteBackground();
+//            $pdf->Cell(0, 6, $this->ts->trans('pdf.cover.6_turbine_size_value', ['%height%' => $windmill->getTurbine()->getTowerHeight(), '%diameter%' => $windmill->getTurbine()->getRotorDiameter(), '%length%' => $windmill->getBladeType()->getLength()]), 'TB', 1, 'L', true);
+//            $pdf->setFontStyle(null, 'B', 10);
+//            $pdf->setBlueBackground();
+//            $pdf->Cell(70, 6, $this->ts->trans('pdf_windfarm.cover.7_blade_type'), 'TB', 0, 'R', true);
+//            $pdf->setFontStyle(null, '', 10);
+//            $pdf->setWhiteBackground();
+//            $pdf->Cell(0, 6, $windmill->getBladeType(), 'TB', 1, 'L', true);
+//            $pdf->setFontStyle(null, 'B', 10);
             $pdf->setBlueBackground();
-            $pdf->Cell(70, 6, $this->ts->trans('pdf.cover.5_turbine_model'), 'TB', 0, 'R', true);
+            $pdf->Cell(70, 6, $this->ts->trans('pdf_windfarm.cover.8_total_turbines'), 'TB', 0, 'R', true);
             $pdf->setFontStyle(null, '', 10);
             $pdf->setWhiteBackground();
-            $pdf->Cell(0, 6, $windmill->getTurbine()->pdfToString(), 'TB', 1, 'L', true);
+            $pdf->Cell(0, 6, $this->ts->trans('pdf_windfarm.cover.8_total_turbines_value', ['%windmills%' => $windfarm->getWindmillAmount(), '%power%' => $windfarm->getPower()]), 'TB', 1, 'L', true);
             $pdf->setFontStyle(null, 'B', 10);
             $pdf->setBlueBackground();
-            $pdf->Cell(70, 6, $this->ts->trans('pdf.cover.6_turbine_size'), 'TB', 0, 'R', true);
+            $pdf->Cell(70, 6, $this->ts->trans('pdf_windfarm.cover.9_startup_year'), 'TB', 0, 'R', true);
             $pdf->setFontStyle(null, '', 10);
             $pdf->setWhiteBackground();
-            $pdf->Cell(0, 6, $this->ts->trans('pdf.cover.6_turbine_size_value', ['%height%' => $windmill->getTurbine()->getTowerHeight(), '%diameter%' => $windmill->getTurbine()->getRotorDiameter(), '%length%' => $windmill->getBladeType()->getLength()]), 'TB', 1, 'L', true);
+            $pdf->Cell(0, 6, $this->ts->trans('pdf_windfarm.cover.9_startup_year_value', ['%year%' => $windfarm->getYear(), '%diff%' => $windfarm->getYearDiff()]), 'TB', 1, 'L', true);
             $pdf->setFontStyle(null, 'B', 10);
             $pdf->setBlueBackground();
-            $pdf->Cell(70, 6, $this->ts->trans('pdf.cover.7_blade_type'), 'TB', 0, 'R', true);
-            $pdf->setFontStyle(null, '', 10);
-            $pdf->setWhiteBackground();
-            $pdf->Cell(0, 6, $windmill->getBladeType(), 'TB', 1, 'L', true);
-            $pdf->setFontStyle(null, 'B', 10);
-            $pdf->setBlueBackground();
-            $pdf->Cell(70, 6, $this->ts->trans('pdf.cover.8_total_turbines'), 'TB', 0, 'R', true);
-            $pdf->setFontStyle(null, '', 10);
-            $pdf->setWhiteBackground();
-            $pdf->Cell(0, 6, $this->ts->trans('pdf.cover.8_total_turbines_value', ['%windmills%' => $windfarm->getWindmillAmount(), '%power%' => $windfarm->getPower()]), 'TB', 1, 'L', true);
-            $pdf->setFontStyle(null, 'B', 10);
-            $pdf->setBlueBackground();
-            $pdf->Cell(70, 6, $this->ts->trans('pdf.cover.9_startup_year'), 'TB', 0, 'R', true);
-            $pdf->setFontStyle(null, '', 10);
-            $pdf->setWhiteBackground();
-            $pdf->Cell(0, 6, $this->ts->trans('pdf.cover.9_startup_year_value', ['%year%' => $windfarm->getYear(), '%diff%' => $windfarm->getYearDiff()]), 'TB', 1, 'L', true);
-            $pdf->setFontStyle(null, 'B', 10);
-            $pdf->setBlueBackground();
-            $pdf->Cell(70, 6, $this->ts->trans('pdf.cover.10_om_regional_manager'), 'TB', 0, 'R', true);
+            $pdf->Cell(70, 6, $this->ts->trans('pdf_windfarm.cover.10_om_regional_manager'), 'TB', 0, 'R', true);
             $pdf->setFontStyle(null, '', 10);
             $pdf->setWhiteBackground();
             $pdf->Cell(0, 6, $windfarm->getMangerFullname(), 'TB', 1, 'L', true);
             // operators details
             $pdf->SetXY(CustomTcpdf::PDF_MARGIN_LEFT, $pdf->GetY() + 10);
             $pdf->setFontStyle(null, 'B', 10);
-            $pdf->setBlueBackground();
-            $pdf->Cell(70, 6, $this->ts->trans('pdf.cover.11_technicians'), 'TB', 0, 'R', true);
-            $pdf->setFontStyle(null, '', 10);
-            $pdf->setWhiteBackground();
-            $pdf->Cell(0, 6, implode(', ', $audit->getOperators()->getValues()), 'TB', 1, 'L', true);
-            // final details
-            $pdf->SetXY(CustomTcpdf::PDF_MARGIN_LEFT, $pdf->GetY() + 10);
-            $pdf->setFontStyle(null, 'B', 10);
-            $pdf->setBlueBackground();
-            $pdf->Cell(70, 6, $this->ts->trans('pdf.cover.12_audit_type'), 'TB', 0, 'R', true);
-            $pdf->setFontStyle(null, '', 10);
-            $pdf->setWhiteBackground();
-            $pdf->Cell(0, 6, $this->ts->trans($audit->getTypeStringLocalized()), 'TB', 1, 'L', true);
-            $pdf->setFontStyle(null, 'B', 10);
-            $pdf->setBlueBackground();
-            $pdf->Cell(70, 6, $this->ts->trans('pdf.cover.13_audit_date'), 'TB', 0, 'R', true);
-            $pdf->setFontStyle(null, '', 10);
-            $pdf->setWhiteBackground();
-            $pdf->Cell(0, 6, $audit->getPdfBeginDateString(), 'TB', 1, 'L', true);
-            $pdf->setFontStyle(null, 'B', 10);
+//            $pdf->setBlueBackground();
+//            $pdf->Cell(70, 6, $this->ts->trans('pdf_windfarm.cover.11_technicians'), 'TB', 0, 'R', true);
+//            $pdf->setFontStyle(null, '', 10);
+//            $pdf->setWhiteBackground();
+//            $pdf->Cell(0, 6, implode(', ', $audit->getOperators()->getValues()), 'TB', 1, 'L', true);
+//            // final details
+//            $pdf->SetXY(CustomTcpdf::PDF_MARGIN_LEFT, $pdf->GetY() + 10);
+//            $pdf->setFontStyle(null, 'B', 10);
+//            $pdf->setBlueBackground();
+//            $pdf->Cell(70, 6, $this->ts->trans('pdf_windfarm.cover.12_audit_type'), 'TB', 0, 'R', true);
+//            $pdf->setFontStyle(null, '', 10);
+//            $pdf->setWhiteBackground();
+//            $pdf->Cell(0, 6, $this->ts->trans($audit->getTypeStringLocalized()), 'TB', 1, 'L', true);
+//            $pdf->setFontStyle(null, 'B', 10);
+//            $pdf->setBlueBackground();
+//            $pdf->Cell(70, 6, $this->ts->trans('pdf_windfarm.cover.13_audit_date'), 'TB', 0, 'R', true);
+//            $pdf->setFontStyle(null, '', 10);
+//            $pdf->setWhiteBackground();
+//            $pdf->Cell(0, 6, $audit->getPdfBeginDateString(), 'TB', 1, 'L', true);
+//            $pdf->setFontStyle(null, 'B', 10);
             $pdf->setBlueBackground();
             $pdf->Cell(70, 6, $this->ts->trans('pdf.cover.14_blades_amout'), 'TB', 0, 'R', true);
             $pdf->setFontStyle(null, '', 10);
