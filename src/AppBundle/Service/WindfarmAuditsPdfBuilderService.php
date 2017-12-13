@@ -137,7 +137,7 @@ class WindfarmAuditsPdfBuilderService
         $this->ts->setLocale($this->locale);
 
         /** @var CustomTcpdf $pdf */
-        $pdf = $this->doInitialConfig($windfarm);
+        $pdf = $this->doInitialConfig($windfarm, $audits);
 
         // Add a page
         $pdf->setPrintHeader(true);
@@ -518,10 +518,11 @@ class WindfarmAuditsPdfBuilderService
 
     /**
      * @param Windfarm $windfarm
+     * @param array $audits
      *
      * @return \TCPDF
      */
-    private function doInitialConfig(Windfarm $windfarm)
+    private function doInitialConfig(Windfarm $windfarm, $audits)
     {
         /** @var CustomTcpdf $pdf */
         $pdf = $this->tcpdf->create($this->tha, $this->ts, $windfarm);
@@ -624,7 +625,7 @@ class WindfarmAuditsPdfBuilderService
 //            $pdf->setFontStyle(null, '', 10);
 //            $pdf->setWhiteBackground();
 //            $pdf->Cell(0, 6, implode(', ', $audit->getOperators()->getValues()), 'TB', 1, 'L', true);
-//            // final details
+            // final details
 //            $pdf->SetXY(CustomTcpdf::PDF_MARGIN_LEFT, $pdf->GetY() + 10);
 //            $pdf->setFontStyle(null, 'B', 10);
 //            $pdf->setBlueBackground();
@@ -640,10 +641,10 @@ class WindfarmAuditsPdfBuilderService
 //            $pdf->Cell(0, 6, $audit->getPdfBeginDateString(), 'TB', 1, 'L', true);
 //            $pdf->setFontStyle(null, 'B', 10);
             $pdf->setBlueBackground();
-            $pdf->Cell(70, 6, $this->ts->trans('pdf.cover.14_blades_amout'), 'TB', 0, 'R', true);
+            $pdf->Cell(70, 6, $this->ts->trans('pdf_windfarm.cover.14_blades_amout'), 'TB', 0, 'R', true);
             $pdf->setFontStyle(null, '', 10);
             $pdf->setWhiteBackground();
-            $pdf->Cell(0, 6, $this->ts->trans('pdf.cover.14_blades_amout_value'), 'TB', 1, 'L', true);
+            $pdf->Cell(0, 6, $this->ts->trans('pdf_windfarm.cover.14_blades_amout_value', array('%audits_amount%' => count($audits))), 'TB', 1, 'L', true);
             // footer
             $pdf->SetXY(CustomTcpdf::PDF_MARGIN_LEFT, 250);
             $pdf->setFontStyle(null, null, 8);
