@@ -8,7 +8,7 @@ pdf:
     6_turbine_size: DIMENSIONS EOLIENNE
     6_turbine_size_value: 'Tour %height%m / Rotor Ø%diameter%m / Pale %length%m'
     7_blade_type: MODELE PALE
-    8_total_turbines: TOT. Nº EOLIENNES / CAPACITE PE
+    8_total_turbines: 'TOT. Nº EOLIENNES / CAPACITE PE'
     8_total_turbines_value: '%windmills% éoliennes / %power%MW'
     9_startup_year: Mise en œuvre (années du PE)
     9_startup_year_value: '%year% (%diff% ans)'
@@ -92,6 +92,20 @@ pdf:
   footer:
     1_page: Page
     2_of: sur
+pdf_windfarm:
+  set_document_information:
+    1_title:
+    2_subject:
+  cover:
+    1_inspection: 'BLADE INSPECTION AT "%windfarm%"'
+    2_resume: 'GENERAL WIND FARM REPORT'
+    3_country: 'COUNTRY / REGION'
+    4_windfarm: 'WIND FARM'
+    8_total_turbines: 'TOTAL Nr. WTG / WF Capacity'
+    8_total_turbines_value: '%windmills% wind turbines / %power%MW'
+    9_startup_year: Comissioning date (years WF)
+    9_startup_year_value: '%year% (%diff% years)'
+    10_om_regional_manager: O&M REGIONAL MANAGER
 enum:
   blade_damage_position:
     1_VP: SP

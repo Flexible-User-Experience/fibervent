@@ -368,7 +368,7 @@ class WindfarmAdminController extends AbstractBaseAdminController
      * @throws NotFoundHttpException     If the object does not exist
      * @throws AccessDeniedHttpException If access is not granted
      */
-    public function pdfAttatchemntAction(Request $request = null)
+    public function pdfAttachmentAction(Request $request = null)
     {
         $request = $this->resolveRequest($request);
         $id = $request->get($this->admin->getIdParameter());
@@ -385,7 +385,12 @@ class WindfarmAdminController extends AbstractBaseAdminController
         }
 
         $damageCategories = $this->get('app.damage_category_repository')->findAllSortedByCategory();
-        $statuses = $request->get('audit_status');
+
+        $statuses = null;
+        if ($request->get('audit_status')) {
+            $statuses = explode('-', $request->get('audit_status'));
+        }
+
         $year = intval($request->get('year'));
 
         $audits = $this->getDoctrine()->getRepository('AppBundle:Audit')->getAuditsByWindfarmByStatusesAndYear(
@@ -396,7 +401,7 @@ class WindfarmAdminController extends AbstractBaseAdminController
 
         /** @var WindfarmAuditsPdfBuilderService $wapbs */
         $wapbs = $this->get('app.windfarm_audits_pdf_builder');
-        $pdf = $wapbs->build($object);
+        $pdf = $wapbs->build($object, $damageCategories, $audits);
 
         return new Response($pdf->Output('informe_auditorias_parque_eolico_'.$object->getId().'.pdf', 'I'), 200, array('Content-type' => 'application/pdf'));
     }
