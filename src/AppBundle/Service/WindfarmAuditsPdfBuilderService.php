@@ -34,7 +34,7 @@ class WindfarmAuditsPdfBuilderService
 {
     const SECTION_SPACER_V  = 2;
     const SHOW_V1_SECTIONS  = false;
-    const SHOW_GRID_DEBUG   = false;
+    const SHOW_GRID_DEBUG   = true;
     const SHOW_ONLY_DIAGRAM = false;
 
     /**
@@ -126,16 +126,18 @@ class WindfarmAuditsPdfBuilderService
 
     /**
      * @param Windfarm $windfarm
+     * @param array $damageCategories
+     * @param array $audits
      *
      * @return \TCPDF
      */
-    public function build(Windfarm $windfarm)
+    public function build(Windfarm $windfarm, $damageCategories, $audits)
     {
         $this->locale = WindfarmLanguageEnum::getEnumArray()[$windfarm->getLanguage()];
         $this->ts->setLocale($this->locale);
 
         /** @var CustomTcpdf $pdf */
-        $pdf = $this->doInitialConfig($audit, $windmill, $windfarm);
+        $pdf = $this->doInitialConfig($windfarm);
 
         // Add a page
         $pdf->setPrintHeader(true);
@@ -511,16 +513,14 @@ class WindfarmAuditsPdfBuilderService
     }
 
     /**
-     * @param Audit    $audit
-     * @param Windmill $windmill
      * @param Windfarm $windfarm
      *
      * @return \TCPDF
      */
-    private function doInitialConfig(Audit $audit, Windmill $windmill, Windfarm $windfarm)
+    private function doInitialConfig(Windfarm $windfarm)
     {
         /** @var CustomTcpdf $pdf */
-        $pdf = $this->tcpdf->create($this->tha, $audit, $this->ts);
+        $pdf = $this->tcpdf->create($this->tha, $this->ts, $windfarm);
         // set document information
         $pdf->SetCreator(PDF_CREATOR);
         $pdf->SetAuthor('Fibervent');
