@@ -11,6 +11,7 @@ use AppBundle\Entity\Observation;
 use AppBundle\Entity\Photo;
 use AppBundle\Entity\Windfarm;
 use AppBundle\Entity\Windmill;
+use AppBundle\Entity\WindmillBlade;
 use AppBundle\Enum\WindfarmLanguageEnum;
 use AppBundle\Pdf\CustomTcpdf;
 use AppBundle\Repository\CustomerRepository;
@@ -210,10 +211,10 @@ class WindfarmAuditsPdfBuilderService
             $pdf->Ln(self::SECTION_SPACER_V);
             $pdf->setFontStyle(null, '', 9);
             // resume damages table
-            $this->drawWindfarmInspectionTableHeader($pdf);
+            $this->drawWindfarmInspectionTableHeader($pdf, $damageCategories);
             /** @var Audit $audit */
             foreach ($audits as $audit) {
-                $this->drawWindfarmInspectionTableBodyRow($pdf, $audit);
+                $this->drawWindfarmInspectionTableBodyRow($pdf, $audit, $damageCategories);
             }
         }
 
@@ -717,8 +718,9 @@ class WindfarmAuditsPdfBuilderService
      * Draw damage table header.
      *
      * @param CustomTcpdf $pdf
+     * @param array $damageCategories
      */
-    private function drawWindfarmInspectionTableHeader(CustomTcpdf $pdf)
+    private function drawWindfarmInspectionTableHeader(CustomTcpdf $pdf, $damageCategories)
     {
         $damageHeaderWidth = 80;
         $pdf->setBlueBackground();
@@ -728,11 +730,10 @@ class WindfarmAuditsPdfBuilderService
         $pdf->Cell($damageHeaderWidth, 6, $this->ts->trans('pdf.windfarm_inspection_table_header.3_damage_class'), 1, 1, 'C', true);
         $pdf->SetX(CustomTcpdf::PDF_MARGIN_LEFT + 85);
         $pdf->setFontStyle(null, '', 9);
-        $dcs = $this->dcr->findEnabledSortedByCategory();
         /** @var DamageCategory $dc */
-        foreach ($dcs as $dc) {
+        foreach ($damageCategories as $key => $dc) {
             $pdf->setBackgroundHexColor($dc->getColour());
-            $pdf->Cell($damageHeaderWidth / count($dcs), 6, $dc->getCategory(), 1, 0, 'C', true);
+            $pdf->Cell($damageHeaderWidth / count($damageCategories), 6, $dc->getCategory(), 1, ($key + 1 == count($damageCategories)), 'C', true);
         }
         $pdf->setWhiteBackground();
     }
@@ -741,23 +742,24 @@ class WindfarmAuditsPdfBuilderService
      * Draw damage table header.
      *
      * @param CustomTcpdf $pdf
+     * @param Audit $audit
+     * @param array $damageCategories
      */
-    private function drawWindfarmInspectionTableBodyRow(CustomTcpdf $pdf, Audit $audit)
+    private function drawWindfarmInspectionTableBodyRow(CustomTcpdf $pdf, Audit $audit, $damageCategories)
     {
         $damageHeaderWidth = 80;
-        $pdf->setBlueBackground();
-        $pdf->setFontStyle(null, 'B', 9);
-        $pdf->Cell(50, 12, $this->ts->trans('pdf.windfarm_inspection_table_header.1_number'), 1, 0, 'C', true);
-        $pdf->Cell(35, 12, $this->ts->trans('pdf.windfarm_inspection_table_header.2_blade'), 1, 0, 'C', true);
-        $pdf->Cell($damageHeaderWidth, 6, $this->ts->trans('pdf.windfarm_inspection_table_header.3_damage_class'), 1, 1, 'C', true);
-        $pdf->SetX(CustomTcpdf::PDF_MARGIN_LEFT + 85);
-        $pdf->setFontStyle(null, '', 9);
-        $dcs = $this->dcr->findEnabledSortedByCategory();
-        /** @var DamageCategory $dc */
-        foreach ($dcs as $dc) {
-            $pdf->setBackgroundHexColor($dc->getColour());
-            $pdf->Cell($damageHeaderWidth / count($dcs), 6, $dc->getCategory(), 1, 0, 'C', true);
-        }
         $pdf->setWhiteBackground();
+        $pdf->setFontStyle(null, '', 9);
+        $pdf->Cell(50, 6, $audit->getWindmill()->getCode(), 1, 0, 'C', true);
+        $i = 0;
+        /** @var WindmillBlade $windmillBlade */
+        foreach ($audit->getAuditWindmillBlades() as $windmillBlade) {
+            $i++;
+            $pdf->Cell(35, 6, $i, 1, 0, 'C', true);
+            /** @var DamageCategory $damageCategory */
+            foreach ($damageCategories as $key => $damageCategory) {
+                $pdf->Cell($damageHeaderWidth / count($damageCategories), 6, 'X', 1, ($key + 1 == count($damageCategories)), 'C', true);
+            }
+        }
     }
 }
