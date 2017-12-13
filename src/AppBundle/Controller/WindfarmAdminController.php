@@ -401,7 +401,7 @@ class WindfarmAdminController extends AbstractBaseAdminController
 
         /** @var WindfarmAuditsPdfBuilderService $wapbs */
         $wapbs = $this->get('app.windfarm_audits_pdf_builder');
-        $pdf = $wapbs->build($object, $damageCategories, $audits);
+        $pdf = $wapbs->build($object, $damageCategories, $audits, $year);
 
         return new Response($pdf->Output('informe_auditorias_parque_eolico_'.$object->getId().'.pdf', 'I'), 200, array('Content-type' => 'application/pdf'));
     }
