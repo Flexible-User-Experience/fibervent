@@ -368,7 +368,7 @@ class WindfarmAdminController extends AbstractBaseAdminController
      * @throws NotFoundHttpException     If the object does not exist
      * @throws AccessDeniedHttpException If access is not granted
      */
-    public function pdfAttatchemntAction(Request $request = null)
+    public function pdfAttachmentAction(Request $request = null)
     {
         $request = $this->resolveRequest($request);
         $id = $request->get($this->admin->getIdParameter());
