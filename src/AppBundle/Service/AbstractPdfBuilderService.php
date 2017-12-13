@@ -36,6 +36,7 @@ class AbstractPdfBuilderService
     const SHOW_WINDFARM_INSPECTION_OVERVIEW_SECTION = false;
     const SHOW_INTRODUCTION_SECTION                 = false;
     const SHOW_INSPECTION_DESCRIPTION_SECTION       = true;
+    const SHOW_CONTACT_SECTION                      = true;
 
     /**
      * @var TCPDFController
@@ -229,12 +230,84 @@ class AbstractPdfBuilderService
     }
 
     /**
+     * Draw contact final section
+     *
+     * @param CustomTcpdf $pdf
+     */
+    protected function drawContactSection(CustomTcpdf $pdf)
+    {
+        $pdf->setFontStyle(null, '', 9);
+        $pdf->Write(0, $this->ts->trans('pdf.inspection_description.2_description'), '', false, 'L', true);
+        $pdf->Ln(self::SECTION_SPACER_V_BIG);
+        $pdf->Cell(10, 0, '', 0, 0);
+        $pdf->Cell(0, 0, $this->ts->trans('pdf.inspection_description.3_offices'), 0, 1, 'L', 0, '');
+        $pdf->Ln(5);
+        $pdf->Cell(20, 0, '', 0, 0);
+        $pdf->Cell(0, 0, 'Pol. Industrial Pal de Solans, Parcela 2', 0, 1, 'L', 0, '');
+        $pdf->Cell(20, 0, '', 0, 0);
+        $pdf->Cell(0, 0, '43519 El Perelló (Tarragona)', 0, 1, 'L', 0, '');
+        $pdf->Cell(20, 0, '', 0, 0);
+        $pdf->Cell(0, 0, 'Tel: +34 977 490 713', 0, 1, 'L', 0, '');
+        $pdf->setFontStyle(null, 'U', 9);
+        $pdf->setBlueText();
+        $pdf->Cell(20, 0, '', 0, 0);
+        $pdf->Cell(0, 0, 'fibervent@fibervent.com', 0, 1, 'L', 0, 'mailto:fibervent@fibervent.com');
+        $pdf->Cell(20, 0, '', 0, 0);
+        $pdf->Cell(0, 0, 'www.fibervent.com', 0, 1, 'L', 0, 'www.fibervent.com');
+        $pdf->setFontStyle(null, '', 9);
+        $pdf->setBlackText();
+        $pdf->Ln(self::SECTION_SPACER_V_BIG);
+        $pdf->Cell(10, 0, '', 0, 0);
+        $pdf->Cell(0, 0, $this->ts->trans('pdf.inspection_description.4_phones_emails'), 0, 1, 'L', 0, '');
+        $pdf->Ln(5);
+        $pdf->Cell(20, 0, '', 0, 0);
+        $pdf->Cell(0, 0, 'David Espasa (+34 636 317 884)', 0, 1, 'L', 0, '');
+        $pdf->setFontStyle(null, 'U', 9);
+        $pdf->setBlueText();
+        $pdf->Cell(20, 0, '', 0, 0);
+        $pdf->Cell(0, 0, 'info@fibervent.com', 0, 1, 'L', 0, 'mailto:info@fibervent.com');
+        $pdf->setFontStyle(null, '', 9);
+        $pdf->setBlackText();
+        $pdf->Ln(3);
+        $pdf->Cell(20, 0, '', 0, 0);
+        $pdf->Cell(0, 0, 'Eduard Borràs (+34 636 690 757)', 0, 1, 'L', 0, '');
+        $pdf->setFontStyle(null, 'U', 9);
+        $pdf->setBlueText();
+        $pdf->Cell(20, 0, '', 0, 0);
+        $pdf->Cell(0, 0, 'fibervent@fibervent.com', 0, 1, 'L', 0, 'mailto:fibervent@fibervent.com');
+        $pdf->setFontStyle(null, '', 9);
+        $pdf->setBlackText();
+        $pdf->Ln(3);
+        $pdf->Cell(20, 0, '', 0, 0);
+        $pdf->Cell(0, 0, 'Josep Marsal (+34 647 610 351)', 0, 1, 'L', 0, '');
+        $pdf->setFontStyle(null, 'U', 9);
+        $pdf->setBlueText();
+        $pdf->Cell(20, 0, '', 0, 0);
+        $pdf->Cell(0, 0, 'tecnic@fibervent.com', 0, 1, 'L', 0, 'mailto:tecnic@fibervent.com');
+        $pdf->setFontStyle(null, '', 9);
+        $pdf->setBlackText();
+        $pdf->Ln(3);
+        $pdf->Cell(20, 0, '', 0, 0);
+        $pdf->Cell(0, 0, 'Sergio López (+34 618 277 158)', 0, 1, 'L', 0, '');
+        $pdf->setFontStyle(null, 'U', 9);
+        $pdf->setBlueText();
+        $pdf->Cell(20, 0, '', 0, 0);
+        $pdf->Cell(0, 0, 'oficinatecnica@fibervent.com', 0, 1, 'L', 0, 'mailto:oficinatecnica@fibervent.com');
+        $pdf->setFontStyle(null, '', 9);
+        $pdf->setBlackText();
+        $pdf->Ln(15);
+        $pdf->Write(0, $this->ts->trans('pdf.inspection_description.5_gratitude'), '', false, 'L', true);
+        $pdf->Ln(5);
+        $pdf->Write(0, 'FIBERVENT, S.L.', '', false, 'L', true);
+    }
+
+    /**
      * @param DamageCategory $damageCategory
      * @param AuditWindmillBlade $auditWindmillBlade
      *
      * @return string
      */
-    protected function markDamageCategory(DamageCategory $damageCategory, AuditWindmillBlade $auditWindmillBlade)
+    private function markDamageCategory(DamageCategory $damageCategory, AuditWindmillBlade $auditWindmillBlade)
     {
         $result = '';
         /** @var BladeDamage $bladeDamage */

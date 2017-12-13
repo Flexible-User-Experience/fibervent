@@ -89,6 +89,15 @@ class WindfarmAuditsPdfBuilderService extends AbstractPdfBuilderService
             $this->drawInspectionDescriptionSection($pdf, 1); // TODO find right diagram type from audits collection
         }
 
+        // Contact section
+        if (self::SHOW_CONTACT_SECTION) {
+            $pdf->AddPage();
+            $pdf->setFontStyle(null, 'B', 11);
+            $pdf->Write(0, $this->ts->trans('pdf_windfarm.contact_section.1_title'), '', false, 'L', true);
+            $pdf->Ln(5);
+            $this->drawContactSection($pdf);
+        }
+
         return $pdf;
     }
 

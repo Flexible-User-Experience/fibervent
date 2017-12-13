@@ -116,6 +116,8 @@ pdf_windfarm:
     2_description: 'This report is the result of the visual inspection done by telephoto lens on the ground in the "%windfarm%" Wind Farm on year %year%. The equipment, property of FIBERVENT, used in this inspection is the following:'
   inspection_description:
     1_title: 'INSPECTION DESCRIPTION'
+  contact_section:
+    1_title: 'CONTACT'
 enum:
   blade_damage_position:
     1_VP: PS
