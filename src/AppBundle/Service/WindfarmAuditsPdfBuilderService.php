@@ -89,6 +89,16 @@ class WindfarmAuditsPdfBuilderService extends AbstractPdfBuilderService
             $this->drawInspectionDescriptionSection($pdf, 1); // TODO find right diagram type from audits collection
         }
 
+        // Individual summary of damages section
+        if (self::SHOW_INDIVIDUAL_SUMMARY_SECTION) {
+            $pdf->setBlackText();
+            $pdf->setFontStyle(null, 'B', 11);
+            $pdf->Write(0, $this->ts->trans('pdf_windfarm.individual_summary.1_title'), '', false, 'L', true);
+            $pdf->Ln(self::SECTION_SPACER_V);
+            $pdf->setFontStyle(null, '', 9);
+            $pdf->Ln(self::SECTION_SPACER_V_BIG);
+        }
+
         // Contact section
         if (self::SHOW_CONTACT_SECTION) {
             $pdf->AddPage();
