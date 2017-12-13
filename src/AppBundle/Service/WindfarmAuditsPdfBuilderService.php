@@ -33,6 +33,7 @@ use Symfony\Bundle\FrameworkBundle\Templating\Helper\AssetsHelper;
 class WindfarmAuditsPdfBuilderService
 {
     const SECTION_SPACER_V  = 2;
+    const SHOW_COVER_SECTION = true;
     const SHOW_V1_SECTIONS  = false;
     const SHOW_GRID_DEBUG   = true;
     const SHOW_ONLY_DIAGRAM = false;
@@ -153,7 +154,7 @@ class WindfarmAuditsPdfBuilderService
             $pdf->Write(0, $this->ts->trans('pdf.intro.1_title'), '', false, 'L', true);
             $pdf->Ln(self::SECTION_SPACER_V);
             $pdf->setFontStyle(null, '', 9);
-            $pdf->Write(0, $this->ts->trans('pdf.intro.2_description', ['%windfarm%' => $windfarm->getName(), '%begin%' => $audit->getPdfBeginDateString(), '%end%' => $audit->getPdfEndDateString()]), '', false, 'L', true);
+//            $pdf->Write(0, $this->ts->trans('pdf.intro.2_description', ['%windfarm%' => $windfarm->getName(), '%begin%' => $audit->getPdfBeginDateString(), '%end%' => $audit->getPdfEndDateString()]), '', false, 'L', true);
             $pdf->Ln(self::SECTION_SPACER_V);
             // Introduction table
             $pdf->setCellPaddings(20, 2, 20, 2);
@@ -208,8 +209,12 @@ class WindfarmAuditsPdfBuilderService
             $pdf->Write(0, $this->ts->trans('pdf.windfarm_inspection_table_header.main'), '', false, 'L', true);
             $pdf->Ln(self::SECTION_SPACER_V);
             $pdf->setFontStyle(null, '', 9);
-            // damage table
+            // resume damages table
             $this->drawWindfarmInspectionTableHeader($pdf);
+            /** @var Audit $audit */
+            foreach ($audits as $audit) {
+                $this->drawWindfarmInspectionTableBodyRow($pdf, $audit);
+            }
         }
 
         if (self::SHOW_V1_SECTIONS) {
@@ -538,7 +543,7 @@ class WindfarmAuditsPdfBuilderService
         $pdf->SetAutoPageBreak(true, CustomTcpdf::PDF_MARGIN_BOTTOM);
         // set image scale factor
         $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
-        if (!self::SHOW_ONLY_DIAGRAM && self::SHOW_V1_SECTIONS) {
+        if (self::SHOW_COVER_SECTION) {
             // add start page
             $pdf->startPage(PDF_PAGE_ORIENTATION, PDF_PAGE_FORMAT);
             // logo
@@ -557,9 +562,9 @@ class WindfarmAuditsPdfBuilderService
             $pdf->setBlackText();
             $pdf->setBlueLine();
             $pdf->setBlueBackground();
-            $pdf->Cell(0, 8, $this->ts->trans('pdf_windfarm.cover.1_inspection').' '.$windfarm->getName(), 'TB', 1, 'C', true);
+            $pdf->Cell(0, 8, $this->ts->trans('pdf_windfarm.cover.1_inspection', array('%windfarm%' => $windfarm->getName())), 'TB', 1, 'C', true);
             $pdf->setWhiteBackground();
-//            $pdf->Cell(0, 8, $this->ts->trans('pdf_windfarm.cover.2_resume').' '.$windmill->getCode(), 'TB', 1, 'C', true);
+            $pdf->Cell(0, 8, $this->ts->trans('pdf_windfarm.cover.2_resume'), 'TB', 1, 'C', true);
             $pdf->Cell(0, 8, $windfarm->getPdfLocationString(), 'TB', 1, 'C', true);
             $pdf->setFontStyle();
             // table detail section
@@ -688,6 +693,27 @@ class WindfarmAuditsPdfBuilderService
     }
 
     /**
+     * Draw damage table body row.
+     *
+     * @param CustomTcpdf $pdf
+     * @param int         $key
+     * @param BladeDamage $bladeDamage
+     */
+    private function drawDamageTableBodyRow(CustomTcpdf $pdf, $key, BladeDamage $bladeDamage)
+    {
+        $pdf->Cell(7, 0, $key + 1, 1, 0, 'C', true);
+        $pdf->Cell(9, 0, $bladeDamage->getDamage()->getCode(), 1, 0, 'C', true);
+        $pdf->Cell(8, 0, $this->ts->trans($bladeDamage->getPositionStringLocalized()), 1, 0, 'C', true);
+        $pdf->Cell(12, 0, $bladeDamage->getRadius().'m', 1, 0, 'C', true);
+        $pdf->Cell(17, 0, $this->ts->trans($bladeDamage->getLocalizedDistanceString(), array('%dist%' => $bladeDamage->getDistanceScaled())), 1, 0, 'C', true);
+        $pdf->Cell(16, 0, $bladeDamage->getSize().'cm', 1, 0, 'C', true);
+        $pdf->Cell(86, 0, $this->dr->getlocalizedDesciption($bladeDamage->getDamage()->getId(), $this->locale), 1, 0, 'L', true);
+        $pdf->setBackgroundHexColor($bladeDamage->getDamageCategory()->getColour());
+        $pdf->Cell(0, 0, $bladeDamage->getDamageCategory()->getCategory(), 1, 1, 'C', true);
+        $pdf->setWhiteBackground();
+    }
+
+    /**
      * Draw damage table header.
      *
      * @param CustomTcpdf $pdf
@@ -712,23 +738,26 @@ class WindfarmAuditsPdfBuilderService
     }
 
     /**
-     * Draw damage table body row.
+     * Draw damage table header.
      *
      * @param CustomTcpdf $pdf
-     * @param int         $key
-     * @param BladeDamage $bladeDamage
      */
-    private function drawDamageTableBodyRow(CustomTcpdf $pdf, $key, BladeDamage $bladeDamage)
+    private function drawWindfarmInspectionTableBodyRow(CustomTcpdf $pdf, Audit $audit)
     {
-        $pdf->Cell(7, 0, $key + 1, 1, 0, 'C', true);
-        $pdf->Cell(9, 0, $bladeDamage->getDamage()->getCode(), 1, 0, 'C', true);
-        $pdf->Cell(8, 0, $this->ts->trans($bladeDamage->getPositionStringLocalized()), 1, 0, 'C', true);
-        $pdf->Cell(12, 0, $bladeDamage->getRadius().'m', 1, 0, 'C', true);
-        $pdf->Cell(17, 0, $this->ts->trans($bladeDamage->getLocalizedDistanceString(), array('%dist%' => $bladeDamage->getDistanceScaled())), 1, 0, 'C', true);
-        $pdf->Cell(16, 0, $bladeDamage->getSize().'cm', 1, 0, 'C', true);
-        $pdf->Cell(86, 0, $this->dr->getlocalizedDesciption($bladeDamage->getDamage()->getId(), $this->locale), 1, 0, 'L', true);
-        $pdf->setBackgroundHexColor($bladeDamage->getDamageCategory()->getColour());
-        $pdf->Cell(0, 0, $bladeDamage->getDamageCategory()->getCategory(), 1, 1, 'C', true);
+        $damageHeaderWidth = 80;
+        $pdf->setBlueBackground();
+        $pdf->setFontStyle(null, 'B', 9);
+        $pdf->Cell(50, 12, $this->ts->trans('pdf.windfarm_inspection_table_header.1_number'), 1, 0, 'C', true);
+        $pdf->Cell(35, 12, $this->ts->trans('pdf.windfarm_inspection_table_header.2_blade'), 1, 0, 'C', true);
+        $pdf->Cell($damageHeaderWidth, 6, $this->ts->trans('pdf.windfarm_inspection_table_header.3_damage_class'), 1, 1, 'C', true);
+        $pdf->SetX(CustomTcpdf::PDF_MARGIN_LEFT + 85);
+        $pdf->setFontStyle(null, '', 9);
+        $dcs = $this->dcr->findEnabledSortedByCategory();
+        /** @var DamageCategory $dc */
+        foreach ($dcs as $dc) {
+            $pdf->setBackgroundHexColor($dc->getColour());
+            $pdf->Cell($damageHeaderWidth / count($dcs), 6, $dc->getCategory(), 1, 0, 'C', true);
+        }
         $pdf->setWhiteBackground();
     }
 }

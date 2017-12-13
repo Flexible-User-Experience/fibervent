@@ -385,7 +385,12 @@ class WindfarmAdminController extends AbstractBaseAdminController
         }
 
         $damageCategories = $this->get('app.damage_category_repository')->findAllSortedByCategory();
-        $statuses = $request->get('audit_status');
+
+        $statuses = null;
+        if ($request->get('audit_status')) {
+            $statuses = explode('-', $request->get('audit_status'));
+        }
+
         $year = intval($request->get('year'));
 
         $audits = $this->getDoctrine()->getRepository('AppBundle:Audit')->getAuditsByWindfarmByStatusesAndYear(

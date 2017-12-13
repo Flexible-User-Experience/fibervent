@@ -62,6 +62,7 @@ class BackendControllerTest extends AbstractBaseTest
             array('/admin/windfarms/windfarm/1/show'),
             array('/admin/windfarms/windfarm/1/map'),
             array('/admin/windfarms/windfarm/1/excel'),
+            array('/admin/windfarms/windfarm/1/pdf'),
             array('/admin/windfarms/windmill/list'),
             array('/admin/windfarms/windmill/create'),
             array('/admin/windfarms/windmill/1/edit'),
