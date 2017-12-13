@@ -10,8 +10,6 @@ use AppBundle\Entity\DamageCategory;
 use AppBundle\Entity\Observation;
 use AppBundle\Entity\Photo;
 use AppBundle\Entity\Windfarm;
-use AppBundle\Entity\Windmill;
-use AppBundle\Entity\WindmillBlade;
 use AppBundle\Enum\WindfarmLanguageEnum;
 use AppBundle\Pdf\CustomTcpdf;
 use AppBundle\Repository\CustomerRepository;
@@ -752,15 +750,36 @@ class WindfarmAuditsPdfBuilderService
         $pdf->setFontStyle(null, '', 9);
         $pdf->Cell(50, 18, $audit->getWindmill()->getCode(), 1, 0, 'C', true);
         $i = 0;
-        /** @var WindmillBlade $windmillBlade */
-        foreach ($audit->getAuditWindmillBlades() as $windmillBlade) {
+        /** @var AuditWindmillBlade $auditWindmillBlade */
+        foreach ($audit->getAuditWindmillBlades() as $auditWindmillBlade) {
             $i++;
             $pdf->SetX(CustomTcpdf::PDF_MARGIN_LEFT + 50);
             $pdf->Cell(35, 6, $i, 1, 0, 'C', true);
             /** @var DamageCategory $damageCategory */
             foreach ($damageCategories as $key => $damageCategory) {
-                $pdf->Cell($damageHeaderWidth / count($damageCategories), 6, 'X', 1, ($key + 1 == count($damageCategories)), 'C', true);
+                $pdf->Cell($damageHeaderWidth / count($damageCategories), 6, $this->markDamageCategory($damageCategory, $auditWindmillBlade), 1, ($key + 1 == count($damageCategories)), 'C', true);
             }
         }
+    }
+
+    /**
+     * @param DamageCategory $damageCategory
+     * @param AuditWindmillBlade $auditWindmillBlade
+     *
+     * @return string
+     */
+    private function markDamageCategory(DamageCategory $damageCategory, AuditWindmillBlade $auditWindmillBlade)
+    {
+        $result = '';
+        /** @var BladeDamage $bladeDamage */
+        foreach ($auditWindmillBlade->getBladeDamages() as $bladeDamage) {
+            if ($bladeDamage->getDamageCategory()->getId() == $damageCategory->getId()) {
+                $result = 'X';
+
+                break;
+            }
+        }
+
+        return $result;
     }
 }
