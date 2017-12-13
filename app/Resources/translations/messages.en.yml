@@ -111,6 +111,11 @@ pdf_windfarm:
       1_number: 'No. WTG'
       2_blade: 'BLADE'
       3_damage_class: 'DAMAGE CLASS'
+  intro:
+    1_title: 'INTRODUCTION'
+    2_description: 'This report is the result of the visual inspection done by telephoto lens on the ground in the "%windfarm%" Wind Farm on year %year%. The equipment, property of FIBERVENT, used in this inspection is the following:'
+  inspection_description:
+    1_title: 'INSPECTION DESCRIPTION'
 enum:
   blade_damage_position:
     1_VP: PS

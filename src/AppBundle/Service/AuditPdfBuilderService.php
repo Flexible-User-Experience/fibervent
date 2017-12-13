@@ -49,40 +49,30 @@ class AuditPdfBuilderService extends AbstractPdfBuilderService
             $pdf->setBlackText();
             $pdf->setFontStyle(null, 'B', 11);
             $pdf->Write(0, $this->ts->trans('pdf.intro.1_title'), '', false, 'L', true);
-            $pdf->Ln(2);
+            $pdf->Ln(self::SECTION_SPACER_V);
             $pdf->setFontStyle(null, '', 9);
             $pdf->Write(0, $this->ts->trans('pdf.intro.2_description', ['%windfarm%' => $windfarm->getName(), '%begin%' => $audit->getPdfBeginDateString(), '%end%' => $audit->getPdfEndDateString()]), '', false, 'L', true);
-            $pdf->Ln(2);
+            $pdf->Ln(self::SECTION_SPACER_V);
             // Introduction table
-            $pdf->setCellPaddings(20, 2, 20, 2);
-            $pdf->setCellMargins(0, 0, 0, 0);
-            $pdf->MultiCell(0, 0, $this->ts->trans('pdf.intro.3_list'), 1, 'L', false, 1, '', '', true, 0, true);
-            $pdf->setCellPaddings(1, 1, 1, 1);
-            $pdf->setCellMargins(0, 0, 0, 0);
-            $pdf->Ln(10);
+            $this->drawIntroductionTable($pdf);
+            $pdf->Ln(self::SECTION_SPACER_V_BIG);
             // Damages categorization
             $pdf->setFontStyle(null, 'B', 11);
             $pdf->Write(0, $this->ts->trans('pdf.damage_catalog.1_title'), '', false, 'L', true);
-            $pdf->Ln(2);
+            $pdf->Ln(self::SECTION_SPACER_V);
             $pdf->setFontStyle(null, '', 9);
             $pdf->Write(0, $this->ts->trans('pdf.damage_catalog.2_subtitle'), '', false, 'L', true);
-            $pdf->Ln(2);
+            $pdf->Ln(self::SECTION_SPACER_V);
             // Damages table
-            if (!self::SHOW_ONLY_DIAGRAM) {
-                $this->drawDamageCategoriesTable($pdf);
-            }
+            $this->drawDamageCategoriesTable($pdf);
             $pdf->setBlueLine();
             $pdf->setWhiteBackground();
             $pdf->Ln(self::SECTION_SPACER_V_BIG);
             // Inspection description
             $pdf->setFontStyle(null, 'B', 11);
             $pdf->Write(0, $this->ts->trans('pdf.audit_description.1_title'), '', false, 'L', true);
-            $pdf->Ln(2);
-            $pdf->setFontStyle(null, '', 9);
-            $pdf->Write(0, $this->ts->trans('pdf.audit_description.2_description'), '', false, 'L', true);
-            $pdf->Ln(2);
-            // Audit description with windmill image schema
-            $pdf->Image($this->tha->getUrl('/bundles/app/images/tubrine_diagrams/'.$audit->getDiagramType().'.jpg'), CustomTcpdf::PDF_MARGIN_LEFT + 50, $pdf->GetY(), null, 40);
+            $pdf->Ln(self::SECTION_SPACER_V);
+            $this->drawInspectionDescriptionSection($pdf, $audit->getDiagramType());
             $pdf->AddPage();
         }
         $pdf->setCellPaddings(1, 1, 1, 1);

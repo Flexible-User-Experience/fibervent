@@ -32,6 +32,10 @@ class AbstractPdfBuilderService
     const SHOW_V1_SECTIONS     = false;
     const SHOW_GRID_DEBUG      = true;
     const SHOW_ONLY_DIAGRAM    = false;
+    const SHOW_DAMAGE_CATEGORIES_SECTION            = false;
+    const SHOW_WINDFARM_INSPECTION_OVERVIEW_SECTION = false;
+    const SHOW_INTRODUCTION_SECTION                 = false;
+    const SHOW_INSPECTION_DESCRIPTION_SECTION       = true;
 
     /**
      * @var TCPDFController
@@ -121,6 +125,20 @@ class AbstractPdfBuilderService
     }
 
     /**
+     * Draw introduction table
+     *
+     * @param CustomTcpdf $pdf
+     */
+    protected function drawIntroductionTable(CustomTcpdf $pdf)
+    {
+        $pdf->setCellPaddings(20, 2, 20, 2);
+        $pdf->setCellMargins(0, 0, 0, 0);
+        $pdf->MultiCell(0, 0, $this->ts->trans('pdf.intro.3_list'), 1, 'L', false, 1, '', '', true, 0, true);
+        $pdf->setCellPaddings(1, 1, 1, 1);
+        $pdf->setCellMargins(0, 0, 0, 0);
+    }
+
+    /**
      * Draw damage categories full table
      *
      * @param CustomTcpdf $pdf
@@ -143,6 +161,21 @@ class AbstractPdfBuilderService
             $pdf->MultiCell(60, 14, $item->getDescription(), 1, 'L', 1, 0, '', '', true, 0, false, true, 14, 'M');
             $pdf->MultiCell(0, 14, $item->getRecommendedAction(), 1, 'L', 1, 1, '', '', true, 0, false, true, 14, 'M');
         }
+    }
+
+    /**
+     * Draw inspection description section
+     *
+     * @param CustomTcpdf $pdf
+     * @param int         $diagramType
+     */
+    protected function drawInspectionDescriptionSection(CustomTcpdf $pdf, $diagramType)
+    {
+        $pdf->setFontStyle(null, '', 9);
+        $pdf->Write(0, $this->ts->trans('pdf.audit_description.2_description'), '', false, 'L', true);
+        $pdf->Ln(self::SECTION_SPACER_V);
+        // Audit description with windmill image schema
+        $pdf->Image($this->tha->getUrl('/bundles/app/images/tubrine_diagrams/'.$diagramType.'.jpg'), CustomTcpdf::PDF_MARGIN_LEFT + 50, $pdf->GetY(), null, 40);
     }
 
     /**

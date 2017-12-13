@@ -18,12 +18,13 @@ class WindfarmAuditsPdfBuilderService extends AbstractPdfBuilderService
 {
     /**
      * @param Windfarm $windfarm
-     * @param array $damageCategories
-     * @param array $audits
+     * @param array    $damageCategories
+     * @param array    $audits
+     * @param integer  $year
      *
      * @return \TCPDF
      */
-    public function build(Windfarm $windfarm, $damageCategories, $audits)
+    public function build(Windfarm $windfarm, $damageCategories, $audits, $year)
     {
         $this->locale = WindfarmLanguageEnum::getEnumArray()[$windfarm->getLanguage()];
         $this->ts->setLocale($this->locale);
@@ -40,7 +41,7 @@ class WindfarmAuditsPdfBuilderService extends AbstractPdfBuilderService
         // TODO Index section
 
         // Damage categories section
-        if (!self::SHOW_V1_SECTIONS) {
+        if (self::SHOW_DAMAGE_CATEGORIES_SECTION) {
             $pdf->setFontStyle(null, 'B', 11);
             $pdf->Write(0, $this->ts->trans('pdf_windfarm.damage_catalog.1_title'), '', false, 'L', true);
             $pdf->Ln(2);
@@ -52,7 +53,7 @@ class WindfarmAuditsPdfBuilderService extends AbstractPdfBuilderService
         }
 
         // Windfarm inspection overview section
-        if (!self::SHOW_V1_SECTIONS) {
+        if (self::SHOW_WINDFARM_INSPECTION_OVERVIEW_SECTION) {
             $pdf->setFontStyle(null, 'B', 11);
             $pdf->Write(0, $this->ts->trans('pdf_windfarm.inspection_overview.1_title'), '', false, 'L', true);
             $pdf->Ln(self::SECTION_SPACER_V);
@@ -63,6 +64,29 @@ class WindfarmAuditsPdfBuilderService extends AbstractPdfBuilderService
             foreach ($audits as $audit) {
                 $this->drawWindfarmInspectionTableBodyRow($pdf, $audit, $damageCategories);
             }
+            $pdf->Ln(self::SECTION_SPACER_V_BIG);
+        }
+
+        // Introduction section
+        if (self::SHOW_INTRODUCTION_SECTION) {
+            $pdf->setBlackText();
+            $pdf->setFontStyle(null, 'B', 11);
+            $pdf->Write(0, $this->ts->trans('pdf_windfarm.intro.1_title'), '', false, 'L', true);
+            $pdf->Ln(self::SECTION_SPACER_V);
+            $pdf->setFontStyle(null, '', 9);
+            $pdf->Write(0, $this->ts->trans('pdf_windfarm.intro.2_description', ['%windfarm%' => $windfarm->getName(), '%year%' => $year]), '', false, 'L', true);
+            $pdf->Ln(self::SECTION_SPACER_V);
+            // Introduction table
+            $this->drawIntroductionTable($pdf);
+            $pdf->Ln(self::SECTION_SPACER_V_BIG);
+        }
+
+        // Inspection description section
+        if (self::SHOW_INSPECTION_DESCRIPTION_SECTION) {
+            $pdf->setFontStyle(null, 'B', 11);
+            $pdf->Write(0, $this->ts->trans('pdf_windfarm.inspection_description.1_title'), '', false, 'L', true);
+            $pdf->Ln(self::SECTION_SPACER_V);
+            $this->drawInspectionDescriptionSection($pdf, 1); // TODO find right diagram type from audits collection
         }
 
         return $pdf;
