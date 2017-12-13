@@ -70,11 +70,6 @@ pdf:
     9_excel_title: 'RESUMEN DAÑOS AEROGENERADORES DEL PARQUE EÓLICO'
     10_blade: PALA
     damage_class: Categoria de daño
-  windfarm_inspection_table_header:
-    main: WIND FARM INSPECTION OVERVIEW
-    1_number: No. WTG
-    2_blade: BLADE
-    3_damage_class: DAMAGE CLASS
   damage_table_body:
     none: -
     BA_dist_cm: '%dist%cm BA'
@@ -97,15 +92,25 @@ pdf_windfarm:
     1_title:
     2_subject:
   cover:
-    1_inspection: 'BLADE INSPECTION AT "%windfarm%"'
-    2_resume: 'GENERAL WIND FARM REPORT'
-    3_country: 'COUNTRY / REGION'
-    4_windfarm: 'WINDFARM'
-    8_total_turbines: 'TOTAL Nr. WTG / WF Capacity'
-    8_total_turbines_value: '%windmills% wind turbines / %power%MW'
-    9_startup_year: Comissioning date (years WF)
-    9_startup_year_value: '%year% (%diff% years)'
-    10_om_regional_manager: O&M REGIONAL MANAGER
+    1_inspection: 'INSPECCIÓN DE PALAS EN "%windfarm%"'
+    2_resume: 'INFORME GENERAL PARQUE EÓLICO'
+    3_country: 'PAÍS/REGION'
+    4_windfarm: 'PARQUE EÓLICO'
+    8_total_turbines: 'TOTAL No. AG / Capacidad PE'
+    8_total_turbines_value: '%windmills% aerogeneradores / %power%MW'
+    9_startup_year: 'Puesta en marcha (años del PE)'
+    9_startup_year_value: '%year% (%diff% años)'
+    10_om_regional_manager: 'O&M REGIONAL MANAGER'
+    14_blades_amout: 'No. de AG / palas inspeccionadas'
+    14_blades_amout_value: '%audits_amount% AG / 3 palas'
+  damage_catalog:
+    1_title: 'CATALOGACIÓN DE DAÑOS'
+  inspection_overview:
+    1_title: 'RESUMEN INSPECCIONES PARQUE EÓLICO'
+    2_table_header:
+      1_number: 'No. WTG'
+      2_blade: 'PALA'
+      3_damage_class: 'CATEGORIA DAÑO'
 enum:
   blade_damage_position:
     1_VP: VP
