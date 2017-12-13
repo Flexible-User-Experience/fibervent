@@ -156,9 +156,9 @@ class AbstractPdfBuilderService
         $damageHeaderWidth = 80;
         $pdf->setBlueBackground();
         $pdf->setFontStyle(null, 'B', 9);
-        $pdf->Cell(50, 12, $this->ts->trans('pdf.windfarm_inspection_table_header.1_number'), 1, 0, 'C', true);
-        $pdf->Cell(35, 12, $this->ts->trans('pdf.windfarm_inspection_table_header.2_blade'), 1, 0, 'C', true);
-        $pdf->Cell($damageHeaderWidth, 6, $this->ts->trans('pdf.windfarm_inspection_table_header.3_damage_class'), 1, 1, 'C', true);
+        $pdf->Cell(50, 12, $this->ts->trans('pdf_windfarm.inspection_overview.2_table_header.1_number'), 1, 0, 'C', true);
+        $pdf->Cell(35, 12, $this->ts->trans('pdf_windfarm.inspection_overview.2_table_header.2_blade'), 1, 0, 'C', true);
+        $pdf->Cell($damageHeaderWidth, 6, $this->ts->trans('pdf_windfarm.inspection_overview.2_table_header.3_damage_class'), 1, 1, 'C', true);
         $pdf->SetX(CustomTcpdf::PDF_MARGIN_LEFT + 85);
         $pdf->setFontStyle(null, '', 9);
         /** @var DamageCategory $dc */

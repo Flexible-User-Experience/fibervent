@@ -70,11 +70,6 @@ pdf:
     9_excel_title: 'RESUMEN DAÑOS AEROGENERADORES DEL PARQUE EÓLICO'
     10_blade: PALE
     damage_class: DAMAGE CLASS
-  windfarm_inspection_table_header:
-    main: WIND FARM INSPECTION OVERVIEW
-    1_number: No. WTG
-    2_blade: BLADE
-    3_damage_class: DAMAGE CLASS
   damage_table_body:
     none: -
     BA_dist_cm: '%dist%cm BA'
@@ -108,6 +103,14 @@ pdf_windfarm:
     10_om_regional_manager: 'O&M REGIONAL MANAGER'
     14_blades_amout: 'Nr. of WTG / blades inspected'
     14_blades_amout_value: '%audits_amount% WTG / 3 blades'
+  damage_catalog:
+    1_title: 'DAMAGES CATEGORIZATION'
+  inspection_overview:
+    1_title: 'WIND FARM INSPECTION OVERVIEW'
+    2_table_header:
+      1_number: 'No. WTG'
+      2_blade: 'BLADE'
+      3_damage_class: 'DAMAGE CLASS'
 enum:
   blade_damage_position:
     1_VP: SP
