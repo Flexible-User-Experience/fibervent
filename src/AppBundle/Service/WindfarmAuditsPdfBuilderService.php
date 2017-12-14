@@ -392,7 +392,7 @@ class WindfarmAuditsPdfBuilderService extends AbstractPdfBuilderService
                 $pdf->Cell($damageHeaderWidth / count($damageCategories), 6, $damageHelper->getDamagesToString(), 1, 0, 'C', true);
                 $pdf->setWhiteBackground();
             }
-            $pdf->Cell($pdf->availablePageWithDimension - $damageHeaderWidth - 30, 6, $bladeDamageHelper->getDamagesToString(), 1, 1, 'C', true);
+            $pdf->Cell($pdf->availablePageWithDimension - $damageHeaderWidth - 30, 6, $bladeDamageHelper->getDamagesToString(), 1, 1, 'L', true);
         }
     }
 }

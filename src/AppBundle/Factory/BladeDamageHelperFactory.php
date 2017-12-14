@@ -46,7 +46,7 @@ class BladeDamageHelperFactory
             /** @var BladeDamage $bladeDamage */
             foreach ($auditWindmillBlade->getBladeDamages() as $bladeDamage) {
                 if ($bladeDamage->getDamageCategory()->getId() == $damageCategory->getId()) {
-                    $damageHelper->addDamage($bladeDamage->getNumber());
+                    $damageHelper->addDamage($bladeDamage->getId());
 
                     break;
                 }
@@ -56,7 +56,7 @@ class BladeDamageHelperFactory
         }
         /** @var BladeDamage $bladeDamage */
         foreach ($auditWindmillBlade->getBladeDamages() as $bladeDamage) {
-            $this->bladeDamageHelper->addDamage($bladeDamage->getNumber().')');
+            $this->bladeDamageHelper->addDamage($bladeDamage->getId().')');
         }
 
         return $this->bladeDamageHelper;

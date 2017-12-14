@@ -51,14 +51,14 @@ class AbstractPdfBuilderService
     const SA_SHOW_CONTACT_SECTION                      = true;
 
     // Windfarm Audits Collection
-    const WAC_SHOW_COVER_SECTION                        = false;
-    const WAC_SHOW_DAMAGE_CATEGORIES_SECTION            = false;
-    const WAC_SHOW_WINDFARM_INSPECTION_OVERVIEW_SECTION = false;
-    const WAC_SHOW_INTRODUCTION_SECTION                 = false;
-    const WAC_SHOW_INSPECTION_DESCRIPTION_SECTION       = false;
+    const WAC_SHOW_COVER_SECTION                        = true;
+    const WAC_SHOW_DAMAGE_CATEGORIES_SECTION            = true;
+    const WAC_SHOW_WINDFARM_INSPECTION_OVERVIEW_SECTION = true;
+    const WAC_SHOW_INTRODUCTION_SECTION                 = true;
+    const WAC_SHOW_INSPECTION_DESCRIPTION_SECTION       = true;
     const WAC_SHOW_GENERAL_SUMMARY_SECTION              = true;
-    const WAC_SHOW_INDIVIDUAL_SUMMARY_SECTION           = false;
-    const WAC_SHOW_CONTACT_SECTION                      = false;
+    const WAC_SHOW_INDIVIDUAL_SUMMARY_SECTION           = true;
+    const WAC_SHOW_CONTACT_SECTION                      = true;
 
     /**
      * @var TCPDFController

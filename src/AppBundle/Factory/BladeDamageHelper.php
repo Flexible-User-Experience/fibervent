@@ -104,7 +104,7 @@ class BladeDamageHelper
      */
     public function getDamagesToString()
     {
-        return implode(' · ', $this->damages);
+        return implode(' ', $this->damages);
     }
 
     /**
