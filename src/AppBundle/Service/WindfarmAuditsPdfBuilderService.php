@@ -338,7 +338,7 @@ class WindfarmAuditsPdfBuilderService extends AbstractPdfBuilderService
             $pdf->Cell(35, 6, $i, 1, 0, 'C', true);
             /** @var DamageCategory $damageCategory */
             foreach ($damageCategories as $key => $damageCategory) {
-                $pdf->Cell($damageHeaderWidth / count($damageCategories), 6, $this->markDamageCategory($damageCategory, $auditWindmillBlade), 1, ($key + 1 == count($damageCategories)), 'C', true);
+                $pdf->Cell($damageHeaderWidth / count($damageCategories), 6, $this->bdhf->markDamageCategory($damageCategory, $auditWindmillBlade), 1, ($key + 1 == count($damageCategories)), 'C', true);
             }
         }
     }
@@ -386,7 +386,7 @@ class WindfarmAuditsPdfBuilderService extends AbstractPdfBuilderService
             $pdf->Cell(10, 6, $i, 1, 0, 'C', true);
             /** @var DamageCategory $damageCategory */
             foreach ($damageCategories as $key => $damageCategory) {
-                $pdf->Cell($damageHeaderWidth / count($damageCategories), 6, $this->markDamageCategory($damageCategory, $auditWindmillBlade), 1, 0, 'C', true);
+                $pdf->Cell($damageHeaderWidth / count($damageCategories), 6, $this->bdhf->markDamageCategory($damageCategory, $auditWindmillBlade), 1, 0, 'C', true);
             }
             $pdf->Cell($pdf->availablePageWithDimension - $damageHeaderWidth - 30, 6, '???', 1, 1, 'C', true);
         }

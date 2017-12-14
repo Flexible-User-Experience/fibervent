@@ -109,6 +109,7 @@ services:
             - "@app.blade_damage_repository"
             - "@app.customer_repository"
             - "@app.audit_model_diagram_bridge"
+            - "@app.factory_blade_damage_helper"
     app.windfarm_audits_pdf_builder:
         class: AppBundle\Service\WindfarmAuditsPdfBuilderService
         arguments:
@@ -122,6 +123,7 @@ services:
             - "@app.blade_damage_repository"
             - "@app.customer_repository"
             - "@app.audit_model_diagram_bridge"
+            - "@app.factory_blade_damage_helper"
     app.audit_model_diagram_bridge:
         class: AppBundle\Service\AuditModelDiagramBridgeService
 # Form types
