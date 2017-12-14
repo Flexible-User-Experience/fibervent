@@ -3,9 +3,9 @@
 namespace AppBundle\Twig;
 
 use AppBundle\Entity\AuditWindmillBlade;
-use AppBundle\Entity\BladeDamage;
 use AppBundle\Entity\Damage;
 use AppBundle\Entity\DamageCategory;
+use AppBundle\Factory\BladeDamageHelperFactory;
 use AppBundle\Repository\DamageRepository;
 
 /**
@@ -23,17 +23,24 @@ class AppExtension extends \Twig_Extension
     private $dr;
 
     /**
+     * @var BladeDamageHelperFactory
+     */
+    private $bdhf;
+
+    /**
      * Methods
      */
 
     /**
      * AppExtension constructor
      *
-     * @param DamageRepository $dr
+     * @param DamageRepository         $dr
+     * @param BladeDamageHelperFactory $bdhf
      */
-    public function __construct(DamageRepository $dr)
+    public function __construct(DamageRepository $dr, BladeDamageHelperFactory $bdhf)
     {
         $this->dr = $dr;
+        $this->bdhf = $bdhf;
     }
 
     /**
@@ -91,16 +98,6 @@ class AppExtension extends \Twig_Extension
      */
     public function markDamageCategory(DamageCategory $damageCategory, AuditWindmillBlade $auditWindmillBlade)
     {
-        $result = '';
-        /** @var BladeDamage $bladeDamage */
-        foreach ($auditWindmillBlade->getBladeDamages() as $bladeDamage) {
-            if ($bladeDamage->getDamageCategory()->getId() == $damageCategory->getId()) {
-                $result = 'X';
-
-                break;
-            }
-        }
-
-        return $result;
+        return $this->bdhf->markDamageCategory($damageCategory, $auditWindmillBlade);
     }
 }
