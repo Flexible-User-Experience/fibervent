@@ -11,6 +11,8 @@ namespace AppBundle\Factory;
  */
 class DamageHelper
 {
+    const MARK = 'X';
+
     /**
      * @var integer
      */
@@ -85,6 +87,26 @@ class DamageHelper
     }
 
     /**
+     * @return string
+     */
+    public function getMark()
+    {
+        return $this->mark;
+    }
+
+    /**
+     * @param string $mark
+     *
+     * @return $this
+     */
+    public function setMark($mark)
+    {
+        $this->mark = $mark;
+
+        return $this;
+    }
+
+    /**
      * @return array
      */
     public function getDamages()
@@ -120,7 +142,7 @@ class DamageHelper
     public function addDamage($damage)
     {
         $this->damages[] = $damage;
-        $this->mark = 'X';
+        $this->mark = self::MARK;
 
         return $this;
     }

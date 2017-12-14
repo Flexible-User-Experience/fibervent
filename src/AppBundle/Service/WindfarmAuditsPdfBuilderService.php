@@ -7,6 +7,7 @@ use AppBundle\Entity\AuditWindmillBlade;
 use AppBundle\Entity\DamageCategory;
 use AppBundle\Entity\Windfarm;
 use AppBundle\Enum\WindfarmLanguageEnum;
+use AppBundle\Factory\DamageHelper;
 use AppBundle\Pdf\CustomTcpdf;
 
 /**
@@ -383,9 +384,13 @@ class WindfarmAuditsPdfBuilderService extends AbstractPdfBuilderService
             $bladeDamageHelper = $this->bdhf->create($auditWindmillBlade, $damageCategories);
             $pdf->SetX(CustomTcpdf::PDF_MARGIN_LEFT + 20);
             $pdf->Cell(10, 6, $bladeDamageHelper->getBlade(), 1, 0, 'C', true);
-            /** @var DamageCategory $damageCategory */
-            foreach ($damageCategories as $key => $damageCategory) {
-                $pdf->Cell($damageHeaderWidth / count($damageCategories), 6, $this->bdhf->markDamageCategory($damageCategory, $auditWindmillBlade), 1, 0, 'C', true);
+            /** @var DamageHelper $damageHelper */
+            foreach ($bladeDamageHelper->getCategories() as $damageHelper) {
+                if ($damageHelper->getMark() == DamageHelper::MARK) {
+                    $pdf->setBackgroundHexColor($damageHelper->getColor());
+                }
+                $pdf->Cell($damageHeaderWidth / count($damageCategories), 6, $damageHelper->getDamagesToString(), 1, 0, 'C', true);
+                $pdf->setWhiteBackground();
             }
             $pdf->Cell($pdf->availablePageWithDimension - $damageHeaderWidth - 30, 6, $bladeDamageHelper->getDamagesToString(), 1, 1, 'C', true);
         }

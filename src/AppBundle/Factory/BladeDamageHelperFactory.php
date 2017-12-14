@@ -94,7 +94,7 @@ class BladeDamageHelperFactory
         /** @var BladeDamage $bladeDamage */
         foreach ($auditWindmillBlade->getBladeDamages() as $bladeDamage) {
             if ($bladeDamage->getDamageCategory()->getId() == $damageCategory->getId()) {
-                $result = 'X';
+                $result = DamageHelper::MARK;
 
                 break;
             }
