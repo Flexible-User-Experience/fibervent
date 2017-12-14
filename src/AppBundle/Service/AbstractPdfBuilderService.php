@@ -9,6 +9,7 @@ use AppBundle\Entity\BladePhoto;
 use AppBundle\Entity\DamageCategory;
 use AppBundle\Entity\Observation;
 use AppBundle\Entity\Photo;
+use AppBundle\Factory\BladeDamageHelperFactory;
 use AppBundle\Pdf\CustomTcpdf;
 use AppBundle\Repository\CustomerRepository;
 use AppBundle\Repository\DamageRepository;
@@ -110,6 +111,11 @@ class AbstractPdfBuilderService
     protected $amdb;
 
     /**
+     * @var BladeDamageHelperFactory
+     */
+    protected $bdhf;
+
+    /**
      * @var string
      */
     protected $locale;
@@ -131,8 +137,9 @@ class AbstractPdfBuilderService
      * @param BladeDamageRepository          $bdr
      * @param CustomerRepository             $cr
      * @param AuditModelDiagramBridgeService $amdb
+     * @param BladeDamageHelperFactory       $bdhf
      */
-    public function __construct(TCPDFController $tcpdf, CacheManager $cm, UploaderHelper $uh, AssetsHelper $tha, Translator $ts, DamageRepository $dr, DamageCategoryRepository $dcr, BladeDamageRepository $bdr, CustomerRepository $cr, AuditModelDiagramBridgeService $amdb)
+    public function __construct(TCPDFController $tcpdf, CacheManager $cm, UploaderHelper $uh, AssetsHelper $tha, Translator $ts, DamageRepository $dr, DamageCategoryRepository $dcr, BladeDamageRepository $bdr, CustomerRepository $cr, AuditModelDiagramBridgeService $amdb, BladeDamageHelperFactory $bdhf)
     {
         $this->tcpdf = $tcpdf;
         $this->cm = $cm;
@@ -144,6 +151,7 @@ class AbstractPdfBuilderService
         $this->bdr = $bdr;
         $this->cr = $cr;
         $this->amdb = $amdb;
+        $this->bdhf = $bdhf;
     }
 
     /**
@@ -555,26 +563,5 @@ class AbstractPdfBuilderService
         $pdf->setBackgroundHexColor($bladeDamage->getDamageCategory()->getColour());
         $pdf->Cell(0, 0, $bladeDamage->getDamageCategory()->getCategory(), 1, 1, 'C', true);
         $pdf->setWhiteBackground();
-    }
-
-    /**
-     * @param DamageCategory $damageCategory
-     * @param AuditWindmillBlade $auditWindmillBlade
-     *
-     * @return string
-     */
-    protected function markDamageCategory(DamageCategory $damageCategory, AuditWindmillBlade $auditWindmillBlade)
-    {
-        $result = '';
-        /** @var BladeDamage $bladeDamage */
-        foreach ($auditWindmillBlade->getBladeDamages() as $bladeDamage) {
-            if ($bladeDamage->getDamageCategory()->getId() == $damageCategory->getId()) {
-                $result = 'X';
-
-                break;
-            }
-        }
-
-        return $result;
     }
 }
