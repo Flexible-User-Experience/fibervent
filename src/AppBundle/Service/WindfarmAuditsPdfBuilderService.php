@@ -58,7 +58,7 @@ class WindfarmAuditsPdfBuilderService extends AbstractPdfBuilderService
             $pdf->Write(0, $this->ts->trans('pdf_windfarm.inspection_overview.1_title'), '', false, 'L', true);
             $pdf->Ln(self::SECTION_SPACER_V);
             $pdf->setFontStyle(null, '', 9);
-            // resume damages table
+            // damages resume table
             $this->drawWindfarmInspectionTableHeader($pdf, $damageCategories);
             /** @var Audit $audit */
             foreach ($audits as $audit) {
@@ -87,6 +87,24 @@ class WindfarmAuditsPdfBuilderService extends AbstractPdfBuilderService
             $pdf->Write(0, $this->ts->trans('pdf_windfarm.inspection_description.1_title'), '', false, 'L', true);
             $pdf->Ln(self::SECTION_SPACER_V);
             $this->drawInspectionDescriptionSection($pdf, 1); // TODO find right diagram type from audits collection
+            $pdf->AddPage();
+        }
+
+        // General summary of damages section
+        if (self::SHOW_GENERAL_SUMMARY_SECTION) {
+            $pdf->setBlackText();
+            $pdf->setFontStyle(null, 'B', 11);
+            $pdf->Write(0, $this->ts->trans('pdf_windfarm.general_summary.1_title'), '', false, 'L', true);
+            $pdf->Ln(self::SECTION_SPACER_V);
+            $pdf->setFontStyle(null, '', 9);
+            $pdf->Write(0, $this->ts->trans('pdf_windfarm.general_summary.2_description'), '', false, 'L', true);
+            $pdf->Ln(self::SECTION_SPACER_V_BIG);
+            // damages resume table
+            $this->drawGeneralSummaryOfDamageTableHeader($pdf, $damageCategories);
+            /** @var Audit $audit */
+            foreach ($audits as $audit) {
+                $this->drawGeneralSummaryOfDamageTableBodyRow($pdf, $audit, $damageCategories);
+            }
             $pdf->AddPage();
         }
 
@@ -265,5 +283,24 @@ class WindfarmAuditsPdfBuilderService extends AbstractPdfBuilderService
         }
 
         return $pdf;
+    }
+
+    /**
+     * @param CustomTcpdf $pdf
+     * @param array       $damageCategories
+     */
+    private function drawGeneralSummaryOfDamageTableHeader(CustomTcpdf $pdf, $damageCategories)
+    {
+
+    }
+
+    /**
+     * @param CustomTcpdf $pdf
+     * @param Audit       $audit
+     * @param array       $damageCategories
+     */
+    private function drawGeneralSummaryOfDamageTableBodyRow(CustomTcpdf $pdf, Audit $audit, $damageCategories)
+    {
+
     }
 }

@@ -31,15 +31,18 @@ class AbstractPdfBuilderService
 {
     const SECTION_SPACER_V     = 2;
     const SECTION_SPACER_V_BIG = 10;
-    const SHOW_COVER_SECTION   = true;
+
     const SHOW_GRID_DEBUG      = false;
     const SHOW_ONLY_DIAGRAM    = false;
-    const SHOW_DAMAGE_CATEGORIES_SECTION            = true;
-    const SHOW_WINDFARM_INSPECTION_OVERVIEW_SECTION = true;
-    const SHOW_INTRODUCTION_SECTION                 = true;
-    const SHOW_INSPECTION_DESCRIPTION_SECTION       = true;
-    const SHOW_INDIVIDUAL_SUMMARY_SECTION           = true;
-    const SHOW_CONTACT_SECTION                      = true;
+
+    const SHOW_COVER_SECTION                        = false;
+    const SHOW_DAMAGE_CATEGORIES_SECTION            = false;
+    const SHOW_WINDFARM_INSPECTION_OVERVIEW_SECTION = false;
+    const SHOW_INTRODUCTION_SECTION                 = false;
+    const SHOW_INSPECTION_DESCRIPTION_SECTION       = false;
+    const SHOW_GENERAL_SUMMARY_SECTION              = true;
+    const SHOW_INDIVIDUAL_SUMMARY_SECTION           = false;
+    const SHOW_CONTACT_SECTION                      = false;
 
     /**
      * @var TCPDFController

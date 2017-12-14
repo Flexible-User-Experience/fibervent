@@ -116,6 +116,9 @@ pdf_windfarm:
     2_description: 'Este informe es el resultado de la inspección visual realizada con telescopio desde suelo en el Parque Eólico "%windfarm%" durante el año %year%. El equipo, propiedad de FIBERVENT, y utilizado para la inspección es el siguiente:'
   inspection_description:
     1_title: 'DESCRIPCIÓN DE LA INSPECCIÓN'
+  general_summary:
+    1_title: 'RESUMEN GENERAL DE DAÑOS'
+    2_description: 'La siguiente tabla muestra los resultados de la inspección de palas analizadas en el Parque Eólico.'
   individual_summary:
     1_title: 'RESUMEN INDIVIDUAL DE DAÑOS'
   contact_section:

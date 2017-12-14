@@ -116,6 +116,9 @@ pdf_windfarm:
     2_description: 'This report is the result of the visual inspection done by telephoto lens on the ground in the "%windfarm%" Wind Farm on year %year%. The equipment, property of FIBERVENT, used in this inspection is the following:'
   inspection_description:
     1_title: 'INSPECTION DESCRIPTION'
+  general_summary:
+    1_title: 'GENERAL SUMMARY OF DAMAGE'
+    2_description: 'The following table shows the results following the blade inspection performed at the Wind Farm and the study analysis of the images obtained.'
   individual_summary:
     1_title: 'INDIVIDUAL SUMMARY OF DAMAGE WT Nº/BLADES'
   contact_section:
