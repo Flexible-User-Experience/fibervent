@@ -29,15 +29,17 @@ use Symfony\Bundle\FrameworkBundle\Templating\Helper\AssetsHelper;
  */
 class AbstractPdfBuilderService
 {
+    // Vertical spacers
     const SECTION_SPACER_V     = 2;
     const SECTION_SPACER_V_BIG = 10;
 
-    const SHOW_BLADE_DAMAGE_SUMMARY_DAMAGES_TABLE      = false;
-    const SHOW_BLADE_DAMAGE_SUMMARY_DIAGRAM            = false;
-    const SHOW_BLADE_DAMAGE_SUMMARY_DIAGRAM_DEBUG_GRID = false;
-    const SHOW_BLADE_DAMAGE_SUMMARY_OBSERVATIONS_TABLE = false;
-    const SHOW_BLADE_DAMAGE_SUMMARY_WINDMILL_IMAGES    = false;
-    const SHOW_BLADE_DAMAGE_SUMMARY_BLADE_IMAGES       = true;
+    // Blade Damage Summary
+    const BDS_SHOW_DAMAGES_TABLE      = true;
+    const BDS_SHOW_DIAGRAM            = true;
+    const BDS_SHOW_DIAGRAM_DEBUG_GRID = false;
+    const BDS_SHOW_OBSERVATIONS_TABLE = true;
+    const BDS_SHOW_WINDMILL_IMAGES    = true;
+    const BDS_SHOW_BLADE_IMAGES       = true;
 
     // Single Audit
     const SA_SHOW_COVER_SECTION                        = true;
@@ -54,7 +56,7 @@ class AbstractPdfBuilderService
     const WAC_SHOW_INTRODUCTION_SECTION                 = true;
     const WAC_SHOW_INSPECTION_DESCRIPTION_SECTION       = true;
     const WAC_SHOW_GENERAL_SUMMARY_SECTION              = true;
-    const WAC_SHOW_INDIVIDUAL_SUMMARY_SECTION           = false;
+    const WAC_SHOW_INDIVIDUAL_SUMMARY_SECTION           = true;
     const WAC_SHOW_CONTACT_SECTION                      = true;
 
     /**
@@ -220,7 +222,8 @@ class AbstractPdfBuilderService
             $pdf->Write(0, $this->ts->trans('pdf.audit_blade_damage.2_description'), '', false, 'L', true);
             $pdf->Ln(self::SECTION_SPACER_V_BIG / 2);
             // damage table
-            if (self::SHOW_BLADE_DAMAGE_SUMMARY_DAMAGES_TABLE) {
+            if (self::BDS_SHOW_DAMAGES_TABLE) {
+                $pdf->setBlueLine();
                 $this->drawDamageTableHeader($pdf);
                 /** @var BladeDamage $bladeDamage */
                 foreach ($bladeDamages as $sKey => $bladeDamage) {
@@ -251,10 +254,8 @@ class AbstractPdfBuilderService
             $yQuarter3 = $this->amdb->getYQ3();
             $yQuarter4 = $this->amdb->getYQ4();
 
-            // blade diagram middle lines
-            $this->amdb->enableDebugLineStyles($pdf, true);
-
-            if (self::SHOW_BLADE_DAMAGE_SUMMARY_DIAGRAM) {
+            if (self::BDS_SHOW_DIAGRAM) {
+                $this->amdb->enableDebugLineStyles($pdf, true);
                 // verticals
                 $pdf->Line($xQuarter1, $y1, $xQuarter1, $y1 + ($y2 - $y1));
                 $pdf->Line($xQuarter2, $y1, $xQuarter2, $y1 + ($y2 - $y1));
@@ -265,7 +266,7 @@ class AbstractPdfBuilderService
                 $pdf->Line($x1, $y1 + 3, $x2, $y1 + 3);
                 $pdf->Line($x1, $yMiddle2 + 8, $x2, $yMiddle2 + 8);
 
-                if (self::SHOW_BLADE_DAMAGE_SUMMARY_DIAGRAM_DEBUG_GRID) {
+                if (self::BDS_SHOW_DIAGRAM_DEBUG_GRID) {
                     $pdf->Line($x1, $yQuarter1, $x2, $yQuarter1);
                     $pdf->Line($x1, $yQuarter2, $x2, $yQuarter2);
                     $pdf->Line($x1, $yMiddle, $x2, $yMiddle);
@@ -363,7 +364,7 @@ class AbstractPdfBuilderService
                 /** @var BladeDamage $bladeDamage */
                 foreach ($bladeDamages as $sKey => $bladeDamage) {
                     $this->amdb->drawCenterDamage($pdf, $bladeDamage, $sKey + 1);
-                    if (self::SHOW_BLADE_DAMAGE_SUMMARY_DIAGRAM_DEBUG_GRID) {
+                    if (self::BDS_SHOW_DIAGRAM_DEBUG_GRID) {
                         $pdf->setRedLine();
                         $this->amdb->drawCenterPoint($pdf, $bladeDamage);
                         $pdf->setBlackLine();
@@ -375,7 +376,7 @@ class AbstractPdfBuilderService
             }
 
             // Observations table
-            if (count($auditWindmillBlade->getObservations()) > 0 && self::SHOW_BLADE_DAMAGE_SUMMARY_OBSERVATIONS_TABLE) {
+            if (count($auditWindmillBlade->getObservations()) > 0 && self::BDS_SHOW_OBSERVATIONS_TABLE) {
                 $pdf->setBlueLine();
                 $pdf->SetLineStyle(array('width' => 0.25));
                 $pdf->setBlueBackground();
@@ -394,7 +395,7 @@ class AbstractPdfBuilderService
             }
 
             // General blade damage images
-            if (count($auditWindmillBlade->getBladePhotos()) > 0 && self::SHOW_BLADE_DAMAGE_SUMMARY_WINDMILL_IMAGES) {
+            if (count($auditWindmillBlade->getBladePhotos()) > 0 && self::BDS_SHOW_WINDMILL_IMAGES) {
                 $pdf->AddPage();
                 $pdf->setFontStyle(null, 'B', 11);
                 $pdf->Write(0, '3.'.($key + 1).'.'.$this->ts->trans('pdf.blade_damage_images.1_general_blade_views').' '.($key + 1).($showAuditMark ? ' ('.$audit->getWindmill()->getCode().')' : ''), '', false, 'L', true);
@@ -416,7 +417,7 @@ class AbstractPdfBuilderService
             }
 
             $pdf->AddPage();
-            if (self::SHOW_BLADE_DAMAGE_SUMMARY_BLADE_IMAGES) {
+            if (self::BDS_SHOW_BLADE_IMAGES) {
                 // Damage images pages
                 $pdf->setBlueLine();
                 /** @var BladeDamage $bladeDamage */
@@ -433,56 +434,6 @@ class AbstractPdfBuilderService
                     }
                     $pdf->AddPage();
                 }
-            }
-        }
-    }
-
-    /**
-     * Draw damage table header.
-     *
-     * @param CustomTcpdf $pdf
-     * @param array $damageCategories
-     */
-    protected function drawWindfarmInspectionTableHeader(CustomTcpdf $pdf, $damageCategories)
-    {
-        $damageHeaderWidth = 80;
-        $pdf->setBlueBackground();
-        $pdf->setFontStyle(null, 'B', 9);
-        $pdf->Cell(50, 12, $this->ts->trans('pdf_windfarm.inspection_overview.2_table_header.1_number'), 1, 0, 'C', true);
-        $pdf->Cell(35, 12, $this->ts->trans('pdf_windfarm.inspection_overview.2_table_header.2_blade'), 1, 0, 'C', true);
-        $pdf->Cell($damageHeaderWidth, 6, $this->ts->trans('pdf_windfarm.inspection_overview.2_table_header.3_damage_class'), 1, 1, 'C', true);
-        $pdf->SetX(CustomTcpdf::PDF_MARGIN_LEFT + 85);
-        $pdf->setFontStyle(null, '', 9);
-        /** @var DamageCategory $dc */
-        foreach ($damageCategories as $key => $dc) {
-            $pdf->setBackgroundHexColor($dc->getColour());
-            $pdf->Cell($damageHeaderWidth / count($damageCategories), 6, $dc->getCategory(), 1, ($key + 1 == count($damageCategories)), 'C', true);
-        }
-        $pdf->setWhiteBackground();
-    }
-
-    /**
-     * Draw damage table header.
-     *
-     * @param CustomTcpdf $pdf
-     * @param Audit $audit
-     * @param array $damageCategories
-     */
-    protected function drawWindfarmInspectionTableBodyRow(CustomTcpdf $pdf, Audit $audit, $damageCategories)
-    {
-        $damageHeaderWidth = 80;
-        $pdf->setWhiteBackground();
-        $pdf->setFontStyle(null, '', 9);
-        $pdf->Cell(50, 18, $audit->getWindmill()->getCode(), 1, 0, 'C', true);
-        $i = 0;
-        /** @var AuditWindmillBlade $auditWindmillBlade */
-        foreach ($audit->getAuditWindmillBlades() as $auditWindmillBlade) {
-            $i++;
-            $pdf->SetX(CustomTcpdf::PDF_MARGIN_LEFT + 50);
-            $pdf->Cell(35, 6, $i, 1, 0, 'C', true);
-            /** @var DamageCategory $damageCategory */
-            foreach ($damageCategories as $key => $damageCategory) {
-                $pdf->Cell($damageHeaderWidth / count($damageCategories), 6, $this->markDamageCategory($damageCategory, $auditWindmillBlade), 1, ($key + 1 == count($damageCategories)), 'C', true);
             }
         }
     }

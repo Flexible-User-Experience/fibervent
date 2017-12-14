@@ -132,7 +132,6 @@ class WindfarmAuditsPdfBuilderService extends AbstractPdfBuilderService
 
         // Contact section
         if (self::WAC_SHOW_CONTACT_SECTION) {
-            $pdf->AddPage();
             $pdf->setFontStyle(null, 'B', 11);
             $pdf->Write(0, $this->ts->trans('pdf_windfarm.contact_section.1_title'), '', false, 'L', true);
             $pdf->Ln(self::SECTION_SPACER_V_BIG / 2);
@@ -294,6 +293,57 @@ class WindfarmAuditsPdfBuilderService extends AbstractPdfBuilderService
     }
 
     /**
+     * Draw damage table header.
+     *
+     * @param CustomTcpdf $pdf
+     * @param array $damageCategories
+     */
+    private function drawWindfarmInspectionTableHeader(CustomTcpdf $pdf, $damageCategories)
+    {
+        $damageHeaderWidth = 80;
+        $pdf->setBlueLine();
+        $pdf->setBlueBackground();
+        $pdf->setFontStyle(null, 'B', 9);
+        $pdf->Cell(50, 12, $this->ts->trans('pdf_windfarm.inspection_overview.2_table_header.1_number'), 1, 0, 'C', true);
+        $pdf->Cell(35, 12, $this->ts->trans('pdf_windfarm.inspection_overview.2_table_header.2_blade'), 1, 0, 'C', true);
+        $pdf->Cell($damageHeaderWidth, 6, $this->ts->trans('pdf_windfarm.inspection_overview.2_table_header.3_damage_class'), 1, 1, 'C', true);
+        $pdf->SetX(CustomTcpdf::PDF_MARGIN_LEFT + 85);
+        $pdf->setFontStyle(null, '', 9);
+        /** @var DamageCategory $dc */
+        foreach ($damageCategories as $key => $dc) {
+            $pdf->setBackgroundHexColor($dc->getColour());
+            $pdf->Cell($damageHeaderWidth / count($damageCategories), 6, $dc->getCategory(), 1, ($key + 1 == count($damageCategories)), 'C', true);
+        }
+        $pdf->setWhiteBackground();
+    }
+
+    /**
+     * Draw damage table header.
+     *
+     * @param CustomTcpdf $pdf
+     * @param Audit $audit
+     * @param array $damageCategories
+     */
+    private function drawWindfarmInspectionTableBodyRow(CustomTcpdf $pdf, Audit $audit, $damageCategories)
+    {
+        $damageHeaderWidth = 80;
+        $pdf->setWhiteBackground();
+        $pdf->setFontStyle(null, '', 9);
+        $pdf->Cell(50, 18, $audit->getWindmill()->getCode(), 1, 0, 'C', true);
+        $i = 0;
+        /** @var AuditWindmillBlade $auditWindmillBlade */
+        foreach ($audit->getAuditWindmillBlades() as $auditWindmillBlade) {
+            $i++;
+            $pdf->SetX(CustomTcpdf::PDF_MARGIN_LEFT + 50);
+            $pdf->Cell(35, 6, $i, 1, 0, 'C', true);
+            /** @var DamageCategory $damageCategory */
+            foreach ($damageCategories as $key => $damageCategory) {
+                $pdf->Cell($damageHeaderWidth / count($damageCategories), 6, $this->markDamageCategory($damageCategory, $auditWindmillBlade), 1, ($key + 1 == count($damageCategories)), 'C', true);
+            }
+        }
+    }
+
+    /**
      * @param CustomTcpdf $pdf
      * @param array       $damageCategories
      */
@@ -301,6 +351,7 @@ class WindfarmAuditsPdfBuilderService extends AbstractPdfBuilderService
     {
         $damageHeaderWidth = 60;
         $pdf->setBlueBackground();
+        $pdf->setBlueLine();
         $pdf->setFontStyle(null, 'B', 9);
         $pdf->Cell(20, 12, $this->ts->trans('pdf_windfarm.inspection_overview.2_table_header.1_number'), 1, 0, 'C', true);
         $pdf->Cell(10, 12, $this->ts->trans('pdf_windfarm.inspection_overview.2_table_header.2_blade'), 1, 0, 'C', true);
@@ -335,8 +386,9 @@ class WindfarmAuditsPdfBuilderService extends AbstractPdfBuilderService
             $pdf->Cell(10, 6, $i, 1, 0, 'C', true);
             /** @var DamageCategory $damageCategory */
             foreach ($damageCategories as $key => $damageCategory) {
-                $pdf->Cell($damageHeaderWidth / count($damageCategories), 6, $this->markDamageCategory($damageCategory, $auditWindmillBlade), 1, ($key + 1 == count($damageCategories)), 'C', true);
+                $pdf->Cell($damageHeaderWidth / count($damageCategories), 6, $this->markDamageCategory($damageCategory, $auditWindmillBlade), 1, 0, 'C', true);
             }
+            $pdf->Cell($pdf->availablePageWithDimension - $damageHeaderWidth - 30, 6, '???', 1, 1, 'C', true);
         }
     }
 }
