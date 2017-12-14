@@ -3,23 +3,28 @@
 namespace AppBundle\Factory;
 
 /**
- * Class BladeDamageHelper
+ * Class DamageHelper
  *
  * @category Factory
  *
  * @author   David Romaní <david@flux.cat>
  */
-class BladeDamageHelper
+class DamageHelper
 {
     /**
      * @var integer
      */
-    private $blade;
+    private $number;
 
     /**
-     * @var array
+     * @var string
      */
-    private $categories;
+    private $color;
+
+    /**
+     * @var string
+     */
+    private $mark;
 
     /**
      * @var array
@@ -31,62 +36,50 @@ class BladeDamageHelper
      */
 
     /**
-     * BladeDamageHelper constructor.
+     * DamageHelper constructor.
      */
     public function __construct()
     {
-        $this->categories = array();
+        $this->mark = '';
         $this->damages = array();
     }
 
     /**
      * @return int
      */
-    public function getBlade()
+    public function getNumber()
     {
-        return $this->blade;
+        return $this->number;
     }
 
     /**
-     * @param int $blade
+     * @param int $number
      *
      * @return $this
      */
-    public function setBlade($blade)
+    public function setNumber($number)
     {
-        $this->blade = $blade;
+        $this->number = $number;
 
         return $this;
     }
 
     /**
-     * @return array
+     * @return string
      */
-    public function getCategories()
+    public function getColor()
     {
-        return $this->categories;
+        return $this->color;
     }
 
     /**
-     * @param array $categories
+     * @param string $color
      *
      * @return $this
      */
-    public function setCategories($categories)
+    public function setColor(string $color)
     {
-        $this->categories = $categories;
-
-        return $this;
-    }
-
-    /**
-     * @param $category
-     *
-     * @return $this
-     */
-    public function addCategory($category)
-    {
-        $this->categories[] = $category;
+        $this->color = $color;
 
         return $this;
     }
@@ -104,7 +97,7 @@ class BladeDamageHelper
      */
     public function getDamagesToString()
     {
-        return implode(' · ', $this->damages);
+        return implode(', ', $this->damages);
     }
 
     /**
@@ -127,6 +120,7 @@ class BladeDamageHelper
     public function addDamage($damage)
     {
         $this->damages[] = $damage;
+        $this->mark = 'X';
 
         return $this;
     }

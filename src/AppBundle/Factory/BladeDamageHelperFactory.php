@@ -37,9 +37,23 @@ class BladeDamageHelperFactory
         $this->bladeDamageHelper = new BladeDamageHelper();
         $this->bladeDamageHelper->setBlade($auditWindmillBlade->getWindmillBlade()->getOrder());
         /** @var DamageCategory $damageCategory */
-//        foreach ($damageCategories as $damageCategory) {
-//            $this->bladeDamageHelper->addCategory($)
-//        }
+        foreach ($damageCategories as $damageCategory) {
+            $damageHelper = new DamageHelper();
+            $damageHelper
+                ->setNumber($damageCategory->getCategory())
+                ->setColor($damageCategory->getColour())
+            ;
+            /** @var BladeDamage $bladeDamage */
+            foreach ($auditWindmillBlade->getBladeDamages() as $bladeDamage) {
+                if ($bladeDamage->getDamageCategory()->getId() == $damageCategory->getId()) {
+                    $damageHelper->addDamage($bladeDamage->getNumber());
+
+                    break;
+                }
+            }
+            $this->bladeDamageHelper->addCategory($damageHelper);
+
+        }
         /** @var BladeDamage $bladeDamage */
         foreach ($auditWindmillBlade->getBladeDamages() as $bladeDamage) {
             $this->bladeDamageHelper->addDamage($bladeDamage->getNumber().')');
