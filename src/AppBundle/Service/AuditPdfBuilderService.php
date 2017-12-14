@@ -35,7 +35,6 @@ class AuditPdfBuilderService extends AbstractPdfBuilderService
         // Add a page
         $pdf->setPrintHeader(true);
         $pdf->AddPage(PDF_PAGE_ORIENTATION, PDF_PAGE_FORMAT, true, true);
-        $pdf->setAvailablePageDimension();
         $pdf->setPrintFooter(true);
 
         if (!self::SHOW_ONLY_DIAGRAM) {

@@ -79,6 +79,7 @@ class CustomTcpdf extends \TCPDF
         $this->ts = $ts;
         $this->windfarm = $windfarm;
         $this->customer = $windfarm->getCustomer();
+        $this->setAvailablePageDimension();
     }
 
     /**
