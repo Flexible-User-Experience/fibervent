@@ -592,7 +592,7 @@ class AbstractPdfBuilderService
      *
      * @return string
      */
-    private function markDamageCategory(DamageCategory $damageCategory, AuditWindmillBlade $auditWindmillBlade)
+    protected function markDamageCategory(DamageCategory $damageCategory, AuditWindmillBlade $auditWindmillBlade)
     {
         $result = '';
         /** @var BladeDamage $bladeDamage */

@@ -111,6 +111,7 @@ pdf_windfarm:
       1_number: 'No. WTG'
       2_blade: 'PALA'
       3_damage_class: 'CATEGORIA DAÑO'
+      4_damages: 'DAÑOS'
   intro:
     1_title: 'INTRODUCCIÓN'
     2_description: 'Este informe es el resultado de la inspección visual realizada con telescopio desde suelo en el Parque Eólico "%windfarm%" durante el año %year%. El equipo, propiedad de FIBERVENT, y utilizado para la inspección es el siguiente:'

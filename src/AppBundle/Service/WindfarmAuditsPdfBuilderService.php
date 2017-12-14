@@ -3,6 +3,8 @@
 namespace AppBundle\Service;
 
 use AppBundle\Entity\Audit;
+use AppBundle\Entity\AuditWindmillBlade;
+use AppBundle\Entity\DamageCategory;
 use AppBundle\Entity\Windfarm;
 use AppBundle\Enum\WindfarmLanguageEnum;
 use AppBundle\Pdf\CustomTcpdf;
@@ -35,7 +37,6 @@ class WindfarmAuditsPdfBuilderService extends AbstractPdfBuilderService
         // Add a page
         $pdf->setPrintHeader(true);
         $pdf->AddPage(PDF_PAGE_ORIENTATION, PDF_PAGE_FORMAT, true, true);
-        $pdf->setAvailablePageDimension();
         $pdf->setPrintFooter(true);
 
         // TODO Index section
@@ -98,7 +99,7 @@ class WindfarmAuditsPdfBuilderService extends AbstractPdfBuilderService
             $pdf->Ln(self::SECTION_SPACER_V);
             $pdf->setFontStyle(null, '', 9);
             $pdf->Write(0, $this->ts->trans('pdf_windfarm.general_summary.2_description'), '', false, 'L', true);
-            $pdf->Ln(self::SECTION_SPACER_V_BIG);
+            $pdf->Ln(self::SECTION_SPACER_V_BIG / 2);
             // damages resume table
             $this->drawGeneralSummaryOfDamageTableHeader($pdf, $damageCategories);
             /** @var Audit $audit */
@@ -291,7 +292,21 @@ class WindfarmAuditsPdfBuilderService extends AbstractPdfBuilderService
      */
     private function drawGeneralSummaryOfDamageTableHeader(CustomTcpdf $pdf, $damageCategories)
     {
-
+        $damageHeaderWidth = 60;
+        $pdf->setBlueBackground();
+        $pdf->setFontStyle(null, 'B', 9);
+        $pdf->Cell(20, 12, $this->ts->trans('pdf_windfarm.inspection_overview.2_table_header.1_number'), 1, 0, 'C', true);
+        $pdf->Cell(10, 12, $this->ts->trans('pdf_windfarm.inspection_overview.2_table_header.2_blade'), 1, 0, 'C', true);
+        $pdf->Cell($damageHeaderWidth, 6, $this->ts->trans('pdf_windfarm.inspection_overview.2_table_header.3_damage_class'), 1, 0, 'C', true);
+        $pdf->Cell($pdf->availablePageWithDimension - $damageHeaderWidth - 30, 12, $this->ts->trans('pdf_windfarm.inspection_overview.2_table_header.4_damages'), 1, 1, 'C', true);
+        $pdf->SetXY(CustomTcpdf::PDF_MARGIN_LEFT + 30, $pdf->getY() - 6);
+        $pdf->setFontStyle(null, '', 9);
+        /** @var DamageCategory $dc */
+        foreach ($damageCategories as $key => $dc) {
+            $pdf->setBackgroundHexColor($dc->getColour());
+            $pdf->Cell($damageHeaderWidth / count($damageCategories), 6, $dc->getCategory(), 1, ($key + 1 == count($damageCategories)), 'C', true);
+        }
+        $pdf->setWhiteBackground();
     }
 
     /**
@@ -301,6 +316,20 @@ class WindfarmAuditsPdfBuilderService extends AbstractPdfBuilderService
      */
     private function drawGeneralSummaryOfDamageTableBodyRow(CustomTcpdf $pdf, Audit $audit, $damageCategories)
     {
-
+        $damageHeaderWidth = 60;
+        $pdf->setWhiteBackground();
+        $pdf->setFontStyle(null, '', 9);
+        $pdf->Cell(20, 18, $audit->getWindmill()->getCode(), 1, 0, 'C', true);
+        $i = 0;
+        /** @var AuditWindmillBlade $auditWindmillBlade */
+        foreach ($audit->getAuditWindmillBlades() as $auditWindmillBlade) {
+            $i++;
+            $pdf->SetX(CustomTcpdf::PDF_MARGIN_LEFT + 20);
+            $pdf->Cell(10, 6, $i, 1, 0, 'C', true);
+            /** @var DamageCategory $damageCategory */
+            foreach ($damageCategories as $key => $damageCategory) {
+                $pdf->Cell($damageHeaderWidth / count($damageCategories), 6, $this->markDamageCategory($damageCategory, $auditWindmillBlade), 1, ($key + 1 == count($damageCategories)), 'C', true);
+            }
+        }
     }
 }
