@@ -37,12 +37,12 @@ class AbstractPdfBuilderService
 
     const SHOW_COVER_SECTION                        = true;
     const SHOW_DAMAGE_CATEGORIES_SECTION            = true;
-    const SHOW_WINDFARM_INSPECTION_OVERVIEW_SECTION = true;
+    const SHOW_WINDFARM_INSPECTION_OVERVIEW_SECTION = false;
     const SHOW_INTRODUCTION_SECTION                 = true;
     const SHOW_INSPECTION_DESCRIPTION_SECTION       = true;
-    const SHOW_GENERAL_SUMMARY_SECTION              = true;
-    const SHOW_INDIVIDUAL_SUMMARY_SECTION           = true;
-    const SHOW_CONTACT_SECTION                      = true;
+    const SHOW_GENERAL_SUMMARY_SECTION              = false;
+    const SHOW_INDIVIDUAL_SUMMARY_SECTION           = false;
+    const SHOW_CONTACT_SECTION                      = false;
 
     /**
      * @var TCPDFController

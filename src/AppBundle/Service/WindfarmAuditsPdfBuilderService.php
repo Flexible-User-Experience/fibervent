@@ -38,14 +38,17 @@ class WindfarmAuditsPdfBuilderService extends AbstractPdfBuilderService
         $pdf->setPrintHeader(true);
         $pdf->AddPage(PDF_PAGE_ORIENTATION, PDF_PAGE_FORMAT, true, true);
         $pdf->setPrintFooter(true);
+        $pdf->SetXY(CustomTcpdf::PDF_MARGIN_LEFT, CustomTcpdf::PDF_MARGIN_TOP);
 
         // TODO Index section
 
         // Damage categories section
         if (self::SHOW_DAMAGE_CATEGORIES_SECTION) {
+            $pdf->setBlackText();
+            $pdf->setBlueLine();
             $pdf->setFontStyle(null, 'B', 11);
             $pdf->Write(0, $this->ts->trans('pdf_windfarm.damage_catalog.1_title'), '', false, 'L', true);
-            $pdf->Ln(2);
+            $pdf->Ln(self::SECTION_SPACER_V);
             $pdf->setFontStyle(null, '', 9);
             $this->drawDamageCategoriesTable($pdf);
             $pdf->setBlueLine();
@@ -71,13 +74,14 @@ class WindfarmAuditsPdfBuilderService extends AbstractPdfBuilderService
         // Introduction section
         if (self::SHOW_INTRODUCTION_SECTION) {
             $pdf->setBlackText();
+            $pdf->setBlueLine();
             $pdf->setFontStyle(null, 'B', 11);
             $pdf->Write(0, $this->ts->trans('pdf_windfarm.intro.1_title'), '', false, 'L', true);
             $pdf->Ln(self::SECTION_SPACER_V);
             $pdf->setFontStyle(null, '', 9);
             $pdf->Write(0, $this->ts->trans('pdf_windfarm.intro.2_description', ['%windfarm%' => $windfarm->getName(), '%year%' => $year]), '', false, 'L', true);
             $pdf->Ln(self::SECTION_SPACER_V);
-            // Introduction table
+            // introduction table
             $this->drawIntroductionTable($pdf);
             $pdf->Ln(self::SECTION_SPACER_V_BIG);
         }
@@ -164,6 +168,8 @@ class WindfarmAuditsPdfBuilderService extends AbstractPdfBuilderService
         $pdf->SetAutoPageBreak(true, CustomTcpdf::PDF_MARGIN_BOTTOM);
         // set image scale factor
         $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+
+        // Cover section
         if (self::SHOW_COVER_SECTION) {
             // add start page
             $pdf->startPage(PDF_PAGE_ORIENTATION, PDF_PAGE_FORMAT);

@@ -36,49 +36,54 @@ class AuditPdfBuilderService extends AbstractPdfBuilderService
         $pdf->setPrintHeader(true);
         $pdf->AddPage(PDF_PAGE_ORIENTATION, PDF_PAGE_FORMAT, true, true);
         $pdf->setPrintFooter(true);
+        $pdf->SetXY(CustomTcpdf::PDF_MARGIN_LEFT, CustomTcpdf::PDF_MARGIN_TOP);
 
-        if (!self::SHOW_ONLY_DIAGRAM) {
-            // Introduction page
-            $pdf->SetXY(CustomTcpdf::PDF_MARGIN_LEFT, CustomTcpdf::PDF_MARGIN_TOP);
+        // Introduction page
+        if (self::SHOW_INTRODUCTION_SECTION) {
             $pdf->setBlackText();
+            $pdf->setBlueLine();
             $pdf->setFontStyle(null, 'B', 11);
             $pdf->Write(0, $this->ts->trans('pdf.intro.1_title'), '', false, 'L', true);
             $pdf->Ln(self::SECTION_SPACER_V);
             $pdf->setFontStyle(null, '', 9);
             $pdf->Write(0, $this->ts->trans('pdf.intro.2_description', ['%windfarm%' => $windfarm->getName(), '%begin%' => $audit->getPdfBeginDateString(), '%end%' => $audit->getPdfEndDateString()]), '', false, 'L', true);
             $pdf->Ln(self::SECTION_SPACER_V);
-            // Introduction table
+            // introduction table
             $this->drawIntroductionTable($pdf);
             $pdf->Ln(self::SECTION_SPACER_V_BIG);
+        }
 
-            // Damage categories section
-            if (self::SHOW_DAMAGE_CATEGORIES_SECTION) {
-                // Damages categorization
-                $pdf->setFontStyle(null, 'B', 11);
-                $pdf->Write(0, $this->ts->trans('pdf.damage_catalog.1_title'), '', false, 'L', true);
-                $pdf->Ln(self::SECTION_SPACER_V);
-                $pdf->setFontStyle(null, '', 9);
-                $pdf->Write(0, $this->ts->trans('pdf.damage_catalog.2_subtitle'), '', false, 'L', true);
-                $pdf->Ln(self::SECTION_SPACER_V);
-                // Damages table
-                $this->drawDamageCategoriesTable($pdf);
-                $pdf->setBlueLine();
-                $pdf->setWhiteBackground();
-                $pdf->Ln(self::SECTION_SPACER_V_BIG);
-            }
+        // Damage categories section
+        if (self::SHOW_DAMAGE_CATEGORIES_SECTION) {
+            // Damages categorization
+            $pdf->setBlackText();
+            $pdf->setBlueLine();
+            $pdf->setFontStyle(null, 'B', 11);
+            $pdf->Write(0, $this->ts->trans('pdf.damage_catalog.1_title'), '', false, 'L', true);
+            $pdf->Ln(self::SECTION_SPACER_V);
+            $pdf->setFontStyle(null, '', 9);
+            $pdf->Write(0, $this->ts->trans('pdf.damage_catalog.2_subtitle'), '', false, 'L', true);
+            $pdf->Ln(self::SECTION_SPACER_V);
+            // Damages table
+            $this->drawDamageCategoriesTable($pdf);
+            $pdf->setBlueLine();
+            $pdf->setWhiteBackground();
+            $pdf->Ln(self::SECTION_SPACER_V_BIG);
+        }
 
-            // Inspection description
-            if (self::SHOW_INSPECTION_DESCRIPTION_SECTION) {
-                $pdf->setFontStyle(null, 'B', 11);
-                $pdf->Write(0, $this->ts->trans('pdf.audit_description.1_title'), '', false, 'L', true);
-                $pdf->Ln(self::SECTION_SPACER_V);
-                $this->drawInspectionDescriptionSection($pdf, $audit->getDiagramType());
-                $pdf->AddPage();
-            }
+        // Inspection description
+        if (self::SHOW_INSPECTION_DESCRIPTION_SECTION) {
+            $pdf->setFontStyle(null, 'B', 11);
+            $pdf->Write(0, $this->ts->trans('pdf.audit_description.1_title'), '', false, 'L', true);
+            $pdf->Ln(self::SECTION_SPACER_V);
+            $this->drawInspectionDescriptionSection($pdf, $audit->getDiagramType());
+            $pdf->AddPage();
         }
 
         // Damages section
-        $this->drawAuditDamage($pdf, $audit);
+        if (self::SHOW_INDIVIDUAL_SUMMARY_SECTION) {
+            $this->drawAuditDamage($pdf, $audit);
+        }
 
         // Contact section
         if (self::SHOW_CONTACT_SECTION) {
@@ -119,13 +124,14 @@ class AuditPdfBuilderService extends AbstractPdfBuilderService
         $pdf->SetAutoPageBreak(true, CustomTcpdf::PDF_MARGIN_BOTTOM);
         // set image scale factor
         $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+
+        // Cover section
         if (self::SHOW_COVER_SECTION) {
             // add start page
             $pdf->startPage(PDF_PAGE_ORIENTATION, PDF_PAGE_FORMAT);
             // logo
             if ($audit->getCustomer()->isShowLogoInPdfs() && $audit->getCustomer()->getImageName()) {
                 // customer has logo
-                // Image($file, $x='', $y='', $w=0, $h=0, $type='', $link='', $align='', $resize=false, $dpi=300, $palign='', $ismask=false, $imgmask=false, $border=0, $fitbox=false, $hidden=false, $fitonpage=false, $alt=false, $altimgs=array())
                 $pdf->Image($this->uh->asset($audit->getCustomer(), 'imageFile'), CustomTcpdf::PDF_MARGIN_LEFT + 12, 45, 55, 0, '', '', 'T', 2, 300, '', false, false, 0, false, false, false);
                 $pdf->Image($this->tha->getUrl('/bundles/app/images/fibervent_logo_white_landscape_hires.jpg'), 100, 45, 78, 0, 'JPEG', '', 'T', false, 300, '', false, false, 0, false, false, false);
             } else {
