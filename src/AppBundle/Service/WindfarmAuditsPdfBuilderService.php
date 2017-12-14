@@ -88,6 +88,8 @@ class WindfarmAuditsPdfBuilderService extends AbstractPdfBuilderService
 
         // Inspection description section
         if (self::SHOW_INSPECTION_DESCRIPTION_SECTION) {
+            $pdf->setBlackText();
+            $pdf->setBlueLine();
             $pdf->setFontStyle(null, 'B', 11);
             $pdf->Write(0, $this->ts->trans('pdf_windfarm.inspection_description.1_title'), '', false, 'L', true);
             $pdf->Ln(self::SECTION_SPACER_V);
@@ -134,7 +136,7 @@ class WindfarmAuditsPdfBuilderService extends AbstractPdfBuilderService
             $pdf->AddPage();
             $pdf->setFontStyle(null, 'B', 11);
             $pdf->Write(0, $this->ts->trans('pdf_windfarm.contact_section.1_title'), '', false, 'L', true);
-            $pdf->Ln(5);
+            $pdf->Ln(self::SECTION_SPACER_V_BIG / 2);
             $this->drawContactSection($pdf);
         }
 

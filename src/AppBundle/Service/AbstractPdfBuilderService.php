@@ -200,10 +200,10 @@ class AbstractPdfBuilderService
             $pdf->setFontStyle(null, 'B', 11);
             $serialNumberSuffix = $auditWindmillBlade->getWindmillBlade()->getCode() ? ' - (S/N: '.($auditWindmillBlade->getWindmillBlade()->getCode()).')' : '';
             $pdf->Write(0, '3.'.($key + 1).' '.$this->ts->trans('pdf.audit_blade_damage.1_title').' '.($key + 1).$serialNumberSuffix.($showAuditMark ? ' ('.$audit->getWindmill()->getCode().')' : ''), '', false, 'L', true);
-            $pdf->Ln(5);
+            $pdf->Ln(self::SECTION_SPACER_V_BIG / 2);
             $pdf->setFontStyle(null, '', 9);
             $pdf->Write(0, $this->ts->trans('pdf.audit_blade_damage.2_description'), '', false, 'L', true);
-            $pdf->Ln(5);
+            $pdf->Ln(self::SECTION_SPACER_V_BIG / 2);
             // damage table
             $this->drawDamageTableHeader($pdf);
 
@@ -370,7 +370,7 @@ class AbstractPdfBuilderService
                     $pdf->MultiCell(0, $h, $observation->getObservations(), 1, 'L', 0, 0, CustomTcpdf::PDF_MARGIN_LEFT + 16, '', true, 0, false, true, 0, 'M');
                     $pdf->MultiCell(16, $h, $observation->getDamageNumber(), 1, 'C', 0, 1, CustomTcpdf::PDF_MARGIN_LEFT, '', true, 0, false, true, 0, 'M');
                 }
-                $pdf->Ln(5);
+                $pdf->Ln(self::SECTION_SPACER_V_BIG / 2);
             }
 
             // General blade damage images
@@ -392,7 +392,7 @@ class AbstractPdfBuilderService
                         }
                     }
                 }
-                $pdf->Ln(5);
+                $pdf->Ln(self::SECTION_SPACER_V_BIG / 2);
             }
 
             $pdf->AddPage();
@@ -403,7 +403,7 @@ class AbstractPdfBuilderService
                 foreach ($bladeDamages as $sKey => $bladeDamage) {
                     $this->drawDamageTableHeader($pdf);
                     $this->drawDamageTableBodyRow($pdf, $sKey, $bladeDamage);
-                    $pdf->Ln(5);
+                    $pdf->Ln(self::SECTION_SPACER_V_BIG / 2);
                     /** @var Photo $photo */
                     foreach ($bladeDamage->getPhotos() as $photo) {
                         if ($photo->getImageName()) {
@@ -479,7 +479,7 @@ class AbstractPdfBuilderService
         $pdf->Ln(self::SECTION_SPACER_V_BIG);
         $pdf->Cell(10, 0, '', 0, 0);
         $pdf->Cell(0, 0, $this->ts->trans('pdf.inspection_description.3_offices'), 0, 1, 'L', 0, '');
-        $pdf->Ln(5);
+        $pdf->Ln(self::SECTION_SPACER_V_BIG / 2);
         $pdf->Cell(20, 0, '', 0, 0);
         $pdf->Cell(0, 0, 'Pol. Industrial Pal de Solans, Parcela 2', 0, 1, 'L', 0, '');
         $pdf->Cell(20, 0, '', 0, 0);
@@ -497,7 +497,7 @@ class AbstractPdfBuilderService
         $pdf->Ln(self::SECTION_SPACER_V_BIG);
         $pdf->Cell(10, 0, '', 0, 0);
         $pdf->Cell(0, 0, $this->ts->trans('pdf.inspection_description.4_phones_emails'), 0, 1, 'L', 0, '');
-        $pdf->Ln(5);
+        $pdf->Ln(self::SECTION_SPACER_V_BIG / 2);
         $pdf->Cell(20, 0, '', 0, 0);
         $pdf->Cell(0, 0, 'David Espasa (+34 636 317 884)', 0, 1, 'L', 0, '');
         $pdf->setFontStyle(null, 'U', 9);
@@ -535,7 +535,7 @@ class AbstractPdfBuilderService
         $pdf->setBlackText();
         $pdf->Ln(15);
         $pdf->Write(0, $this->ts->trans('pdf.inspection_description.5_gratitude'), '', false, 'L', true);
-        $pdf->Ln(5);
+        $pdf->Ln(self::SECTION_SPACER_V_BIG / 2);
         $pdf->Write(0, 'FIBERVENT, S.L.', '', false, 'L', true);
     }
 
