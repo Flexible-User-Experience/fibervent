@@ -32,10 +32,14 @@ class AbstractPdfBuilderService
     const SECTION_SPACER_V     = 2;
     const SECTION_SPACER_V_BIG = 10;
 
-    const SHOW_GRID_DEBUG      = false;
-    const SHOW_ONLY_DIAGRAM    = false;
+    const SHOW_BLADE_DAMAGE_SUMMARY_DAMAGES_TABLE      = false;
+    const SHOW_BLADE_DAMAGE_SUMMARY_DIAGRAM            = false;
+    const SHOW_BLADE_DAMAGE_SUMMARY_DIAGRAM_DEBUG_GRID = false;
+    const SHOW_BLADE_DAMAGE_SUMMARY_OBSERVATIONS_TABLE = false;
+    const SHOW_BLADE_DAMAGE_SUMMARY_WINDMILL_IMAGES    = false;
+    const SHOW_BLADE_DAMAGE_SUMMARY_BLADE_IMAGES       = true;
 
-    // single audit
+    // Single Audit
     const SA_SHOW_COVER_SECTION                        = true;
     const SA_SHOW_INTRODUCTION_SECTION                 = true;
     const SA_SHOW_DAMAGE_CATEGORIES_SECTION            = true;
@@ -43,7 +47,7 @@ class AbstractPdfBuilderService
     const SA_SHOW_INDIVIDUAL_DAMAGES_SUMMARY_SECTION   = true;
     const SA_SHOW_CONTACT_SECTION                      = true;
 
-    // windfarm audits collection
+    // Windfarm Audits Collection
     const WAC_SHOW_COVER_SECTION                        = true;
     const WAC_SHOW_DAMAGE_CATEGORIES_SECTION            = true;
     const WAC_SHOW_WINDFARM_INSPECTION_OVERVIEW_SECTION = true;
@@ -216,13 +220,15 @@ class AbstractPdfBuilderService
             $pdf->Write(0, $this->ts->trans('pdf.audit_blade_damage.2_description'), '', false, 'L', true);
             $pdf->Ln(self::SECTION_SPACER_V_BIG / 2);
             // damage table
-            $this->drawDamageTableHeader($pdf);
-
-            /** @var BladeDamage $bladeDamage */
-            foreach ($bladeDamages as $sKey => $bladeDamage) {
-                $this->drawDamageTableBodyRow($pdf, $sKey, $bladeDamage);
+            if (self::SHOW_BLADE_DAMAGE_SUMMARY_DAMAGES_TABLE) {
+                $this->drawDamageTableHeader($pdf);
+                /** @var BladeDamage $bladeDamage */
+                foreach ($bladeDamages as $sKey => $bladeDamage) {
+                    $this->drawDamageTableBodyRow($pdf, $sKey, $bladeDamage);
+                }
+                $pdf->Ln(7);
             }
-            $pdf->Ln(7);
+
             $yBreakpoint = $pdf->GetY();
 
             // blade diagram damage locations
@@ -247,126 +253,129 @@ class AbstractPdfBuilderService
 
             // blade diagram middle lines
             $this->amdb->enableDebugLineStyles($pdf, true);
-            // verticals
-            $pdf->Line($xQuarter1, $y1, $xQuarter1, $y1 + ($y2 - $y1));
-            $pdf->Line($xQuarter2, $y1, $xQuarter2, $y1 + ($y2 - $y1));
-            $pdf->Line($xQuarter3, $y1, $xQuarter3, $y1 + ($y2 - $y1));
-            $pdf->Line($xQuarter4, $y1, $xQuarter4, $y1 + ($y2 - $y1));
-            $pdf->Line($xQuarter5, $y1, $xQuarter5, $y1 + ($y2 - $y1));
-            // hortizontals
-            $pdf->Line($x1, $y1 + 3, $x2, $y1 + 3);
-            $pdf->Line($x1, $yMiddle2 + 8, $x2, $yMiddle2 + 8);
 
-            if (self::SHOW_GRID_DEBUG) {
-                $pdf->Line($x1, $yQuarter1, $x2, $yQuarter1);
-                $pdf->Line($x1, $yQuarter2, $x2, $yQuarter2);
-                $pdf->Line($x1, $yMiddle, $x2, $yMiddle);
-                $pdf->Line($x1, $yQuarter3, $x2, $yQuarter3);
-                $pdf->Line($x1, $yQuarter4, $x2, $yQuarter4);
-                $pdf->Line($x1, $yMiddle2, $x2, $yMiddle2);
-                $this->amdb->enableDebugLineStyles($pdf, false);
-            }
+            if (self::SHOW_BLADE_DAMAGE_SUMMARY_DIAGRAM) {
+                // verticals
+                $pdf->Line($xQuarter1, $y1, $xQuarter1, $y1 + ($y2 - $y1));
+                $pdf->Line($xQuarter2, $y1, $xQuarter2, $y1 + ($y2 - $y1));
+                $pdf->Line($xQuarter3, $y1, $xQuarter3, $y1 + ($y2 - $y1));
+                $pdf->Line($xQuarter4, $y1, $xQuarter4, $y1 + ($y2 - $y1));
+                $pdf->Line($xQuarter5, $y1, $xQuarter5, $y1 + ($y2 - $y1));
+                // hortizontals
+                $pdf->Line($x1, $y1 + 3, $x2, $y1 + 3);
+                $pdf->Line($x1, $yMiddle2 + 8, $x2, $yMiddle2 + 8);
 
-            // blade diagram radius helper
-            $txt = $auditWindmillBlade->getWindmillBlade()->getWindmill()->getBladeType()->getQ0LengthString();
-            $pdf->Text(($x1 - $pdf->GetStringWidth($txt) - 2), $y1 - 2, $txt);
-            $pdf->Text(($x1 - $pdf->GetStringWidth($txt) - 2), $yMiddle2 + 7, $txt);
-            $txt = $auditWindmillBlade->getWindmillBlade()->getWindmill()->getBladeType()->getQ1LengthString();
-            $pdf->Text(($xQuarter2 - $pdf->GetStringWidth($txt) - 2), $y1 - 2, $txt);
-            $pdf->Text(($xQuarter2 - $pdf->GetStringWidth($txt) - 2), $yMiddle2 + 7, $txt);
-            $txt = $auditWindmillBlade->getWindmillBlade()->getWindmill()->getBladeType()->getQ2LengthString();
-            $pdf->Text(($xQuarter3 - $pdf->GetStringWidth($txt) - 2), $y1 - 2, $txt);
-            $pdf->Text(($xQuarter3 - $pdf->GetStringWidth($txt) - 2), $yMiddle2 + 7, $txt);
-            $txt = $auditWindmillBlade->getWindmillBlade()->getWindmill()->getBladeType()->getQ3LengthString();
-            $pdf->Text(($xQuarter4 - $pdf->GetStringWidth($txt) - 2), $y1 - 2, $txt);
-            $pdf->Text(($xQuarter4 - $pdf->GetStringWidth($txt) - 2), $yMiddle2 + 7, $txt);
-            $txt = $auditWindmillBlade->getWindmillBlade()->getWindmill()->getBladeType()->getQ4LengthString();
-            $pdf->Text(($xQuarter5 - $pdf->GetStringWidth($txt) - 2), $y1 - 2, $txt);
-            $pdf->Text(($xQuarter5 - $pdf->GetStringWidth($txt) - 2), $yMiddle2 + 7, $txt);
-            $pdf->setBlackLine();
-            $pdf->SetLineStyle(array('dash' => 0));
-
-            $pdf->SetXY(CustomTcpdf::PDF_MARGIN_LEFT, $pdf->GetY() + 3);
-            $pdf->StartTransform();
-            $pdf->Rotate(90);
-            // MultiCell($w, $h, $txt, $border=0, $align='J', $fill=0, $ln=1, $x='', $y='', $reseth=true, $stretch=0, $ishtml=false, $autopadding=true, $maxh=0)
-            $pdf->MultiCell(20, 0, $this->ts->trans('pdf.blade_damage_diagram.6_bs_l_short'), 0, 'C', 0, 0, '', '', true);
-            $pdf->MultiCell(20, 0, $this->ts->trans('pdf.blade_damage_diagram.2_vs_s'), 0, 'C', 0, 0, '', '', true);
-            $pdf->MultiCell(20, 0, $this->ts->trans('pdf.blade_damage_diagram.5_ba_l_short'), 0, 'C', 0, 0, '', '', true);
-            $pdf->MultiCell(20, 0, $this->ts->trans('pdf.blade_damage_diagram.1_vp_s'), 0, 'C', 0, 0, '', '', true);
-            $pdf->StopTransform();
-
-            // Draw blade diagram
-            $polyArray = array();
-            $polyArray2 = array();
-            $xStep = $xQuarter1;
-            $xDelta = ($xQuarter5 - $xQuarter1) / 50;
-            foreach ($this->amdb->getBladeShape() as $yPoint) {
-                $yTransform = $yQuarter2 - (($yQuarter2 - $yQuarter1) * $yPoint);
-                $yTransform2 = $yQuarter3 + (($yQuarter4 - $yQuarter3) * $yPoint);
-                array_push($polyArray, $xStep);
-                array_push($polyArray, $yTransform);
-                array_push($polyArray2, $xStep);
-                array_push($polyArray2, $yTransform2);
-                $xStep += $xDelta;
-            }
-            array_push($polyArray, $xQuarter5);
-            array_push($polyArray, $yQuarter2);
-            array_push($polyArray, $xQuarter1);
-            array_push($polyArray, $yQuarter2);
-            array_push($polyArray2, $xQuarter5);
-            array_push($polyArray2, $yQuarter3);
-            array_push($polyArray2, $xQuarter1);
-            array_push($polyArray2, $yQuarter3);
-            $pdf->SetLineStyle(array('dash' => 0, 'width' => 0.35));
-            $pdf->Polygon($polyArray);
-            $pdf->Polygon($polyArray2);
-
-            // Draw edge blade diagram
-            $polyArray = array();
-            $polyArray2 = array();
-            $xStep = $xQuarter1;
-            $xDelta = ($xQuarter5 - $xQuarter1) / 50;
-            foreach ($this->amdb->getEdgeBladeShape() as $yPoint) {
-                $yTransform = $yMiddle - ((($yQuarter2 - $yQuarter1) / 2) * $yPoint);
-                $yTransform2 = $yMiddle2 - ((($yQuarter2 - $yQuarter1) / 2) * $yPoint);
-                array_push($polyArray, $xStep);
-                array_push($polyArray, $yTransform);
-                array_push($polyArray2, $xStep);
-                array_push($polyArray2, $yTransform2);
-                $xStep += $xDelta;
-            }
-            $xStep = $xQuarter5;
-            foreach (array_reverse($this->amdb->getEdgeBladeShape()) as $yPoint) {
-                $yTransform = $yMiddle + ((($yQuarter2 - $yQuarter1) / 2) * $yPoint);
-                $yTransform2 = $yMiddle2 + ((($yQuarter2 - $yQuarter1) / 2) * $yPoint);
-                array_push($polyArray, $xStep);
-                array_push($polyArray, $yTransform);
-                array_push($polyArray2, $xStep);
-                array_push($polyArray2, $yTransform2);
-                $xStep -= $xDelta;
-            }
-            $pdf->SetLineStyle(array('dash' => 0, 'width' => 0.35));
-            $pdf->Polygon($polyArray);
-            $pdf->Polygon($polyArray2);
-            $pdf->SetLineStyle(array('dash' => 0, 'width' => 0.15));
-            $pdf->Line($xQuarter2 - 6, $yMiddle2, $x2, $yMiddle2);
-
-            /** @var BladeDamage $bladeDamage */
-            foreach ($bladeDamages as $sKey => $bladeDamage) {
-                $this->amdb->drawCenterDamage($pdf, $bladeDamage, $sKey + 1);
-                if (self::SHOW_GRID_DEBUG) {
-                    $pdf->setRedLine();
-                    $this->amdb->drawCenterPoint($pdf, $bladeDamage);
-                    $pdf->setBlackLine();
+                if (self::SHOW_BLADE_DAMAGE_SUMMARY_DIAGRAM_DEBUG_GRID) {
+                    $pdf->Line($x1, $yQuarter1, $x2, $yQuarter1);
+                    $pdf->Line($x1, $yQuarter2, $x2, $yQuarter2);
+                    $pdf->Line($x1, $yMiddle, $x2, $yMiddle);
+                    $pdf->Line($x1, $yQuarter3, $x2, $yQuarter3);
+                    $pdf->Line($x1, $yQuarter4, $x2, $yQuarter4);
+                    $pdf->Line($x1, $yMiddle2, $x2, $yMiddle2);
+                    $this->amdb->enableDebugLineStyles($pdf, false);
                 }
-            }
 
-            $pdf->setWhiteBackground();
-            $pdf->SetY($yBreakpoint + AuditModelDiagramBridgeService::DIAGRAM_HEIGHT + 10);
+                // blade diagram radius helper
+                $txt = $auditWindmillBlade->getWindmillBlade()->getWindmill()->getBladeType()->getQ0LengthString();
+                $pdf->Text(($x1 - $pdf->GetStringWidth($txt) - 2), $y1 - 2, $txt);
+                $pdf->Text(($x1 - $pdf->GetStringWidth($txt) - 2), $yMiddle2 + 7, $txt);
+                $txt = $auditWindmillBlade->getWindmillBlade()->getWindmill()->getBladeType()->getQ1LengthString();
+                $pdf->Text(($xQuarter2 - $pdf->GetStringWidth($txt) - 2), $y1 - 2, $txt);
+                $pdf->Text(($xQuarter2 - $pdf->GetStringWidth($txt) - 2), $yMiddle2 + 7, $txt);
+                $txt = $auditWindmillBlade->getWindmillBlade()->getWindmill()->getBladeType()->getQ2LengthString();
+                $pdf->Text(($xQuarter3 - $pdf->GetStringWidth($txt) - 2), $y1 - 2, $txt);
+                $pdf->Text(($xQuarter3 - $pdf->GetStringWidth($txt) - 2), $yMiddle2 + 7, $txt);
+                $txt = $auditWindmillBlade->getWindmillBlade()->getWindmill()->getBladeType()->getQ3LengthString();
+                $pdf->Text(($xQuarter4 - $pdf->GetStringWidth($txt) - 2), $y1 - 2, $txt);
+                $pdf->Text(($xQuarter4 - $pdf->GetStringWidth($txt) - 2), $yMiddle2 + 7, $txt);
+                $txt = $auditWindmillBlade->getWindmillBlade()->getWindmill()->getBladeType()->getQ4LengthString();
+                $pdf->Text(($xQuarter5 - $pdf->GetStringWidth($txt) - 2), $y1 - 2, $txt);
+                $pdf->Text(($xQuarter5 - $pdf->GetStringWidth($txt) - 2), $yMiddle2 + 7, $txt);
+                $pdf->setBlackLine();
+                $pdf->SetLineStyle(array('dash' => 0));
+
+                $pdf->SetXY(CustomTcpdf::PDF_MARGIN_LEFT, $pdf->GetY() + 3);
+                $pdf->StartTransform();
+                $pdf->Rotate(90);
+                // MultiCell($w, $h, $txt, $border=0, $align='J', $fill=0, $ln=1, $x='', $y='', $reseth=true, $stretch=0, $ishtml=false, $autopadding=true, $maxh=0)
+                $pdf->MultiCell(20, 0, $this->ts->trans('pdf.blade_damage_diagram.6_bs_l_short'), 0, 'C', 0, 0, '', '', true);
+                $pdf->MultiCell(20, 0, $this->ts->trans('pdf.blade_damage_diagram.2_vs_s'), 0, 'C', 0, 0, '', '', true);
+                $pdf->MultiCell(20, 0, $this->ts->trans('pdf.blade_damage_diagram.5_ba_l_short'), 0, 'C', 0, 0, '', '', true);
+                $pdf->MultiCell(20, 0, $this->ts->trans('pdf.blade_damage_diagram.1_vp_s'), 0, 'C', 0, 0, '', '', true);
+                $pdf->StopTransform();
+
+                // Draw blade diagram
+                $polyArray = array();
+                $polyArray2 = array();
+                $xStep = $xQuarter1;
+                $xDelta = ($xQuarter5 - $xQuarter1) / 50;
+                foreach ($this->amdb->getBladeShape() as $yPoint) {
+                    $yTransform = $yQuarter2 - (($yQuarter2 - $yQuarter1) * $yPoint);
+                    $yTransform2 = $yQuarter3 + (($yQuarter4 - $yQuarter3) * $yPoint);
+                    array_push($polyArray, $xStep);
+                    array_push($polyArray, $yTransform);
+                    array_push($polyArray2, $xStep);
+                    array_push($polyArray2, $yTransform2);
+                    $xStep += $xDelta;
+                }
+                array_push($polyArray, $xQuarter5);
+                array_push($polyArray, $yQuarter2);
+                array_push($polyArray, $xQuarter1);
+                array_push($polyArray, $yQuarter2);
+                array_push($polyArray2, $xQuarter5);
+                array_push($polyArray2, $yQuarter3);
+                array_push($polyArray2, $xQuarter1);
+                array_push($polyArray2, $yQuarter3);
+                $pdf->SetLineStyle(array('dash' => 0, 'width' => 0.35));
+                $pdf->Polygon($polyArray);
+                $pdf->Polygon($polyArray2);
+
+                // Draw edge blade diagram
+                $polyArray = array();
+                $polyArray2 = array();
+                $xStep = $xQuarter1;
+                $xDelta = ($xQuarter5 - $xQuarter1) / 50;
+                foreach ($this->amdb->getEdgeBladeShape() as $yPoint) {
+                    $yTransform = $yMiddle - ((($yQuarter2 - $yQuarter1) / 2) * $yPoint);
+                    $yTransform2 = $yMiddle2 - ((($yQuarter2 - $yQuarter1) / 2) * $yPoint);
+                    array_push($polyArray, $xStep);
+                    array_push($polyArray, $yTransform);
+                    array_push($polyArray2, $xStep);
+                    array_push($polyArray2, $yTransform2);
+                    $xStep += $xDelta;
+                }
+                $xStep = $xQuarter5;
+                foreach (array_reverse($this->amdb->getEdgeBladeShape()) as $yPoint) {
+                    $yTransform = $yMiddle + ((($yQuarter2 - $yQuarter1) / 2) * $yPoint);
+                    $yTransform2 = $yMiddle2 + ((($yQuarter2 - $yQuarter1) / 2) * $yPoint);
+                    array_push($polyArray, $xStep);
+                    array_push($polyArray, $yTransform);
+                    array_push($polyArray2, $xStep);
+                    array_push($polyArray2, $yTransform2);
+                    $xStep -= $xDelta;
+                }
+                $pdf->SetLineStyle(array('dash' => 0, 'width' => 0.35));
+                $pdf->Polygon($polyArray);
+                $pdf->Polygon($polyArray2);
+                $pdf->SetLineStyle(array('dash' => 0, 'width' => 0.15));
+                $pdf->Line($xQuarter2 - 6, $yMiddle2, $x2, $yMiddle2);
+
+                /** @var BladeDamage $bladeDamage */
+                foreach ($bladeDamages as $sKey => $bladeDamage) {
+                    $this->amdb->drawCenterDamage($pdf, $bladeDamage, $sKey + 1);
+                    if (self::SHOW_BLADE_DAMAGE_SUMMARY_DIAGRAM_DEBUG_GRID) {
+                        $pdf->setRedLine();
+                        $this->amdb->drawCenterPoint($pdf, $bladeDamage);
+                        $pdf->setBlackLine();
+                    }
+                }
+
+                $pdf->setWhiteBackground();
+                $pdf->SetY($yBreakpoint + AuditModelDiagramBridgeService::DIAGRAM_HEIGHT + 10);
+            }
 
             // Observations table
-            if (count($auditWindmillBlade->getObservations()) > 0 && !self::SHOW_ONLY_DIAGRAM) {
+            if (count($auditWindmillBlade->getObservations()) > 0 && self::SHOW_BLADE_DAMAGE_SUMMARY_OBSERVATIONS_TABLE) {
                 $pdf->setBlueLine();
                 $pdf->SetLineStyle(array('width' => 0.25));
                 $pdf->setBlueBackground();
@@ -385,7 +394,7 @@ class AbstractPdfBuilderService
             }
 
             // General blade damage images
-            if (count($auditWindmillBlade->getBladePhotos()) > 0 && !self::SHOW_ONLY_DIAGRAM) {
+            if (count($auditWindmillBlade->getBladePhotos()) > 0 && self::SHOW_BLADE_DAMAGE_SUMMARY_WINDMILL_IMAGES) {
                 $pdf->AddPage();
                 $pdf->setFontStyle(null, 'B', 11);
                 $pdf->Write(0, '3.'.($key + 1).'.'.$this->ts->trans('pdf.blade_damage_images.1_general_blade_views').' '.($key + 1).($showAuditMark ? ' ('.$audit->getWindmill()->getCode().')' : ''), '', false, 'L', true);
@@ -407,7 +416,7 @@ class AbstractPdfBuilderService
             }
 
             $pdf->AddPage();
-            if (!self::SHOW_ONLY_DIAGRAM) {
+            if (self::SHOW_BLADE_DAMAGE_SUMMARY_BLADE_IMAGES) {
                 // Damage images pages
                 $pdf->setBlueLine();
                 /** @var BladeDamage $bladeDamage */
