@@ -381,14 +381,15 @@ class WindfarmAuditsPdfBuilderService extends AbstractPdfBuilderService
         $i = 0;
         /** @var AuditWindmillBlade $auditWindmillBlade */
         foreach ($audit->getAuditWindmillBlades() as $auditWindmillBlade) {
+            $bladeDamageHelper = $this->bdhf->create($auditWindmillBlade, $damageCategories);
             $i++;
             $pdf->SetX(CustomTcpdf::PDF_MARGIN_LEFT + 20);
-            $pdf->Cell(10, 6, $i, 1, 0, 'C', true);
+            $pdf->Cell(10, 6, $bladeDamageHelper->getBlade(), 1, 0, 'C', true);
             /** @var DamageCategory $damageCategory */
             foreach ($damageCategories as $key => $damageCategory) {
                 $pdf->Cell($damageHeaderWidth / count($damageCategories), 6, $this->bdhf->markDamageCategory($damageCategory, $auditWindmillBlade), 1, 0, 'C', true);
             }
-            $pdf->Cell($pdf->availablePageWithDimension - $damageHeaderWidth - 30, 6, '???', 1, 1, 'C', true);
+            $pdf->Cell($pdf->availablePageWithDimension - $damageHeaderWidth - 30, 6, $bladeDamageHelper->getDamagesToString(), 1, 1, 'C', true);
         }
     }
 }

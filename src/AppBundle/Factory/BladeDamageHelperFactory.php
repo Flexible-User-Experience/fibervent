@@ -16,6 +16,59 @@ use AppBundle\Entity\DamageCategory;
 class BladeDamageHelperFactory
 {
     /**
+     * @var BladeDamageHelper
+     */
+    private $bladeDamageHelper;
+
+    /**
+     * Methods
+     */
+
+    /**
+     * BladeDamageHelperFactory constructor.
+     *
+     * @param AuditWindmillBlade $auditWindmillBlade
+     * @param DamageCategory[]   $damageCategories
+     *
+     * @return BladeDamageHelper
+     */
+    public function create(AuditWindmillBlade $auditWindmillBlade, $damageCategories)
+    {
+        $this->bladeDamageHelper = new BladeDamageHelper();
+        $this->bladeDamageHelper->setBlade($auditWindmillBlade->getWindmillBlade()->getOrder());
+        /** @var DamageCategory $damageCategory */
+//        foreach ($damageCategories as $damageCategory) {
+//            $this->bladeDamageHelper->addCategory($)
+//        }
+        /** @var BladeDamage $bladeDamage */
+        foreach ($auditWindmillBlade->getBladeDamages() as $bladeDamage) {
+            $this->bladeDamageHelper->addDamage($bladeDamage->getNumber().')');
+        }
+
+        return $this->bladeDamageHelper;
+    }
+
+    /**
+     * @return BladeDamageHelper
+     */
+    public function getBladeDamageHelper()
+    {
+        return $this->bladeDamageHelper;
+    }
+
+    /**
+     * @param BladeDamageHelper $bladeDamageHelper
+     *
+     * @return $this
+     */
+    public function setBladeDamageHelper(BladeDamageHelper $bladeDamageHelper)
+    {
+        $this->bladeDamageHelper = $bladeDamageHelper;
+
+        return $this;
+    }
+
+    /**
      * @param DamageCategory $damageCategory
      * @param AuditWindmillBlade $auditWindmillBlade
      *
