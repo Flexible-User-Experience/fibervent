@@ -43,21 +43,20 @@ class WindfarmAuditsPdfBuilderService extends AbstractPdfBuilderService
         // TODO Index section
 
         // Damage categories section
-        if (self::SHOW_DAMAGE_CATEGORIES_SECTION) {
+        if (self::WAC_SHOW_DAMAGE_CATEGORIES_SECTION) {
             $pdf->setBlackText();
             $pdf->setBlueLine();
             $pdf->setFontStyle(null, 'B', 11);
             $pdf->Write(0, $this->ts->trans('pdf_windfarm.damage_catalog.1_title'), '', false, 'L', true);
             $pdf->Ln(self::SECTION_SPACER_V);
             $pdf->setFontStyle(null, '', 9);
+            // damages table
             $this->drawDamageCategoriesTable($pdf);
-            $pdf->setBlueLine();
-            $pdf->setWhiteBackground();
             $pdf->Ln(self::SECTION_SPACER_V_BIG);
         }
 
         // Windfarm inspection overview section
-        if (self::SHOW_WINDFARM_INSPECTION_OVERVIEW_SECTION) {
+        if (self::WAC_SHOW_WINDFARM_INSPECTION_OVERVIEW_SECTION) {
             $pdf->setFontStyle(null, 'B', 11);
             $pdf->Write(0, $this->ts->trans('pdf_windfarm.inspection_overview.1_title'), '', false, 'L', true);
             $pdf->Ln(self::SECTION_SPACER_V);
@@ -72,7 +71,7 @@ class WindfarmAuditsPdfBuilderService extends AbstractPdfBuilderService
         }
 
         // Introduction section
-        if (self::SHOW_INTRODUCTION_SECTION) {
+        if (self::WAC_SHOW_INTRODUCTION_SECTION) {
             $pdf->setBlackText();
             $pdf->setBlueLine();
             $pdf->setFontStyle(null, 'B', 11);
@@ -87,7 +86,7 @@ class WindfarmAuditsPdfBuilderService extends AbstractPdfBuilderService
         }
 
         // Inspection description section
-        if (self::SHOW_INSPECTION_DESCRIPTION_SECTION) {
+        if (self::WAC_SHOW_INSPECTION_DESCRIPTION_SECTION) {
             $pdf->setBlackText();
             $pdf->setBlueLine();
             $pdf->setFontStyle(null, 'B', 11);
@@ -98,7 +97,7 @@ class WindfarmAuditsPdfBuilderService extends AbstractPdfBuilderService
         }
 
         // General summary of damages section
-        if (self::SHOW_GENERAL_SUMMARY_SECTION) {
+        if (self::WAC_SHOW_GENERAL_SUMMARY_SECTION) {
             $pdf->setBlackText();
             $pdf->setFontStyle(null, 'B', 11);
             $pdf->Write(0, $this->ts->trans('pdf_windfarm.general_summary.1_title'), '', false, 'L', true);
@@ -116,7 +115,7 @@ class WindfarmAuditsPdfBuilderService extends AbstractPdfBuilderService
         }
 
         // Individual summary of damages section
-        if (self::SHOW_INDIVIDUAL_SUMMARY_SECTION) {
+        if (self::WAC_SHOW_INDIVIDUAL_SUMMARY_SECTION) {
             $pdf->setBlackText();
             $pdf->setFontStyle(null, 'B', 11);
             $pdf->Write(0, $this->ts->trans('pdf_windfarm.individual_summary.1_title'), '', false, 'L', true);
@@ -132,7 +131,7 @@ class WindfarmAuditsPdfBuilderService extends AbstractPdfBuilderService
         }
 
         // Contact section
-        if (self::SHOW_CONTACT_SECTION) {
+        if (self::WAC_SHOW_CONTACT_SECTION) {
             $pdf->AddPage();
             $pdf->setFontStyle(null, 'B', 11);
             $pdf->Write(0, $this->ts->trans('pdf_windfarm.contact_section.1_title'), '', false, 'L', true);
@@ -172,7 +171,7 @@ class WindfarmAuditsPdfBuilderService extends AbstractPdfBuilderService
         $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
 
         // Cover section
-        if (self::SHOW_COVER_SECTION) {
+        if (self::WAC_SHOW_COVER_SECTION) {
             // add start page
             $pdf->startPage(PDF_PAGE_ORIENTATION, PDF_PAGE_FORMAT);
             // logo

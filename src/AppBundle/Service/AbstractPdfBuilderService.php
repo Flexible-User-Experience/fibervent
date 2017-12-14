@@ -35,14 +35,23 @@ class AbstractPdfBuilderService
     const SHOW_GRID_DEBUG      = false;
     const SHOW_ONLY_DIAGRAM    = false;
 
-    const SHOW_COVER_SECTION                        = true;
-    const SHOW_DAMAGE_CATEGORIES_SECTION            = true;
-    const SHOW_WINDFARM_INSPECTION_OVERVIEW_SECTION = false;
-    const SHOW_INTRODUCTION_SECTION                 = true;
-    const SHOW_INSPECTION_DESCRIPTION_SECTION       = true;
-    const SHOW_GENERAL_SUMMARY_SECTION              = false;
-    const SHOW_INDIVIDUAL_SUMMARY_SECTION           = false;
-    const SHOW_CONTACT_SECTION                      = false;
+    // single audit
+    const SA_SHOW_COVER_SECTION                        = true;
+    const SA_SHOW_INTRODUCTION_SECTION                 = true;
+    const SA_SHOW_DAMAGE_CATEGORIES_SECTION            = true;
+    const SA_SHOW_INSPECTION_DESCRIPTION_SECTION       = true;
+    const SA_SHOW_INDIVIDUAL_DAMAGES_SUMMARY_SECTION   = true;
+    const SA_SHOW_CONTACT_SECTION                      = true;
+
+    // windfarm audits collection
+    const WAC_SHOW_COVER_SECTION                        = true;
+    const WAC_SHOW_DAMAGE_CATEGORIES_SECTION            = true;
+    const WAC_SHOW_WINDFARM_INSPECTION_OVERVIEW_SECTION = true;
+    const WAC_SHOW_INTRODUCTION_SECTION                 = true;
+    const WAC_SHOW_INSPECTION_DESCRIPTION_SECTION       = true;
+    const WAC_SHOW_GENERAL_SUMMARY_SECTION              = true;
+    const WAC_SHOW_INDIVIDUAL_SUMMARY_SECTION           = false;
+    const WAC_SHOW_CONTACT_SECTION                      = true;
 
     /**
      * @var TCPDFController
@@ -168,6 +177,8 @@ class AbstractPdfBuilderService
             $pdf->MultiCell(60, 14, $item->getDescription(), 1, 'L', 1, 0, '', '', true, 0, false, true, 14, 'M');
             $pdf->MultiCell(0, 14, $item->getRecommendedAction(), 1, 'L', 1, 1, '', '', true, 0, false, true, 14, 'M');
         }
+        $pdf->setBlueLine();
+        $pdf->setWhiteBackground();
     }
 
     /**

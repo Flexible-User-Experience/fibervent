@@ -39,7 +39,7 @@ class AuditPdfBuilderService extends AbstractPdfBuilderService
         $pdf->SetXY(CustomTcpdf::PDF_MARGIN_LEFT, CustomTcpdf::PDF_MARGIN_TOP);
 
         // Introduction page
-        if (self::SHOW_INTRODUCTION_SECTION) {
+        if (self::SA_SHOW_INTRODUCTION_SECTION) {
             $pdf->setBlackText();
             $pdf->setBlueLine();
             $pdf->setFontStyle(null, 'B', 11);
@@ -54,8 +54,7 @@ class AuditPdfBuilderService extends AbstractPdfBuilderService
         }
 
         // Damage categories section
-        if (self::SHOW_DAMAGE_CATEGORIES_SECTION) {
-            // Damages categorization
+        if (self::SA_SHOW_DAMAGE_CATEGORIES_SECTION) {
             $pdf->setBlackText();
             $pdf->setBlueLine();
             $pdf->setFontStyle(null, 'B', 11);
@@ -64,15 +63,13 @@ class AuditPdfBuilderService extends AbstractPdfBuilderService
             $pdf->setFontStyle(null, '', 9);
             $pdf->Write(0, $this->ts->trans('pdf.damage_catalog.2_subtitle'), '', false, 'L', true);
             $pdf->Ln(self::SECTION_SPACER_V);
-            // Damages table
+            // damages table
             $this->drawDamageCategoriesTable($pdf);
-            $pdf->setBlueLine();
-            $pdf->setWhiteBackground();
             $pdf->Ln(self::SECTION_SPACER_V_BIG);
         }
 
-        // Inspection description
-        if (self::SHOW_INSPECTION_DESCRIPTION_SECTION) {
+        // Inspection description section
+        if (self::SA_SHOW_INSPECTION_DESCRIPTION_SECTION) {
             $pdf->setBlackText();
             $pdf->setBlueLine();
             $pdf->setFontStyle(null, 'B', 11);
@@ -83,12 +80,12 @@ class AuditPdfBuilderService extends AbstractPdfBuilderService
         }
 
         // Damages section
-        if (self::SHOW_INDIVIDUAL_SUMMARY_SECTION) {
+        if (self::SA_SHOW_INDIVIDUAL_DAMAGES_SUMMARY_SECTION) {
             $this->drawAuditDamage($pdf, $audit);
         }
 
         // Contact section
-        if (self::SHOW_CONTACT_SECTION) {
+        if (self::SA_SHOW_CONTACT_SECTION) {
             $pdf->setFontStyle(null, 'B', 11);
             $pdf->Write(0, $this->ts->trans('pdf.inspection_description.1_contact'), '', false, 'L', true);
             $pdf->Ln(self::SECTION_SPACER_V_BIG / 2);
@@ -128,7 +125,7 @@ class AuditPdfBuilderService extends AbstractPdfBuilderService
         $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
 
         // Cover section
-        if (self::SHOW_COVER_SECTION) {
+        if (self::SA_SHOW_COVER_SECTION) {
             // add start page
             $pdf->startPage(PDF_PAGE_ORIENTATION, PDF_PAGE_FORMAT);
             // logo
