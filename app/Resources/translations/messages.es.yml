@@ -165,6 +165,7 @@ admin:
     windmill: Aerogenerador
     observations: Observaciones
     year: Año
+    dates_range: Rango de fechas opcional
     generate: Generar informe anual
     download_xls: Descargar informe anual en XLS
     begindate: Fecha inicio
