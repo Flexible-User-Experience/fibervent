@@ -106,11 +106,7 @@ class BladeDamage extends AbstractBase
     private $calculatedNumberByRadius;
 
     /**
-     *
-     *
      * Methods
-     *
-     *
      */
 
     /**
@@ -163,6 +159,14 @@ class BladeDamage extends AbstractBase
     public function getRadius()
     {
         return $this->radius;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRadiusString()
+    {
+        return 'R'.$this->radius.'m';
     }
 
     /**
@@ -472,6 +476,16 @@ class BladeDamage extends AbstractBase
         }
 
         return $gap;
+    }
+
+    /**
+     * @param string $indexLetter
+     *
+     * @return string
+     */
+    public function getGeneralSummaryDamageRowtoString($indexLetter)
+    {
+        return $indexLetter.') '.$this->getEdgeString().' '.$this->getDamage()->getCode().' '.$this->getRadiusString();
     }
 
     /**

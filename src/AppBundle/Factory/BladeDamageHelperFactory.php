@@ -48,18 +48,14 @@ class BladeDamageHelperFactory
             /** @var BladeDamage $bladeDamage */
             foreach ($auditWindmillBlade->getBladeDamages() as $bladeDamage) {
                 if ($bladeDamage->getDamageCategory()->getId() == $damageCategory->getId()) {
-//                    $damageHelper->addDamage($bladeDamage->getId());
                     $damageHelper->addDamage($lettersRange[$index]);
+                    $this->bladeDamageHelper->addDamage($bladeDamage->getGeneralSummaryDamageRowtoString($lettersRange[$index]));
                     $index++;
                 }
             }
             $this->bladeDamageHelper->addCategory($damageHelper);
 
         }
-        /* @var BladeDamage $bladeDamage */
-//        foreach ($auditWindmillBlade->getBladeDamages() as $bladeDamage) {
-//            $this->bladeDamageHelper->addDamage($bladeDamage->getId().')');
-//        }
 
         return $this->bladeDamageHelper;
     }
