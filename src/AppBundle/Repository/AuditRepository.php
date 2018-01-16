@@ -204,6 +204,61 @@ class AuditRepository extends EntityRepository
 
     /**
      * @param Windfarm $windfarm
+     * @param array    $statuses
+     * @param int      $year
+     * @param array    $range
+     *
+     * @return QueryBuilder
+     */
+    public function getAuditsByWindfarmByStatusesYearAndRangeQB(Windfarm $windfarm, $statuses, $year, $range)
+    {
+        $query = $this->getAuditsByWindfarmByStatusesAndYearQB($windfarm, $statuses, $year);
+        if (is_array($range)) {
+            if ($range['start'] != '') {
+                $query
+                    ->andWhere('a.beginDate >= :start')
+                    ->setParameter('start', $this->transformReverseDateString($range['start']));
+                ;
+            }
+            if ($range['end'] != '') {
+                $query
+                    ->andWhere('a.beginDate <= :end')
+                    ->setParameter('end',  $this->transformReverseDateString($range['end']));
+                ;
+            }
+        }
+
+        return $query;
+    }
+
+    /**
+     * @param Windfarm $windfarm
+     * @param array    $statuses
+     * @param int      $year
+     * @param array    $range
+     *
+     * @return Query
+     */
+    public function getAuditsByWindfarmByStatusesYearAndRangeQ(Windfarm $windfarm, $statuses, $year, $range)
+    {
+        return $this->getAuditsByWindfarmByStatusesYearAndRangeQB($windfarm, $statuses, $year, $range)->getQuery();
+    }
+
+    /**
+     * @param Windfarm $windfarm
+     * @param array    $statuses
+     * @param int      $year
+     * @param array    $range
+     *
+     * @return array
+     */
+    public function getAuditsByWindfarmByStatusesYearAndRange(Windfarm $windfarm, $statuses, $year, $range)
+    {
+        return $this->getAuditsByWindfarmByStatusesYearAndRangeQ($windfarm, $statuses, $year, $range)->getResult();
+    }
+
+    /**
+     * @param Windfarm $windfarm
      * @param int      $year
      *
      * @return QueryBuilder
@@ -324,5 +379,20 @@ class AuditRepository extends EntityRepository
         }
 
         return $yearsArray;
+    }
+
+    /**
+     * Transform string date format from 'd-m-Y' to 'Y-m-d'
+     *
+     * @param string $dateString
+     *
+     * @return string
+     */
+    private function transformReverseDateString($dateString)
+    {
+        $result = explode('-', $dateString);
+        $result = array_reverse($result);
+
+        return implode('-', $result);
     }
 }

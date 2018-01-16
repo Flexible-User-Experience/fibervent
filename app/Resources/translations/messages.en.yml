@@ -165,6 +165,7 @@ admin:
     windmill:
     observations:
     year: year
+    dates_range:
     generate:
     download_xls:
     begindate:
