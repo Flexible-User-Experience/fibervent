@@ -485,7 +485,7 @@ class BladeDamage extends AbstractBase
      */
     public function getGeneralSummaryDamageRowtoString($indexLetter)
     {
-        return $indexLetter.') '.$this->getEdgeString().' '.$this->getDamage()->getCode().' '.$this->getRadiusString();
+        return $indexLetter.') '.$this->getEdgeString().' '.$this->getDamage()->getCode().' '.$this->getRadiusString().chr(10);
     }
 
     /**

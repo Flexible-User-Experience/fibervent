@@ -375,24 +375,32 @@ class WindfarmAuditsPdfBuilderService extends AbstractPdfBuilderService
      */
     private function drawGeneralSummaryOfDamageTableBodyRow(CustomTcpdf $pdf, Audit $audit, $damageCategories)
     {
-        $damageHeaderWidth = 60;
+        $damageHeaderWidth  = 60;
+        $damageHeaderHeight = 6;
         $pdf->setWhiteBackground();
         $pdf->setFontStyle(null, '', 9);
-        $pdf->Cell(20, 18, $audit->getWindmill()->getCode(), 1, 0, 'C', true);
+        $currentY = $pdf->GetY();
+        $totalHeight = 0;
         /** @var AuditWindmillBlade $auditWindmillBlade */
         foreach ($audit->getAuditWindmillBlades() as $auditWindmillBlade) {
             $bladeDamageHelper = $this->bdhf->create($auditWindmillBlade, $damageCategories);
+            $height = count($bladeDamageHelper->getDamages()) == 0 ? $damageHeaderHeight : $damageHeaderHeight * count($bladeDamageHelper->getDamages());
+            $totalHeight = $totalHeight + $height;
             $pdf->SetX(CustomTcpdf::PDF_MARGIN_LEFT + 20);
-            $pdf->Cell(10, 6, $bladeDamageHelper->getBlade(), 1, 0, 'C', true);
+            $pdf->Cell(10, $height, $bladeDamageHelper->getBlade(), 1, 0, 'C', true);
             /** @var DamageHelper $damageHelper */
             foreach ($bladeDamageHelper->getCategories() as $damageHelper) {
                 if ($damageHelper->getMark() == DamageHelper::MARK) {
                     $pdf->setBackgroundHexColor($damageHelper->getColor());
                 }
-                $pdf->Cell($damageHeaderWidth / count($damageCategories), 6, $damageHelper->getDamagesToString(), 1, 0, 'C', true);
+                $pdf->Cell($damageHeaderWidth / count($damageCategories), $height, $damageHelper->getDamagesToString(), 1, 0, 'C', 1, '', 0);
                 $pdf->setWhiteBackground();
             }
-            $pdf->Cell($pdf->availablePageWithDimension - $damageHeaderWidth - 30, 6, $bladeDamageHelper->getDamagesToString(), 1, 1, 'L', true);
+            // MultiCell($w, $h, $txt, $border=0, $align='J', $fill=0, $ln=1, $x='', $y='', $reseth=true, $stretch=0, $ishtml=false, $autopadding=true, $maxh=0)
+            $pdf->MultiCell($pdf->availablePageWithDimension - $damageHeaderWidth - 30, $height, $bladeDamageHelper->getDamagesToString(), 1, 'L', 1, 1);
         }
+        $pdf->SetY($currentY);
+        $pdf->Cell(20, $totalHeight, $audit->getWindmill()->getCode(), 1, 0, 'C', 1, '', 2);
+        // Cell($w, $h=0, $txt='', $border=0, $ln=0, $align='', $fill=0, $link='', $stretch=0, $ignore_min_height=false, $calign='T', $valign='M')
     }
 }
