@@ -68,6 +68,15 @@ class BladeDamageHelper
     }
 
     /**
+     * @return string
+     */
+    public function getCategoriesToString()
+    {
+        return 'TODO';
+//        return implode(' ', $this->categories);
+    }
+
+    /**
      * @param array $categories
      *
      * @return $this

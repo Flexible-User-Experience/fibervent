@@ -36,6 +36,8 @@ class BladeDamageHelperFactory
     {
         $this->bladeDamageHelper = new BladeDamageHelper();
         $this->bladeDamageHelper->setBlade($auditWindmillBlade->getWindmillBlade()->getOrder());
+        $lettersRange = range('a', 'z');
+        $index = 0;
         /** @var DamageCategory $damageCategory */
         foreach ($damageCategories as $damageCategory) {
             $damageHelper = new DamageHelper();
@@ -46,18 +48,18 @@ class BladeDamageHelperFactory
             /** @var BladeDamage $bladeDamage */
             foreach ($auditWindmillBlade->getBladeDamages() as $bladeDamage) {
                 if ($bladeDamage->getDamageCategory()->getId() == $damageCategory->getId()) {
-                    $damageHelper->addDamage($bladeDamage->getId());
-
-                    break;
+//                    $damageHelper->addDamage($bladeDamage->getId());
+                    $damageHelper->addDamage($lettersRange[$index]);
+                    $index++;
                 }
             }
             $this->bladeDamageHelper->addCategory($damageHelper);
 
         }
-        /** @var BladeDamage $bladeDamage */
-        foreach ($auditWindmillBlade->getBladeDamages() as $bladeDamage) {
-            $this->bladeDamageHelper->addDamage($bladeDamage->getId().')');
-        }
+        /* @var BladeDamage $bladeDamage */
+//        foreach ($auditWindmillBlade->getBladeDamages() as $bladeDamage) {
+//            $this->bladeDamageHelper->addDamage($bladeDamage->getId().')');
+//        }
 
         return $this->bladeDamageHelper;
     }
