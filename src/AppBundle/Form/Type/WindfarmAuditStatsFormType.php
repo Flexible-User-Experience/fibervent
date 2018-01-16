@@ -5,6 +5,7 @@ namespace AppBundle\Form\Type;
 use AppBundle\Enum\AuditStatusEnum;
 use AppBundle\Repository\AuditRepository;
 use Doctrine\ORM\EntityManager;
+use Sonata\CoreBundle\Form\Type\DateRangePickerType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -81,6 +82,18 @@ class WindfarmAuditStatsFormType extends AbstractType
                         'multiple' => false,
                         'label' => 'admin.audit.year',
                         'choices' => $yearsArray,
+                    )
+                )
+                ->add(
+                    'dates_range',
+                    DateRangePickerType::class,
+                    array(
+                        'mapped' => false,
+                        'required' => false,
+                        'field_options' => array(
+                            'format' => 'dd-MM-yyyy'
+                        ),
+                        'label' => 'admin.audit.dates_range',
                     )
                 )
                 ->add(

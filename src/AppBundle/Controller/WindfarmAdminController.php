@@ -328,10 +328,11 @@ class WindfarmAdminController extends AbstractBaseAdminController
 
             $year = intval($request->get(WindfarmAuditStatsFormType::BLOCK_PREFIX)['year']);
 
-            $audits = $this->getDoctrine()->getRepository('AppBundle:Audit')->getAuditsByWindfarmByStatusesAndYear(
+            $audits = $this->getDoctrine()->getRepository('AppBundle:Audit')->getAuditsByWindfarmByStatusesYearAndRange(
                 $object,
                 $statuses,
-                $year
+                $year,
+                $request->get(WindfarmAuditStatsFormType::BLOCK_PREFIX)['dates_range']
             );
 
             return $this->render(
@@ -393,10 +394,20 @@ class WindfarmAdminController extends AbstractBaseAdminController
 
         $year = intval($request->get('year'));
 
-        $audits = $this->getDoctrine()->getRepository('AppBundle:Audit')->getAuditsByWindfarmByStatusesAndYear(
+        $range = array();
+        $range['start'] = ''; $range['end'] = '';
+        if ($request->get('date_range_start')) {
+            $range['start'] = $request->get('date_range_start');
+        }
+        if ($request->get('date_range_end')) {
+            $range['end'] = $request->get('date_range_end');
+        }
+
+        $audits = $this->getDoctrine()->getRepository('AppBundle:Audit')->getAuditsByWindfarmByStatusesYearAndRange(
             $object,
             $statuses,
-            $year
+            $year,
+            $range
         );
 
         /** @var WindfarmAuditsPdfBuilderService $wapbs */
