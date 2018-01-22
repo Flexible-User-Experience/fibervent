@@ -6,6 +6,7 @@ use AppBundle\Entity\Audit;
 use AppBundle\Entity\Blade;
 use AppBundle\Entity\Customer;
 use AppBundle\Entity\Turbine;
+use AppBundle\Entity\User;
 use AppBundle\Entity\Windfarm;
 use AppBundle\Enum\AuditStatusEnum;
 use Doctrine\ORM\EntityRepository;
@@ -351,6 +352,55 @@ class AuditRepository extends EntityRepository
     public function getBladesForAuditsByWindfarmByStatusesYearAndRange(Windfarm $windfarm, $statuses, $year, $range)
     {
         return $this->getBladesForAuditsByWindfarmByStatusesYearAndRangeQ($windfarm, $statuses, $year, $range)->getResult();
+    }
+
+    /**
+     * @param Windfarm $windfarm
+     * @param array    $statuses
+     * @param int      $year
+     * @param array    $range
+     *
+     * @return QueryBuilder
+     */
+    public function getTechniciansForAuditsByWindfarmByStatusesYearAndRangeQB(Windfarm $windfarm, $statuses, $year, $range)
+    {
+        $qb = $this->getAuditsByWindfarmByStatusesYearAndRangeQB($windfarm, $statuses, $year, $range)
+            ->select('technician')
+//            ->select('o')
+            ->from('AppBundle:User', 'technician')
+//            ->leftJoin('a.operators', 'o')
+//            ->groupBy('o.id')
+            ->join('a.operators', 'o')
+//            ->where('.id = :group_id')
+        ;
+
+        return $qb;
+    }
+
+    /**
+     * @param Windfarm $windfarm
+     * @param array    $statuses
+     * @param int      $year
+     * @param array    $range
+     *
+     * @return Query
+     */
+    public function getTechniciansForAuditsByWindfarmByStatusesYearAndRangeQ(Windfarm $windfarm, $statuses, $year, $range)
+    {
+        return $this->getTechniciansForAuditsByWindfarmByStatusesYearAndRangeQB($windfarm, $statuses, $year, $range)->getQuery();
+    }
+
+    /**
+     * @param Windfarm $windfarm
+     * @param array    $statuses
+     * @param int      $year
+     * @param array    $range
+     *
+     * @return array|User[]
+     */
+    public function getTechniciansForAuditsByWindfarmByStatusesYearAndRange(Windfarm $windfarm, $statuses, $year, $range)
+    {
+        return $this->getTechniciansForAuditsByWindfarmByStatusesYearAndRangeQ($windfarm, $statuses, $year, $range)->getResult();
     }
 
     /**

@@ -357,6 +357,12 @@ class WindfarmAdminController extends AbstractBaseAdminController
                         $year,
                         $request->get(WindfarmAuditStatsFormType::BLOCK_PREFIX)['dates_range']
                     ),
+                    'technicians' => $this->getDoctrine()->getRepository('AppBundle:Audit')->getTechniciansForAuditsByWindfarmByStatusesYearAndRange(
+                        $object,
+                        $statuses,
+                        $year,
+                        $request->get(WindfarmAuditStatsFormType::BLOCK_PREFIX)['dates_range']
+                    ),
                 )
             );
         }

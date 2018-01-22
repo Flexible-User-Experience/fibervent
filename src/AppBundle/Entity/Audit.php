@@ -12,7 +12,6 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * Audit
  *
  * @category Entity
- * @package  AppBundle\Entity
  * @author   Anton Serra <aserratorta@gmail.com>
  *
  * @ORM\Table()
@@ -110,11 +109,7 @@ class Audit extends AbstractBase
     protected $language = 0;
 
     /**
-     *
-     *
      * Methods
-     *
-     *
      */
 
     /**
