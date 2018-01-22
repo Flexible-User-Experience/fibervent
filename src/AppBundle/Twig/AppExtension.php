@@ -5,6 +5,7 @@ namespace AppBundle\Twig;
 use AppBundle\Entity\AuditWindmillBlade;
 use AppBundle\Entity\Damage;
 use AppBundle\Entity\DamageCategory;
+use AppBundle\Enum\AuditTypeEnum;
 use AppBundle\Factory\BladeDamageHelperFactory;
 use AppBundle\Repository\DamageRepository;
 
@@ -41,6 +42,32 @@ class AppExtension extends \Twig_Extension
     {
         $this->dr = $dr;
         $this->bdhf = $bdhf;
+    }
+
+    /**
+     * Filters
+     */
+
+    /**
+     * @return array
+     */
+    public function getFilters()
+    {
+        return array(
+            new \Twig_SimpleFilter('humanized_audit_type', array($this, 'filterHumanizedAuditType')),
+        );
+    }
+
+    /**
+     * Filter Audit type enum
+     *
+     * @param integer $type
+     *
+     * @return string
+     */
+    public function filterHumanizedAuditType($type)
+    {
+        return AuditTypeEnum::getEnumArray()[$type];
     }
 
     /**

@@ -176,16 +176,16 @@
         },
         {
             "name": "cocur/slugify",
-            "version": "v3.0.1",
+            "version": "v3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cocur/slugify.git",
-                "reference": "1fdf2b1219a199301db3d7c60c16d895bba6ccde"
+                "reference": "b2ccf7b735f4f3df3979aef2e1ebf8e19ca772f7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cocur/slugify/zipball/1fdf2b1219a199301db3d7c60c16d895bba6ccde",
-                "reference": "1fdf2b1219a199301db3d7c60c16d895bba6ccde",
+                "url": "https://api.github.com/repos/cocur/slugify/zipball/b2ccf7b735f4f3df3979aef2e1ebf8e19ca772f7",
+                "reference": "b2ccf7b735f4f3df3979aef2e1ebf8e19ca772f7",
                 "shasum": ""
             },
             "require": {
@@ -237,7 +237,7 @@
                 "slug",
                 "slugify"
             ],
-            "time": "2017-09-24T10:29:04+00:00"
+            "time": "2018-01-22T09:00:48+00:00"
         },
         {
             "name": "components/font-awesome",
@@ -3240,16 +3240,16 @@
         },
         {
             "name": "sonata-project/block-bundle",
-            "version": "3.9.2",
+            "version": "3.10.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataBlockBundle.git",
-                "reference": "904d35f99c05ee3eda3b1dec1f169fe4220eb5b8"
+                "reference": "c7b9ac6756003cd578d5babe11a3dadb64131b66"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataBlockBundle/zipball/904d35f99c05ee3eda3b1dec1f169fe4220eb5b8",
-                "reference": "904d35f99c05ee3eda3b1dec1f169fe4220eb5b8",
+                "url": "https://api.github.com/repos/sonata-project/SonataBlockBundle/zipball/c7b9ac6756003cd578d5babe11a3dadb64131b66",
+                "reference": "c7b9ac6756003cd578d5babe11a3dadb64131b66",
                 "shasum": ""
             },
             "require": {
@@ -3311,7 +3311,7 @@
                 "block",
                 "sonata"
             ],
-            "time": "2018-01-08T09:34:31+00:00"
+            "time": "2018-01-16T10:08:33+00:00"
         },
         {
             "name": "sonata-project/cache",
@@ -3647,16 +3647,16 @@
         },
         {
             "name": "sonata-project/easy-extends-bundle",
-            "version": "2.3.0",
+            "version": "2.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataEasyExtendsBundle.git",
-                "reference": "890fdf161a88bba07c6044f87609a6b8c97b8960"
+                "reference": "85b3728fc86af48ac9bb5931c5446a013046c45b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataEasyExtendsBundle/zipball/890fdf161a88bba07c6044f87609a6b8c97b8960",
-                "reference": "890fdf161a88bba07c6044f87609a6b8c97b8960",
+                "url": "https://api.github.com/repos/sonata-project/SonataEasyExtendsBundle/zipball/85b3728fc86af48ac9bb5931c5446a013046c45b",
+                "reference": "85b3728fc86af48ac9bb5931c5446a013046c45b",
                 "shasum": ""
             },
             "require": {
@@ -3667,7 +3667,6 @@
             },
             "require-dev": {
                 "doctrine/orm": "^2.2",
-                "sllh/php-cs-fixer-styleci-bridge": "^2.0",
                 "symfony/phpunit-bridge": "^3.3 || ^4.0"
             },
             "type": "symfony-bundle",
@@ -3702,7 +3701,7 @@
                 "Easy Extends",
                 "sonata"
             ],
-            "time": "2017-11-30T13:35:51+00:00"
+            "time": "2018-01-20T17:55:04+00:00"
         },
         {
             "name": "sonata-project/exporter",

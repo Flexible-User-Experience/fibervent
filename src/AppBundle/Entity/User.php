@@ -16,7 +16,6 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  * Class User
  *
  * @category Entity
- * @package  AppBundle\Entity
  * @author   David Romaní <david@flux.cat>
  *
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
@@ -65,11 +64,7 @@ class User extends BaseUser
     private $language;
 
     /**
-     *
-     *
      * Methods
-     *
-     *
      */
 
     /**
