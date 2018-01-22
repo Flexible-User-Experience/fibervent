@@ -48,6 +48,14 @@
                         <table class="table">
                             <tbody>
                             <tr>
+                                <th class="text-right" style="background-color:#8FABD9;">{{ 'pdf.cover.3_country' | trans }}</th>
+                                <td>{{ object.state.countryName }} ({{ object.state.name }})</td>
+                            </tr>
+                            <tr>
+                                <th class="text-right" style="background-color:#8FABD9;">{{ 'pdf.cover.4_windfarm' | trans }}</th>
+                                <td>{{ object.name }}</td>
+                            </tr>
+                            <tr>
                                 <th class="text-right" style="background-color:#8FABD9;">{{ 'pdf.cover.5_turbine_model' | trans }}</th>
                                 <td>
                                     {% for turbine in turbines %}
@@ -72,8 +80,19 @@
                                 </td>
                             </tr>
                             <tr>
-                                <th></th>
-                                <td></td>
+                                <th class="text-right" style="background-color:#8FABD9;">{{ 'pdf.cover.8_total_turbines' | trans }}</th>
+                                <td>{{ 'pdf.cover.8_total_turbines_value' | trans({'%windmills%': object.windmillAmount, '%power%': object.power}) }}</td>
+                            </tr>
+                            <tr>
+                                <th class="text-right" style="background-color:#8FABD9;">{{ 'pdf.cover.9_startup_year' | trans }}</th>
+                                <td>{{ 'pdf.cover.9_startup_year_value' | trans({'%year%': object.year, '%diff%': object.yearDiff}) }}</td>
+                            </tr>
+                            <tr>
+                                <th class="text-right" style="background-color:#8FABD9;">{{ 'pdf.cover.10_om_regional_manager' | trans }}</th>
+                                <td>{{ object.managerFullname }}</td>
+                            </tr>
+                            <tr>
+                                <th colspan="2"></th>
                             </tr>
                             <tr>
                                 <th class="text-right" style="background-color:#8FABD9;">{{ 'pdf.cover.11_technicians' | trans }}</th>
@@ -84,8 +103,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <th></th>
-                                <td></td>
+                                <th colspan="2"></th>
                             </tr>
                             <tr>
                                 <th class="text-right" style="background-color:#8FABD9;">{{ 'pdf.cover.12_audit_type' | trans }}</th>
@@ -94,6 +112,18 @@
                                         {{ audit_type.type | humanized_audit_type | trans }}{% if not loop.last %}, {% endif %}
                                     {% endfor %}
                                 </td>
+                            </tr>
+                            <tr>
+                                <th class="text-right" style="background-color:#8FABD9;">{{ 'pdf.cover.13_audit_date' | trans }}</th>
+                                <td>
+                                    {#{% for audit_type in audit_types %}#}
+                                        {#{{ audit_type.type | humanized_audit_type | trans }}{% if not loop.last %}, {% endif %}#}
+                                    {#{% endfor %}#}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="text-right" style="background-color:#8FABD9;">{{ 'pdf_windfarm.cover.14_blades_amout' | trans }}</th>
+                                <td>{{ 'pdf_windfarm.cover.14_blades_amout_value' | trans({'%audits_amount%': audits | length}) }}</td>
                             </tr>
                             </tbody>
                         </table>

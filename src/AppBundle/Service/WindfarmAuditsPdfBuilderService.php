@@ -243,7 +243,7 @@ class WindfarmAuditsPdfBuilderService extends AbstractPdfBuilderService
             $pdf->Cell(70, 6, $this->ts->trans('pdf_windfarm.cover.10_om_regional_manager'), 'TB', 0, 'R', true);
             $pdf->setFontStyle(null, '', 10);
             $pdf->setWhiteBackground();
-            $pdf->Cell(0, 6, $windfarm->getMangerFullname(), 'TB', 1, 'L', true);
+            $pdf->Cell(0, 6, $windfarm->getManagerFullname(), 'TB', 1, 'L', true);
             // operators details
             $pdf->SetXY(CustomTcpdf::PDF_MARGIN_LEFT, $pdf->GetY() + 10);
             $pdf->setFontStyle(null, 'B', 10);
