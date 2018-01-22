@@ -11,6 +11,7 @@ use AppBundle\Entity\Observation;
 use AppBundle\Entity\Photo;
 use AppBundle\Factory\BladeDamageHelperFactory;
 use AppBundle\Pdf\CustomTcpdf;
+use AppBundle\Repository\AuditRepository;
 use AppBundle\Repository\CustomerRepository;
 use AppBundle\Repository\DamageRepository;
 use AppBundle\Repository\BladeDamageRepository;
@@ -86,6 +87,11 @@ class AbstractPdfBuilderService
     protected $ts;
 
     /**
+     * @var AuditRepository
+     */
+    protected $ar;
+
+    /**
      * @var DamageRepository
      */
     protected $dr;
@@ -132,6 +138,7 @@ class AbstractPdfBuilderService
      * @param UploaderHelper                 $uh
      * @param AssetsHelper                   $tha
      * @param Translator                     $ts
+     * @param AuditRepository                $ar
      * @param DamageRepository               $dr
      * @param DamageCategoryRepository       $dcr
      * @param BladeDamageRepository          $bdr
@@ -139,13 +146,14 @@ class AbstractPdfBuilderService
      * @param AuditModelDiagramBridgeService $amdb
      * @param BladeDamageHelperFactory       $bdhf
      */
-    public function __construct(TCPDFController $tcpdf, CacheManager $cm, UploaderHelper $uh, AssetsHelper $tha, Translator $ts, DamageRepository $dr, DamageCategoryRepository $dcr, BladeDamageRepository $bdr, CustomerRepository $cr, AuditModelDiagramBridgeService $amdb, BladeDamageHelperFactory $bdhf)
+    public function __construct(TCPDFController $tcpdf, CacheManager $cm, UploaderHelper $uh, AssetsHelper $tha, Translator $ts, AuditRepository $ar, DamageRepository $dr, DamageCategoryRepository $dcr, BladeDamageRepository $bdr, CustomerRepository $cr, AuditModelDiagramBridgeService $amdb, BladeDamageHelperFactory $bdhf)
     {
         $this->tcpdf = $tcpdf;
         $this->cm = $cm;
         $this->uh = $uh;
         $this->tha = $tha;
         $this->ts = $ts;
+        $this->ar = $ar;
         $this->dr = $dr;
         $this->dcr = $dcr;
         $this->bdr = $bdr;

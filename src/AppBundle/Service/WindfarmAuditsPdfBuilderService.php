@@ -5,6 +5,7 @@ namespace AppBundle\Service;
 use AppBundle\Entity\Audit;
 use AppBundle\Entity\AuditWindmillBlade;
 use AppBundle\Entity\DamageCategory;
+use AppBundle\Entity\Turbine;
 use AppBundle\Entity\Windfarm;
 use AppBundle\Enum\WindfarmLanguageEnum;
 use AppBundle\Factory\DamageHelper;
@@ -23,17 +24,19 @@ class WindfarmAuditsPdfBuilderService extends AbstractPdfBuilderService
      * @param Windfarm $windfarm
      * @param array    $damageCategories
      * @param array    $audits
+     * @param array    $statuses
      * @param integer  $year
+     * @param array    $range
      *
      * @return \TCPDF
      */
-    public function build(Windfarm $windfarm, $damageCategories, $audits, $year)
+    public function build(Windfarm $windfarm, $damageCategories, $audits, $statuses, $year, $range)
     {
         $this->locale = WindfarmLanguageEnum::getEnumArray()[$windfarm->getLanguage()];
         $this->ts->setLocale($this->locale);
 
         /** @var CustomTcpdf $pdf */
-        $pdf = $this->doInitialConfig($windfarm, $audits);
+        $pdf = $this->doInitialConfig($windfarm, $audits, $statuses, $year, $range);
 
         // Add a page
         $pdf->setPrintHeader(true);
@@ -144,11 +147,14 @@ class WindfarmAuditsPdfBuilderService extends AbstractPdfBuilderService
 
     /**
      * @param Windfarm $windfarm
-     * @param array $audits
+     * @param array    $audits
+     * @param array    $statuses
+     * @param integer  $year
+     * @param array    $range
      *
      * @return \TCPDF
      */
-    private function doInitialConfig(Windfarm $windfarm, $audits)
+    private function doInitialConfig(Windfarm $windfarm, $audits, $statuses, $year, $range)
     {
         /** @var CustomTcpdf $pdf */
         $pdf = $this->tcpdf->create($this->tha, $this->ts, $windfarm);
@@ -209,24 +215,52 @@ class WindfarmAuditsPdfBuilderService extends AbstractPdfBuilderService
             $pdf->setWhiteBackground();
             $pdf->Cell(0, 6, $windfarm->getName(), 'TB', 1, 'L', true);
             $pdf->setFontStyle(null, 'B', 10);
-//            $pdf->setBlueBackground();
-//            $pdf->Cell(70, 6, $this->ts->trans('pdf_windfarm.cover.5_turbine_model'), 'TB', 0, 'R', true);
-//            $pdf->setFontStyle(null, '', 10);
-//            $pdf->setWhiteBackground();
-//            $pdf->Cell(0, 6, $windmill->getTurbine()->pdfToString(), 'TB', 1, 'L', true);
-//            $pdf->setFontStyle(null, 'B', 10);
-//            $pdf->setBlueBackground();
-//            $pdf->Cell(70, 6, $this->ts->trans('pdf_windfarm.cover.6_turbine_size'), 'TB', 0, 'R', true);
-//            $pdf->setFontStyle(null, '', 10);
-//            $pdf->setWhiteBackground();
-//            $pdf->Cell(0, 6, $this->ts->trans('pdf.cover.6_turbine_size_value', ['%height%' => $windmill->getTurbine()->getTowerHeight(), '%diameter%' => $windmill->getTurbine()->getRotorDiameter(), '%length%' => $windmill->getBladeType()->getLength()]), 'TB', 1, 'L', true);
-//            $pdf->setFontStyle(null, 'B', 10);
-//            $pdf->setBlueBackground();
-//            $pdf->Cell(70, 6, $this->ts->trans('pdf_windfarm.cover.7_blade_type'), 'TB', 0, 'R', true);
-//            $pdf->setFontStyle(null, '', 10);
-//            $pdf->setWhiteBackground();
-//            $pdf->Cell(0, 6, $windmill->getBladeType(), 'TB', 1, 'L', true);
-//            $pdf->setFontStyle(null, 'B', 10);
+            $pdf->setBlueBackground();
+            $pdf->Cell(70, 6, $this->ts->trans('pdf.cover.5_turbine_model'), 'TB', 0, 'R', true);
+            $pdf->setFontStyle(null, '', 10);
+            $pdf->setWhiteBackground();
+            $turbines = $this->ar->getTurbinesForAuditsByWindfarmByStatusesYearAndRange(
+                $windfarm,
+                $statuses,
+                $year,
+                $range
+            );
+            $result = array();
+            /** @var Turbine $turbine */
+            foreach ($turbines as $turbine) {
+                $result[] = $turbine->pdfToString();
+            }
+            $pdf->Cell(0, 6, implode(',', $result), 'TB', 1, 'L', true);
+            $pdf->setFontStyle(null, 'B', 10);
+            $pdf->setBlueBackground();
+            $pdf->Cell(70, 6, $this->ts->trans('pdf.cover.6_turbine_size'), 'TB', 0, 'R', true);
+            $pdf->setFontStyle(null, '', 10);
+            $pdf->setWhiteBackground();
+            $blades = $this->ar->getBladesForAuditsByWindfarmByStatusesYearAndRange(
+                $windfarm,
+                $statuses,
+                $year,
+                $range
+            );
+            $index = 0;
+            $result = array();
+            /** @var Turbine $turbine */
+            foreach ($turbines as $turbine) {
+                $result[] = $this->ts->trans('pdf.cover.6_turbine_size_value', array(
+                    '%height%' => $turbine->getTowerHeight(),
+                    '%diameter%' => $turbine->getRotorDiameter(),
+                    '%length%' => $blades[$index]->getLength(),
+                ));
+                $index++;
+            }
+            $pdf->Cell(0, 6, implode(',', $result), 'TB', 1, 'L', true);
+            $pdf->setFontStyle(null, 'B', 10);
+            $pdf->setBlueBackground();
+            $pdf->Cell(70, 6, $this->ts->trans('pdf.cover.7_blade_type'), 'TB', 0, 'R', true);
+            $pdf->setFontStyle(null, '', 10);
+            $pdf->setWhiteBackground();
+            $pdf->Cell(0, 6, implode(',', $blades), 'TB', 1, 'L', true);
+            $pdf->setFontStyle(null, 'B', 10);
             $pdf->setBlueBackground();
             $pdf->Cell(70, 6, $this->ts->trans('pdf_windfarm.cover.8_total_turbines'), 'TB', 0, 'R', true);
             $pdf->setFontStyle(null, '', 10);
