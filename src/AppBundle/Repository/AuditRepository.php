@@ -4,6 +4,7 @@ namespace AppBundle\Repository;
 
 use AppBundle\Entity\Audit;
 use AppBundle\Entity\Customer;
+use AppBundle\Entity\Turbine;
 use AppBundle\Entity\Windfarm;
 use AppBundle\Enum\AuditStatusEnum;
 use Doctrine\ORM\EntityRepository;
@@ -255,6 +256,53 @@ class AuditRepository extends EntityRepository
     public function getAuditsByWindfarmByStatusesYearAndRange(Windfarm $windfarm, $statuses, $year, $range)
     {
         return $this->getAuditsByWindfarmByStatusesYearAndRangeQ($windfarm, $statuses, $year, $range)->getResult();
+    }
+
+    /**
+     * @param Windfarm $windfarm
+     * @param array    $statuses
+     * @param int      $year
+     * @param array    $range
+     *
+     * @return QueryBuilder
+     */
+    public function getTurbinesModelForAuditsByWindfarmByStatusesYearAndRangeQB(Windfarm $windfarm, $statuses, $year, $range)
+    {
+        $qb = $this->getAuditsByWindfarmByStatusesYearAndRangeQB($windfarm, $statuses, $year, $range)
+            ->select('turbine')
+            ->from('AppBundle:Turbine', 'turbine')
+            ->leftJoin('a.windmill', 'w')
+            ->leftJoin('w.turbine', 't')
+            ->groupBy('t.id')
+        ;
+
+        return $qb;
+    }
+
+    /**
+     * @param Windfarm $windfarm
+     * @param array    $statuses
+     * @param int      $year
+     * @param array    $range
+     *
+     * @return Query
+     */
+    public function getTurbinesModelForAuditsByWindfarmByStatusesYearAndRangeQ(Windfarm $windfarm, $statuses, $year, $range)
+    {
+        return $this->getTurbinesModelForAuditsByWindfarmByStatusesYearAndRangeQB($windfarm, $statuses, $year, $range)->getQuery();
+    }
+
+    /**
+     * @param Windfarm $windfarm
+     * @param array    $statuses
+     * @param int      $year
+     * @param array    $range
+     *
+     * @return array|Turbine[]
+     */
+    public function getTurbinesModelForAuditsByWindfarmByStatusesYearAndRange(Windfarm $windfarm, $statuses, $year, $range)
+    {
+        return $this->getTurbinesModelForAuditsByWindfarmByStatusesYearAndRangeQ($windfarm, $statuses, $year, $range)->getResult();
     }
 
     /**
