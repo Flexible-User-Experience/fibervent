@@ -411,6 +411,63 @@ class AuditRepository extends EntityRepository
      *
      * @return QueryBuilder
      */
+    public function getAuditDatesForAuditsByWindfarmByStatusesYearAndRangeQB(Windfarm $windfarm, $statuses, $year, $range)
+    {
+        $qb = $this->getAuditsByWindfarmByStatusesYearAndRangeQB($windfarm, $statuses, $year, $range)
+            ->select('a.beginDate, a.endDate')
+            ->orderBy('a.beginDate', 'ASC')
+            ->addOrderBy('a.endDate', 'ASC')
+        ;
+
+        return $qb;
+    }
+
+    /**
+     * @param Windfarm $windfarm
+     * @param array    $statuses
+     * @param int      $year
+     * @param array    $range
+     *
+     * @return Query
+     */
+    public function getAuditDatesForAuditsByWindfarmByStatusesYearAndRangeQ(Windfarm $windfarm, $statuses, $year, $range)
+    {
+        return $this->getAuditDatesForAuditsByWindfarmByStatusesYearAndRangeQB($windfarm, $statuses, $year, $range)->getQuery();
+    }
+
+    /**
+     * @param Windfarm $windfarm
+     * @param array    $statuses
+     * @param int      $year
+     * @param array    $range
+     *
+     * @return array|User[]
+     */
+    public function getAuditDatesForAuditsByWindfarmByStatusesYearAndRange(Windfarm $windfarm, $statuses, $year, $range)
+    {
+        $result = array();
+        $audits = $this->getAuditDatesForAuditsByWindfarmByStatusesYearAndRangeQ($windfarm, $statuses, $year, $range)->getResult();
+
+        if (count($audits) > 0) {
+            /** @var Audit $begin */
+            $begin = $audits[0];
+            $result['begin'] = $begin['beginDate'];
+            /** @var Audit $end */
+            $end = $audits[count($audits) - 1];
+            $result['end'] = $end['endDate'];
+        }
+
+        return $result;
+    }
+
+    /**
+     * @param Windfarm $windfarm
+     * @param array    $statuses
+     * @param int      $year
+     * @param array    $range
+     *
+     * @return QueryBuilder
+     */
     public function getAuditTypesForAuditsByWindfarmByStatusesYearAndRangeQB(Windfarm $windfarm, $statuses, $year, $range)
     {
         $qb = $this->getAuditsByWindfarmByStatusesYearAndRangeQB($windfarm, $statuses, $year, $range)

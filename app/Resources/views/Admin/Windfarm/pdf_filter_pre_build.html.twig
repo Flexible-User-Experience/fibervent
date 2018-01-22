@@ -116,9 +116,9 @@
                             <tr>
                                 <th class="text-right" style="background-color:#8FABD9;">{{ 'pdf.cover.13_audit_date' | trans }}</th>
                                 <td>
-                                    {#{% for audit_type in audit_types %}#}
-                                        {#{{ audit_type.type | humanized_audit_type | trans }}{% if not loop.last %}, {% endif %}#}
-                                    {#{% endfor %}#}
+                                    {% if audit_dates['begin'] is defined and audit_dates['end'] is defined %}
+                                        {{ audit_dates['begin'] | date('d-m-Y') }} · {{ audit_dates['end'] | date('d-m-Y') }}
+                                    {% endif %}
                                 </td>
                             </tr>
                             <tr>
@@ -158,13 +158,13 @@
                             {% for audit in audits %}
                                 {% set total_records_displayed = total_records_displayed + 1 %}
                                 <tr>
-                                    <td rowspan="4" class="text-center" style="vertical-align:middle;border-right:2px solid #f4f4f4;">{{ audit.windmill.code }}</td>
+                                    <td rowspan="4" class="text-center" style="vertical-align:middle;border-right:2px solid #f4f4f4;">{% if app.environment == 'dev' %}{{ audit.id }} · {% endif %}{{ audit.windmill.code }}</td>
                                 </tr>
                                 {% for auditWindmillBlade in audit.auditWindmillBlades %}
                                     <tr>
                                         <td class="text-center" style="border-right:2px solid #f4f4f4;">{{ loop.index }}</td>
                                         {% for damage_category in damage_categories %}
-                                            <td class="text-center" style="{% if not loop.last %}border-right:2px solid #f4f4f4;{% endif %}">{{ mark_damage_category(damage_category, auditWindmillBlade) }}</td>
+                                            <td class="text-center" style="{% if mark_damage_category(damage_category, auditWindmillBlade) %}background-color:{{ damage_category.colour }};{% endif %}{% if not loop.last %}border-right:2px solid #f4f4f4;{% endif %}">{{ mark_damage_category(damage_category, auditWindmillBlade) }}</td>
                                         {% endfor %}
                                     </tr>
                                 {% endfor %}

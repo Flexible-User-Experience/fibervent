@@ -320,20 +320,11 @@ class WindfarmAdminController extends AbstractBaseAdminController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $damageCategories = $this->get('app.damage_category_repository')->findAllSortedByCategory();
-
             $statuses = null;
             if (array_key_exists('audit_status', $request->get(WindfarmAuditStatsFormType::BLOCK_PREFIX))) {
                 $statuses = $request->get(WindfarmAuditStatsFormType::BLOCK_PREFIX)['audit_status'];
             }
-
             $year = intval($request->get(WindfarmAuditStatsFormType::BLOCK_PREFIX)['year']);
-
-            $audits = $this->getDoctrine()->getRepository('AppBundle:Audit')->getAuditsByWindfarmByStatusesYearAndRange(
-                $object,
-                $statuses,
-                $year,
-                $request->get(WindfarmAuditStatsFormType::BLOCK_PREFIX)['dates_range']
-            );
 
             return $this->render(
                 ':Admin/Windfarm:pdf_filter_pre_build.html.twig',
@@ -342,9 +333,14 @@ class WindfarmAdminController extends AbstractBaseAdminController
                     'object' => $object,
                     'form' => $form->createView(),
                     'year' => $year,
-                    'audits' => $audits,
                     'show_download_pdf_button' => true,
                     'damage_categories' => $damageCategories,
+                    'audits' => $this->getDoctrine()->getRepository('AppBundle:Audit')->getAuditsByWindfarmByStatusesYearAndRange(
+                        $object,
+                        $statuses,
+                        $year,
+                        $request->get(WindfarmAuditStatsFormType::BLOCK_PREFIX)['dates_range']
+                    ),
                     'turbines' => $this->getDoctrine()->getRepository('AppBundle:Audit')->getTurbinesForAuditsByWindfarmByStatusesYearAndRange(
                         $object,
                         $statuses,
@@ -358,6 +354,12 @@ class WindfarmAdminController extends AbstractBaseAdminController
                         $request->get(WindfarmAuditStatsFormType::BLOCK_PREFIX)['dates_range']
                     ),
                     'technicians' => $this->getDoctrine()->getRepository('AppBundle:Audit')->getTechniciansForAuditsByWindfarmByStatusesYearAndRange(
+                        $object,
+                        $statuses,
+                        $year,
+                        $request->get(WindfarmAuditStatsFormType::BLOCK_PREFIX)['dates_range']
+                    ),
+                    'audit_dates' => $this->getDoctrine()->getRepository('AppBundle:Audit')->getAuditDatesForAuditsByWindfarmByStatusesYearAndRange(
                         $object,
                         $statuses,
                         $year,
