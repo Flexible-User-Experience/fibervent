@@ -50,8 +50,24 @@
                             <tr>
                                 <th class="text-right" style="background-color:#8FABD9;">{{ 'pdf.cover.5_turbine_model' | trans }}</th>
                                 <td>
-                                    {% for windfarm_turbine_model in windfarm_turbines_model %}
-                                        {{ windfarm_turbine_model.pdfToString }}{% if not loop.last %}, {% endif %}
+                                    {% for turbine in turbines %}
+                                        {{ turbine.pdfToString }}{% if not loop.last %}, {% endif %}
+                                    {% endfor %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="text-right" style="background-color:#8FABD9;">{{ 'pdf.cover.6_turbine_size' | trans }}</th>
+                                <td>
+                                    {% for turbine in turbines %}
+                                        {{ 'pdf.cover.6_turbine_size_value' | trans({'%height%': turbine.towerHeight, '%diameter%': turbine.rotorDiameter, '%length%': blades[loop.index - 1].length}) }}{% if not loop.last %}, {% endif %}
+                                    {% endfor %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="text-right" style="background-color:#8FABD9;">{{ 'pdf.cover.7_blade_type' | trans }}</th>
+                                <td>
+                                    {% for blade in blades %}
+                                        {{ blade }}{% if not loop.last %}, {% endif %}
                                     {% endfor %}
                                 </td>
                             </tr>

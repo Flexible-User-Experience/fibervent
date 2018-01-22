@@ -345,7 +345,13 @@ class WindfarmAdminController extends AbstractBaseAdminController
                     'audits' => $audits,
                     'show_download_pdf_button' => true,
                     'damage_categories' => $damageCategories,
-                    'windfarm_turbines_model' => $this->getDoctrine()->getRepository('AppBundle:Audit')->getTurbinesModelForAuditsByWindfarmByStatusesYearAndRange(
+                    'turbines' => $this->getDoctrine()->getRepository('AppBundle:Audit')->getTurbinesForAuditsByWindfarmByStatusesYearAndRange(
+                        $object,
+                        $statuses,
+                        $year,
+                        $request->get(WindfarmAuditStatsFormType::BLOCK_PREFIX)['dates_range']
+                    ),
+                    'blades' => $this->getDoctrine()->getRepository('AppBundle:Audit')->getBladesForAuditsByWindfarmByStatusesYearAndRange(
                         $object,
                         $statuses,
                         $year,

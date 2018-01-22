@@ -3,6 +3,7 @@
 namespace AppBundle\Repository;
 
 use AppBundle\Entity\Audit;
+use AppBundle\Entity\Blade;
 use AppBundle\Entity\Customer;
 use AppBundle\Entity\Turbine;
 use AppBundle\Entity\Windfarm;
@@ -266,7 +267,7 @@ class AuditRepository extends EntityRepository
      *
      * @return QueryBuilder
      */
-    public function getTurbinesModelForAuditsByWindfarmByStatusesYearAndRangeQB(Windfarm $windfarm, $statuses, $year, $range)
+    public function getTurbinesForAuditsByWindfarmByStatusesYearAndRangeQB(Windfarm $windfarm, $statuses, $year, $range)
     {
         $qb = $this->getAuditsByWindfarmByStatusesYearAndRangeQB($windfarm, $statuses, $year, $range)
             ->select('turbine')
@@ -287,9 +288,9 @@ class AuditRepository extends EntityRepository
      *
      * @return Query
      */
-    public function getTurbinesModelForAuditsByWindfarmByStatusesYearAndRangeQ(Windfarm $windfarm, $statuses, $year, $range)
+    public function getTurbinesForAuditsByWindfarmByStatusesYearAndRangeQ(Windfarm $windfarm, $statuses, $year, $range)
     {
-        return $this->getTurbinesModelForAuditsByWindfarmByStatusesYearAndRangeQB($windfarm, $statuses, $year, $range)->getQuery();
+        return $this->getTurbinesForAuditsByWindfarmByStatusesYearAndRangeQB($windfarm, $statuses, $year, $range)->getQuery();
     }
 
     /**
@@ -300,9 +301,56 @@ class AuditRepository extends EntityRepository
      *
      * @return array|Turbine[]
      */
-    public function getTurbinesModelForAuditsByWindfarmByStatusesYearAndRange(Windfarm $windfarm, $statuses, $year, $range)
+    public function getTurbinesForAuditsByWindfarmByStatusesYearAndRange(Windfarm $windfarm, $statuses, $year, $range)
     {
-        return $this->getTurbinesModelForAuditsByWindfarmByStatusesYearAndRangeQ($windfarm, $statuses, $year, $range)->getResult();
+        return $this->getTurbinesForAuditsByWindfarmByStatusesYearAndRangeQ($windfarm, $statuses, $year, $range)->getResult();
+    }
+
+    /**
+     * @param Windfarm $windfarm
+     * @param array    $statuses
+     * @param int      $year
+     * @param array    $range
+     *
+     * @return QueryBuilder
+     */
+    public function getBladesForAuditsByWindfarmByStatusesYearAndRangeQB(Windfarm $windfarm, $statuses, $year, $range)
+    {
+        $qb = $this->getAuditsByWindfarmByStatusesYearAndRangeQB($windfarm, $statuses, $year, $range)
+            ->select('blade')
+            ->from('AppBundle:Blade', 'blade')
+            ->leftJoin('a.windmill', 'w')
+            ->leftJoin('w.bladeType', 'b')
+            ->groupBy('b.id')
+        ;
+
+        return $qb;
+    }
+
+    /**
+     * @param Windfarm $windfarm
+     * @param array    $statuses
+     * @param int      $year
+     * @param array    $range
+     *
+     * @return Query
+     */
+    public function getBladesForAuditsByWindfarmByStatusesYearAndRangeQ(Windfarm $windfarm, $statuses, $year, $range)
+    {
+        return $this->getBladesForAuditsByWindfarmByStatusesYearAndRangeQB($windfarm, $statuses, $year, $range)->getQuery();
+    }
+
+    /**
+     * @param Windfarm $windfarm
+     * @param array    $statuses
+     * @param int      $year
+     * @param array    $range
+     *
+     * @return array|Blade[]
+     */
+    public function getBladesForAuditsByWindfarmByStatusesYearAndRange(Windfarm $windfarm, $statuses, $year, $range)
+    {
+        return $this->getBladesForAuditsByWindfarmByStatusesYearAndRangeQ($windfarm, $statuses, $year, $range)->getResult();
     }
 
     /**
