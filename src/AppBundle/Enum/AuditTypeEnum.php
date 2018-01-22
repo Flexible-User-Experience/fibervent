@@ -8,7 +8,6 @@ use AppBundle\Entity\Audit;
  * Class AuditTypeEnum
  *
  * @category Enum
- * @package  AppBundle\Enum
  * @author   David Romaní <david@flux.cat>
  */
 class AuditTypeEnum
@@ -19,22 +18,13 @@ class AuditTypeEnum
     const PLATFORM = 3;
 
     /**
-     * @return array
+     * Methods
      */
-    public static function getEnumArray()
-    {
-        return array(
-            self::GROUND   => 'enum.audit_type.ground',
-            self::ROPE     => 'enum.audit_type.rope',
-            self::INSIDE   => 'enum.audit_type.inside',
-            self::PLATFORM => 'enum.audit_type.platform',
-        );
-    }
 
     /**
      * @return array
      */
-    public static function getLocalizedEnumArray()
+    public static function getEnumArray()
     {
         return array(
             self::GROUND   => 'enum.audit_type.ground',
@@ -61,6 +51,6 @@ class AuditTypeEnum
      */
     public static function getStringLocalizedValue(Audit $audit)
     {
-        return self::getLocalizedEnumArray()[$audit->getType()];
+        return self::getEnumArray()[$audit->getType()];
     }
 }

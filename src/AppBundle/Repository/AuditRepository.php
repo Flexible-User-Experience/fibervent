@@ -405,6 +405,50 @@ class AuditRepository extends EntityRepository
 
     /**
      * @param Windfarm $windfarm
+     * @param array    $statuses
+     * @param int      $year
+     * @param array    $range
+     *
+     * @return QueryBuilder
+     */
+    public function getAuditTypesForAuditsByWindfarmByStatusesYearAndRangeQB(Windfarm $windfarm, $statuses, $year, $range)
+    {
+        $qb = $this->getAuditsByWindfarmByStatusesYearAndRangeQB($windfarm, $statuses, $year, $range)
+            ->select('a.type')
+            ->groupBy('a.type')
+        ;
+
+        return $qb;
+    }
+
+    /**
+     * @param Windfarm $windfarm
+     * @param array    $statuses
+     * @param int      $year
+     * @param array    $range
+     *
+     * @return Query
+     */
+    public function getAuditTypesForAuditsByWindfarmByStatusesYearAndRangeQ(Windfarm $windfarm, $statuses, $year, $range)
+    {
+        return $this->getAuditTypesForAuditsByWindfarmByStatusesYearAndRangeQB($windfarm, $statuses, $year, $range)->getQuery();
+    }
+
+    /**
+     * @param Windfarm $windfarm
+     * @param array    $statuses
+     * @param int      $year
+     * @param array    $range
+     *
+     * @return array|User[]
+     */
+    public function getAuditTypesForAuditsByWindfarmByStatusesYearAndRange(Windfarm $windfarm, $statuses, $year, $range)
+    {
+        return $this->getAuditTypesForAuditsByWindfarmByStatusesYearAndRangeQ($windfarm, $statuses, $year, $range)->getResult();
+    }
+
+    /**
+     * @param Windfarm $windfarm
      * @param int      $year
      *
      * @return QueryBuilder

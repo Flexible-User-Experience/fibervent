@@ -83,6 +83,18 @@
                                     {% endfor %}
                                 </td>
                             </tr>
+                            <tr>
+                                <th></th>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <th class="text-right" style="background-color:#8FABD9;">{{ 'pdf.cover.12_audit_type' | trans }}</th>
+                                <td>
+                                    {% for audit_type in audit_types %}
+                                        {{ audit_type.type | humanized_audit_type | trans }}{% if not loop.last %}, {% endif %}
+                                    {% endfor %}
+                                </td>
+                            </tr>
                             </tbody>
                         </table>
                     </div>
