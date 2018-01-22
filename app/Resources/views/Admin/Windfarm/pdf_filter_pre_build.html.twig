@@ -42,6 +42,98 @@
 {% if audits is defined and audits | length > 0 %}
     <div class="sonata-ba-show">
         <div class="sonata-ba-view row">
+            <div class="col-xs-9">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <table class="table">
+                            <tbody>
+                            <tr>
+                                <th class="text-right" style="background-color:#8FABD9;">{{ 'pdf.cover.3_country' | trans }}</th>
+                                <td>{{ object.state.countryName }} ({{ object.state.name }})</td>
+                            </tr>
+                            <tr>
+                                <th class="text-right" style="background-color:#8FABD9;">{{ 'pdf.cover.4_windfarm' | trans }}</th>
+                                <td>{{ object.name }}</td>
+                            </tr>
+                            <tr>
+                                <th class="text-right" style="background-color:#8FABD9;">{{ 'pdf.cover.5_turbine_model' | trans }}</th>
+                                <td>
+                                    {% for turbine in turbines %}
+                                        {{ turbine.pdfToString }}{% if not loop.last %}, {% endif %}
+                                    {% endfor %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="text-right" style="background-color:#8FABD9;">{{ 'pdf.cover.6_turbine_size' | trans }}</th>
+                                <td>
+                                    {% for turbine in turbines %}
+                                        {{ 'pdf.cover.6_turbine_size_value' | trans({'%height%': turbine.towerHeight, '%diameter%': turbine.rotorDiameter, '%length%': blades[loop.index - 1].length}) }}{% if not loop.last %}, {% endif %}
+                                    {% endfor %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="text-right" style="background-color:#8FABD9;">{{ 'pdf.cover.7_blade_type' | trans }}</th>
+                                <td>
+                                    {% for blade in blades %}
+                                        {{ blade }}{% if not loop.last %}, {% endif %}
+                                    {% endfor %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="text-right" style="background-color:#8FABD9;">{{ 'pdf.cover.8_total_turbines' | trans }}</th>
+                                <td>{{ 'pdf.cover.8_total_turbines_value' | trans({'%windmills%': object.windmillAmount, '%power%': object.power}) }}</td>
+                            </tr>
+                            <tr>
+                                <th class="text-right" style="background-color:#8FABD9;">{{ 'pdf.cover.9_startup_year' | trans }}</th>
+                                <td>{{ 'pdf.cover.9_startup_year_value' | trans({'%year%': object.year, '%diff%': object.yearDiff}) }}</td>
+                            </tr>
+                            <tr>
+                                <th class="text-right" style="background-color:#8FABD9;">{{ 'pdf.cover.10_om_regional_manager' | trans }}</th>
+                                <td>{{ object.managerFullname }}</td>
+                            </tr>
+                            <tr>
+                                <th colspan="2"></th>
+                            </tr>
+                            <tr>
+                                <th class="text-right" style="background-color:#8FABD9;">{{ 'pdf.cover.11_technicians' | trans }}</th>
+                                <td>
+                                    {% for technician in technicians %}
+                                        {{ technician.fullname }}{% if not loop.last %}, {% endif %}
+                                    {% endfor %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th colspan="2"></th>
+                            </tr>
+                            <tr>
+                                <th class="text-right" style="background-color:#8FABD9;">{{ 'pdf.cover.12_audit_type' | trans }}</th>
+                                <td>
+                                    {% for audit_type in audit_types %}
+                                        {{ audit_type.type | humanized_audit_type | trans }}{% if not loop.last %}, {% endif %}
+                                    {% endfor %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="text-right" style="background-color:#8FABD9;">{{ 'pdf.cover.13_audit_date' | trans }}</th>
+                                <td>
+                                    {% if audit_dates['begin'] is defined and audit_dates['end'] is defined %}
+                                        {{ audit_dates['begin'] | date('d-m-Y') }} · {{ audit_dates['end'] | date('d-m-Y') }}
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="text-right" style="background-color:#8FABD9;">{{ 'pdf_windfarm.cover.14_blades_amout' | trans }}</th>
+                                <td>{{ 'pdf_windfarm.cover.14_blades_amout_value' | trans({'%audits_amount%': audits | length}) }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="sonata-ba-show">
+        <div class="sonata-ba-view row">
             <div class="col-xs-12">
                 <div class="box box-primary">
                     <div class="box-header with-border">
@@ -66,13 +158,13 @@
                             {% for audit in audits %}
                                 {% set total_records_displayed = total_records_displayed + 1 %}
                                 <tr>
-                                    <td rowspan="4" class="text-center" style="vertical-align:middle;border-right:2px solid #f4f4f4;">{{ audit.windmill.code }}</td>
+                                    <td rowspan="4" class="text-center" style="vertical-align:middle;border-right:2px solid #f4f4f4;">{% if app.environment == 'dev' %}{{ audit.id }} · {% endif %}{{ audit.windmill.code }}</td>
                                 </tr>
                                 {% for auditWindmillBlade in audit.auditWindmillBlades %}
                                     <tr>
                                         <td class="text-center" style="border-right:2px solid #f4f4f4;">{{ loop.index }}</td>
                                         {% for damage_category in damage_categories %}
-                                            <td class="text-center" style="{% if not loop.last %}border-right:2px solid #f4f4f4;{% endif %}">{{ mark_damage_category(damage_category, auditWindmillBlade) }}</td>
+                                            <td class="text-center" style="{% if mark_damage_category(damage_category, auditWindmillBlade) %}background-color:{{ damage_category.colour }};{% endif %}{% if not loop.last %}border-right:2px solid #f4f4f4;{% endif %}">{{ mark_damage_category(damage_category, auditWindmillBlade) }}</td>
                                         {% endfor %}
                                     </tr>
                                 {% endfor %}

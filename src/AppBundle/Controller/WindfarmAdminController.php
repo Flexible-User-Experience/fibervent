@@ -320,20 +320,11 @@ class WindfarmAdminController extends AbstractBaseAdminController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $damageCategories = $this->get('app.damage_category_repository')->findAllSortedByCategory();
-
             $statuses = null;
             if (array_key_exists('audit_status', $request->get(WindfarmAuditStatsFormType::BLOCK_PREFIX))) {
                 $statuses = $request->get(WindfarmAuditStatsFormType::BLOCK_PREFIX)['audit_status'];
             }
-
             $year = intval($request->get(WindfarmAuditStatsFormType::BLOCK_PREFIX)['year']);
-
-            $audits = $this->getDoctrine()->getRepository('AppBundle:Audit')->getAuditsByWindfarmByStatusesYearAndRange(
-                $object,
-                $statuses,
-                $year,
-                $request->get(WindfarmAuditStatsFormType::BLOCK_PREFIX)['dates_range']
-            );
 
             return $this->render(
                 ':Admin/Windfarm:pdf_filter_pre_build.html.twig',
@@ -342,9 +333,44 @@ class WindfarmAdminController extends AbstractBaseAdminController
                     'object' => $object,
                     'form' => $form->createView(),
                     'year' => $year,
-                    'audits' => $audits,
                     'show_download_pdf_button' => true,
                     'damage_categories' => $damageCategories,
+                    'audits' => $this->getDoctrine()->getRepository('AppBundle:Audit')->getAuditsByWindfarmByStatusesYearAndRange(
+                        $object,
+                        $statuses,
+                        $year,
+                        $request->get(WindfarmAuditStatsFormType::BLOCK_PREFIX)['dates_range']
+                    ),
+                    'turbines' => $this->getDoctrine()->getRepository('AppBundle:Audit')->getTurbinesForAuditsByWindfarmByStatusesYearAndRange(
+                        $object,
+                        $statuses,
+                        $year,
+                        $request->get(WindfarmAuditStatsFormType::BLOCK_PREFIX)['dates_range']
+                    ),
+                    'blades' => $this->getDoctrine()->getRepository('AppBundle:Audit')->getBladesForAuditsByWindfarmByStatusesYearAndRange(
+                        $object,
+                        $statuses,
+                        $year,
+                        $request->get(WindfarmAuditStatsFormType::BLOCK_PREFIX)['dates_range']
+                    ),
+                    'technicians' => $this->getDoctrine()->getRepository('AppBundle:Audit')->getTechniciansForAuditsByWindfarmByStatusesYearAndRange(
+                        $object,
+                        $statuses,
+                        $year,
+                        $request->get(WindfarmAuditStatsFormType::BLOCK_PREFIX)['dates_range']
+                    ),
+                    'audit_dates' => $this->getDoctrine()->getRepository('AppBundle:Audit')->getAuditDatesForAuditsByWindfarmByStatusesYearAndRange(
+                        $object,
+                        $statuses,
+                        $year,
+                        $request->get(WindfarmAuditStatsFormType::BLOCK_PREFIX)['dates_range']
+                    ),
+                    'audit_types' => $this->getDoctrine()->getRepository('AppBundle:Audit')->getAuditTypesForAuditsByWindfarmByStatusesYearAndRange(
+                        $object,
+                        $statuses,
+                        $year,
+                        $request->get(WindfarmAuditStatsFormType::BLOCK_PREFIX)['dates_range']
+                    ),
                 )
             );
         }
@@ -412,7 +438,7 @@ class WindfarmAdminController extends AbstractBaseAdminController
 
         /** @var WindfarmAuditsPdfBuilderService $wapbs */
         $wapbs = $this->get('app.windfarm_audits_pdf_builder');
-        $pdf = $wapbs->build($object, $damageCategories, $audits, $year);
+        $pdf = $wapbs->build($object, $damageCategories, $audits, $statuses, $year, $range);
 
         return new Response($pdf->Output('informe_auditorias_parque_eolico_'.$object->getId().'.pdf', 'I'), 200, array('Content-type' => 'application/pdf'));
     }

@@ -203,7 +203,7 @@ class Windfarm extends AbstractBase
     /**
      * @return string
      */
-    public function getMangerFullname()
+    public function getManagerFullname()
     {
         if (!is_null($this->manager)) {
             return $this->manager->getFullname();
