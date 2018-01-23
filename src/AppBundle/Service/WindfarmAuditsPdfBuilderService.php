@@ -5,10 +5,7 @@ namespace AppBundle\Service;
 use AppBundle\Entity\Audit;
 use AppBundle\Entity\AuditWindmillBlade;
 use AppBundle\Entity\DamageCategory;
-use AppBundle\Entity\Turbine;
-use AppBundle\Entity\User;
 use AppBundle\Entity\Windfarm;
-use AppBundle\Enum\AuditTypeEnum;
 use AppBundle\Enum\WindfarmLanguageEnum;
 use AppBundle\Factory\DamageHelper;
 use AppBundle\Pdf\CustomTcpdf;
@@ -221,42 +218,19 @@ class WindfarmAuditsPdfBuilderService extends AbstractPdfBuilderService
             $pdf->Cell(70, 6, $this->ts->trans('pdf.cover.5_turbine_model'), 'TB', 0, 'R', true);
             $pdf->setFontStyle(null, '', 10);
             $pdf->setWhiteBackground();
-            $turbines = $this->ar->getTurbinesForAuditsByWindfarmByStatusesYearAndRange(
-                $windfarm,
-                $statuses,
-                $year,
-                $range
-            );
-            $pdf->Cell(0, 6, implode(',', $this->wbbs->getInvolvedTurbinesInAuditsList($audits)), 'TB', 1, 'L', true);
+            $pdf->Cell(0, 6, implode(', ', $this->wbbs->getInvolvedTurbinesInAuditsList($audits)), 'TB', 1, 'L', true);
             $pdf->setFontStyle(null, 'B', 10);
             $pdf->setBlueBackground();
             $pdf->Cell(70, 6, $this->ts->trans('pdf.cover.6_turbine_size'), 'TB', 0, 'R', true);
             $pdf->setFontStyle(null, '', 10);
             $pdf->setWhiteBackground();
-            $blades = $this->ar->getBladesForAuditsByWindfarmByStatusesYearAndRange(
-                $windfarm,
-                $statuses,
-                $year,
-                $range
-            );
-            $index = 0;
-            $result = array();
-            /** @var Turbine $turbine */
-            foreach ($turbines as $turbine) {
-                $result[] = $this->ts->trans('pdf.cover.6_turbine_size_value', array(
-                    '%height%' => $turbine->getTowerHeight(),
-                    '%diameter%' => $turbine->getRotorDiameter(),
-                    '%length%' => $blades[$index]->getLength(),
-                ));
-                $index++;
-            }
-            $pdf->Cell(0, 6, implode(',', $result), 'TB', 1, 'L', true);
+            $pdf->Cell(0, 6, implode(', ', $this->wbbs->getInvolvedTurbineModelsInAuditsList($audits)), 'TB', 1, 'L', true);
             $pdf->setFontStyle(null, 'B', 10);
             $pdf->setBlueBackground();
             $pdf->Cell(70, 6, $this->ts->trans('pdf.cover.7_blade_type'), 'TB', 0, 'R', true);
             $pdf->setFontStyle(null, '', 10);
             $pdf->setWhiteBackground();
-            $pdf->Cell(0, 6, implode(',', $blades), 'TB', 1, 'L', true);
+            $pdf->Cell(0, 6, implode(', ', $this->wbbs->getInvolvedBladesInAuditsList($audits)), 'TB', 1, 'L', true);
             $pdf->setFontStyle(null, 'B', 10);
             $pdf->setBlueBackground();
             $pdf->Cell(70, 6, $this->ts->trans('pdf_windfarm.cover.8_total_turbines'), 'TB', 0, 'R', true);
@@ -282,18 +256,7 @@ class WindfarmAuditsPdfBuilderService extends AbstractPdfBuilderService
             $pdf->Cell(70, 6, $this->ts->trans('pdf.cover.11_technicians'), 'TB', 0, 'R', true);
             $pdf->setFontStyle(null, '', 10);
             $pdf->setWhiteBackground();
-            $technicians = $this->ar->getTechniciansForAuditsByWindfarmByStatusesYearAndRange(
-                $windfarm,
-                $statuses,
-                $year,
-                $range
-            );
-            $result = array();
-            /** @var User $technician */
-            foreach ($technicians as $technician) {
-                $result[] = $technician->getFullname();
-            }
-            $pdf->Cell(0, 6, implode(', ', $result), 'TB', 1, 'L', true);
+            $pdf->Cell(0, 6, implode(', ', $this->wbbs->getInvolvedTechniciansInAuditsList($audits)), 'TB', 1, 'L', true);
             // final details
             $pdf->SetXY(CustomTcpdf::PDF_MARGIN_LEFT, $pdf->GetY() + 10);
             $pdf->setFontStyle(null, 'B', 10);
@@ -301,32 +264,13 @@ class WindfarmAuditsPdfBuilderService extends AbstractPdfBuilderService
             $pdf->Cell(70, 6, $this->ts->trans('pdf.cover.12_audit_type'), 'TB', 0, 'R', true);
             $pdf->setFontStyle(null, '', 10);
             $pdf->setWhiteBackground();
-            $auditTypes = $this->ar->getAuditTypesForAuditsByWindfarmByStatusesYearAndRange(
-                $windfarm,
-                $statuses,
-                $year,
-                $range
-            );
-            $result = array();
-            /** @var integer $auditType */
-            foreach ($auditTypes as $auditType) {
-                $result[] = $this->ts->trans(AuditTypeEnum::getEnumArray()[$auditType['type']]);
-            }
-            $pdf->Cell(0, 6, implode(',', $result), 'TB', 1, 'L', true);
-            $auditDates = $this->ar->getAuditDatesForAuditsByWindfarmByStatusesYearAndRange(
-                $windfarm,
-                $statuses,
-                $year,
-                $range
-            );
-            if (array_key_exists('begin', $auditDates) && array_key_exists('end', $auditDates)) {
-                $pdf->setFontStyle(null, 'B', 10);
-                $pdf->setBlueBackground();
-                $pdf->Cell(70, 6, $this->ts->trans('pdf.cover.13_audit_date'), 'TB', 0, 'R', true);
-                $pdf->setFontStyle(null, '', 10);
-                $pdf->setWhiteBackground();
-                $pdf->Cell(0, 6, $auditDates['begin']->format('d-m-Y').' · '.$auditDates['end']->format('d-m-Y'), 'TB', 1, 'L', true);
-            }
+            $pdf->Cell(0, 6, implode(', ', $this->wbbs->getInvolvedAuditTypesInAuditsList($audits)), 'TB', 1, 'L', true);
+            $pdf->setFontStyle(null, 'B', 10);
+            $pdf->setBlueBackground();
+            $pdf->Cell(70, 6, $this->ts->trans('pdf.cover.13_audit_date'), 'TB', 0, 'R', true);
+            $pdf->setFontStyle(null, '', 10);
+            $pdf->setWhiteBackground();
+//            $pdf->Cell(0, 6, implode(' · ', $this->wbbs->getInvolvedAuditDatesInAuditsList($audits)), 'TB', 1, 'L', true);
             $pdf->setFontStyle(null, 'B', 10);
             $pdf->setBlueBackground();
             $pdf->Cell(70, 6, $this->ts->trans('pdf_windfarm.cover.14_blades_amout'), 'TB', 0, 'R', true);
