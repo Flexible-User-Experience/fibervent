@@ -12,7 +12,6 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * Windmill
  *
  * @category Entity
- * @package  AppBundle\Entity
  * @author   Anton Serra <aserratorta@gmail.com>
  *
  * @ORM\Table(uniqueConstraints={@ORM\UniqueConstraint(name="windfarm_code_unique", columns={"windfarm_id", "code"})})
@@ -21,6 +20,8 @@ use Gedmo\Mapping\Annotation as Gedmo;
  */
 class Windmill extends AbstractBase
 {
+    const DEFAULT_SHORT_CODE = 'AG-00';
+
     use GpsCoordinatesTrait;
     use CodeTrait;
 
@@ -67,11 +68,7 @@ class Windmill extends AbstractBase
     private $audits;
 
     /**
-     *
-     *
      * Methods
-     *
-     *
      */
 
     /**
@@ -247,6 +244,23 @@ class Windmill extends AbstractBase
     public function getPdfModelDimensionString()
     {
         return 'Torre ' . $this->getTurbine()->getTowerHeight() . 'm / Rotor Ø' . $this->getTurbine()->getRotorDiameter() . 'm / Pala ' . $this->getBladeType()->getLength() . 'm';
+    }
+
+    /**
+     * @return string
+     */
+    public function getShortAutomatedCode()
+    {
+        $result = self::DEFAULT_SHORT_CODE;
+        if (strlen($this->code) > strlen($result)) {
+            $first = substr($this->code, 0, 2);
+            if (strpos($this->code, ' - ') > 0) {
+                $last = substr($this->code, strpos($this->code, ' - '));
+                $result = $first.$last;
+            }
+        }
+
+        return $result;
     }
 
     /**
