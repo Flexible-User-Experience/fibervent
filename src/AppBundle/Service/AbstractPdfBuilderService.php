@@ -117,6 +117,11 @@ class AbstractPdfBuilderService
     protected $amdb;
 
     /**
+     * @var WindfarmBuilderBridgeService
+     */
+    protected $wbbs;
+
+    /**
      * @var BladeDamageHelperFactory
      */
     protected $bdhf;
@@ -144,9 +149,10 @@ class AbstractPdfBuilderService
      * @param BladeDamageRepository          $bdr
      * @param CustomerRepository             $cr
      * @param AuditModelDiagramBridgeService $amdb
+     * @param WindfarmBuilderBridgeService   $wbbs
      * @param BladeDamageHelperFactory       $bdhf
      */
-    public function __construct(TCPDFController $tcpdf, CacheManager $cm, UploaderHelper $uh, AssetsHelper $tha, Translator $ts, AuditRepository $ar, DamageRepository $dr, DamageCategoryRepository $dcr, BladeDamageRepository $bdr, CustomerRepository $cr, AuditModelDiagramBridgeService $amdb, BladeDamageHelperFactory $bdhf)
+    public function __construct(TCPDFController $tcpdf, CacheManager $cm, UploaderHelper $uh, AssetsHelper $tha, Translator $ts, AuditRepository $ar, DamageRepository $dr, DamageCategoryRepository $dcr, BladeDamageRepository $bdr, CustomerRepository $cr, AuditModelDiagramBridgeService $amdb, WindfarmBuilderBridgeService $wbbs, BladeDamageHelperFactory $bdhf)
     {
         $this->tcpdf = $tcpdf;
         $this->cm = $cm;
@@ -159,6 +165,7 @@ class AbstractPdfBuilderService
         $this->bdr = $bdr;
         $this->cr = $cr;
         $this->amdb = $amdb;
+        $this->wbbs = $wbbs;
         $this->bdhf = $bdhf;
     }
 

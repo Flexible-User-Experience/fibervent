@@ -325,6 +325,12 @@ class WindfarmAdminController extends AbstractBaseAdminController
                 $statuses = $request->get(WindfarmAuditStatsFormType::BLOCK_PREFIX)['audit_status'];
             }
             $year = intval($request->get(WindfarmAuditStatsFormType::BLOCK_PREFIX)['year']);
+            $audits = $this->getDoctrine()->getRepository('AppBundle:Audit')->getAuditsByWindfarmByStatusesYearAndRange(
+                $object,
+                $statuses,
+                $year,
+                $request->get(WindfarmAuditStatsFormType::BLOCK_PREFIX)['dates_range']
+            );
 
             return $this->render(
                 ':Admin/Windfarm:pdf_filter_pre_build.html.twig',
@@ -335,24 +341,10 @@ class WindfarmAdminController extends AbstractBaseAdminController
                     'year' => $year,
                     'show_download_pdf_button' => true,
                     'damage_categories' => $damageCategories,
-                    'audits' => $this->getDoctrine()->getRepository('AppBundle:Audit')->getAuditsByWindfarmByStatusesYearAndRange(
-                        $object,
-                        $statuses,
-                        $year,
-                        $request->get(WindfarmAuditStatsFormType::BLOCK_PREFIX)['dates_range']
-                    ),
-                    'turbines' => $this->getDoctrine()->getRepository('AppBundle:Audit')->getTurbinesForAuditsByWindfarmByStatusesYearAndRange(
-                        $object,
-                        $statuses,
-                        $year,
-                        $request->get(WindfarmAuditStatsFormType::BLOCK_PREFIX)['dates_range']
-                    ),
-                    'blades' => $this->getDoctrine()->getRepository('AppBundle:Audit')->getBladesForAuditsByWindfarmByStatusesYearAndRange(
-                        $object,
-                        $statuses,
-                        $year,
-                        $request->get(WindfarmAuditStatsFormType::BLOCK_PREFIX)['dates_range']
-                    ),
+                    'audits' => $audits,
+                    'turbines' => $this->get('app.windfarm_builder_bridge')->getInvolvedTurbinesInAuditsList($audits),
+                    'turbine_models' => $this->get('app.windfarm_builder_bridge')->getInvolvedTurbineModelsInAuditsList($audits),
+                    'blades' => $this->get('app.windfarm_builder_bridge')->getInvolvedBladesInAuditsList($audits),
                     'technicians' => $this->getDoctrine()->getRepository('AppBundle:Audit')->getTechniciansForAuditsByWindfarmByStatusesYearAndRange(
                         $object,
                         $statuses,

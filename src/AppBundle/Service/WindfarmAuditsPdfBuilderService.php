@@ -227,12 +227,7 @@ class WindfarmAuditsPdfBuilderService extends AbstractPdfBuilderService
                 $year,
                 $range
             );
-            $result = array();
-            /** @var Turbine $turbine */
-            foreach ($turbines as $turbine) {
-                $result[] = $turbine->pdfToString();
-            }
-            $pdf->Cell(0, 6, implode(',', $result), 'TB', 1, 'L', true);
+            $pdf->Cell(0, 6, implode(',', $this->wbbs->getInvolvedTurbinesInAuditsList($audits)), 'TB', 1, 'L', true);
             $pdf->setFontStyle(null, 'B', 10);
             $pdf->setBlueBackground();
             $pdf->Cell(70, 6, $this->ts->trans('pdf.cover.6_turbine_size'), 'TB', 0, 'R', true);
