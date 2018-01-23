@@ -346,18 +346,8 @@ class WindfarmAdminController extends AbstractBaseAdminController
                     'turbine_models' => $this->get('app.windfarm_builder_bridge')->getInvolvedTurbineModelsInAuditsList($audits),
                     'blades' => $this->get('app.windfarm_builder_bridge')->getInvolvedBladesInAuditsList($audits),
                     'technicians' => $this->get('app.windfarm_builder_bridge')->getInvolvedTechniciansInAuditsList($audits),
-                    'audit_types' => $this->getDoctrine()->getRepository('AppBundle:Audit')->getAuditTypesForAuditsByWindfarmByStatusesYearAndRange(
-                        $object,
-                        $statuses,
-                        $year,
-                        $request->get(WindfarmAuditStatsFormType::BLOCK_PREFIX)['dates_range']
-                    ),
-                    'audit_dates' => $this->getDoctrine()->getRepository('AppBundle:Audit')->getAuditDatesForAuditsByWindfarmByStatusesYearAndRange(
-                        $object,
-                        $statuses,
-                        $year,
-                        $request->get(WindfarmAuditStatsFormType::BLOCK_PREFIX)['dates_range']
-                    ),
+                    'audit_types' => $this->get('app.windfarm_builder_bridge')->getInvolvedAuditTypesInAuditsList($audits),
+                    'audit_dates' => $this->get('app.windfarm_builder_bridge')->getInvolvedAuditDatesInAuditsList($this->getDoctrine()->getRepository('AppBundle:Audit')->getAuditDatesForAuditsByWindfarmByStatusesYearAndRange($object, $statuses, $year, $request->get(WindfarmAuditStatsFormType::BLOCK_PREFIX)['dates_range'])),
                 )
             );
         }

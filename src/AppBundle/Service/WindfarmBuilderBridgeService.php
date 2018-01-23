@@ -3,7 +3,6 @@
 namespace AppBundle\Service;
 
 use AppBundle\Entity\Audit;
-use AppBundle\Entity\Turbine;
 use AppBundle\Entity\User;
 use Symfony\Component\Translation\Translator;
 use Symfony\Component\Translation\TranslatorInterface;
@@ -101,6 +100,38 @@ class WindfarmBuilderBridgeService
             foreach ($audit->getOperators() as $operator) {
                 $result[$operator->getId()] = $operator->getFullname();
             }
+        }
+
+        return $result;
+    }
+
+    /**
+     * @param array|Audit[] $audits
+     *
+     * @return array of strings transformed
+     */
+    public function getInvolvedAuditTypesInAuditsList($audits)
+    {
+        $result = array();
+        /** @var Audit $audit */
+        foreach ($audits as $audit) {
+            $result[$audit->getType()] = $this->ts->trans($audit->getTypeStringLocalized());
+        }
+
+        return $result;
+    }
+
+    /**
+     * @param array $dates
+     *
+     * @return array of strings transformed
+     */
+    public function getInvolvedAuditDatesInAuditsList($dates)
+    {
+        $result = array();
+        if (count($dates) > 0) {
+            $result[] = $dates['begin']->format('d-m-Y');
+            $result[] = $dates['end']->format('d-m-Y');
         }
 
         return $result;
