@@ -345,12 +345,7 @@ class WindfarmAdminController extends AbstractBaseAdminController
                     'turbines' => $this->get('app.windfarm_builder_bridge')->getInvolvedTurbinesInAuditsList($audits),
                     'turbine_models' => $this->get('app.windfarm_builder_bridge')->getInvolvedTurbineModelsInAuditsList($audits),
                     'blades' => $this->get('app.windfarm_builder_bridge')->getInvolvedBladesInAuditsList($audits),
-                    'technicians' => $this->getDoctrine()->getRepository('AppBundle:Audit')->getTechniciansForAuditsByWindfarmByStatusesYearAndRange(
-                        $object,
-                        $statuses,
-                        $year,
-                        $request->get(WindfarmAuditStatsFormType::BLOCK_PREFIX)['dates_range']
-                    ),
+                    'technicians' => $this->get('app.windfarm_builder_bridge')->getInvolvedTechniciansInAuditsList($audits),
                     'audit_types' => $this->getDoctrine()->getRepository('AppBundle:Audit')->getAuditTypesForAuditsByWindfarmByStatusesYearAndRange(
                         $object,
                         $statuses,

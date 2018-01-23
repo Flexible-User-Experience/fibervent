@@ -4,6 +4,7 @@ namespace AppBundle\Service;
 
 use AppBundle\Entity\Audit;
 use AppBundle\Entity\Turbine;
+use AppBundle\Entity\User;
 use Symfony\Component\Translation\Translator;
 use Symfony\Component\Translation\TranslatorInterface;
 
@@ -81,6 +82,25 @@ class WindfarmBuilderBridgeService
         /** @var Audit $audit */
         foreach ($audits as $audit) {
             $result[$audit->getWindmill()->getBladeType()->getId()] = $audit->getWindmill()->getBladeType()->__toString();
+        }
+
+        return $result;
+    }
+
+    /**
+     * @param array|Audit[] $audits
+     *
+     * @return array of strings transformed
+     */
+    public function getInvolvedTechniciansInAuditsList($audits)
+    {
+        $result = array();
+        /** @var Audit $audit */
+        foreach ($audits as $audit) {
+            /** @var User $operator */
+            foreach ($audit->getOperators() as $operator) {
+                $result[$operator->getId()] = $operator->getFullname();
+            }
         }
 
         return $result;

@@ -62,10 +62,6 @@
                             <tr>
                                 <th class="text-right" style="background-color:#8FABD9;">{{ 'pdf.cover.6_turbine_size' | trans }}</th>
                                 <td>{{ turbine_models | join(',') }}</td>
-                                    {#{% for turbine in turbines %}#}
-                                        {#{{ 'pdf.cover.6_turbine_size_value' | trans({'%height%': turbine.towerHeight, '%diameter%': turbine.rotorDiameter, '%length%': blades[loop.index - 1].length}) }}{% if not loop.last %}, {% endif %}#}
-                                    {#{% endfor %}#}
-                                {#</td>#}
                             </tr>
                             <tr>
                                 <th class="text-right" style="background-color:#8FABD9;">{{ 'pdf.cover.7_blade_type' | trans }}</th>
@@ -88,11 +84,7 @@
                             </tr>
                             <tr>
                                 <th class="text-right" style="background-color:#8FABD9;">{{ 'pdf.cover.11_technicians' | trans }}</th>
-                                <td>
-                                    {% for technician in technicians %}
-                                        {{ technician.fullname }}{% if not loop.last %}, {% endif %}
-                                    {% endfor %}
-                                </td>
+                                <td>{{ technicians | join(',') }}</td>
                             </tr>
                             <tr>
                                 <th colspan="2"></th>
