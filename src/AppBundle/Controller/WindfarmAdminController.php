@@ -412,10 +412,11 @@ class WindfarmAdminController extends AbstractBaseAdminController
             $year,
             $range
         );
+        $dateRanges = $this->getDoctrine()->getRepository('AppBundle:Audit')->getAuditDatesForAuditsByWindfarmByStatusesYearAndRange($object, $statuses, $year, $range);
 
         /** @var WindfarmAuditsPdfBuilderService $wapbs */
         $wapbs = $this->get('app.windfarm_audits_pdf_builder');
-        $pdf = $wapbs->build($object, $damageCategories, $audits, $statuses, $year, $range);
+        $pdf = $wapbs->build($object, $damageCategories, $audits, $year, $dateRanges);
 
         return new Response($pdf->Output('informe_auditorias_parque_eolico_'.$object->getId().'.pdf', 'I'), 200, array('Content-type' => 'application/pdf'));
     }

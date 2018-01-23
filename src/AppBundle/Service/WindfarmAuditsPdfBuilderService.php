@@ -23,19 +23,18 @@ class WindfarmAuditsPdfBuilderService extends AbstractPdfBuilderService
      * @param Windfarm $windfarm
      * @param array    $damageCategories
      * @param array    $audits
-     * @param array    $statuses
      * @param integer  $year
-     * @param array    $range
+     * @param array    $dateRanges
      *
      * @return \TCPDF
      */
-    public function build(Windfarm $windfarm, $damageCategories, $audits, $statuses, $year, $range)
+    public function build(Windfarm $windfarm, $damageCategories, $audits, $year, $dateRanges)
     {
         $this->locale = WindfarmLanguageEnum::getEnumArray()[$windfarm->getLanguage()];
         $this->ts->setLocale($this->locale);
 
         /** @var CustomTcpdf $pdf */
-        $pdf = $this->doInitialConfig($windfarm, $audits, $statuses, $year, $range);
+        $pdf = $this->doInitialConfig($windfarm, $audits, $dateRanges);
 
         // Add a page
         $pdf->setPrintHeader(true);
@@ -147,13 +146,11 @@ class WindfarmAuditsPdfBuilderService extends AbstractPdfBuilderService
     /**
      * @param Windfarm $windfarm
      * @param array    $audits
-     * @param array    $statuses
-     * @param integer  $year
-     * @param array    $range
+     * @param array    $dateRanges
      *
      * @return \TCPDF
      */
-    private function doInitialConfig(Windfarm $windfarm, $audits, $statuses, $year, $range)
+    private function doInitialConfig(Windfarm $windfarm, $audits, $dateRanges)
     {
         /** @var CustomTcpdf $pdf */
         $pdf = $this->tcpdf->create($this->tha, $this->ts, $windfarm);
@@ -270,7 +267,7 @@ class WindfarmAuditsPdfBuilderService extends AbstractPdfBuilderService
             $pdf->Cell(70, 6, $this->ts->trans('pdf.cover.13_audit_date'), 'TB', 0, 'R', true);
             $pdf->setFontStyle(null, '', 10);
             $pdf->setWhiteBackground();
-//            $pdf->Cell(0, 6, implode(' · ', $this->wbbs->getInvolvedAuditDatesInAuditsList($audits)), 'TB', 1, 'L', true);
+            $pdf->Cell(0, 6, implode(' · ', $this->wbbs->getInvolvedAuditDatesInAuditsList($dateRanges)), 'TB', 1, 'L', true);
             $pdf->setFontStyle(null, 'B', 10);
             $pdf->setBlueBackground();
             $pdf->Cell(70, 6, $this->ts->trans('pdf_windfarm.cover.14_blades_amout'), 'TB', 0, 'R', true);
