@@ -396,7 +396,8 @@ class WindfarmAuditsPdfBuilderService extends AbstractPdfBuilderService
         $damageHeaderWidth = 80;
         $pdf->setWhiteBackground();
         $pdf->setFontStyle(null, '', 9);
-        $pdf->Cell(50, 18, $audit->getWindmill()->getCode(), 1, 0, 'C', true);
+        $pdf->Cell(50, 18, $audit->getWindmill()->getShortAutomatedCode(), 1, 0, 'C', 1, '', 0);
+//        $pdf->Cell(20, $totalHeight, $audit->getWindmill()->getShortAutomatedCode(), 1, 0, 'C', 1, '', 0);
         $i = 0;
         /** @var AuditWindmillBlade $auditWindmillBlade */
         foreach ($audit->getAuditWindmillBlades() as $auditWindmillBlade) {
@@ -466,7 +467,7 @@ class WindfarmAuditsPdfBuilderService extends AbstractPdfBuilderService
             $pdf->MultiCell($pdf->availablePageWithDimension - $damageHeaderWidth - 30, $height, $bladeDamageHelper->getDamagesToString(), 1, 'L', 1, 1);
         }
         $pdf->SetY($currentY);
-        $pdf->Cell(20, $totalHeight, $audit->getWindmill()->getCode(), 1, 0, 'C', 1, '', 2);
+        $pdf->Cell(20, $totalHeight, $audit->getWindmill()->getShortAutomatedCode(), 1, 0, 'C', 1, '', 0);
         // Cell($w, $h=0, $txt='', $border=0, $ln=0, $align='', $fill=0, $link='', $stretch=0, $ignore_min_height=false, $calign='T', $valign='M')
     }
 }
