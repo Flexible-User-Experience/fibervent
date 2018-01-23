@@ -397,7 +397,6 @@ class WindfarmAuditsPdfBuilderService extends AbstractPdfBuilderService
         $pdf->setWhiteBackground();
         $pdf->setFontStyle(null, '', 9);
         $pdf->Cell(50, 18, $audit->getWindmill()->getShortAutomatedCode(), 1, 0, 'C', 1, '', 0);
-//        $pdf->Cell(20, $totalHeight, $audit->getWindmill()->getShortAutomatedCode(), 1, 0, 'C', 1, '', 0);
         $i = 0;
         /** @var AuditWindmillBlade $auditWindmillBlade */
         foreach ($audit->getAuditWindmillBlades() as $auditWindmillBlade) {
