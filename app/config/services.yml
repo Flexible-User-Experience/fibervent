@@ -170,6 +170,10 @@ services:
 # Factory
     app.factory_blade_damage_helper:
         class: AppBundle\Factory\BladeDamageHelperFactory
+    app.factory_windfarm_blades_damages_helper:
+        class: AppBundle\Factory\WindfarmBladesDamagesHelperFactory
+        arguments:
+            - "@app.damage_category_repository"
 # Twig
     app.twig_extension:
         class: AppBundle\Twig\AppExtension
@@ -178,7 +182,7 @@ services:
             - { name: twig.extension }
         arguments:
             - "@app.damage_repository"
-            - "@app.factory_blade_damage_helper"
+            - "@app.factory_windfarm_blades_damages_helper"
 # Event listeners
     app.locale_listener:
         class: AppBundle\EventListener\LocaleListener

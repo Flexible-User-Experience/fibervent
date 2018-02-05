@@ -2,6 +2,8 @@
 
 namespace AppBundle\Factory;
 
+use AppBundle\Service\WindfarmAuditsPdfBuilderService;
+
 /**
  * Class DamageHelper
  *
@@ -32,6 +34,11 @@ class DamageHelper
      * @var array
      */
     private $damages;
+
+    /**
+     * @var integer
+     */
+    private $pdfHeight = 0;
 
     /**
      * Methods
@@ -117,7 +124,7 @@ class DamageHelper
     /**
      * @return string
      */
-    public function getDamagesToString()
+    public function getDamagesToLettersRangeString()
     {
         return implode(', ', $this->damages);
     }
@@ -143,6 +150,27 @@ class DamageHelper
     {
         $this->damages[] = $damage;
         $this->mark = self::MARK;
+        $this->pdfHeight = $this->pdfHeight + WindfarmAuditsPdfBuilderService::DAMAGE_HEADER_HEIGHT_GENERAL_SUMMARY;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getPdfHeight()
+    {
+        return $this->pdfHeight;
+    }
+
+    /**
+     * @param int $pdfHeight
+     *
+     * @return $this
+     */
+    public function setPdfHeight(int $pdfHeight)
+    {
+        $this->pdfHeight = $pdfHeight;
 
         return $this;
     }

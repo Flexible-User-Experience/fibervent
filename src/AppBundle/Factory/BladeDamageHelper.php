@@ -27,6 +27,11 @@ class BladeDamageHelper
     private $damages;
 
     /**
+     * @var integer
+     */
+    private $totalPdfHeight = 0;
+
+    /**
      * Methods
      */
 
@@ -87,6 +92,7 @@ class BladeDamageHelper
     public function addCategory(DamageHelper $category)
     {
         $this->categories[] = $category;
+        $this->totalPdfHeight = $this->totalPdfHeight + $category->getPdfHeight();
 
         return $this;
     }
@@ -127,6 +133,26 @@ class BladeDamageHelper
     public function addDamage($damage)
     {
         $this->damages[] = $damage;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getTotalPdfHeight()
+    {
+        return $this->totalPdfHeight;
+    }
+
+    /**
+     * @param int $totalPdfHeight
+     *
+     * @return $this
+     */
+    public function setTotalPdfHeight(int $totalPdfHeight)
+    {
+        $this->totalPdfHeight = $totalPdfHeight;
 
         return $this;
     }
