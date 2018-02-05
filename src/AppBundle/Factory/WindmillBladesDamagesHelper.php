@@ -3,13 +3,13 @@
 namespace AppBundle\Factory;
 
 /**
- * Class WindfarmBladesDamagesHelper
+ * Class WindmillBladesDamagesHelper
  *
  * @category Factory
  *
  * @author   David Romaní <david@flux.cat>
  */
-class WindfarmBladesDamagesHelper
+class WindmillBladesDamagesHelper
 {
     /**
      * @var string

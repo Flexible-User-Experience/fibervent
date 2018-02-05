@@ -110,7 +110,7 @@ services:
             - "@app.customer_repository"
             - "@app.audit_model_diagram_bridge"
             - "@app.windfarm_builder_bridge"
-            - "@app.factory_blade_damage_helper"
+            - "@app.factory_windfarm_blades_damages_helper"
     app.windfarm_audits_pdf_builder:
         class: AppBundle\Service\WindfarmAuditsPdfBuilderService
         arguments:
@@ -125,7 +125,7 @@ services:
             - "@app.customer_repository"
             - "@app.audit_model_diagram_bridge"
             - "@app.windfarm_builder_bridge"
-            - "@app.factory_blade_damage_helper"
+            - "@app.factory_windfarm_blades_damages_helper"
     app.audit_model_diagram_bridge:
         class: AppBundle\Service\AuditModelDiagramBridgeService
     app.windfarm_builder_bridge:
@@ -171,7 +171,7 @@ services:
     app.factory_blade_damage_helper:
         class: AppBundle\Factory\BladeDamageHelperFactory
     app.factory_windfarm_blades_damages_helper:
-        class: AppBundle\Factory\WindfarmBladesDamagesHelperFactory
+        class: AppBundle\Factory\WindmillBladesDamagesHelperFactory
         arguments:
             - "@app.damage_category_repository"
 # Twig

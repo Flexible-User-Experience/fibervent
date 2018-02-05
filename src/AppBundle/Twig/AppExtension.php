@@ -6,7 +6,7 @@ use AppBundle\Entity\AuditWindmillBlade;
 use AppBundle\Entity\Damage;
 use AppBundle\Entity\DamageCategory;
 use AppBundle\Enum\AuditTypeEnum;
-use AppBundle\Factory\WindfarmBladesDamagesHelperFactory;
+use AppBundle\Factory\WindmillBladesDamagesHelperFactory;
 use AppBundle\Repository\DamageRepository;
 
 /**
@@ -24,7 +24,7 @@ class AppExtension extends \Twig_Extension
     private $dr;
 
     /**
-     * @var WindfarmBladesDamagesHelperFactory
+     * @var WindmillBladesDamagesHelperFactory
      */
     private $wbdhf;
 
@@ -36,9 +36,9 @@ class AppExtension extends \Twig_Extension
      * AppExtension constructor
      *
      * @param DamageRepository         $dr
-     * @param WindfarmBladesDamagesHelperFactory $wbdhf
+     * @param WindmillBladesDamagesHelperFactory $wbdhf
      */
-    public function __construct(DamageRepository $dr, WindfarmBladesDamagesHelperFactory $wbdhf)
+    public function __construct(DamageRepository $dr, WindmillBladesDamagesHelperFactory $wbdhf)
     {
         $this->dr = $dr;
         $this->wbdhf = $wbdhf;

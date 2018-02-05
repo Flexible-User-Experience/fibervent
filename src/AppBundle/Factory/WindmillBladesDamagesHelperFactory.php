@@ -9,13 +9,13 @@ use AppBundle\Entity\Audit;
 use AppBundle\Repository\DamageCategoryRepository;
 
 /**
- * Class WindfarmBladesDamagesHelperFactory
+ * Class WindmillBladesDamagesHelperFactory
  *
  * @category Factory
  *
  * @author   David Romaní <david@flux.cat>
  */
-class WindfarmBladesDamagesHelperFactory
+class WindmillBladesDamagesHelperFactory
 {
     /**
      * @var DamageCategoryRepository
@@ -27,7 +27,7 @@ class WindfarmBladesDamagesHelperFactory
      */
 
     /**
-     * WindfarmBladesDamagesHelperFactory constructor.
+     * WindmillBladesDamagesHelperFactory constructor.
      *
      * @param DamageCategoryRepository $dcr
      */
@@ -37,15 +37,15 @@ class WindfarmBladesDamagesHelperFactory
     }
 
     /**
-     * WindfarmBladesDamagesHelperFactory builder.
+     * WindmillBladesDamagesHelperFactory builder.
      *
      * @param Audit $audit
      *
-     * @return WindfarmBladesDamagesHelper
+     * @return WindmillBladesDamagesHelper
      */
     public function buildWindfarmBladesDamagesHelper(Audit $audit)
     {
-        $windfarmBladesDamagesHelper = new WindfarmBladesDamagesHelper();
+        $windfarmBladesDamagesHelper = new WindmillBladesDamagesHelper();
         $windfarmBladesDamagesHelper->setWindmillShortCode($audit->getWindmill()->getShortAutomatedCode());
         /** @var AuditWindmillBlade $auditWindmillBlade */
         foreach ($audit->getAuditWindmillBlades() as $auditWindmillBlade) {

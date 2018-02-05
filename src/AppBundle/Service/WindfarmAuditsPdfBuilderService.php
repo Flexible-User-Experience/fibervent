@@ -7,6 +7,7 @@ use AppBundle\Entity\AuditWindmillBlade;
 use AppBundle\Entity\DamageCategory;
 use AppBundle\Entity\Windfarm;
 use AppBundle\Enum\WindfarmLanguageEnum;
+use AppBundle\Factory\BladeDamageHelper;
 use AppBundle\Factory\DamageHelper;
 use AppBundle\Pdf\CustomTcpdf;
 
@@ -115,7 +116,7 @@ class WindfarmAuditsPdfBuilderService extends AbstractPdfBuilderService
             $this->drawGeneralSummaryOfDamageTableHeader($pdf, $damageCategories);
             /** @var Audit $audit */
             foreach ($audits as $audit) {
-                $this->drawGeneralSummaryOfDamageTableBodyRow($pdf, $audit, $damageCategories);
+//                $this->drawGeneralSummaryOfDamageTableBodyRow($pdf, $audit, $damageCategories);
             }
             $pdf->AddPage();
         }
@@ -332,18 +333,17 @@ class WindfarmAuditsPdfBuilderService extends AbstractPdfBuilderService
      */
     private function drawWindfarmInspectionTableBodyRow(CustomTcpdf $pdf, Audit $audit, $damageCategories)
     {
+        $windmillBladesDamagesHelper = $this->wbdhf->buildWindfarmBladesDamagesHelper($audit);
         $pdf->setWhiteBackground();
         $pdf->setFontStyle(null, '', 9);
-        $pdf->Cell(50, 18, $audit->getWindmill()->getShortAutomatedCode(), 1, 0, 'C', 1, '', 0);
-        $i = 0;
-        /** @var AuditWindmillBlade $auditWindmillBlade */
-        foreach ($audit->getAuditWindmillBlades() as $auditWindmillBlade) {
-            $i++;
+        $pdf->Cell(50, self::DAMAGE_HEADER_HEIGHT_GENERAL_SUMMARY * count($windmillBladesDamagesHelper->getBladeDamages()), $windmillBladesDamagesHelper->getWindmillShortCode(), 1, 0, 'C', 1, '', 0);
+        /** @var BladeDamageHelper $bladeDamage */
+        foreach ($windmillBladesDamagesHelper->getBladeDamages() as $bladeDamage) {
             $pdf->SetX(CustomTcpdf::PDF_MARGIN_LEFT + 50);
-            $pdf->Cell(35, 6, $i, 1, 0, 'C', true);
-            /** @var DamageCategory $damageCategory */
-            foreach ($damageCategories as $key => $damageCategory) {
-                $pdf->Cell(self::DAMAGE_HEADER_WIDTH_WINDFARM_INSPECTION / count($damageCategories), 6, $this->bdhf->markDamageCategory($damageCategory, $auditWindmillBlade), 1, ($key + 1 == count($damageCategories)), 'C', true);
+            $pdf->Cell(35, 6, $bladeDamage->getBlade(), 1, 0, 'C', true);
+            /** @var DamageHelper $damageHelper */
+            foreach ($bladeDamage->getCategories() as $key => $damageHelper) {
+                $pdf->Cell(self::DAMAGE_HEADER_WIDTH_WINDFARM_INSPECTION / count($damageCategories), 6, $damageHelper->getMark(), 1, ($key + 1 == count($damageCategories)), 'C', true);
             }
         }
     }
