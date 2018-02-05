@@ -17,7 +17,7 @@ class BladeDamageHelper
     private $blade;
 
     /**
-     * @var array
+     * @var array|DamageHelper[]
      */
     private $categories;
 
@@ -60,7 +60,7 @@ class BladeDamageHelper
     }
 
     /**
-     * @return array
+     * @return array|DamageHelper[]
      */
     public function getCategories()
     {
@@ -68,16 +68,7 @@ class BladeDamageHelper
     }
 
     /**
-     * @return string
-     */
-    public function getCategoriesToString()
-    {
-        return 'TODO';
-//        return implode(' ', $this->categories);
-    }
-
-    /**
-     * @param array $categories
+     * @param array|DamageHelper[] $categories
      *
      * @return $this
      */
@@ -89,11 +80,11 @@ class BladeDamageHelper
     }
 
     /**
-     * @param $category
+     * @param DamageHelper $category
      *
      * @return $this
      */
-    public function addCategory($category)
+    public function addCategory(DamageHelper $category)
     {
         $this->categories[] = $category;
 
@@ -129,7 +120,7 @@ class BladeDamageHelper
     }
 
     /**
-     * @param $damage
+     * @param string $damage
      *
      * @return $this
      */

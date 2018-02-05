@@ -54,7 +54,6 @@ class BladeDamageHelperFactory
                 }
             }
             $this->bladeDamageHelper->addCategory($damageHelper);
-
         }
 
         return $this->bladeDamageHelper;

@@ -135,7 +135,7 @@ class DamageHelper
     }
 
     /**
-     * @param $damage
+     * @param string $damage
      *
      * @return $this
      */
