@@ -394,7 +394,7 @@ class WindfarmAuditsPdfBuilderService extends AbstractPdfBuilderService
                 $pdf->setWhiteBackground();
             }
             // MultiCell($w, $h, $txt, $border=0, $align='J', $fill=0, $ln=1, $x='', $y='', $reseth=true, $stretch=0, $ishtml=false, $autopadding=true, $maxh=0, $valign='T', $fitcell=false)
-            $pdf->MultiCell($pdf->availablePageWithDimension - self::DAMAGE_HEADER_WIDTH_GENERAL_SUMMARY - 30, $bladeDamageHelper->getRowPdfHeight(), $bladeDamageHelper->getDamagesToString(), 1, 'L', 1, 1, '', '', true, 0, true, true, 0);
+            $pdf->MultiCell($pdf->availablePageWithDimension - self::DAMAGE_HEADER_WIDTH_GENERAL_SUMMARY - 30, $bladeDamageHelper->getRowPdfHeight(), $bladeDamageHelper->getDamagesToString(), 1, 'L', 1, 1, '', '', true, 0, false);
         }
         $pdf->SetY($currentY);
         // Cell($w, $h=0, $txt='', $border=0, $ln=0, $align='', $fill=0, $link='', $stretch=0, $ignore_min_height=false, $calign='T', $valign='M')
