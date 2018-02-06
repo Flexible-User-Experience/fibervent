@@ -5,7 +5,7 @@ namespace AppBundle\Factory;
 /**
  * Class WindmillBladesDamagesHelper
  *
- * @category Factory
+ * @category FactoryHelper
  *
  * @author   David Romaní <david@flux.cat>
  */
@@ -22,8 +22,23 @@ class WindmillBladesDamagesHelper
     private $bladeDamages;
 
     /**
+     * @var integer
+     */
+    private $totalPdfHeight;
+
+    /**
      * Methods
      */
+
+    /**
+     * WindmillBladesDamagesHelper constructor.
+     *
+     */
+    public function __construct()
+    {
+        $this->bladeDamages = array();
+        $this->totalPdfHeight = 0;
+    }
 
     /**
      * @return string
@@ -73,6 +88,27 @@ class WindmillBladesDamagesHelper
     public function addBladeDamage(BladeDamageHelper $bladeDamageHelper)
     {
         $this->bladeDamages[] = $bladeDamageHelper;
+        $this->totalPdfHeight = $this->totalPdfHeight + $bladeDamageHelper->getRowPdfHeight();
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getTotalPdfHeight()
+    {
+        return $this->totalPdfHeight;
+    }
+
+    /**
+     * @param int $totalPdfHeight
+     *
+     * @return $this
+     */
+    public function setTotalPdfHeight($totalPdfHeight)
+    {
+        $this->totalPdfHeight = $totalPdfHeight;
 
         return $this;
     }

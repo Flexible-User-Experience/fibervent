@@ -168,8 +168,6 @@ services:
             - "@security.authorization_checker"
             - "@security.token_storage"
 # Factory
-    app.factory_blade_damage_helper:
-        class: AppBundle\Factory\BladeDamageHelperFactory
     app.factory_windfarm_blades_damages_helper:
         class: AppBundle\Factory\WindmillBladesDamagesHelperFactory
         arguments:

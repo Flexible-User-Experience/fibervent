@@ -3,12 +3,11 @@
 namespace AppBundle\Service;
 
 use AppBundle\Entity\Audit;
-use AppBundle\Entity\AuditWindmillBlade;
 use AppBundle\Entity\DamageCategory;
 use AppBundle\Entity\Windfarm;
 use AppBundle\Enum\WindfarmLanguageEnum;
 use AppBundle\Factory\BladeDamageHelper;
-use AppBundle\Factory\DamageHelper;
+use AppBundle\Factory\CategoryDamageHelper;
 use AppBundle\Pdf\CustomTcpdf;
 
 /**
@@ -116,7 +115,7 @@ class WindfarmAuditsPdfBuilderService extends AbstractPdfBuilderService
             $this->drawGeneralSummaryOfDamageTableHeader($pdf, $damageCategories);
             /** @var Audit $audit */
             foreach ($audits as $audit) {
-//                $this->drawGeneralSummaryOfDamageTableBodyRow($pdf, $audit, $damageCategories);
+                $this->drawGeneralSummaryOfDamageTableBodyRow($pdf, $audit, $damageCategories);
             }
             $pdf->AddPage();
         }
@@ -333,16 +332,16 @@ class WindfarmAuditsPdfBuilderService extends AbstractPdfBuilderService
      */
     private function drawWindfarmInspectionTableBodyRow(CustomTcpdf $pdf, Audit $audit, $damageCategories)
     {
-        $windmillBladesDamagesHelper = $this->wbdhf->buildWindfarmBladesDamagesHelper($audit);
+        $windmillBladesDamagesHelper = $this->wbdhf->buildWindmillBladesDamagesHelper($audit);
         $pdf->setWhiteBackground();
         $pdf->setFontStyle(null, '', 9);
         $pdf->Cell(50, self::DAMAGE_HEADER_HEIGHT_GENERAL_SUMMARY * count($windmillBladesDamagesHelper->getBladeDamages()), $windmillBladesDamagesHelper->getWindmillShortCode(), 1, 0, 'C', 1, '', 0);
-        /** @var BladeDamageHelper $bladeDamage */
-        foreach ($windmillBladesDamagesHelper->getBladeDamages() as $bladeDamage) {
+        /** @var BladeDamageHelper $bladeDamageHelper */
+        foreach ($windmillBladesDamagesHelper->getBladeDamages() as $bladeDamageHelper) {
             $pdf->SetX(CustomTcpdf::PDF_MARGIN_LEFT + 50);
-            $pdf->Cell(35, 6, $bladeDamage->getBlade(), 1, 0, 'C', true);
-            /** @var DamageHelper $damageHelper */
-            foreach ($bladeDamage->getCategories() as $key => $damageHelper) {
+            $pdf->Cell(35, 6, $bladeDamageHelper->getBlade(), 1, 0, 'C', true);
+            /** @var CategoryDamageHelper $damageHelper */
+            foreach ($bladeDamageHelper->getCategories() as $key => $damageHelper) {
                 $pdf->Cell(self::DAMAGE_HEADER_WIDTH_WINDFARM_INSPECTION / count($damageCategories), 6, $damageHelper->getMark(), 1, ($key + 1 == count($damageCategories)), 'C', true);
             }
         }
@@ -378,30 +377,30 @@ class WindfarmAuditsPdfBuilderService extends AbstractPdfBuilderService
      */
     private function drawGeneralSummaryOfDamageTableBodyRow(CustomTcpdf $pdf, Audit $audit, $damageCategories)
     {
+        $windmillBladesDamagesHelper = $this->wbdhf->buildWindmillBladesDamagesHelper($audit);
         $pdf->setWhiteBackground();
         $pdf->setFontStyle(null, '', 9);
         $currentY = $pdf->GetY();
-        $totalHeight = 0;
-        /** @var AuditWindmillBlade $auditWindmillBlade */
-        foreach ($audit->getAuditWindmillBlades() as $auditWindmillBlade) {
-            $bladeDamageHelper = $this->bdhf->create($auditWindmillBlade, $damageCategories);
+        /** @var BladeDamageHelper $bladeDamageHelper */
+        foreach ($windmillBladesDamagesHelper->getBladeDamages() as $bladeDamageHelper) {
+//            $bladeDamageHelper = $this->bdhf->create($auditWindmillBlade, $damageCategories);
 //            $height = count($bladeDamageHelper->getDamages()) == 0 ? self::DAMAGE_HEADER_HEIGHT_GENERAL_SUMMARY : self::DAMAGE_HEADER_HEIGHT_GENERAL_SUMMARY * count($bladeDamageHelper->getDamages());
-            $totalHeight = $totalHeight + $bladeDamageHelper->getTotalPdfHeight();
+//            $totalHeight = $totalHeight + $bladeDamageHelper->getTotalPdfHeight();
             $pdf->SetX(CustomTcpdf::PDF_MARGIN_LEFT + 20);
-            $pdf->Cell(10, $bladeDamageHelper->getTotalPdfHeight(), $bladeDamageHelper->getBlade(), 1, 0, 'C', true);
-            /** @var DamageHelper $damageHelper */
-            foreach ($bladeDamageHelper->getCategories() as $damageHelper) {
-                if ($damageHelper->getMark() == DamageHelper::MARK) {
+            $pdf->Cell(10, $bladeDamageHelper->getRowPdfHeight(), $bladeDamageHelper->getBlade(), 1, 0, 'C', true);
+            /** @var CategoryDamageHelper $damageHelper */
+            foreach ($bladeDamageHelper->getCategories() as $key => $damageHelper) {
+                if ($damageHelper->getMark() == CategoryDamageHelper::MARK) {
                     $pdf->setBackgroundHexColor($damageHelper->getColor());
                 }
-                $pdf->Cell(self::DAMAGE_HEADER_WIDTH_GENERAL_SUMMARY / count($damageCategories), $bladeDamageHelper->getTotalPdfHeight(), $damageHelper->getDamagesToLettersRangeString(), 1, 0, 'C', 1, '', 0);
+                $pdf->Cell(self::DAMAGE_HEADER_WIDTH_GENERAL_SUMMARY / count($damageCategories), $bladeDamageHelper->getRowPdfHeight(), $damageHelper->getLetterMarksToString(), 1, 0, 'C', 1, '', 0);
                 $pdf->setWhiteBackground();
             }
             // MultiCell($w, $h, $txt, $border=0, $align='J', $fill=0, $ln=1, $x='', $y='', $reseth=true, $stretch=0, $ishtml=false, $autopadding=true, $maxh=0)
-            $pdf->MultiCell($pdf->availablePageWithDimension - self::DAMAGE_HEADER_WIDTH_GENERAL_SUMMARY - 30, $bladeDamageHelper->getTotalPdfHeight(), $bladeDamageHelper->getDamagesToString(), 1, 'L', 1, 1, '', '', true, 0, true, true, 0);
+            $pdf->MultiCell($pdf->availablePageWithDimension - self::DAMAGE_HEADER_WIDTH_GENERAL_SUMMARY - 30, $bladeDamageHelper->getRowPdfHeight(), $bladeDamageHelper->getDamagesToString(), 1, 'L', 1, 1, '', '', true, 0, true, true, 0);
         }
         $pdf->SetY($currentY);
-        $pdf->Cell(20, $totalHeight, $audit->getWindmill()->getShortAutomatedCode(), 1, 0, 'C', 1, '', 0);
+        $pdf->Cell(20, $windmillBladesDamagesHelper->getTotalPdfHeight(), $windmillBladesDamagesHelper->getWindmillShortCode(), 1, 1, 'C', 1, '', 0);
         // Cell($w, $h=0, $txt='', $border=0, $ln=0, $align='', $fill=0, $link='', $stretch=0, $ignore_min_height=false, $calign='T', $valign='M')
     }
 }

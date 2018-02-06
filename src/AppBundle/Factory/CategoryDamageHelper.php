@@ -2,16 +2,14 @@
 
 namespace AppBundle\Factory;
 
-use AppBundle\Service\WindfarmAuditsPdfBuilderService;
-
 /**
- * Class DamageHelper
+ * Class CategoryDamageHelper
  *
- * @category Factory
+ * @category FactoryHelper
  *
  * @author   David Romaní <david@flux.cat>
  */
-class DamageHelper
+class CategoryDamageHelper
 {
     const MARK = 'X';
 
@@ -31,26 +29,21 @@ class DamageHelper
     private $mark;
 
     /**
-     * @var array
+     * @var array|string[]
      */
-    private $damages;
-
-    /**
-     * @var integer
-     */
-    private $pdfHeight = 0;
+    private $letterMarks;
 
     /**
      * Methods
      */
 
     /**
-     * DamageHelper constructor.
+     * CategoryDamageHelper constructor.
      */
     public function __construct()
     {
         $this->mark = '';
-        $this->damages = array();
+        $this->letterMarks = array();
     }
 
     /**
@@ -116,61 +109,40 @@ class DamageHelper
     /**
      * @return array
      */
-    public function getDamages()
+    public function getLetterMarks()
     {
-        return $this->damages;
+        return $this->letterMarks;
     }
 
     /**
      * @return string
      */
-    public function getDamagesToLettersRangeString()
+    public function getLetterMarksToString()
     {
-        return implode(', ', $this->damages);
+        return implode(', ', $this->letterMarks);
     }
 
     /**
-     * @param array $damages
+     * @param array|string[] $letterMarks
      *
      * @return $this
      */
-    public function setDamages($damages)
+    public function setLetterMarks($letterMarks)
     {
-        $this->damages = $damages;
+        $this->letterMarks = $letterMarks;
 
         return $this;
     }
 
     /**
-     * @param string $damage
+     * @param string $letterMark
      *
      * @return $this
      */
-    public function addDamage($damage)
+    public function addLetterMark($letterMark)
     {
-        $this->damages[] = $damage;
+        $this->letterMarks[] = $letterMark;
         $this->mark = self::MARK;
-        $this->pdfHeight = $this->pdfHeight + WindfarmAuditsPdfBuilderService::DAMAGE_HEADER_HEIGHT_GENERAL_SUMMARY;
-
-        return $this;
-    }
-
-    /**
-     * @return int
-     */
-    public function getPdfHeight()
-    {
-        return $this->pdfHeight;
-    }
-
-    /**
-     * @param int $pdfHeight
-     *
-     * @return $this
-     */
-    public function setPdfHeight(int $pdfHeight)
-    {
-        $this->pdfHeight = $pdfHeight;
 
         return $this;
     }

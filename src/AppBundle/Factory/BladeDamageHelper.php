@@ -2,10 +2,12 @@
 
 namespace AppBundle\Factory;
 
+use AppBundle\Service\WindfarmAuditsPdfBuilderService;
+
 /**
  * Class BladeDamageHelper
  *
- * @category Factory
+ * @category FactoryHelper
  *
  * @author   David Romaní <david@flux.cat>
  */
@@ -17,19 +19,19 @@ class BladeDamageHelper
     private $blade;
 
     /**
-     * @var array|DamageHelper[]
+     * @var array|CategoryDamageHelper[]
      */
     private $categories;
 
     /**
-     * @var array
+     * @var array|string[]
      */
     private $damages;
 
     /**
      * @var integer
      */
-    private $totalPdfHeight = 0;
+    private $rowPdfHeight;
 
     /**
      * Methods
@@ -42,6 +44,7 @@ class BladeDamageHelper
     {
         $this->categories = array();
         $this->damages = array();
+        $this->rowPdfHeight = 0;
     }
 
     /**
@@ -65,7 +68,7 @@ class BladeDamageHelper
     }
 
     /**
-     * @return array|DamageHelper[]
+     * @return array|CategoryDamageHelper[]
      */
     public function getCategories()
     {
@@ -73,7 +76,7 @@ class BladeDamageHelper
     }
 
     /**
-     * @param array|DamageHelper[] $categories
+     * @param array|CategoryDamageHelper[] $categories
      *
      * @return $this
      */
@@ -85,14 +88,13 @@ class BladeDamageHelper
     }
 
     /**
-     * @param DamageHelper $category
+     * @param CategoryDamageHelper $category
      *
      * @return $this
      */
-    public function addCategory(DamageHelper $category)
+    public function addCategory(CategoryDamageHelper $category)
     {
         $this->categories[] = $category;
-        $this->totalPdfHeight = $this->totalPdfHeight + $category->getPdfHeight();
 
         return $this;
     }
@@ -114,7 +116,7 @@ class BladeDamageHelper
     }
 
     /**
-     * @param array $damages
+     * @param array|string[] $damages
      *
      * @return $this
      */
@@ -133,6 +135,7 @@ class BladeDamageHelper
     public function addDamage($damage)
     {
         $this->damages[] = $damage;
+        $this->rowPdfHeight = $this->rowPdfHeight + WindfarmAuditsPdfBuilderService::DAMAGE_HEADER_HEIGHT_GENERAL_SUMMARY;
 
         return $this;
     }
@@ -140,19 +143,19 @@ class BladeDamageHelper
     /**
      * @return int
      */
-    public function getTotalPdfHeight()
+    public function getRowPdfHeight()
     {
-        return $this->totalPdfHeight;
+        return $this->rowPdfHeight;
     }
 
     /**
-     * @param int $totalPdfHeight
+     * @param int $rowPdfHeight
      *
      * @return $this
      */
-    public function setTotalPdfHeight(int $totalPdfHeight)
+    public function setRowPdfHeight($rowPdfHeight)
     {
-        $this->totalPdfHeight = $totalPdfHeight;
+        $this->rowPdfHeight = $rowPdfHeight;
 
         return $this;
     }
