@@ -2,10 +2,12 @@
 
 namespace AppBundle\Factory;
 
+use AppBundle\Service\WindfarmAuditsPdfBuilderService;
+
 /**
  * Class BladeDamageHelper
  *
- * @category Factory
+ * @category FactoryHelper
  *
  * @author   David Romaní <david@flux.cat>
  */
@@ -17,14 +19,19 @@ class BladeDamageHelper
     private $blade;
 
     /**
-     * @var array
+     * @var array|CategoryDamageHelper[]
      */
     private $categories;
 
     /**
-     * @var array
+     * @var array|string[]
      */
     private $damages;
+
+    /**
+     * @var integer
+     */
+    private $rowPdfHeight;
 
     /**
      * Methods
@@ -37,6 +44,7 @@ class BladeDamageHelper
     {
         $this->categories = array();
         $this->damages = array();
+        $this->rowPdfHeight = 0;
     }
 
     /**
@@ -60,7 +68,7 @@ class BladeDamageHelper
     }
 
     /**
-     * @return array
+     * @return array|CategoryDamageHelper[]
      */
     public function getCategories()
     {
@@ -68,16 +76,7 @@ class BladeDamageHelper
     }
 
     /**
-     * @return string
-     */
-    public function getCategoriesToString()
-    {
-        return 'TODO';
-//        return implode(' ', $this->categories);
-    }
-
-    /**
-     * @param array $categories
+     * @param array|CategoryDamageHelper[] $categories
      *
      * @return $this
      */
@@ -89,11 +88,11 @@ class BladeDamageHelper
     }
 
     /**
-     * @param $category
+     * @param CategoryDamageHelper $category
      *
      * @return $this
      */
-    public function addCategory($category)
+    public function addCategory(CategoryDamageHelper $category)
     {
         $this->categories[] = $category;
 
@@ -117,7 +116,7 @@ class BladeDamageHelper
     }
 
     /**
-     * @param array $damages
+     * @param array|string[] $damages
      *
      * @return $this
      */
@@ -129,13 +128,34 @@ class BladeDamageHelper
     }
 
     /**
-     * @param $damage
+     * @param string $damage
      *
      * @return $this
      */
     public function addDamage($damage)
     {
         $this->damages[] = $damage;
+        $this->rowPdfHeight = $this->rowPdfHeight + WindfarmAuditsPdfBuilderService::DAMAGE_HEADER_HEIGHT_GENERAL_SUMMARY;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getRowPdfHeight()
+    {
+        return $this->rowPdfHeight;
+    }
+
+    /**
+     * @param int $rowPdfHeight
+     *
+     * @return $this
+     */
+    public function setRowPdfHeight($rowPdfHeight)
+    {
+        $this->rowPdfHeight = $rowPdfHeight;
 
         return $this;
     }
