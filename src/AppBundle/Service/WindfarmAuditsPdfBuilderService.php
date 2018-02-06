@@ -390,8 +390,7 @@ class WindfarmAuditsPdfBuilderService extends AbstractPdfBuilderService
                 if ($damageHelper->getMark() == CategoryDamageHelper::MARK) {
                     $pdf->setBackgroundHexColor($damageHelper->getColor());
                 }
-//                $pdf->Cell(self::DAMAGE_HEADER_WIDTH_GENERAL_SUMMARY / count($damageCategories), $bladeDamageHelper->getRowPdfHeight(), $damageHelper->getLetterMarksToString(), 1, 0, 'C', 1, '', 1);
-                $pdf->MultiCell(self::DAMAGE_HEADER_WIDTH_GENERAL_SUMMARY / count($damageCategories), $bladeDamageHelper->getRowPdfHeight(), $damageHelper->getLetterMarksToString(), 1, 'C', 1, 0, '', '', true, 0, false, true, 0, 'M', false);
+                $pdf->MultiCell(self::DAMAGE_HEADER_WIDTH_GENERAL_SUMMARY / count($damageCategories), $bladeDamageHelper->getRowPdfHeight(), $damageHelper->getLetterMarksToString(), 1, 'C', 1, 0, '', '', true, 0, false, true, $bladeDamageHelper->getRowPdfHeight(), 'M', false);
                 $pdf->setWhiteBackground();
             }
             // MultiCell($w, $h, $txt, $border=0, $align='J', $fill=0, $ln=1, $x='', $y='', $reseth=true, $stretch=0, $ishtml=false, $autopadding=true, $maxh=0, $valign='T', $fitcell=false)
