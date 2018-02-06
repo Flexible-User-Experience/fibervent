@@ -3,11 +3,11 @@
 namespace AppBundle\Service;
 
 use AppBundle\Entity\Audit;
-use AppBundle\Entity\AuditWindmillBlade;
 use AppBundle\Entity\DamageCategory;
 use AppBundle\Entity\Windfarm;
 use AppBundle\Enum\WindfarmLanguageEnum;
-use AppBundle\Factory\DamageHelper;
+use AppBundle\Factory\BladeDamageHelper;
+use AppBundle\Factory\CategoryDamageHelper;
 use AppBundle\Pdf\CustomTcpdf;
 
 /**
@@ -19,6 +19,10 @@ use AppBundle\Pdf\CustomTcpdf;
  */
 class WindfarmAuditsPdfBuilderService extends AbstractPdfBuilderService
 {
+    const DAMAGE_HEADER_WIDTH_WINDFARM_INSPECTION = 80;
+    const DAMAGE_HEADER_WIDTH_GENERAL_SUMMARY     = 60;
+    const DAMAGE_HEADER_HEIGHT_GENERAL_SUMMARY    = 6;
+
     /**
      * @param Windfarm $windfarm
      * @param array    $damageCategories
@@ -303,19 +307,18 @@ class WindfarmAuditsPdfBuilderService extends AbstractPdfBuilderService
      */
     private function drawWindfarmInspectionTableHeader(CustomTcpdf $pdf, $damageCategories)
     {
-        $damageHeaderWidth = 80;
         $pdf->setBlueLine();
         $pdf->setBlueBackground();
         $pdf->setFontStyle(null, 'B', 9);
         $pdf->Cell(50, 12, $this->ts->trans('pdf_windfarm.inspection_overview.2_table_header.1_number'), 1, 0, 'C', true);
         $pdf->Cell(35, 12, $this->ts->trans('pdf_windfarm.inspection_overview.2_table_header.2_blade'), 1, 0, 'C', true);
-        $pdf->Cell($damageHeaderWidth, 6, $this->ts->trans('pdf_windfarm.inspection_overview.2_table_header.3_damage_class'), 1, 1, 'C', true);
+        $pdf->Cell(self::DAMAGE_HEADER_WIDTH_WINDFARM_INSPECTION, 6, $this->ts->trans('pdf_windfarm.inspection_overview.2_table_header.3_damage_class'), 1, 1, 'C', true);
         $pdf->SetX(CustomTcpdf::PDF_MARGIN_LEFT + 85);
         $pdf->setFontStyle(null, '', 9);
         /** @var DamageCategory $dc */
         foreach ($damageCategories as $key => $dc) {
             $pdf->setBackgroundHexColor($dc->getColour());
-            $pdf->Cell($damageHeaderWidth / count($damageCategories), 6, $dc->getCategory(), 1, ($key + 1 == count($damageCategories)), 'C', true);
+            $pdf->Cell(self::DAMAGE_HEADER_WIDTH_WINDFARM_INSPECTION / count($damageCategories), 6, $dc->getCategory(), 1, ($key + 1 == count($damageCategories)), 'C', true);
         }
         $pdf->setWhiteBackground();
     }
@@ -329,19 +332,17 @@ class WindfarmAuditsPdfBuilderService extends AbstractPdfBuilderService
      */
     private function drawWindfarmInspectionTableBodyRow(CustomTcpdf $pdf, Audit $audit, $damageCategories)
     {
-        $damageHeaderWidth = 80;
+        $windmillBladesDamagesHelper = $this->wbdhf->buildWindmillBladesDamagesHelper($audit);
         $pdf->setWhiteBackground();
         $pdf->setFontStyle(null, '', 9);
-        $pdf->Cell(50, 18, $audit->getWindmill()->getShortAutomatedCode(), 1, 0, 'C', 1, '', 0);
-        $i = 0;
-        /** @var AuditWindmillBlade $auditWindmillBlade */
-        foreach ($audit->getAuditWindmillBlades() as $auditWindmillBlade) {
-            $i++;
+        $pdf->Cell(50, self::DAMAGE_HEADER_HEIGHT_GENERAL_SUMMARY * count($windmillBladesDamagesHelper->getBladeDamages()), $windmillBladesDamagesHelper->getWindmillShortCode(), 1, 0, 'C', 1, '', 0);
+        /** @var BladeDamageHelper $bladeDamageHelper */
+        foreach ($windmillBladesDamagesHelper->getBladeDamages() as $bladeDamageHelper) {
             $pdf->SetX(CustomTcpdf::PDF_MARGIN_LEFT + 50);
-            $pdf->Cell(35, 6, $i, 1, 0, 'C', true);
-            /** @var DamageCategory $damageCategory */
-            foreach ($damageCategories as $key => $damageCategory) {
-                $pdf->Cell($damageHeaderWidth / count($damageCategories), 6, $this->bdhf->markDamageCategory($damageCategory, $auditWindmillBlade), 1, ($key + 1 == count($damageCategories)), 'C', true);
+            $pdf->Cell(35, 6, $bladeDamageHelper->getBlade(), 1, 0, 'C', true);
+            /** @var CategoryDamageHelper $damageHelper */
+            foreach ($bladeDamageHelper->getCategories() as $key => $damageHelper) {
+                $pdf->Cell(self::DAMAGE_HEADER_WIDTH_WINDFARM_INSPECTION / count($damageCategories), 6, $damageHelper->getMark(), 1, ($key + 1 == count($damageCategories)), 'C', true);
             }
         }
     }
@@ -352,20 +353,19 @@ class WindfarmAuditsPdfBuilderService extends AbstractPdfBuilderService
      */
     private function drawGeneralSummaryOfDamageTableHeader(CustomTcpdf $pdf, $damageCategories)
     {
-        $damageHeaderWidth = 60;
         $pdf->setBlueBackground();
         $pdf->setBlueLine();
         $pdf->setFontStyle(null, 'B', 9);
         $pdf->Cell(20, 12, $this->ts->trans('pdf_windfarm.inspection_overview.2_table_header.1_number'), 1, 0, 'C', true);
         $pdf->Cell(10, 12, $this->ts->trans('pdf_windfarm.inspection_overview.2_table_header.2_blade'), 1, 0, 'C', true);
-        $pdf->Cell($damageHeaderWidth, 6, $this->ts->trans('pdf_windfarm.inspection_overview.2_table_header.3_damage_class'), 1, 0, 'C', true);
-        $pdf->Cell($pdf->availablePageWithDimension - $damageHeaderWidth - 30, 12, $this->ts->trans('pdf_windfarm.inspection_overview.2_table_header.4_damages'), 1, 1, 'C', true);
+        $pdf->Cell(self::DAMAGE_HEADER_WIDTH_GENERAL_SUMMARY, 6, $this->ts->trans('pdf_windfarm.inspection_overview.2_table_header.3_damage_class'), 1, 0, 'C', true);
+        $pdf->Cell($pdf->availablePageWithDimension - self::DAMAGE_HEADER_WIDTH_GENERAL_SUMMARY - 30, 12, $this->ts->trans('pdf_windfarm.inspection_overview.2_table_header.4_damages'), 1, 1, 'C', true);
         $pdf->SetXY(CustomTcpdf::PDF_MARGIN_LEFT + 30, $pdf->getY() - 6);
         $pdf->setFontStyle(null, '', 9);
         /** @var DamageCategory $dc */
         foreach ($damageCategories as $key => $dc) {
             $pdf->setBackgroundHexColor($dc->getColour());
-            $pdf->Cell($damageHeaderWidth / count($damageCategories), 6, $dc->getCategory(), 1, ($key + 1 == count($damageCategories)), 'C', true);
+            $pdf->Cell(self::DAMAGE_HEADER_WIDTH_GENERAL_SUMMARY / count($damageCategories), 6, $dc->getCategory(), 1, ($key + 1 == count($damageCategories)), 'C', true);
         }
         $pdf->setWhiteBackground();
     }
@@ -377,32 +377,27 @@ class WindfarmAuditsPdfBuilderService extends AbstractPdfBuilderService
      */
     private function drawGeneralSummaryOfDamageTableBodyRow(CustomTcpdf $pdf, Audit $audit, $damageCategories)
     {
-        $damageHeaderWidth  = 60;
-        $damageHeaderHeight = 6;
+        $windmillBladesDamagesHelper = $this->wbdhf->buildWindmillBladesDamagesHelper($audit);
         $pdf->setWhiteBackground();
         $pdf->setFontStyle(null, '', 9);
         $currentY = $pdf->GetY();
-        $totalHeight = 0;
-        /** @var AuditWindmillBlade $auditWindmillBlade */
-        foreach ($audit->getAuditWindmillBlades() as $auditWindmillBlade) {
-            $bladeDamageHelper = $this->bdhf->create($auditWindmillBlade, $damageCategories);
-            $height = count($bladeDamageHelper->getDamages()) == 0 ? $damageHeaderHeight : $damageHeaderHeight * count($bladeDamageHelper->getDamages());
-            $totalHeight = $totalHeight + $height;
+        /** @var BladeDamageHelper $bladeDamageHelper */
+        foreach ($windmillBladesDamagesHelper->getBladeDamages() as $bladeDamageHelper) {
             $pdf->SetX(CustomTcpdf::PDF_MARGIN_LEFT + 20);
-            $pdf->Cell(10, $height, $bladeDamageHelper->getBlade(), 1, 0, 'C', true);
-            /** @var DamageHelper $damageHelper */
-            foreach ($bladeDamageHelper->getCategories() as $damageHelper) {
-                if ($damageHelper->getMark() == DamageHelper::MARK) {
+            $pdf->Cell(10, $bladeDamageHelper->getRowPdfHeight(), $bladeDamageHelper->getBlade(), 1, 0, 'C', true);
+            /** @var CategoryDamageHelper $damageHelper */
+            foreach ($bladeDamageHelper->getCategories() as $key => $damageHelper) {
+                if ($damageHelper->getMark() == CategoryDamageHelper::MARK) {
                     $pdf->setBackgroundHexColor($damageHelper->getColor());
                 }
-                $pdf->Cell($damageHeaderWidth / count($damageCategories), $height, $damageHelper->getDamagesToString(), 1, 0, 'C', 1, '', 0);
+                $pdf->MultiCell(self::DAMAGE_HEADER_WIDTH_GENERAL_SUMMARY / count($damageCategories), $bladeDamageHelper->getRowPdfHeight(), $damageHelper->getLetterMarksToString(), 1, 'C', 1, 0, '', '', true, 0, false, true, $bladeDamageHelper->getRowPdfHeight(), 'M', false);
                 $pdf->setWhiteBackground();
             }
-            // MultiCell($w, $h, $txt, $border=0, $align='J', $fill=0, $ln=1, $x='', $y='', $reseth=true, $stretch=0, $ishtml=false, $autopadding=true, $maxh=0)
-            $pdf->MultiCell($pdf->availablePageWithDimension - $damageHeaderWidth - 30, $height, $bladeDamageHelper->getDamagesToString(), 1, 'L', 1, 1);
+            // MultiCell($w, $h, $txt, $border=0, $align='J', $fill=0, $ln=1, $x='', $y='', $reseth=true, $stretch=0, $ishtml=false, $autopadding=true, $maxh=0, $valign='T', $fitcell=false)
+            $pdf->MultiCell($pdf->availablePageWithDimension - self::DAMAGE_HEADER_WIDTH_GENERAL_SUMMARY - 30, $bladeDamageHelper->getRowPdfHeight(), $bladeDamageHelper->getDamagesToString(), 1, 'L', 1, 1, '', '', true, 0, false);
         }
         $pdf->SetY($currentY);
-        $pdf->Cell(20, $totalHeight, $audit->getWindmill()->getShortAutomatedCode(), 1, 0, 'C', 1, '', 0);
         // Cell($w, $h=0, $txt='', $border=0, $ln=0, $align='', $fill=0, $link='', $stretch=0, $ignore_min_height=false, $calign='T', $valign='M')
+        $pdf->Cell(20, $windmillBladesDamagesHelper->getTotalPdfHeight(), $windmillBladesDamagesHelper->getWindmillShortCode(), 1, 1, 'C', 1, '', 0);
     }
 }

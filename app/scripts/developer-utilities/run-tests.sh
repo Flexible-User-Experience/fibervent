@@ -5,15 +5,15 @@ echo "Started at `date +"%T %d/%m/%Y"`"
 
 if [ -z "$1" ]
   then
-    phpunit -c app/
+    ./vendor/phpunit/phpunit/phpunit -c app/
   else
     if [ "$1" = "cc" -o "$1" = "coverage" ]
           then
             if [ "$1" = "cc" ]
               then
-                php app/console ca:cl --env=test && phpunit -c app/
+                php app/console ca:cl --env=test && ./vendor/phpunit/phpunit/phpunit -c app/
               else
-                phpunit -c app/ --coverage-text
+                ./vendor/phpunit/phpunit/phpunit -c app/ --coverage-text
             fi
           else
             echo "Argument error! Available argument options: 'cc' or 'coverage'"

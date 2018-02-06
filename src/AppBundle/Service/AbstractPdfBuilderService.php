@@ -9,7 +9,7 @@ use AppBundle\Entity\BladePhoto;
 use AppBundle\Entity\DamageCategory;
 use AppBundle\Entity\Observation;
 use AppBundle\Entity\Photo;
-use AppBundle\Factory\BladeDamageHelperFactory;
+use AppBundle\Factory\WindmillBladesDamagesHelperFactory;
 use AppBundle\Pdf\CustomTcpdf;
 use AppBundle\Repository\CustomerRepository;
 use AppBundle\Repository\DamageRepository;
@@ -116,9 +116,9 @@ class AbstractPdfBuilderService
     protected $wbbs;
 
     /**
-     * @var BladeDamageHelperFactory
+     * @var WindmillBladesDamagesHelperFactory
      */
-    protected $bdhf;
+    protected $wbdhf;
 
     /**
      * @var string
@@ -143,9 +143,9 @@ class AbstractPdfBuilderService
      * @param CustomerRepository             $cr
      * @param AuditModelDiagramBridgeService $amdb
      * @param WindfarmBuilderBridgeService   $wbbs
-     * @param BladeDamageHelperFactory       $bdhf
+     * @param WindmillBladesDamagesHelperFactory       $wbdhf
      */
-    public function __construct(TCPDFController $tcpdf, CacheManager $cm, UploaderHelper $uh, AssetsHelper $tha, Translator $ts, DamageRepository $dr, DamageCategoryRepository $dcr, BladeDamageRepository $bdr, CustomerRepository $cr, AuditModelDiagramBridgeService $amdb, WindfarmBuilderBridgeService $wbbs, BladeDamageHelperFactory $bdhf)
+    public function __construct(TCPDFController $tcpdf, CacheManager $cm, UploaderHelper $uh, AssetsHelper $tha, Translator $ts, DamageRepository $dr, DamageCategoryRepository $dcr, BladeDamageRepository $bdr, CustomerRepository $cr, AuditModelDiagramBridgeService $amdb, WindfarmBuilderBridgeService $wbbs, WindmillBladesDamagesHelperFactory $wbdhf)
     {
         $this->tcpdf = $tcpdf;
         $this->cm = $cm;
@@ -158,7 +158,7 @@ class AbstractPdfBuilderService
         $this->cr = $cr;
         $this->amdb = $amdb;
         $this->wbbs = $wbbs;
-        $this->bdhf = $bdhf;
+        $this->wbdhf = $wbdhf;
     }
 
     /**

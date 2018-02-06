@@ -6,7 +6,7 @@ use AppBundle\Entity\AuditWindmillBlade;
 use AppBundle\Entity\Damage;
 use AppBundle\Entity\DamageCategory;
 use AppBundle\Enum\AuditTypeEnum;
-use AppBundle\Factory\BladeDamageHelperFactory;
+use AppBundle\Factory\WindmillBladesDamagesHelperFactory;
 use AppBundle\Repository\DamageRepository;
 
 /**
@@ -24,9 +24,9 @@ class AppExtension extends \Twig_Extension
     private $dr;
 
     /**
-     * @var BladeDamageHelperFactory
+     * @var WindmillBladesDamagesHelperFactory
      */
-    private $bdhf;
+    private $wbdhf;
 
     /**
      * Methods
@@ -36,12 +36,12 @@ class AppExtension extends \Twig_Extension
      * AppExtension constructor
      *
      * @param DamageRepository         $dr
-     * @param BladeDamageHelperFactory $bdhf
+     * @param WindmillBladesDamagesHelperFactory $wbdhf
      */
-    public function __construct(DamageRepository $dr, BladeDamageHelperFactory $bdhf)
+    public function __construct(DamageRepository $dr, WindmillBladesDamagesHelperFactory $wbdhf)
     {
         $this->dr = $dr;
-        $this->bdhf = $bdhf;
+        $this->wbdhf = $wbdhf;
     }
 
     /**
@@ -125,6 +125,6 @@ class AppExtension extends \Twig_Extension
      */
     public function markDamageCategory(DamageCategory $damageCategory, AuditWindmillBlade $auditWindmillBlade)
     {
-        return $this->bdhf->markDamageCategory($damageCategory, $auditWindmillBlade);
+        return $this->wbdhf->markDamageCategory($damageCategory, $auditWindmillBlade);
     }
 }
