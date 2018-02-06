@@ -383,9 +383,6 @@ class WindfarmAuditsPdfBuilderService extends AbstractPdfBuilderService
         $currentY = $pdf->GetY();
         /** @var BladeDamageHelper $bladeDamageHelper */
         foreach ($windmillBladesDamagesHelper->getBladeDamages() as $bladeDamageHelper) {
-//            $bladeDamageHelper = $this->bdhf->create($auditWindmillBlade, $damageCategories);
-//            $height = count($bladeDamageHelper->getDamages()) == 0 ? self::DAMAGE_HEADER_HEIGHT_GENERAL_SUMMARY : self::DAMAGE_HEADER_HEIGHT_GENERAL_SUMMARY * count($bladeDamageHelper->getDamages());
-//            $totalHeight = $totalHeight + $bladeDamageHelper->getTotalPdfHeight();
             $pdf->SetX(CustomTcpdf::PDF_MARGIN_LEFT + 20);
             $pdf->Cell(10, $bladeDamageHelper->getRowPdfHeight(), $bladeDamageHelper->getBlade(), 1, 0, 'C', true);
             /** @var CategoryDamageHelper $damageHelper */
@@ -393,14 +390,15 @@ class WindfarmAuditsPdfBuilderService extends AbstractPdfBuilderService
                 if ($damageHelper->getMark() == CategoryDamageHelper::MARK) {
                     $pdf->setBackgroundHexColor($damageHelper->getColor());
                 }
-                $pdf->Cell(self::DAMAGE_HEADER_WIDTH_GENERAL_SUMMARY / count($damageCategories), $bladeDamageHelper->getRowPdfHeight(), $damageHelper->getLetterMarksToString(), 1, 0, 'C', 1, '', 0);
+//                $pdf->Cell(self::DAMAGE_HEADER_WIDTH_GENERAL_SUMMARY / count($damageCategories), $bladeDamageHelper->getRowPdfHeight(), $damageHelper->getLetterMarksToString(), 1, 0, 'C', 1, '', 1);
+                $pdf->MultiCell(self::DAMAGE_HEADER_WIDTH_GENERAL_SUMMARY / count($damageCategories), $bladeDamageHelper->getRowPdfHeight(), $damageHelper->getLetterMarksToString(), 1, 'C', 1, 0, '', '', true, 0, false, true, 0, 'M', false);
                 $pdf->setWhiteBackground();
             }
-            // MultiCell($w, $h, $txt, $border=0, $align='J', $fill=0, $ln=1, $x='', $y='', $reseth=true, $stretch=0, $ishtml=false, $autopadding=true, $maxh=0)
+            // MultiCell($w, $h, $txt, $border=0, $align='J', $fill=0, $ln=1, $x='', $y='', $reseth=true, $stretch=0, $ishtml=false, $autopadding=true, $maxh=0, $valign='T', $fitcell=false)
             $pdf->MultiCell($pdf->availablePageWithDimension - self::DAMAGE_HEADER_WIDTH_GENERAL_SUMMARY - 30, $bladeDamageHelper->getRowPdfHeight(), $bladeDamageHelper->getDamagesToString(), 1, 'L', 1, 1, '', '', true, 0, true, true, 0);
         }
         $pdf->SetY($currentY);
-        $pdf->Cell(20, $windmillBladesDamagesHelper->getTotalPdfHeight(), $windmillBladesDamagesHelper->getWindmillShortCode(), 1, 1, 'C', 1, '', 0);
         // Cell($w, $h=0, $txt='', $border=0, $ln=0, $align='', $fill=0, $link='', $stretch=0, $ignore_min_height=false, $calign='T', $valign='M')
+        $pdf->Cell(20, $windmillBladesDamagesHelper->getTotalPdfHeight(), $windmillBladesDamagesHelper->getWindmillShortCode(), 1, 1, 'C', 1, '', 0);
     }
 }
