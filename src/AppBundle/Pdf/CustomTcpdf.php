@@ -20,6 +20,7 @@ class CustomTcpdf extends \TCPDF
     const PDF_MARGIN_RIGHT  = 20;
     const PDF_MARGIN_TOP    = 25;
     const PDF_MARGIN_BOTTOM = 10;
+    const PDF_MARGIN_BOTTOM_FOOTER = 280;
 
     /**
      * @var array
@@ -100,7 +101,7 @@ class CustomTcpdf extends \TCPDF
      */
     public function footer()
     {
-        $this->SetXY(self::PDF_MARGIN_LEFT, 280);
+        $this->SetXY(self::PDF_MARGIN_LEFT, self::PDF_MARGIN_BOTTOM_FOOTER);
         $this->setFontStyle(null, 'I', 8);
         $this->setBlueLine();
         $this->Cell(0, 0, $this->ts->trans('pdf.footer.1_page').' '.$this->getAliasNumPage().' '.$this->ts->trans('pdf.footer.2_of').' '.$this->getAliasNbPages(), 'T', 0, 'C');

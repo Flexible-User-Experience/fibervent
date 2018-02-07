@@ -380,6 +380,9 @@ class WindfarmAuditsPdfBuilderService extends AbstractPdfBuilderService
         $windmillBladesDamagesHelper = $this->wbdhf->buildWindmillBladesDamagesHelper($audit);
         $pdf->setWhiteBackground();
         $pdf->setFontStyle(null, '', 9);
+        if ($pdf->GetY() + $windmillBladesDamagesHelper->getTotalPdfHeight() > CustomTcpdf::PDF_MARGIN_BOTTOM_FOOTER) {
+            $pdf->AddPage();
+        }
         $currentY = $pdf->GetY();
         /** @var BladeDamageHelper $bladeDamageHelper */
         foreach ($windmillBladesDamagesHelper->getBladeDamages() as $bladeDamageHelper) {
