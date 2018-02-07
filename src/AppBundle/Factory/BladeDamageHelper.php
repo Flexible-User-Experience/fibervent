@@ -145,7 +145,7 @@ class BladeDamageHelper
      */
     public function getRowPdfHeight()
     {
-        return $this->rowPdfHeight;
+        return $this->rowPdfHeight == 0 ? WindfarmAuditsPdfBuilderService::DAMAGE_HEADER_HEIGHT_GENERAL_SUMMARY : $this->rowPdfHeight;
     }
 
     /**
