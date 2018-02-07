@@ -19,9 +19,10 @@ use AppBundle\Pdf\CustomTcpdf;
  */
 class WindfarmAuditsPdfBuilderService extends AbstractPdfBuilderService
 {
-    const DAMAGE_HEADER_WIDTH_WINDFARM_INSPECTION = 80;
-    const DAMAGE_HEADER_WIDTH_GENERAL_SUMMARY     = 60;
-    const DAMAGE_HEADER_HEIGHT_GENERAL_SUMMARY    = 6;
+    const DAMAGE_HEADER_WIDTH_WINDFARM_INSPECTION  = 80;
+    const DAMAGE_HEADER_HEIGHT_WINDFARM_INSPECTION = 6;
+    const DAMAGE_HEADER_WIDTH_GENERAL_SUMMARY      = 60;
+    const DAMAGE_HEADER_HEIGHT_GENERAL_SUMMARY     = 4;
 
     /**
      * @param Windfarm $windfarm
@@ -335,7 +336,7 @@ class WindfarmAuditsPdfBuilderService extends AbstractPdfBuilderService
         $windmillBladesDamagesHelper = $this->wbdhf->buildWindmillBladesDamagesHelper($audit);
         $pdf->setWhiteBackground();
         $pdf->setFontStyle(null, '', 9);
-        $pdf->Cell(50, self::DAMAGE_HEADER_HEIGHT_GENERAL_SUMMARY * count($windmillBladesDamagesHelper->getBladeDamages()), $windmillBladesDamagesHelper->getWindmillShortCode(), 1, 0, 'C', 1, '', 0);
+        $pdf->Cell(50, self::DAMAGE_HEADER_HEIGHT_WINDFARM_INSPECTION * count($windmillBladesDamagesHelper->getBladeDamages()), $windmillBladesDamagesHelper->getWindmillShortCode(), 1, 0, 'C', 1, '', 0);
         /** @var BladeDamageHelper $bladeDamageHelper */
         foreach ($windmillBladesDamagesHelper->getBladeDamages() as $bladeDamageHelper) {
             $pdf->SetX(CustomTcpdf::PDF_MARGIN_LEFT + 50);
