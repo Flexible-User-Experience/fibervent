@@ -401,6 +401,6 @@ class WindfarmAuditsPdfBuilderService extends AbstractPdfBuilderService
         }
         $pdf->SetY($currentY);
         // Cell($w, $h=0, $txt='', $border=0, $ln=0, $align='', $fill=0, $link='', $stretch=0, $ignore_min_height=false, $calign='T', $valign='M')
-        $pdf->Cell(20, $windmillBladesDamagesHelper->getTotalPdfHeight(), $windmillBladesDamagesHelper->getTotalPdfHeight() /*$windmillBladesDamagesHelper->getWindmillShortCode()*/, 1, 1, 'C', 1, '', 0);
+        $pdf->Cell(20, $windmillBladesDamagesHelper->getTotalPdfHeight(), $windmillBladesDamagesHelper->getWindmillShortCode(), 1, 1, 'C', 1, '', 0);
     }
 }
