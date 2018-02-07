@@ -44,7 +44,7 @@ class BladeDamageHelper
     {
         $this->categories = array();
         $this->damages = array();
-        $this->rowPdfHeight = 0;
+        $this->rowPdfHeight = WindfarmAuditsPdfBuilderService::DAMAGE_HEADER_HEIGHT_GENERAL_SUMMARY;
     }
 
     /**
@@ -145,7 +145,7 @@ class BladeDamageHelper
      */
     public function getRowPdfHeight()
     {
-        return $this->rowPdfHeight == 0 ? WindfarmAuditsPdfBuilderService::DAMAGE_HEADER_HEIGHT_GENERAL_SUMMARY : $this->rowPdfHeight;
+        return $this->rowPdfHeight == WindfarmAuditsPdfBuilderService::DAMAGE_HEADER_HEIGHT_GENERAL_SUMMARY ? WindfarmAuditsPdfBuilderService::DAMAGE_HEADER_HEIGHT_GENERAL_SUMMARY + 2 : $this->rowPdfHeight;
     }
 
     /**
