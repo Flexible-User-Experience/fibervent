@@ -380,6 +380,9 @@ class WindfarmAuditsPdfBuilderService extends AbstractPdfBuilderService
         $windmillBladesDamagesHelper = $this->wbdhf->buildWindmillBladesDamagesHelper($audit);
         $pdf->setWhiteBackground();
         $pdf->setFontStyle(null, '', 9);
+        if ($pdf->GetY() + $windmillBladesDamagesHelper->getTotalPdfHeight() > CustomTcpdf::PDF_MARGIN_BOTTOM_FOOTER) {
+            $pdf->AddPage();
+        }
         $currentY = $pdf->GetY();
         /** @var BladeDamageHelper $bladeDamageHelper */
         foreach ($windmillBladesDamagesHelper->getBladeDamages() as $bladeDamageHelper) {
@@ -398,6 +401,6 @@ class WindfarmAuditsPdfBuilderService extends AbstractPdfBuilderService
         }
         $pdf->SetY($currentY);
         // Cell($w, $h=0, $txt='', $border=0, $ln=0, $align='', $fill=0, $link='', $stretch=0, $ignore_min_height=false, $calign='T', $valign='M')
-        $pdf->Cell(20, $windmillBladesDamagesHelper->getTotalPdfHeight(), $windmillBladesDamagesHelper->getWindmillShortCode(), 1, 1, 'C', 1, '', 0);
+        $pdf->Cell(20, $windmillBladesDamagesHelper->getTotalPdfHeight(), $windmillBladesDamagesHelper->getTotalPdfHeight() /*$windmillBladesDamagesHelper->getWindmillShortCode()*/, 1, 1, 'C', 1, '', 0);
     }
 }
