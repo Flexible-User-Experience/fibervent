@@ -79,6 +79,9 @@ class WindfarmAuditsPdfBuilderService extends AbstractPdfBuilderService
 
         // Introduction section
         if (self::WAC_SHOW_INTRODUCTION_SECTION) {
+            if ($pdf->GetY() > CustomTcpdf::PDF_MARGIN_BOTTOM_FOOTER - 80) {
+                $pdf->AddPage();
+            }
             $pdf->setBlackText();
             $pdf->setBlueLine();
             $pdf->setFontStyle(null, 'B', 11);
