@@ -3,20 +3,20 @@
 namespace AppBundle\Enum;
 
 /**
- * Class AuditLanguageEnum
+ * Class AuditLanguageEnum.
  *
  * @category Enum
- * @package  AppBundle\Enum
+ *
  * @author   David Romaní <david@flux.cat>
  */
 class AuditLanguageEnum
 {
-    const SPANISH    = 0;
-    const ENGLISH    = 1;
-    const FRENCH     = 2;
+    const SPANISH = 0;
+    const ENGLISH = 1;
+    const FRENCH = 2;
     const PORTUGUESE = 3;
-    const GERMAN     = 4;
-    const ITALIAN    = 5;
+    const GERMAN = 4;
+    const ITALIAN = 5;
 
     /**
      * @return array
@@ -24,12 +24,12 @@ class AuditLanguageEnum
     public static function getEnumArray()
     {
         return array(
-            self::SPANISH    => 'es',
-            self::ENGLISH    => 'en',
-            self::FRENCH     => 'fr',
+            self::SPANISH => 'es',
+            self::ENGLISH => 'en',
+            self::FRENCH => 'fr',
             self::PORTUGUESE => 'pt',
-            self::GERMAN     => 'de',
-            self::ITALIAN    => 'it',
+            self::GERMAN => 'de',
+            self::ITALIAN => 'it',
         );
     }
 
@@ -39,9 +39,9 @@ class AuditLanguageEnum
     public static function getEnumArrayString()
     {
         return array(
-            self::SPANISH    => 'español',
-            self::ENGLISH    => 'english',
-            self::FRENCH     => 'français',
+            self::SPANISH => 'español',
+            self::ENGLISH => 'english',
+            self::FRENCH => 'français',
 //            self::PORTUGUESE => 'portuguès',
 //            self::GERMAN     => 'alemany',
 //            self::ITALIAN    => 'italià',
