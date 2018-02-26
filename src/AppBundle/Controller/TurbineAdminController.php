@@ -6,10 +6,10 @@ use AppBundle\Entity\Turbine;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
 /**
- * Class TurbineAdminController
+ * Class TurbineAdminController.
  *
  * @category Controller
- * @package  AppBundle\Controller
+ *
  * @author   David Romaní <david@flux.cat>
  */
 class TurbineAdminController extends AbstractBaseAdminController

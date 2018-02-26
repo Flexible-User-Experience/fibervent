@@ -398,7 +398,8 @@ class WindfarmAdminController extends AbstractBaseAdminController
         $year = intval($request->get('year'));
 
         $range = array();
-        $range['start'] = ''; $range['end'] = '';
+        $range['start'] = '';
+        $range['end'] = '';
         if ($request->get('date_range_start')) {
             $range['start'] = $request->get('date_range_start');
         }
