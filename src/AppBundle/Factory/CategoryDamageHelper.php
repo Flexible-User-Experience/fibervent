@@ -3,7 +3,7 @@
 namespace AppBundle\Factory;
 
 /**
- * Class CategoryDamageHelper
+ * Class CategoryDamageHelper.
  *
  * @category FactoryHelper
  *
@@ -14,7 +14,7 @@ class CategoryDamageHelper
     const MARK = 'X';
 
     /**
-     * @var integer
+     * @var int
      */
     private $number;
 
@@ -34,7 +34,7 @@ class CategoryDamageHelper
     private $letterMarks;
 
     /**
-     * Methods
+     * Methods.
      */
 
     /**
