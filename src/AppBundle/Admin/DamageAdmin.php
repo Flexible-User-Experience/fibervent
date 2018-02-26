@@ -7,10 +7,10 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 
 /**
- * Class DamageAdmin
+ * Class DamageAdmin.
  *
  * @category Admin
- * @package  AppBundle\Admin
+ *
  * @author   Anton Serra <aserratorta@gmail.com>
  */
 class DamageAdmin extends AbstractBaseAdmin
@@ -19,12 +19,12 @@ class DamageAdmin extends AbstractBaseAdmin
     protected $classnameLabel = 'admin.damage.title';
     protected $baseRoutePattern = 'audits/damage';
     protected $datagridValues = array(
-        '_sort_by'    => 'code',
+        '_sort_by' => 'code',
         '_sort_order' => 'asc',
     );
 
     /**
-     * Configure route collection
+     * Configure route collection.
      *
      * @param RouteCollection $collection
      */
@@ -45,7 +45,7 @@ class DamageAdmin extends AbstractBaseAdmin
                 'section',
                 null,
                 array(
-                    'label'    => 'admin.damage.section',
+                    'label' => 'admin.damage.section',
                     'required' => true,
                 )
             )
@@ -53,7 +53,7 @@ class DamageAdmin extends AbstractBaseAdmin
                 'code',
                 null,
                 array(
-                    'label'    => 'admin.damage.code',
+                    'label' => 'admin.damage.code',
                     'required' => true,
                 )
             )
@@ -61,7 +61,7 @@ class DamageAdmin extends AbstractBaseAdmin
                 'description',
                 null,
                 array(
-                    'label'    => 'admin.damage.description',
+                    'label' => 'admin.damage.description',
                     'required' => true,
                 )
             )
@@ -71,7 +71,7 @@ class DamageAdmin extends AbstractBaseAdmin
                 'enabled',
                 null,
                 array(
-                    'label'    => 'admin.common.enabled',
+                    'label' => 'admin.common.enabled',
                     'required' => false,
                 )
             )
@@ -100,7 +100,7 @@ class DamageAdmin extends AbstractBaseAdmin
                 'section',
                 null,
                 array(
-                    'label'    => 'admin.damage.section',
+                    'label' => 'admin.damage.section',
                     'editable' => true,
                 )
             )
@@ -108,7 +108,7 @@ class DamageAdmin extends AbstractBaseAdmin
                 'code',
                 null,
                 array(
-                    'label'    => 'admin.damage.code',
+                    'label' => 'admin.damage.code',
                     'editable' => true,
                 )
             )
@@ -116,7 +116,7 @@ class DamageAdmin extends AbstractBaseAdmin
                 'description',
                 null,
                 array(
-                    'label'    => 'admin.damage.description',
+                    'label' => 'admin.damage.description',
                     'editable' => true,
                 )
             )
@@ -124,7 +124,7 @@ class DamageAdmin extends AbstractBaseAdmin
                 'enabled',
                 null,
                 array(
-                    'label'    => 'admin.common.enabled',
+                    'label' => 'admin.common.enabled',
                     'editable' => true,
                 )
             )
@@ -132,10 +132,10 @@ class DamageAdmin extends AbstractBaseAdmin
                 '_action',
                 'actions',
                 array(
-                    'label'   => 'admin.common.action',
+                    'label' => 'admin.common.action',
                     'actions' => array(
                         'edit' => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
-                    )
+                    ),
                 )
             );
     }

@@ -21,10 +21,10 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
 use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
 /**
- * Class BaseAdmin
+ * Class BaseAdmin.
  *
  * @category Admin
- * @package  AppBundle\Admin
+ *
  * @author   David Romaní <david@flux.cat>
  */
 abstract class AbstractBaseAdmin extends AbstractAdmin
@@ -100,30 +100,30 @@ abstract class AbstractBaseAdmin extends AbstractAdmin
     protected $lis;
 
     /**
-     * @param string              $code
-     * @param string              $class
-     * @param string              $baseControllerName
+     * @param string               $code
+     * @param string               $class
+     * @param string               $baseControllerName
      * @param AuthorizationChecker $acs
-     * @param TokenStorage        $tss
-     * @param RepositoriesService $rs
-     * @param UploaderHelper      $vus
-     * @param CacheManager        $lis
+     * @param TokenStorage         $tss
+     * @param RepositoriesService  $rs
+     * @param UploaderHelper       $vus
+     * @param CacheManager         $lis
      */
     public function __construct($code, $class, $baseControllerName, AuthorizationChecker $acs, TokenStorage $tss, RepositoriesService $rs, UploaderHelper $vus, CacheManager $lis)
     {
         parent::__construct($code, $class, $baseControllerName);
         $this->acs = $acs;
         $this->tss = $tss;
-        $this->cr  = $rs->getCr();
-        $this->ur  = $rs->getUr();
+        $this->cr = $rs->getCr();
+        $this->ur = $rs->getUr();
         $this->wmr = $rs->getWmr();
         $this->wfr = $rs->getWfr();
-        $this->br  = $rs->getBr();
-        $this->tr  = $rs->getTr();
-        $this->sr  = $rs->getSr();
-        $this->dr  = $rs->getDr();
+        $this->br = $rs->getBr();
+        $this->tr = $rs->getTr();
+        $this->sr = $rs->getSr();
+        $this->dr = $rs->getDr();
         $this->dcr = $rs->getDcr();
-        $this->ar  = $rs->getAr();
+        $this->ar = $rs->getAr();
         $this->vus = $vus;
         $this->lis = $lis;
     }
@@ -139,7 +139,7 @@ abstract class AbstractBaseAdmin extends AbstractAdmin
     protected $maxPerPage = 25;
 
     /**
-     * Configure route collection
+     * Configure route collection.
      *
      * @param RouteCollection $collection
      */
@@ -151,7 +151,7 @@ abstract class AbstractBaseAdmin extends AbstractAdmin
     }
 
     /**
-     * Remove batch action list view first column
+     * Remove batch action list view first column.
      *
      * @return array
      */
@@ -164,7 +164,7 @@ abstract class AbstractBaseAdmin extends AbstractAdmin
     }
 
     /**
-     * Get export formats
+     * Get export formats.
      *
      * @return array
      */
@@ -186,8 +186,8 @@ abstract class AbstractBaseAdmin extends AbstractAdmin
     protected function getDefaultFormBoxArray($bootstrapGrid = 'md', $bootstrapSize = '6', $boxClass = 'primary')
     {
         return array(
-            'class'     => 'col-' . $bootstrapGrid . '-' . $bootstrapSize,
-            'box_class' => 'box box-' . $boxClass,
+            'class' => 'col-'.$bootstrapGrid.'-'.$bootstrapSize,
+            'box_class' => 'box box-'.$boxClass,
         );
     }
 
@@ -202,7 +202,7 @@ abstract class AbstractBaseAdmin extends AbstractAdmin
     }
 
     /**
-     * Get image helper form mapper with thumbnail
+     * Get image helper form mapper with thumbnail.
      *
      * @param int $minWidth
      *
@@ -210,9 +210,9 @@ abstract class AbstractBaseAdmin extends AbstractAdmin
      */
     protected function getImageHelperFormMapperWithThumbnail($minWidth = 1200)
     {
-        return ($this->getSubject() ? $this->getSubject()->getImageName() ? '<img src="' . $this->lis->getBrowserPath(
+        return ($this->getSubject() ? $this->getSubject()->getImageName() ? '<img src="'.$this->lis->getBrowserPath(
                 $this->vus->asset($this->getSubject(), 'imageFile'),
                 '480xY'
-            ) . '" class="admin-preview img-responsive" alt="thumbnail"/>' : '' : '') . '<span style="width:100%;display:block;">'.$this->trans('admin.photo.help', ['%width%' => $minWidth]).'</span>';
+            ).'" class="admin-preview img-responsive" alt="thumbnail"/>' : '' : '').'<span style="width:100%;display:block;">'.$this->trans('admin.photo.help', ['%width%' => $minWidth]).'</span>';
     }
 }

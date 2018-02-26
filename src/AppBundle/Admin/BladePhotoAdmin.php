@@ -6,10 +6,10 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 
 /**
- * Class BladePhotoAdmin
+ * Class BladePhotoAdmin.
  *
  * @category Admin
- * @package  AppBundle\Admin
+ *
  * @author   Anton Serra <aserratorta@gmail.com>
  */
 class BladePhotoAdmin extends AbstractBaseAdmin
@@ -18,12 +18,12 @@ class BladePhotoAdmin extends AbstractBaseAdmin
     protected $classnameLabel = 'admin.bladephoto.title';
     protected $baseRoutePattern = 'audits/blade-photo';
     protected $datagridValues = array(
-        '_sort_by'    => 'imageName',
+        '_sort_by' => 'imageName',
         '_sort_order' => 'asc',
     );
 
     /**
-     * Configure route collection
+     * Configure route collection.
      *
      * @param RouteCollection $collection
      */
@@ -54,10 +54,10 @@ class BladePhotoAdmin extends AbstractBaseAdmin
                 'imageFile',
                 'file',
                 array(
-                    'label'       => 'admin.bladephoto.imagefile',
-                    'help'        => $this->getImageHelperFormMapperWithThumbnail(),
+                    'label' => 'admin.bladephoto.imagefile',
+                    'help' => $this->getImageHelperFormMapperWithThumbnail(),
                     'sonata_help' => $this->getImageHelperFormMapperWithThumbnail(),
-                    'required'    => false,
+                    'required' => false,
                 )
             )
             ->end();

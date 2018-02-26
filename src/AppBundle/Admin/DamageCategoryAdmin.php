@@ -7,10 +7,10 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 
 /**
- * Class DamageCategoryAdmin
+ * Class DamageCategoryAdmin.
  *
  * @category Admin
- * @package  AppBundle\Admin
+ *
  * @author   Anton Serra <aserratorta@gmail.com>
  */
 class DamageCategoryAdmin extends AbstractBaseAdmin
@@ -18,12 +18,12 @@ class DamageCategoryAdmin extends AbstractBaseAdmin
     protected $classnameLabel = 'admin.damagecategory.title';
     protected $baseRoutePattern = 'audits/damage-category';
     protected $datagridValues = array(
-        '_sort_by'    => 'category',
+        '_sort_by' => 'category',
         '_sort_order' => 'asc',
     );
 
     /**
-     * Configure route collection
+     * Configure route collection.
      *
      * @param RouteCollection $collection
      */
@@ -44,7 +44,7 @@ class DamageCategoryAdmin extends AbstractBaseAdmin
                 'category',
                 null,
                 array(
-                    'label'    => 'admin.damagecategory.category',
+                    'label' => 'admin.damagecategory.category',
                     'required' => true,
                 )
             )
@@ -52,7 +52,7 @@ class DamageCategoryAdmin extends AbstractBaseAdmin
                 'priority',
                 null,
                 array(
-                    'label'    => 'admin.damagecategory.priority',
+                    'label' => 'admin.damagecategory.priority',
                     'required' => true,
                 )
             )
@@ -60,7 +60,7 @@ class DamageCategoryAdmin extends AbstractBaseAdmin
                 'description',
                 null,
                 array(
-                    'label'    => 'admin.damagecategory.description',
+                    'label' => 'admin.damagecategory.description',
                     'required' => true,
                 )
             )
@@ -68,7 +68,7 @@ class DamageCategoryAdmin extends AbstractBaseAdmin
                 'recommendedAction',
                 null,
                 array(
-                    'label'    => 'admin.damagecategory.recomended_action',
+                    'label' => 'admin.damagecategory.recomended_action',
                     'required' => true,
                 )
             )
@@ -90,29 +90,29 @@ class DamageCategoryAdmin extends AbstractBaseAdmin
                 'colour',
                 'color_picker',
                 array(
-                    'label'          => 'admin.damagecategory.colour',
-                    'required'       => true,
+                    'label' => 'admin.damagecategory.colour',
+                    'required' => true,
                     'picker_options' => array(
-                        'color'    => false,
-                        'mode'     => 'hsl',
-                        'hide'     => false,
-                        'border'   => true,
-                        'target'   => false,
-                        'width'    => 200,
+                        'color' => false,
+                        'mode' => 'hsl',
+                        'hide' => false,
+                        'border' => true,
+                        'target' => false,
+                        'width' => 200,
                         'palettes' => true,
                         'controls' => array(
                             'horiz' => 's',
-                            'vert'  => 'l',
-                            'strip' => 'h'
-                        )
-                    )
+                            'vert' => 'l',
+                            'strip' => 'h',
+                        ),
+                    ),
                 )
             )
             ->add(
                 'enabled',
                 null,
                 array(
-                    'label'    => 'admin.common.enabled',
+                    'label' => 'admin.common.enabled',
                     'required' => false,
                 )
             )
@@ -131,7 +131,7 @@ class DamageCategoryAdmin extends AbstractBaseAdmin
                 'fakecolour',
                 null,
                 array(
-                    'label'    => 'admin.damagecategory.colour',
+                    'label' => 'admin.damagecategory.colour',
                     'template' => '::Admin/Cells/list__cell_colour.html.twig',
                     'editable' => false,
                 )
@@ -140,7 +140,7 @@ class DamageCategoryAdmin extends AbstractBaseAdmin
                 'category',
                 null,
                 array(
-                    'label'    => 'admin.damagecategory.category',
+                    'label' => 'admin.damagecategory.category',
                     'editable' => true,
                 )
             )
@@ -148,7 +148,7 @@ class DamageCategoryAdmin extends AbstractBaseAdmin
                 'priority',
                 null,
                 array(
-                    'label'    => 'admin.damagecategory.priority',
+                    'label' => 'admin.damagecategory.priority',
                     'editable' => true,
                 )
             )
@@ -156,7 +156,7 @@ class DamageCategoryAdmin extends AbstractBaseAdmin
                 'description',
                 null,
                 array(
-                    'label'    => 'admin.damagecategory.description',
+                    'label' => 'admin.damagecategory.description',
                     'editable' => true,
                 )
             )
@@ -164,7 +164,7 @@ class DamageCategoryAdmin extends AbstractBaseAdmin
                 'recommendedAction',
                 null,
                 array(
-                    'label'    => 'admin.damagecategory.recomended_action',
+                    'label' => 'admin.damagecategory.recomended_action',
                     'editable' => true,
                 )
             )
@@ -172,7 +172,7 @@ class DamageCategoryAdmin extends AbstractBaseAdmin
                 'enabled',
                 null,
                 array(
-                    'label'    => 'admin.common.enabled',
+                    'label' => 'admin.common.enabled',
                     'editable' => true,
                 )
             )
@@ -180,10 +180,10 @@ class DamageCategoryAdmin extends AbstractBaseAdmin
                 '_action',
                 'actions',
                 array(
-                    'label'   => 'admin.common.action',
+                    'label' => 'admin.common.action',
                     'actions' => array(
                         'edit' => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
-                    )
+                    ),
                 )
             );
     }

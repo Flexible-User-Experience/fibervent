@@ -8,10 +8,10 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Symfony\Component\Form\Extension\Core\Type\CountryType;
 
 /**
- * Class StateAdmin
+ * Class StateAdmin.
  *
  * @category Admin
- * @package  AppBundle\Admin
+ *
  * @author   Anton Serra <aserratorta@gmail.com>
  */
 class StateAdmin extends AbstractBaseAdmin
@@ -19,7 +19,7 @@ class StateAdmin extends AbstractBaseAdmin
     protected $classnameLabel = 'admin.state.title';
     protected $baseRoutePattern = 'customers/state';
     protected $datagridValues = array(
-        '_sort_by'    => 'name',
+        '_sort_by' => 'name',
         '_sort_order' => 'asc',
     );
 
@@ -71,7 +71,7 @@ class StateAdmin extends AbstractBaseAdmin
                 'enabled',
                 null,
                 array(
-                    'label'    => 'admin.common.enabled',
+                    'label' => 'admin.common.enabled',
                     'editable' => true,
                 )
             );
@@ -88,7 +88,7 @@ class StateAdmin extends AbstractBaseAdmin
                 'name',
                 null,
                 array(
-                    'label'    => 'admin.customer.name',
+                    'label' => 'admin.customer.name',
                     'editable' => true,
                 )
             )
@@ -103,11 +103,11 @@ class StateAdmin extends AbstractBaseAdmin
                 '_action',
                 'actions',
                 array(
-                    'label'   => 'admin.common.action',
+                    'label' => 'admin.common.action',
                     'actions' => array(
-                        'edit'   => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
+                        'edit' => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
                         'delete' => array('template' => '::Admin/Buttons/list__action_delete_button.html.twig'),
-                    )
+                    ),
                 )
             );
     }

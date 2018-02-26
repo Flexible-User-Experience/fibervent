@@ -10,9 +10,10 @@ use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\CoreBundle\Form\Type\CollectionType;
 
 /**
- * Class AuditWindmillBladeAdmin
+ * Class AuditWindmillBladeAdmin.
  *
  * @category Admin
+ *
  * @author   David Romaní <david@flux.cat>
  */
 class AuditWindmillBladeAdmin extends AbstractBaseAdmin
@@ -20,12 +21,12 @@ class AuditWindmillBladeAdmin extends AbstractBaseAdmin
     protected $classnameLabel = 'admin.auditwindmillblade.title';
     protected $baseRoutePattern = 'audits/audit-windmill-blade';
     protected $datagridValues = array(
-        '_sort_by'    => 'audit',
+        '_sort_by' => 'audit',
         '_sort_order' => 'desc',
     );
 
     /**
-     * Configure route collection
+     * Configure route collection.
      *
      * @param RouteCollection $collection
      */
@@ -48,9 +49,9 @@ class AuditWindmillBladeAdmin extends AbstractBaseAdmin
                     'audit',
                     null,
                     array(
-                        'label'    => 'admin.auditwindmillblade.audit',
+                        'label' => 'admin.auditwindmillblade.audit',
                         'required' => true,
-                        'attr'     => array(
+                        'attr' => array(
                             'hidden' => true,
                         ),
                     )
@@ -59,7 +60,7 @@ class AuditWindmillBladeAdmin extends AbstractBaseAdmin
                     'windmillBlade',
                     null,
                     array(
-                        'label'    => 'admin.auditwindmillblade.windmillblade',
+                        'label' => 'admin.auditwindmillblade.windmillblade',
                         'required' => true,
                         'disabled' => true,
                     )
@@ -70,10 +71,10 @@ class AuditWindmillBladeAdmin extends AbstractBaseAdmin
                     'fakeAction',
                     ActionButtonFormType::class,
                     array(
-                        'text'     => 'Editar daños',
-                        'url'      => $this->generateObjectUrl('edit', $this->getSubject()),
-                        'label'    => 'admin.auditwindmillblade.actions',
-                        'mapped'   => false,
+                        'text' => 'Editar daños',
+                        'url' => $this->generateObjectUrl('edit', $this->getSubject()),
+                        'label' => 'admin.auditwindmillblade.actions',
+                        'mapped' => false,
                         'required' => false,
                     )
                 )
@@ -83,56 +84,56 @@ class AuditWindmillBladeAdmin extends AbstractBaseAdmin
             /** @var AuditWindmillBlade $awb */
             $awb = $this->getSubject();
             $order = $awb ? $awb->getWindmillBlade() ? $awb->getWindmillBlade()->getOrder() : '' : '';
-            $code = $awb && $awb->getWindmillBlade() && !empty($awb->getWindmillBlade()->getCode()) ? '(' . $this->trans('admin.windmillblade.sn') . ': ' . $awb->getWindmillBlade()->getCode() . ')' : '';
+            $code = $awb && $awb->getWindmillBlade() && !empty($awb->getWindmillBlade()->getCode()) ? '('.$this->trans('admin.windmillblade.sn').': '.$awb->getWindmillBlade()->getCode().')' : '';
 //            $order = 'order';
 //            $code = 'code';
             $formMapper
-                ->with('Situación y descripción de los daños · Pala ' . $order . ' ' . $code, $this->getFormMdSuccessBoxArray(12))
+                ->with('Situación y descripción de los daños · Pala '.$order.' '.$code, $this->getFormMdSuccessBoxArray(12))
                 ->add(
                     'bladeDamages',
                     CollectionType::class,
                     array(
-                        'label'              => 'admin.auditwindmillblade.damages',
-                        'required'           => true,
+                        'label' => 'admin.auditwindmillblade.damages',
+                        'required' => true,
                         'cascade_validation' => true,
-                        'error_bubbling'     => true,
+                        'error_bubbling' => true,
                     ),
                     array(
-                        'edit'   => 'inline',
+                        'edit' => 'inline',
                         'inline' => 'table',
                     )
                 )
                 ->end()
-                ->with('Observaciones · Pala ' . $order . ' ' . $code, $this->getFormMdSuccessBoxArray(8))
+                ->with('Observaciones · Pala '.$order.' '.$code, $this->getFormMdSuccessBoxArray(8))
                 ->add(
                     'observations',
                     CollectionType::class,
                     array(
-                        'label'              => 'admin.audit.observations',
-                        'required'           => true,
+                        'label' => 'admin.audit.observations',
+                        'required' => true,
                         'cascade_validation' => true,
-                        'error_bubbling'     => true,
+                        'error_bubbling' => true,
                     ),
                     array(
-                        'edit'     => 'inline',
-                        'inline'   => 'table',
+                        'edit' => 'inline',
+                        'inline' => 'table',
                         'sortable' => 'position',
                     )
                 )
                 ->end()
-                ->with('Fotos generals · Pala ' . $order . ' ' . $code, $this->getFormMdSuccessBoxArray(4))
+                ->with('Fotos generals · Pala '.$order.' '.$code, $this->getFormMdSuccessBoxArray(4))
                 ->add(
                     'bladePhotos',
                     CollectionType::class,
                     array(
-                        'label'              => 'admin.auditwindmillblade.photos',
-                        'required'           => true,
+                        'label' => 'admin.auditwindmillblade.photos',
+                        'required' => true,
                         'cascade_validation' => true,
-                        'error_bubbling'     => true,
+                        'error_bubbling' => true,
                     ),
                     array(
-                        'edit'     => 'inline',
-                        'inline'   => 'table',
+                        'edit' => 'inline',
+                        'inline' => 'table',
                     )
                 )
                 ->end();
@@ -152,7 +153,7 @@ class AuditWindmillBladeAdmin extends AbstractBaseAdmin
                 'audit',
                 null,
                 array(
-                    'label'    => 'admin.auditwindmillblade.audit',
+                    'label' => 'admin.auditwindmillblade.audit',
                     'editable' => true,
                 )
             )
@@ -160,7 +161,7 @@ class AuditWindmillBladeAdmin extends AbstractBaseAdmin
                 'windmillBlade',
                 null,
                 array(
-                    'label'    => 'admin.auditwindmillblade.windmillblade',
+                    'label' => 'admin.auditwindmillblade.windmillblade',
                     'editable' => true,
                 )
             )
@@ -168,11 +169,11 @@ class AuditWindmillBladeAdmin extends AbstractBaseAdmin
                 '_action',
                 'actions',
                 array(
-                    'label'   => 'admin.common.action',
+                    'label' => 'admin.common.action',
                     'actions' => array(
-                        'edit'   => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
+                        'edit' => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
                         'delete' => array('template' => '::Admin/Buttons/list__action_delete_button.html.twig'),
-                    )
+                    ),
                 )
             );
     }

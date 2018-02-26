@@ -7,9 +7,10 @@ use Sonata\AdminBundle\Route\RouteCollection;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 /**
- * Class ObservationAdmin
+ * Class ObservationAdmin.
  *
  * @category Admin
+ *
  * @author   David Romaní <david@flux.cat>
  */
 class ObservationAdmin extends AbstractBaseAdmin
@@ -18,12 +19,12 @@ class ObservationAdmin extends AbstractBaseAdmin
     protected $classnameLabel = 'admin.observation.title';
     protected $baseRoutePattern = 'audits/observation';
     protected $datagridValues = array(
-        '_sort_by'    => 'position',
+        '_sort_by' => 'position',
         '_sort_order' => 'asc',
     );
 
     /**
-     * Configure route collection
+     * Configure route collection.
      *
      * @param RouteCollection $collection
      */
@@ -53,7 +54,7 @@ class ObservationAdmin extends AbstractBaseAdmin
                 'position',
                 null,
                 array(
-                    'label'    => 'admin.observation.position',
+                    'label' => 'admin.observation.position',
                     'required' => false,
                 )
             )
@@ -61,7 +62,7 @@ class ObservationAdmin extends AbstractBaseAdmin
                 'damageNumber',
                 null,
                 array(
-                    'label'    => 'admin.observation.damage_number',
+                    'label' => 'admin.observation.damage_number',
                     'required' => true,
                 )
             )
@@ -69,11 +70,11 @@ class ObservationAdmin extends AbstractBaseAdmin
                 'observations',
                 TextareaType::class,
                 array(
-                    'label'    => 'admin.audit.observations',
+                    'label' => 'admin.audit.observations',
                     'required' => true,
-                    'attr'     => array(
+                    'attr' => array(
                         'rows' => 5,
-                    )
+                    ),
                 )
             )
             ->end();
