@@ -40,7 +40,7 @@ class WindfarmAuditStatsFormType extends AbstractType
     /**
      * WindfarmAnnualStatsFormType constructor.
      *
-     * @param EntityManager $em
+     * @param EntityManager   $em
      * @param AuditRepository $ar
      */
     public function __construct(EntityManager $em, AuditRepository $ar)
@@ -51,7 +51,7 @@ class WindfarmAuditStatsFormType extends AbstractType
 
     /**
      * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -91,7 +91,7 @@ class WindfarmAuditStatsFormType extends AbstractType
                         'mapped' => false,
                         'required' => false,
                         'field_options' => array(
-                            'format' => 'dd-MM-yyyy'
+                            'format' => 'dd-MM-yyyy',
                         ),
                         'label' => 'admin.audit.dates_range',
                     )

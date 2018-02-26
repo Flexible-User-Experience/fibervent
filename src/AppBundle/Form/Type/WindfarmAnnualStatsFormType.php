@@ -48,8 +48,8 @@ class WindfarmAnnualStatsFormType extends AbstractType
     /**
      * WindfarmAnnualStatsFormType constructor.
      *
-     * @param EntityManager $em
-     * @param AuditRepository $ar
+     * @param EntityManager            $em
+     * @param AuditRepository          $ar
      * @param DamageCategoryRepository $dcr
      */
     public function __construct(EntityManager $em, AuditRepository $ar, DamageCategoryRepository $dcr)
@@ -61,7 +61,7 @@ class WindfarmAnnualStatsFormType extends AbstractType
 
     /**
      * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param array                $options
      *
      * @throws ORMException
      */
