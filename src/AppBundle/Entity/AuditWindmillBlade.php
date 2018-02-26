@@ -10,7 +10,6 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * AuditWindmillBlade.
  *
  * @category Entity
- *
  * @author   Anton Serra <aserratorta@gmail.com>
  *
  * @ORM\Table()

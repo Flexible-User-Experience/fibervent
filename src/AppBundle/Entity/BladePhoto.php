@@ -14,7 +14,6 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  * BladePhoto
  *
  * @category Entity
- * @package  AppBundle\Entity
  * @author   Anton Serra <aserratorta@gmail.com>
  *
  * @ORM\Table()
@@ -47,11 +46,7 @@ class BladePhoto extends AbstractBase
     private $auditWindmillBlade;
 
     /**
-     *
-     *
      * Methods
-     *
-     *
      */
 
     /**

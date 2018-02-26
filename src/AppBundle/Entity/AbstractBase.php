@@ -10,7 +10,6 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * Abstract entities base class
  *
  * @category Entity
- * @package  AppBundle\Entity
  * @author   David Romaní <david@flux.cat>
  */
 abstract class AbstractBase
@@ -50,11 +49,7 @@ abstract class AbstractBase
     protected $enabled = true;
 
     /**
-     *
-     *
      * Methods
-     *
-     *
      */
 
     /**

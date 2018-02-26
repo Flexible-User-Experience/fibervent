@@ -20,7 +20,6 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  * Customer
  *
  * @category Entity
- * @package  AppBundle\Entity
  * @author   Anton Serra <aserratorta@gmail.com>
  *
  * @ORM\Table()

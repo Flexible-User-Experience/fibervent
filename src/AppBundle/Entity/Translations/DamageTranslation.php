@@ -9,7 +9,6 @@ use Gedmo\Translatable\Entity\MappedSuperclass\AbstractPersonalTranslation;
  * Class DamageTranslation
  *
  * @category Translation
- * @package  AppBundle\Entity\Translations
  * @author   David Romaní <david@flux.cat>
  *
  * @ORM\Entity

@@ -12,7 +12,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  * DamageCategory
  *
  * @category Entity
- * @package  AppBundle\Entity
  * @author   Anton Serra <aserratorta@gmail.com>
  *
  * @ORM\Table()
@@ -66,11 +65,7 @@ class DamageCategory extends AbstractBase
     private $translations;
 
     /**
-     *
-     *
      * Methods
-     *
-     *
      */
 
     /**

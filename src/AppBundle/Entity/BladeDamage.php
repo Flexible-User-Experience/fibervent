@@ -13,7 +13,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  * BladeDamage
  *
  * @category Entity
- * @package  AppBundle\Entity
  * @author   Anton Serra <aserratorta@gmail.com>
  *
  * @ORM\Table()

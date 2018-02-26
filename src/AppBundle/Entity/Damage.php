@@ -14,7 +14,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Damage
  *
  * @category Entity
- * @package  AppBundle\Entity
  * @author   Anton Serra <aserratorta@gmail.com>
  *
  * @ORM\Table()
@@ -54,11 +53,7 @@ class Damage extends AbstractBase
     private $translations;
 
     /**
-     *
-     *
      * Methods
-     *
-     *
      */
 
     /**

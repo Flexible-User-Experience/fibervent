@@ -12,7 +12,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Blade
  *
  * @category Entity
- * @package  AppBundle\Entity
  * @author   Anton Serra <aserratorta@gmail.com>
  *
  * @ORM\Table()
@@ -33,11 +32,7 @@ class Blade extends AbstractBase
     private $length;
 
     /**
-     *
-     *
      * Methods
-     *
-     *
      */
 
     /**
