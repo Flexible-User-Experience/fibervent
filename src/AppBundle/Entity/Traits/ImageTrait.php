@@ -7,12 +7,13 @@ use Symfony\Component\HttpFoundation\File\File;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Image trait
+ * Image trait.
  *
  * @category Trait
+ *
  * @author   Anton Serra <aserratorta@gmail.com>
  */
-Trait ImageTrait
+trait ImageTrait
 {
     /**
      * @var string
@@ -22,7 +23,7 @@ Trait ImageTrait
     private $imageName;
 
     /**
-     * Methods
+     * Methods.
      */
 
     /**
@@ -51,7 +52,7 @@ Trait ImageTrait
     }
 
     /**
-     * Get ImageName
+     * Get ImageName.
      *
      * @return string
      */
@@ -61,7 +62,7 @@ Trait ImageTrait
     }
 
     /**
-     * Set ImageName
+     * Set ImageName.
      *
      * @param string $imageName
      *

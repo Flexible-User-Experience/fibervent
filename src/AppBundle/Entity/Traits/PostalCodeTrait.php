@@ -5,12 +5,13 @@ namespace AppBundle\Entity\Traits;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Postal code trait
+ * Postal code trait.
  *
  * @category Trait
+ *
  * @author   David Romaní <david@flux.cat>
  */
-Trait PostalCodeTrait
+trait PostalCodeTrait
 {
     /**
      * @var string

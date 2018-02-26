@@ -9,9 +9,10 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Blade
+ * Blade.
  *
  * @category Entity
+ *
  * @author   Anton Serra <aserratorta@gmail.com>
  *
  * @ORM\Table()
@@ -24,7 +25,7 @@ class Blade extends AbstractBase
     use ModelTrait;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(type="float", precision=2)
      * @Assert\GreaterThan(value=1)
@@ -32,7 +33,7 @@ class Blade extends AbstractBase
     private $length;
 
     /**
-     * Methods
+     * Methods.
      */
 
     /**
@@ -60,7 +61,7 @@ class Blade extends AbstractBase
      */
     public function getQ0LengthString()
     {
-        return number_format(0, 2, ',', '.') . 'm';
+        return number_format(0, 2, ',', '.').'m';
     }
 
     /**
@@ -68,7 +69,7 @@ class Blade extends AbstractBase
      */
     public function getQ1LengthString()
     {
-        return number_format($this->getQuarterLength(1), 2, ',', '.') . 'm';
+        return number_format($this->getQuarterLength(1), 2, ',', '.').'m';
     }
 
     /**
@@ -76,7 +77,7 @@ class Blade extends AbstractBase
      */
     public function getQ2LengthString()
     {
-        return number_format($this->getQuarterLength(2), 2, ',', '.') . 'm';
+        return number_format($this->getQuarterLength(2), 2, ',', '.').'m';
     }
 
     /**
@@ -84,7 +85,7 @@ class Blade extends AbstractBase
      */
     public function getQ3LengthString()
     {
-        return number_format($this->getQuarterLength(3), 2, ',', '.') . 'm';
+        return number_format($this->getQuarterLength(3), 2, ',', '.').'m';
     }
 
     /**
@@ -92,7 +93,7 @@ class Blade extends AbstractBase
      */
     public function getQ4LengthString()
     {
-        return number_format($this->getQuarterLength(4), 2, ',', '.') . 'm';
+        return number_format($this->getQuarterLength(4), 2, ',', '.').'m';
     }
 
     /**
@@ -110,6 +111,6 @@ class Blade extends AbstractBase
      */
     public function __toString()
     {
-        return $this->getModel() ? $this->getModel() . ' (' . $this->getLength() . 'm)' : '---';
+        return $this->getModel() ? $this->getModel().' ('.$this->getLength().'m)' : '---';
     }
 }

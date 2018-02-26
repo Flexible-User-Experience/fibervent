@@ -10,9 +10,10 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * BladeDamage
+ * BladeDamage.
  *
  * @category Entity
+ *
  * @author   Anton Serra <aserratorta@gmail.com>
  *
  * @ORM\Table()
@@ -22,14 +23,14 @@ use Symfony\Component\Validator\Constraints as Assert;
 class BladeDamage extends AbstractBase
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(type="integer")
      */
     protected $position;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(type="integer")
      * @Assert\GreaterThanOrEqual(value=0)
@@ -37,35 +38,35 @@ class BladeDamage extends AbstractBase
     protected $radius;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(type="integer", options={"default"=0})
      */
     protected $edge;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(type="integer")
      */
     protected $distance;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(type="integer")
      */
     protected $size;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(type="integer", options={"default"=0})
      */
     protected $status = 0;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(type="integer", options={"default"=1})
      */
@@ -100,12 +101,12 @@ class BladeDamage extends AbstractBase
     private $photos;
 
     /**
-     * @var integer
+     * @var int
      */
     private $calculatedNumberByRadius;
 
     /**
-     * Methods
+     * Methods.
      */
 
     /**
@@ -181,7 +182,7 @@ class BladeDamage extends AbstractBase
     }
 
     /**
-     * Get Edge
+     * Get Edge.
      *
      * @return int
      */
@@ -199,7 +200,7 @@ class BladeDamage extends AbstractBase
     }
 
     /**
-     * Set Edge
+     * Set Edge.
      *
      * @param int $edge
      *
@@ -233,12 +234,12 @@ class BladeDamage extends AbstractBase
      */
     public function getDistanceString()
     {
-        $dist = $this->distance . 'cm';
+        $dist = $this->distance.'cm';
         if ($this->distance > 999) {
-            $dist = number_format(($this->distance / 1000), 1, ',', '.') . 'm';
+            $dist = number_format(($this->distance / 1000), 1, ',', '.').'m';
         }
 
-        return $this->position == BladeDamagePositionEnum::EDGE_IN || $this->position == BladeDamagePositionEnum::EDGE_OUT ? '-' : $dist . ' ' . $this->getEdgeString();
+        return $this->position == BladeDamagePositionEnum::EDGE_IN || $this->position == BladeDamagePositionEnum::EDGE_OUT ? '-' : $dist.' '.$this->getEdgeString();
     }
 
     /**
@@ -248,7 +249,7 @@ class BladeDamage extends AbstractBase
     {
         $modifier = $this->distance > 999 ? 'm' : 'cm';
 
-        return $this->position == BladeDamagePositionEnum::EDGE_IN || $this->position == BladeDamagePositionEnum::EDGE_OUT ? 'pdf.damage_table_body.none' : 'pdf.damage_table_body.' . $this->getEdgeString() . '_dist_' . $modifier;
+        return $this->position == BladeDamagePositionEnum::EDGE_IN || $this->position == BladeDamagePositionEnum::EDGE_OUT ? 'pdf.damage_table_body.none' : 'pdf.damage_table_body.'.$this->getEdgeString().'_dist_'.$modifier;
     }
 
     /**

@@ -16,10 +16,10 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Cocur\Slugify\Slugify;
 
 /**
- * Windfarm
+ * Windfarm.
  *
  * @category Entity
- * @package  AppBundle\Entity
+ *
  * @author   Anton Serra <aserratorta@gmail.com>
  *
  * @ORM\Table()
@@ -38,7 +38,7 @@ class Windfarm extends AbstractBase
     use PowerTrait;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(type="integer", nullable=true)
      */
@@ -52,12 +52,11 @@ class Windfarm extends AbstractBase
     private $code;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(type="integer", options={"default"=0})
      */
     protected $language = 0;
-
 
     /**
      * @var State
@@ -88,18 +87,14 @@ class Windfarm extends AbstractBase
     private $windmills;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(type="integer", nullable=true)
      */
     private $windmillAmount;
 
     /**
-     *
-     *
-     * Methods
-     *
-     *
+     * Methods.
      */
 
     /**
@@ -292,7 +287,7 @@ class Windfarm extends AbstractBase
      */
     public function getPdfLocationString()
     {
-        return $this->getCity() . ' (' . $this->getState()->getName() . '). ' . $this->getState()->getCountryName();
+        return $this->getCity().' ('.$this->getState()->getName().'). '.$this->getState()->getCountryName();
     }
 
     /**
@@ -300,7 +295,7 @@ class Windfarm extends AbstractBase
      */
     public function getPdfTotalPowerString()
     {
-        return $this->getWindmills()->count() . ' aerogeneradores / ' . $this->getPower() . 'MW';
+        return $this->getWindmills()->count().' aerogeneradores / '.$this->getPower().'MW';
     }
 
     /**
@@ -308,7 +303,7 @@ class Windfarm extends AbstractBase
      */
     public function getPdfYearString()
     {
-        return $this->getYear() . ' (' . $this->getYearDiff() . ' años)';
+        return $this->getYear().' ('.$this->getYearDiff().' años)';
     }
 
     /**

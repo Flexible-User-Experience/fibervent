@@ -11,9 +11,10 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Damage
+ * Damage.
  *
  * @category Entity
+ *
  * @author   Anton Serra <aserratorta@gmail.com>
  *
  * @ORM\Table()
@@ -28,7 +29,7 @@ class Damage extends AbstractBase
     use DescriptionTrait;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(type="integer")
      */
@@ -48,16 +49,17 @@ class Damage extends AbstractBase
      *     cascade={"persist", "remove"}
      * )
      * @Assert\Valid(deep = true)
+     *
      * @var ArrayCollection
      */
     private $translations;
 
     /**
-     * Methods
+     * Methods.
      */
 
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
@@ -105,7 +107,7 @@ class Damage extends AbstractBase
     }
 
     /**
-     * Add translation
+     * Add translation.
      *
      * @param Translations\DamageTranslation $translation
      *
@@ -122,7 +124,7 @@ class Damage extends AbstractBase
     }
 
     /**
-     * Remove translation
+     * Remove translation.
      *
      * @param Translations\DamageTranslation $translation
      *
@@ -136,7 +138,7 @@ class Damage extends AbstractBase
     }
 
     /**
-     * Set translations
+     * Set translations.
      *
      * @param ArrayCollection $translations
      *
@@ -150,7 +152,7 @@ class Damage extends AbstractBase
     }
 
     /**
-     * Get translations
+     * Get translations.
      *
      * @return ArrayCollection
      */
@@ -164,6 +166,6 @@ class Damage extends AbstractBase
      */
     public function __toString()
     {
-        return $this->getCode() ? $this->getCode() . ' · ' . $this->getDescription() : '---';
+        return $this->getCode() ? $this->getCode().' · '.$this->getDescription() : '---';
     }
 }

@@ -7,9 +7,10 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * Abstract entities base class
+ * Abstract entities base class.
  *
  * @category Entity
+ *
  * @author   David Romaní <david@flux.cat>
  */
 abstract class AbstractBase
@@ -17,7 +18,7 @@ abstract class AbstractBase
     use RemovedAtTrait;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -42,18 +43,18 @@ abstract class AbstractBase
     protected $updatedAt;
 
     /**
-     * @var boolean
+     * @var bool
      *
      * @ORM\Column(type="boolean")
      */
     protected $enabled = true;
 
     /**
-     * Methods
+     * Methods.
      */
 
     /**
-     * Get id
+     * Get id.
      *
      * @return int
      */
@@ -63,7 +64,7 @@ abstract class AbstractBase
     }
 
     /**
-     * Set createdAt
+     * Set createdAt.
      *
      * @param \DateTime $createdAt
      *
@@ -77,7 +78,7 @@ abstract class AbstractBase
     }
 
     /**
-     * Get createdAt
+     * Get createdAt.
      *
      * @return \DateTime
      */
@@ -87,7 +88,7 @@ abstract class AbstractBase
     }
 
     /**
-     * Set updatedAt
+     * Set updatedAt.
      *
      * @param \DateTime $updatedAt
      *
@@ -101,7 +102,7 @@ abstract class AbstractBase
     }
 
     /**
-     * Get updatedAt
+     * Get updatedAt.
      *
      * @return \DateTime
      */
@@ -111,9 +112,9 @@ abstract class AbstractBase
     }
 
     /**
-     * Set Enabled
+     * Set Enabled.
      *
-     * @param boolean $enabled
+     * @param bool $enabled
      *
      * @return $this
      */
@@ -125,9 +126,9 @@ abstract class AbstractBase
     }
 
     /**
-     * Get Enabled
+     * Get Enabled.
      *
-     * @return boolean
+     * @return bool
      */
     public function getEnabled()
     {
@@ -135,12 +136,12 @@ abstract class AbstractBase
     }
 
     /**
-     * To string
+     * To string.
      *
      * @return string
      */
     public function __toString()
     {
-        return $this->id ? $this->getId() . ' · ' . $this->getCreatedAt()->format('d/m/Y') : '---';
+        return $this->id ? $this->getId().' · '.$this->getCreatedAt()->format('d/m/Y') : '---';
     }
 }

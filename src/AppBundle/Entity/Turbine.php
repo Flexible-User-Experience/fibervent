@@ -7,13 +7,12 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Turbine
+ * Turbine.
  *
  * @category Entity
- * @package  AppBundle\Entity
+ *
  * @author   Anton Serra <aserratorta@gmail.com>
  *
  * @ORM\Table(uniqueConstraints={@ORM\UniqueConstraint(name="model_unique", columns={"model", "power", "tower_height"})})
@@ -33,14 +32,14 @@ class Turbine extends AbstractBase
     private $model;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(type="integer")
      */
     private $towerHeight;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(type="float", precision=2)
      */
@@ -54,11 +53,7 @@ class Turbine extends AbstractBase
     private $windmills;
 
     /**
-     *
-     *
-     * Methods
-     *
-     *
+     * Methods.
      */
 
     /**
@@ -154,7 +149,7 @@ class Turbine extends AbstractBase
      */
     public function pdfToString()
     {
-        return $this->getModel() ? $this->getModel() . ' (' . $this->getPower() . 'MW)' : '---';
+        return $this->getModel() ? $this->getModel().' ('.$this->getPower().'MW)' : '---';
     }
 
     /**
@@ -162,6 +157,6 @@ class Turbine extends AbstractBase
      */
     public function __toString()
     {
-        return $this->getModel() ? $this->getModel() . ' (' . $this->getPower() . 'MW) ' . $this->getTowerHeight() . 'm' : '---';
+        return $this->getModel() ? $this->getModel().' ('.$this->getPower().'MW) '.$this->getTowerHeight().'m' : '---';
     }
 }

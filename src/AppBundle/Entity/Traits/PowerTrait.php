@@ -5,15 +5,16 @@ namespace AppBundle\Entity\Traits;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Class PowerTrait
+ * Class PowerTrait.
  *
  * @category Trait
+ *
  * @author   David Romaní <david@flux.cat>
  */
-Trait PowerTrait
+trait PowerTrait
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(type="float", precision=2, nullable=true)
      */

@@ -9,9 +9,10 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * Windmill
+ * Windmill.
  *
  * @category Entity
+ *
  * @author   Anton Serra <aserratorta@gmail.com>
  *
  * @ORM\Table(uniqueConstraints={@ORM\UniqueConstraint(name="windfarm_code_unique", columns={"windfarm_id", "code"})})
@@ -68,7 +69,7 @@ class Windmill extends AbstractBase
     private $audits;
 
     /**
-     * Methods
+     * Methods.
      */
 
     /**
@@ -235,7 +236,7 @@ class Windmill extends AbstractBase
      */
     public function getPdfModelString()
     {
-        return 'Torre ' . $this->getTurbine()->getTowerHeight() . 'm / Rotor Ø' . $this->getTurbine()->getRotorDiameter() . 'm / Pala ' . $this->getBladeType()->getLength() . 'm';
+        return 'Torre '.$this->getTurbine()->getTowerHeight().'m / Rotor Ø'.$this->getTurbine()->getRotorDiameter().'m / Pala '.$this->getBladeType()->getLength().'m';
     }
 
     /**
@@ -243,7 +244,7 @@ class Windmill extends AbstractBase
      */
     public function getPdfModelDimensionString()
     {
-        return 'Torre ' . $this->getTurbine()->getTowerHeight() . 'm / Rotor Ø' . $this->getTurbine()->getRotorDiameter() . 'm / Pala ' . $this->getBladeType()->getLength() . 'm';
+        return 'Torre '.$this->getTurbine()->getTowerHeight().'m / Rotor Ø'.$this->getTurbine()->getRotorDiameter().'m / Pala '.$this->getBladeType()->getLength().'m';
     }
 
     /**
@@ -268,6 +269,6 @@ class Windmill extends AbstractBase
      */
     public function __toString()
     {
-        return $this->getCode() ? $this->getWindfarm()->getCustomer()->getName() . ' · ' . $this->getWindfarm()->getName() . ' · ' . $this->getCode()  : '---';
+        return $this->getCode() ? $this->getWindfarm()->getCustomer()->getName().' · '.$this->getWindfarm()->getName().' · '.$this->getCode() : '---';
     }
 }

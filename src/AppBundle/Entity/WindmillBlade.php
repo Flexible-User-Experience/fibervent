@@ -5,13 +5,12 @@ namespace AppBundle\Entity;
 use AppBundle\Entity\Traits\CodeTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * WindmillBlade
+ * WindmillBlade.
  *
  * @category Entity
- * @package  AppBundle\Entity
+ *
  * @author   Anton Serra <aserratorta@gmail.com>
  *
  * @ORM\Table()
@@ -30,7 +29,7 @@ class WindmillBlade extends AbstractBase
     private $code;
 
     /**
-     * @var integer windmill blade order (1, 2, 3)
+     * @var int windmill blade order (1, 2, 3)
      *
      * @ORM\Column(name="`order`", type="integer", options={"default"=0})
      */
@@ -44,11 +43,7 @@ class WindmillBlade extends AbstractBase
     private $windmill;
 
     /**
-     *
-     *
-     * Methods
-     *
-     *
+     * Methods.
      */
 
     /**

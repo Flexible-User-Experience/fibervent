@@ -7,12 +7,13 @@ use Oh\GoogleMapFormTypeBundle\Validator\Constraints as OhAssert;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * GpsCoordinates trait
+ * GpsCoordinates trait.
  *
  * @category Trait
+ *
  * @author   Anton Serra <aserratorta@gmail.com>
  */
-Trait GpsCoordinatesTrait
+trait GpsCoordinatesTrait
 {
     /**
      * @var float
@@ -29,11 +30,7 @@ Trait GpsCoordinatesTrait
     private $gpsLatitude = 40.881604;
 
     /**
-     *
-     *
-     * Methods
-     *
-     *
+     * Methods.
      */
 
     /**
@@ -77,7 +74,7 @@ Trait GpsCoordinatesTrait
     }
 
     /**
-     * Get LatLng
+     * Get LatLng.
      *
      * @Assert\NotBlank()
      * @OhAssert\LatLng()
@@ -93,7 +90,7 @@ Trait GpsCoordinatesTrait
     }
 
     /**
-     * Set LatLng
+     * Set LatLng.
      *
      * @param array $latlng
      *
