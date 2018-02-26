@@ -219,13 +219,11 @@ class AuditRepository extends EntityRepository
                 $query
                     ->andWhere('a.beginDate >= :start')
                     ->setParameter('start', $this->transformReverseDateString($range['start']));
-                ;
             }
             if ($range['end'] != '') {
                 $query
                     ->andWhere('a.beginDate <= :end')
-                    ->setParameter('end',  $this->transformReverseDateString($range['end']));
-                ;
+                    ->setParameter('end', $this->transformReverseDateString($range['end']));
             }
         }
 
@@ -484,7 +482,7 @@ class AuditRepository extends EntityRepository
     }
 
     /**
-     * Transform string date format from 'd-m-Y' to 'Y-m-d'
+     * Transform string date format from 'd-m-Y' to 'Y-m-d'.
      *
      * @param string $dateString
      *
