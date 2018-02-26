@@ -10,21 +10,22 @@ use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
- * Class CustomerAdminController
+ * Class CustomerAdminController.
  *
  * @category Controller
- * @package  AppBundle\Controller
+ *
  * @author   David Romaní <david@flux.cat>
  */
 class UserAdminController extends AbstractBaseAdminController
 {
     /**
-     * Create windfarms map view
+     * Create windfarms map view.
      *
      * @param Request $request
      *
      * @return Response
-     * @throws NotFoundHttpException If the object does not exist
+     *
+     * @throws NotFoundHttpException     If the object does not exist
      * @throws AccessDeniedHttpException If access is not granted
      */
     public function profileAction(Request $request = null)
@@ -51,9 +52,9 @@ class UserAdminController extends AbstractBaseAdminController
         return $this->render(
             ':Admin/User:profile.html.twig',
             array(
-                'action'   => 'show',
-                'object'   => $user,
-                'form'     => $form->createView(),
+                'action' => 'show',
+                'object' => $user,
+                'form' => $form->createView(),
                 'elements' => $this->admin->getShow(),
             )
         );

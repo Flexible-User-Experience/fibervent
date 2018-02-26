@@ -9,7 +9,7 @@ use AppBundle\Entity\Audit;
 use AppBundle\Repository\DamageCategoryRepository;
 
 /**
- * Class WindmillBladesDamagesHelperFactory
+ * Class WindmillBladesDamagesHelperFactory.
  *
  * @category Factory
  *
@@ -23,7 +23,7 @@ class WindmillBladesDamagesHelperFactory
     private $dcr;
 
     /**
-     * Methods
+     * Methods.
      */
 
     /**
@@ -53,13 +53,11 @@ class WindmillBladesDamagesHelperFactory
 
         /** @var AuditWindmillBlade $auditWindmillBlade */
         foreach ($audit->getAuditWindmillBlades() as $auditWindmillBlade) {
-
             $bladeDamageHelper = new BladeDamageHelper();
             $bladeDamageHelper->setBlade($auditWindmillBlade->getWindmillBlade()->getOrder());
 
             /** @var DamageCategory $damageCategory */
             foreach ($this->dcr->findAllSortedByCategory() as $damageCategory) {
-
                 $categoryDamageHelper = new CategoryDamageHelper();
                 $categoryDamageHelper
                     ->setNumber($damageCategory->getCategory())
@@ -71,7 +69,7 @@ class WindmillBladesDamagesHelperFactory
                     if ($bladeDamage->getDamageCategory()->getId() == $damageCategory->getId()) {
                         $categoryDamageHelper->addLetterMark($lettersRange[$index]);
                         $bladeDamageHelper->addDamage($bladeDamage->getGeneralSummaryDamageRowtoString($lettersRange[$index]));
-                        $index++;
+                        ++$index;
                     }
                 }
 
@@ -85,7 +83,7 @@ class WindmillBladesDamagesHelperFactory
     }
 
     /**
-     * @param DamageCategory $damageCategory
+     * @param DamageCategory     $damageCategory
      * @param AuditWindmillBlade $auditWindmillBlade
      *
      * @return string

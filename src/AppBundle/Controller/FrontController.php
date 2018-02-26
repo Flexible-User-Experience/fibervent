@@ -7,10 +7,10 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
 /**
- * Class FrontController
+ * Class FrontController.
  *
  * @category Controller
- * @package  AppBundle\Controller
+ *
  * @author   David Romaní <david@flux.cat>
  */
 class FrontController extends Controller

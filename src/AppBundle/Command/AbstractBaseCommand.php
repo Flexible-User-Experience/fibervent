@@ -42,11 +42,7 @@ abstract class AbstractBaseCommand extends ContainerAwareCommand
     protected $filterManager;
 
     /**
-     *
-     *
-     * Methods
-     *
-     *
+     * Methods.
      */
 
     /**
@@ -62,7 +58,7 @@ abstract class AbstractBaseCommand extends ContainerAwareCommand
     protected function loadColumnData($colIndex, $searchArray)
     {
         if (!array_key_exists($colIndex, $searchArray)) {
-            throw new \Exception($colIndex . ' doesn\'t exists');
+            throw new \Exception($colIndex.' doesn\'t exists');
         }
 
         return $searchArray[$colIndex];
@@ -95,8 +91,8 @@ abstract class AbstractBaseCommand extends ContainerAwareCommand
     protected function persistObject($object)
     {
         if ($this->forceOptionIsEnabled) {
-                $this->em->persist($object);
-                $this->em->flush();
+            $this->em->persist($object);
+            $this->em->flush();
         }
     }
 }

@@ -6,10 +6,10 @@ use AppBundle\Entity\BladeDamage;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
 /**
- * Class BladeDamageAdminController
+ * Class BladeDamageAdminController.
  *
  * @category Controller
- * @package  AppBundle\Controller
+ *
  * @author   David Romaní <david@flux.cat>
  */
 class BladeDamageAdminController extends AbstractBaseAdminController

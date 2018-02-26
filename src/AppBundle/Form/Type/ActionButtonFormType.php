@@ -8,10 +8,10 @@ use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * ActionButtonFormType class
+ * ActionButtonFormType class.
  *
  * @category FormType
- * @package  AppBundle\Form\Type
+ *
  * @author   David Romaní <david@flux.cat>
  */
 class ActionButtonFormType extends AbstractType
@@ -33,19 +33,19 @@ class ActionButtonFormType extends AbstractType
             ->setDefaults(
                 array(
                     'text' => 'hack',
-                    'url'  => '#',
-                    'css'  => 'btn btn-primary',
+                    'url' => '#',
+                    'css' => 'btn btn-primary',
                     'icon' => 'fa fa-plus-square',
                 )
             );
     }
 
     /**
-     * Pass parameters to the view
+     * Pass parameters to the view.
      *
-     * @param FormView $view
+     * @param FormView      $view
      * @param FormInterface $form
-     * @param array $options
+     * @param array         $options
      */
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
@@ -55,8 +55,8 @@ class ActionButtonFormType extends AbstractType
             ) && array_key_exists('icon', $options)
         ) {
             $view->vars['text'] = $options['text'];
-            $view->vars['url']  = $options['url'];
-            $view->vars['css']  = $options['css'];
+            $view->vars['url'] = $options['url'];
+            $view->vars['css'] = $options['css'];
             $view->vars['icon'] = $options['icon'];
         }
     }

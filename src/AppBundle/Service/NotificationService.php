@@ -5,10 +5,10 @@ namespace AppBundle\Service;
 use Symfony\Component\Form\Form;
 
 /**
- * Class NotificationService
+ * Class NotificationService.
  *
  * @category Service
- * @package  AppBundle\Service
+ *
  * @author   David Romaní <david@flux.cat>
  */
 class NotificationService
@@ -19,17 +19,13 @@ class NotificationService
     private $messenger;
 
     /**
-     *
-     *
-     * Methods
-     *
-     *
+     * Methods.
      */
 
     /**
-     * NotificationService constructor
+     * NotificationService constructor.
      *
-     * @param CourierService    $messenger
+     * @param CourierService $messenger
      */
     public function __construct(CourierService $messenger)
     {
@@ -37,7 +33,7 @@ class NotificationService
     }
 
     /**
-     * Deliver PDF Audit
+     * Deliver PDF Audit.
      *
      * @param Form   $form
      * @param string $attatchmentPath

@@ -7,10 +7,10 @@ use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 
 /**
- * Class CustomerRepository
+ * Class CustomerRepository.
  *
  * @category Repository
- * @package  AppBundle\Repository
+ *
  * @author   Anton Serra <aserratorta@gmail.com>
  */
 class CustomerRepository extends EntityRepository

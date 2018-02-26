@@ -5,7 +5,7 @@ namespace AppBundle\Factory;
 use AppBundle\Service\WindfarmAuditsPdfBuilderService;
 
 /**
- * Class BladeDamageHelper
+ * Class BladeDamageHelper.
  *
  * @category FactoryHelper
  *
@@ -14,7 +14,7 @@ use AppBundle\Service\WindfarmAuditsPdfBuilderService;
 class BladeDamageHelper
 {
     /**
-     * @var integer
+     * @var int
      */
     private $blade;
 
@@ -29,12 +29,12 @@ class BladeDamageHelper
     private $damages;
 
     /**
-     * @var integer
+     * @var int
      */
     private $rowPdfHeight;
 
     /**
-     * Methods
+     * Methods.
      */
 
     /**

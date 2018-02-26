@@ -8,10 +8,10 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Intl\Intl;
 
 /**
- * State
+ * State.
  *
  * @category Entity
- * @package  AppBundle\Entity
+ *
  * @author   Anton Serra <aserratorta@gmail.com>
  *
  * @ORM\Table()
@@ -47,11 +47,7 @@ class State extends AbstractBase
     private $customers;
 
     /**
-     *
-     *
-     * Methods
-     *
-     *
+     * Methods.
      */
 
     /**
@@ -83,7 +79,7 @@ class State extends AbstractBase
     }
 
     /**
-     * Get CountryCode
+     * Get CountryCode.
      *
      * @return string
      */
@@ -93,7 +89,7 @@ class State extends AbstractBase
     }
 
     /**
-     * Set CountryCode
+     * Set CountryCode.
      *
      * @param string $countryCode
      *
@@ -107,7 +103,7 @@ class State extends AbstractBase
     }
 
     /**
-     * Get CountryName
+     * Get CountryName.
      *
      * @return string
      */
@@ -117,7 +113,7 @@ class State extends AbstractBase
     }
 
     /**
-     * Set CountryName
+     * Set CountryName.
      *
      * @param string $countryName
      *
@@ -155,6 +151,6 @@ class State extends AbstractBase
      */
     public function __toString()
     {
-        return $this->getName() ? $this->getName() . ' (' . $this->getCountryName() . ')' : '---';
+        return $this->getName() ? $this->getName().' ('.$this->getCountryName().')' : '---';
     }
 }

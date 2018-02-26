@@ -3,7 +3,7 @@
 namespace AppBundle\Factory;
 
 /**
- * Class WindmillBladesDamagesHelper
+ * Class WindmillBladesDamagesHelper.
  *
  * @category FactoryHelper
  *
@@ -22,17 +22,16 @@ class WindmillBladesDamagesHelper
     private $bladeDamages;
 
     /**
-     * @var integer
+     * @var int
      */
     private $totalPdfHeight;
 
     /**
-     * Methods
+     * Methods.
      */
 
     /**
      * WindmillBladesDamagesHelper constructor.
-     *
      */
     public function __construct()
     {

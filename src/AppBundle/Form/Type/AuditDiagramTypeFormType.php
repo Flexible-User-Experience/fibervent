@@ -8,10 +8,10 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 /**
- * AuditDiagramTypeFormType class
+ * AuditDiagramTypeFormType class.
  *
  * @category FormType
- * @package  AppBundle\Form\Type
+ *
  * @author   David Romaní <david@flux.cat>
  */
 class AuditDiagramTypeFormType extends AbstractType

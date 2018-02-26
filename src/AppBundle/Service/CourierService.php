@@ -2,13 +2,13 @@
 
 namespace AppBundle\Service;
 
-use \Swift_Message;
+use Swift_Message;
 
 /**
- * Class CourierService
+ * Class CourierService.
  *
  * @category Service
- * @package  AppBundle\Service
+ *
  * @author   David Romaní <david@flux.cat>
  */
 class CourierService
@@ -19,15 +19,11 @@ class CourierService
     private $mailer;
 
     /**
-     *
-     *
-     * Methods
-     *
-     *
+     * Methods.
      */
 
     /**
-     * CourierService constructor
+     * CourierService constructor.
      *
      * @param \Swift_Mailer $mailer
      */
@@ -37,7 +33,7 @@ class CourierService
     }
 
     /**
-     * Send an email
+     * Send an email.
      *
      * @param string $from
      * @param string $to
@@ -52,7 +48,7 @@ class CourierService
     }
 
     /**
-     * Send an email with CC and attatchment
+     * Send an email with CC and attatchment.
      *
      * @param string $from
      * @param string $to

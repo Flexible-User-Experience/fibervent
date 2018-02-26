@@ -6,13 +6,13 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Description trait
+ * Description trait.
  *
  * @category Trait
- * @package  AppBundle\Entity\Traits
+ *
  * @author   Anton Serra <aserratorta@gmail.com>
  */
-Trait DescriptionTrait
+trait DescriptionTrait
 {
     /**
      * @var string

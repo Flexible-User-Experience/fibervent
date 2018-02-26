@@ -6,10 +6,10 @@ use Doctrine\ORM\Mapping as ORM;
 use Sonata\UserBundle\Entity\BaseGroup as BaseGroup;
 
 /**
- * Class Group
+ * Class Group.
  *
  * @category Entity
- * @package  AppBundle\Entity
+ *
  * @author   David Romaní <david@flux.cat>
  *
  * @ORM\Entity(repositoryClass="AppBundle\Repository\GroupRepository")
@@ -18,7 +18,7 @@ use Sonata\UserBundle\Entity\BaseGroup as BaseGroup;
 class Group extends BaseGroup
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -27,17 +27,13 @@ class Group extends BaseGroup
     protected $id;
 
     /**
-     *
-     *
-     * Methods
-     *
-     *
+     * Methods.
      */
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {

@@ -9,10 +9,10 @@ use Doctrine\ORM\QueryBuilder;
 use Gedmo\Translatable\TranslatableListener;
 
 /**
- * Class DamageRepository
+ * Class DamageRepository.
  *
  * @category Repository
- * @package  AppBundle\Repository
+ *
  * @author   Anton Serra <aserratorta@gmail.com>
  */
 class DamageRepository extends EntityRepository
@@ -61,7 +61,7 @@ class DamageRepository extends EntityRepository
     }
 
     /**
-     * @param integer $id
+     * @param int $id
      *
      * @return QueryBuilder
      */
@@ -76,8 +76,8 @@ class DamageRepository extends EntityRepository
     }
 
     /**
-     * @param integer $id
-     * @param string  $locale
+     * @param int    $id
+     * @param string $locale
      *
      * @return Query
      */
@@ -93,8 +93,8 @@ class DamageRepository extends EntityRepository
     }
 
     /**
-     * @param integer $id
-     * @param string  $locale
+     * @param int    $id
+     * @param string $locale
      *
      * @return Damage
      */
@@ -104,8 +104,8 @@ class DamageRepository extends EntityRepository
     }
 
     /**
-     * @param integer $id
-     * @param string  $locale
+     * @param int    $id
+     * @param string $locale
      *
      * @return string
      */

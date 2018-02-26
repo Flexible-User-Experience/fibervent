@@ -3,13 +3,13 @@
 namespace AppBundle\Entity\Traits;
 
 /**
- * Code trait
+ * Code trait.
  *
  * @category Trait
- * @package  AppBundle\Entity\Traits
+ *
  * @author   Anton Serra <aserratorta@gmail.com>
  */
-Trait CodeTrait
+trait CodeTrait
 {
     /**
      * @return string

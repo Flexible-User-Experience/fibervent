@@ -9,10 +9,10 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * DamageCategory
+ * DamageCategory.
  *
  * @category Entity
- * @package  AppBundle\Entity
+ *
  * @author   Anton Serra <aserratorta@gmail.com>
  *
  * @ORM\Table()
@@ -25,7 +25,7 @@ class DamageCategory extends AbstractBase
     use DescriptionTrait;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(type="integer")
      */
@@ -61,20 +61,17 @@ class DamageCategory extends AbstractBase
      *     cascade={"persist", "remove"}
      * )
      * @Assert\Valid(deep = true)
+     *
      * @var ArrayCollection
      */
     private $translations;
 
     /**
-     *
-     *
-     * Methods
-     *
-     *
+     * Methods.
      */
 
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
@@ -170,7 +167,7 @@ class DamageCategory extends AbstractBase
     }
 
     /**
-     * Add translation
+     * Add translation.
      *
      * @param Translations\DamageCategoryTranslation $translation
      *
@@ -187,7 +184,7 @@ class DamageCategory extends AbstractBase
     }
 
     /**
-     * Remove translation
+     * Remove translation.
      *
      * @param Translations\DamageCategoryTranslation $translation
      *
@@ -201,7 +198,7 @@ class DamageCategory extends AbstractBase
     }
 
     /**
-     * Set translations
+     * Set translations.
      *
      * @param ArrayCollection $translations
      *
@@ -215,7 +212,7 @@ class DamageCategory extends AbstractBase
     }
 
     /**
-     * Get translations
+     * Get translations.
      *
      * @return ArrayCollection
      */

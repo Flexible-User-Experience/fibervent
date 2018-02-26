@@ -17,10 +17,10 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
- * Customer
+ * Customer.
  *
  * @category Entity
- * @package  AppBundle\Entity
+ *
  * @author   Anton Serra <aserratorta@gmail.com>
  *
  * @ORM\Table()
@@ -109,7 +109,7 @@ class Customer extends AbstractBase
     private $showLogoInPdfs = false;
 
     /**
-     * Methods
+     * Methods.
      */
 
     /**
@@ -243,7 +243,7 @@ class Customer extends AbstractBase
     public function setContacts($contacts)
     {
         $this->contacts = $contacts;
-        
+
         return $this;
     }
 

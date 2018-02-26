@@ -14,10 +14,10 @@ use AppBundle\Repository\WindfarmRepository;
 use AppBundle\Repository\WindmillRepository;
 
 /**
- * Class RepositoriesService
+ * Class RepositoriesService.
  *
  * @category Service
- * @package  AppBundle\Service
+ *
  * @author   David Romaní <david@flux.cat>
  */
 class RepositoriesService
@@ -73,39 +73,35 @@ class RepositoriesService
     private $ar;
 
     /**
-     *
-     *
-     * Methods
-     *
-     *
+     * Methods.
      */
 
     /**
-     * RepositoriesService constructor
+     * RepositoriesService constructor.
      *
-     * @param CustomerRepository         $cr
-     * @param UserRepository             $ur
-     * @param WindmillRepository         $wmr
-     * @param WindfarmRepository         $wfr
-     * @param BladeRepository            $br
-     * @param TurbineRepository          $tr
-     * @param StateRepository            $sr
-     * @param DamageRepository           $dr
-     * @param DamageCategoryRepository   $dcr
-     * @param AuditRepository            $ar
+     * @param CustomerRepository       $cr
+     * @param UserRepository           $ur
+     * @param WindmillRepository       $wmr
+     * @param WindfarmRepository       $wfr
+     * @param BladeRepository          $br
+     * @param TurbineRepository        $tr
+     * @param StateRepository          $sr
+     * @param DamageRepository         $dr
+     * @param DamageCategoryRepository $dcr
+     * @param AuditRepository          $ar
      */
     public function __construct(CustomerRepository $cr, UserRepository $ur, WindmillRepository $wmr, WindfarmRepository $wfr, BladeRepository $br, TurbineRepository $tr, StateRepository $sr, DamageRepository $dr, DamageCategoryRepository $dcr, AuditRepository $ar)
     {
-        $this->cr  = $cr;
-        $this->ur  = $ur;
+        $this->cr = $cr;
+        $this->ur = $ur;
         $this->wmr = $wmr;
         $this->wfr = $wfr;
-        $this->br  = $br;
-        $this->tr  = $tr;
-        $this->sr  = $sr;
-        $this->dr  = $dr;
+        $this->br = $br;
+        $this->tr = $tr;
+        $this->sr = $sr;
+        $this->dr = $dr;
         $this->dcr = $dcr;
-        $this->ar  = $ar;
+        $this->ar = $ar;
     }
 
     /**

@@ -6,10 +6,10 @@ use Sonata\AdminBundle\Controller\CRUDController as Controller;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Abstract class AuditAdminController
+ * Abstract class AuditAdminController.
  *
  * @category Controller
- * @package  AppBundle\Controller
+ *
  * @author   David Romaní <david@flux.cat>
  */
 abstract class AbstractBaseAdminController extends Controller
@@ -29,7 +29,7 @@ abstract class AbstractBaseAdminController extends Controller
     }
 
     /**
-     * Get redirect URL depend on choice
+     * Get redirect URL depend on choice.
      *
      * @param Request $request
      * @param mixed   $object
