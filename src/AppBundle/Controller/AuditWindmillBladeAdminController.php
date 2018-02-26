@@ -6,10 +6,10 @@ use AppBundle\Entity\AuditWindmillBlade;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
 /**
- * Class AuditWindmillBladeAdminController
+ * Class AuditWindmillBladeAdminController.
  *
  * @category Controller
- * @package  AppBundle\Controller
+ *
  * @author   David Romaní <david@flux.cat>
  */
 class AuditWindmillBladeAdminController extends AbstractBaseAdminController

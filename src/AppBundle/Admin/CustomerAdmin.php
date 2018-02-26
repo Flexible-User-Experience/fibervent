@@ -13,10 +13,10 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 
 /**
- * Class CustomerAdmin
+ * Class CustomerAdmin.
  *
  * @category Admin
- * @package  AppBundle\Admin
+ *
  * @author   Anton Serra <aserratorta@gmail.com>
  */
 class CustomerAdmin extends AbstractBaseAdmin
@@ -24,12 +24,12 @@ class CustomerAdmin extends AbstractBaseAdmin
     protected $classnameLabel = 'admin.customer.title';
     protected $baseRoutePattern = 'customers/customer';
     protected $datagridValues = array(
-        '_sort_by'    => 'name',
+        '_sort_by' => 'name',
         '_sort_order' => 'asc',
     );
 
     /**
-     * Configure route collection
+     * Configure route collection.
      *
      * @param RouteCollection $collection
      */
@@ -37,7 +37,7 @@ class CustomerAdmin extends AbstractBaseAdmin
     {
         parent::configureRoutes($collection);
         $collection
-            ->add('map', $this->getRouterIdParameter() . '/map')
+            ->add('map', $this->getRouterIdParameter().'/map')
             ->remove('delete')
         ;
     }
@@ -53,8 +53,8 @@ class CustomerAdmin extends AbstractBaseAdmin
                 'imageFile',
                 FileType::class,
                 array(
-                    'label'    => 'admin.customer.image',
-                    'help'     => $this->getImageHelperFormMapperWithThumbnail(250),
+                    'label' => 'admin.customer.image',
+                    'help' => $this->getImageHelperFormMapperWithThumbnail(250),
                     'required' => false,
                 )
             )
@@ -62,7 +62,7 @@ class CustomerAdmin extends AbstractBaseAdmin
                 'showLogoInPdfs',
                 CheckboxType::class,
                 array(
-                    'label'    => 'admin.customer.show_logo_in_pdfs',
+                    'label' => 'admin.customer.show_logo_in_pdfs',
                     'required' => false,
                 )
             )
@@ -70,7 +70,7 @@ class CustomerAdmin extends AbstractBaseAdmin
                 'code',
                 null,
                 array(
-                    'label'    => 'admin.customer.code',
+                    'label' => 'admin.customer.code',
                     'required' => false,
                 )
             )
@@ -85,7 +85,7 @@ class CustomerAdmin extends AbstractBaseAdmin
                 'enabled',
                 null,
                 array(
-                    'label'    => 'admin.common.enabled',
+                    'label' => 'admin.common.enabled',
                 )
             )
             ->end()
@@ -94,7 +94,7 @@ class CustomerAdmin extends AbstractBaseAdmin
                 'email',
                 EmailType::class,
                 array(
-                    'label'    => 'admin.customer.email',
+                    'label' => 'admin.customer.email',
                     'required' => false,
                 )
             )
@@ -109,9 +109,9 @@ class CustomerAdmin extends AbstractBaseAdmin
                 'web',
                 UrlType::class,
                 array(
-                    'label'       => 'admin.customer.web',
-                    'required'    => false,
-                    'help'        => 'http://...',
+                    'label' => 'admin.customer.web',
+                    'required' => false,
+                    'help' => 'http://...',
                     'sonata_help' => 'http://...',
                 )
             )
@@ -142,11 +142,11 @@ class CustomerAdmin extends AbstractBaseAdmin
                 'state',
                 ModelType::class,
                 array(
-                    'label'      => 'admin.customer.state',
-                    'btn_add'    => true,
+                    'label' => 'admin.customer.state',
+                    'btn_add' => true,
                     'btn_delete' => false,
-                    'required'   => true,
-                    'query'      => $this->sr->findAllSortedByNameQ(),
+                    'required' => true,
+                    'query' => $this->sr->findAllSortedByNameQ(),
                     'choices_as_values' => true,
                 )
             )
@@ -158,13 +158,13 @@ class CustomerAdmin extends AbstractBaseAdmin
                     'contacts',
                     ModelType::class,
                     array(
-                        'label'        => ' ',
-                        'property'     => 'fullContactInfoString',
-                        'required'     => false,
-                        'multiple'     => true,
-                        'btn_add'      => false,
+                        'label' => ' ',
+                        'property' => 'fullContactInfoString',
+                        'required' => false,
+                        'multiple' => true,
+                        'btn_add' => false,
                         'by_reference' => false,
-                        'query'        => $this->ur->findOnlyAvailableSortedByNameQ($this->getSubject()),
+                        'query' => $this->ur->findOnlyAvailableSortedByNameQ($this->getSubject()),
                         'choices_as_values' => true,
                     )
                 )
@@ -174,12 +174,12 @@ class CustomerAdmin extends AbstractBaseAdmin
                     'windfarms',
                     ModelType::class,
                     array(
-                        'label'        => ' ',
-                        'required'     => false,
-                        'multiple'     => true,
-                        'btn_add'      => false,
+                        'label' => ' ',
+                        'required' => false,
+                        'multiple' => true,
+                        'btn_add' => false,
                         'by_reference' => false,
-                        'query'        => $this->wfr->findOnlyAvailableSortedByNameQ($this->getSubject()),
+                        'query' => $this->wfr->findOnlyAvailableSortedByNameQ($this->getSubject()),
                         'choices_as_values' => true,
                     )
                 )
@@ -286,7 +286,7 @@ class CustomerAdmin extends AbstractBaseAdmin
                 'photo',
                 null,
                 array(
-                    'label'    => 'admin.customer.image',
+                    'label' => 'admin.customer.image',
                     'template' => '::Admin/Cells/list__cell_customer_image_field.html.twig',
                 )
             )
@@ -294,7 +294,7 @@ class CustomerAdmin extends AbstractBaseAdmin
                 'code',
                 null,
                 array(
-                    'label'    => 'admin.customer.code',
+                    'label' => 'admin.customer.code',
                     'editable' => true,
                 )
             )
@@ -302,7 +302,7 @@ class CustomerAdmin extends AbstractBaseAdmin
                 'name',
                 null,
                 array(
-                    'label'    => 'admin.customer.name',
+                    'label' => 'admin.customer.name',
                     'editable' => true,
                 )
             )
@@ -310,7 +310,7 @@ class CustomerAdmin extends AbstractBaseAdmin
                 'email',
                 null,
                 array(
-                    'label'    => 'admin.customer.email',
+                    'label' => 'admin.customer.email',
                     'editable' => true,
                 )
             )
@@ -318,7 +318,7 @@ class CustomerAdmin extends AbstractBaseAdmin
                 'phone',
                 null,
                 array(
-                    'label'    => 'admin.customer.phone',
+                    'label' => 'admin.customer.phone',
                     'editable' => true,
                 )
             )
@@ -326,7 +326,7 @@ class CustomerAdmin extends AbstractBaseAdmin
                 'city',
                 null,
                 array(
-                    'label'    => 'admin.customer.city',
+                    'label' => 'admin.customer.city',
                     'editable' => true,
                 )
             )
@@ -334,7 +334,7 @@ class CustomerAdmin extends AbstractBaseAdmin
                 'showLogoInPdfs',
                 null,
                 array(
-                    'label'    => 'admin.customer.show_logo_in_pdfs',
+                    'label' => 'admin.customer.show_logo_in_pdfs',
                     'editable' => true,
                 )
             )
@@ -342,7 +342,7 @@ class CustomerAdmin extends AbstractBaseAdmin
                 'enabled',
                 null,
                 array(
-                    'label'    => 'admin.common.enabled',
+                    'label' => 'admin.common.enabled',
                     'editable' => true,
                 )
             )
@@ -350,11 +350,11 @@ class CustomerAdmin extends AbstractBaseAdmin
                 '_action',
                 'actions',
                 array(
-                    'label'   => 'admin.common.action',
+                    'label' => 'admin.common.action',
                     'actions' => array(
-                        'edit'   => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
-                        'map'    => array('template' => '::Admin/Buttons/list__action_map_button.html.twig'),
-                    )
+                        'edit' => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
+                        'map' => array('template' => '::Admin/Buttons/list__action_map_button.html.twig'),
+                    ),
                 )
             );
     }

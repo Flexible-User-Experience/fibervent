@@ -512,6 +512,7 @@ class AuditAdmin extends AbstractBaseAdmin
 
     // TODO fix this error behaviour: when windmill blades are changed after an existing audit makes inconsistent references
     // TODO related problem with Sonata >3.20.1 upgrade (but it works with Sonata v1.15.0)
+
     /**
      * @param Audit $object
      */

@@ -13,10 +13,10 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * UserProfileFormType class
+ * UserProfileFormType class.
  *
  * @category FormType
- * @package  AppBundle\Form\Type
+ *
  * @author   David Romaní <david@flux.cat>
  */
 class UserProfileFormType extends AbstractType
@@ -32,8 +32,8 @@ class UserProfileFormType extends AbstractType
                 'username',
                 TextType::class,
                 array(
-                    'label'     => 'admin.user.username',
-                    'required'  => false,
+                    'label' => 'admin.user.username',
+                    'required' => false,
                     'read_only' => true,
                 )
             )
@@ -41,8 +41,8 @@ class UserProfileFormType extends AbstractType
                 'email',
                 EmailType::class,
                 array(
-                    'label'     => 'admin.user.email',
-                    'required'  => false,
+                    'label' => 'admin.user.email',
+                    'required' => false,
                     'read_only' => true,
                 )
             )
@@ -50,7 +50,7 @@ class UserProfileFormType extends AbstractType
                 'firstname',
                 TextType::class,
                 array(
-                    'label'    => 'admin.user.firstname',
+                    'label' => 'admin.user.firstname',
                     'required' => true,
                 )
             )
@@ -58,7 +58,7 @@ class UserProfileFormType extends AbstractType
                 'lastname',
                 TextType::class,
                 array(
-                    'label'    => 'admin.user.lastname',
+                    'label' => 'admin.user.lastname',
                     'required' => true,
                 )
             )
@@ -66,7 +66,7 @@ class UserProfileFormType extends AbstractType
                 'phone',
                 TextType::class,
                 array(
-                    'label'    => 'admin.user.phone',
+                    'label' => 'admin.user.phone',
                     'required' => false,
                 )
             )
@@ -74,7 +74,7 @@ class UserProfileFormType extends AbstractType
                 'imageFile',
                 FileType::class,
                 array(
-                    'label'    => ' ',
+                    'label' => ' ',
                     'required' => false,
                 )
             )
@@ -82,8 +82,8 @@ class UserProfileFormType extends AbstractType
                 'language',
                 ChoiceType::class,
                 array(
-                    'label'    => 'admin.user.language',
-                    'choices'  => WindfarmLanguageEnum::getEnumArrayString(),
+                    'label' => 'admin.user.language',
+                    'choices' => WindfarmLanguageEnum::getEnumArrayString(),
                     'multiple' => false,
                     'expanded' => false,
                     'required' => true,
@@ -94,9 +94,9 @@ class UserProfileFormType extends AbstractType
                 SubmitType::class,
                 array(
                     'label' => 'admin.user.update',
-                    'attr'  => array(
+                    'attr' => array(
                         'class' => 'btn btn-success',
-                    )
+                    ),
                 )
             );
     }

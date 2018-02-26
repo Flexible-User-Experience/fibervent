@@ -7,10 +7,10 @@ use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 
 /**
- * Class TurbineRepository
+ * Class TurbineRepository.
  *
  * @category Repository
- * @package  AppBundle\Repository
+ *
  * @author   Anton Serra <aserratorta@gmail.com>
  */
 class TurbineRepository extends EntityRepository

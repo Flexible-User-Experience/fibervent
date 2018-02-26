@@ -5,20 +5,21 @@ namespace AppBundle\Enum;
 use AppBundle\Entity\Audit;
 
 /**
- * Class AuditTypeEnum
+ * Class AuditTypeEnum.
  *
  * @category Enum
+ *
  * @author   David Romaní <david@flux.cat>
  */
 class AuditTypeEnum
 {
-    const GROUND   = 0;
-    const ROPE     = 1;
-    const INSIDE   = 2;
+    const GROUND = 0;
+    const ROPE = 1;
+    const INSIDE = 2;
     const PLATFORM = 3;
 
     /**
-     * Methods
+     * Methods.
      */
 
     /**
@@ -27,9 +28,9 @@ class AuditTypeEnum
     public static function getEnumArray()
     {
         return array(
-            self::GROUND   => 'enum.audit_type.ground',
-            self::ROPE     => 'enum.audit_type.rope',
-            self::INSIDE   => 'enum.audit_type.inside',
+            self::GROUND => 'enum.audit_type.ground',
+            self::ROPE => 'enum.audit_type.rope',
+            self::INSIDE => 'enum.audit_type.inside',
             self::PLATFORM => 'enum.audit_type.platform',
         );
     }

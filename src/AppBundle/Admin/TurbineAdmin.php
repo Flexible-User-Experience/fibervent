@@ -8,10 +8,10 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 
 /**
- * Class TurbineAdmin
+ * Class TurbineAdmin.
  *
  * @category Admin
- * @package  AppBundle\Admin
+ *
  * @author   Anton Serra <aserratorta@gmail.com>
  */
 class TurbineAdmin extends AbstractBaseAdmin
@@ -19,12 +19,12 @@ class TurbineAdmin extends AbstractBaseAdmin
     protected $classnameLabel = 'admin.turbine.title';
     protected $baseRoutePattern = 'windfarms/turbine';
     protected $datagridValues = array(
-        '_sort_by'    => 'model',
+        '_sort_by' => 'model',
         '_sort_order' => 'desc',
     );
 
     /**
-     * Configure route collection
+     * Configure route collection.
      *
      * @param RouteCollection $collection
      */
@@ -45,7 +45,7 @@ class TurbineAdmin extends AbstractBaseAdmin
                 'model',
                 null,
                 array(
-                    'label'    => 'admin.blade.model',
+                    'label' => 'admin.blade.model',
                     'required' => true,
                 )
             )
@@ -53,23 +53,23 @@ class TurbineAdmin extends AbstractBaseAdmin
                 'towerHeight',
                 null,
                 array(
-                    'label'       => 'admin.turbine.height',
-                    'required'    => true,
+                    'label' => 'admin.turbine.height',
+                    'required' => true,
                 )
             )
             ->add(
                 'rotorDiameter',
                 null,
                 array(
-                    'label'       => 'admin.turbine.diameter',
-                    'required'    => true,
+                    'label' => 'admin.turbine.diameter',
+                    'required' => true,
                 )
             )
             ->add(
                 'power',
                 null,
                 array(
-                    'label'       => 'admin.turbine.power',
+                    'label' => 'admin.turbine.power',
                 )
             )
             ->end();
@@ -122,7 +122,7 @@ class TurbineAdmin extends AbstractBaseAdmin
                 'model',
                 null,
                 array(
-                    'label'    => 'admin.blade.model',
+                    'label' => 'admin.blade.model',
                     'editable' => true,
                 )
             )
@@ -130,7 +130,7 @@ class TurbineAdmin extends AbstractBaseAdmin
                 'rotorDiameter',
                 'decimal',
                 array(
-                    'label'    => 'admin.turbine.diameter',
+                    'label' => 'admin.turbine.diameter',
                     'editable' => true,
                 )
             )
@@ -138,7 +138,7 @@ class TurbineAdmin extends AbstractBaseAdmin
                 'power',
                 'decimal',
                 array(
-                    'label'    => 'admin.turbine.power',
+                    'label' => 'admin.turbine.power',
                     'editable' => true,
                 )
             )
@@ -146,7 +146,7 @@ class TurbineAdmin extends AbstractBaseAdmin
                 'towerHeight',
                 'decimal',
                 array(
-                    'label'    => 'admin.turbine.height',
+                    'label' => 'admin.turbine.height',
                     'editable' => true,
                 )
             )
@@ -154,11 +154,11 @@ class TurbineAdmin extends AbstractBaseAdmin
                 '_action',
                 'actions',
                 array(
-                    'label'   => 'admin.common.action',
+                    'label' => 'admin.common.action',
                     'actions' => array(
-                        'edit'   => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
+                        'edit' => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
                         'delete' => array('template' => '::Admin/Buttons/list__action_delete_button.html.twig'),
-                    )
+                    ),
                 )
             );
     }

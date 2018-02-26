@@ -30,15 +30,11 @@ class RebuildCacheImagesCommand extends AbstractBaseCommand
     private $blPhotosNotFound = 0;
 
     /**
-     *
-     *
-     * Methods
-     *
-     *
+     * Methods.
      */
 
     /**
-     * Configure command
+     * Configure command.
      */
     protected function configure()
     {
@@ -48,9 +44,9 @@ class RebuildCacheImagesCommand extends AbstractBaseCommand
     }
 
     /**
-     * Execute command
+     * Execute command.
      *
-     * @param InputInterface $input
+     * @param InputInterface  $input
      * @param OutputInterface $output
      *
      * @return int|null|void
@@ -60,10 +56,10 @@ class RebuildCacheImagesCommand extends AbstractBaseCommand
         $output->writeln('<info>Welcome to Rebuild cache images command</info>');
 
         // Validate arguments
-        $this->em             = $this->getContainer()->get('doctrine');
-        $this->filterManager  = $this->getContainer()->get('liip_imagine.filter.manager');
-        $this->cacheManager   = $this->getContainer()->get('liip_imagine.cache.manager');
-        $this->dataManager    = $this->getContainer()->get('liip_imagine.data.manager');
+        $this->em = $this->getContainer()->get('doctrine');
+        $this->filterManager = $this->getContainer()->get('liip_imagine.filter.manager');
+        $this->cacheManager = $this->getContainer()->get('liip_imagine.cache.manager');
+        $this->dataManager = $this->getContainer()->get('liip_imagine.data.manager');
         $this->uploaderHelper = $this->getContainer()->get('vich_uploader.templating.helper.uploader_helper');
 
         $output->writeln('Loading pictures, please wait...');
@@ -74,11 +70,11 @@ class RebuildCacheImagesCommand extends AbstractBaseCommand
         $bladePhotos = $this->em->getRepository('AppBundle:BladePhoto')->findAll();
         $this->buildImagesCacheCollection($bladePhotos, $output, 'Blade Photo');
 
-        $output->writeln('Total records ' . ($this->photosFound + $this->photosNotFound + $this->blPhotosFound + $this->blPhotosNotFound));
-        $output->writeln('Created Photos '. $this->photosFound);
-        $output->writeln('Errors Photos '. $this->photosNotFound);
-        $output->writeln('Created BladePhotos '. $this->blPhotosFound);
-        $output->writeln('Errors BladePhotos '. $this->blPhotosNotFound);
+        $output->writeln('Total records '.($this->photosFound + $this->photosNotFound + $this->blPhotosFound + $this->blPhotosNotFound));
+        $output->writeln('Created Photos '.$this->photosFound);
+        $output->writeln('Errors Photos '.$this->photosNotFound);
+        $output->writeln('Created BladePhotos '.$this->blPhotosFound);
+        $output->writeln('Errors BladePhotos '.$this->blPhotosNotFound);
 
         return true;
     }
@@ -90,8 +86,7 @@ class RebuildCacheImagesCommand extends AbstractBaseCommand
      */
     private function buildImagesCacheCollection($collection, $output, $type)
     {
-        foreach($collection as $item)
-        {
+        foreach ($collection as $item) {
             $path = $this->uploaderHelper->asset($item, 'imageFile');
             if ($path) {
                 $this->buildImageCache($output, $item, $type, '960x540', $path);
@@ -138,7 +133,7 @@ class RebuildCacheImagesCommand extends AbstractBaseCommand
      * @param string           $type
      * @param string           $filter
      * @param string           $path
-     * @param boolean          $isCreated
+     * @param bool             $isCreated
      */
     private function writeMessage(OutputInterface $output, $object, $type, $filter, $path, $isCreated)
     {
@@ -147,6 +142,6 @@ class RebuildCacheImagesCommand extends AbstractBaseCommand
         } else {
             $ending = '<error>Not created</error>';
         }
-        $output->writeln($type.' #'.$object->getId().' '. $filter.' '.$object->getImageName().' '.$path.' '.$ending);
+        $output->writeln($type.' #'.$object->getId().' '.$filter.' '.$object->getImageName().' '.$path.' '.$ending);
     }
 }

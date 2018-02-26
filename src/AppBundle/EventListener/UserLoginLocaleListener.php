@@ -8,10 +8,10 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 
 /**
- * Class UserLoginLocaleListener
+ * Class UserLoginLocaleListener.
  *
  * @category Listener
- * @package  AppBundle\EventListener
+ *
  * @author   David Romaní <david@flux.cat>
  *
  * Stores the locale of the user in the session after the
@@ -25,15 +25,11 @@ class UserLoginLocaleListener
     private $session;
 
     /**
-     *
-     *
-     * Methods
-     *
-     *
+     * Methods.
      */
 
     /**
-     * UserLoginLocaleListener constructor
+     * UserLoginLocaleListener constructor.
      *
      * @param Session $session
      */

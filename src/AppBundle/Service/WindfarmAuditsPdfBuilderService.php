@@ -19,16 +19,16 @@ use AppBundle\Pdf\CustomTcpdf;
  */
 class WindfarmAuditsPdfBuilderService extends AbstractPdfBuilderService
 {
-    const DAMAGE_HEADER_WIDTH_WINDFARM_INSPECTION  = 80;
+    const DAMAGE_HEADER_WIDTH_WINDFARM_INSPECTION = 80;
     const DAMAGE_HEADER_HEIGHT_WINDFARM_INSPECTION = 6;
-    const DAMAGE_HEADER_WIDTH_GENERAL_SUMMARY      = 60;
-    const DAMAGE_HEADER_HEIGHT_GENERAL_SUMMARY     = 4;
+    const DAMAGE_HEADER_WIDTH_GENERAL_SUMMARY = 60;
+    const DAMAGE_HEADER_HEIGHT_GENERAL_SUMMARY = 4;
 
     /**
      * @param Windfarm $windfarm
      * @param array    $damageCategories
      * @param array    $audits
-     * @param integer  $year
+     * @param int      $year
      * @param array    $dateRanges
      *
      * @return \TCPDF
@@ -307,7 +307,7 @@ class WindfarmAuditsPdfBuilderService extends AbstractPdfBuilderService
      * Draw damage table header.
      *
      * @param CustomTcpdf $pdf
-     * @param array $damageCategories
+     * @param array       $damageCategories
      */
     private function drawWindfarmInspectionTableHeader(CustomTcpdf $pdf, $damageCategories)
     {
@@ -331,8 +331,8 @@ class WindfarmAuditsPdfBuilderService extends AbstractPdfBuilderService
      * Draw damage table header.
      *
      * @param CustomTcpdf $pdf
-     * @param Audit $audit
-     * @param array $damageCategories
+     * @param Audit       $audit
+     * @param array       $damageCategories
      */
     private function drawWindfarmInspectionTableBodyRow(CustomTcpdf $pdf, Audit $audit, $damageCategories)
     {

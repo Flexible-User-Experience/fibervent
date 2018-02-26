@@ -6,10 +6,10 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Translatable\Entity\MappedSuperclass\AbstractPersonalTranslation;
 
 /**
- * Class DamageTranslation
+ * Class DamageTranslation.
  *
  * @category Translation
- * @package  AppBundle\Entity\Translations
+ *
  * @author   David Romaní <david@flux.cat>
  *
  * @ORM\Entity

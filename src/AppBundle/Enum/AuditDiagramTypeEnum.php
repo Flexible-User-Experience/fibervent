@@ -3,10 +3,10 @@
 namespace AppBundle\Enum;
 
 /**
- * AuditDiagramTypeEnum class
+ * AuditDiagramTypeEnum class.
  *
  * @category Enum
- * @package  AppBundle\Enum
+ *
  * @author   David Romaní <david@flux.cat>
  */
 class AuditDiagramTypeEnum

@@ -52,9 +52,9 @@ class UserAdmin extends ParentUserAdmin
     /**
      * UserAdmin constructor.
      *
-     * @param string $code
-     * @param string $class
-     * @param string $baseControllerName
+     * @param string               $code
+     * @param string               $class
+     * @param string               $baseControllerName
      * @param UserManagerInterface $userManager
      */
     public function __construct($code, $class, $baseControllerName, UserManagerInterface $userManager)

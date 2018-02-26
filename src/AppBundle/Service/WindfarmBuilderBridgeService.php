@@ -11,6 +11,7 @@ use Symfony\Component\Translation\TranslatorInterface;
  * Class Windfarm Builder Bridge Service.
  *
  * @category Service
+ *
  * @author   David Romaní <david@flux.cat>
  */
 class WindfarmBuilderBridgeService
@@ -21,7 +22,7 @@ class WindfarmBuilderBridgeService
     private $ts;
 
     /**
-     * Methods
+     * Methods.
      */
 
     /**

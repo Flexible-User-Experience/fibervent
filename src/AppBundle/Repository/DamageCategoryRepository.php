@@ -8,10 +8,10 @@ use Doctrine\ORM\QueryBuilder;
 use Gedmo\Translatable\TranslatableListener;
 
 /**
- * Class DamageCategoryRepository
+ * Class DamageCategoryRepository.
  *
  * @category Repository
- * @package  AppBundle\Repository
+ *
  * @author   Anton Serra <aserratorta@gmail.com>
  */
 class DamageCategoryRepository extends EntityRepository

@@ -9,9 +9,10 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * Audit
+ * Audit.
  *
  * @category Entity
+ *
  * @author   Anton Serra <aserratorta@gmail.com>
  *
  * @ORM\Table()
@@ -37,21 +38,21 @@ class Audit extends AbstractBase
     protected $endDate;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(type="integer")
      */
     protected $status;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(type="integer", options={"default"=1})
      */
     protected $diagramType = 1;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(type="integer", options={"default"=0})
      */
@@ -102,14 +103,14 @@ class Audit extends AbstractBase
     private $customer;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(type="integer", options={"default"=0})
      */
     protected $language = 0;
 
     /**
-     * Methods
+     * Methods.
      */
 
     /**
@@ -423,7 +424,7 @@ class Audit extends AbstractBase
     }
 
     /**
-     * Get Language
+     * Get Language.
      *
      * @return int
      */
@@ -433,7 +434,7 @@ class Audit extends AbstractBase
     }
 
     /**
-     * Set Language
+     * Set Language.
      *
      * @param int $language
      *
@@ -451,6 +452,6 @@ class Audit extends AbstractBase
      */
     public function __toString()
     {
-        return $this->id ? $this->getBeginDate()->format('d/m/Y') . ' · ' . $this->getWindmill() :  '---';
+        return $this->id ? $this->getBeginDate()->format('d/m/Y').' · '.$this->getWindmill() : '---';
     }
 }

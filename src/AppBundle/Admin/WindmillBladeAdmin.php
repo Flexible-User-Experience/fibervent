@@ -7,10 +7,10 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 
 /**
- * Class WindmillBladeAdmin
+ * Class WindmillBladeAdmin.
  *
  * @category Admin
- * @package  AppBundle\Admin
+ *
  * @author   Anton Serra <aserratorta@gmail.com>
  */
 class WindmillBladeAdmin extends AbstractBaseAdmin
@@ -18,7 +18,7 @@ class WindmillBladeAdmin extends AbstractBaseAdmin
     protected $classnameLabel = 'admin.windmillblade.title';
     protected $baseRoutePattern = 'windfarms/windmill-blade';
     protected $datagridValues = array(
-        '_sort_by'    => 'code',
+        '_sort_by' => 'code',
         '_sort_order' => 'desc',
     );
 
@@ -33,7 +33,7 @@ class WindmillBladeAdmin extends AbstractBaseAdmin
                 'code',
                 null,
                 array(
-                    'label'    => 'admin.windmillblade.sn',
+                    'label' => 'admin.windmillblade.sn',
                     'required' => true,
                 )
             )
@@ -57,7 +57,7 @@ class WindmillBladeAdmin extends AbstractBaseAdmin
                 'enabled',
                 null,
                 array(
-                    'label'    => 'admin.common.enabled',
+                    'label' => 'admin.common.enabled',
                     'editable' => true,
                 )
             );
@@ -74,7 +74,7 @@ class WindmillBladeAdmin extends AbstractBaseAdmin
                 'code',
                 null,
                 array(
-                    'label'    => 'admin.damage.code',
+                    'label' => 'admin.damage.code',
                     'editable' => true,
                 )
             )
@@ -82,11 +82,11 @@ class WindmillBladeAdmin extends AbstractBaseAdmin
                 '_action',
                 'actions',
                 array(
-                    'label'   => 'admin.common.action',
+                    'label' => 'admin.common.action',
                     'actions' => array(
-                        'edit'   => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
+                        'edit' => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
                         'delete' => array('template' => '::Admin/Buttons/list__action_delete_button.html.twig'),
-                    )
+                    ),
                 )
             );
     }

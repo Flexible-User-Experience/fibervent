@@ -8,7 +8,7 @@ use AppBundle\Enum\BladeDamagePositionEnum;
 use AppBundle\Pdf\CustomTcpdf;
 
 /**
- * Class AuditModelDiagramBridgeService
+ * Class AuditModelDiagramBridgeService.
  *
  * @category Service
  *
@@ -16,9 +16,9 @@ use AppBundle\Pdf\CustomTcpdf;
  */
 class AuditModelDiagramBridgeService
 {
-    const PDF_TOTAL_WIDHT      = 210;
-    const DIAGRAM_HEIGHT       = 83.5;
-    const GAP_SQUARE_SIZE      = 5;
+    const PDF_TOTAL_WIDHT = 210;
+    const DIAGRAM_HEIGHT = 83.5;
+    const GAP_SQUARE_SIZE = 5;
     const GAP_SQUARE_HALF_SIZE = 2.5;
 
     /**
@@ -117,11 +117,11 @@ class AuditModelDiagramBridgeService
     private $edgeBladeShape;
 
     /**
-     * Methods
+     * Methods.
      */
 
     /**
-     * AuditModelDiagramBridgeService constructor
+     * AuditModelDiagramBridgeService constructor.
      */
     public function __construct()
     {
@@ -240,7 +240,7 @@ class AuditModelDiagramBridgeService
             0.056225666949144,
         );
     }
-    
+
     /**
      * @param float $y
      *
@@ -250,9 +250,9 @@ class AuditModelDiagramBridgeService
     {
         $this->y1 = $y;
         $this->y2 = $y + self::DIAGRAM_HEIGHT;
-        $this->yQ1 = $this->y1  + 5;
+        $this->yQ1 = $this->y1 + 5;
         $this->yQ2 = $this->yQ1 + 17;
-        $this->yQ3 = $this->yQ2 + 23;//16.75;
+        $this->yQ3 = $this->yQ2 + 23; //16.75;
         $this->yQ4 = $this->yQ3 + 17;
         $this->yMiddle = $this->yQ2 + (($this->yQ3 - $this->yQ2) / 2) + 0.75;
         $this->yMiddle2 = $this->yQ4 + (($this->yQ3 - $this->yQ2) / 2) - 2;
@@ -299,7 +299,7 @@ class AuditModelDiagramBridgeService
                 // Edge in
                 $xNormalization = ($bladeDamage->getRadius() * 50) / $bladeDamage->getAuditWindmillBlade()->getWindmillBlade()->getWindmill()->getBladeType()->getLength();
                 $yPoint2 = $this->getBladeShape()[intval(round($xNormalization))];
-                $maxY = (($bladeDamage->getAuditWindmillBlade()->getWindmillBlade()->getWindmill()->getBladeType()->getLength() / 30) - (2/3)) + 2;
+                $maxY = (($bladeDamage->getAuditWindmillBlade()->getWindmillBlade()->getWindmill()->getBladeType()->getLength() / 30) - (2 / 3)) + 2;
                 $yPoint = (($bladeDamage->getDistance() / 100) * $yPoint2) / $maxY;
                 $gap = $this->yQ2 - (($this->yQ2 - $this->yQ1) * $yPoint);
             } else {
@@ -308,7 +308,7 @@ class AuditModelDiagramBridgeService
                 $yPoint = $this->getBladeShape()[intval(round($xNormalization))];
                 $baseGap = $this->yQ2 - (($this->yQ2 - $this->yQ1) * $yPoint);
                 $yPoint2 = $this->getBladeShape()[intval(round($xNormalization))];
-                $maxY = (($bladeDamage->getAuditWindmillBlade()->getWindmillBlade()->getWindmill()->getBladeType()->getLength() / 30) - (2/3)) + 2;
+                $maxY = (($bladeDamage->getAuditWindmillBlade()->getWindmillBlade()->getWindmill()->getBladeType()->getLength() / 30) - (2 / 3)) + 2;
                 $yPoint = (($bladeDamage->getDistance() / 100) * $yPoint2) / $maxY;
                 $gap = $baseGap + (($this->yQ2 - $this->yQ1) * $yPoint);
             }
@@ -318,7 +318,7 @@ class AuditModelDiagramBridgeService
                 // Edge in
                 $xNormalization = ($bladeDamage->getRadius() * 50) / $bladeDamage->getAuditWindmillBlade()->getWindmillBlade()->getWindmill()->getBladeType()->getLength();
                 $yPoint2 = $this->getBladeShape()[intval(round($xNormalization))];
-                $maxY = (($bladeDamage->getAuditWindmillBlade()->getWindmillBlade()->getWindmill()->getBladeType()->getLength() / 30) - (2/3)) + 2;
+                $maxY = (($bladeDamage->getAuditWindmillBlade()->getWindmillBlade()->getWindmill()->getBladeType()->getLength() / 30) - (2 / 3)) + 2;
                 $yPoint = (($bladeDamage->getDistance() / 100) * $yPoint2) / $maxY;
                 $gap = $this->yQ3 + (($this->yQ2 - $this->yQ1) * $yPoint);
             } else {
@@ -327,7 +327,7 @@ class AuditModelDiagramBridgeService
                 $yPoint = $this->getBladeShape()[intval(round($xNormalization))];
                 $baseGap = $this->yQ3 + (($this->yQ2 - $this->yQ1) * $yPoint);
                 $yPoint2 = $this->getBladeShape()[intval(round($xNormalization))];
-                $maxY = (($bladeDamage->getAuditWindmillBlade()->getWindmillBlade()->getWindmill()->getBladeType()->getLength() / 30) - (2/3)) + 2;
+                $maxY = (($bladeDamage->getAuditWindmillBlade()->getWindmillBlade()->getWindmill()->getBladeType()->getLength() / 30) - (2 / 3)) + 2;
                 $yPoint = (($bladeDamage->getDistance() / 100) * $yPoint2) / $maxY;
                 $gap = $baseGap - (($this->yQ2 - $this->yQ1) * $yPoint);
             }
@@ -343,7 +343,7 @@ class AuditModelDiagramBridgeService
     }
 
     /**
-     * Get X1
+     * Get X1.
      *
      * @return float
      */
@@ -365,7 +365,7 @@ class AuditModelDiagramBridgeService
     }
 
     /**
-     * Get X2
+     * Get X2.
      *
      * @return float
      */
@@ -387,7 +387,7 @@ class AuditModelDiagramBridgeService
     }
 
     /**
-     * Get Y1
+     * Get Y1.
      *
      * @return float
      */
@@ -409,7 +409,7 @@ class AuditModelDiagramBridgeService
     }
 
     /**
-     * Get Y2
+     * Get Y2.
      *
      * @return float
      */
@@ -431,7 +431,7 @@ class AuditModelDiagramBridgeService
     }
 
     /**
-     * Get XQ1
+     * Get XQ1.
      *
      * @return float
      */
@@ -453,7 +453,7 @@ class AuditModelDiagramBridgeService
     }
 
     /**
-     * Get XQ2
+     * Get XQ2.
      *
      * @return float
      */
@@ -475,7 +475,7 @@ class AuditModelDiagramBridgeService
     }
 
     /**
-     * Get XQ3
+     * Get XQ3.
      *
      * @return float
      */
@@ -497,7 +497,7 @@ class AuditModelDiagramBridgeService
     }
 
     /**
-     * Get XQ4
+     * Get XQ4.
      *
      * @return float
      */
@@ -519,7 +519,7 @@ class AuditModelDiagramBridgeService
     }
 
     /**
-     * Get XQ5
+     * Get XQ5.
      *
      * @return float
      */
@@ -541,7 +541,7 @@ class AuditModelDiagramBridgeService
     }
 
     /**
-     * Get YQ1
+     * Get YQ1.
      *
      * @return float
      */
@@ -563,7 +563,7 @@ class AuditModelDiagramBridgeService
     }
 
     /**
-     * Get YQ2
+     * Get YQ2.
      *
      * @return float
      */
@@ -585,7 +585,7 @@ class AuditModelDiagramBridgeService
     }
 
     /**
-     * Get YMiddle
+     * Get YMiddle.
      *
      * @return float
      */
@@ -607,7 +607,7 @@ class AuditModelDiagramBridgeService
     }
 
     /**
-     * Get YMiddle2
+     * Get YMiddle2.
      *
      * @return float
      */
@@ -629,7 +629,7 @@ class AuditModelDiagramBridgeService
     }
 
     /**
-     * Get YQ3
+     * Get YQ3.
      *
      * @return float
      */
@@ -651,7 +651,7 @@ class AuditModelDiagramBridgeService
     }
 
     /**
-     * Get YQ4
+     * Get YQ4.
      *
      * @return float
      */
@@ -673,7 +673,7 @@ class AuditModelDiagramBridgeService
     }
 
     /**
-     * Return blade shape array
+     * Return blade shape array.
      *
      * @return array
      */
@@ -683,7 +683,7 @@ class AuditModelDiagramBridgeService
     }
 
     /**
-     * Return edge blade shape array
+     * Return edge blade shape array.
      *
      * @return array
      */
@@ -693,7 +693,7 @@ class AuditModelDiagramBridgeService
     }
 
     /**
-     * Draw a blade damage center point reference
+     * Draw a blade damage center point reference.
      *
      * @param CustomTcpdf $pdf
      * @param BladeDamage $bladeDamage
@@ -708,7 +708,6 @@ class AuditModelDiagramBridgeService
             if ($bladeDamage->getPosition() == BladeDamagePositionEnum::EDGE_IN) {
                 // Edge in
                 $pdf->Line($x, $y + $this->yQ3 - $this->yQ2, $x + 0.5, $y + $this->yQ3 - $this->yQ2);
-
             } elseif ($bladeDamage->getPosition() == BladeDamagePositionEnum::EDGE_OUT) {
                 // Edge out
                 $deltaY = $this->yQ2 - $y;
@@ -718,11 +717,11 @@ class AuditModelDiagramBridgeService
     }
 
     /**
-     * Draw a blade damage rectangle reference
+     * Draw a blade damage rectangle reference.
      *
      * @param CustomTcpdf $pdf
      * @param BladeDamage $bladeDamage
-     * @param integer     $damageNumber
+     * @param int         $damageNumber
      */
     public function drawCenterDamage(CustomTcpdf $pdf, BladeDamage $bladeDamage, $damageNumber)
     {
@@ -736,7 +735,7 @@ class AuditModelDiagramBridgeService
 
     /**
      * @param CustomTcpdf $pdf
-     * @param bool $enable
+     * @param bool        $enable
      *
      * @return bool
      */

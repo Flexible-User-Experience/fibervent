@@ -7,10 +7,10 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * Observation
+ * Observation.
  *
  * @category Entity
- * @package  AppBundle\Entity
+ *
  * @author   Anton Serra <aserratorta@gmail.com>
  *
  * @ORM\Table()
@@ -22,14 +22,14 @@ class Observation extends AbstractBase
     use ObservationsTrait;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(type="integer")
      */
     private $position;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(type="integer")
      */
@@ -43,11 +43,7 @@ class Observation extends AbstractBase
     private $auditWindmillBlade;
 
     /**
-     *
-     *
-     * Methods
-     *
-     *
+     * Methods.
      */
 
     /**
@@ -115,6 +111,6 @@ class Observation extends AbstractBase
      */
     public function __toString()
     {
-        return $this->getId() ? (string)$this->getId() : '---';
+        return $this->getId() ? (string) $this->getId() : '---';
     }
 }

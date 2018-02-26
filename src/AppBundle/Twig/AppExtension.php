@@ -10,10 +10,10 @@ use AppBundle\Factory\WindmillBladesDamagesHelperFactory;
 use AppBundle\Repository\DamageRepository;
 
 /**
- * Class AppExtension
+ * Class AppExtension.
  *
  * @category Twig
- * @package  ECVulco\AppBundle\Twig
+ *
  * @author   David Romaní <david@flux.cat>
  */
 class AppExtension extends \Twig_Extension
@@ -29,13 +29,13 @@ class AppExtension extends \Twig_Extension
     private $wbdhf;
 
     /**
-     * Methods
+     * Methods.
      */
 
     /**
-     * AppExtension constructor
+     * AppExtension constructor.
      *
-     * @param DamageRepository         $dr
+     * @param DamageRepository                   $dr
      * @param WindmillBladesDamagesHelperFactory $wbdhf
      */
     public function __construct(DamageRepository $dr, WindmillBladesDamagesHelperFactory $wbdhf)
@@ -45,7 +45,7 @@ class AppExtension extends \Twig_Extension
     }
 
     /**
-     * Filters
+     * Filters.
      */
 
     /**
@@ -59,9 +59,9 @@ class AppExtension extends \Twig_Extension
     }
 
     /**
-     * Filter Audit type enum
+     * Filter Audit type enum.
      *
-     * @param integer $type
+     * @param int $type
      *
      * @return string
      */
@@ -71,7 +71,7 @@ class AppExtension extends \Twig_Extension
     }
 
     /**
-     * Functions
+     * Functions.
      */
 
     /**
@@ -87,7 +87,7 @@ class AppExtension extends \Twig_Extension
     }
 
     /**
-     * Get localized description from a Damage object
+     * Get localized description from a Damage object.
      *
      * @param Damage $object
      * @param string $locale
@@ -96,21 +96,21 @@ class AppExtension extends \Twig_Extension
      */
     public function getlocalizedDescription(Damage $object, $locale)
     {
-      return $this->dr->getlocalizedDesciption($object->getId(), $locale);
+        return $this->dr->getlocalizedDesciption($object->getId(), $locale);
     }
 
     /**
-     * Decide if a row is hidden or not by DamageCategory and an array of codes
+     * Decide if a row is hidden or not by DamageCategory and an array of codes.
      *
      * @param DamageCategory $object
-     * @param array $availableCodes
+     * @param array          $availableCodes
      *
      * @return bool
      */
     public function isRowAvailable(DamageCategory $object, $availableCodes)
     {
         $result = false;
-        if (in_array((string)$object->getCategory(), $availableCodes)) {
+        if (in_array((string) $object->getCategory(), $availableCodes)) {
             $result = true;
         }
 
@@ -118,7 +118,7 @@ class AppExtension extends \Twig_Extension
     }
 
     /**
-     * @param DamageCategory $damageCategory
+     * @param DamageCategory     $damageCategory
      * @param AuditWindmillBlade $auditWindmillBlade
      *
      * @return string

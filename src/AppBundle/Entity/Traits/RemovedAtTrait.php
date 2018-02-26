@@ -5,13 +5,13 @@ namespace AppBundle\Entity\Traits;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * RemovedAtTrait
+ * RemovedAtTrait.
  *
  * @category Trait
- * @package  AppBundle\Entity\Traits
+ *
  * @author   David Romaní <david@flux.cat>
  */
-Trait RemovedAtTrait
+trait RemovedAtTrait
 {
     /**
      * @var \DateTime
@@ -21,7 +21,7 @@ Trait RemovedAtTrait
     protected $removedAt;
 
     /**
-     * Set removedAt
+     * Set removedAt.
      *
      * @param \DateTime $removedAt
      *
@@ -35,7 +35,7 @@ Trait RemovedAtTrait
     }
 
     /**
-     * Get removedAt
+     * Get removedAt.
      *
      * @return \DateTime
      */

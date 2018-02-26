@@ -13,9 +13,10 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
- * Class User
+ * Class User.
  *
  * @category Entity
+ *
  * @author   David Romaní <david@flux.cat>
  *
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
@@ -29,7 +30,7 @@ class User extends BaseUser
     use RemovedAtTrait;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -57,20 +58,20 @@ class User extends BaseUser
     private $customer;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(type="integer", options={"default"=0})
      */
     private $language;
 
     /**
-     * Methods
+     * Methods.
      */
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer $id
+     * @return int $id
      */
     public function getId()
     {
@@ -98,7 +99,7 @@ class User extends BaseUser
     }
 
     /**
-     * @return integer
+     * @return int
      */
     public function getLanguage()
     {
@@ -106,7 +107,7 @@ class User extends BaseUser
     }
 
     /**
-     * @param integer $language
+     * @param int $language
      *
      * @return User
      */
@@ -122,7 +123,7 @@ class User extends BaseUser
      */
     public function fullContactInfoString()
     {
-        return $this->getLastname() . ', ' . $this->getFirstname()  . ' · ' . $this->getEmail() . ($this->getPhone() ? ' · ' . $this->getPhone() : '');
+        return $this->getLastname().', '.$this->getFirstname().' · '.$this->getEmail().($this->getPhone() ? ' · '.$this->getPhone() : '');
     }
 
     /**
@@ -130,7 +131,7 @@ class User extends BaseUser
      */
     public function contactInfoString()
     {
-        return $this->getLastname() . ', ' . $this->getFirstname();
+        return $this->getLastname().', '.$this->getFirstname();
     }
 
     /**
@@ -148,7 +149,7 @@ class User extends BaseUser
         } elseif ($this->hasRole(UserRolesEnum::ROLE_SUPER_ADMIN)) {
             $status = 'danger';
         }
-        
+
         return $status;
     }
 

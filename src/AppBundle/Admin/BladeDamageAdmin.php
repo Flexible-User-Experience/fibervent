@@ -15,10 +15,10 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 
 /**
- * Class BladeDamageAdmin
+ * Class BladeDamageAdmin.
  *
  * @category Admin
- * @package  AppBundle\Admin
+ *
  * @author   Anton Serra <aserratorta@gmail.com>
  */
 class BladeDamageAdmin extends AbstractBaseAdmin
@@ -27,12 +27,12 @@ class BladeDamageAdmin extends AbstractBaseAdmin
     protected $classnameLabel = 'admin.bladedamage.title';
     protected $baseRoutePattern = 'audits/blade-damage';
     protected $datagridValues = array(
-        '_sort_by'    => 'status',
+        '_sort_by' => 'status',
         '_sort_order' => 'desc',
     );
 
     /**
-     * Configure route collection
+     * Configure route collection.
      *
      * @param RouteCollection $collection
      */
@@ -52,12 +52,12 @@ class BladeDamageAdmin extends AbstractBaseAdmin
             // only available on embeded admin
             $formMapper
                 ->add(
-                    'calculatedNumberByRadius',
+                    'number',
                     NumberType::class,
                     array(
-                        'label'    => 'admin.bladedamage.number',
+                        'label' => 'admin.bladedamage.number',
                         'required' => false,
-                        'disabled' => true,
+                        'disabled' => false,
                     )
                 );
         }
@@ -66,11 +66,11 @@ class BladeDamageAdmin extends AbstractBaseAdmin
                 'damage',
                 ModelType::class,
                 array(
-                    'label'      => 'admin.bladedamage.damage',
-                    'btn_add'    => false,
+                    'label' => 'admin.bladedamage.damage',
+                    'btn_add' => false,
                     'btn_delete' => false,
-                    'required'   => true,
-                    'query'      => $this->dr->findAllEnabledSortedByCodeQ(),
+                    'required' => true,
+                    'query' => $this->dr->findAllEnabledSortedByCodeQ(),
                     'choices_as_values' => true,
                 )
             )
@@ -78,8 +78,8 @@ class BladeDamageAdmin extends AbstractBaseAdmin
                 'position',
                 ChoiceType::class,
                 array(
-                    'label'    => 'admin.bladedamage.position',
-                    'choices'  => BladeDamagePositionEnum::getEnumArray(),
+                    'label' => 'admin.bladedamage.position',
+                    'choices' => BladeDamagePositionEnum::getEnumArray(),
                     'multiple' => false,
                     'expanded' => false,
                     'required' => true,
@@ -89,8 +89,8 @@ class BladeDamageAdmin extends AbstractBaseAdmin
                 'radius',
                 null,
                 array(
-                    'label'       => 'admin.bladedamage.radius',
-                    'required'    => true,
+                    'label' => 'admin.bladedamage.radius',
+                    'required' => true,
                     'sonata_help' => 'm',
                 )
             )
@@ -98,8 +98,8 @@ class BladeDamageAdmin extends AbstractBaseAdmin
                 'distance',
                 null,
                 array(
-                    'label'       => 'admin.bladedamage.distance',
-                    'required'    => true,
+                    'label' => 'admin.bladedamage.distance',
+                    'required' => true,
                     'sonata_help' => 'cm',
                 )
             )
@@ -107,8 +107,8 @@ class BladeDamageAdmin extends AbstractBaseAdmin
                 'edge',
                 ChoiceType::class,
                 array(
-                    'label'    => 'admin.bladedamage.edge',
-                    'choices'  => BladeDamageEdgeEnum::getEnumArray(),
+                    'label' => 'admin.bladedamage.edge',
+                    'choices' => BladeDamageEdgeEnum::getEnumArray(),
                     'multiple' => false,
                     'expanded' => false,
                     'required' => true,
@@ -118,8 +118,8 @@ class BladeDamageAdmin extends AbstractBaseAdmin
                 'size',
                 null,
                 array(
-                    'label'       => 'admin.bladedamage.size',
-                    'required'    => true,
+                    'label' => 'admin.bladedamage.size',
+                    'required' => true,
                     'sonata_help' => 'cm',
                 )
             )
@@ -127,11 +127,11 @@ class BladeDamageAdmin extends AbstractBaseAdmin
                 'damageCategory',
                 ModelType::class,
                 array(
-                    'label'      => 'admin.bladedamage.damagecategory',
-                    'btn_add'    => false,
+                    'label' => 'admin.bladedamage.damagecategory',
+                    'btn_add' => false,
                     'btn_delete' => false,
-                    'required'   => true,
-                    'query'      => $this->dcr->findEnabledSortedByCategoryQ(),
+                    'required' => true,
+                    'query' => $this->dcr->findEnabledSortedByCategoryQ(),
                     'choices_as_values' => true,
                 )
             )
@@ -139,10 +139,10 @@ class BladeDamageAdmin extends AbstractBaseAdmin
                 'auditWindmillBlade',
                 null,
                 array(
-                    'label'    => 'admin.auditwindmillblade.windmillblade',
+                    'label' => 'admin.auditwindmillblade.windmillblade',
                     'required' => true,
                     'disabled' => false,
-                    'attr'     => array(
+                    'attr' => array(
                         'hidden' => true,
                     ),
                 )
@@ -155,15 +155,15 @@ class BladeDamageAdmin extends AbstractBaseAdmin
                     'fakeAction',
                     ActionButtonFormType::class,
                     array(
-                        'text'     => 'Subir fotos',
-                        'url'      => $this->generateObjectUrl('edit', $this->getSubject()),
-                        'label'    => 'admin.auditwindmillblade.actions',
-                        'mapped'   => false,
+                        'text' => 'Subir fotos',
+                        'url' => $this->generateObjectUrl('edit', $this->getSubject()),
+                        'label' => 'admin.auditwindmillblade.actions',
+                        'mapped' => false,
                         'required' => false,
                     )
                 )
                 ->end();
-        } else if ($this->id($this->getSubject())) {
+        } elseif ($this->id($this->getSubject())) {
             // is edit mode, disable on new subjects and is children
             $formMapper
                 ->with('admin.auditwindmillblade.photos', $this->getFormMdSuccessBoxArray(9))
@@ -171,12 +171,12 @@ class BladeDamageAdmin extends AbstractBaseAdmin
                     'photos',
                     CollectionType::class,
                     array(
-                        'label'              => ' ',
-                        'required'           => false,
+                        'label' => ' ',
+                        'required' => false,
                         'cascade_validation' => true,
                     ),
                     array(
-                        'edit'   => 'inline',
+                        'edit' => 'inline',
                         'inline' => 'table',
                     )
                 )
@@ -231,7 +231,7 @@ class BladeDamageAdmin extends AbstractBaseAdmin
                 'enabled',
                 null,
                 array(
-                    'label'    => 'admin.common.enabled',
+                    'label' => 'admin.common.enabled',
                     'editable' => true,
                 )
             );
@@ -248,7 +248,7 @@ class BladeDamageAdmin extends AbstractBaseAdmin
                 'status',
                 null,
                 array(
-                    'label'    => 'admin.audit.status',
+                    'label' => 'admin.audit.status',
                     'editable' => true,
                 )
             )
@@ -256,7 +256,7 @@ class BladeDamageAdmin extends AbstractBaseAdmin
                 'enabled',
                 null,
                 array(
-                    'label'    => 'admin.common.enabled',
+                    'label' => 'admin.common.enabled',
                     'editable' => true,
                 )
             )
@@ -264,10 +264,10 @@ class BladeDamageAdmin extends AbstractBaseAdmin
                 '_action',
                 'actions',
                 array(
-                    'label'   => 'admin.common.action',
+                    'label' => 'admin.common.action',
                     'actions' => array(
-                        'edit'   => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
-                    )
+                        'edit' => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
+                    ),
                 )
             );
     }

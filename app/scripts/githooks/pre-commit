@@ -5,7 +5,7 @@
 ## install php-cs-fixer in your system (globally)
 ## and link this script in your githooks if you want to use it with command below
 ##
-#$ ln -s app/scripts/githooks/pre-commit .git/hooks/pre-commit
+#$ ln -s ../../app/scripts/githooks/pre-commit .git/hooks/pre-commit
 
 if [ -x "$(command -v php-cs-fixer)" ]; then
     FILES=`git diff --name-only --diff-filter=AM`

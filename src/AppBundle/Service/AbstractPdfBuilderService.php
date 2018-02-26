@@ -22,7 +22,7 @@ use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 use Symfony\Bundle\FrameworkBundle\Templating\Helper\AssetsHelper;
 
 /**
- * Class AbstractPdfBuilderService
+ * Class AbstractPdfBuilderService.
  *
  * @category Service
  *
@@ -31,34 +31,34 @@ use Symfony\Bundle\FrameworkBundle\Templating\Helper\AssetsHelper;
 class AbstractPdfBuilderService
 {
     // Vertical spacers
-    const SECTION_SPACER_V     = 2;
+    const SECTION_SPACER_V = 2;
     const SECTION_SPACER_V_BIG = 10;
 
     // Blade Damage Summary
-    const BDS_SHOW_DAMAGES_TABLE      = true;
-    const BDS_SHOW_DIAGRAM            = true;
+    const BDS_SHOW_DAMAGES_TABLE = true;
+    const BDS_SHOW_DIAGRAM = true;
     const BDS_SHOW_DIAGRAM_DEBUG_GRID = false;
     const BDS_SHOW_OBSERVATIONS_TABLE = true;
-    const BDS_SHOW_WINDMILL_IMAGES    = true;
-    const BDS_SHOW_BLADE_IMAGES       = true;
+    const BDS_SHOW_WINDMILL_IMAGES = true;
+    const BDS_SHOW_BLADE_IMAGES = true;
 
     // Single Audit
-    const SA_SHOW_COVER_SECTION                        = true;
-    const SA_SHOW_INTRODUCTION_SECTION                 = true;
-    const SA_SHOW_DAMAGE_CATEGORIES_SECTION            = true;
-    const SA_SHOW_INSPECTION_DESCRIPTION_SECTION       = true;
-    const SA_SHOW_INDIVIDUAL_DAMAGES_SUMMARY_SECTION   = true;
-    const SA_SHOW_CONTACT_SECTION                      = true;
+    const SA_SHOW_COVER_SECTION = true;
+    const SA_SHOW_INTRODUCTION_SECTION = true;
+    const SA_SHOW_DAMAGE_CATEGORIES_SECTION = true;
+    const SA_SHOW_INSPECTION_DESCRIPTION_SECTION = true;
+    const SA_SHOW_INDIVIDUAL_DAMAGES_SUMMARY_SECTION = true;
+    const SA_SHOW_CONTACT_SECTION = true;
 
     // Windfarm Audits Collection
-    const WAC_SHOW_COVER_SECTION                        = true;
-    const WAC_SHOW_DAMAGE_CATEGORIES_SECTION            = true;
+    const WAC_SHOW_COVER_SECTION = true;
+    const WAC_SHOW_DAMAGE_CATEGORIES_SECTION = true;
     const WAC_SHOW_WINDFARM_INSPECTION_OVERVIEW_SECTION = true;
-    const WAC_SHOW_INTRODUCTION_SECTION                 = true;
-    const WAC_SHOW_INSPECTION_DESCRIPTION_SECTION       = true;
-    const WAC_SHOW_GENERAL_SUMMARY_SECTION              = true;
-    const WAC_SHOW_INDIVIDUAL_SUMMARY_SECTION           = true;
-    const WAC_SHOW_CONTACT_SECTION                      = true;
+    const WAC_SHOW_INTRODUCTION_SECTION = true;
+    const WAC_SHOW_INSPECTION_DESCRIPTION_SECTION = true;
+    const WAC_SHOW_GENERAL_SUMMARY_SECTION = true;
+    const WAC_SHOW_INDIVIDUAL_SUMMARY_SECTION = true;
+    const WAC_SHOW_CONTACT_SECTION = true;
 
     /**
      * @var TCPDFController
@@ -132,18 +132,18 @@ class AbstractPdfBuilderService
     /**
      * AuditPdfBuilderService constructor.
      *
-     * @param TCPDFController                $tcpdf
-     * @param CacheManager                   $cm
-     * @param UploaderHelper                 $uh
-     * @param AssetsHelper                   $tha
-     * @param Translator                     $ts
-     * @param DamageRepository               $dr
-     * @param DamageCategoryRepository       $dcr
-     * @param BladeDamageRepository          $bdr
-     * @param CustomerRepository             $cr
-     * @param AuditModelDiagramBridgeService $amdb
-     * @param WindfarmBuilderBridgeService   $wbbs
-     * @param WindmillBladesDamagesHelperFactory       $wbdhf
+     * @param TCPDFController                    $tcpdf
+     * @param CacheManager                       $cm
+     * @param UploaderHelper                     $uh
+     * @param AssetsHelper                       $tha
+     * @param Translator                         $ts
+     * @param DamageRepository                   $dr
+     * @param DamageCategoryRepository           $dcr
+     * @param BladeDamageRepository              $bdr
+     * @param CustomerRepository                 $cr
+     * @param AuditModelDiagramBridgeService     $amdb
+     * @param WindfarmBuilderBridgeService       $wbbs
+     * @param WindmillBladesDamagesHelperFactory $wbdhf
      */
     public function __construct(TCPDFController $tcpdf, CacheManager $cm, UploaderHelper $uh, AssetsHelper $tha, Translator $ts, DamageRepository $dr, DamageCategoryRepository $dcr, BladeDamageRepository $bdr, CustomerRepository $cr, AuditModelDiagramBridgeService $amdb, WindfarmBuilderBridgeService $wbbs, WindmillBladesDamagesHelperFactory $wbdhf)
     {
@@ -162,7 +162,7 @@ class AbstractPdfBuilderService
     }
 
     /**
-     * Draw introduction table
+     * Draw introduction table.
      *
      * @param CustomTcpdf $pdf
      */
@@ -176,7 +176,7 @@ class AbstractPdfBuilderService
     }
 
     /**
-     * Draw damage categories full table
+     * Draw damage categories full table.
      *
      * @param CustomTcpdf $pdf
      */
@@ -203,7 +203,7 @@ class AbstractPdfBuilderService
     }
 
     /**
-     * Draw inspection description section
+     * Draw inspection description section.
      *
      * @param CustomTcpdf $pdf
      * @param int         $diagramType
@@ -454,7 +454,7 @@ class AbstractPdfBuilderService
     }
 
     /**
-     * Draw contact final section
+     * Draw contact final section.
      *
      * @param CustomTcpdf $pdf
      */

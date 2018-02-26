@@ -5,13 +5,13 @@ namespace AppBundle\Entity\Traits;
 use AppBundle\Entity\State;
 
 /**
- * State trait
+ * State trait.
  *
  * @category Trait
- * @package  AppBundle\Entity\Traits
+ *
  * @author   Anton Serra <aserratorta@gmail.com>
  */
-Trait StateTrait
+trait StateTrait
 {
     /**
      * @return State

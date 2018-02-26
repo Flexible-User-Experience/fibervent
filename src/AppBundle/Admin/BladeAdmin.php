@@ -8,10 +8,10 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 
 /**
- * Class BladeAdmin
+ * Class BladeAdmin.
  *
  * @category Admin
- * @package  AppBundle\Admin
+ *
  * @author   Anton Serra <aserratorta@gmail.com>
  */
 class BladeAdmin extends AbstractBaseAdmin
@@ -19,12 +19,12 @@ class BladeAdmin extends AbstractBaseAdmin
     protected $classnameLabel = 'admin.blade.title';
     protected $baseRoutePattern = 'windfarms/blade';
     protected $datagridValues = array(
-        '_sort_by'    => 'model',
+        '_sort_by' => 'model',
         '_sort_order' => 'desc',
     );
 
     /**
-     * Configure route collection
+     * Configure route collection.
      *
      * @param RouteCollection $collection
      */
@@ -45,7 +45,7 @@ class BladeAdmin extends AbstractBaseAdmin
                 'model',
                 null,
                 array(
-                    'label'    => 'admin.blade.model',
+                    'label' => 'admin.blade.model',
                     'required' => true,
                 )
             )
@@ -53,9 +53,9 @@ class BladeAdmin extends AbstractBaseAdmin
                 'length',
                 null,
                 array(
-                    'label'       => 'admin.blade.length',
-                    'required'    => true,
-                    'help'        => 'm',
+                    'label' => 'admin.blade.length',
+                    'required' => true,
+                    'help' => 'm',
                     'sonata_help' => 'm',
                 )
             )
@@ -86,7 +86,7 @@ class BladeAdmin extends AbstractBaseAdmin
                 'enabled',
                 null,
                 array(
-                    'label'    => 'admin.common.enabled',
+                    'label' => 'admin.common.enabled',
                     'editable' => true,
                 )
             );
@@ -103,7 +103,7 @@ class BladeAdmin extends AbstractBaseAdmin
                 'model',
                 null,
                 array(
-                    'label'    => 'admin.blade.model',
+                    'label' => 'admin.blade.model',
                     'editable' => true,
                 )
             )
@@ -111,7 +111,7 @@ class BladeAdmin extends AbstractBaseAdmin
                 'length',
                 null,
                 array(
-                    'label'    => 'admin.blade.length',
+                    'label' => 'admin.blade.length',
                     'editable' => true,
                 )
             )
@@ -119,11 +119,11 @@ class BladeAdmin extends AbstractBaseAdmin
                 '_action',
                 'actions',
                 array(
-                    'label'   => 'admin.common.action',
+                    'label' => 'admin.common.action',
                     'actions' => array(
-                        'edit'   => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
+                        'edit' => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
                         'delete' => array('template' => '::Admin/Buttons/list__action_delete_button.html.twig'),
-                    )
+                    ),
                 )
             );
     }
