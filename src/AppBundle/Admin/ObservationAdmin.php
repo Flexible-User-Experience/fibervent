@@ -10,7 +10,6 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
  * Class ObservationAdmin
  *
  * @category Admin
- * @package  AppBundle\Admin
  * @author   David Romaní <david@flux.cat>
  */
 class ObservationAdmin extends AbstractBaseAdmin
@@ -31,8 +30,7 @@ class ObservationAdmin extends AbstractBaseAdmin
     protected function configureRoutes(RouteCollection $collection)
     {
         parent::configureRoutes($collection);
-        $collection
-            ->remove('delete');
+        $collection->remove('delete');
     }
 
     /**
