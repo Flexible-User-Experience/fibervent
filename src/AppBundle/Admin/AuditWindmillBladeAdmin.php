@@ -13,7 +13,6 @@ use Sonata\CoreBundle\Form\Type\CollectionType;
  * Class AuditWindmillBladeAdmin
  *
  * @category Admin
- * @package  AppBundle\Admin
  * @author   David Romaní <david@flux.cat>
  */
 class AuditWindmillBladeAdmin extends AbstractBaseAdmin

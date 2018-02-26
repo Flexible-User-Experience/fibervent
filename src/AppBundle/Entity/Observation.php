@@ -10,7 +10,6 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * Observation
  *
  * @category Entity
- * @package  AppBundle\Entity
  * @author   Anton Serra <aserratorta@gmail.com>
  *
  * @ORM\Table()
@@ -43,11 +42,7 @@ class Observation extends AbstractBase
     private $auditWindmillBlade;
 
     /**
-     *
-     *
      * Methods
-     *
-     *
      */
 
     /**

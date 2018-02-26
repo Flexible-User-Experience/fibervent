@@ -8,7 +8,6 @@ use Doctrine\ORM\Mapping as ORM;
  * Observations trait
  *
  * @category Trait
- * @package  AppBundle\Entity\Traits
  * @author   David Romaní <david@flux.cat>
  */
 Trait ObservationsTrait

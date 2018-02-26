@@ -8,7 +8,6 @@ use Doctrine\ORM\Mapping as ORM;
  * Class PowerTrait
  *
  * @category Trait
- * @package  AppBundle\Entity\Traits
  * @author   David Romaní <david@flux.cat>
  */
 Trait PowerTrait
