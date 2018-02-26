@@ -7,10 +7,10 @@ use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
- * Class LocaleListener
+ * Class LocaleListener.
  *
  * @category Listener
- * @package  AppBundle\EventListener
+ *
  * @author   David Romaní <david@flux.cat>
  */
 class LocaleListener implements EventSubscriberInterface
@@ -21,15 +21,11 @@ class LocaleListener implements EventSubscriberInterface
     private $defaultLocale;
 
     /**
-     *
-     *
-     * Methods
-     *
-     *
+     * Methods.
      */
 
     /**
-     * LocaleListener constructor
+     * LocaleListener constructor.
      *
      * @param string $defaultLocale
      */
@@ -39,7 +35,7 @@ class LocaleListener implements EventSubscriberInterface
     }
 
     /**
-     * On every Kernel Request set locale from session
+     * On every Kernel Request set locale from session.
      *
      * @param GetResponseEvent $event
      */
@@ -60,7 +56,7 @@ class LocaleListener implements EventSubscriberInterface
     }
 
     /**
-     * Subscribed events
+     * Subscribed events.
      *
      * @return array
      */
