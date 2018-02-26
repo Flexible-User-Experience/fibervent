@@ -22,8 +22,8 @@ framework:
     templating:
         engines: [ "twig" ]
     session:
-        name:        FBSESSID
-        handler_id:  ~
+        name:       FBSESSID
+        handler_id: ~
     http_method_override: true
 
 # Assetic

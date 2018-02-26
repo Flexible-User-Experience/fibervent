@@ -85,8 +85,6 @@ class AuditWindmillBladeAdmin extends AbstractBaseAdmin
             $awb = $this->getSubject();
             $order = $awb ? $awb->getWindmillBlade() ? $awb->getWindmillBlade()->getOrder() : '' : '';
             $code = $awb && $awb->getWindmillBlade() && !empty($awb->getWindmillBlade()->getCode()) ? '('.$this->trans('admin.windmillblade.sn').': '.$awb->getWindmillBlade()->getCode().')' : '';
-//            $order = 'order';
-//            $code = 'code';
             $formMapper
                 ->with('Situación y descripción de los daños · Pala '.$order.' '.$code, $this->getFormMdSuccessBoxArray(12))
                 ->add(
@@ -101,6 +99,7 @@ class AuditWindmillBladeAdmin extends AbstractBaseAdmin
                     array(
                         'edit' => 'inline',
                         'inline' => 'table',
+                        'sortable' => 'number',
                     )
                 )
                 ->end()
