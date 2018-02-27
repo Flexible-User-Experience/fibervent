@@ -54,6 +54,11 @@ services:
         factory: [ "@doctrine", getRepository ]
         arguments:
             - AppBundle:Audit
+    app.observation_repository:
+        class: AppBundle\Repository\ObservationRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - AppBundle:Observation
     app.repositories_service:
         class: AppBundle\Service\RepositoriesService
         arguments:
