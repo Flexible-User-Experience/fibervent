@@ -68,9 +68,9 @@ class BladeDamage extends AbstractBase
     /**
      * @var int
      *
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", options={"default"=1})
      */
-    protected $number;
+    protected $number = 1;
 
     /**
      * @var Damage
