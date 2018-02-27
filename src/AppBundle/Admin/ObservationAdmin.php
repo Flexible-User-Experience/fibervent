@@ -51,14 +51,6 @@ class ObservationAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'position',
-                null,
-                array(
-                    'label' => 'admin.observation.position',
-                    'required' => false,
-                )
-            )
-            ->add(
                 'damageNumber',
                 null,
                 array(

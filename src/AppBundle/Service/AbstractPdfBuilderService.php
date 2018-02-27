@@ -400,6 +400,7 @@ class AbstractPdfBuilderService
                 $pdf->Cell(0, 0, $this->ts->trans('pdf.observations_table.2_observations'), 1, 1, 'C', true);
                 $pdf->setFontStyle(null, '', 9);
                 $pdf->setWhiteBackground();
+                // TODO get observations sorted by damage number
                 /** @var Observation $observation */
                 foreach ($auditWindmillBlade->getObservations() as $observation) {
                     $h = $pdf->getStringHeight(AuditModelDiagramBridgeService::PDF_TOTAL_WIDHT - CustomTcpdf::PDF_MARGIN_LEFT - CustomTcpdf::PDF_MARGIN_RIGHT - 16, $observation->getObservations());

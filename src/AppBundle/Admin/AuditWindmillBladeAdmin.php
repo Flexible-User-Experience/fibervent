@@ -99,7 +99,6 @@ class AuditWindmillBladeAdmin extends AbstractBaseAdmin
                     array(
                         'edit' => 'inline',
                         'inline' => 'table',
-                        'sortable' => 'number',
                     )
                 )
                 ->end()
@@ -116,7 +115,6 @@ class AuditWindmillBladeAdmin extends AbstractBaseAdmin
                     array(
                         'edit' => 'inline',
                         'inline' => 'table',
-                        'sortable' => 'position',
                     )
                 )
                 ->end()

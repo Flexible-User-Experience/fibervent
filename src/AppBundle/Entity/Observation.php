@@ -24,9 +24,9 @@ class Observation extends AbstractBase
     /**
      * @var int
      *
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", options={"default" = 1})
      */
-    private $position;
+    private $position = 1;
 
     /**
      * @var int

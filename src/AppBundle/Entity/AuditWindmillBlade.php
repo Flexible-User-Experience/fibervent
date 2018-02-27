@@ -37,7 +37,6 @@ class AuditWindmillBlade extends AbstractBase
      * @var ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="BladeDamage", mappedBy="auditWindmillBlade", cascade={"persist", "remove"}, orphanRemoval=true))
-     * @ORM\OrderBy({"number"="ASC"})
      */
     private $bladeDamages;
 
@@ -45,7 +44,6 @@ class AuditWindmillBlade extends AbstractBase
      * @var ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="Observation", mappedBy="auditWindmillBlade", cascade={"persist", "remove"}, orphanRemoval=true))
-     * @ORM\OrderBy({"position"="ASC"})
      */
     private $observations;
 
