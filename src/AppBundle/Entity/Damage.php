@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use AppBundle\Entity\Traits\CodeTrait;
 use AppBundle\Entity\Traits\DescriptionTrait;
+use AppBundle\Entity\Translations\DamageTranslation;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -107,13 +108,11 @@ class Damage extends AbstractBase
     }
 
     /**
-     * Add translation.
-     *
-     * @param Translations\DamageTranslation $translation
+     * @param DamageTranslation $translation
      *
      * @return $this
      */
-    public function addTranslation(Translations\DamageTranslation $translation)
+    public function addTranslation(DamageTranslation $translation)
     {
         if ($translation->getContent()) {
             $translation->setObject($this);
@@ -124,13 +123,11 @@ class Damage extends AbstractBase
     }
 
     /**
-     * Remove translation.
-     *
-     * @param Translations\DamageTranslation $translation
+     * @param DamageTranslation $translation
      *
      * @return $this
      */
-    public function removeTranslation(Translations\DamageTranslation $translation)
+    public function removeTranslation(DamageTranslation $translation)
     {
         $this->translations->removeElement($translation);
 
@@ -138,8 +135,6 @@ class Damage extends AbstractBase
     }
 
     /**
-     * Set translations.
-     *
      * @param ArrayCollection $translations
      *
      * @return $this
@@ -152,8 +147,6 @@ class Damage extends AbstractBase
     }
 
     /**
-     * Get translations.
-     *
      * @return ArrayCollection
      */
     public function getTranslations()

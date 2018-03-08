@@ -59,7 +59,7 @@ class WindmillBlade extends AbstractBase
      *
      * @return WindmillBlade
      */
-    public function setWindmill(Windmill $windmill)
+    public function setWindmill($windmill)
     {
         $this->windmill = $windmill;
 

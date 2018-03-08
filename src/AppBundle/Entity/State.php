@@ -79,8 +79,6 @@ class State extends AbstractBase
     }
 
     /**
-     * Get CountryCode.
-     *
      * @return string
      */
     public function getCountryCode()
@@ -89,8 +87,6 @@ class State extends AbstractBase
     }
 
     /**
-     * Set CountryCode.
-     *
      * @param string $countryCode
      *
      * @return $this
@@ -103,8 +99,6 @@ class State extends AbstractBase
     }
 
     /**
-     * Get CountryName.
-     *
      * @return string
      */
     public function getCountryName()
@@ -113,8 +107,6 @@ class State extends AbstractBase
     }
 
     /**
-     * Set CountryName.
-     *
      * @param string $countryName
      *
      * @return $this

@@ -54,8 +54,6 @@ abstract class AbstractBase
      */
 
     /**
-     * Get id.
-     *
      * @return int
      */
     public function getId()
@@ -64,8 +62,6 @@ abstract class AbstractBase
     }
 
     /**
-     * Set createdAt.
-     *
      * @param \DateTime $createdAt
      *
      * @return $this
@@ -78,8 +74,6 @@ abstract class AbstractBase
     }
 
     /**
-     * Get createdAt.
-     *
      * @return \DateTime
      */
     public function getCreatedAt()
@@ -88,8 +82,6 @@ abstract class AbstractBase
     }
 
     /**
-     * Set updatedAt.
-     *
      * @param \DateTime $updatedAt
      *
      * @return $this
@@ -102,8 +94,6 @@ abstract class AbstractBase
     }
 
     /**
-     * Get updatedAt.
-     *
      * @return \DateTime
      */
     public function getUpdatedAt()
@@ -112,8 +102,6 @@ abstract class AbstractBase
     }
 
     /**
-     * Set Enabled.
-     *
      * @param bool $enabled
      *
      * @return $this
@@ -126,8 +114,6 @@ abstract class AbstractBase
     }
 
     /**
-     * Get Enabled.
-     *
      * @return bool
      */
     public function getEnabled()
@@ -136,8 +122,6 @@ abstract class AbstractBase
     }
 
     /**
-     * To string.
-     *
      * @return string
      */
     public function __toString()

@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use AppBundle\Entity\Traits\DescriptionTrait;
+use AppBundle\Entity\Translations\DamageCategoryTranslation;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -167,13 +168,11 @@ class DamageCategory extends AbstractBase
     }
 
     /**
-     * Add translation.
-     *
-     * @param Translations\DamageCategoryTranslation $translation
+     * @param DamageCategoryTranslation $translation
      *
      * @return $this
      */
-    public function addTranslation(Translations\DamageCategoryTranslation $translation)
+    public function addTranslation(DamageCategoryTranslation $translation)
     {
         if ($translation->getContent()) {
             $translation->setObject($this);
@@ -184,13 +183,11 @@ class DamageCategory extends AbstractBase
     }
 
     /**
-     * Remove translation.
-     *
-     * @param Translations\DamageCategoryTranslation $translation
+     * @param DamageCategoryTranslation $translation
      *
      * @return $this
      */
-    public function removeTranslation(Translations\DamageCategoryTranslation $translation)
+    public function removeTranslation(DamageCategoryTranslation $translation)
     {
         $this->translations->removeElement($translation);
 
@@ -198,8 +195,6 @@ class DamageCategory extends AbstractBase
     }
 
     /**
-     * Set translations.
-     *
      * @param ArrayCollection $translations
      *
      * @return $this
@@ -212,8 +207,6 @@ class DamageCategory extends AbstractBase
     }
 
     /**
-     * Get translations.
-     *
      * @return ArrayCollection
      */
     public function getTranslations()
