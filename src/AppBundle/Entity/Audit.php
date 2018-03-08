@@ -287,7 +287,7 @@ class Audit extends AbstractBase
      *
      * @return $this
      */
-    public function setWindmill(Windmill $windmill)
+    public function setWindmill($windmill)
     {
         $this->windmill = $windmill;
 
@@ -396,7 +396,7 @@ class Audit extends AbstractBase
      *
      * @return Audit
      */
-    public function setWindfarm(Windfarm $windfarm)
+    public function setWindfarm($windfarm)
     {
         $this->windfarm = $windfarm;
 
@@ -416,7 +416,7 @@ class Audit extends AbstractBase
      *
      * @return Audit
      */
-    public function setCustomer(Customer $customer)
+    public function setCustomer($customer)
     {
         $this->customer = $customer;
 
@@ -424,8 +424,6 @@ class Audit extends AbstractBase
     }
 
     /**
-     * Get Language.
-     *
      * @return int
      */
     public function getLanguage()
@@ -434,8 +432,6 @@ class Audit extends AbstractBase
     }
 
     /**
-     * Set Language.
-     *
      * @param int $language
      *
      * @return $this

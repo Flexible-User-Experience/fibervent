@@ -69,8 +69,6 @@ class User extends BaseUser
      */
 
     /**
-     * Get id.
-     *
      * @return int $id
      */
     public function getId()
