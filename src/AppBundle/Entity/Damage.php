@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use AppBundle\Entity\Traits\CodeTrait;
 use AppBundle\Entity\Traits\DescriptionTrait;
+use AppBundle\Entity\Traits\TranslationsTrait;
 use AppBundle\Entity\Translations\DamageTranslation;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -28,6 +29,7 @@ class Damage extends AbstractBase
 {
     use CodeTrait;
     use DescriptionTrait;
+    use TranslationsTrait;
 
     /**
      * @var int
@@ -132,26 +134,6 @@ class Damage extends AbstractBase
         $this->translations->removeElement($translation);
 
         return $this;
-    }
-
-    /**
-     * @param ArrayCollection $translations
-     *
-     * @return $this
-     */
-    public function setTranslations($translations)
-    {
-        $this->translations = $translations;
-
-        return $this;
-    }
-
-    /**
-     * @return ArrayCollection
-     */
-    public function getTranslations()
-    {
-        return $this->translations;
     }
 
     /**

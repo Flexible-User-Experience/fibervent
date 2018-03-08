@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use AppBundle\Entity\Traits\DescriptionTrait;
+use AppBundle\Entity\Traits\TranslationsTrait;
 use AppBundle\Entity\Translations\DamageCategoryTranslation;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -24,6 +25,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 class DamageCategory extends AbstractBase
 {
     use DescriptionTrait;
+    use TranslationsTrait;
 
     /**
      * @var int
@@ -192,26 +194,6 @@ class DamageCategory extends AbstractBase
         $this->translations->removeElement($translation);
 
         return $this;
-    }
-
-    /**
-     * @param ArrayCollection $translations
-     *
-     * @return $this
-     */
-    public function setTranslations($translations)
-    {
-        $this->translations = $translations;
-
-        return $this;
-    }
-
-    /**
-     * @return ArrayCollection
-     */
-    public function getTranslations()
-    {
-        return $this->translations;
     }
 
     /**
