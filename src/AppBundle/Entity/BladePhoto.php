@@ -63,7 +63,7 @@ class BladePhoto extends AbstractBase
      *
      * @return BladePhoto
      */
-    public function setAuditWindmillBlade(AuditWindmillBlade $auditWindmillBlade)
+    public function setAuditWindmillBlade($auditWindmillBlade)
     {
         $this->auditWindmillBlade = $auditWindmillBlade;
 
