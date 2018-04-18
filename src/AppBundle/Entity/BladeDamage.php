@@ -182,8 +182,6 @@ class BladeDamage extends AbstractBase
     }
 
     /**
-     * Get Edge.
-     *
      * @return int
      */
     public function getEdge()
@@ -200,8 +198,6 @@ class BladeDamage extends AbstractBase
     }
 
     /**
-     * Set Edge.
-     *
      * @param int $edge
      *
      * @return $this
@@ -317,7 +313,7 @@ class BladeDamage extends AbstractBase
      *
      * @return BladeDamage
      */
-    public function setDamage(Damage $damage)
+    public function setDamage($damage)
     {
         $this->damage = $damage;
 
@@ -357,7 +353,7 @@ class BladeDamage extends AbstractBase
      *
      * @return BladeDamage
      */
-    public function setDamageCategory(DamageCategory $damageCategory)
+    public function setDamageCategory($damageCategory)
     {
         $this->damageCategory = $damageCategory;
 
@@ -377,7 +373,7 @@ class BladeDamage extends AbstractBase
      *
      * @return BladeDamage
      */
-    public function setAuditWindmillBlade(AuditWindmillBlade $auditWindmillBlade)
+    public function setAuditWindmillBlade($auditWindmillBlade)
     {
         $this->auditWindmillBlade = $auditWindmillBlade;
 
