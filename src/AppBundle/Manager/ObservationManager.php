@@ -35,7 +35,7 @@ class ObservationManager
     }
 
     /**
-     * Calculate the PDF blade damage number from an observation.
+     * Calculate the PDF blade damage number from an observation with BC old calculation mode.
      *
      * @param Observation $observation
      *
@@ -51,6 +51,10 @@ class ObservationManager
                 break;
             }
             ++$damageNumber;
+        }
+        // BC mode
+        if ($damageNumber == count($bladeDamages) + 1) {
+            $damageNumber = $observation->getDamageNumber();
         }
 
         return $damageNumber;
