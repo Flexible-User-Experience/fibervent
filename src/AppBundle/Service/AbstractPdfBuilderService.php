@@ -10,12 +10,12 @@ use AppBundle\Entity\DamageCategory;
 use AppBundle\Entity\Observation;
 use AppBundle\Entity\Photo;
 use AppBundle\Factory\WindmillBladesDamagesHelperFactory;
+use AppBundle\Manager\ObservationManager;
 use AppBundle\Pdf\CustomTcpdf;
 use AppBundle\Repository\CustomerRepository;
 use AppBundle\Repository\DamageRepository;
 use AppBundle\Repository\BladeDamageRepository;
 use AppBundle\Repository\DamageCategoryRepository;
-use AppBundle\Repository\ObservationRepository;
 use Symfony\Bundle\FrameworkBundle\Translation\Translator;
 use WhiteOctober\TCPDFBundle\Controller\TCPDFController;
 use Liip\ImagineBundle\Imagine\Cache\CacheManager;
@@ -107,11 +107,6 @@ class AbstractPdfBuilderService
     protected $cr;
 
     /**
-     * @var ObservationRepository
-     */
-    protected $or;
-
-    /**
      * @var AuditModelDiagramBridgeService
      */
     protected $amdb;
@@ -125,6 +120,11 @@ class AbstractPdfBuilderService
      * @var WindmillBladesDamagesHelperFactory
      */
     protected $wbdhf;
+
+    /**
+     * @var ObservationManager
+     */
+    protected $om;
 
     /**
      * @var string
@@ -147,12 +147,12 @@ class AbstractPdfBuilderService
      * @param DamageCategoryRepository           $dcr
      * @param BladeDamageRepository              $bdr
      * @param CustomerRepository                 $cr
-     * @param ObservationRepository              $or
      * @param AuditModelDiagramBridgeService     $amdb
      * @param WindfarmBuilderBridgeService       $wbbs
      * @param WindmillBladesDamagesHelperFactory $wbdhf
+     * @param ObservationManager                 $om
      */
-    public function __construct(TCPDFController $tcpdf, CacheManager $cm, UploaderHelper $uh, AssetsHelper $tha, Translator $ts, DamageRepository $dr, DamageCategoryRepository $dcr, BladeDamageRepository $bdr, CustomerRepository $cr, ObservationRepository $or, AuditModelDiagramBridgeService $amdb, WindfarmBuilderBridgeService $wbbs, WindmillBladesDamagesHelperFactory $wbdhf)
+    public function __construct(TCPDFController $tcpdf, CacheManager $cm, UploaderHelper $uh, AssetsHelper $tha, Translator $ts, DamageRepository $dr, DamageCategoryRepository $dcr, BladeDamageRepository $bdr, CustomerRepository $cr, AuditModelDiagramBridgeService $amdb, WindfarmBuilderBridgeService $wbbs, WindmillBladesDamagesHelperFactory $wbdhf, ObservationManager $om)
     {
         $this->tcpdf = $tcpdf;
         $this->cm = $cm;
@@ -163,10 +163,10 @@ class AbstractPdfBuilderService
         $this->dcr = $dcr;
         $this->bdr = $bdr;
         $this->cr = $cr;
-        $this->or = $or;
         $this->amdb = $amdb;
         $this->wbbs = $wbbs;
         $this->wbdhf = $wbdhf;
+        $this->om = $om;
     }
 
     /**
@@ -408,12 +408,11 @@ class AbstractPdfBuilderService
                 $pdf->Cell(0, 0, $this->ts->trans('pdf.observations_table.2_observations'), 1, 1, 'C', true);
                 $pdf->setFontStyle(null, '', 9);
                 $pdf->setWhiteBackground();
-                $observations = $this->or->getItemsOfAuditWindmillBladeSortedByDamageNumber($auditWindmillBlade);
                 /** @var Observation $observation */
-                foreach ($observations as $observation) {
+                foreach ($auditWindmillBlade->getObservations() as $observation) {
                     $h = $pdf->getStringHeight(AuditModelDiagramBridgeService::PDF_TOTAL_WIDHT - CustomTcpdf::PDF_MARGIN_LEFT - CustomTcpdf::PDF_MARGIN_RIGHT - 16, $observation->getObservations());
                     $pdf->MultiCell(0, $h, $observation->getObservations(), 1, 'L', 0, 0, CustomTcpdf::PDF_MARGIN_LEFT + 16, '', true, 0, false, true, 0, 'M');
-                    $pdf->MultiCell(16, $h, $observation->getDamageNumber(), 1, 'C', 0, 1, CustomTcpdf::PDF_MARGIN_LEFT, '', true, 0, false, true, 0, 'M');
+                    $pdf->MultiCell(16, $h, $this->om->getPdfBladeDamageNumber($observation), 1, 'C', 0, 1, CustomTcpdf::PDF_MARGIN_LEFT, '', true, 0, false, true, 0, 'M');
                 }
                 $pdf->Ln(self::SECTION_SPACER_V_BIG / 2);
             }

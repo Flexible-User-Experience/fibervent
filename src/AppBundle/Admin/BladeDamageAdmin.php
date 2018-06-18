@@ -52,7 +52,7 @@ class BladeDamageAdmin extends AbstractBaseAdmin
             // only available on embeded admin
             $formMapper
                 ->add(
-                    'calculatedNumberByRadius',
+                    'id',
                     NumberType::class,
                     array(
                         'label' => 'admin.bladedamage.number',
