@@ -83,12 +83,14 @@ services:
         arguments: [ ~, AppBundle\Entity\AuditWindmillBlade, AppBundle:AuditWindmillBladeAdmin, "@security.authorization_checker", "@security.token_storage", "@app.repositories_service", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Audit Daño Pala", group: "Audit", label_translator_strategy: "sonata.admin.label.strategy.noop", show_in_dashboard: false }
+
 # Sonata Blocks
     admin.block.audits:
         class: AppBundle\Admin\Block\AuditsBlock
         tags:
             - { name: sonata.block }
         arguments: [ "sonata.admin.block.audits", "@templating", "@doctrine.orm.entity_manager", "@app.auth_customer" ]
+
 # PDF service builders
     app.custom_tcpdf:
         class: AppBundle\Pdf\CustomTcpdf
@@ -108,10 +110,10 @@ services:
             - "@app.damage_category_repository"
             - "@app.blade_damage_repository"
             - "@app.customer_repository"
-            - "@app.observation_repository"
             - "@app.audit_model_diagram_bridge"
             - "@app.windfarm_builder_bridge"
             - "@app.factory_windfarm_blades_damages_helper"
+            - "@app.manager_observation"
     app.windfarm_audits_pdf_builder:
         class: AppBundle\Service\WindfarmAuditsPdfBuilderService
         arguments:
@@ -124,16 +126,17 @@ services:
             - "@app.damage_category_repository"
             - "@app.blade_damage_repository"
             - "@app.customer_repository"
-            - "@app.observation_repository"
             - "@app.audit_model_diagram_bridge"
             - "@app.windfarm_builder_bridge"
             - "@app.factory_windfarm_blades_damages_helper"
+            - "@app.manager_observation"
     app.audit_model_diagram_bridge:
         class: AppBundle\Service\AuditModelDiagramBridgeService
     app.windfarm_builder_bridge:
         class: AppBundle\Service\WindfarmBuilderBridgeService
         arguments:
             - "@translator.default"
+
 # Form types
     app.form_type_action_button:
         class: AppBundle\Form\Type\ActionButtonFormType
@@ -163,17 +166,26 @@ services:
         class: AppBundle\Service\NotificationService
         arguments:
             - "@app.courier"
+
 # Auth
     app.auth_customer:
         class: AppBundle\Service\AuthCustomerService
         arguments:
             - "@security.authorization_checker"
             - "@security.token_storage"
+
 # Factory
     app.factory_windfarm_blades_damages_helper:
         class: AppBundle\Factory\WindmillBladesDamagesHelperFactory
         arguments:
             - "@app.damage_category_repository"
+
+# Manager
+    app.manager_observation:
+        class: AppBundle\Manager\ObservationManager
+        arguments:
+            - "@app.blade_damage_repository"
+
 # Twig
     app.twig_extension:
         class: AppBundle\Twig\AppExtension
@@ -183,6 +195,7 @@ services:
         arguments:
             - "@app.damage_repository"
             - "@app.factory_windfarm_blades_damages_helper"
+
 # Event listeners
     app.locale_listener:
         class: AppBundle\EventListener\LocaleListener
