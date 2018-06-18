@@ -432,7 +432,7 @@ class AbstractPdfBuilderService
                         // Image($file, $x='', $y='', $w=0, $h=0, $type='', $link='', $align='', $resize=false, $dpi=300, $palign='', $ismask=false, $imgmask=false, $border=0, $fitbox=false, $hidden=false, $fitonpage=false)
                         $pdf->Image($this->cm->getBrowserPath($this->uh->asset($photo, 'imageFile'), '600x960'), CustomTcpdf::PDF_MARGIN_LEFT + (($i % 2) * 76) + 7, $pdf->GetY(), null, 115);
                         ++$i;
-                        if ($i % 2 == 0) {
+                        if (0 == $i % 2) {
                             $pdf->Ln(120);
                         }
                     }
@@ -521,11 +521,20 @@ class AbstractPdfBuilderService
         $pdf->setBlackText();
         $pdf->Ln(3);
         $pdf->Cell(20, 0, '', 0, 0);
-        $pdf->Cell(0, 0, 'Sergio López (+34 618 277 158)', 0, 1, 'L', 0, '');
+        $pdf->Cell(0, 0, 'David Margalef (+34 618 277 158)', 0, 1, 'L', 0, '');
         $pdf->setFontStyle(null, 'U', 9);
         $pdf->setBlueText();
         $pdf->Cell(20, 0, '', 0, 0);
-        $pdf->Cell(0, 0, 'oficinatecnica@fibervent.com', 0, 1, 'L', 0, 'mailto:oficinatecnica@fibervent.com');
+        $pdf->Cell(0, 0, 'david.margalef@fibervent.com', 0, 1, 'L', 0, 'mailto:david.margalef@fibervent.com');
+        $pdf->setFontStyle(null, '', 9);
+        $pdf->setBlackText();
+        $pdf->Ln(3);
+        $pdf->Cell(20, 0, '', 0, 0);
+        $pdf->Cell(0, 0, 'Joan Lluis ballvé (+34 618 277 158)', 0, 1, 'L', 0, '');
+        $pdf->setFontStyle(null, 'U', 9);
+        $pdf->setBlueText();
+        $pdf->Cell(20, 0, '', 0, 0);
+        $pdf->Cell(0, 0, 'joanlluis.ballve@fibervent.com', 0, 1, 'L', 0, 'mailto:joanlluis.ballve@fibervent.com');
         $pdf->setFontStyle(null, '', 9);
         $pdf->setBlackText();
         $pdf->Ln(15);
