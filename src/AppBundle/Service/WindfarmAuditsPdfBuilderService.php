@@ -5,6 +5,7 @@ namespace AppBundle\Service;
 use AppBundle\Entity\Audit;
 use AppBundle\Entity\DamageCategory;
 use AppBundle\Entity\Windfarm;
+use AppBundle\Enum\AuditDiagramTypeEnum;
 use AppBundle\Enum\WindfarmLanguageEnum;
 use AppBundle\Factory\BladeDamageHelper;
 use AppBundle\Factory\CategoryDamageHelper;
@@ -102,7 +103,7 @@ class WindfarmAuditsPdfBuilderService extends AbstractPdfBuilderService
             $pdf->setFontStyle(null, 'B', 11);
             $pdf->Write(0, $this->ts->trans('pdf_windfarm.inspection_description.1_title'), '', false, 'L', true);
             $pdf->Ln(self::SECTION_SPACER_V);
-            $this->drawInspectionDescriptionSection($pdf, 1); // TODO find right diagram type from audits collection
+            $this->drawInspectionDescriptionSection($pdf, $this->findBestDiagramTypeForAll($audits));
             $pdf->AddPage();
         }
 
@@ -394,7 +395,7 @@ class WindfarmAuditsPdfBuilderService extends AbstractPdfBuilderService
             $pdf->Cell(10, $bladeDamageHelper->getRowPdfHeight(), $bladeDamageHelper->getBlade(), 1, 0, 'C', true);
             /** @var CategoryDamageHelper $damageHelper */
             foreach ($bladeDamageHelper->getCategories() as $key => $damageHelper) {
-                if ($damageHelper->getMark() == CategoryDamageHelper::MARK) {
+                if (CategoryDamageHelper::MARK == $damageHelper->getMark()) {
                     $pdf->setBackgroundHexColor($damageHelper->getColor());
                 }
                 $pdf->MultiCell(self::DAMAGE_HEADER_WIDTH_GENERAL_SUMMARY / count($damageCategories), $bladeDamageHelper->getRowPdfHeight(), $damageHelper->getLetterMarksToString(), 1, 'C', 1, 0, '', '', true, 0, false, true, $bladeDamageHelper->getRowPdfHeight(), 'M', false);
@@ -406,5 +407,33 @@ class WindfarmAuditsPdfBuilderService extends AbstractPdfBuilderService
         $pdf->SetY($currentY);
         // Cell($w, $h=0, $txt='', $border=0, $ln=0, $align='', $fill=0, $link='', $stretch=0, $ignore_min_height=false, $calign='T', $valign='M')
         $pdf->Cell(20, $windmillBladesDamagesHelper->getTotalPdfHeight(), $windmillBladesDamagesHelper->getWindmillShortCode(), 1, 1, 'C', 1, '', 0);
+    }
+
+    /**
+     * @param Audit[]| array $audits
+     *
+     * @return int
+     */
+    private function findBestDiagramTypeForAll($audits)
+    {
+        $defaultResult = AuditDiagramTypeEnum::TYPE_1;
+        $matchesMatrix = AuditDiagramTypeEnum::getInitializedArrayForMatchesCounts();
+        /** @var Audit $audit */
+        foreach ($audits as $audit) {
+            $matchesMatrix[$audit->getDiagramType()] = $matchesMatrix[$audit->getDiagramType()] + 1;
+        }
+        $index = 0;
+        $bestIndexResult = $defaultResult;
+        $bestMatchResult = 0;
+        /** @var int $item */
+        foreach ($matchesMatrix as $item) {
+            ++$index;
+            if ($item > $bestMatchResult) {
+                $bestMatchResult = $item;
+                $bestIndexResult = $index;
+            }
+        }
+
+        return 0 == count($matchesMatrix) ? $defaultResult : $bestIndexResult;
     }
 }

@@ -32,4 +32,19 @@ class AuditDiagramTypeEnum
             self::TYPE_6 => '6',
         );
     }
+
+    /**
+     * @return array
+     */
+    public static function getInitializedArrayForMatchesCounts()
+    {
+        return array(
+            self::TYPE_1 => 0,
+            self::TYPE_2 => 0,
+            self::TYPE_3 => 0,
+            self::TYPE_4 => 0,
+            self::TYPE_5 => 0,
+            self::TYPE_6 => 0,
+        );
+    }
 }
