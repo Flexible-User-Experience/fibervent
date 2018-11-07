@@ -1,11 +1,12 @@
 imports:
     - { resource: config.yml }
 
-framework:
-    validation:
-        cache: validator.mapping.cache.doctrine.apc
-    serializer:
-        cache: serializer.mapping.cache.apc
+# KEEP it commented until PHP extension problem will be fixed in Flux server
+#framework:
+#    validation:
+#        cache: validator.mapping.cache.doctrine.apc
+#    serializer:
+#        cache: serializer.mapping.cache.apc
 
 doctrine:
     orm:
@@ -20,8 +21,9 @@ monolog:
             action_level: error
             handler:      nested
         nested:
-            path:  "%kernel.logs_dir%/%kernel.environment%.log"
-            type:  stream
-            level: debug
+            path:      "%kernel.logs_dir%/%kernel.environment%.log"
+            type:      rotating_file
+            level:     debug
+            max_files: 10
         console:
             type:  console
