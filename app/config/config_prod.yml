@@ -20,8 +20,9 @@ monolog:
             action_level: error
             handler:      nested
         nested:
-            path:  "%kernel.logs_dir%/%kernel.environment%.log"
-            type:  stream
-            level: debug
+            path:      "%kernel.logs_dir%/%kernel.environment%.log"
+            type:      rotating_file
+            level:     debug
+            max_files: 10
         console:
             type:  console
