@@ -1,11 +1,12 @@
 imports:
     - { resource: config.yml }
 
-framework:
-    validation:
-        cache: validator.mapping.cache.doctrine.apc
-    serializer:
-        cache: serializer.mapping.cache.apc
+# KEEP it commented until PHP extension problem will be fixed in Flux server
+#framework:
+#    validation:
+#        cache: validator.mapping.cache.doctrine.apc
+#    serializer:
+#        cache: serializer.mapping.cache.apc
 
 doctrine:
     orm:
