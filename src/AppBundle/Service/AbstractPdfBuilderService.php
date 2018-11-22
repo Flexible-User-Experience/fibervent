@@ -82,6 +82,11 @@ class AbstractPdfBuilderService
     protected $tha;
 
     /**
+     * @var SmartAssetsHelperService
+     */
+    protected $sahs;
+
+    /**
      * @var Translator
      */
     protected $ts;
@@ -142,6 +147,7 @@ class AbstractPdfBuilderService
      * @param CacheManager                       $cm
      * @param UploaderHelper                     $uh
      * @param AssetsHelper                       $tha
+     * @param SmartAssetsHelperService           $sahs
      * @param Translator                         $ts
      * @param DamageRepository                   $dr
      * @param DamageCategoryRepository           $dcr
@@ -152,12 +158,13 @@ class AbstractPdfBuilderService
      * @param WindmillBladesDamagesHelperFactory $wbdhf
      * @param ObservationManager                 $om
      */
-    public function __construct(TCPDFController $tcpdf, CacheManager $cm, UploaderHelper $uh, AssetsHelper $tha, Translator $ts, DamageRepository $dr, DamageCategoryRepository $dcr, BladeDamageRepository $bdr, CustomerRepository $cr, AuditModelDiagramBridgeService $amdb, WindfarmBuilderBridgeService $wbbs, WindmillBladesDamagesHelperFactory $wbdhf, ObservationManager $om)
+    public function __construct(TCPDFController $tcpdf, CacheManager $cm, UploaderHelper $uh, AssetsHelper $tha, SmartAssetsHelperService $sahs, Translator $ts, DamageRepository $dr, DamageCategoryRepository $dcr, BladeDamageRepository $bdr, CustomerRepository $cr, AuditModelDiagramBridgeService $amdb, WindfarmBuilderBridgeService $wbbs, WindmillBladesDamagesHelperFactory $wbdhf, ObservationManager $om)
     {
         $this->tcpdf = $tcpdf;
         $this->cm = $cm;
         $this->uh = $uh;
         $this->tha = $tha;
+        $this->sahs = $sahs;
         $this->ts = $ts;
         $this->dr = $dr;
         $this->dcr = $dcr;
