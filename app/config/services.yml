@@ -95,7 +95,7 @@ services:
     app.custom_tcpdf:
         class: AppBundle\Pdf\CustomTcpdf
         arguments:
-            - "@templating.helper.assets"
+            - "@app.smart_assets_helper"
             - "@translator.default"
             - AppBundle\Entity\Windfarm
     app.audit_pdf_builder:
@@ -104,7 +104,7 @@ services:
             - "@white_october.tcpdf"
             - "@liip_imagine.cache.manager"
             - "@vich_uploader.templating.helper.uploader_helper"
-            - "@templating.helper.assets"
+            - "@app.smart_assets_helper"
             - "@translator.default"
             - "@app.damage_repository"
             - "@app.damage_category_repository"
@@ -120,7 +120,7 @@ services:
             - "@white_october.tcpdf"
             - "@liip_imagine.cache.manager"
             - "@vich_uploader.templating.helper.uploader_helper"
-            - "@templating.helper.assets"
+            - "@app.smart_assets_helper"
             - "@translator.default"
             - "@app.damage_repository"
             - "@app.damage_category_repository"
@@ -179,6 +179,11 @@ services:
         class: AppBundle\Factory\WindmillBladesDamagesHelperFactory
         arguments:
             - "@app.damage_category_repository"
+    app.smart_assets_helper:
+        class: AppBundle\Service\SmartAssetsHelperService
+        arguments:
+            - "@kernel"
+            - "%project_url_base%"
 
 # Manager
     app.manager_observation:

@@ -34,8 +34,8 @@ class AuditPdfBuilderService extends AbstractPdfBuilderService
 
         // Add a page
         $pdf->setPrintHeader(true);
-        $pdf->AddPage(PDF_PAGE_ORIENTATION, PDF_PAGE_FORMAT, true, true);
         $pdf->setPrintFooter(true);
+        $pdf->AddPage(PDF_PAGE_ORIENTATION, PDF_PAGE_FORMAT, true, true);
         $pdf->SetXY(CustomTcpdf::PDF_MARGIN_LEFT, CustomTcpdf::PDF_MARGIN_TOP);
 
         // Introduction page
@@ -105,7 +105,7 @@ class AuditPdfBuilderService extends AbstractPdfBuilderService
     private function doInitialConfig(Audit $audit, Windmill $windmill, Windfarm $windfarm)
     {
         /** @var CustomTcpdf $pdf */
-        $pdf = $this->tcpdf->create($this->tha, $this->ts, $audit->getWindfarm());
+        $pdf = $this->tcpdf->create($this->sahs, $this->ts, $audit->getWindfarm());
         // set document information
         $pdf->SetCreator(PDF_CREATOR);
         $pdf->SetAuthor('Fibervent');
@@ -131,11 +131,11 @@ class AuditPdfBuilderService extends AbstractPdfBuilderService
             // logo
             if ($audit->getCustomer()->isShowLogoInPdfs() && $audit->getCustomer()->getImageName()) {
                 // customer has logo
-                $pdf->Image($this->uh->asset($audit->getCustomer(), 'imageFile'), CustomTcpdf::PDF_MARGIN_LEFT + 12, 45, 55, 0, '', '', 'T', 2, 300, '', false, false, 0, false, false, false);
-                $pdf->Image($this->tha->getUrl('/bundles/app/images/fibervent_logo_white_landscape_hires.jpg'), 100, 45, 78, 0, 'JPEG', '', 'T', false, 300, '', false, false, 0, false, false, false);
+                $pdf->Image($this->sahs->getAbsoluteAssetFilePath($this->uh->asset($audit->getCustomer(), 'imageFile')), CustomTcpdf::PDF_MARGIN_LEFT + 12, 45, 55, 0, '', '', 'T', 2, 300, '', false, false, 0, false, false, false);
+                $pdf->Image($this->sahs->getAbsoluteAssetFilePath('/bundles/app/images/fibervent_logo_white_landscape_hires.jpg'), 100, 45, 78, 0, 'JPEG', '', 'T', false, 300, '', false, false, 0, false, false, false);
             } else {
                 // customer hasn't logo
-                $pdf->Image($this->tha->getUrl('/bundles/app/images/fibervent_logo_white_landscape_hires.jpg'), '', 45, 130, '', 'JPEG', '', 'T', false, 300, 'C', false, false, 0, false, false, false);
+                $pdf->Image($this->sahs->getAbsoluteAssetFilePath('/bundles/app/images/fibervent_logo_white_landscape_hires.jpg'), '', 45, 130, '', 'JPEG', '', 'T', false, 300, 'C', false, false, 0, false, false, false);
             }
             // main detail section
             $pdf->SetXY(CustomTcpdf::PDF_MARGIN_LEFT, 100);

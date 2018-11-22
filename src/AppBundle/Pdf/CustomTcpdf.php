@@ -4,7 +4,7 @@ namespace AppBundle\Pdf;
 
 use AppBundle\Entity\Customer;
 use AppBundle\Entity\Windfarm;
-use Symfony\Bundle\FrameworkBundle\Templating\Helper\AssetsHelper;
+use AppBundle\Service\SmartAssetsHelperService;
 use Symfony\Bundle\FrameworkBundle\Translation\Translator;
 
 /**
@@ -38,9 +38,9 @@ class CustomTcpdf extends \TCPDF
     private $colorBlueDark = array('red' => 217, 'green' => 226, 'blue' => 242);
 
     /**
-     * @var AssetsHelper
+     * @var SmartAssetsHelperService
      */
-    private $tha;
+    private $sahs;
 
     /**
      * @var Translator
@@ -69,14 +69,14 @@ class CustomTcpdf extends \TCPDF
     /**
      * CustomTcpdf constructor.
      *
-     * @param AssetsHelper $tha
-     * @param Translator   $ts
-     * @param Windfarm     $windfarm
+     * @param SmartAssetsHelperService $sahs
+     * @param Translator               $ts
+     * @param Windfarm                 $windfarm
      */
-    public function __construct(AssetsHelper $tha, Translator $ts, Windfarm $windfarm)
+    public function __construct(SmartAssetsHelperService $sahs, Translator $ts, Windfarm $windfarm)
     {
         parent::__construct();
-        $this->tha = $tha;
+        $this->sahs = $sahs;
         $this->ts = $ts;
         $this->windfarm = $windfarm;
         $this->customer = $windfarm->getCustomer();
@@ -89,7 +89,7 @@ class CustomTcpdf extends \TCPDF
     public function header()
     {
         // logo
-        $this->Image($this->tha->getUrl('/bundles/app/images/fibervent_logo_white_landscape_hires.jpg'), self::PDF_MARGIN_LEFT, 7, 28);
+        $this->Image($this->sahs->getAbsoluteAssetFilePath('/bundles/app/images/fibervent_logo_white_landscape_hires.jpg'), self::PDF_MARGIN_LEFT, 7, 28);
         $this->SetXY(self::PDF_MARGIN_LEFT, 11);
         $this->setFontStyle(null, 'I', 8);
         $this->setBlueLine();
@@ -204,7 +204,7 @@ class CustomTcpdf extends \TCPDF
     {
         $hex = str_replace('#', '', $hex);
 
-        if (strlen($hex) == 3) {
+        if (3 == strlen($hex)) {
             $r = hexdec(substr($hex, 0, 1).substr($hex, 0, 1));
             $g = hexdec(substr($hex, 1, 1).substr($hex, 1, 1));
             $b = hexdec(substr($hex, 2, 1).substr($hex, 2, 1));

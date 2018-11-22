@@ -20,7 +20,6 @@ use Symfony\Bundle\FrameworkBundle\Translation\Translator;
 use WhiteOctober\TCPDFBundle\Controller\TCPDFController;
 use Liip\ImagineBundle\Imagine\Cache\CacheManager;
 use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
-use Symfony\Bundle\FrameworkBundle\Templating\Helper\AssetsHelper;
 
 /**
  * Class AbstractPdfBuilderService.
@@ -77,9 +76,9 @@ class AbstractPdfBuilderService
     protected $uh;
 
     /**
-     * @var AssetsHelper
+     * @var SmartAssetsHelperService
      */
-    protected $tha;
+    protected $sahs;
 
     /**
      * @var Translator
@@ -141,7 +140,7 @@ class AbstractPdfBuilderService
      * @param TCPDFController                    $tcpdf
      * @param CacheManager                       $cm
      * @param UploaderHelper                     $uh
-     * @param AssetsHelper                       $tha
+     * @param SmartAssetsHelperService           $sahs
      * @param Translator                         $ts
      * @param DamageRepository                   $dr
      * @param DamageCategoryRepository           $dcr
@@ -152,12 +151,12 @@ class AbstractPdfBuilderService
      * @param WindmillBladesDamagesHelperFactory $wbdhf
      * @param ObservationManager                 $om
      */
-    public function __construct(TCPDFController $tcpdf, CacheManager $cm, UploaderHelper $uh, AssetsHelper $tha, Translator $ts, DamageRepository $dr, DamageCategoryRepository $dcr, BladeDamageRepository $bdr, CustomerRepository $cr, AuditModelDiagramBridgeService $amdb, WindfarmBuilderBridgeService $wbbs, WindmillBladesDamagesHelperFactory $wbdhf, ObservationManager $om)
+    public function __construct(TCPDFController $tcpdf, CacheManager $cm, UploaderHelper $uh, SmartAssetsHelperService $sahs, Translator $ts, DamageRepository $dr, DamageCategoryRepository $dcr, BladeDamageRepository $bdr, CustomerRepository $cr, AuditModelDiagramBridgeService $amdb, WindfarmBuilderBridgeService $wbbs, WindmillBladesDamagesHelperFactory $wbdhf, ObservationManager $om)
     {
         $this->tcpdf = $tcpdf;
         $this->cm = $cm;
         $this->uh = $uh;
-        $this->tha = $tha;
+        $this->sahs = $sahs;
         $this->ts = $ts;
         $this->dr = $dr;
         $this->dcr = $dcr;
@@ -222,7 +221,7 @@ class AbstractPdfBuilderService
         $pdf->Write(0, $this->ts->trans('pdf.audit_description.2_description'), '', false, 'L', true);
         $pdf->Ln(self::SECTION_SPACER_V);
         // Audit description with windmill image schema
-        $pdf->Image($this->tha->getUrl('/bundles/app/images/tubrine_diagrams/'.$diagramType.'.jpg'), CustomTcpdf::PDF_MARGIN_LEFT + 50, $pdf->GetY(), null, 40);
+        $pdf->Image($this->sahs->getAbsoluteAssetFilePath('/bundles/app/images/tubrine_diagrams/'.$diagramType.'.jpg'), CustomTcpdf::PDF_MARGIN_LEFT + 50, $pdf->GetY(), null, 40);
     }
 
     /**
