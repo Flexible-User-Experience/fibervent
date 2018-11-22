@@ -20,7 +20,6 @@ use Symfony\Bundle\FrameworkBundle\Translation\Translator;
 use WhiteOctober\TCPDFBundle\Controller\TCPDFController;
 use Liip\ImagineBundle\Imagine\Cache\CacheManager;
 use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
-use Symfony\Bundle\FrameworkBundle\Templating\Helper\AssetsHelper;
 
 /**
  * Class AbstractPdfBuilderService.
@@ -75,11 +74,6 @@ class AbstractPdfBuilderService
      * @var UploaderHelper
      */
     protected $uh;
-
-    /**
-     * @var AssetsHelper
-     */
-    protected $tha;
 
     /**
      * @var SmartAssetsHelperService
@@ -146,7 +140,6 @@ class AbstractPdfBuilderService
      * @param TCPDFController                    $tcpdf
      * @param CacheManager                       $cm
      * @param UploaderHelper                     $uh
-     * @param AssetsHelper                       $tha
      * @param SmartAssetsHelperService           $sahs
      * @param Translator                         $ts
      * @param DamageRepository                   $dr
@@ -158,12 +151,11 @@ class AbstractPdfBuilderService
      * @param WindmillBladesDamagesHelperFactory $wbdhf
      * @param ObservationManager                 $om
      */
-    public function __construct(TCPDFController $tcpdf, CacheManager $cm, UploaderHelper $uh, AssetsHelper $tha, SmartAssetsHelperService $sahs, Translator $ts, DamageRepository $dr, DamageCategoryRepository $dcr, BladeDamageRepository $bdr, CustomerRepository $cr, AuditModelDiagramBridgeService $amdb, WindfarmBuilderBridgeService $wbbs, WindmillBladesDamagesHelperFactory $wbdhf, ObservationManager $om)
+    public function __construct(TCPDFController $tcpdf, CacheManager $cm, UploaderHelper $uh, SmartAssetsHelperService $sahs, Translator $ts, DamageRepository $dr, DamageCategoryRepository $dcr, BladeDamageRepository $bdr, CustomerRepository $cr, AuditModelDiagramBridgeService $amdb, WindfarmBuilderBridgeService $wbbs, WindmillBladesDamagesHelperFactory $wbdhf, ObservationManager $om)
     {
         $this->tcpdf = $tcpdf;
         $this->cm = $cm;
         $this->uh = $uh;
-        $this->tha = $tha;
         $this->sahs = $sahs;
         $this->ts = $ts;
         $this->dr = $dr;

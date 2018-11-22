@@ -95,7 +95,6 @@ services:
     app.custom_tcpdf:
         class: AppBundle\Pdf\CustomTcpdf
         arguments:
-            - "@templating.helper.assets"
             - "@app.smart_assets_helper"
             - "@translator.default"
             - AppBundle\Entity\Windfarm
@@ -105,7 +104,6 @@ services:
             - "@white_october.tcpdf"
             - "@liip_imagine.cache.manager"
             - "@vich_uploader.templating.helper.uploader_helper"
-            - "@templating.helper.assets"
             - "@app.smart_assets_helper"
             - "@translator.default"
             - "@app.damage_repository"
@@ -122,7 +120,6 @@ services:
             - "@white_october.tcpdf"
             - "@liip_imagine.cache.manager"
             - "@vich_uploader.templating.helper.uploader_helper"
-            - "@templating.helper.assets"
             - "@app.smart_assets_helper"
             - "@translator.default"
             - "@app.damage_repository"

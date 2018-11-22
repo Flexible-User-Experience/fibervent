@@ -5,7 +5,6 @@ namespace AppBundle\Pdf;
 use AppBundle\Entity\Customer;
 use AppBundle\Entity\Windfarm;
 use AppBundle\Service\SmartAssetsHelperService;
-use Symfony\Bundle\FrameworkBundle\Templating\Helper\AssetsHelper;
 use Symfony\Bundle\FrameworkBundle\Translation\Translator;
 
 /**
@@ -39,11 +38,6 @@ class CustomTcpdf extends \TCPDF
     private $colorBlueDark = array('red' => 217, 'green' => 226, 'blue' => 242);
 
     /**
-     * @var AssetsHelper
-     */
-    private $tha;
-
-    /**
      * @var SmartAssetsHelperService
      */
     private $sahs;
@@ -75,15 +69,13 @@ class CustomTcpdf extends \TCPDF
     /**
      * CustomTcpdf constructor.
      *
-     * @param AssetsHelper             $tha
      * @param SmartAssetsHelperService $sahs
      * @param Translator               $ts
      * @param Windfarm                 $windfarm
      */
-    public function __construct(AssetsHelper $tha, SmartAssetsHelperService $sahs, Translator $ts, Windfarm $windfarm)
+    public function __construct(SmartAssetsHelperService $sahs, Translator $ts, Windfarm $windfarm)
     {
         parent::__construct();
-        $this->tha = $tha;
         $this->sahs = $sahs;
         $this->ts = $ts;
         $this->windfarm = $windfarm;

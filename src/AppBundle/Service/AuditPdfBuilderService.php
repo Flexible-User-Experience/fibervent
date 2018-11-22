@@ -105,7 +105,7 @@ class AuditPdfBuilderService extends AbstractPdfBuilderService
     private function doInitialConfig(Audit $audit, Windmill $windmill, Windfarm $windfarm)
     {
         /** @var CustomTcpdf $pdf */
-        $pdf = $this->tcpdf->create($this->tha, $this->sahs, $this->ts, $audit->getWindfarm());
+        $pdf = $this->tcpdf->create($this->sahs, $this->ts, $audit->getWindfarm());
         // set document information
         $pdf->SetCreator(PDF_CREATOR);
         $pdf->SetAuthor('Fibervent');

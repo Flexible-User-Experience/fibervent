@@ -162,7 +162,7 @@ class WindfarmAuditsPdfBuilderService extends AbstractPdfBuilderService
     private function doInitialConfig(Windfarm $windfarm, $audits, $dateRanges)
     {
         /** @var CustomTcpdf $pdf */
-        $pdf = $this->tcpdf->create($this->tha, $this->sahs, $this->ts, $windfarm);
+        $pdf = $this->tcpdf->create($this->sahs, $this->ts, $windfarm);
         // set document information
         $pdf->SetCreator(PDF_CREATOR);
         $pdf->SetAuthor('Fibervent');
