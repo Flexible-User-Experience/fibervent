@@ -27,13 +27,13 @@ parameters:
     private_editor_test_name: firstname
     private_editor_test_surname: lastname
 
-    # A secret key that's used to generate certain security-related tokens
     secret:            Th1sT0kenIsN0tS0SecretChXng31t
 
     locale: ca
     locale_i18n: [ en ]
 
     project_web_title: "Fibervent"
+    project_url_base: "your.domain/goes/here"
 
     google_analytics_enabled: false
     google_analytics_account: "UA-xxxxxxxx-x"
