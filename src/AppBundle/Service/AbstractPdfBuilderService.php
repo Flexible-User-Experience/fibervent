@@ -519,7 +519,7 @@ class AbstractPdfBuilderService
         $pdf->setBlackText();
         $pdf->Ln(3);
         $pdf->Cell(20, 0, '', 0, 0);
-        $pdf->Cell(0, 0, 'David Margalef (+34 618 277 158)', 0, 1, 'L', 0, '');
+        $pdf->Cell(0, 0, 'David Margalef (+34 654 743 190)', 0, 1, 'L', 0, '');
         $pdf->setFontStyle(null, 'U', 9);
         $pdf->setBlueText();
         $pdf->Cell(20, 0, '', 0, 0);
@@ -528,7 +528,7 @@ class AbstractPdfBuilderService
         $pdf->setBlackText();
         $pdf->Ln(3);
         $pdf->Cell(20, 0, '', 0, 0);
-        $pdf->Cell(0, 0, 'Joan Lluis ballvé (+34 618 277 158)', 0, 1, 'L', 0, '');
+        $pdf->Cell(0, 0, 'Joan Lluís Ballvé (+34 654 743 190)', 0, 1, 'L', 0, '');
         $pdf->setFontStyle(null, 'U', 9);
         $pdf->setBlueText();
         $pdf->Cell(20, 0, '', 0, 0);
