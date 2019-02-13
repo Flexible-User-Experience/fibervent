@@ -8,11 +8,12 @@ imports:
 #    serializer:
 #        cache: serializer.mapping.cache.apc
 
-doctrine:
-    orm:
-        metadata_cache_driver: apcu
-        result_cache_driver:   apcu
-        query_cache_driver:    apcu
+# KEEP it commented until PHP extension problem will be fixed in Flux server
+#doctrine:
+#    orm:
+#        metadata_cache_driver: apcu
+#        result_cache_driver:   apcu
+#        query_cache_driver:    apcu
 
 monolog:
     handlers:
