@@ -18,8 +18,8 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Form\Type\ModelType;
-use Sonata\CoreBundle\Form\Type\CollectionType;
-use Sonata\CoreBundle\Form\Type\DatePickerType;
+use Sonata\Form\Type\CollectionType;
+use Sonata\Form\Type\DatePickerType;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -218,7 +218,7 @@ class AuditAdmin extends AbstractBaseAdmin
                 'doctrine_orm_date',
                 array(
                     'label' => 'admin.audit.begindate',
-                    'field_type' => 'sonata_type_date_picker',
+                    'field_type' => DatePickerType::class,
                 )
             )
             ->add(
@@ -226,7 +226,7 @@ class AuditAdmin extends AbstractBaseAdmin
                 'doctrine_orm_date',
                 array(
                     'label' => 'admin.audit.enddate',
-                    'field_type' => 'sonata_type_date_picker',
+                    'field_type' => DatePickerType::class,
                 )
             );
         if ($this->acs->isGranted(UserRolesEnum::ROLE_OPERATOR)) {
