@@ -150,7 +150,8 @@ class CustomerAdmin extends AbstractBaseAdmin
                     'choices_as_values' => true,
                 )
             )
-            ->end();
+            ->end()
+        ;
         if ($this->id($this->getSubject())) { // is edit mode, disable on new subjects
             $formMapper
                 ->with('admin.customer.contacts', $this->getFormMdSuccessBoxArray(8))
