@@ -114,7 +114,9 @@ class Windfarm extends AbstractBase
     }
 
     /**
-     * @return string
+     * @return int
+     *
+     * @throws \Exception
      */
     public function getYearDiff()
     {
@@ -300,6 +302,8 @@ class Windfarm extends AbstractBase
 
     /**
      * @return string
+     *
+     * @throws \Exception
      */
     public function getPdfYearString()
     {

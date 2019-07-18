@@ -83,7 +83,7 @@ class Customer extends AbstractBase
     /**
      * @var State
      *
-     * @ORM\ManyToOne(targetEntity="State", inversedBy="customers")
+     * @ORM\ManyToOne(targetEntity="State")
      */
     private $state;
 
