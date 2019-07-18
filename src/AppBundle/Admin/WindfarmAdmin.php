@@ -12,7 +12,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Form\Type\ModelType;
 use Sonata\AdminBundle\Route\RouteCollection;
-use Sonata\CoreBundle\Form\Type\EqualType;
+use Sonata\Form\Type\EqualType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 /**
@@ -83,7 +83,7 @@ class WindfarmAdmin extends AbstractBaseAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $customer = null;
-        if ($this->getSubject() !== null) {
+        if (null !== $this->getSubject()) {
             $customer = $this->getSubject()->getCustomer();
         }
 
