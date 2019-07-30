@@ -474,7 +474,7 @@ class AbstractPdfBuilderService
         $pdf->Cell(0, 0, $this->ts->trans('pdf.inspection_description.3_offices'), 0, 1, 'L', 0, '');
         $pdf->Ln(self::SECTION_SPACER_V_BIG / 2);
         $pdf->Cell(20, 0, '', 0, 0);
-        $pdf->Cell(0, 0, 'Pol. Industrial Pal de Solans, Parcela 2', 0, 1, 'L', 0, '');
+        $pdf->Cell(0, 0, 'Pol. Industrial Pla de Solans, Parcela 2', 0, 1, 'L', 0, '');
         $pdf->Cell(20, 0, '', 0, 0);
         $pdf->Cell(0, 0, '43519 El Perelló (Tarragona)', 0, 1, 'L', 0, '');
         $pdf->Cell(20, 0, '', 0, 0);
