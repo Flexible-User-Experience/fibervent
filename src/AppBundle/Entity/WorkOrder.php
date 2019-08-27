@@ -51,7 +51,7 @@ class WorkOrder extends AbstractBase
     /**
      * @var Audit
      *
-     * @ORM\ManyToOne(targetEntity="Audit", nullable=true)
+     * @ORM\ManyToOne(targetEntity="Audit")
      * @ORM\JoinColumn(name="audit_id", referencedColumnName="id", nullable=true)
      */
     private $audit;
