@@ -38,6 +38,7 @@ class WorkOrder extends AbstractBase
      * @var Customer
      *
      * @ORM\ManyToOne(targetEntity="Customer")
+     * @ORM\JoinColumn(name="customer_id", referencedColumnName="id", nullable=false)
      */
     private $customer;
 
@@ -45,6 +46,7 @@ class WorkOrder extends AbstractBase
      * @var Windfarm
      *
      * @ORM\ManyToOne(targetEntity="Windfarm")
+     * @ORM\JoinColumn(name="windfarm_id", referencedColumnName="id", nullable=false)
      */
     private $windfarm;
 
@@ -52,42 +54,41 @@ class WorkOrder extends AbstractBase
      * @var Audit
      *
      * @ORM\ManyToOne(targetEntity="Audit")
-     * @ORM\JoinColumn(name="audit_id", referencedColumnName="id", nullable=true)
      */
     private $audit;
 
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=100)
+     * @ORM\Column(type="string", length=100, nullable=true)
      */
     private $certifyingCompanyName;
 
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=100)
+     * @ORM\Column(type="string", length=100, nullable=true)
      */
     private $certifyingCompanyContactPerson;
 
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=100)
+     * @ORM\Column(type="string", length=100, nullable=true)
      */
     private $certifyingCompanyPhone;
 
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=100)
+     * @ORM\Column(type="string", length=100, nullable=true)
      */
     private $certifyingCompanyEmail;
 
     /**
      * @var array
      *
-     * @ORM\Column(name="repair_access_types", type="json_array")
+     * @ORM\Column(name="repair_access_types", type="json_array", nullable=true)
      */
     private $repairAccessTypes = [];
 
