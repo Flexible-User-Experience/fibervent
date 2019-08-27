@@ -85,6 +85,13 @@ class WorkOrder extends AbstractBase
     private $certifyingCompanyEmail;
 
     /**
+     * @var array
+     *
+     * @ORM\Column(name="repair_access_types", type="json_array")
+     */
+    private $repairAccessTypes = [];
+
+    /**
      * Methods.
      */
 
@@ -258,4 +265,25 @@ class WorkOrder extends AbstractBase
         $this->certifyingCompanyEmail = $certifyingCompanyEmail;
         return $this;
     }
+
+    /**
+     * @return array
+     */
+    public function getRepairAccessTypes(): array
+    {
+        return $this->repairAccessTypes;
+    }
+
+    /**
+     * @param array $repairAccessTypes
+     *
+     * @return WorkOrder
+     */
+    public function setRepairAccessTypes(array $repairAccessTypes): WorkOrder
+    {
+        $this->repairAccessTypes = $repairAccessTypes;
+        return $this;
+    }
+
+
 }
