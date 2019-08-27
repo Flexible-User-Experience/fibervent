@@ -524,3 +524,17 @@ AppBundle\Entity\User:
         customer: @customer<numberBetween(1, 10)>
         roles:
             - ROLE_CUSTOMER
+
+## WorkOrders
+AppBundle\Entity\WorkOrder:
+  workOrder{1..5}:
+    projectNumber: EO-<numberBetween(1, 100)>
+    isFromAudit: <boolean()>
+    customer: @customer<numberBetween(1, 10)>
+    windfarm: @windfarm<numberBetween(1, 25)>
+    audit: @audit<numberBetween(1, 25)>
+    certifyingCompanyName: <company()>
+    certifyingCompanyContactPerson: <name()>
+    certifyingCompanyPhone: <phoneNumber()>
+    certifyingCompanyEmail: <safeEmail()>
+    repairAccessTypes: <randomElements( array (0, 1, 2, 3))>
