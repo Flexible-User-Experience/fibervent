@@ -303,7 +303,9 @@ class WorkOrder extends AbstractBase
      */
     public function addRepairAccessType(int $repairAccessType): WorkOrder
     {
-        $this->repairAccessTypes[] = $repairAccessType;
+        if (false === ($key = array_search($repairAccessType, $this->repairAccessTypes))) {
+            $this->repairAccessTypes[] = $repairAccessType;
+        }
 
         return $this;
     }
