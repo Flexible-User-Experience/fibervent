@@ -164,6 +164,14 @@ enum:
     morning: Mañana
     afternoon: Tarde
     night: Noche
+  non_standard_used_material_item:
+    others: Otros
+    receivers: Receptores
+    vortex: Vortex
+    stall_strip: Stall strip
+    diverter_s: Diverter S.
+    belt_3m: Cinta 3m
+    lep: LEP
 admin:
   common:
     general: General

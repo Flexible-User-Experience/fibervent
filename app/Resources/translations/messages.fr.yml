@@ -164,6 +164,14 @@ enum:
     morning:
     afternoon:
     night:
+  non_standard_used_material_item:
+    others:
+    receivers:
+    vortex:
+    stall_strip:
+    diverter_s:
+    belt_3m:
+    lep:
 admin:
   common:
     general:
