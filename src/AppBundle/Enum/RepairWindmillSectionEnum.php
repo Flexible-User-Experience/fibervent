@@ -21,9 +21,9 @@ class RepairWindmillSectionEnum
     public static function getEnumArray()
     {
         return array(
-            self::BLADE => 'Pala',
-            self::NACELLE => 'Nacelle',
-            self::TOWER => 'Torre',
+            self::BLADE => 'enum.repair_windmill_section.blade',
+            self::NACELLE => 'enum.repair_windmill_section.nacelle',
+            self::TOWER => 'enum.repair_windmill_section.tower',
         );
     }
 }

@@ -152,6 +152,10 @@ enum:
     basket_crane: Cesta FV
     ropes: Cuerdas
     ground: Suelo
+  repair_windmill_section:
+    blade: Pala
+    nacelle: Nacelle
+    tower: Torre
 admin:
   common:
     general: General

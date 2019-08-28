@@ -152,6 +152,10 @@ enum:
     basket_crane:
     ropes:
     ground:
+  repair_windmill_section:
+    blade:
+    nacelle:
+    tower:
 admin:
   common:
     general:
