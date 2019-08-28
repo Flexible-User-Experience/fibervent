@@ -147,6 +147,11 @@ enum:
     technician:
     admin:
     super_admin:
+  repair_access_type:
+    crane:
+    basket_crane:
+    ropes:
+    ground:
 admin:
   common:
     general:

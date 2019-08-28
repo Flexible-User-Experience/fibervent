@@ -147,6 +147,11 @@ enum:
     technician: Técnico
     admin: Administrador
     super_admin: Superadministrador
+  repair_access_type:
+    crane: Grua
+    basket_crane: Cesta FV
+    ropes: Cuerdas
+    ground: Suelo
 admin:
   common:
     general: General
