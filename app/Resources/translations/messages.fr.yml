@@ -160,6 +160,10 @@ enum:
     trip:
     stop:
     work:
+  time_register_shift:
+    morning:
+    afternoon:
+    night:
 admin:
   common:
     general:

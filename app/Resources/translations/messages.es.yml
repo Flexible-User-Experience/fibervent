@@ -160,6 +160,10 @@ enum:
     trip: Desplazamiento
     stop: Parada
     work: Trabajo
+  time_register_shift:
+    morning: Mañana
+    afternoon: Tarde
+    night: Noche
 admin:
   common:
     general: General

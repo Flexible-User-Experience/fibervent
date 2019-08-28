@@ -21,9 +21,9 @@ class TimeRegisterShiftEnum
     public static function getEnumArray()
     {
         return array(
-            self::MORNING => 'Matí',
-            self::AFTERNOON => 'Tarda',
-            self::NIGHT => 'Nit',
+            self::MORNING => 'enum.time_register_shift.morning',
+            self::AFTERNOON => 'enum.time_register_shift.afternoon',
+            self::NIGHT => 'enum.time_register_shift.night',
         );
     }
 }
