@@ -112,6 +112,7 @@ class WorkOrder extends AbstractBase
     public function setProjectNumber(string $projectNumber): WorkOrder
     {
         $this->projectNumber = $projectNumber;
+
         return $this;
     }
 
@@ -131,6 +132,7 @@ class WorkOrder extends AbstractBase
     public function setIsFromAudit(bool $isFromAudit): WorkOrder
     {
         $this->isFromAudit = $isFromAudit;
+
         return $this;
     }
 
@@ -150,6 +152,7 @@ class WorkOrder extends AbstractBase
     public function setCustomer(Customer $customer): WorkOrder
     {
         $this->customer = $customer;
+
         return $this;
     }
 
@@ -169,6 +172,7 @@ class WorkOrder extends AbstractBase
     public function setWindfarm(Windfarm $windfarm): WorkOrder
     {
         $this->windfarm = $windfarm;
+
         return $this;
     }
 
@@ -188,6 +192,7 @@ class WorkOrder extends AbstractBase
     public function setAudit(Audit $audit): WorkOrder
     {
         $this->audit = $audit;
+
         return $this;
     }
 
@@ -207,6 +212,7 @@ class WorkOrder extends AbstractBase
     public function setCertifyingCompanyName(string $certifyingCompanyName): WorkOrder
     {
         $this->certifyingCompanyName = $certifyingCompanyName;
+
         return $this;
     }
 
@@ -226,6 +232,7 @@ class WorkOrder extends AbstractBase
     public function setCertifyingCompanyContactPerson(string $certifyingCompanyContactPerson): WorkOrder
     {
         $this->certifyingCompanyContactPerson = $certifyingCompanyContactPerson;
+
         return $this;
     }
 
@@ -245,6 +252,7 @@ class WorkOrder extends AbstractBase
     public function setCertifyingCompanyPhone(string $certifyingCompanyPhone): WorkOrder
     {
         $this->certifyingCompanyPhone = $certifyingCompanyPhone;
+
         return $this;
     }
 
@@ -264,6 +272,7 @@ class WorkOrder extends AbstractBase
     public function setCertifyingCompanyEmail(string $certifyingCompanyEmail): WorkOrder
     {
         $this->certifyingCompanyEmail = $certifyingCompanyEmail;
+
         return $this;
     }
 
@@ -283,8 +292,34 @@ class WorkOrder extends AbstractBase
     public function setRepairAccessTypes(array $repairAccessTypes): WorkOrder
     {
         $this->repairAccessTypes = $repairAccessTypes;
+
         return $this;
     }
 
+    /**
+     * @param integer $repairAccessType
+     *
+     * @return WorkOrder
+     */
+    public function addRepairAccessType(int $repairAccessType): WorkOrder
+    {
+        $this->repairAccessTypes[] = $repairAccessType;
+
+        return $this;
+    }
+
+    /**
+     * @param integer $repairAccessType
+     *
+     * @return WorkOrder
+     */
+    public function removeRepairAccessType(int $repairAccessType): WorkOrder
+    {
+        if (($key = array_search($repairAccessType, $this->repairAccessTypes)) !== false) {
+            unset($this->repairAccessTypes[$key]);
+        }
+
+        return $this;
+    }
 
 }
