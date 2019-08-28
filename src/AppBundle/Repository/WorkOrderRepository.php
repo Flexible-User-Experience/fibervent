@@ -13,7 +13,7 @@ use Doctrine\ORM\QueryBuilder;
  *
  * @author   Jordi Sort <jordi.sort@mirmit.com>
  */
-class WorkOrder extends EntityRepository
+class WorkOrderRepository extends EntityRepository
 {
     /**
      * @param null   $limit
