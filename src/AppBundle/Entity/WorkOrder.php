@@ -28,7 +28,7 @@ class WorkOrder extends AbstractBase
     protected $projectNumber;
 
     /**
-     * @var boolean
+     * @var bool
      *
      * @ORM\Column(type="boolean")
      */
@@ -297,7 +297,7 @@ class WorkOrder extends AbstractBase
     }
 
     /**
-     * @param integer $repairAccessType
+     * @param int $repairAccessType
      *
      * @return WorkOrder
      */
@@ -309,17 +309,16 @@ class WorkOrder extends AbstractBase
     }
 
     /**
-     * @param integer $repairAccessType
+     * @param int $repairAccessType
      *
      * @return WorkOrder
      */
     public function removeRepairAccessType(int $repairAccessType): WorkOrder
     {
-        if (($key = array_search($repairAccessType, $this->repairAccessTypes)) !== false) {
+        if (false !== ($key = array_search($repairAccessType, $this->repairAccessTypes))) {
             unset($this->repairAccessTypes[$key]);
         }
 
         return $this;
     }
-
 }
