@@ -156,6 +156,10 @@ enum:
     blade: Pala
     nacelle: Nacelle
     tower: Torre
+  time_register_type:
+    trip: Desplazamiento
+    stop: Parada
+    work: Trabajo
 admin:
   common:
     general: General

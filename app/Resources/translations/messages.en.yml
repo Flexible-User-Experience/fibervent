@@ -156,6 +156,10 @@ enum:
     blade:
     nacelle:
     tower:
+  time_register_type:
+    trip:
+    stop:
+    work:
 admin:
   common:
     general:

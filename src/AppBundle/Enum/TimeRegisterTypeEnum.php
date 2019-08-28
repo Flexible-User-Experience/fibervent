@@ -21,9 +21,9 @@ class TimeRegisterTypeEnum
     public static function getEnumArray()
     {
         return array(
-            self::TRIP => 'Desplaçament',
-            self::STOP => 'Parada',
-            self::WORK => 'Treball',
+            self::TRIP => 'enum.time_register_type.trip',
+            self::STOP => 'enum.time_register_type.stop',
+            self::WORK => 'enum.time_register_type.work',
         );
     }
 }
