@@ -343,6 +343,14 @@ admin:
     title: Palas Aerogenerador
     title_list: Palas Aerogenerador
     sn: 'S/N'
+  work_order:
+    project_number: Número de proyecto
+    certifying_company_name: Compañía certificadora
+    certifying_company_contact_person: Persona de contacto (certificadora)
+    certifying_company_email: Email (certificadora)
+    certifying_company_phone: Teléfono (certificadora)
+    is_from_audit: Proviene de auditoría
+    repair_access_types: Tipos de acceso
 gmap:
   general: ubicación general
 # Admin defaults

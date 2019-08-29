@@ -343,6 +343,14 @@ admin:
     title:
     title_list:
     sn:
+  work_order:
+    project_number:
+    certifying_company_name:
+    certifying_company_contact_person:
+    certifying_company_email:
+    certifying_company_phone:
+    is_from_audit:
+    repair_access_types:
 gmap:
   general: emplacement général
 # Admin defaults
