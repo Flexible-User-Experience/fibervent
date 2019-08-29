@@ -44,6 +44,9 @@ sonata_admin:
             Audit:
                 icon:  "<i class='fa fa-list-alt' aria-hidden='true'></i>"
                 label: "Inspecciones"
+            WorkOrder:
+                icon:  "<i class='fa fa-list-alt' aria-hidden='true'></i>"
+                label: "Proyectos"
         blocks:
             -
                 position: top
@@ -70,6 +73,12 @@ sonata_admin:
                 class: "col-lg-4 col-md-6 col-sm-12"
                 settings:
                     groups: [ Audit ]
+            -
+                position: top
+                type: sonata.admin.block.admin_list
+                class: "col-lg-4 col-md-6 col-sm-12"
+                settings:
+                    groups: [ WorkOrder ]
             -
                 position: top
                 type: admin.block.audits
