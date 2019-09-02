@@ -356,7 +356,7 @@ admin:
   workordertask:
     title: Tareas
     title_list: Tareas
-    isCompleted: Completada
+    is_completed: Completada
     description: Descripción
 gmap:
   general: ubicación general

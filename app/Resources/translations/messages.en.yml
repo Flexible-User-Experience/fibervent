@@ -356,7 +356,7 @@ admin:
   workordertask:
     title:
     title_list:
-    isCompleted:
+    is_completed:
     description:
 gmap:
   general: general location
