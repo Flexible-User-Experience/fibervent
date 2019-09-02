@@ -28,7 +28,7 @@ class WorkOrderAdmin extends AbstractAdmin
             ->add('projectNumber',
                 null,
                 array(
-                    'label' => 'admin.work_order.project_number',
+                    'label' => 'admin.workorder.project_number',
                 )
             )
             ->add(
@@ -44,7 +44,7 @@ class WorkOrderAdmin extends AbstractAdmin
             ->add('isFromAudit',
                 null,
                 array(
-                    'label' => 'admin.work_order.is_from_audit',
+                    'label' => 'admin.workorder.is_from_audit',
                 )
             )
             ->add('windfarm',
@@ -62,31 +62,31 @@ class WorkOrderAdmin extends AbstractAdmin
             ->add('certifyingCompanyName',
                 null,
                 array(
-                    'label' => 'admin.work_order.certifying_company_name',
+                    'label' => 'admin.workorder.certifying_company_name',
                 )
             )
             ->add('certifyingCompanyContactPerson',
                 null,
                 array(
-                    'label' => 'admin.work_order.certifying_company_contact_person',
+                    'label' => 'admin.workorder.certifying_company_contact_person',
                 )
             )
             ->add('certifyingCompanyPhone',
                 null,
                 array(
-                    'label' => 'admin.work_order.certifying_company_phone',
+                    'label' => 'admin.workorder.certifying_company_phone',
                 )
             )
             ->add('certifyingCompanyEmail',
                 null,
                 array(
-                    'label' => 'admin.work_order.certifying_company_email',
+                    'label' => 'admin.workorder.certifying_company_email',
                 )
             )
             ->add('repairAccessTypes',
                 null,
                 array(
-                    'label' => 'admin.work_order.repair_access_types',
+                    'label' => 'admin.workorder.repair_access_types',
                 )
             )
         ;
@@ -101,7 +101,7 @@ class WorkOrderAdmin extends AbstractAdmin
             ->add('projectNumber',
                 null,
                 array(
-                    'label' => 'admin.work_order.project_number',
+                    'label' => 'admin.workorder.project_number',
                 )
             )
             ->add(
@@ -117,7 +117,7 @@ class WorkOrderAdmin extends AbstractAdmin
             ->add('isFromAudit',
                 null,
                 array(
-                    'label' => 'admin.work_order.is_from_audit',
+                    'label' => 'admin.workorder.is_from_audit',
                 )
             )
             ->add('windfarm',
@@ -141,31 +141,31 @@ class WorkOrderAdmin extends AbstractAdmin
             ->add('certifyingCompanyName',
                 null,
                 array(
-                    'label' => 'admin.work_order.certifying_company_name',
+                    'label' => 'admin.workorder.certifying_company_name',
                 )
             )
             ->add('certifyingCompanyContactPerson',
                 null,
                 array(
-                    'label' => 'admin.work_order.certifying_company_contact_person',
+                    'label' => 'admin.workorder.certifying_company_contact_person',
                 )
             )
             ->add('certifyingCompanyPhone',
                 null,
                 array(
-                    'label' => 'admin.work_order.certifying_company_phone',
+                    'label' => 'admin.workorder.certifying_company_phone',
                 )
             )
             ->add('certifyingCompanyEmail',
                 null,
                 array(
-                    'label' => 'admin.work_order.certifying_company_email',
+                    'label' => 'admin.workorder.certifying_company_email',
                 )
             )
             ->add('repairAccessTypesString',
                 null,
                 array(
-                    'label' => 'admin.work_order.repair_access_types',
+                    'label' => 'admin.workorder.repair_access_types',
                 )
             )
             ->add(
@@ -190,11 +190,11 @@ class WorkOrderAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->with('admin.work_order.title')
+            ->with('admin.workorder.title')
             ->add('projectNumber',
                 null,
                 array(
-                    'label' => 'admin.work_order.project_number',
+                    'label' => 'admin.workorder.project_number',
                 )
             )
             ->add(
@@ -207,7 +207,7 @@ class WorkOrderAdmin extends AbstractAdmin
             ->add('isFromAudit',
                 null,
                 array(
-                    'label' => 'admin.work_order.is_from_audit',
+                    'label' => 'admin.workorder.is_from_audit',
                 )
             )
             ->add('windfarm',
@@ -225,38 +225,38 @@ class WorkOrderAdmin extends AbstractAdmin
             ->add('certifyingCompanyName',
                 null,
                 array(
-                    'label' => 'admin.work_order.certifying_company_name',
+                    'label' => 'admin.workorder.certifying_company_name',
                 )
             )
             ->add('certifyingCompanyContactPerson',
                 null,
                 array(
-                    'label' => 'admin.work_order.certifying_company_contact_person',
+                    'label' => 'admin.workorder.certifying_company_contact_person',
                 )
             )
             ->add('certifyingCompanyPhone',
                 null,
                 array(
-                    'label' => 'admin.work_order.certifying_company_phone',
+                    'label' => 'admin.workorder.certifying_company_phone',
                 )
             )
             ->add('certifyingCompanyEmail',
                 null,
                 array(
-                    'label' => 'admin.work_order.certifying_company_email',
+                    'label' => 'admin.workorder.certifying_company_email',
                 )
             )
             ->add('repairAccessTypes',
                 null,
                 array(
-                    'label' => 'admin.work_order.repair_access_types',
+                    'label' => 'admin.workorder.repair_access_types',
                 )
             )
             ->add(
                 'repairAccessTypes',
                 ChoiceType::class,
                 array(
-                    'label' => 'admin.work_order.repair_access_types',
+                    'label' => 'admin.workorder.repair_access_types',
                     'choices' => RepairAccessTypeEnum::getEnumArray(),
                     'multiple' => true,
                     'expanded' => false,
@@ -273,7 +273,7 @@ class WorkOrderAdmin extends AbstractAdmin
             ->add('projectNumber',
                 null,
                 array(
-                    'label' => 'admin.work_order.project_number',
+                    'label' => 'admin.workorder.project_number',
                 )
             )
             ->add(
@@ -286,7 +286,7 @@ class WorkOrderAdmin extends AbstractAdmin
             ->add('isFromAudit',
                 null,
                 array(
-                    'label' => 'admin.work_order.is_from_audit',
+                    'label' => 'admin.workorder.is_from_audit',
                 )
             )
             ->add('windfarm',
@@ -304,31 +304,31 @@ class WorkOrderAdmin extends AbstractAdmin
             ->add('certifyingCompanyName',
                 null,
                 array(
-                    'label' => 'admin.work_order.certifying_company_name',
+                    'label' => 'admin.workorder.certifying_company_name',
                 )
             )
             ->add('certifyingCompanyContactPerson',
                 null,
                 array(
-                    'label' => 'admin.work_order.certifying_company_contact_person',
+                    'label' => 'admin.workorder.certifying_company_contact_person',
                 )
             )
             ->add('certifyingCompanyPhone',
                 null,
                 array(
-                    'label' => 'admin.work_order.certifying_company_phone',
+                    'label' => 'admin.workorder.certifying_company_phone',
                 )
             )
             ->add('certifyingCompanyEmail',
                 null,
                 array(
-                    'label' => 'admin.work_order.certifying_company_email',
+                    'label' => 'admin.workorder.certifying_company_email',
                 )
             )
             ->add('repairAccessTypesString',
                 null,
                 array(
-                    'label' => 'admin.work_order.repair_access_types',
+                    'label' => 'admin.workorder.repair_access_types',
                 )
             )
         ;

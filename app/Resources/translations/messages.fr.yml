@@ -343,7 +343,7 @@ admin:
     title:
     title_list:
     sn:
-  work_order:
+  workorder:
     title:
     project_number:
     certifying_company_name:
