@@ -210,6 +210,18 @@ class WorkOrderAdmin extends AbstractAdmin
                     'label' => 'admin.work_order.is_from_audit',
                 )
             )
+            ->add('windfarm',
+                null,
+                array(
+                    'label' => 'admin.windfarm.title',
+                )
+            )
+            ->add('audit',
+                null,
+                array(
+                    'label' => 'admin.audit.title',
+                )
+            )
             ->add('certifyingCompanyName',
                 null,
                 array(
@@ -269,15 +281,24 @@ class WorkOrderAdmin extends AbstractAdmin
                 null,
                 array(
                     'label' => 'admin.windfarm.customer',
-                    'sortable' => true,
-                    'sort_field_mapping' => array('fieldName' => 'name'),
-                    'sort_parent_association_mappings' => array(array('fieldName' => 'customer')),
                 )
             )
             ->add('isFromAudit',
                 null,
                 array(
                     'label' => 'admin.work_order.is_from_audit',
+                )
+            )
+            ->add('windfarm',
+                null,
+                array(
+                    'label' => 'admin.windfarm.title',
+                )
+            )
+            ->add('audit',
+                null,
+                array(
+                    'label' => 'admin.audit.title',
                 )
             )
             ->add('certifyingCompanyName',
