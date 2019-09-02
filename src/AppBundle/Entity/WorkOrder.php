@@ -47,7 +47,7 @@ class WorkOrder extends AbstractBase
      * @var Windfarm
      *
      * @ORM\ManyToOne(targetEntity="Windfarm")
-     * @ORM\JoinColumn(name="windfarm_id", referencedColumnName="id", nullable=false)
+     * @ORM\JoinColumn(name="windfarm_id", referencedColumnName="id", nullable=true)
      */
     private $windfarm;
 
@@ -55,6 +55,7 @@ class WorkOrder extends AbstractBase
      * @var Audit
      *
      * @ORM\ManyToOne(targetEntity="Audit")
+     * @ORM\JoinColumn(name="windfarm_id", referencedColumnName="id", nullable=true)
      */
     private $audit;
 
