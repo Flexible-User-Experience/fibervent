@@ -190,7 +190,7 @@ class WorkOrderAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->with('admin.work_order.work_order')
+            ->with('admin.work_order.title')
             ->add('projectNumber',
                 null,
                 array(

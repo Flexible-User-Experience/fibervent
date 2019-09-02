@@ -344,7 +344,7 @@ admin:
     title_list:
     sn:
   work_order:
-    work_order:
+    title:
     project_number:
     certifying_company_name:
     certifying_company_contact_person:
