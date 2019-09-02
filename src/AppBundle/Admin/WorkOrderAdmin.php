@@ -2,11 +2,13 @@
 
 namespace AppBundle\Admin;
 
+use AppBundle\Enum\RepairAccessTypeEnum;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class WorkOrderAdmin extends AbstractAdmin
 {
@@ -152,39 +154,132 @@ class WorkOrderAdmin extends AbstractAdmin
         ;
     }
 
+    /**
+     * @param FormMapper $formMapper
+     */
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('projectNumber')
-            ->add('isFromAudit')
-            ->add('certifyingCompanyName')
-            ->add('certifyingCompanyContactPerson')
-            ->add('certifyingCompanyPhone')
-            ->add('certifyingCompanyEmail')
-            ->add('repairAccessTypes')
-            ->add('id')
-            ->add('createdAt')
-            ->add('updatedAt')
-            ->add('enabled')
-            ->add('removedAt')
+            ->with('admin.work_order.work_order')
+            ->add('projectNumber',
+                null,
+                array(
+                    'label' => 'admin.work_order.project_number',
+                )
+            )
+            ->add(
+                'customer',
+                null,
+                array(
+                    'label' => 'admin.windfarm.customer',
+                )
+            )
+            ->add('isFromAudit',
+                null,
+                array(
+                    'label' => 'admin.work_order.is_from_audit',
+                )
+            )
+            ->add('certifyingCompanyName',
+                null,
+                array(
+                    'label' => 'admin.work_order.certifying_company_name',
+                )
+            )
+            ->add('certifyingCompanyContactPerson',
+                null,
+                array(
+                    'label' => 'admin.work_order.certifying_company_contact_person',
+                )
+            )
+            ->add('certifyingCompanyPhone',
+                null,
+                array(
+                    'label' => 'admin.work_order.certifying_company_phone',
+                )
+            )
+            ->add('certifyingCompanyEmail',
+                null,
+                array(
+                    'label' => 'admin.work_order.certifying_company_email',
+                )
+            )
+            ->add('repairAccessTypes',
+                null,
+                array(
+                    'label' => 'admin.work_order.repair_access_types',
+                )
+            )
+            ->add(
+                'repairAccessTypes',
+                ChoiceType::class,
+                array(
+                    'label' => 'admin.work_order.repair_access_types',
+                    'choices' => RepairAccessTypeEnum::getEnumArray(),
+                    'multiple' => true,
+                    'expanded' => false,
+                    'required' => true,
+                )
+            )
+            ->end()
         ;
     }
 
     protected function configureShowFields(ShowMapper $showMapper)
     {
         $showMapper
-            ->add('projectNumber')
-            ->add('isFromAudit')
-            ->add('certifyingCompanyName')
-            ->add('certifyingCompanyContactPerson')
-            ->add('certifyingCompanyPhone')
-            ->add('certifyingCompanyEmail')
-            ->add('repairAccessTypes')
-            ->add('id')
-            ->add('createdAt')
-            ->add('updatedAt')
-            ->add('enabled')
-            ->add('removedAt')
+            ->add('projectNumber',
+                null,
+                array(
+                    'label' => 'admin.work_order.project_number',
+                )
+            )
+            ->add(
+                'customer',
+                null,
+                array(
+                    'label' => 'admin.windfarm.customer',
+                    'sortable' => true,
+                    'sort_field_mapping' => array('fieldName' => 'name'),
+                    'sort_parent_association_mappings' => array(array('fieldName' => 'customer')),
+                )
+            )
+            ->add('isFromAudit',
+                null,
+                array(
+                    'label' => 'admin.work_order.is_from_audit',
+                )
+            )
+            ->add('certifyingCompanyName',
+                null,
+                array(
+                    'label' => 'admin.work_order.certifying_company_name',
+                )
+            )
+            ->add('certifyingCompanyContactPerson',
+                null,
+                array(
+                    'label' => 'admin.work_order.certifying_company_contact_person',
+                )
+            )
+            ->add('certifyingCompanyPhone',
+                null,
+                array(
+                    'label' => 'admin.work_order.certifying_company_phone',
+                )
+            )
+            ->add('certifyingCompanyEmail',
+                null,
+                array(
+                    'label' => 'admin.work_order.certifying_company_email',
+                )
+            )
+            ->add('repairAccessTypesString',
+                null,
+                array(
+                    'label' => 'admin.work_order.repair_access_types',
+                )
+            )
         ;
     }
 }
