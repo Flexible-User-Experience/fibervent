@@ -345,6 +345,7 @@ admin:
     sn:
   workorder:
     title:
+    title_list:
     project_number:
     certifying_company_name:
     certifying_company_contact_person:
@@ -352,6 +353,11 @@ admin:
     certifying_company_phone:
     is_from_audit:
     repair_access_types:
+  workordertask:
+    title:
+    title_list:
+    isCompleted:
+    description:
 gmap:
   general: general location
 # Admin defaults

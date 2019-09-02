@@ -353,6 +353,11 @@ admin:
     certifying_company_phone: Teléfono (certificadora)
     is_from_audit: Proviene de auditoría
     repair_access_types: Tipos de acceso
+  workordertask:
+    title: Tareas
+    title_list: Tareas
+    isCompleted: Completada
+    description: Descripción
 gmap:
   general: ubicación general
 # Admin defaults
