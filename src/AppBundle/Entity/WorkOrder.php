@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Enum\RepairAccessTypeEnum;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -322,5 +323,23 @@ class WorkOrder extends AbstractBase
         }
 
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRepairAccessTypesString()
+    {
+        $repairAccessTypes = $this->getRepairAccessTypes();
+        $repairAccessTypesString = null;
+        foreach ($repairAccessTypes as $repairAccessType) {
+            if (!$repairAccessTypesString) {
+                $repairAccessTypesString = RepairAccessTypeEnum::getEnumArray()[$repairAccessType];
+            } else {
+                $repairAccessTypesString = $repairAccessTypesString.', '.RepairAccessTypeEnum::getEnumArray()[$repairAccessType];
+            }
+        }
+
+        return $repairAccessTypesString;
     }
 }

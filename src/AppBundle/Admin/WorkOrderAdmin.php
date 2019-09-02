@@ -130,7 +130,7 @@ class WorkOrderAdmin extends AbstractAdmin
                     'label' => 'admin.work_order.certifying_company_email',
                 )
             )
-            ->add('repairAccessTypes',
+            ->add('repairAccessTypesString',
                 null,
                 array(
                     'label' => 'admin.work_order.repair_access_types',
