@@ -355,6 +355,6 @@ class WorkOrderTask extends AbstractBase
      */
     public function __toString()
     {
-        return 'Task'; //TODO implement the method
+        return $this->getWorkOrder().' '.$this->getId();
     }
 }
