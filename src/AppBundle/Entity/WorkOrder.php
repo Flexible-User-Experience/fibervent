@@ -342,4 +342,9 @@ class WorkOrder extends AbstractBase
 
         return $repairAccessTypesString;
     }
+
+    public function __toString()
+    {
+        return $this->getProjectNumber();
+    }
 }
