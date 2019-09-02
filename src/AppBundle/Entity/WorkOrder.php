@@ -26,7 +26,7 @@ class WorkOrder extends AbstractBase
      *
      * @ORM\Column(type="string", length=45, unique=true)
      */
-    protected $projectNumber;
+    private $projectNumber;
 
     /**
      * @var bool
