@@ -95,7 +95,7 @@ class WorkOrderTask extends AbstractBase
     /**
      * @var bool
      *
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", default=false)
      */
     private $isCompleted;
 
