@@ -40,6 +40,7 @@ security:
             - ROLE_ADMIN_WINDMILL_ALL
             - ROLE_ADMIN_USER_ALL
             - ROLE_ADMIN_WORK_ORDER_ALL
+            - ROLE_ADMIN_WORK_ORDER_TASK_ALL
         ROLE_SUPER_ADMIN:
             - ROLE_ADMIN
             - ROLE_ALLOWED_TO_SWITCH

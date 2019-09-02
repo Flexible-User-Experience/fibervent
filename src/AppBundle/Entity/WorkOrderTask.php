@@ -13,7 +13,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @author   Jordi Sort <jordi.sort@mirmit.com>
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="AppBundle\Repository\WorkorderTaskRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\WorkOrderTaskRepository")
  * @Gedmo\SoftDeleteable(fieldName="removedAt", timeAware=false)
  */
 class WorkOrderTask extends AbstractBase

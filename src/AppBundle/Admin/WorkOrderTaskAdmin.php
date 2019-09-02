@@ -10,7 +10,7 @@ use Sonata\AdminBundle\Show\ShowMapper;
 class WorkOrderTaskAdmin extends AbstractBaseAdmin
 {
     protected $classnameLabel = 'admin.workordertask.title';
-    protected $baseRoutePattern = 'workorders/workorder/workordertask';
+    protected $baseRoutePattern = 'workorders/workordertask';
     protected $datagridValues = array(
         '_sort_by' => 'id',
         '_sort_order' => 'desc',
