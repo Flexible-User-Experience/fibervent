@@ -344,6 +344,7 @@ admin:
     title_list: Palas Aerogenerador
     sn: 'S/N'
   work_order:
+    work_order: Proyecto
     project_number: Número de proyecto
     certifying_company_name: Compañía certificadora
     certifying_company_contact_person: Persona de contacto (certificadora)
