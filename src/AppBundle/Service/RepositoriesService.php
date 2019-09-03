@@ -3,6 +3,7 @@
 namespace AppBundle\Service;
 
 use AppBundle\Repository\AuditRepository;
+use AppBundle\Repository\BladeDamageRepository;
 use AppBundle\Repository\BladeRepository;
 use AppBundle\Repository\CustomerRepository;
 use AppBundle\Repository\DamageCategoryRepository;
@@ -11,6 +12,7 @@ use AppBundle\Repository\StateRepository;
 use AppBundle\Repository\TurbineRepository;
 use AppBundle\Repository\UserRepository;
 use AppBundle\Repository\WindfarmRepository;
+use AppBundle\Repository\WindmillBladeRepository;
 use AppBundle\Repository\WindmillRepository;
 
 /**
@@ -73,6 +75,16 @@ class RepositoriesService
     private $ar;
 
     /**
+     * @var WindmillBladeRepository
+     */
+    private $wbr;
+
+    /**
+     * @var BladeDamageRepository
+     */
+    private $bdr;
+
+    /**
      * Methods.
      */
 
@@ -89,8 +101,10 @@ class RepositoriesService
      * @param DamageRepository         $dr
      * @param DamageCategoryRepository $dcr
      * @param AuditRepository          $ar
+     * @param WindmillBladeRepository  $wbr
+     * @param BladeDamageRepository    $bdr
      */
-    public function __construct(CustomerRepository $cr, UserRepository $ur, WindmillRepository $wmr, WindfarmRepository $wfr, BladeRepository $br, TurbineRepository $tr, StateRepository $sr, DamageRepository $dr, DamageCategoryRepository $dcr, AuditRepository $ar)
+    public function __construct(CustomerRepository $cr, UserRepository $ur, WindmillRepository $wmr, WindfarmRepository $wfr, BladeRepository $br, TurbineRepository $tr, StateRepository $sr, DamageRepository $dr, DamageCategoryRepository $dcr, AuditRepository $ar, WindmillBladeRepository $wbr, BladeDamageRepository $bdr)
     {
         $this->cr = $cr;
         $this->ur = $ur;
@@ -102,6 +116,8 @@ class RepositoriesService
         $this->dr = $dr;
         $this->dcr = $dcr;
         $this->ar = $ar;
+        $this->wbr = $wbr;
+        $this->bdr = $bdr;
     }
 
     /**
@@ -182,5 +198,21 @@ class RepositoriesService
     public function getAr()
     {
         return $this->ar;
+    }
+
+    /**
+     * @return WindmillBladeRepository
+     */
+    public function getWbr()
+    {
+        return $this->wbr;
+    }
+
+    /**
+     * @return BladeDamageRepository
+     */
+    public function getBdr()
+    {
+        return $this->bdr;
     }
 }
