@@ -5,8 +5,16 @@ namespace AppBundle\Admin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Form\Type\ModelType;
 use Sonata\AdminBundle\Show\ShowMapper;
 
+/**
+ * Class WorkOrderTaskAdmin.
+ *
+ * @category Admin
+ *
+ * @author   Jordi Sort <jordi.sort@mirmit.com>
+ */
 class WorkOrderTaskAdmin extends AbstractBaseAdmin
 {
     protected $classnameLabel = 'admin.workordertask.title';
@@ -104,9 +112,6 @@ class WorkOrderTaskAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'admin.workorder.title',
-                    'sortable' => true,
-                    'sort_field_mapping' => array('fieldName' => 'projectNumber'),
-                    'sort_parent_association_mappings' => array(array('fieldName' => 'workOrder')),
                 )
             )
             ->add('isFromAudit',
@@ -195,9 +200,6 @@ class WorkOrderTaskAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'admin.workorder.title',
-                    'sortable' => true,
-                    'sort_field_mapping' => array('fieldName' => 'projectNumber'),
-                    'sort_parent_association_mappings' => array(array('fieldName' => 'workOrder')),
                 )
             )
             ->add('description',
@@ -206,20 +208,16 @@ class WorkOrderTaskAdmin extends AbstractBaseAdmin
                     'label' => 'admin.workordertask.description',
                 )
             )
+            ->add('isCompleted',
+                null,
+                array(
+                    'label' => 'admin.workordertask.is_completed',
+                )
+            )
             ->add('isFromAudit',
                 null,
                 array(
                     'label' => 'admin.workorder.is_from_audit',
-                )
-            )
-            ->add('windmillBlade',
-                ModelType::class,
-                array(
-                    'label' => 'admin.windmillblade.title',
-                    'btn_add' => false,
-                    'required' => true,
-                    //'query' => $this->w->findEnabledSortedByNameQ(),
-                    'choices_as_values' => true,
                 )
             )
             ->add('windmill',
@@ -227,15 +225,15 @@ class WorkOrderTaskAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'admin.windmill.title',
                     'btn_add' => false,
-                    'required' => true,
-                    'query' => $this->wmr->findCustomerSortedByCustomerWindfarmAndWindmillCode(),
-                    'choices_as_values' => true,
+                    'required' => false,
                 )
             )
-            ->add('isCompleted',
-                null,
+            ->add('windmillBlade',
+                ModelType::class,
                 array(
-                    'label' => 'admin.workordertask.is_completed',
+                    'label' => 'admin.windmillblade.title',
+                    'btn_add' => false,
+                    'required' => false,
                 )
             )
             ->add(
@@ -245,7 +243,7 @@ class WorkOrderTaskAdmin extends AbstractBaseAdmin
                     'label' => 'admin.bladedamage.title',
                     'btn_add' => false,
                     'required' => true,
-                    //'query' => $this->wfr->findEnabledSortedByNameQ(),
+                   // 'query' => $this->bdr->findAll(),
                     'choices_as_values' => true,
                 )
             )
@@ -281,6 +279,9 @@ class WorkOrderTaskAdmin extends AbstractBaseAdmin
         ;
     }
 
+    /**
+     * @param ShowMapper $showMapper
+     */
     protected function configureShowFields(ShowMapper $showMapper)
     {
         $showMapper
@@ -289,9 +290,6 @@ class WorkOrderTaskAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'admin.workorder.title',
-                    'sortable' => true,
-                    'sort_field_mapping' => array('fieldName' => 'projectNumber'),
-                    'sort_parent_association_mappings' => array(array('fieldName' => 'workOrder')),
                 )
             )
             ->add('description',
@@ -310,20 +308,12 @@ class WorkOrderTaskAdmin extends AbstractBaseAdmin
                 ModelType::class,
                 array(
                     'label' => 'admin.windmillblade.title',
-                    'btn_add' => false,
-                    'required' => true,
-                    //'query' => $this->w->findEnabledSortedByNameQ(),
-                    'choices_as_values' => true,
                 )
             )
             ->add('windmill',
                 ModelType::class,
                 array(
                     'label' => 'admin.windmill.title',
-                    'btn_add' => false,
-                    'required' => true,
-                    'query' => $this->wmr->findCustomerSortedByCustomerWindfarmAndWindmillCode(),
-                    'choices_as_values' => true,
                 )
             )
             ->add('isCompleted',
@@ -337,10 +327,6 @@ class WorkOrderTaskAdmin extends AbstractBaseAdmin
                 ModelType::class,
                 array(
                     'label' => 'admin.bladedamage.title',
-                    'btn_add' => false,
-                    'required' => true,
-                    //'query' => $this->wfr->findEnabledSortedByNameQ(),
-                    'choices_as_values' => true,
                 )
             )
             ->add(
