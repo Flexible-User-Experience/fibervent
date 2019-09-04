@@ -21,7 +21,7 @@ class NonStandardUsedMaterialRepository extends EntityRepository
      *
      * @return QueryBuilder
      */
-    public function findAllSortedByProjectNumberQB($limit = null, $order = 'ASC')
+    public function findAllSortedByIdQB($limit = null, $order = 'ASC')
     {
         $query = $this
             ->createQueryBuilder('t')
@@ -40,9 +40,9 @@ class NonStandardUsedMaterialRepository extends EntityRepository
      *
      * @return Query
      */
-    public function findAllSortedByProjectNumberQ($limit = null, $order = 'ASC')
+    public function findAllSortedByIdQ($limit = null, $order = 'ASC')
     {
-        return $this->findAllSortedByProjectNumberQB($limit, $order)->getQuery();
+        return $this->findAllSortedByIdQB($limit, $order)->getQuery();
     }
 
     /**
@@ -51,8 +51,8 @@ class NonStandardUsedMaterialRepository extends EntityRepository
      *
      * @return array
      */
-    public function findAllSortedByName($limit = null, $order = 'ASC')
+    public function findAllSortedById($limit = null, $order = 'ASC')
     {
-        return $this->findAllSortedByProjectNumberQ($limit, $order)->getResult();
+        return $this->findAllSortedByIdQ($limit, $order)->getResult();
     }
 }
