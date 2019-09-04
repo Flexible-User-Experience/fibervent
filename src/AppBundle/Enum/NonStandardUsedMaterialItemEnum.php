@@ -2,6 +2,8 @@
 
 namespace AppBundle\Enum;
 
+use AppBundle\Entity\NonStandardUsedMaterial;
+
 /**
  * NonStandardUsedMaterialItemEnum class.
  *
@@ -33,5 +35,15 @@ class NonStandardUsedMaterialItemEnum
             self::BELT_3M => 'enum.non_standard_used_material_item.belt_3m',
             self::LEP => 'enum.non_standard_used_material_item.lep',
         );
+    }
+
+    /**
+     * @param NonStandardUsedMaterial $nonStandardUsedMaterial
+     *
+     * @return string
+     */
+    public static function getStringValue(NonStandardUsedMaterial $nonStandardUsedMaterial)
+    {
+        return self::getEnumArray()[$nonStandardUsedMaterial->getItem()];
     }
 }
