@@ -2,6 +2,8 @@
 
 namespace AppBundle\Enum;
 
+use AppBundle\Entity\DeliveryNoteTimeRegister;
+
 /**
  * TimeRegisterTypeEnum class.
  *
@@ -25,5 +27,15 @@ class TimeRegisterTypeEnum
             self::STOP => 'enum.time_register_type.stop',
             self::WORK => 'enum.time_register_type.work',
         );
+    }
+
+    /**
+     * @param DeliveryNoteTimeRegister $deliveryNoteTimeRegister
+     *
+     * @return string
+     */
+    public static function getStringValue(DeliveryNoteTimeRegister $deliveryNoteTimeRegister)
+    {
+        return self::getEnumArray()[$deliveryNoteTimeRegister->getType()];
     }
 }

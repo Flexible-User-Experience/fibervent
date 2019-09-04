@@ -2,6 +2,8 @@
 
 namespace AppBundle\Enum;
 
+use AppBundle\Entity\DeliveryNoteTimeRegister;
+
 /**
  * TimeRegisterShiftEnum class.
  *
@@ -25,5 +27,15 @@ class TimeRegisterShiftEnum
             self::AFTERNOON => 'enum.time_register_shift.afternoon',
             self::NIGHT => 'enum.time_register_shift.night',
         );
+    }
+
+    /**
+     * @param DeliveryNoteTimeRegister $deliveryNoteTimeRegister
+     *
+     * @return string
+     */
+    public static function getStringValue(DeliveryNoteTimeRegister $deliveryNoteTimeRegister)
+    {
+        return self::getEnumArray()[$deliveryNoteTimeRegister->getShift()];
     }
 }
