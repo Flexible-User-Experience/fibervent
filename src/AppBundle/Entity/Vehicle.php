@@ -37,7 +37,7 @@ class Vehicle extends AbstractBase
     /**
      * @var bool
      *
-     * @ORM\Column(type="boolen", options={"default"=true})
+     * @ORM\Column(type="boolean", options={"default"=true})
      */
     private $active;
 
