@@ -554,3 +554,10 @@ AppBundle\Entity\WorkOrderTask:
     size: <numberBetween($min = 1, $max = 7)>
     isCompleted: <boolean()>
     description: <sentence()>
+
+## Vehicles
+AppBundle\Entity\Vehicle:
+  vehicle{1..5}:
+    name: <word()>
+    licensePlate: <ean8()>
+    active: <boolean()>
