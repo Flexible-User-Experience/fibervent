@@ -358,6 +358,11 @@ admin:
     title_list:
     is_completed:
     description:
+  vehicle:
+    title:
+    name:
+    lisencePlate:
+    active:
 gmap:
   general: general location
 # Admin defaults

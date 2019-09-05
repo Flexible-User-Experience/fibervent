@@ -358,6 +358,11 @@ admin:
     title_list: Tareas
     is_completed: Completada
     description: Descripción
+  vehicle:
+    title: Vehículo
+    name: Nombre
+    lisencePlate: Matrícula
+    active: Activo
 gmap:
   general: ubicación general
 # Admin defaults
