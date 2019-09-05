@@ -4,7 +4,6 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * PresenceMonitoring.
@@ -15,7 +14,6 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="AppBundle\Repository\PresenceMonitoringRepository")
- * @UniqueEntity("licensePlate")
  * @Gedmo\SoftDeleteable(fieldName="removedAt", timeAware=false)
  */
 class PresenceMonitoring extends AbstractBase
