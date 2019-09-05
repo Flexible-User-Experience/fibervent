@@ -13,7 +13,7 @@ use Doctrine\ORM\QueryBuilder;
  *
  * @author   Jordi Sort <jordi.sort@mirmit.com>
  */
-class PresenceMonitoring extends EntityRepository
+class PresenceMonitoringRepository extends EntityRepository
 {
     /**
      * @param null   $limit
