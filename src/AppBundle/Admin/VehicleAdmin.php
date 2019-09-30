@@ -28,6 +28,27 @@ class VehicleAdmin extends AbstractBaseAdmin
      */
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
+        $datagridMapper
+            ->add(
+                'name',
+                null,
+                array(
+                    'label' => 'admin.vehicle.name',
+                )
+            )
+            ->add('licensePlate',
+                null,
+                array(
+                    'label' => 'admin.vehicle.licence_plate',
+                )
+            )
+            ->add('active',
+                null,
+                array(
+                    'label' => 'admin.vehicle.active',
+                )
+            )
+        ;
     }
 
     /**
@@ -35,6 +56,40 @@ class VehicleAdmin extends AbstractBaseAdmin
      */
     protected function configureListFields(ListMapper $listMapper)
     {
+        $listMapper
+            ->add(
+                'name',
+                null,
+                array(
+                    'label' => 'admin.vehicle.name',
+                )
+            )
+            ->add('licensePlate',
+                null,
+                array(
+                    'label' => 'admin.vehicle.licence_plate',
+                )
+            )
+            ->add('active',
+                null,
+                array(
+                    'label' => 'admin.vehicle.active',
+                )
+            )
+            ->add(
+                '_action',
+                'actions',
+                array(
+                    'label' => 'admin.common.action',
+                    'actions' => array(
+                        'edit' => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
+                        'show' => array('template' => '::Admin/Buttons/list__action_show_button.html.twig'),
+                        //                       'excel' => array('template' => '::Admin/Buttons/list__action_excel_button.html.twig'),
+                        //                       'pdf' => array('template' => '::Admin/Buttons/list__action_pdf_windfarm_button.html.twig'),
+                    ),
+                )
+            )
+        ;
     }
 
     /**
@@ -42,6 +97,29 @@ class VehicleAdmin extends AbstractBaseAdmin
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
+        $formMapper
+            ->with('admin.vehicle.title')
+            ->add(
+                'name',
+                null,
+                array(
+                    'label' => 'admin.vehicle.name',
+                )
+            )
+            ->add('licensePlate',
+                null,
+                array(
+                    'label' => 'admin.vehicle.licence_plate',
+                )
+            )
+            ->add('active',
+                null,
+                array(
+                    'label' => 'admin.vehicle.active',
+                )
+            )
+            ->end()
+        ;
     }
 
     /**
@@ -49,5 +127,28 @@ class VehicleAdmin extends AbstractBaseAdmin
      */
     protected function configureShowFields(ShowMapper $showMapper)
     {
+        $showMapper
+            ->with('admin.vehicle.title')
+            ->add(
+                'name',
+                null,
+                array(
+                    'label' => 'admin.vehicle.name',
+                )
+            )
+            ->add('licensePlate',
+                null,
+                array(
+                    'label' => 'admin.vehicle.licence_plate',
+                )
+            )
+            ->add('active',
+                null,
+                array(
+                    'label' => 'admin.vehicle.active',
+                )
+            )
+            ->end()
+        ;
     }
 }
