@@ -335,18 +335,14 @@ class WorkOrder extends AbstractBase
     }
 
     /**
-     * @return string
+     * @return array
      */
-    public function getRepairAccessTypesString()
+    public function getRepairAccessTypesString(): array
     {
         $repairAccessTypes = $this->getRepairAccessTypes();
-        $repairAccessTypesString = null;
+        $repairAccessTypesString = [];
         foreach ($repairAccessTypes as $repairAccessType) {
-            if (!$repairAccessTypesString) {
-                $repairAccessTypesString = RepairAccessTypeEnum::getEnumArray()[$repairAccessType];
-            } else {
-                $repairAccessTypesString = $repairAccessTypesString.', '.RepairAccessTypeEnum::getEnumArray()[$repairAccessType];
-            }
+            $repairAccessTypesString[] = RepairAccessTypeEnum::getDecodedStringFromType($repairAccessType);
         }
 
         return $repairAccessTypesString;

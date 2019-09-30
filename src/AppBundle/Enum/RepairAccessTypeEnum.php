@@ -28,4 +28,14 @@ class RepairAccessTypeEnum
             self::GROUND => 'enum.repair_access_type.ground',
         );
     }
+
+    /**
+     * @param int $type
+     *
+     * @return string
+     */
+    public static function getDecodedStringFromType(int $type)
+    {
+        return self::getEnumArray()[$type];
+    }
 }

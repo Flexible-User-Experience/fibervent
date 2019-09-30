@@ -163,10 +163,11 @@ class WorkOrderAdmin extends AbstractAdmin
                     'label' => 'admin.workorder.certifying_company_email',
                 )
             )
-            ->add('repairAccessTypesString',
+            ->add('repairAccessTypes',
                 null,
                 array(
                     'label' => 'admin.workorder.repair_access_types',
+                    'template' => '::Admin/Cells/list__cell_repair_access_type.html.twig',
                 )
             )
             ->add(
