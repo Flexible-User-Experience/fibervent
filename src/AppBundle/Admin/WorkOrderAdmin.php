@@ -8,6 +8,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
+use Sonata\Form\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class WorkOrderAdmin extends AbstractAdmin
@@ -264,6 +265,28 @@ class WorkOrderAdmin extends AbstractAdmin
                 )
             )
             ->end()
+            /*
+            ->with('admin.workordertask.title')
+            ->add(
+                'workOrderTasks',
+                CollectionType::class,
+                array(
+                    'label' => ' ',
+                    'required' => false,
+                    'btn_add' => false,
+                    'cascade_validation' => true,
+                    'error_bubbling' => true,
+                    'type_options' => array(
+                        'delete' => false,
+                    ),
+                ),
+                array(
+                    'edit' => 'inline',
+                    'inline' => 'table',
+                )
+            )
+            ->end()
+            */
         ;
     }
 
