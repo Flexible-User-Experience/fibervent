@@ -361,7 +361,7 @@ admin:
   vehicle:
     title: Vehículo
     name: Nombre
-    lisencePlate: Matrícula
+    licence_plate: Matrícula
     active: Activo
 gmap:
   general: ubicación general

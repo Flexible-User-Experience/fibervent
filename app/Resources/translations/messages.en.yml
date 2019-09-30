@@ -361,7 +361,7 @@ admin:
   vehicle:
     title:
     name:
-    lisencePlate:
+    licence_plate:
     active:
 gmap:
   general: general location
