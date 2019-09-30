@@ -265,7 +265,6 @@ class WorkOrderAdmin extends AbstractAdmin
                 )
             )
             ->end()
-            /*
             ->with('admin.workordertask.title')
             ->add(
                 'workOrderTasks',
@@ -286,7 +285,6 @@ class WorkOrderAdmin extends AbstractAdmin
                 )
             )
             ->end()
-            */
         ;
     }
 
