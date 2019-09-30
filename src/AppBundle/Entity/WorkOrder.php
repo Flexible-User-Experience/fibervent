@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use AppBundle\Enum\RepairAccessTypeEnum;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -93,6 +94,13 @@ class WorkOrder extends AbstractBase
      * @ORM\Column(name="repair_access_types", type="json_array", nullable=true)
      */
     private $repairAccessTypes = [];
+
+    /**
+     * @var WorkOrderTask[]|ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="WorkOrderTask", mappedBy="workOrder")
+     */
+    private $workOrderTasks;
 
     /**
      * Methods.
@@ -342,6 +350,26 @@ class WorkOrder extends AbstractBase
         }
 
         return $repairAccessTypesString;
+    }
+
+    /**
+     * @return WorkOrderTask[]|ArrayCollection
+     */
+    public function getWorkOrderTasks()
+    {
+        return $this->workOrderTasks;
+    }
+
+    /**
+     * @param WorkOrderTask[]|ArrayCollection $workOrderTasks
+     *
+     * @return WorkOrder
+     */
+    public function setWorkOrderTasks($workOrderTasks)
+    {
+        $this->workOrderTasks = $workOrderTasks;
+
+        return $this;
     }
 
     public function __toString()
