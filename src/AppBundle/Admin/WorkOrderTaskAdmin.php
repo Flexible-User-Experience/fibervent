@@ -215,7 +215,7 @@ class WorkOrderTaskAdmin extends AbstractBaseAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->with('admin.workordertask.title')
+            ->with('admin.common.general', $this->getFormMdSuccessBoxArray(7))
             ->add(
                 'workOrder',
                 null,
@@ -257,6 +257,8 @@ class WorkOrderTaskAdmin extends AbstractBaseAdmin
                     'required' => false,
                 )
             )
+            ->end()
+            ->with('admin.bladedamage.title', $this->getFormMdSuccessBoxArray(5))
             ->add(
                 'bladeDamage',
                 ModelType::class,
@@ -264,7 +266,7 @@ class WorkOrderTaskAdmin extends AbstractBaseAdmin
                     'label' => 'admin.bladedamage.title',
                     'btn_add' => false,
                     'required' => true,
-                   // 'query' => $this->bdr->findAll(),
+                    // 'query' => $this->bdr->findAll(),
                     'choices_as_values' => true,
                 )
             )
@@ -306,6 +308,7 @@ class WorkOrderTaskAdmin extends AbstractBaseAdmin
     protected function configureShowFields(ShowMapper $showMapper)
     {
         $showMapper
+            ->with('admin.common.general', $this->getFormMdSuccessBoxArray(7))
             ->add(
                 'workOrder',
                 null,
@@ -319,35 +322,45 @@ class WorkOrderTaskAdmin extends AbstractBaseAdmin
                     'label' => 'admin.workordertask.description',
                 )
             )
-            ->add('isFromAudit',
-                null,
-                array(
-                    'label' => 'admin.workorder.is_from_audit',
-                )
-            )
-            ->add('windmillBlade',
-                ModelType::class,
-                array(
-                    'label' => 'admin.windmillblade.title',
-                )
-            )
-            ->add('windmill',
-                ModelType::class,
-                array(
-                    'label' => 'admin.windmill.title',
-                )
-            )
             ->add('isCompleted',
                 null,
                 array(
                     'label' => 'admin.workordertask.is_completed',
                 )
             )
+            ->add('isFromAudit',
+                null,
+                array(
+                    'label' => 'admin.workorder.is_from_audit',
+                )
+            )
+            ->add('windmill',
+                ModelType::class,
+                array(
+                    'label' => 'admin.windmill.title',
+                    'btn_add' => false,
+                    'required' => false,
+                )
+            )
+            ->add('windmillBlade',
+                ModelType::class,
+                array(
+                    'label' => 'admin.windmillblade.title',
+                    'btn_add' => false,
+                    'required' => false,
+                )
+            )
+            ->end()
+            ->with('admin.bladedamage.title', $this->getFormMdSuccessBoxArray(5))
             ->add(
                 'bladeDamage',
                 ModelType::class,
                 array(
                     'label' => 'admin.bladedamage.title',
+                    'btn_add' => false,
+                    'required' => true,
+                    // 'query' => $this->bdr->findAll(),
+                    'choices_as_values' => true,
                 )
             )
             ->add(
@@ -378,6 +391,7 @@ class WorkOrderTaskAdmin extends AbstractBaseAdmin
                     'label' => 'admin.bladedamage.size',
                 )
             )
+            ->end()
         ;
     }
 }
