@@ -303,6 +303,7 @@ class WorkOrderAdmin extends AbstractBaseAdmin
     protected function configureShowFields(ShowMapper $showMapper)
     {
         $showMapper
+            ->with('admin.common.general', $this->getFormMdSuccessBoxArray(4))
             ->add('projectNumber',
                 null,
                 array(
@@ -322,18 +323,30 @@ class WorkOrderAdmin extends AbstractBaseAdmin
                     'label' => 'admin.workorder.is_from_audit',
                 )
             )
-            ->add('windfarm',
-                null,
-                array(
-                    'label' => 'admin.windfarm.title',
-                )
-            )
             ->add('audit',
                 null,
                 array(
                     'label' => 'admin.audit.title',
                 )
             )
+            ->end()
+            ->with('admin.windfarm.title', $this->getFormMdSuccessBoxArray(4))
+            ->add('windfarm',
+                null,
+                array(
+                    'label' => 'admin.windfarm.title',
+                )
+            )
+            ->add(
+                'repairAccessTypes',
+                null,
+                array(
+                    'label' => 'admin.workorder.repair_access_types',
+                    'template' => '::Admin/Cells/list__repair_access_type.html.twig',
+                )
+            )
+            ->end()
+            ->with('admin.workorder.certifying_company_name', $this->getFormMdSuccessBoxArray(4))
             ->add('certifyingCompanyName',
                 null,
                 array(
@@ -358,12 +371,23 @@ class WorkOrderAdmin extends AbstractBaseAdmin
                     'label' => 'admin.workorder.certifying_company_email',
                 )
             )
-            ->add('repairAccessTypesString',
-                null,
+            ->end()
+            ->with('admin.workordertask.title', $this->getFormMdSuccessBoxArray(12))
+            ->add(
+                'workOrderTasks',
+                CollectionType::class,
                 array(
-                    'label' => 'admin.workorder.repair_access_types',
+                    'label' => ' ',
+                    'required' => false,
+                    'btn_add' => false,
+                    'cascade_validation' => true,
+                    'error_bubbling' => true,
+                    'type_options' => array(
+                        'delete' => false,
+                    ),
                 )
             )
+            ->end()
         ;
     }
 }
