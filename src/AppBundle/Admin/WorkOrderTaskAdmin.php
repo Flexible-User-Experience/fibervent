@@ -121,6 +121,9 @@ class WorkOrderTaskAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'admin.workorder.title',
+                    'sortable' => true,
+                    'sort_field_mapping' => array('fieldName' => 'projectNumber'),
+                    'sort_parent_association_mappings' => array(array('fieldName' => 'workOrder')),
                 )
             )
             ->add('isFromAudit',
@@ -133,18 +136,27 @@ class WorkOrderTaskAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'admin.windmillblade.title',
+                    'sortable' => true,
+                    'sort_field_mapping' => array('fieldName' => 'code'),
+                    'sort_parent_association_mappings' => array(array('fieldName' => 'windmillBlade')),
                 )
             )
             ->add('windmill',
                 null,
                 array(
                     'label' => 'admin.windmill.title',
+                    'sortable' => true,
+                    'sort_field_mapping' => array('fieldName' => 'code'),
+                    'sort_parent_association_mappings' => array(array('fieldName' => 'windmill')),
                 )
             )
             ->add('bladeDamage',
                 null,
                 array(
                     'label' => 'admin.bladedamage.title',
+                    'sortable' => true,
+                    'sort_field_mapping' => array('fieldName' => 'damage'),
+                    'sort_parent_association_mappings' => array(array('fieldName' => 'bladeDamage')),
                 )
             )
             ->add(
