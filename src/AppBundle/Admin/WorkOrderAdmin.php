@@ -3,15 +3,15 @@
 namespace AppBundle\Admin;
 
 use AppBundle\Enum\RepairAccessTypeEnum;
-use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\Form\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
-class WorkOrderAdmin extends AbstractAdmin
+class WorkOrderAdmin extends AbstractBaseAdmin
 {
     protected $classnameLabel = 'admin.workorder.title';
     protected $baseRoutePattern = 'workorders/workorder';
@@ -19,6 +19,19 @@ class WorkOrderAdmin extends AbstractAdmin
         '_sort_by' => 'projectNumber',
         '_sort_order' => 'desc',
     );
+
+    /**
+     * Configure route collection.
+     *
+     * @param RouteCollection $collection
+     */
+    protected function configureRoutes(RouteCollection $collection)
+    {
+        $collection
+            ->remove('batch');
+//            ->add('pdf', $this->getRouterIdParameter().'/pdf')
+//            ->add('email', $this->getRouterIdParameter().'/email');
+    }
 
     /**
      * @param DatagridMapper $datagridMapper
@@ -192,7 +205,7 @@ class WorkOrderAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->with('admin.workorder.title')
+            ->with('admin.common.general', $this->getFormMdSuccessBoxArray(4))
             ->add('projectNumber',
                 null,
                 array(
@@ -212,18 +225,33 @@ class WorkOrderAdmin extends AbstractAdmin
                     'label' => 'admin.workorder.is_from_audit',
                 )
             )
-            ->add('windfarm',
-                null,
-                array(
-                    'label' => 'admin.windfarm.title',
-                )
-            )
             ->add('audit',
                 null,
                 array(
                     'label' => 'admin.audit.title',
                 )
             )
+            ->end()
+            ->with('admin.windfarm.title', $this->getFormMdSuccessBoxArray(4))
+            ->add('windfarm',
+                null,
+                array(
+                    'label' => 'admin.windfarm.title',
+                )
+            )
+            ->add(
+                'repairAccessTypes',
+                ChoiceType::class,
+                array(
+                    'label' => 'admin.workorder.repair_access_types',
+                    'choices' => RepairAccessTypeEnum::getEnumArray(),
+                    'multiple' => true,
+                    'expanded' => false,
+                    'required' => true,
+                )
+            )
+            ->end()
+            ->with('admin.workorder.certifying_company_name', $this->getFormMdSuccessBoxArray(4))
             ->add('certifyingCompanyName',
                 null,
                 array(
@@ -248,25 +276,8 @@ class WorkOrderAdmin extends AbstractAdmin
                     'label' => 'admin.workorder.certifying_company_email',
                 )
             )
-            ->add('repairAccessTypes',
-                null,
-                array(
-                    'label' => 'admin.workorder.repair_access_types',
-                )
-            )
-            ->add(
-                'repairAccessTypes',
-                ChoiceType::class,
-                array(
-                    'label' => 'admin.workorder.repair_access_types',
-                    'choices' => RepairAccessTypeEnum::getEnumArray(),
-                    'multiple' => true,
-                    'expanded' => false,
-                    'required' => true,
-                )
-            )
             ->end()
-            ->with('admin.workordertask.title')
+            ->with('admin.workordertask.title', $this->getFormMdSuccessBoxArray(12))
             ->add(
                 'workOrderTasks',
                 CollectionType::class,
