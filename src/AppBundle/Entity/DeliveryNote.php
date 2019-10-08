@@ -151,7 +151,7 @@ class DeliveryNote extends AbstractBase
     /**
      * @return WorkOrder
      */
-    public function getWorkOrder(): WorkOrder
+    public function getWorkOrder()
     {
         return $this->workOrder;
     }
@@ -373,7 +373,7 @@ class DeliveryNote extends AbstractBase
     /**
      * @return array
      */
-    public function getRepairAccessTypes(): array
+    public function getRepairAccessTypes()
     {
         return $this->repairAccessTypes;
     }
@@ -461,6 +461,18 @@ class DeliveryNote extends AbstractBase
     }
 
     /**
+     * @param DeliveryNoteTimeRegister[]|ArrayCollection $timeRegisters
+     *
+     * @return DeliveryNote
+     */
+    public function setTimeRegisters($timeRegisters): DeliveryNote
+    {
+        $this->timeRegisters = $timeRegisters;
+
+        return $this;
+    }
+
+    /**
      * @return NonStandardUsedMaterial[]|ArrayCollection
      */
     public function getNonStandardUsedMaterials()
@@ -469,11 +481,35 @@ class DeliveryNote extends AbstractBase
     }
 
     /**
+     * @param NonStandardUsedMaterials[]|ArrayCollection $nonStandardUsedMaterials
+     *
+     * @return DeliveryNote
+     */
+    public function setNonStandardUsedMaterials($nonStandardUsedMaterials): DeliveryNote
+    {
+        $this->nonStandardUsedMaterials = $nonStandardUsedMaterials;
+
+        return $this;
+    }
+
+    /**
      * @return WorkOrderTask[]|ArrayCollection
      */
     public function getWorkOrderTasks()
     {
         return $this->workOrderTasks;
+    }
+
+    /**
+     * @param WorkOrderTask[]|ArrayCollection $workOrderTasks
+     *
+     * @return WorkOrder
+     */
+    public function setWorkOrderTasks($workOrderTasks)
+    {
+        $this->workOrderTasks = $workOrderTasks;
+
+        return $this;
     }
 
     /**
@@ -541,6 +577,6 @@ class DeliveryNote extends AbstractBase
      */
     public function __toString()
     {
-        return $this->workOrder.' / '.$this->date->format('d/m/Y');
+        return $this->workOrder.' / '.($this->date ? $this->date->format('d/m/Y') : '');
     }
 }
