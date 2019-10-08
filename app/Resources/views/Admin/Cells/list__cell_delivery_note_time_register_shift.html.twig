@@ -1,0 +1,9 @@
+{% extends 'SonataAdminBundle:CRUD:base_list_field.html.twig' %}
+
+{% block field %}
+    {% spaceless %}
+        <div>
+            <span class="label label-default">{{ object.ShiftString | trans }}</span>
+        </div>
+    {% endspaceless %}
+{% endblock %}

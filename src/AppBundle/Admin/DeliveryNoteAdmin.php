@@ -131,6 +131,7 @@ class DeliveryNoteAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'admin.deliverynote.date',
+                    'format' => 'd/M/Y',
                 )
             )
             ->add('repairWindmillSections',
