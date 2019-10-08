@@ -190,38 +190,38 @@ AppBundle\Entity\User:
             - ROLE_SUPER_ADMIN
 
 ## WorkOrders
-  AppBundle\Entity\WorkOrder:
-    workorder{1..5}:
-      projectNumber: EO-<numberBetween(1, 100)>
-      isFromAudit: <boolean()>
-      customer: @customer<numberBetween(1, 10)>
-      windfarm: @windfarm<numberBetween(1, 20)>
-      audit: @audit<numberBetween(1, 25)>
-      certifyingCompanyName: <company()>
-      certifyingCompanyContactPerson: <name()>
-      certifyingCompanyPhone: <phoneNumber()>
-      certifyingCompanyEmail: <safeEmail()>
-      repairAccessTypes: <randomElements( array (0, 1, 2, 3))>
+AppBundle\Entity\WorkOrder:
+  workorder{1..2}:
+    projectNumber: EO-<numberBetween(1, 40)>
+    isFromAudit: <boolean()>
+    customer: @customer<numberBetween(1, 3)>
+    windfarm: @windfarm<numberBetween(1, 4)>
+    audit: @audit<numberBetween(1, 2)>
+    certifyingCompanyName: <company()>
+    certifyingCompanyContactPerson: <name()>
+    certifyingCompanyPhone: <phoneNumber()>
+    certifyingCompanyEmail: <safeEmail()>
+    repairAccessTypes: <randomElements( array (0, 1, 2, 3))>
 
 ## WorkOrderTasks
-  AppBundle\Entity\WorkOrderTask:
-    workordertask{1..3}:
-      workOrder: @workorder<numberBetween(1, 5)>
-      isFromAudit: <boolean()>
-      bladeDamage: @bladeDamage<numberBetween(1,5)>
-      windmillBlade: @windmillblade<numberBetween(1, 3)>
-      windmill: @windmill<numberBetween(1, 50)>
-      position: <numberBetween($min = 1, $max = 7)>
-      radius: <numberBetween($min = 1, $max = 7)>
-      edge: <numberBetween($min = 0, $max = 1)>
-      distance: <numberBetween($min = 1, $max = 7)>
-      size: <numberBetween($min = 1, $max = 7)>
-      isCompleted: <boolean()>
-      description: <sentence()>
+AppBundle\Entity\WorkOrderTask:
+  workordertask{1..3}:
+    workOrder: @workorder<numberBetween(1, 2)>
+    isFromAudit: <boolean()>
+    bladeDamage: @bladeDamage<numberBetween(1,5)>
+    windmillBlade: @windmillblade<numberBetween(1, 3)>
+    windmill: @windmill<numberBetween(1, 8)>
+    position: <numberBetween($min = 1, $max = 7)>
+    radius: <numberBetween($min = 1, $max = 7)>
+    edge: <numberBetween($min = 0, $max = 1)>
+    distance: <numberBetween($min = 1, $max = 7)>
+    size: <numberBetween($min = 1, $max = 7)>
+    isCompleted: <boolean()>
+    description: <sentence()>
 
 ## Vehicles
-  AppBundle\Entity\Vehicle:
-    vehicle{1..5}:
-      name: <word()>
-      licensePlate: <ean8()>
-      active: <boolean()>
+AppBundle\Entity\Vehicle:
+  vehicle{1..5}:
+    name: <word()>
+    licensePlate: <ean8()>
+    active: <boolean()>
