@@ -172,32 +172,6 @@ enum:
     diverter_s: Diverter S.
     belt_3m: Cinta 3m
     lep: LEP
-  deliverynote:
-    title: Albarán
-    date: Fecha
-    repair_windmill_sections: Trabajo en
-    crane_company: Empresa grua
-    crane_driver: Conductor grua
-    repair_access_types: Tipo de acceso
-    observations: Observaciones
-    total_trip_hours: Total horas de desplazamiento
-    total_work_hours: Total horas de trabajo
-    total_stop_hours: Total horas de parada
-    team_leader: Jefe equipo
-    team_technician_1: Técnico 1
-    team_technician_2: Técnico 2
-  deliverynotetimeregister:
-    title: Fichajes
-    type: Tipo
-    shift: Turno
-    begin: Inicio
-    end: Fin
-    total_hours: Total horas
-  nonstandardusedmaterial:
-    title: Materiales no estándar utilizados
-    quantity: Cantidad
-    item: Artículo
-    description: Descripción
 admin:
   common:
     general: General
@@ -389,6 +363,32 @@ admin:
     name: Nombre
     licence_plate: Matrícula
     active: Activo
+  deliverynote:
+    title: Albarán
+    date: Fecha
+    repair_windmill_sections: Trabajo en
+    crane_company: Empresa grua
+    crane_driver: Conductor grua
+    repair_access_types: Tipo de acceso
+    observations: Observaciones
+    total_trip_hours: Total horas de desplazamiento
+    total_work_hours: Total horas de trabajo
+    total_stop_hours: Total horas de parada
+    team_leader: Jefe equipo
+    team_technician_1: Técnico 1
+    team_technician_2: Técnico 2
+  deliverynotetimeregister:
+    title: Fichajes
+    type: Tipo
+    shift: Turno
+    begin: Inicio
+    end: Fin
+    total_hours: Total horas
+  nonstandardusedmaterial:
+    title: Materiales no estándar utilizados
+    quantity: Cantidad
+    item: Artículo
+    description: Descripción
 gmap:
   general: ubicación general
 # Admin defaults
