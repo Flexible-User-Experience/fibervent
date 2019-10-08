@@ -129,6 +129,9 @@ class BackendControllerTest extends AbstractBaseTest
             array('/admin/workorders/workertimesheet/list'),
             array('/admin/workorders/workertimesheet/create'),
             array('/admin/workorders/workertimesheet/1/edit'),
+            array('/admin/presencemonitoring/list'),
+            array('/admin/presencemonitoring/create'),
+            array('/admin/presencemonitoring/1/edit'),
         );
     }
 
