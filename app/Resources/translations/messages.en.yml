@@ -182,6 +182,7 @@ admin:
     send_email:
     here:
     for_help:
+    details:
   audit:
     title: Audit
     title_list: Audit

@@ -182,6 +182,7 @@ admin:
     send_email: Envía un correo
     here: aquí
     for_help: para recibir ayuda
+    details: Detalle
   audit:
     title: Inspección
     title_list: Inspección
