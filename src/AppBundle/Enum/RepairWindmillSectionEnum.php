@@ -26,4 +26,14 @@ class RepairWindmillSectionEnum
             self::TOWER => 'enum.repair_windmill_section.tower',
         );
     }
+
+    /**
+     * @param int $type
+     *
+     * @return string
+     */
+    public static function getDecodedStringFromType(int $type)
+    {
+        return self::getEnumArray()[$type];
+    }
 }

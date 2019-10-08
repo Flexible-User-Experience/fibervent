@@ -3,7 +3,6 @@
 namespace AppBundle\Entity;
 
 use AppBundle\Enum\RepairAccessTypeEnum;
-use AppBundle\Enum\RepairWindmillSectionEnum;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -198,18 +197,14 @@ class DeliveryNote extends AbstractBase
     }
 
     /**
-     * @return string
+     * @return array
      */
-    public function getRepairWindmillSectionString()
+    public function getRepairWindmillSectionsString(): array
     {
         $repairWindmillSections = $this->getRepairWindmillSections();
-        $repairWindmillSectionsString = null;
+        $repairWindmillSectionsString = [];
         foreach ($repairWindmillSections as $repairWindmillSection) {
-            if (!$repairWindmillSectionsString) {
-                $repairWindmillSectionsString = RepairWindmillSectionEnum::getEnumArray()[$repairWindmillSection];
-            } else {
-                $repairWindmillSectionsString = $repairWindmillSectionsString.', '.RepairWindmillSectionEnum::getEnumArray()[$repairWindmillSection];
-            }
+            $repairWindmillSectionsString[] = RepairAccessTypeEnum::getDecodedStringFromType($repairWindmillSection);
         }
 
         return $repairWindmillSectionsString;

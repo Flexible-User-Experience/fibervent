@@ -49,13 +49,12 @@ class DeliveryNoteAdmin extends AbstractBaseAdmin
                     'label' => 'admin.deliverynote.date',
                 )
             )
-//            ->add('repairWindmillSections',
-//                null,
-//                array(
-//                    'label' => 'admin.deliverynote.repair_windmill_sections',
-//                    'template' => '::Admin/Cells/list__cell_repair_windmill_sections.html.twig',
-//                )
-//            )
+            ->add('repairWindmillSections',
+                null,
+                array(
+                    'label' => 'admin.deliverynote.repair_windmill_sections',
+                )
+            )
             ->add('teamLeader',
                 null,
                 array(
@@ -65,13 +64,13 @@ class DeliveryNoteAdmin extends AbstractBaseAdmin
             ->add('teamTechnician1',
                 null,
                 array(
-                    'label' => 'admin.deliverynote.team_techician_1',
+                    'label' => 'admin.deliverynote.team_technician_1',
                 )
             )
             ->add('teamTechnician2',
                 null,
                 array(
-                    'label' => 'admin.deliverynote.team_techician_2',
+                    'label' => 'admin.deliverynote.team_technician_2',
                 )
             )
             ->add('vehicle',
@@ -118,6 +117,9 @@ class DeliveryNoteAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'admin.workorder.title',
+                    'sortable' => true,
+                    'sort_field_mapping' => array('fieldName' => 'projectNumber'),
+                    'sort_parent_association_mappings' => array(array('fieldName' => 'workOrder')),
                 )
             )
             ->add(
@@ -127,35 +129,47 @@ class DeliveryNoteAdmin extends AbstractBaseAdmin
                     'label' => 'admin.deliverynote.date',
                 )
             )
-//            ->add('repairWindmillSections',
-//                null,
-//                array(
-//                    'label' => 'admin.deliverynote.repair_windmill_sections',
-//                    'template' => '::Admin/Cells/list__cell_repair_windmill_sections.html.twig',
-//                )
-//            )
+            ->add('repairWindmillSections',
+                null,
+                array(
+                    'label' => 'admin.deliverynote.repair_windmill_sections',
+                    'template' => '::Admin/Cells/list__cell_repair_windmill_sections.html.twig',
+                )
+            )
             ->add('teamLeader',
                 null,
                 array(
                     'label' => 'admin.deliverynote.team_leader',
+                    'sortable' => true,
+                    'sort_field_mapping' => array('fieldName' => 'firstname'),
+                    'sort_parent_association_mappings' => array(array('fieldName' => 'teamLeader')),
                 )
             )
             ->add('teamTechnician1',
                 null,
                 array(
-                    'label' => 'admin.deliverynote.team_techician_1',
+                    'label' => 'admin.deliverynote.team_technician_1',
+                    'sortable' => true,
+                    'sort_field_mapping' => array('fieldName' => 'firstname'),
+                    'sort_parent_association_mappings' => array(array('fieldName' => 'teamTechnician1')),
                 )
             )
             ->add('teamTechnician2',
                 null,
                 array(
-                    'label' => 'admin.deliverynote.team_techician_2',
+                    'label' => 'admin.deliverynote.team_technician_2',
+                    'sortable' => true,
+                    'sort_field_mapping' => array('fieldName' => 'firstname'),
+                    'sort_parent_association_mappings' => array(array('fieldName' => 'teamTechnician2')),
                 )
             )
             ->add('vehicle',
                 null,
                 array(
                     'label' => 'admin.vehicle.title',
+                    'sortable' => true,
+                    'sort_field_mapping' => array('fieldName' => 'name'),
+                    'sort_parent_association_mappings' => array(array('fieldName' => 'vehicle')),
                 )
             )
             ->add('craneCompany',
