@@ -34,7 +34,7 @@ class WorkOrder extends AbstractBase
      *
      * @ORM\Column(type="boolean")
      */
-    private $isFromAudit;
+    private $isFromAudit = false;
 
     /**
      * @var Customer
@@ -109,7 +109,7 @@ class WorkOrder extends AbstractBase
     /**
      * @return string
      */
-    public function getProjectNumber(): string
+    public function getProjectNumber()
     {
         return $this->projectNumber;
     }
@@ -149,7 +149,7 @@ class WorkOrder extends AbstractBase
     /**
      * @return Customer
      */
-    public function getCustomer(): Customer
+    public function getCustomer()
     {
         return $this->customer;
     }
@@ -169,7 +169,7 @@ class WorkOrder extends AbstractBase
     /**
      * @return Windfarm
      */
-    public function getWindfarm(): Windfarm
+    public function getWindfarm()
     {
         return $this->windfarm;
     }
@@ -189,7 +189,7 @@ class WorkOrder extends AbstractBase
     /**
      * @return Audit
      */
-    public function getAudit(): Audit
+    public function getAudit()
     {
         return $this->audit;
     }
@@ -209,7 +209,7 @@ class WorkOrder extends AbstractBase
     /**
      * @return string
      */
-    public function getCertifyingCompanyName(): string
+    public function getCertifyingCompanyName()
     {
         return $this->certifyingCompanyName;
     }
@@ -229,7 +229,7 @@ class WorkOrder extends AbstractBase
     /**
      * @return string
      */
-    public function getCertifyingCompanyContactPerson(): string
+    public function getCertifyingCompanyContactPerson()
     {
         return $this->certifyingCompanyContactPerson;
     }
@@ -249,7 +249,7 @@ class WorkOrder extends AbstractBase
     /**
      * @return string
      */
-    public function getCertifyingCompanyPhone(): string
+    public function getCertifyingCompanyPhone()
     {
         return $this->certifyingCompanyPhone;
     }
@@ -269,7 +269,7 @@ class WorkOrder extends AbstractBase
     /**
      * @return string
      */
-    public function getCertifyingCompanyEmail(): string
+    public function getCertifyingCompanyEmail()
     {
         return $this->certifyingCompanyEmail;
     }
@@ -289,7 +289,7 @@ class WorkOrder extends AbstractBase
     /**
      * @return array
      */
-    public function getRepairAccessTypes(): array
+    public function getRepairAccessTypes()
     {
         return $this->repairAccessTypes;
     }
@@ -373,6 +373,6 @@ class WorkOrder extends AbstractBase
      */
     public function __toString()
     {
-        return $this->getProjectNumber();
+        return $this->getProjectNumber() ? $this->getProjectNumber() : '';
     }
 }
