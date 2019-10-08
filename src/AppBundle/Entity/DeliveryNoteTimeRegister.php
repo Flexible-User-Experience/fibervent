@@ -56,6 +56,14 @@ class DeliveryNoteTimeRegister extends AbstractBase
     private $totalHours;
 
     /**
+     * @var DeliveryNote
+     *
+     * @ORM\ManyToOne(targetEntity="DeliveryNote")
+     * @ORM\JoinColumn(name="delivery_note_id", referencedColumnName="id", nullable=false)
+     */
+    private $deliveryNote;
+
+    /**
      * Methods.
      */
 
@@ -161,5 +169,25 @@ class DeliveryNoteTimeRegister extends AbstractBase
     public function getTotalHours(): float
     {
         return $this->totalHours;
+    }
+
+    /**
+     * @return DeliveryNote
+     */
+    public function getDeliveryNote(): DeliveryNote
+    {
+        return $this->deliveryNote;
+    }
+
+    /**
+     * @param DeliveryNote $deliveryNote
+     *
+     * @return DeliveryNoteTimeRegister
+     */
+    public function setDeliveryNote(DeliveryNote $deliveryNote): DeliveryNoteTimeRegister
+    {
+        $this->deliveryNote = $deliveryNote;
+
+        return $this;
     }
 }
