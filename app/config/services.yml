@@ -118,6 +118,11 @@ services:
         arguments: [~, AppBundle\Entity\WorkerTimesheet, ~, "@security.authorization_checker", "@security.token_storage", "@app.repositories_service", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Partes de trabajo", group: "WorkOrder", label_translator_strategy: "sonata.admin.label.strategy.noop", show_in_dashboard: true }
+    admin.presence_monitoring:
+        class: AppBundle\Admin\PresenceMonitoringAdmin
+        arguments: [~, AppBundle\Entity\PresenceMonitoring, ~, "@security.authorization_checker", "@security.token_storage", "@app.repositories_service", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Registros", group: "PresenceMonitoring", label_translator_strategy: "sonata.admin.label.strategy.noop", show_in_dashboard: true }
 
     # Sonata Blocks
     admin.block.audits:
