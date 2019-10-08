@@ -300,7 +300,7 @@ class DeliveryNoteAdmin extends AbstractBaseAdmin
                 )
             )
             ->end()
-            ->with('admin.deliverynotetimeregister.title', $this->getFormMdSuccessBoxArray(6))
+            ->with('admin.deliverynotetimeregister.title', $this->getFormMdSuccessBoxArray(8))
             ->add(
                 'timeRegisters',
                 CollectionType::class,
@@ -320,7 +320,7 @@ class DeliveryNoteAdmin extends AbstractBaseAdmin
                 )
             )
             ->end()
-            ->with('admin.nonstandardusedmaterial.title', $this->getFormMdSuccessBoxArray(6))
+            ->with('admin.nonstandardusedmaterial.title', $this->getFormMdSuccessBoxArray(4))
             ->add(
                 'nonStandardUsedMaterials',
                 CollectionType::class,
@@ -340,7 +340,7 @@ class DeliveryNoteAdmin extends AbstractBaseAdmin
                 )
             )
             ->end()
-            ->with('admin.deliverynote.observations', $this->getFormMdSuccessBoxArray(6))
+            ->with('admin.deliverynote.observations', $this->getFormMdSuccessBoxArray(8))
             ->add('observations',
                 null,
                 array(
@@ -353,5 +353,119 @@ class DeliveryNoteAdmin extends AbstractBaseAdmin
 
     protected function configureShowFields(ShowMapper $showMapper)
     {
+        $showMapper
+            ->with('admin.common.general', $this->getFormMdSuccessBoxArray(4))
+            ->add('workOrder',
+                null,
+                array(
+                    'label' => 'admin.workorder.title',
+                )
+            )
+            ->add(
+                'date',
+                null,
+                array(
+                    'label' => 'admin.deliverynote.date',
+                    'format' => 'd/M/Y',
+                )
+            )
+            ->add(
+                'repairWindmillSections',
+                null,
+                array(
+                    'label' => 'admin.deliverynote.repair_windmill_sections',
+                    'template' => '::Admin/Cells/list__cell_repair_windmill_sections.html.twig',
+                )
+            )
+            ->end()
+            ->with('admin.deliverynote.team', $this->getFormMdSuccessBoxArray(4))
+            ->add('teamLeader',
+                null,
+                array(
+                    'label' => 'admin.deliverynote.team_leader',
+                )
+            )
+            ->add('teamTechnician1',
+                null,
+                array(
+                    'label' => 'admin.deliverynote.team_technician_1',
+                )
+            )
+            ->add('teamTechnician2',
+                null,
+                array(
+                    'label' => 'admin.deliverynote.team_technician_2',
+                )
+            )
+            ->add('vehicle',
+                null,
+                array(
+                    'label' => 'admin.vehicle.title',
+                )
+            )
+            ->end()
+            ->with('admin.deliverynote.repair_access_types', $this->getFormMdSuccessBoxArray(4))
+            ->add('craneCompany',
+                null,
+                array(
+                    'label' => 'admin.deliverynote.crane_company',
+                )
+            )
+            ->add('craneDriver',
+                null,
+                array(
+                    'label' => 'admin.deliverynote.crane_driver',
+                )
+            )
+            ->add(
+                'repairAccessTypes',
+                null,
+                array(
+                    'label' => 'admin.workorder.repair_access_types',
+                    'template' => '::Admin/Cells/list__cell_repair_access_type.html.twig',
+                )
+            )
+            ->end()
+            ->with('admin.deliverynotetimeregister.title', $this->getFormMdSuccessBoxArray(6))
+            ->add(
+                'timeRegisters',
+                null,
+                array(
+                    'label' => ' ',
+                    'required' => false,
+                    'btn_add' => false,
+                    'cascade_validation' => true,
+                    'error_bubbling' => true,
+                    'type_options' => array(
+                        'delete' => false,
+                    ),
+                )
+            )
+            ->end()
+            ->with('admin.nonstandardusedmaterial.title', $this->getFormMdSuccessBoxArray(6))
+            ->add(
+                'nonStandardUsedMaterials',
+                null,
+                array(
+                    'label' => ' ',
+                    'required' => false,
+                    'btn_add' => false,
+                    'cascade_validation' => true,
+                    'error_bubbling' => true,
+                    'type_options' => array(
+                        'delete' => false,
+                    ),
+                )
+            )
+            ->end()
+            ->with('admin.deliverynote.observations', $this->getFormMdSuccessBoxArray(8))
+            ->add('observations',
+                null,
+                array(
+                    'label' => 'admin.deliverynote.observations',
+                )
+            )
+            ->end()
+        ;
     }
 }
