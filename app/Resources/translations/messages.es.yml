@@ -183,6 +183,9 @@ enum:
     total_trip_hours: Total horas de desplazamiento
     total_work_hours: Total horas de trabajo
     total_stop_hours: Total horas de parada
+    team_leader: Jefe equipo
+    team_technician_1: Técnico 1
+    team_technician_2: Técnico 2
   deliverynotetimeregister:
     title: Fichajes
     type: Tipo
