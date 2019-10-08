@@ -89,7 +89,7 @@ class PresenceMonitoring extends AbstractBase
     /**
      * @return \DateTime
      */
-    public function getDate(): \DateTime
+    public function getDate()
     {
         return $this->date;
     }
@@ -109,7 +109,7 @@ class PresenceMonitoring extends AbstractBase
     /**
      * @return User
      */
-    public function getWorker(): User
+    public function getWorker()
     {
         return $this->worker;
     }
@@ -129,7 +129,7 @@ class PresenceMonitoring extends AbstractBase
     /**
      * @return \DateTime
      */
-    public function getMorningHourBegin(): \DateTime
+    public function getMorningHourBegin()
     {
         return $this->morningHourBegin;
     }
@@ -149,7 +149,7 @@ class PresenceMonitoring extends AbstractBase
     /**
      * @return \DateTime
      */
-    public function getMorningHourEnd(): \DateTime
+    public function getMorningHourEnd()
     {
         return $this->morningHourEnd;
     }
@@ -169,7 +169,7 @@ class PresenceMonitoring extends AbstractBase
     /**
      * @return \DateTime
      */
-    public function getAfternoonHourBegin(): \DateTime
+    public function getAfternoonHourBegin()
     {
         return $this->afternoonHourBegin;
     }
@@ -189,7 +189,7 @@ class PresenceMonitoring extends AbstractBase
     /**
      * @return \DateTime
      */
-    public function getAfternoonHourEnd(): \DateTime
+    public function getAfternoonHourEnd()
     {
         return $this->afternoonHourEnd;
     }
@@ -209,7 +209,7 @@ class PresenceMonitoring extends AbstractBase
     /**
      * @return float
      */
-    public function getTotalHours(): float
+    public function getTotalHours()
     {
         return $this->totalHours;
     }
@@ -229,7 +229,7 @@ class PresenceMonitoring extends AbstractBase
     /**
      * @return float
      */
-    public function getNormalHours(): float
+    public function getNormalHours()
     {
         return $this->normalHours;
     }
@@ -249,7 +249,7 @@ class PresenceMonitoring extends AbstractBase
     /**
      * @return float
      */
-    public function getExtraHours(): float
+    public function getExtraHours()
     {
         return $this->extraHours;
     }

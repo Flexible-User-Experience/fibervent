@@ -7,6 +7,7 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\AdminBundle\Show\ShowMapper;
+use Sonata\Form\Type\DatePickerType;
 
 /**
  * Class WorkOrderTaskAdmin.
@@ -114,13 +115,13 @@ class PresenceMonitoringAdmin extends AbstractBaseAdmin
             ->add('normalHours',
                 null,
                 array(
-                    'label' => 'admin.workertimesheet.normal_hours',
+                    'label' => 'admin.presencemonitoring.normal_hours',
                 )
             )
             ->add('extraHours',
                 null,
                 array(
-                    'label' => 'admin.workertimesheet.extra_hours',
+                    'label' => 'admin.presencemonitoring.extra_hours',
                 )
             )
             ->add(
@@ -145,48 +146,61 @@ class PresenceMonitoringAdmin extends AbstractBaseAdmin
         $formMapper
             ->with('admin.common.general', $this->getFormMdSuccessBoxArray(4))
             ->add(
-                'deliveryNote',
-                null,
+                'date',
+                DatePickerType::class,
                 array(
-                    'label' => 'admin.deliverynote.title',
+                    'label' => 'admin.deliverynote.date',
+                    'format' => 'd/M/Y',
                 )
             )
             ->add('worker',
                 null,
                 array(
-                    'label' => 'admin.workertimesheet.worker',
-                )
-            )
-            ->add('workDescription',
-                null,
-                array(
-                    'label' => 'admin.workertimesheet.work_description',
+                    'label' => 'admin.presencemonitoring.worker',
                 )
             )
             ->end()
             ->with('admin.common.details', $this->getFormMdSuccessBoxArray(4))
-            ->add('totalNormalHours',
+            ->add('morningHourBegin',
                 null,
                 array(
-                    'label' => 'admin.workertimesheet.total_normal_hours',
+                    'label' => 'admin.presencemonitoring.morning_hour_begin',
                 )
             )
-            ->add('totalVerticalHours',
+            ->add('morningHourEnd',
                 null,
                 array(
-                    'label' => 'admin.workertimesheet.total_vertical_hours',
+                    'label' => 'admin.presencemonitoring.morning_hour_end',
                 )
             )
-            ->add('totalInclementWeatherHours',
+            ->add('afternoonHourBegin',
                 null,
                 array(
-                    'label' => 'admin.workertimesheet.total_inclement_weather_hours',
+                    'label' => 'admin.presencemonitoring.afternoon_hour_begin',
                 )
             )
-            ->add('totalTripHours',
+            ->add('afternoonHourEnd',
                 null,
                 array(
-                    'label' => 'admin.workertimesheet.total_trip_hours',
+                    'label' => 'admin.presencemonitoring.afternoon_hour_end',
+                )
+            )
+            ->add('totalHours',
+                null,
+                array(
+                    'label' => 'admin.presencemonitoring.total_hours',
+                )
+            )
+            ->add('normalHours',
+                null,
+                array(
+                    'label' => 'admin.presencemonitoring.normal_hours',
+                )
+            )
+            ->add('extraHours',
+                null,
+                array(
+                    'label' => 'admin.presencemonitoring.extra_hours',
                 )
             )
             ->end()
@@ -201,48 +215,61 @@ class PresenceMonitoringAdmin extends AbstractBaseAdmin
         $showMapper
             ->with('admin.common.general', $this->getFormMdSuccessBoxArray(4))
             ->add(
-                'deliveryNote',
+                'date',
                 null,
                 array(
-                    'label' => 'admin.deliverynote.title',
+                    'label' => 'admin.deliverynote.date',
+                    'format' => 'd/M/Y',
                 )
             )
             ->add('worker',
                 null,
                 array(
-                    'label' => 'admin.workertimesheet.worker',
-                )
-            )
-            ->add('workDescription',
-                null,
-                array(
-                    'label' => 'admin.workertimesheet.work_description',
+                    'label' => 'admin.presencemonitoring.worker',
                 )
             )
             ->end()
             ->with('admin.common.details', $this->getFormMdSuccessBoxArray(4))
-            ->add('totalNormalHours',
+            ->add('morningHourBegin',
                 null,
                 array(
-                    'label' => 'admin.workertimesheet.total_normal_hours',
+                    'label' => 'admin.presencemonitoring.morning_hour_begin',
                 )
             )
-            ->add('totalVerticalHours',
+            ->add('morningHourEnd',
                 null,
                 array(
-                    'label' => 'admin.workertimesheet.total_vertical_hours',
+                    'label' => 'admin.presencemonitoring.morning_hour_end',
                 )
             )
-            ->add('totalInclementWeatherHours',
+            ->add('afternoonHourBegin',
                 null,
                 array(
-                    'label' => 'admin.workertimesheet.total_inclement_weather_hours',
+                    'label' => 'admin.presencemonitoring.afternoon_hour_begin',
                 )
             )
-            ->add('totalTripHours',
+            ->add('afternoonHourEnd',
                 null,
                 array(
-                    'label' => 'admin.workertimesheet.total_trip_hours',
+                    'label' => 'admin.presencemonitoring.afternoon_hour_end',
+                )
+            )
+            ->add('totalHours',
+                null,
+                array(
+                    'label' => 'admin.presencemonitoring.total_hours',
+                )
+            )
+            ->add('normalHours',
+                null,
+                array(
+                    'label' => 'admin.presencemonitoring.normal_hours',
+                )
+            )
+            ->add('extraHours',
+                null,
+                array(
+                    'label' => 'admin.presencemonitoring.extra_hours',
                 )
             )
             ->end()
