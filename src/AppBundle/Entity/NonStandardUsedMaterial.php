@@ -41,6 +41,14 @@ class NonStandardUsedMaterial extends AbstractBase
     private $description;
 
     /**
+     * @var DeliveryNote
+     *
+     * @ORM\ManyToOne(targetEntity="DeliveryNote")
+     * @ORM\JoinColumn(name="delivery_note_id", referencedColumnName="id", nullable=false)
+     */
+    private $deliveryNote;
+
+    /**
      * Methods.
      */
 
@@ -108,6 +116,26 @@ class NonStandardUsedMaterial extends AbstractBase
     public function setDescription(string $description): NonStandardUsedMaterial
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * @return DeliveryNote
+     */
+    public function getDeliveryNote()
+    {
+        return $this->deliveryNote;
+    }
+
+    /**
+     * @param DeliveryNote $deliveryNote
+     *
+     * @return NonStandardUsedMaterial
+     */
+    public function setDeliveryNote(DeliveryNote $deliveryNote): NonStandardUsedMaterial
+    {
+        $this->deliveryNote = $deliveryNote;
 
         return $this;
     }
