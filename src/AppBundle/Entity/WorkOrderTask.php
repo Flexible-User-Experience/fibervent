@@ -113,7 +113,7 @@ class WorkOrderTask extends AbstractBase
     /**
      * @return WorkOrder
      */
-    public function getWorkOrder(): WorkOrder
+    public function getWorkOrder()
     {
         return $this->workOrder;
     }
@@ -133,7 +133,7 @@ class WorkOrderTask extends AbstractBase
     /**
      * @return bool
      */
-    public function isFromAudit(): bool
+    public function isFromAudit()
     {
         return $this->isFromAudit;
     }
@@ -153,7 +153,7 @@ class WorkOrderTask extends AbstractBase
     /**
      * @return BladeDamage
      */
-    public function getBladeDamage(): BladeDamage
+    public function getBladeDamage()
     {
         return $this->bladeDamage;
     }
@@ -173,7 +173,7 @@ class WorkOrderTask extends AbstractBase
     /**
      * @return WindmillBlade
      */
-    public function getWindmillBlade(): WindmillBlade
+    public function getWindmillBlade()
     {
         return $this->windmillBlade;
     }
@@ -193,7 +193,7 @@ class WorkOrderTask extends AbstractBase
     /**
      * @return Windmill
      */
-    public function getWindmill(): Windmill
+    public function getWindmill()
     {
         return $this->windmill;
     }
@@ -213,7 +213,7 @@ class WorkOrderTask extends AbstractBase
     /**
      * @return int
      */
-    public function getPosition(): int
+    public function getPosition()
     {
         return $this->position;
     }
@@ -233,7 +233,7 @@ class WorkOrderTask extends AbstractBase
     /**
      * @return int
      */
-    public function getRadius(): int
+    public function getRadius()
     {
         return $this->radius;
     }
@@ -253,7 +253,7 @@ class WorkOrderTask extends AbstractBase
     /**
      * @return int
      */
-    public function getDistance(): int
+    public function getDistance()
     {
         return $this->distance;
     }
@@ -273,7 +273,7 @@ class WorkOrderTask extends AbstractBase
     /**
      * @return int
      */
-    public function getSize(): int
+    public function getSize()
     {
         return $this->size;
     }
@@ -293,7 +293,7 @@ class WorkOrderTask extends AbstractBase
     /**
      * @return int
      */
-    public function getEdge(): int
+    public function getEdge()
     {
         return $this->edge;
     }
@@ -313,7 +313,7 @@ class WorkOrderTask extends AbstractBase
     /**
      * @return bool
      */
-    public function isCompleted(): bool
+    public function isCompleted()
     {
         return $this->isCompleted;
     }
@@ -333,7 +333,7 @@ class WorkOrderTask extends AbstractBase
     /**
      * @return string
      */
-    public function getDescription(): string
+    public function getDescription()
     {
         return $this->description;
     }
