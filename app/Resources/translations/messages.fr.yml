@@ -365,6 +365,7 @@ admin:
     active:
   deliverynote:
     title:
+    title_list:
     date:
     repair_windmill_sections:
     crane_company:
@@ -380,6 +381,7 @@ admin:
     team_technician_2:
   deliverynotetimeregister:
     title:
+    title_list:
     type:
     shift:
     begin:
@@ -387,6 +389,7 @@ admin:
     total_hours:
   nonstandardusedmaterial:
     title:
+    title_list:
     quantity:
     item:
     description:

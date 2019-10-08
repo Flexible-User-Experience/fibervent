@@ -365,6 +365,7 @@ admin:
     active: Activo
   deliverynote:
     title: Albarán
+    title_list: Albarán
     date: Fecha
     repair_windmill_sections: Secciones reparación aerogenerador
     crane_company: Empresa grua
@@ -380,6 +381,7 @@ admin:
     team_technician_2: Técnico 2
   deliverynotetimeregister:
     title: Fichajes
+    title_list: Fichajes
     type: Tipo
     shift: Turno
     begin: Inicio
@@ -387,6 +389,7 @@ admin:
     total_hours: Total horas
   nonstandardusedmaterial:
     title: Materiales no estándar utilizados
+    title_list: Materiales no estándar utilizados
     quantity: Cantidad
     item: Artículo
     description: Descripción
