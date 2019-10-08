@@ -2,11 +2,15 @@
 
 namespace AppBundle\Admin;
 
+use AppBundle\Enum\RepairAccessTypeEnum;
+use AppBundle\Enum\RepairWindmillSectionEnum;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\AdminBundle\Show\ShowMapper;
+use Sonata\Form\Type\DatePickerType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class DeliveryNoteAdmin extends AbstractBaseAdmin
 {
@@ -215,6 +219,88 @@ class DeliveryNoteAdmin extends AbstractBaseAdmin
 
     protected function configureFormFields(FormMapper $formMapper)
     {
+        $formMapper
+            ->with('admin.common.general', $this->getFormMdSuccessBoxArray(4))
+            ->add('workOrder',
+                null,
+                array(
+                    'label' => 'admin.workorder.title',
+                )
+            )
+            ->add(
+                'date',
+                DatePickerType::class,
+                array(
+                    'label' => 'admin.deliverynote.date',
+                    'format' => 'd/M/Y',
+                )
+            )
+            ->add(
+                'repairWindmillSections',
+                ChoiceType::class,
+                array(
+                    'label' => 'admin.deliverynote.repair_windmill_sections',
+                    'choices' => RepairWindmillSectionEnum::getEnumArray(),
+                    'multiple' => true,
+                    'expanded' => false,
+                    'required' => true,
+                )
+            )
+            ->add('teamLeader',
+                null,
+                array(
+                    'label' => 'admin.deliverynote.team_leader',
+                )
+            )
+            ->add('teamTechnician1',
+                null,
+                array(
+                    'label' => 'admin.deliverynote.team_technician_1',
+                )
+            )
+            ->add('teamTechnician2',
+                null,
+                array(
+                    'label' => 'admin.deliverynote.team_technician_2',
+                )
+            )
+            ->add('vehicle',
+                null,
+                array(
+                    'label' => 'admin.vehicle.title',
+                )
+            )
+            ->add('craneCompany',
+                null,
+                array(
+                    'label' => 'admin.deliverynote.crane_company',
+                )
+            )
+            ->add('craneDriver',
+                null,
+                array(
+                    'label' => 'admin.deliverynote.crane_driver',
+                )
+            )
+            ->add(
+                'repairAccessTypes',
+                ChoiceType::class,
+                array(
+                    'label' => 'admin.deliverynote.repair_access_types',
+                    'choices' => RepairAccessTypeEnum::getEnumArray(),
+                    'multiple' => true,
+                    'expanded' => false,
+                    'required' => true,
+                )
+            )
+            ->add('observations',
+                null,
+                array(
+                    'label' => 'admin.deliverynote.observations',
+                )
+            )
+            ->end()
+            ;
     }
 
     protected function configureShowFields(ShowMapper $showMapper)
