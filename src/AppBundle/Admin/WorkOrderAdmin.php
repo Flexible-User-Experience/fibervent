@@ -408,6 +408,22 @@ class WorkOrderAdmin extends AbstractBaseAdmin
                 )
             )
             ->end()
+            ->with('admin.deliverynote.title', $this->getFormMdSuccessBoxArray(12))
+            ->add(
+                'deliveryNotes',
+                CollectionType::class,
+                array(
+                    'label' => ' ',
+                    'required' => false,
+                    'btn_add' => false,
+                    'cascade_validation' => true,
+                    'error_bubbling' => true,
+                    'type_options' => array(
+                        'delete' => false,
+                    ),
+                )
+            )
+            ->end()
         ;
     }
 }
