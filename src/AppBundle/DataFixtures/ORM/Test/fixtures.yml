@@ -261,3 +261,27 @@ AppBundle\Entity\DeliveryNoteTimeRegister:
     end: <time($max = 'now')>
     totalHours: <randomFloat(2,0,8)>
     deliveryNote: @deliverynote<numberBetween(1,3)>
+
+## WorkerTimesheet
+AppBundle\Entity\WorkerTimesheet:
+  workertimesheet{1..10}:
+    deliveryNote: @deliverynote<numberBetween(1,3)>
+    worker: @admin
+    workDescription: <sentence()>
+    totalNormalHours: <randomFloat(2,0,8)>
+    totalVerticalHours: <randomFloat(2,0,8)>
+    totalInclementWeatherHours: <randomFloat(2,0,8)>
+    totalTripHours: <randomFloat(2,0,8)>
+
+## PresenceMonitoring
+AppBundle\Entity\PresenceMonitoring:
+  presencemonitoring{1..10}:
+    date: <dateTimeThisYear($max = 'now')>
+    worker: @admin
+    morningHourBegin: <time($max = 'now')>
+    morningHourEnd: <time($max = 'now')>
+    afternoonHourBegin: <time($max = 'now')>
+    afternoonHourEnd: <time($max = 'now')>
+    totalHours: <randomFloat(2,0,9)>
+    normalHours: <randomFloat(2,0,7)>
+    extraHours: <randomFloat(2,0,2)>
