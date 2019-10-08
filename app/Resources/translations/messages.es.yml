@@ -393,6 +393,26 @@ admin:
     quantity: Cantidad
     item: Artículo
     description: Descripción
+  workertimesheet:
+    title: Partes de trabajo
+    title_list: Partes de trabajo
+    worker: Empleado
+    work_description: Descripción del trabajo
+    total_normal_hours: Total horas normales
+    total_vertical_hours: Total horas verticales
+    total_inclement_weather_hours: Total horas incl. meteorológicas
+    total_trip_hours: Total horas desplazamiento
+  presencemonitoring:
+    title: Registro horario
+    title_list: Registro horario
+    worker: Empleado
+    morning_hour_begin: Hora entrado mañana
+    morning_hour_end: Hora salida mañana
+    afternoon_hour_begin: Hora entrada tarde
+    afternoon_hour_end: Hora salida tarde
+    total_hours: Total horas
+    normal_hours: Total horas orinarias
+    extra_hours: Total horas extra
 gmap:
   general: ubicación general
 # Admin defaults

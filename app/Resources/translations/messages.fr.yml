@@ -393,6 +393,26 @@ admin:
     quantity:
     item:
     description:
+  workertimesheet:
+    title:
+    title_list:
+    worker:
+    work_description:
+    total_normal_hours:
+    total_vertical_hours:
+    total_inclement_weather_hours:
+    total_trip_hours:
+  presencemonitoring:
+    title:
+    title_list:
+    worker:
+    morning_hour_begin:
+    morning_hour_end:
+    afternoon_hour_begin:
+    afternoon_hour_end:
+    total_hours:
+    normal_hours:
+    extra_hours:
 gmap:
   general: emplacement général
 # Admin defaults
