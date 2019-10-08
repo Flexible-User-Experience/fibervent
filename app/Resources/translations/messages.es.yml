@@ -366,7 +366,7 @@ admin:
   deliverynote:
     title: Albarán
     date: Fecha
-    repair_windmill_sections: Trabajo en
+    repair_windmill_sections: Secciones reparación aerogenerador
     crane_company: Empresa grua
     crane_driver: Conductor grua
     repair_access_types: Tipo de acceso
