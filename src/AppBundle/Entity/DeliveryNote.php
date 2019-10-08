@@ -378,7 +378,7 @@ class DeliveryNote extends AbstractBase
     /**
      * @return array
      */
-    public function getRepairAccessTypes()
+    public function getRepairAccessTypes(): array
     {
         return $this->repairAccessTypes;
     }
@@ -386,7 +386,7 @@ class DeliveryNote extends AbstractBase
     /**
      * @param array $repairAccessTypes
      *
-     * @return DeliveryNote
+     * @return WorkOrder
      */
     public function setRepairAccessTypes(array $repairAccessTypes): DeliveryNote
     {
@@ -398,7 +398,7 @@ class DeliveryNote extends AbstractBase
     /**
      * @param int $repairAccessType
      *
-     * @return DeliveryNote
+     * @return WorkOrder
      */
     public function addRepairAccessType(int $repairAccessType): DeliveryNote
     {
@@ -412,9 +412,9 @@ class DeliveryNote extends AbstractBase
     /**
      * @param int $repairAccessType
      *
-     * @return DeliveryNote
+     * @return WorkOrder
      */
-    public function removeAccessType(int $repairAccessType): DeliveryNote
+    public function removeRepairAccessType(int $repairAccessType): DeliveryNote
     {
         if (false !== ($key = array_search($repairAccessType, $this->repairAccessTypes))) {
             unset($this->repairAccessTypes[$key]);
@@ -424,21 +424,17 @@ class DeliveryNote extends AbstractBase
     }
 
     /**
-     * @return string
+     * @return array
      */
-    public function getRepairAccessTypesString()
+    public function getRepairAccessTypesString(): array
     {
-        $accessTypes = $this->getRepairAccessTypes();
-        $accessTypesString = null;
-        foreach ($accessTypes as $accessType) {
-            if (!$accessTypesString) {
-                $accessTypesString = RepairAccessTypeEnum::getEnumArray()[$accessType];
-            } else {
-                $accessTypesString = $accessTypesString.', '.RepairAccessTypeEnum::getEnumArray()[$accessType];
-            }
+        $repairAccessTypes = $this->getRepairAccessTypes();
+        $repairAccessTypesString = [];
+        foreach ($repairAccessTypes as $repairAccessType) {
+            $repairAccessTypesString[] = RepairAccessTypeEnum::getDecodedStringFromType($repairAccessType);
         }
 
-        return $accessTypesString;
+        return $repairAccessTypesString;
     }
 
     /**
