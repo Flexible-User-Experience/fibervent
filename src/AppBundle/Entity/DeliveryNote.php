@@ -39,7 +39,7 @@ class DeliveryNote extends AbstractBase
     /**
      * @var array
      *
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(name="repair_windmill_sections", type="json_array", nullable=true)
      */
     private $repairWindmillSections = [];
 
@@ -92,9 +92,9 @@ class DeliveryNote extends AbstractBase
     /**
      * @var array
      *
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(name="repair_access_types", type="json_array", nullable=true)
      */
-    private $accessTypes = [];
+    private $repairAccessTypes = [];
 
     /**
      * @var string
@@ -172,7 +172,7 @@ class DeliveryNote extends AbstractBase
     /**
      * @return \DateTime
      */
-    public function getDate(): \DateTime
+    public function getDate()
     {
         return $this->date;
     }
@@ -192,7 +192,7 @@ class DeliveryNote extends AbstractBase
     /**
      * @return array
      */
-    public function getRepairWindmillSections(): array
+    public function getRepairWindmillSections()
     {
         return $this->repairWindmillSections;
     }
@@ -200,7 +200,7 @@ class DeliveryNote extends AbstractBase
     /**
      * @return string
      */
-    public function getRepairWindmillSectionString(): string
+    public function getRepairWindmillSectionString()
     {
         $repairWindmillSections = $this->getRepairWindmillSections();
         $repairWindmillSectionsString = null;
@@ -258,7 +258,7 @@ class DeliveryNote extends AbstractBase
     /**
      * @return User
      */
-    public function getTeamLeader(): User
+    public function getTeamLeader()
     {
         return $this->teamLeader;
     }
@@ -278,7 +278,7 @@ class DeliveryNote extends AbstractBase
     /**
      * @return User
      */
-    public function getTeamTechnician1(): User
+    public function getTeamTechnician1()
     {
         return $this->teamTechnician1;
     }
@@ -298,7 +298,7 @@ class DeliveryNote extends AbstractBase
     /**
      * @return User
      */
-    public function getTeamTechnician2(): User
+    public function getTeamTechnician2()
     {
         return $this->teamTechnician2;
     }
@@ -318,7 +318,7 @@ class DeliveryNote extends AbstractBase
     /**
      * @return Vehicle
      */
-    public function getVehicle(): Vehicle
+    public function getVehicle()
     {
         return $this->vehicle;
     }
@@ -338,7 +338,7 @@ class DeliveryNote extends AbstractBase
     /**
      * @return string
      */
-    public function getCraneCompany(): string
+    public function getCraneCompany()
     {
         return $this->craneCompany;
     }
@@ -358,7 +358,7 @@ class DeliveryNote extends AbstractBase
     /**
      * @return string
      */
-    public function getCraneDriver(): string
+    public function getCraneDriver()
     {
         return $this->craneDriver;
     }
@@ -378,46 +378,46 @@ class DeliveryNote extends AbstractBase
     /**
      * @return array
      */
-    public function getAccessTypes(): array
+    public function getRepairAccessTypes()
     {
-        return $this->accessTypes;
+        return $this->repairAccessTypes;
     }
 
     /**
-     * @param array $accessTypes
+     * @param array $repairAccessTypes
      *
      * @return DeliveryNote
      */
-    public function setAccessTypes(array $accessTypes): DeliveryNote
+    public function setRepairAccessTypes(array $repairAccessTypes): DeliveryNote
     {
-        $this->accessTypes = $accessTypes;
+        $this->repairAccessTypes = $repairAccessTypes;
 
         return $this;
     }
 
     /**
-     * @param int $accessType
+     * @param int $repairAccessType
      *
      * @return DeliveryNote
      */
-    public function addAccessType(int $accessType): DeliveryNote
+    public function addRepairAccessType(int $repairAccessType): DeliveryNote
     {
-        if (false === ($key = array_search($accessType, $this->accessTypes))) {
-            $this->accessTypes[] = $accessType;
+        if (false === ($key = array_search($repairAccessType, $this->repairAccessTypes))) {
+            $this->repairAccessTypes[] = $repairAccessType;
         }
 
         return $this;
     }
 
     /**
-     * @param int $accessType
+     * @param int $repairAccessType
      *
      * @return DeliveryNote
      */
-    public function removeAccessType(int $accessType): DeliveryNote
+    public function removeAccessType(int $repairAccessType): DeliveryNote
     {
-        if (false !== ($key = array_search($accessType, $this->accessTypes))) {
-            unset($this->accessTypes[$key]);
+        if (false !== ($key = array_search($repairAccessType, $this->repairAccessTypes))) {
+            unset($this->repairAccessTypes[$key]);
         }
 
         return $this;
@@ -426,9 +426,9 @@ class DeliveryNote extends AbstractBase
     /**
      * @return string
      */
-    public function getAccessTypesString()
+    public function getRepairAccessTypesString()
     {
-        $accessTypes = $this->getAccessTypes();
+        $accessTypes = $this->getRepairAccessTypes();
         $accessTypesString = null;
         foreach ($accessTypes as $accessType) {
             if (!$accessTypesString) {
@@ -444,7 +444,7 @@ class DeliveryNote extends AbstractBase
     /**
      * @return string
      */
-    public function getObservations(): string
+    public function getObservations()
     {
         return $this->observations;
     }
@@ -488,7 +488,7 @@ class DeliveryNote extends AbstractBase
     /**
      * @return float
      */
-    public function getTotalTripHours(): float
+    public function getTotalTripHours()
     {
         return $this->totalTripHours;
     }
@@ -508,7 +508,7 @@ class DeliveryNote extends AbstractBase
     /**
      * @return float
      */
-    public function getTotalWorkHours(): float
+    public function getTotalWorkHours()
     {
         return $this->totalWorkHours;
     }
@@ -528,7 +528,7 @@ class DeliveryNote extends AbstractBase
     /**
      * @return float
      */
-    public function getTotalStopHours(): float
+    public function getTotalStopHours()
     {
         return $this->totalStopHours;
     }

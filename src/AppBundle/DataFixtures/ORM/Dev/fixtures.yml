@@ -574,7 +574,7 @@ AppBundle\Entity\DeliveryNote:
     vehicle: @vehicle<numberBetween(1, 5)>
     craneCompany: <company()>
     craneDriver: <name()>
-    accessTypes: <randomElements( array (0, 1, 2, 3))>
+    repairAccessTypes: <randomElements( array (0, 1, 2, 3))>
     observations: <sentence()>
     totalTripHours: <randomFloat(2,0,8)>
     totalWorkHours: <randomFloat(2,0,8)>
