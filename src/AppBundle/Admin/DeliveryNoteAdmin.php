@@ -321,6 +321,24 @@ class DeliveryNoteAdmin extends AbstractBaseAdmin
             )
             ->end()
             ->with('admin.nonstandardusedmaterial.title', $this->getFormMdSuccessBoxArray(6))
+            ->add(
+                'nonStandardUsedMaterials',
+                CollectionType::class,
+                array(
+                    'label' => ' ',
+                    'required' => false,
+                    'btn_add' => false,
+                    'cascade_validation' => true,
+                    'error_bubbling' => true,
+                    'type_options' => array(
+                        'delete' => false,
+                    ),
+                ),
+                array(
+                    'edit' => 'inline',
+                    'inline' => 'table',
+                )
+            )
             ->end()
             ->with('admin.deliverynote.observations', $this->getFormMdSuccessBoxArray(6))
             ->add('observations',
