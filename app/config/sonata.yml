@@ -48,7 +48,7 @@ sonata_admin:
                 icon:  "<i class='fa fa-list-alt' aria-hidden='true'></i>"
                 label: "Proyectos"
             PresenceMonitoring:
-                icon:  "<i class='fa fa-list-alt' aria-hidden='true'></i>"
+                icon:  "<i class='fa fa-hourglass' aria-hidden='true'></i>"
                 label: "Registro horario"
         blocks:
             -
