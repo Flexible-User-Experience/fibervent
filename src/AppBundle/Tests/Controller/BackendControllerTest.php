@@ -111,6 +111,9 @@ class BackendControllerTest extends AbstractBaseTest
             array('/admin/workorders/workordertask/list'),
             array('/admin/workorders/workordertask/create'),
             array('/admin/workorders/workordertask/1/edit'),
+            array('/admin/workorders/vehicle/list'),
+            array('/admin/workorders/vehicle/create'),
+            array('/admin/workorders/vehicle/1/edit'),
         );
     }
 
