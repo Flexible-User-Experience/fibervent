@@ -246,6 +246,8 @@ class DeliveryNoteAdmin extends AbstractBaseAdmin
                     'required' => true,
                 )
             )
+            ->end()
+            ->with('admin.deliverynote.team', $this->getFormMdSuccessBoxArray(4))
             ->add('teamLeader',
                 null,
                 array(
@@ -270,6 +272,8 @@ class DeliveryNoteAdmin extends AbstractBaseAdmin
                     'label' => 'admin.vehicle.title',
                 )
             )
+            ->end()
+            ->with('admin.deliverynote.repair_access_types', $this->getFormMdSuccessBoxArray(4))
             ->add('craneCompany',
                 null,
                 array(
@@ -293,6 +297,12 @@ class DeliveryNoteAdmin extends AbstractBaseAdmin
                     'required' => true,
                 )
             )
+            ->end()
+            ->with('admin.deliverynotetimeregister.title', $this->getFormMdSuccessBoxArray(6))
+            ->end()
+            ->with('admin.nonstandardusedmaterial.title', $this->getFormMdSuccessBoxArray(6))
+            ->end()
+            ->with('admin.deliverynote.observations', $this->getFormMdSuccessBoxArray(6))
             ->add('observations',
                 null,
                 array(
