@@ -70,7 +70,7 @@ class DeliveryNoteTimeRegister extends AbstractBase
     /**
      * @return int
      */
-    public function getType(): int
+    public function getType()
     {
         return $this->type;
     }
@@ -98,7 +98,7 @@ class DeliveryNoteTimeRegister extends AbstractBase
     /**
      * @return int
      */
-    public function getShift(): int
+    public function getShift()
     {
         return $this->shift;
     }
@@ -126,7 +126,7 @@ class DeliveryNoteTimeRegister extends AbstractBase
     /**
      * @return \DateTime
      */
-    public function getBegin(): \DateTime
+    public function getBegin()
     {
         return $this->begin;
     }
@@ -146,7 +146,7 @@ class DeliveryNoteTimeRegister extends AbstractBase
     /**
      * @return \DateTime
      */
-    public function getEnd(): \DateTime
+    public function getEnd()
     {
         return $this->end;
     }
@@ -166,7 +166,7 @@ class DeliveryNoteTimeRegister extends AbstractBase
     /**
      * @return float
      */
-    public function getTotalHours(): float
+    public function getTotalHours()
     {
         return $this->totalHours;
     }
@@ -174,7 +174,7 @@ class DeliveryNoteTimeRegister extends AbstractBase
     /**
      * @return DeliveryNote
      */
-    public function getDeliveryNote(): DeliveryNote
+    public function getDeliveryNote()
     {
         return $this->deliveryNote;
     }
