@@ -363,6 +363,29 @@ admin:
     name:
     licence_plate:
     active:
+  deliverynote:
+    title:
+    date:
+    repair_windmill_sections:
+    crane_company:
+    crane_driver:
+    repair_access_types:
+    observations:
+    total_trip_hours:
+    total_work_hours:
+    total_stop_hours:
+  deliverynotetimeregister:
+    title:
+    type:
+    shift:
+    begin:
+    end:
+    total_hours:
+  nonstandardusedmaterial:
+    title:
+    quantity:
+    item:
+    description:
 gmap:
   general: emplacement général
 # Admin defaults
