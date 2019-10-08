@@ -76,7 +76,7 @@ class WorkerTimesheet extends AbstractBase
     /**
      * @return DeliveryNote
      */
-    public function getDeliveryNote(): DeliveryNote
+    public function getDeliveryNote()
     {
         return $this->deliveryNote;
     }
@@ -96,7 +96,7 @@ class WorkerTimesheet extends AbstractBase
     /**
      * @return User
      */
-    public function getWorker(): User
+    public function getWorker()
     {
         return $this->worker;
     }
@@ -116,7 +116,7 @@ class WorkerTimesheet extends AbstractBase
     /**
      * @return string
      */
-    public function getWorkDescription(): string
+    public function getWorkDescription()
     {
         return $this->workDescription;
     }
@@ -136,7 +136,7 @@ class WorkerTimesheet extends AbstractBase
     /**
      * @return float
      */
-    public function getTotalNormalHours(): float
+    public function getTotalNormalHours()
     {
         return $this->totalNormalHours;
     }
@@ -156,7 +156,7 @@ class WorkerTimesheet extends AbstractBase
     /**
      * @return float
      */
-    public function getTotalVerticalHours(): float
+    public function getTotalVerticalHours()
     {
         return $this->totalVerticalHours;
     }
@@ -176,7 +176,7 @@ class WorkerTimesheet extends AbstractBase
     /**
      * @return float
      */
-    public function getTotalInclementWeatherHours(): float
+    public function getTotalInclementWeatherHours()
     {
         return $this->totalInclementWeatherHours;
     }
@@ -196,7 +196,7 @@ class WorkerTimesheet extends AbstractBase
     /**
      * @return float
      */
-    public function getTotalTripHours(): float
+    public function getTotalTripHours()
     {
         return $this->totalTripHours;
     }

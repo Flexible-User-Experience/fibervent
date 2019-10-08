@@ -2,13 +2,11 @@
 
 namespace AppBundle\Admin;
 
-use AppBundle\Enum\NonStandardUsedMaterialItemEnum;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\AdminBundle\Show\ShowMapper;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 /**
  * Class WorkOrderTaskAdmin.
@@ -137,7 +135,7 @@ class WorkerTimesheetAdmin extends AbstractBaseAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->with('admin.common.general', $this->getFormMdSuccessBoxArray(3))
+            ->with('admin.common.general', $this->getFormMdSuccessBoxArray(4))
             ->add(
                 'deliveryNote',
                 null,
@@ -145,24 +143,42 @@ class WorkerTimesheetAdmin extends AbstractBaseAdmin
                     'label' => 'admin.deliverynote.title',
                 )
             )
-            ->add('item',
-                ChoiceType::class,
-                array(
-                    'label' => 'admin.nonstandardusedmaterial.item',
-                    'choices' => NonStandardUsedMaterialItemEnum::getEnumArray(),
-                    'multiple' => false,
-                )
-            )
-            ->add('quantity',
+            ->add('worker',
                 null,
                 array(
-                    'label' => 'admin.nonstandardusedmaterial.quantity',
+                    'label' => 'admin.workertimesheet.worker',
                 )
             )
-            ->add('description',
+            ->add('workDescription',
                 null,
                 array(
-                    'label' => 'admin.nonstandardusedmaterial.description',
+                    'label' => 'admin.workertimesheet.work_description',
+                )
+            )
+            ->end()
+            ->with('admin.common.details', $this->getFormMdSuccessBoxArray(4))
+            ->add('totalNormalHours',
+                null,
+                array(
+                    'label' => 'admin.workertimesheet.total_normal_hours',
+                )
+            )
+            ->add('totalVerticalHours',
+                null,
+                array(
+                    'label' => 'admin.workertimesheet.total_vertical_hours',
+                )
+            )
+            ->add('totalInclementWeatherHours',
+                null,
+                array(
+                    'label' => 'admin.workertimesheet.total_inclement_weather_hours',
+                )
+            )
+            ->add('totalTripHours',
+                null,
+                array(
+                    'label' => 'admin.workertimesheet.total_trip_hours',
                 )
             )
             ->end()
@@ -175,7 +191,7 @@ class WorkerTimesheetAdmin extends AbstractBaseAdmin
     protected function configureShowFields(ShowMapper $showMapper)
     {
         $showMapper
-            ->with('admin.common.general', $this->getFormMdSuccessBoxArray(3))
+            ->with('admin.common.general', $this->getFormMdSuccessBoxArray(4))
             ->add(
                 'deliveryNote',
                 null,
@@ -183,23 +199,42 @@ class WorkerTimesheetAdmin extends AbstractBaseAdmin
                     'label' => 'admin.deliverynote.title',
                 )
             )
-            ->add('item',
+            ->add('worker',
                 null,
                 array(
-                    'label' => 'admin.nonstandardusedmaterial.type',
-                    'template' => '::Admin/Cells/list__non_standard_used_material_item.html.twig',
+                    'label' => 'admin.workertimesheet.worker',
                 )
             )
-            ->add('quantity',
+            ->add('workDescription',
                 null,
                 array(
-                    'label' => 'admin.nonstandardusedmaterial.quantity',
+                    'label' => 'admin.workertimesheet.work_description',
                 )
             )
-            ->add('description',
+            ->end()
+            ->with('admin.common.details', $this->getFormMdSuccessBoxArray(4))
+            ->add('totalNormalHours',
                 null,
                 array(
-                    'label' => 'admin.nonstandardusedmaterial.description',
+                    'label' => 'admin.workertimesheet.total_normal_hours',
+                )
+            )
+            ->add('totalVerticalHours',
+                null,
+                array(
+                    'label' => 'admin.workertimesheet.total_vertical_hours',
+                )
+            )
+            ->add('totalInclementWeatherHours',
+                null,
+                array(
+                    'label' => 'admin.workertimesheet.total_inclement_weather_hours',
+                )
+            )
+            ->add('totalTripHours',
+                null,
+                array(
+                    'label' => 'admin.workertimesheet.total_trip_hours',
                 )
             )
             ->end()
