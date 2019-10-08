@@ -103,6 +103,13 @@ class WorkOrder extends AbstractBase
     private $workOrderTasks;
 
     /**
+     * @var DeliveryNote[]|ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="DeliveryNote", mappedBy="workOrder")
+     */
+    private $deliveryNotes;
+
+    /**
      * Methods.
      */
 
@@ -364,6 +371,26 @@ class WorkOrder extends AbstractBase
     public function setWorkOrderTasks($workOrderTasks)
     {
         $this->workOrderTasks = $workOrderTasks;
+
+        return $this;
+    }
+
+    /**
+     * @return DeliveryNote[]|ArrayCollection
+     */
+    public function getDeliveryNotes()
+    {
+        return $this->deliveryNotes;
+    }
+
+    /**
+     * @param DeliveryNote[]|ArrayCollection $deliveryNotes
+     *
+     * @return WorkOrder
+     */
+    public function setDeliveryNotes($deliveryNotes)
+    {
+        $this->deliveryNotes = $deliveryNotes;
 
         return $this;
     }
