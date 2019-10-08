@@ -2,15 +2,13 @@
 
 namespace AppBundle\Admin;
 
-use AppBundle\Enum\TimeRegisterShiftEnum;
-use AppBundle\Enum\TimeRegisterTypeEnum;
+use AppBundle\Enum\NonStandardUsedMaterialItemEnum;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\TimeType;
 
 /**
  * Class WorkOrderTaskAdmin.
@@ -133,40 +131,24 @@ class NonStandardUsedMaterialAdmin extends AbstractBaseAdmin
                     'label' => 'admin.deliverynote.title',
                 )
             )
-            ->add('type',
+            ->add('item',
                 ChoiceType::class,
                 array(
-                    'label' => 'admin.deliverynotetimeregister.type',
-                    'choices' => TimeRegisterTypeEnum::getEnumArray(),
+                    'label' => 'admin.nonstandardusedmaterial.item',
+                    'choices' => NonStandardUsedMaterialItemEnum::getEnumArray(),
                     'multiple' => false,
-                    'expanded' => false,
                 )
             )
-            ->add('shift',
-                ChoiceType::class,
-                array(
-                    'label' => 'admin.deliverynotetimeregister.shift',
-                    'choices' => TimeRegisterShiftEnum::getEnumArray(),
-                    'multiple' => false,
-                    'expanded' => false,
-                )
-            )
-            ->add('begin',
-                TimeType::class,
-                array(
-                    'label' => 'admin.deliverynotetimeregister.begin',
-                )
-            )
-            ->add('end',
-                TimeType::class,
-                array(
-                    'label' => 'admin.deliverynotetimeregister.end',
-                )
-            )
-            ->add('totalHours',
+            ->add('quantity',
                 null,
                 array(
-                    'label' => 'admin.deliverynotetimeregister.total_hours',
+                    'label' => 'admin.nonstandardusedmaterial.quantity',
+                )
+            )
+            ->add('description',
+                null,
+                array(
+                    'label' => 'admin.nonstandardusedmaterial.description',
                 )
             )
             ->end()
@@ -187,38 +169,23 @@ class NonStandardUsedMaterialAdmin extends AbstractBaseAdmin
                     'label' => 'admin.deliverynote.title',
                 )
             )
-            ->add('type',
+            ->add('item',
                 null,
                 array(
-                    'label' => 'admin.deliverynotetimeregister.type',
-                    'template' => '::Admin/Cells/list__delivery_note_time_register_type.html.twig',
+                    'label' => 'admin.nonstandardusedmaterial.type',
+                    'template' => '::Admin/Cells/list__non_standard_used_material_item.html.twig',
                 )
             )
-            ->add('shift',
+            ->add('quantity',
                 null,
                 array(
-                    'label' => 'admin.deliverynotetimeregister.shift',
-                    'template' => '::Admin/Cells/list__delivery_note_time_register_shift.html.twig',
+                    'label' => 'admin.nonstandardusedmaterial.quantity',
                 )
             )
-            ->add('begin',
+            ->add('description',
                 null,
                 array(
-                    'label' => 'admin.deliverynotetimeregister.begin',
-                    'format' => 'h:m:s',
-                )
-            )
-            ->add('end',
-                null,
-                array(
-                    'label' => 'admin.deliverynotetimeregister.end',
-                    'format' => 'h:m:s',
-                )
-            )
-            ->add('totalHours',
-                null,
-                array(
-                    'label' => 'admin.deliverynotetimeregister.total_hours',
+                    'label' => 'admin.nonstandardusedmaterial.description',
                 )
             )
             ->end()

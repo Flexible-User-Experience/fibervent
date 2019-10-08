@@ -55,7 +55,7 @@ class NonStandardUsedMaterial extends AbstractBase
     /**
      * @return float
      */
-    public function getQuantity(): float
+    public function getQuantity()
     {
         return $this->quantity;
     }
@@ -75,7 +75,7 @@ class NonStandardUsedMaterial extends AbstractBase
     /**
      * @return int
      */
-    public function getItem(): int
+    public function getItem()
     {
         return $this->item;
     }
@@ -103,7 +103,7 @@ class NonStandardUsedMaterial extends AbstractBase
     /**
      * @return string
      */
-    public function getDescription(): string
+    public function getDescription()
     {
         return $this->description;
     }
