@@ -47,6 +47,7 @@ security:
             - ROLE_ADMIN
             - ROLE_ALLOWED_TO_SWITCH
             - ROLE_ADMIN_DELIVERY_NOTE_TIME_REGISTER_ALL
+            - ROLE_ADMIN_NON_STANDARD_USED_MATERIAL_ALL
     access_decision_manager:
         strategy: unanimous
     providers:
