@@ -374,6 +374,7 @@ admin:
     total_trip_hours:
     total_work_hours:
     total_stop_hours:
+    team:
     team_leader:
     team_technician_1:
     team_technician_2:
