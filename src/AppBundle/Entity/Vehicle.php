@@ -48,7 +48,7 @@ class Vehicle extends AbstractBase
     /**
      * @return string
      */
-    public function getName(): string
+    public function getName()
     {
         return $this->name;
     }
@@ -68,7 +68,7 @@ class Vehicle extends AbstractBase
     /**
      * @return string
      */
-    public function getLicensePlate(): string
+    public function getLicensePlate()
     {
         return $this->licensePlate;
     }
@@ -88,7 +88,7 @@ class Vehicle extends AbstractBase
     /**
      * @return bool
      */
-    public function isActive(): bool
+    public function isActive()
     {
         return $this->active;
     }
