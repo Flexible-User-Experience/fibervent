@@ -105,14 +105,14 @@ class DeliveryNote extends AbstractBase
     /**
      * @var DeliveryNoteTimeRegister[]|ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="DeliveryNoteTimeRegister", mappedBy="DeliveryNote")
+     * @ORM\OneToMany(targetEntity="DeliveryNoteTimeRegister", mappedBy="deliveryNote")
      */
     private $timeRegisters;
 
     /**
      * @var NonStandardUsedMaterial[]|ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="NonStandardUsedMaterial", mappedBy="DeliveryNote")
+     * @ORM\OneToMany(targetEntity="NonStandardUsedMaterial", mappedBy="deliveryNote")
      */
     private $nonStandardUsedMaterials;
 

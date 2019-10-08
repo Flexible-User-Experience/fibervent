@@ -9,6 +9,7 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\AdminBundle\Show\ShowMapper;
+use Sonata\Form\Type\CollectionType;
 use Sonata\Form\Type\DatePickerType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
@@ -300,6 +301,24 @@ class DeliveryNoteAdmin extends AbstractBaseAdmin
             )
             ->end()
             ->with('admin.deliverynotetimeregister.title', $this->getFormMdSuccessBoxArray(6))
+            ->add(
+                'timeRegisters',
+                CollectionType::class,
+                array(
+                    'label' => ' ',
+                    'required' => false,
+                    'btn_add' => false,
+                    'cascade_validation' => true,
+                    'error_bubbling' => true,
+                    'type_options' => array(
+                        'delete' => false,
+                    ),
+                ),
+                array(
+                    'edit' => 'inline',
+                    'inline' => 'table',
+                )
+            )
             ->end()
             ->with('admin.nonstandardusedmaterial.title', $this->getFormMdSuccessBoxArray(6))
             ->end()
