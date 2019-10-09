@@ -1,0 +1,25 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                {{ 'admin.deliverynotetimeregister.type' | trans }}
+            </th>
+            <th>
+
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for timeRegister in object.timeRegisters %}
+        <tr>
+            <td>
+                {{ timeRegister.getTypeString()| trans }}
+            </td>
+            <td>
+
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
