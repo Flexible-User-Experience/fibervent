@@ -168,6 +168,21 @@ class DeliveryNoteTimeRegisterAdmin extends AbstractBaseAdmin
                 )
                 ->end()
             ;
+        } else {
+            $formMapper
+                ->with('admin.common.general', $this->getFormMdSuccessBoxArray(3))
+                ->add(
+                    'deliveryNote',
+                    null,
+                    array(
+                        'label' => 'admin.deliverynote.title',
+                        'attr' => array(
+                            'hidden' => true,
+                        ),
+                    )
+                )
+                ->end()
+            ;
         }
 
         $formMapper
