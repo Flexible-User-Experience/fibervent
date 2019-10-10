@@ -405,16 +405,10 @@ class WorkOrderAdmin extends AbstractBaseAdmin
             ->with('admin.deliverynote.title', $this->getFormMdSuccessBoxArray(12))
             ->add(
                 'deliveryNotes',
-                CollectionType::class,
+                null,
                 array(
-                    'label' => ' ',
-                    'required' => false,
-                    'btn_add' => false,
-                    'cascade_validation' => true,
-                    'error_bubbling' => true,
-                    'type_options' => array(
-                        'delete' => false,
-                    ),
+                    'label' => 'admin.workordertasks.title',
+                    'template' => '::Admin/Cells/list__delivery_notes.html.twig',
                 )
             )
             ->end()
