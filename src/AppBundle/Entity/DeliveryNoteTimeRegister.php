@@ -58,8 +58,7 @@ class DeliveryNoteTimeRegister extends AbstractBase
     /**
      * @var DeliveryNote
      *
-     * @ORM\ManyToOne(targetEntity="DeliveryNote")
-     * @ORM\JoinColumn(name="delivery_note_id", referencedColumnName="id", nullable=false)
+     * @ORM\ManyToOne(targetEntity="DeliveryNote", inversedBy="deliveryNoteTimeRegister", cascade={"persist"})
      */
     private $deliveryNote;
 

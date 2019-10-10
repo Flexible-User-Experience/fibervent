@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use AppBundle\Enum\RepairAccessTypeEnum;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
@@ -105,14 +106,14 @@ class DeliveryNote extends AbstractBase
     /**
      * @var DeliveryNoteTimeRegister[]|ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="DeliveryNoteTimeRegister", mappedBy="deliveryNote")
+     * @ORM\OneToMany(targetEntity="DeliveryNoteTimeRegister", mappedBy="deliveryNote", cascade={"persist", "remove"}, orphanRemoval=true)
      */
     private $timeRegisters;
 
     /**
      * @var NonStandardUsedMaterial[]|ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="NonStandardUsedMaterial", mappedBy="deliveryNote")
+     * @ORM\OneToMany(targetEntity="NonStandardUsedMaterial", mappedBy="deliveryNote", cascade={"persist", "remove"}, orphanRemoval=true)
      */
     private $nonStandardUsedMaterials;
 
@@ -458,6 +459,21 @@ class DeliveryNote extends AbstractBase
     public function getTimeRegisters()
     {
         return $this->timeRegisters;
+    }
+
+    /**
+     * @param DeliveryNoteTimeRegister $deliveryNoteTimeRegister , EntityManager $em
+     *
+     * @throws \Doctrine\ORM\ORMException
+     *
+     * @return $this
+     */
+    public function addTimeRegister(DeliveryNoteTimeRegister $timeRegister)
+    {
+        $timeRegister->setDeliveryNote($this);
+        $this->timeRegisters->add($timeRegister);
+
+        return $this;
     }
 
     /**
