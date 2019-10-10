@@ -132,7 +132,7 @@ class DeliveryNoteAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'admin.deliverynote.date',
-                    'format' => 'd/M/Y',
+                    'format' => 'd/m/Y',
                 )
             )
             ->add('repairWindmillSections',
@@ -234,7 +234,7 @@ class DeliveryNoteAdmin extends AbstractBaseAdmin
                 DatePickerType::class,
                 array(
                     'label' => 'admin.deliverynote.date',
-                    'format' => 'd/M/Y',
+                    'format' => 'd/m/Y',
                 )
             )
             ->add(
@@ -366,7 +366,7 @@ class DeliveryNoteAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'admin.deliverynote.date',
-                    'format' => 'd/M/Y',
+                    'format' => 'd/m/Y',
                 )
             )
             ->add(

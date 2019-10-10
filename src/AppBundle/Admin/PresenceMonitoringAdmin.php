@@ -66,7 +66,7 @@ class PresenceMonitoringAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'admin.deliverynote.date',
-                    'format' => 'd/M/Y',
+                    'format' => 'd/m/Y',
                 )
             )
             ->add('worker',
@@ -150,7 +150,7 @@ class PresenceMonitoringAdmin extends AbstractBaseAdmin
                 DatePickerType::class,
                 array(
                     'label' => 'admin.deliverynote.date',
-                    'format' => 'd/M/Y',
+                    'format' => 'd/m/Y',
                 )
             )
             ->add('worker',
@@ -219,7 +219,7 @@ class PresenceMonitoringAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'admin.deliverynote.date',
-                    'format' => 'd/M/Y',
+                    'format' => 'd/m/Y',
                 )
             )
             ->add('worker',
