@@ -5,7 +5,16 @@
                 {{ 'admin.deliverynotetimeregister.type' | trans }}
             </th>
             <th>
-
+                {{ 'admin.deliverynotetimeregister.shift' | trans }}
+            </th>
+            <th>
+                {{ 'admin.deliverynotetimeregister.begin' | trans }}
+            </th>
+            <th>
+                {{ 'admin.deliverynotetimeregister.end' | trans }}
+            </th>
+            <th>
+                {{ 'admin.deliverynotetimeregister.total_hours' | trans }}
             </th>
         </tr>
     </thead>
@@ -16,7 +25,16 @@
                 {{ timeRegister.getTypeString()| trans }}
             </td>
             <td>
-
+                {{ timeRegister.getShiftString()| trans }}
+            </td>
+            <td>
+                {{ timeRegister.getBegin().format('h:m:s') }}
+            </td>
+            <td>
+                {{ timeRegister.getEnd().format('h:m:s') }}
+            </td>
+            <td>
+                {{ timeRegister.getTotalHours() }}
             </td>
         </tr>
     {% endfor %}
