@@ -368,7 +368,7 @@ class WorkOrderTask extends AbstractBase
     /**
      * @return DeliveryNote
      */
-    public function getDeliveryNote(): DeliveryNote
+    public function getDeliveryNote()
     {
         return $this->deliveryNote;
     }
