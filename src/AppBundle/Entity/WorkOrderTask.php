@@ -108,6 +108,13 @@ class WorkOrderTask extends AbstractBase
     private $description;
 
     /**
+     * @var DeliveryNote
+     *
+     * @ORM\ManyToOne(targetEntity="DeliveryNote", inversedBy="workOrderTasks", cascade={"persist"})
+     */
+    private $deliveryNote;
+
+    /**
      * Methods.
      */
 
@@ -355,6 +362,26 @@ class WorkOrderTask extends AbstractBase
     public function setDescription(string $description): WorkOrderTask
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * @return DeliveryNote
+     */
+    public function getDeliveryNote(): DeliveryNote
+    {
+        return $this->deliveryNote;
+    }
+
+    /**
+     * @param DeliveryNote $deliveryNote
+     *
+     * @return WorkOrderTask
+     */
+    public function setDeliveryNote(DeliveryNote $deliveryNote): WorkOrderTask
+    {
+        $this->deliveryNote = $deliveryNote;
 
         return $this;
     }
