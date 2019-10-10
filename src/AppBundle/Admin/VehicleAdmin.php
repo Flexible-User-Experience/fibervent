@@ -98,7 +98,7 @@ class VehicleAdmin extends AbstractBaseAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->with('admin.vehicle.title')
+            ->with('admin.vehicle.title', $this->getFormMdSuccessBoxArray(4))
             ->add(
                 'name',
                 null,
@@ -128,7 +128,7 @@ class VehicleAdmin extends AbstractBaseAdmin
     protected function configureShowFields(ShowMapper $showMapper)
     {
         $showMapper
-            ->with('admin.vehicle.title')
+            ->with('admin.vehicle.title', $this->getFormMdSuccessBoxArray(3))
             ->add(
                 'name',
                 null,
