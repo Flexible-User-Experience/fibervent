@@ -284,7 +284,7 @@ class WorkOrderAdmin extends AbstractBaseAdmin
                 array(
                     'label' => ' ',
                     'required' => false,
-                    'btn_add' => false,
+                    'btn_add' => true,
                     'cascade_validation' => true,
                     'error_bubbling' => true,
                     'type_options' => array(

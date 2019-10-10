@@ -364,6 +364,19 @@ class WorkOrder extends AbstractBase
     }
 
     /**
+     * @param WorkOrderTask $workOrderTask
+     *
+     * @return $this
+     */
+    public function addWorkOrderTask(WorkOrderTask $workOrderTask)
+    {
+        $workOrderTask->setWorkOrder($this);
+        $this->workOrderTasks->add($workOrderTask);
+
+        return $this;
+    }
+
+    /**
      * @param WorkOrderTask[]|ArrayCollection $workOrderTasks
      *
      * @return WorkOrder

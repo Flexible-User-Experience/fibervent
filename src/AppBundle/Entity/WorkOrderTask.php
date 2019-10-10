@@ -5,6 +5,7 @@ namespace AppBundle\Entity;
 use AppBundle\Enum\BladeDamageEdgeEnum;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * WorkOrderTask.
@@ -15,6 +16,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="AppBundle\Repository\WorkOrderTaskRepository")
+ * @UniqueEntity("id")
  * @Gedmo\SoftDeleteable(fieldName="removedAt", timeAware=false)
  */
 class WorkOrderTask extends AbstractBase
@@ -110,6 +112,7 @@ class WorkOrderTask extends AbstractBase
      * @var DeliveryNote
      *
      * @ORM\ManyToOne(targetEntity="DeliveryNote", inversedBy="workOrderTasks", cascade={"persist"})
+     * @ORM\JoinColumn(name="windmill_id", referencedColumnName="id", nullable=true)
      */
     private $deliveryNote;
 

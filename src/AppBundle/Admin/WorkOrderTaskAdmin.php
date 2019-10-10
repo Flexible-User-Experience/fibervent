@@ -214,15 +214,37 @@ class WorkOrderTaskAdmin extends AbstractBaseAdmin
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
+        if ($this->getRootCode() == $this->getCode()) {
+            $formMapper
+                ->with('admin.common.general', $this->getFormMdSuccessBoxArray(3))
+                ->add(
+                    'workOrder',
+                    null,
+                    array(
+                        'label' => 'admin.workorder.title',
+                    )
+                )
+                ->end()
+            ;
+        } else {
+            $formMapper
+                ->with('admin.common.general', $this->getFormMdSuccessBoxArray(3))
+                ->add(
+                    'workOrder',
+                    null,
+                    array(
+                        'label' => 'admin.workorder.title',
+                        'attr' => array(
+                            'hidden' => true,
+                        ),
+                    )
+                )
+                ->end()
+            ;
+        }
         $formMapper
             ->with('admin.common.general', $this->getFormMdSuccessBoxArray(7))
-            ->add(
-                'workOrder',
-                null,
-                array(
-                    'label' => 'admin.workorder.title',
-                )
-            )
+
             ->add('description',
                 null,
                 array(
