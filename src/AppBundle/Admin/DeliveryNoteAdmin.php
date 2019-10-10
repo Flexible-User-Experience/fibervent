@@ -441,14 +441,8 @@ class DeliveryNoteAdmin extends AbstractBaseAdmin
                 'nonStandardUsedMaterials',
                 null,
                 array(
-                    'label' => ' ',
-                    'required' => false,
-                    'btn_add' => false,
-                    'cascade_validation' => true,
-                    'error_bubbling' => true,
-                    'type_options' => array(
-                        'delete' => false,
-                    ),
+                    'label' => 'admin.nonstandardusedmaterial.title',
+                    'template' => '::Admin/Cells/list__non_standard_used_materials.html.twig',
                 )
             )
             ->end()
