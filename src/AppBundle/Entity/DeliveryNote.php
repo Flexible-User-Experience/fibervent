@@ -24,8 +24,7 @@ class DeliveryNote extends AbstractBase
     /**
      * @var WorkOrder
      *
-     * @ORM\ManyToOne(targetEntity="WorkOrder")
-     * @ORM\JoinColumn(name="work_order_id", referencedColumnName="id", nullable=false)
+     * @ORM\ManyToOne(targetEntity="WorkOrder", inversedBy="deliveryNotes", cascade={"persist"})
      */
     private $workOrder;
 

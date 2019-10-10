@@ -98,14 +98,14 @@ class WorkOrder extends AbstractBase
     /**
      * @var WorkOrderTask[]|ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="WorkOrderTask", mappedBy="workOrder")
+     * @ORM\OneToMany(targetEntity="WorkOrderTask", mappedBy="workOrder", cascade={"persist", "remove"}, orphanRemoval=true)
      */
     private $workOrderTasks;
 
     /**
      * @var DeliveryNote[]|ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="DeliveryNote", mappedBy="workOrder")
+     * @ORM\OneToMany(targetEntity="DeliveryNote", mappedBy="workOrder", cascade={"persist", "remove"}, orphanRemoval=true)
      */
     private $deliveryNotes;
 
