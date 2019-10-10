@@ -156,15 +156,22 @@ class DeliveryNoteTimeRegisterAdmin extends AbstractBaseAdmin
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
+        if ($this->getRootCode() == $this->getCode()) {
+            $formMapper
+                ->with('admin.common.general', $this->getFormMdSuccessBoxArray(3))
+                ->add(
+                    'deliveryNote',
+                    null,
+                    array(
+                        'label' => 'admin.deliverynote.title',
+                    )
+                )
+                ->end()
+            ;
+        }
+
         $formMapper
             ->with('admin.common.general', $this->getFormMdSuccessBoxArray(3))
-            ->add(
-                'deliveryNote',
-                null,
-                array(
-                    'label' => 'admin.deliverynote.title',
-                )
-            )
             ->add('type',
                 ChoiceType::class,
                 array(
