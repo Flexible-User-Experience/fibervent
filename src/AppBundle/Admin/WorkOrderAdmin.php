@@ -395,16 +395,10 @@ class WorkOrderAdmin extends AbstractBaseAdmin
             ->with('admin.workordertask.title', $this->getFormMdSuccessBoxArray(12))
             ->add(
                 'workOrderTasks',
-                CollectionType::class,
+                null,
                 array(
-                    'label' => ' ',
-                    'required' => false,
-                    'btn_add' => false,
-                    'cascade_validation' => true,
-                    'error_bubbling' => true,
-                    'type_options' => array(
-                        'delete' => false,
-                    ),
+                    'label' => 'admin.workordertasks.title',
+                    'template' => '::Admin/Cells/list__work_order_tasks.html.twig',
                 )
             )
             ->end()

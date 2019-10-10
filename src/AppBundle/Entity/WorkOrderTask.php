@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Enum\BladeDamageEdgeEnum;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
@@ -296,6 +297,14 @@ class WorkOrderTask extends AbstractBase
     public function getEdge()
     {
         return $this->edge;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEdgeString()
+    {
+        return BladeDamageEdgeEnum::getStringValue($this->getBladeDamage());
     }
 
     /**
