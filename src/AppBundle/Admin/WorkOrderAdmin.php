@@ -288,7 +288,7 @@ class WorkOrderAdmin extends AbstractBaseAdmin
                     'cascade_validation' => true,
                     'error_bubbling' => true,
                     'type_options' => array(
-                        'delete' => false,
+                        'delete' => true,
                     ),
                 ),
                 array(
