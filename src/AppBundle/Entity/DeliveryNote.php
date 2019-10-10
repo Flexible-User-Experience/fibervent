@@ -4,7 +4,6 @@ namespace AppBundle\Entity;
 
 use AppBundle\Enum\RepairAccessTypeEnum;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
@@ -461,9 +460,7 @@ class DeliveryNote extends AbstractBase
     }
 
     /**
-     * @param DeliveryNoteTimeRegister $deliveryNoteTimeRegister , EntityManager $em
-     *
-     * @throws \Doctrine\ORM\ORMException
+     * @param DeliveryNoteTimeRegister $deliveryNoteTimeRegister
      *
      * @return $this
      */
@@ -493,6 +490,19 @@ class DeliveryNote extends AbstractBase
     public function getNonStandardUsedMaterials()
     {
         return $this->nonStandardUsedMaterials;
+    }
+
+    /**
+     * @param NonStandardUsedMaterial $nonStandardUsedMaterial
+     *
+     * @return $this
+     */
+    public function addNonStandardUsedMaterial(NonStandardUsedMaterial $nonStandardUsedMaterial)
+    {
+        $nonStandardUsedMaterial->setDeliveryNote($this);
+        $this->nonStandardUsedMaterials->add($nonStandardUsedMaterial);
+
+        return $this;
     }
 
     /**

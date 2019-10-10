@@ -122,15 +122,36 @@ class NonStandardUsedMaterialAdmin extends AbstractBaseAdmin
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
+        if ($this->getRootCode() == $this->getCode()) {
+            $formMapper
+                ->with('admin.common.general', $this->getFormMdSuccessBoxArray(3))
+                ->add(
+                    'deliveryNote',
+                    null,
+                    array(
+                        'label' => 'admin.deliverynote.title',
+                    )
+                )
+                ->end()
+            ;
+        } else {
+            $formMapper
+                ->with('admin.common.general', $this->getFormMdSuccessBoxArray(3))
+                ->add(
+                    'deliveryNote',
+                    null,
+                    array(
+                        'label' => 'admin.deliverynote.title',
+                        'attr' => array(
+                            'hidden' => true,
+                        ),
+                    )
+                )
+                ->end()
+            ;
+        }
         $formMapper
             ->with('admin.common.general', $this->getFormMdSuccessBoxArray(3))
-            ->add(
-                'deliveryNote',
-                null,
-                array(
-                    'label' => 'admin.deliverynote.title',
-                )
-            )
             ->add('item',
                 ChoiceType::class,
                 array(
