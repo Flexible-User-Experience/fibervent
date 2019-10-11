@@ -2,12 +2,14 @@
 
 namespace AppBundle\Admin;
 
+use AppBundle\Entity\User;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\Form\Type\DatePickerType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 /**
  * Class WorkOrderTaskAdmin.
@@ -41,15 +43,27 @@ class PresenceMonitoringAdmin extends AbstractBaseAdmin
         $datagridMapper
             ->add(
                 'date',
-                null,
+                'doctrine_orm_date',
                 array(
                     'label' => 'admin.deliverynote.date',
+                    'field_type' => DatePickerType::class,
+                    'format' => 'd/m/Y',
+                ),
+                null,
+                array(
+                    'widget' => 'single_text',
+                    'format' => 'dd/MM/yyyy',
                 )
             )
             ->add('worker',
                 null,
                 array(
                     'label' => 'admin.workertimesheet.worker',
+                ),
+                'entity',
+                array(
+                    'class' => User::class,
+                    'query_builder' => $this->ur->findAllSortedByNameQB(),
                 )
             )
         ;
@@ -60,6 +74,7 @@ class PresenceMonitoringAdmin extends AbstractBaseAdmin
      */
     protected function configureListFields(ListMapper $listMapper)
     {
+        unset($this->listModes['mosaic']);
         $listMapper
             ->add(
                 'date',
@@ -79,31 +94,31 @@ class PresenceMonitoringAdmin extends AbstractBaseAdmin
                 )
             )
             ->add('morningHourBegin',
-                null,
+                'date',
                 array(
                     'label' => 'admin.presencemonitoring.morning_hour_begin',
-                    'format' => 'h:m:s',
+                    'format' => 'H:i',
                 )
             )
             ->add('morningHourEnd',
-                null,
+                'date',
                 array(
                     'label' => 'admin.presencemonitoring.morning_hour_end',
-                    'format' => 'h:m:s',
+                    'format' => 'H:i',
                 )
             )
             ->add('afternoonHourBegin',
-                null,
+                'date',
                 array(
                     'label' => 'admin.presencemonitoring.afternoon_hour_begin',
-                    'format' => 'h:m:s',
+                    'format' => 'H:i',
                 )
             )
             ->add('afternoonHourEnd',
-                null,
+                'date',
                 array(
                     'label' => 'admin.presencemonitoring.afternoon_hour_end',
-                    'format' => 'h:m:s',
+                    'format' => 'H:i',
                 )
             )
             ->add('totalHours',
@@ -150,13 +165,15 @@ class PresenceMonitoringAdmin extends AbstractBaseAdmin
                 DatePickerType::class,
                 array(
                     'label' => 'admin.deliverynote.date',
-                    'format' => 'd/m/Y',
+                    'format' => 'd/M/y',
                 )
             )
             ->add('worker',
-                null,
+                EntityType::class,
                 array(
                     'label' => 'admin.presencemonitoring.worker',
+                    'class' => User::class,
+                    'query_builder' => $this->ur->findAllSortedByNameQB(),
                 )
             )
             ->end()

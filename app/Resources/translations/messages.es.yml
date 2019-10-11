@@ -412,7 +412,7 @@ admin:
     afternoon_hour_begin: Hora entrada tarde
     afternoon_hour_end: Hora salida tarde
     total_hours: Total horas
-    normal_hours: Total horas orinarias
+    normal_hours: Total horas ordinarias
     extra_hours: Total horas extra
 gmap:
   general: ubicación general
