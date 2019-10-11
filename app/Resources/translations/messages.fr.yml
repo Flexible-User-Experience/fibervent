@@ -147,6 +147,31 @@ enum:
     technician:
     admin:
     super_admin:
+  repair_access_type:
+    crane:
+    basket_crane:
+    ropes:
+    ground:
+  repair_windmill_section:
+    blade:
+    nacelle:
+    tower:
+  time_register_type:
+    trip:
+    stop:
+    work:
+  time_register_shift:
+    morning:
+    afternoon:
+    night:
+  non_standard_used_material_item:
+    others:
+    receivers:
+    vortex:
+    stall_strip:
+    diverter_s:
+    belt_3m:
+    lep:
 admin:
   common:
     general:
@@ -157,6 +182,7 @@ admin:
     send_email:
     here:
     for_help:
+    details:
   audit:
     title:
     title_list:
@@ -318,6 +344,76 @@ admin:
     title:
     title_list:
     sn:
+  workorder:
+    title:
+      title_list:
+    project_number:
+    certifying_company_name:
+    certifying_company_contact_person:
+    certifying_company_email:
+    certifying_company_phone:
+    is_from_audit:
+    repair_access_types:
+  workordertask:
+    title:
+    title_list:
+    is_completed:
+    description:
+  vehicle:
+    title:
+    name:
+    licence_plate:
+    active:
+  deliverynote:
+    title:
+    title_list:
+    date:
+    repair_windmill_sections:
+    crane_company:
+    crane_driver:
+    repair_access_types:
+    observations:
+    total_trip_hours:
+    total_work_hours:
+    total_stop_hours:
+    team:
+    team_leader:
+    team_technician_1:
+    team_technician_2:
+  deliverynotetimeregister:
+    title:
+    title_list:
+    type:
+    shift:
+    begin:
+    end:
+    total_hours:
+  nonstandardusedmaterial:
+    title:
+    title_list:
+    quantity:
+    item:
+    description:
+  workertimesheet:
+    title:
+    title_list:
+    worker:
+    work_description:
+    total_normal_hours:
+    total_vertical_hours:
+    total_inclement_weather_hours:
+    total_trip_hours:
+  presencemonitoring:
+    title:
+    title_list:
+    worker:
+    morning_hour_begin:
+    morning_hour_end:
+    afternoon_hour_begin:
+    afternoon_hour_end:
+    total_hours:
+    normal_hours:
+    extra_hours:
 gmap:
   general: emplacement général
 # Admin defaults

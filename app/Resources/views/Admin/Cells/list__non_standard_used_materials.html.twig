@@ -1,0 +1,31 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                {{ 'admin.nonstandardusedmaterial.item' | trans }}
+            </th>
+            <th>
+                {{ 'admin.nonstandardusedmaterial.description' | trans }}
+            </th>
+            <th>
+                {{ 'admin.nonstandardusedmaterial.quantity' | trans }}
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for nonStandardUsedMaterial in object.nonStandardUsedMaterials %}
+        <tr>
+            <td>
+                {{ nonStandardUsedMaterial.getItemString() | trans }}
+            </td>
+            <td>
+                {{ nonStandardUsedMaterial.getDescription() }}
+            </td>
+            <td>
+                {{ nonStandardUsedMaterial.getQuantity() }}
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+

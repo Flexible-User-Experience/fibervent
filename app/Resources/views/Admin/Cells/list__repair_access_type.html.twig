@@ -1,0 +1,8 @@
+{% for repairAccessType in object.repairAccessTypesString %}
+    <td>
+        <b>{{ 'admin.workorder.repair_access_types' | trans }}</b>
+    </td>
+    <td>
+        {{ repairAccessType | trans }}
+    </td>
+{% endfor %}

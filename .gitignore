@@ -65,3 +65,6 @@
 /app/config/deploy.rb
 /app/config/deploy.yml
 !/.travis.yml
+
+# Canvis a no cometre que per algun motiu no estaven en aquet arxiu:
+.idea/

@@ -1,0 +1,11 @@
+{% extends 'SonataAdminBundle:CRUD:base_list_field.html.twig' %}
+
+{% block field %}
+    {% spaceless %}
+        <div>
+            {% for repairAccessType in object.repairAccessTypesString %}
+                <span class="label label-default">{{ repairAccessType | trans }}</span>
+            {% endfor %}
+        </div>
+    {% endspaceless %}
+{% endblock %}

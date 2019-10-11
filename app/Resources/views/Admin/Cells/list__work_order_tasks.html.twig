@@ -1,0 +1,87 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                {{ 'admin.workordertask.description' | trans }}
+            </th>
+            <th>
+                {{ 'admin.workorder.is_from_audit' | trans }}
+            </th>
+            <th>
+                {{ 'admin.bladedamage.title' | trans }}
+            </th>
+            <th>
+                {{ 'admin.windmillblade.title' | trans }}
+            </th>
+            <th>
+                {{ 'admin.windmill.title' | trans }}
+            </th>
+            <th>
+                {{ 'admin.bladedamage.position' | trans }}
+            </th>
+            <th>
+                {{ 'admin.bladedamage.radius' | trans }}
+            </th>
+            <th>
+                {{ 'admin.bladedamage.distance' | trans }}
+            </th>
+            <th>
+                {{ 'admin.bladedamage.size' | trans }}
+            </th>
+            <th>
+                {{ 'admin.bladedamage.edge' | trans }}
+            </th>
+            <th>
+                {{ 'admin.workordertask.is_completed' | trans }}
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for workOrderTask in object.workOrderTasks %}
+        <tr>
+            <td>
+                {{ workOrderTask.getDescription() }}
+            </td>
+            <td>
+                {% if workOrderTask.isFromAudit() %}
+                    <span class="label label-success">Si</span>
+                {% else %}
+                    <span class="label label-danger">No</span>
+                {% endif %}
+            </td>
+            <td>
+                {{ workOrderTask.getBladeDamage() }}
+            </td>
+            <td>
+                {{ workOrderTask.getWindmillBlade() }}
+            </td>
+            <td>
+                {{ workOrderTask.getWindmill() }}
+            </td>
+            <td>
+                {{ workOrderTask.getPosition() }}
+            </td>
+            <td>
+                {{ workOrderTask.getRadius() }}
+            </td>
+            <td>
+                {{ workOrderTask.getDistance() }}
+            </td>
+            <td>
+                {{ workOrderTask.getSize() }}
+            </td>
+            <td>
+                {{ workOrderTask.getEdgeString() }}
+            </td>
+            <td>
+                {% if workOrderTask.isCompleted() %}
+                    <span class="label label-success">Si</span>
+                {% else %}
+                    <span class="label label-danger">No</span>
+                {% endif %}
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+

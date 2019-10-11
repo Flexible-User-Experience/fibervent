@@ -1,0 +1,95 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                {{ 'admin.deliverynote.date' | trans }}
+            </th>
+            <th>
+                {{ 'admin.deliverynote.repair_windmill_sections' | trans }}
+            </th>
+            <th>
+                {{ 'admin.deliverynote.team_leader' | trans }}
+            </th>
+            <th>
+                {{ 'admin.deliverynote.team_technician_1' | trans }}
+            </th>
+            <th>
+                {{ 'admin.deliverynote.team_technician_2' | trans }}
+            </th>
+            <th>
+                {{ 'admin.vehicle.title' | trans }}
+            </th>
+            <th>
+                {{ 'admin.deliverynote.crane_company' | trans }}
+            </th>
+            <th>
+                {{ 'admin.deliverynote.crane_driver' | trans }}
+            </th>
+            <th>
+                {{ 'admin.deliverynote.repair_access_types' | trans }}
+            </th>
+            <th>
+                {{ 'admin.deliverynote.observations' | trans }}
+            </th>
+            <th>
+                {{ 'admin.deliverynote.total_trip_hours' | trans }}
+            </th>
+            <th>
+                {{ 'admin.deliverynote.total_work_hours' | trans }}
+            </th>
+            <th>
+                {{ 'admin.deliverynote.total_stop_hours' | trans }}
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for deliveryNote in object.deliveryNotes %}
+        <tr>
+            <td>
+                {{ deliveryNote.getDate().format('d/m/y') }}
+            </td>
+            <td>
+                {% for repairWindmillSection in deliveryNote.getRepairWindmillSectionsString() %}
+                    <span class="label label-default">{{ repairWindmillSection | trans }}</span>
+                {% endfor %}
+            </td>
+            <td>
+                {{ deliveryNote.getTeamLeader }}
+            </td>
+            <td>
+                {{ deliveryNote.getTeamTechnician1 }}
+            </td>
+            <td>
+                {{ deliveryNote.getTeamTechnician2 }}
+            </td>
+            <td>
+                {{ deliveryNote.getVehicle }}
+            </td>
+            <td>
+                {{ deliveryNote.getCraneCompany }}
+            </td>
+            <td>
+                {{ deliveryNote.getCraneDriver }}
+            </td>
+            <td>
+                {% for repairAccessType in deliveryNote.getRepairAccessTypesString %}
+                    <span class="label label-default">{{ repairAccessType | trans }}</span>
+                {% endfor %}
+            </td>
+            <td>
+                {{ deliveryNote.getObservations }}
+            </td>
+            <td>
+                {{ deliveryNote.getTotalTripHours }}
+            </td>
+            <td>
+                {{ deliveryNote.getTotalWorkHours }}
+            </td>
+            <td>
+                {{ deliveryNote.getTotalStopHours }}
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
