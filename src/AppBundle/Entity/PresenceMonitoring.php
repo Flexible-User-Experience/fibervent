@@ -99,7 +99,7 @@ class PresenceMonitoring extends AbstractBase
      *
      * @return PresenceMonitoring
      */
-    public function setDate(\DateTime $date): PresenceMonitoring
+    public function setDate(?\DateTime $date): PresenceMonitoring
     {
         $this->date = $date;
 
@@ -139,7 +139,7 @@ class PresenceMonitoring extends AbstractBase
      *
      * @return PresenceMonitoring
      */
-    public function setMorningHourBegin(\DateTime $morningHourBegin): PresenceMonitoring
+    public function setMorningHourBegin(?\DateTime $morningHourBegin): PresenceMonitoring
     {
         $this->morningHourBegin = $morningHourBegin;
 
@@ -159,7 +159,7 @@ class PresenceMonitoring extends AbstractBase
      *
      * @return PresenceMonitoring
      */
-    public function setMorningHourEnd(\DateTime $morningHourEnd): PresenceMonitoring
+    public function setMorningHourEnd(?\DateTime $morningHourEnd): PresenceMonitoring
     {
         $this->morningHourEnd = $morningHourEnd;
 
@@ -179,7 +179,7 @@ class PresenceMonitoring extends AbstractBase
      *
      * @return PresenceMonitoring
      */
-    public function setAfternoonHourBegin(\DateTime $afternoonHourBegin): PresenceMonitoring
+    public function setAfternoonHourBegin(?\DateTime $afternoonHourBegin): PresenceMonitoring
     {
         $this->afternoonHourBegin = $afternoonHourBegin;
 
@@ -199,7 +199,7 @@ class PresenceMonitoring extends AbstractBase
      *
      * @return PresenceMonitoring
      */
-    public function setAfternoonHourEnd(\DateTime $afternoonHourEnd): PresenceMonitoring
+    public function setAfternoonHourEnd(?\DateTime $afternoonHourEnd): PresenceMonitoring
     {
         $this->afternoonHourEnd = $afternoonHourEnd;
 
@@ -219,7 +219,7 @@ class PresenceMonitoring extends AbstractBase
      *
      * @return PresenceMonitoring
      */
-    public function setTotalHours(float $totalHours): PresenceMonitoring
+    public function setTotalHours(?float $totalHours): PresenceMonitoring
     {
         $this->totalHours = $totalHours;
 
@@ -239,7 +239,7 @@ class PresenceMonitoring extends AbstractBase
      *
      * @return PresenceMonitoring
      */
-    public function setNormalHours(float $normalHours): PresenceMonitoring
+    public function setNormalHours(?float $normalHours): PresenceMonitoring
     {
         $this->normalHours = $normalHours;
 
@@ -259,7 +259,7 @@ class PresenceMonitoring extends AbstractBase
      *
      * @return PresenceMonitoring
      */
-    public function setExtraHours(float $extraHours): PresenceMonitoring
+    public function setExtraHours(?float $extraHours): PresenceMonitoring
     {
         $this->extraHours = $extraHours;
 
