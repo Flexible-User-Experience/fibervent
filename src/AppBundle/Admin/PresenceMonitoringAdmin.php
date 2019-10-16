@@ -64,6 +64,7 @@ class PresenceMonitoringAdmin extends AbstractBaseAdmin
                 array(
                     'class' => User::class,
                     'query_builder' => $this->ur->findAllSortedByNameQB(),
+                    'choice_label' => 'fullnameCanonical',
                 )
             )
         ;
@@ -174,6 +175,7 @@ class PresenceMonitoringAdmin extends AbstractBaseAdmin
                     'label' => 'admin.presencemonitoring.worker',
                     'class' => User::class,
                     'query_builder' => $this->ur->findAllSortedByNameQB(),
+                    'choice_label' => 'fullnameCanonical',
                 )
             )
             ->end()
