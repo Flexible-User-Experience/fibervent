@@ -380,6 +380,8 @@ admin:
     team_leader:
     team_technician_1:
     team_technician_2:
+    team_technician_3:
+    team_technician_4:
   deliverynotetimeregister:
     title:
     title_list:

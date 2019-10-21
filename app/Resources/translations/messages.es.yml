@@ -380,6 +380,8 @@ admin:
     team_leader: Jefe equipo
     team_technician_1: Técnico 1
     team_technician_2: Técnico 2
+    team_technician_3: Técnico 3
+    team_technician_4: Técnico 4
   deliverynotetimeregister:
     title: Fichajes
     title_list: Fichajes
