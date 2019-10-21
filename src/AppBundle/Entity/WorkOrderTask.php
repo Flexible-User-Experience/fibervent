@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use AppBundle\Enum\BladeDamageEdgeEnum;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -109,12 +110,11 @@ class WorkOrderTask extends AbstractBase
     private $description;
 
     /**
-     * @var DeliveryNote
+     * @var DeliveryNote[]|ArrayCollection
      *
-     * @ORM\ManyToOne(targetEntity="DeliveryNote", inversedBy="workOrderTasks", cascade={"persist"})
-     * @ORM\JoinColumn(name="windmill_id", referencedColumnName="id", nullable=true)
+     * @ORM\ManyToMany(targetEntity="DeliveryNote", inversedBy="workOrderTasks", cascade={"persist"})
      */
-    private $deliveryNote;
+    private $deliveryNotes;
 
     /**
      * Methods.
@@ -369,21 +369,34 @@ class WorkOrderTask extends AbstractBase
     }
 
     /**
-     * @return DeliveryNote
+     * @return DeliveryNote[]|ArrayCollection
      */
-    public function getDeliveryNote()
+    public function getDeliveryNotes()
     {
-        return $this->deliveryNote;
+        return $this->deliveryNotes;
     }
 
     /**
      * @param DeliveryNote $deliveryNote
      *
+     * @return $this
+     */
+    public function addDeliveryNote(DeliveryNote $deliveryNote)
+    {
+        $deliveryNote->addWorkOrderTask($this);
+        $this->deliveryNotes->add($deliveryNote);
+
+        return $this;
+    }
+
+    /**
+     * @param DeliveryNote[]|ArrayCollection $deliveryNotes
+     *
      * @return WorkOrderTask
      */
-    public function setDeliveryNote(DeliveryNote $deliveryNote): WorkOrderTask
+    public function setDeliveryNotes($deliveryNotes)
     {
-        $this->deliveryNote = $deliveryNote;
+        $this->deliveryNotes = $deliveryNotes;
 
         return $this;
     }

@@ -118,7 +118,7 @@ class DeliveryNote extends AbstractBase
     /**
      * @var WorkOrderTask[]|ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="WorkOrderTask", mappedBy="deliveryNote")
+     * @ORM\ManyToMany(targetEntity="WorkOrderTask", mappedBy="deliveryNote")
      */
     private $workOrderTasks;
 
@@ -506,7 +506,7 @@ class DeliveryNote extends AbstractBase
     }
 
     /**
-     * @param NonStandardUsedMaterials[]|ArrayCollection $nonStandardUsedMaterials
+     * @param NonStandardUsedMaterial[]|ArrayCollection $nonStandardUsedMaterials
      *
      * @return DeliveryNote
      */
@@ -526,9 +526,22 @@ class DeliveryNote extends AbstractBase
     }
 
     /**
+     * @param WorkOrderTask $workOrderTask
+     *
+     * @return $this
+     */
+    public function addWorkOrderTask(WorkOrderTask $workOrderTask)
+    {
+        $workOrderTask->addDeliveryNote($this);
+        $this->workOrderTasks->add($workOrderTask);
+
+        return $this;
+    }
+
+    /**
      * @param WorkOrderTask[]|ArrayCollection $workOrderTasks
      *
-     * @return WorkOrder
+     * @return DeliveryNote
      */
     public function setWorkOrderTasks($workOrderTasks)
     {
