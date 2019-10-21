@@ -421,6 +421,7 @@ admin:
     total_hours:
     normal_hours:
     extra_hours:
+    category:
 
 
 gmap:
