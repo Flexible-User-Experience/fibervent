@@ -118,7 +118,7 @@ class DeliveryNote extends AbstractBase
     /**
      * @var WorkOrderTask[]|ArrayCollection
      *
-     * @ORM\ManyToMany(targetEntity="WorkOrderTask", mappedBy="deliveryNote")
+     * @ORM\ManyToMany(targetEntity="WorkOrderTask", mappedBy="deliveryNotes")
      */
     private $workOrderTasks;
 
