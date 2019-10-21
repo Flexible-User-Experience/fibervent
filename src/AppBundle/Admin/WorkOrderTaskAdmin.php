@@ -124,15 +124,6 @@ class WorkOrderTaskAdmin extends AbstractBaseAdmin
                     'label' => 'admin.workorder.is_from_audit',
                 )
             )
-            ->add('windmillBlade',
-                null,
-                array(
-                    'label' => 'admin.windmillblade.title',
-                    'sortable' => true,
-                    'sort_field_mapping' => array('fieldName' => 'code'),
-                    'sort_parent_association_mappings' => array(array('fieldName' => 'windmillBlade')),
-                )
-            )
             ->add('windmill',
                 null,
                 array(
@@ -140,6 +131,15 @@ class WorkOrderTaskAdmin extends AbstractBaseAdmin
                     'sortable' => true,
                     'sort_field_mapping' => array('fieldName' => 'code'),
                     'sort_parent_association_mappings' => array(array('fieldName' => 'windmill')),
+                )
+            )
+            ->add('windmillBlade',
+                null,
+                array(
+                    'label' => 'admin.windmillblade.title',
+                    'sortable' => true,
+                    'sort_field_mapping' => array('fieldName' => 'code'),
+                    'sort_parent_association_mappings' => array(array('fieldName' => 'windmillBlade')),
                 )
             )
             ->add('bladeDamage',
@@ -236,25 +236,6 @@ class WorkOrderTaskAdmin extends AbstractBaseAdmin
         }
         $formMapper
             ->with('admin.common.general', $this->getFormMdSuccessBoxArray(7))
-
-            ->add('description',
-                null,
-                array(
-                    'label' => 'admin.workordertask.description',
-                )
-            )
-            ->add('isCompleted',
-                null,
-                array(
-                    'label' => 'admin.workordertask.is_completed',
-                )
-            )
-            ->add('isFromAudit',
-                null,
-                array(
-                    'label' => 'admin.workorder.is_from_audit',
-                )
-            )
             ->add('windmill',
                 ModelType::class,
                 array(
@@ -310,6 +291,24 @@ class WorkOrderTaskAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'admin.bladedamage.size',
+                )
+            )
+            ->add('description',
+                null,
+                array(
+                    'label' => 'admin.workordertask.description',
+                )
+            )
+            ->add('isCompleted',
+                null,
+                array(
+                    'label' => 'admin.workordertask.is_completed',
+                )
+            )
+            ->add('isFromAudit',
+                null,
+                array(
+                    'label' => 'admin.workorder.is_from_audit',
                 )
             )
             ->end()
