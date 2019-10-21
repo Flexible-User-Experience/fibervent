@@ -30,12 +30,12 @@ class PresenceMonitoringCategoryEnum
     }
 
     /**
-     * @param int $type
+     * @param int $category
      *
      * @return string
      */
-    public static function getDecodedStringFromType(int $type)
+    public static function getDecodedString(int $category)
     {
-        return self::getEnumArray()[$type];
+        return self::getEnumArray()[$category];
     }
 }
