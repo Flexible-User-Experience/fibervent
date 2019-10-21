@@ -22,10 +22,10 @@ class PresenceMonitoringCategoryEnum
     public static function getEnumArray()
     {
         return array(
-            self::WORKDAY => 'enum.repair_access_type.crane',
-            self::DAYOFF => 'enum.repair_access_type.basket_crane',
-            self::PERMITS => 'enum.repair_access_type.ropes',
-            self::LEAVE => 'enum.repair_access_type.ground',
+            self::WORKDAY => 'enum.presence_monitoring_category.workday',
+            self::DAYOFF => 'enum.presence_monitoring_category.dayoff',
+            self::PERMITS => 'enum.presence_monitoring_category.permits',
+            self::LEAVE => 'enum.presence_monitoring_category.leave',
         );
     }
 

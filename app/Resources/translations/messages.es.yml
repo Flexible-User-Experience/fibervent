@@ -172,6 +172,11 @@ enum:
     diverter_s: Diverter S.
     belt_3m: Cinta 3m
     lep: LEP
+presence_monitoring_category:
+  workday: Laborable
+  dayoff: Vacaciones
+  permits: Permiso
+  leave: Baja
 admin:
   common:
     general: General

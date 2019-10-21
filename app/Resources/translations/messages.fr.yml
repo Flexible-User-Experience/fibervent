@@ -172,6 +172,11 @@ enum:
     diverter_s:
     belt_3m:
     lep:
+  presence_monitoring_category:
+    workday:
+    dayoff:
+    permits:
+    leave:
 admin:
   common:
     general:
