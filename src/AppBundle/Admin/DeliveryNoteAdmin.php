@@ -7,6 +7,7 @@ use AppBundle\Enum\RepairWindmillSectionEnum;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Form\Type\ModelType;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\Form\Type\CollectionType;
@@ -325,20 +326,13 @@ class DeliveryNoteAdmin extends AbstractBaseAdmin
             ->with('admin.workordertask.title', $this->getFormMdSuccessBoxArray(12))
             ->add(
                 'workOrderTasks',
-                CollectionType::class,
+                ModelType::class,
                 array(
-                    'label' => ' ',
+                    'label' => 'admin.workordertask.title',
+                    'multiple' => true,
+                    'expanded' => false,
                     'required' => false,
-                    'btn_add' => true,
-                    'cascade_validation' => true,
-                    'error_bubbling' => true,
-                    'type_options' => array(
-                        'delete' => true,
-                    ),
-                ),
-                array(
-                    'edit' => 'inline',
-                    'inline' => 'table',
+                    'btn_add' => false,
                 )
             )
             ->end()
