@@ -571,6 +571,8 @@ AppBundle\Entity\DeliveryNote:
     teamLeader: @technician<numberBetween(1, 2)>
     teamTechnician1: @operator<numberBetween(1, 4)>
     teamTechnician2: @operator<numberBetween(1, 4)>
+    teamTechnician3: @operator<numberBetween(1, 4)>
+    teamTechnician4: @operator<numberBetween(1, 4)>
     vehicle: @vehicle<numberBetween(1, 5)>
     craneCompany: <company()>
     craneDriver: <name()>
