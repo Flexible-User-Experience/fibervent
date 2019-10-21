@@ -216,6 +216,13 @@ class WorkOrderTaskAdmin extends AbstractBaseAdmin
                         'label' => 'admin.workorder.title',
                     )
                 )
+                ->add(
+                    'deliveryNotes',
+                    null,
+                    array(
+                        'label' => 'admin.deliverynote.title',
+                    )
+                )
                 ->end()
             ;
         } else {
@@ -226,6 +233,16 @@ class WorkOrderTaskAdmin extends AbstractBaseAdmin
                     null,
                     array(
                         'label' => 'admin.workorder.title',
+                        'attr' => array(
+                            'hidden' => true,
+                        ),
+                    )
+                )
+                ->add(
+                    'deliveryNotes',
+                    null,
+                    array(
+                        'label' => 'admin.deliverynote.title',
                         'attr' => array(
                             'hidden' => true,
                         ),
