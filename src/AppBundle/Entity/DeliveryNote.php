@@ -66,6 +66,22 @@ class DeliveryNote extends AbstractBase
     private $teamTechnician2;
 
     /**
+     * @var User
+     *
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumn(name="admin_user_id", referencedColumnName="id", nullable=true)
+     */
+    private $teamTechnician3;
+
+    /**
+     * @var User
+     *
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumn(name="admin_user_id", referencedColumnName="id", nullable=true)
+     */
+    private $teamTechnician4;
+
+    /**
      * @var Vehicle
      *
      * @ORM\ManyToOne(targetEntity="Vehicle")
@@ -305,6 +321,46 @@ class DeliveryNote extends AbstractBase
     public function setTeamTechnician2(User $teamTechnician2): DeliveryNote
     {
         $this->teamTechnician2 = $teamTechnician2;
+
+        return $this;
+    }
+
+    /**
+     * @return User
+     */
+    public function getTeamTechnician3()
+    {
+        return $this->teamTechnician3;
+    }
+
+    /**
+     * @param User $teamTechnician3
+     *
+     * @return DeliveryNote
+     */
+    public function setTeamTechnician3(User $teamTechnician3): DeliveryNote
+    {
+        $this->teamTechnician3 = $teamTechnician3;
+
+        return $this;
+    }
+
+    /**
+     * @return User
+     */
+    public function getTeamTechnician4()
+    {
+        return $this->teamTechnician4;
+    }
+
+    /**
+     * @param User $teamTechnician4
+     *
+     * @return DeliveryNote
+     */
+    public function setTeamTechnician4(User $teamTechnician4): DeliveryNote
+    {
+        $this->teamTechnician4 = $teamTechnician4;
 
         return $this;
     }
