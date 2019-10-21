@@ -271,6 +271,18 @@ class DeliveryNoteAdmin extends AbstractBaseAdmin
                     'label' => 'admin.deliverynote.team_technician_2',
                 )
             )
+            ->add('teamTechnician3',
+                null,
+                array(
+                    'label' => 'admin.deliverynote.team_technician_3',
+                )
+            )
+            ->add('teamTechnician4',
+                null,
+                array(
+                    'label' => 'admin.deliverynote.team_technician_4',
+                )
+            )
             ->add('vehicle',
                 null,
                 array(
@@ -415,6 +427,18 @@ class DeliveryNoteAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'admin.deliverynote.team_technician_2',
+                )
+            )
+            ->add('teamTechnician3',
+                null,
+                array(
+                    'label' => 'admin.deliverynote.team_technician_3',
+                )
+            )
+            ->add('teamTechnician4',
+                null,
+                array(
+                    'label' => 'admin.deliverynote.team_technician_4',
                 )
             )
             ->add('vehicle',
