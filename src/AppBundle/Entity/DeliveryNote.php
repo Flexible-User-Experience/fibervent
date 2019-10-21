@@ -538,6 +538,18 @@ class DeliveryNote extends AbstractBase
     }
 
     /**
+     * @param WorkOrderTask $workOrderTask
+     *
+     * @return $this
+     */
+    public function removeWorkOrderTask(WorkOrderTask $workOrderTask)
+    {
+        $this->workOrderTasks->removeElement($workOrderTask);
+
+        return $this;
+    }
+
+    /**
      * @param WorkOrderTask[]|ArrayCollection $workOrderTasks
      *
      * @return DeliveryNote
