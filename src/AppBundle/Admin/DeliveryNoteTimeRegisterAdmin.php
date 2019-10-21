@@ -2,6 +2,7 @@
 
 namespace AppBundle\Admin;
 
+use AppBundle\Enum\MinutesEnum;
 use AppBundle\Enum\TimeRegisterShiftEnum;
 use AppBundle\Enum\TimeRegisterTypeEnum;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
@@ -201,12 +202,16 @@ class DeliveryNoteTimeRegisterAdmin extends AbstractBaseAdmin
                 TimeType::class,
                 array(
                     'label' => 'admin.deliverynotetimeregister.begin',
+                    'widget' => 'choice',
+                    'minutes' => MinutesEnum::getEnumArray(),
                 )
             )
             ->add('end',
                 TimeType::class,
                 array(
                     'label' => 'admin.deliverynotetimeregister.end',
+                    'widget' => 'choice',
+                    'minutes' => MinutesEnum::getEnumArray(),
                 )
             )
             ->add('totalHours',

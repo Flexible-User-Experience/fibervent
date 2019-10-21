@@ -2,11 +2,13 @@
 
 namespace AppBundle\Admin;
 
+use AppBundle\Enum\MinutesEnum;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\Form\Type\DatePickerType;
+use Symfony\Component\Form\Extension\Core\Type\TimeType;
 
 /**
  * Class WorkOrderTaskAdmin.
@@ -154,27 +156,35 @@ class PresenceMonitoringAdmin extends AbstractBaseAdmin
             ->end()
             ->with('admin.common.details', $this->getFormMdSuccessBoxArray(4))
             ->add('morningHourBegin',
-                null,
+                TimeType::class,
                 array(
                     'label' => 'admin.presencemonitoring.morning_hour_begin',
+                    'widget' => 'choice',
+                    'minutes' => MinutesEnum::getEnumArray(),
                 )
             )
             ->add('morningHourEnd',
-                null,
+                TimeType::class,
                 array(
                     'label' => 'admin.presencemonitoring.morning_hour_end',
+                    'widget' => 'choice',
+                    'minutes' => MinutesEnum::getEnumArray(),
                 )
             )
             ->add('afternoonHourBegin',
-                null,
+                TimeType::class,
                 array(
                     'label' => 'admin.presencemonitoring.afternoon_hour_begin',
+                    'widget' => 'choice',
+                    'minutes' => MinutesEnum::getEnumArray(),
                 )
             )
             ->add('afternoonHourEnd',
-                null,
+                TimeType::class,
                 array(
                     'label' => 'admin.presencemonitoring.afternoon_hour_end',
+                    'widget' => 'choice',
+                    'minutes' => MinutesEnum::getEnumArray(),
                 )
             )
             ->add('totalHours',
