@@ -616,6 +616,7 @@ AppBundle\Entity\PresenceMonitoring:
   presencemonitoring{1..10}:
     date: <dateTimeThisYear($max = 'now')>
     worker: @technician<numberBetween(1, 2)>
+    category: <randomElement( array (0, 1, 2, 3))>
     morningHourBegin: <time($max = 'now')>
     morningHourEnd: <time($max = 'now')>
     afternoonHourBegin: <time($max = 'now')>
