@@ -118,7 +118,7 @@ class DeliveryNote extends AbstractBase
     /**
      * @var WorkOrderTask[]|ArrayCollection
      *
-     * @ORM\ManyToMany(targetEntity="WorkOrderTask", mappedBy="deliveryNotes")
+     * @ORM\ManyToMany(targetEntity="WorkOrderTask", mappedBy="deliveryNotes", cascade={"persist"})
      */
     private $workOrderTasks;
 
@@ -532,7 +532,6 @@ class DeliveryNote extends AbstractBase
      */
     public function addWorkOrderTask(WorkOrderTask $workOrderTask)
     {
-        $workOrderTask->addDeliveryNote($this);
         $this->workOrderTasks->add($workOrderTask);
 
         return $this;
