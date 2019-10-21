@@ -6,7 +6,6 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Form\Type\ModelType;
-use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\AdminBundle\Show\ShowMapper;
 
 /**
@@ -24,14 +23,6 @@ class WorkOrderTaskAdmin extends AbstractBaseAdmin
         '_sort_by' => 'id',
         '_sort_order' => 'desc',
     );
-
-    /**
-     * @param RouteCollection $collection
-     */
-    protected function configureRoutes(RouteCollection $collection)
-    {
-        $collection->remove('batch');
-    }
 
     /**
      * @param DatagridMapper $datagridMapper
@@ -200,7 +191,7 @@ class WorkOrderTaskAdmin extends AbstractBaseAdmin
                     'label' => 'admin.common.action',
                     'actions' => array(
                         'edit' => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
-                        'show' => array('template' => '::Admin/Buttons/list__action_show_button.html.twig'),
+ //                       'show' => array('template' => '::Admin/Buttons/list__action_show_button.html.twig'),
  //                       'excel' => array('template' => '::Admin/Buttons/list__action_excel_button.html.twig'),
  //                       'pdf' => array('template' => '::Admin/Buttons/list__action_pdf_windfarm_button.html.twig'),
                     ),
