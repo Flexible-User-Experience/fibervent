@@ -12,6 +12,7 @@ use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\Form\Type\CollectionType;
 use Sonata\Form\Type\DatePickerType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class DeliveryNoteAdmin extends AbstractBaseAdmin
 {
@@ -301,7 +302,7 @@ class DeliveryNoteAdmin extends AbstractBaseAdmin
                 )
             )
             ->end()
-            ->with('admin.deliverynotetimeregister.title', $this->getFormMdSuccessBoxArray(8))
+            ->with('admin.deliverynotetimeregister.title', $this->getFormMdSuccessBoxArray(12))
             ->add(
                 'timeRegisters',
                 CollectionType::class,
@@ -321,7 +322,7 @@ class DeliveryNoteAdmin extends AbstractBaseAdmin
                 )
             )
             ->end()
-            ->with('admin.nonstandardusedmaterial.title', $this->getFormMdSuccessBoxArray(4))
+            ->with('admin.nonstandardusedmaterial.title', $this->getFormMdSuccessBoxArray(6))
             ->add(
                 'nonStandardUsedMaterials',
                 CollectionType::class,
@@ -341,11 +342,15 @@ class DeliveryNoteAdmin extends AbstractBaseAdmin
                 )
             )
             ->end()
-            ->with('admin.deliverynote.observations', $this->getFormMdSuccessBoxArray(8))
+            ->with('admin.deliverynote.observations', $this->getFormMdSuccessBoxArray(6))
             ->add('observations',
-                null,
+                TextareaType::class,
                 array(
                     'label' => 'admin.deliverynote.observations',
+                    'required' => false,
+                    'attr' => array(
+                        'rows' => 6,
+                    ),
                 )
             )
             ->end()
