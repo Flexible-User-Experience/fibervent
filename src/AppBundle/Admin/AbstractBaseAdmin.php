@@ -3,6 +3,7 @@
 namespace AppBundle\Admin;
 
 use AppBundle\Repository\AuditRepository;
+use AppBundle\Repository\BladeDamageRepository;
 use AppBundle\Repository\BladeRepository;
 use AppBundle\Repository\CustomerRepository;
 use AppBundle\Repository\DamageCategoryRepository;
@@ -11,6 +12,7 @@ use AppBundle\Repository\StateRepository;
 use AppBundle\Repository\TurbineRepository;
 use AppBundle\Repository\UserRepository;
 use AppBundle\Repository\WindfarmRepository;
+use AppBundle\Repository\WindmillBladeRepository;
 use AppBundle\Repository\WindmillRepository;
 use AppBundle\Service\RepositoriesService;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
@@ -90,6 +92,16 @@ abstract class AbstractBaseAdmin extends AbstractAdmin
     protected $ar;
 
     /**
+     * @var WindmillBladeRepository
+     */
+    protected $wbr;
+
+    /**
+     * @var BladeDamageRepository
+     */
+    protected $bdr;
+
+    /**
      * @var UploaderHelper
      */
     protected $vus;
@@ -124,6 +136,8 @@ abstract class AbstractBaseAdmin extends AbstractAdmin
         $this->dr = $rs->getDr();
         $this->dcr = $rs->getDcr();
         $this->ar = $rs->getAr();
+        $this->wbr = $rs->getWbr();
+        $this->bdr = $rs->getBdr();
         $this->vus = $vus;
         $this->lis = $lis;
     }

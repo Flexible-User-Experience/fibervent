@@ -1,0 +1,11 @@
+{% extends 'SonataAdminBundle:CRUD:base_list_field.html.twig' %}
+
+{% block field %}
+    {% spaceless %}
+        <div>
+            {% for repairWindmillSection in object.repairWindmillSectionsString %}
+                <span class="label label-default">{{ repairWindmillSection | trans }}</span>
+            {% endfor %}
+        </div>
+    {% endspaceless %}
+{% endblock %}

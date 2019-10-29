@@ -147,6 +147,31 @@ enum:
     technician: Técnico
     admin: Administrador
     super_admin: Superadministrador
+  repair_access_type:
+    crane: Grua
+    basket_crane: Cesta FV
+    ropes: Cuerdas
+    ground: Suelo
+  repair_windmill_section:
+    blade: Pala
+    nacelle: Nacelle
+    tower: Torre
+  time_register_type:
+    trip: Desplazamiento
+    stop: Parada
+    work: Trabajo
+  time_register_shift:
+    morning: Mañana
+    afternoon: Tarde
+    night: Noche
+  non_standard_used_material_item:
+    others: Otros
+    receivers: Receptores
+    vortex: Vortex
+    stall_strip: Stall strip
+    diverter_s: Diverter S.
+    belt_3m: Cinta 3m
+    lep: LEP
 admin:
   common:
     general: General
@@ -157,6 +182,7 @@ admin:
     send_email: Envía un correo
     here: aquí
     for_help: para recibir ayuda
+    details: Detalle
   audit:
     title: Inspección
     title_list: Inspección
@@ -318,6 +344,76 @@ admin:
     title: Palas Aerogenerador
     title_list: Palas Aerogenerador
     sn: 'S/N'
+  workorder:
+    title: Proyecto
+    title_list: Proyecto
+    project_number: Número de proyecto
+    certifying_company_name: Compañía certificadora
+    certifying_company_contact_person: Persona de contacto (certificadora)
+    certifying_company_email: Email (certificadora)
+    certifying_company_phone: Teléfono (certificadora)
+    is_from_audit: Proviene de auditoría
+    repair_access_types: Tipos de acceso
+  workordertask:
+    title: Tareas
+    title_list: Tareas
+    is_completed: Completada
+    description: Descripción
+  vehicle:
+    title: Vehículo
+    name: Nombre
+    licence_plate: Matrícula
+    active: Activo
+  deliverynote:
+    title: Albarán
+    title_list: Albarán
+    date: Fecha
+    repair_windmill_sections: Secciones reparación aerogenerador
+    crane_company: Empresa grua
+    crane_driver: Conductor grua
+    repair_access_types: Tipo de acceso
+    observations: Observaciones
+    total_trip_hours: Total horas de desplazamiento
+    total_work_hours: Total horas de trabajo
+    total_stop_hours: Total horas de parada
+    team: Equipo
+    team_leader: Jefe equipo
+    team_technician_1: Técnico 1
+    team_technician_2: Técnico 2
+  deliverynotetimeregister:
+    title: Fichajes
+    title_list: Fichajes
+    type: Tipo
+    shift: Turno
+    begin: Inicio
+    end: Fin
+    total_hours: Total horas
+  nonstandardusedmaterial:
+    title: Materiales no estándar utilizados
+    title_list: Materiales no estándar utilizados
+    quantity: Cantidad
+    item: Artículo
+    description: Descripción
+  workertimesheet:
+    title: Partes de trabajo
+    title_list: Partes de trabajo
+    worker: Empleado
+    work_description: Descripción del trabajo
+    total_normal_hours: Total horas normales
+    total_vertical_hours: Total horas verticales
+    total_inclement_weather_hours: Total horas incl. meteorológicas
+    total_trip_hours: Total horas desplazamiento
+  presencemonitoring:
+    title: Registro horario
+    title_list: Registro horario
+    worker: Empleado
+    morning_hour_begin: Hora entrado mañana
+    morning_hour_end: Hora salida mañana
+    afternoon_hour_begin: Hora entrada tarde
+    afternoon_hour_end: Hora salida tarde
+    total_hours: Total horas
+    normal_hours: Total horas ordinarias
+    extra_hours: Total horas extra
 gmap:
   general: ubicación general
 # Admin defaults

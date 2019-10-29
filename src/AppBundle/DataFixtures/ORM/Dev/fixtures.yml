@@ -524,3 +524,100 @@ AppBundle\Entity\User:
         customer: @customer<numberBetween(1, 10)>
         roles:
             - ROLE_CUSTOMER
+
+## WorkOrders
+AppBundle\Entity\WorkOrder:
+  workorder{1..5}:
+    projectNumber: EO-<numberBetween(1, 100)>
+    isFromAudit: <boolean()>
+    customer: @customer<numberBetween(1, 10)>
+    windfarm: @windfarm<numberBetween(1, 20)>
+    audit: @audit<numberBetween(1, 25)>
+    certifyingCompanyName: <company()>
+    certifyingCompanyContactPerson: <name()>
+    certifyingCompanyPhone: <phoneNumber()>
+    certifyingCompanyEmail: <safeEmail()>
+    repairAccessTypes: <randomElements( array (0, 1, 2, 3))>
+
+## WorkOrderTasks
+AppBundle\Entity\WorkOrderTask:
+  workordertask{1..3}:
+    workOrder: @workorder<numberBetween(1, 5)>
+    isFromAudit: <boolean()>
+    bladeDamage: @bladeDamage<numberBetween(1,5)>
+    windmillBlade: @windmillblade<numberBetween(1, 3)>
+    windmill: @windmill<numberBetween(1, 50)>
+    position: <numberBetween($min = 1, $max = 7)>
+    radius: <numberBetween($min = 1, $max = 7)>
+    edge: <numberBetween($min = 0, $max = 1)>
+    distance: <numberBetween($min = 1, $max = 7)>
+    size: <numberBetween($min = 1, $max = 7)>
+    isCompleted: <boolean()>
+    description: <sentence()>
+
+## Vehicles
+AppBundle\Entity\Vehicle:
+  vehicle{1..5}:
+    name: <word()>
+    licensePlate: <ean8()>
+    active: <boolean()>
+
+## DeliveryNote
+AppBundle\Entity\DeliveryNote:
+  deliverynote{1..3}:
+    workOrder: @workorder<numberBetween(1, 5)>
+    date: <dateTimeThisYear($max = 'now')>
+    repairWindmillSections: <randomElements( array (0, 1, 2))>
+    teamLeader: @technician<numberBetween(1, 2)>
+    teamTechnician1: @operator<numberBetween(1, 4)>
+    teamTechnician2: @operator<numberBetween(1, 4)>
+    vehicle: @vehicle<numberBetween(1, 5)>
+    craneCompany: <company()>
+    craneDriver: <name()>
+    repairAccessTypes: <randomElements( array (0, 1, 2, 3))>
+    observations: <sentence()>
+    totalTripHours: <randomFloat(2,0,8)>
+    totalWorkHours: <randomFloat(2,0,8)>
+    totalStopHours: <randomFloat(2,0,8)>
+
+## NonStandardUsedMaterial
+AppBundle\Entity\NonStandardUsedMaterial:
+  nonstandardusedmaterial{1..3}:
+    quantity: <numberBetween(1, 10)>
+    item: <randomElement( array (0, 1, 2, 3, 4, 5, 6))>
+    description: <word()>
+    deliveryNote: @deliverynote<numberBetween(1,3)>
+
+## DeliveryNoteTimeRegister
+AppBundle\Entity\DeliveryNoteTimeRegister:
+  deliverynotetimeregister{1..10}:
+    type: <randomElement( array (0, 1, 2))>
+    shift: <randomElement( array (0, 1, 2))>
+    begin: <time($max = 'now')>
+    end: <time($max = 'now')>
+    totalHours: <randomFloat(2,0,8)>
+    deliveryNote: @deliverynote<numberBetween(1,3)>
+
+## WorkerTimesheet
+AppBundle\Entity\WorkerTimesheet:
+  workertimesheet{1..10}:
+    deliveryNote: @deliverynote<numberBetween(1,3)>
+    worker: @technician<numberBetween(1, 2)>
+    workDescription: <sentence()>
+    totalNormalHours: <randomFloat(2,0,8)>
+    totalVerticalHours: <randomFloat(2,0,8)>
+    totalInclementWeatherHours: <randomFloat(2,0,8)>
+    totalTripHours: <randomFloat(2,0,8)>
+
+## PresenceMonitoring
+AppBundle\Entity\PresenceMonitoring:
+  presencemonitoring{1..10}:
+    date: <dateTimeThisYear($max = 'now')>
+    worker: @technician<numberBetween(1, 2)>
+    morningHourBegin: <time($max = 'now')>
+    morningHourEnd: <time($max = 'now')>
+    afternoonHourBegin: <time($max = 'now')>
+    afternoonHourEnd: <time($max = 'now')>
+    totalHours: <randomFloat(2,0,9)>
+    normalHours: <randomFloat(2,0,7)>
+    extraHours: <randomFloat(2,0,2)>
