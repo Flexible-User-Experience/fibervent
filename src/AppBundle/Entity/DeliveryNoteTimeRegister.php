@@ -171,6 +171,35 @@ class DeliveryNoteTimeRegister extends AbstractBase
     }
 
     /**
+     * @return string
+     *
+     * @throws \Exception
+     */
+    public function getTotalHoursString()
+    {
+        $result = '---';
+        $hours = $this->getTotalHours();
+        if (!is_null($hours)) {
+            if (is_integer($hours) || is_float($hours)) {
+                $whole = floor($hours);
+                $fraction = $hours - $whole;
+                $minutes = 0;
+                if (0.25 == $fraction) {
+                    $minutes = 15;
+                } elseif (0.5 == $fraction) {
+                    $minutes = 30;
+                } elseif (0.75 == $fraction) {
+                    $minutes = 45;
+                }
+                $interval = new \DateInterval(sprintf('PT%dH%dM', intval($hours), $minutes));
+                $result = $interval->format('%H:%I');
+            }
+        }
+
+        return $result;
+    }
+
+    /**
      * @param float|null $totalHours
      *
      * @return DeliveryNoteTimeRegister
@@ -200,5 +229,13 @@ class DeliveryNoteTimeRegister extends AbstractBase
         $this->deliveryNote = $deliveryNote;
 
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->id ? $this->getId().' · '.($this->getDeliveryNote() ? $this->getDeliveryNote().' · ' : '').$this->getType().' · '.$this->getShift().' · '.$this->getTotalHoursString() : '---';
     }
 }

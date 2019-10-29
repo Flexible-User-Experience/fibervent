@@ -60,8 +60,6 @@ class AppExtension extends \Twig_Extension
     }
 
     /**
-     * Filter Audit type enum.
-     *
      * @param int $type
      *
      * @return string
@@ -118,8 +116,6 @@ class AppExtension extends \Twig_Extension
     }
 
     /**
-     * Get localized description from a Damage object.
-     *
      * @param Damage $object
      * @param string $locale
      *

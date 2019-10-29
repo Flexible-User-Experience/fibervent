@@ -2,6 +2,6 @@
 
 {% block field %}
     {% spaceless %}
-        {{ object.totalHours | get_humanized_total_hours | raw }}
+        {{ object.totalHoursString }}
     {% endspaceless %}
 {% endblock %}
