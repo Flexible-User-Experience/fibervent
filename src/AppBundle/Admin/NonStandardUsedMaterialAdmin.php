@@ -6,8 +6,6 @@ use AppBundle\Enum\NonStandardUsedMaterialItemEnum;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
-use Sonata\AdminBundle\Route\RouteCollection;
-use Sonata\AdminBundle\Show\ShowMapper;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 /**
@@ -25,14 +23,6 @@ class NonStandardUsedMaterialAdmin extends AbstractBaseAdmin
         '_sort_by' => 'id',
         '_sort_order' => 'desc',
     );
-
-    /**
-     * @param RouteCollection $collection
-     */
-    protected function configureRoutes(RouteCollection $collection)
-    {
-        $collection->remove('batch');
-    }
 
     /**
      * @param DatagridMapper $datagridMapper
@@ -111,7 +101,6 @@ class NonStandardUsedMaterialAdmin extends AbstractBaseAdmin
                     'label' => 'admin.common.action',
                     'actions' => array(
                         'edit' => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
-                        'show' => array('template' => '::Admin/Buttons/list__action_show_button.html.twig'),
                     ),
                 )
             )
@@ -159,43 +148,6 @@ class NonStandardUsedMaterialAdmin extends AbstractBaseAdmin
                     'label' => 'admin.nonstandardusedmaterial.item',
                     'choices' => NonStandardUsedMaterialItemEnum::getEnumArray(),
                     'multiple' => false,
-                )
-            )
-            ->add('quantity',
-                null,
-                array(
-                    'label' => 'admin.nonstandardusedmaterial.quantity',
-                )
-            )
-            ->add('description',
-                null,
-                array(
-                    'label' => 'admin.nonstandardusedmaterial.description',
-                )
-            )
-            ->end()
-        ;
-    }
-
-    /**
-     * @param ShowMapper $showMapper
-     */
-    protected function configureShowFields(ShowMapper $showMapper)
-    {
-        $showMapper
-            ->with('admin.common.general', $this->getFormMdSuccessBoxArray(3))
-            ->add(
-                'deliveryNote',
-                null,
-                array(
-                    'label' => 'admin.deliverynote.title',
-                )
-            )
-            ->add('item',
-                null,
-                array(
-                    'label' => 'admin.nonstandardusedmaterial.type',
-                    'template' => '::Admin/Cells/list__non_standard_used_material_item.html.twig',
                 )
             )
             ->add('quantity',

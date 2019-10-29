@@ -170,7 +170,7 @@ enum:
     vortex: Vortex
     stall_strip: Stall strip
     diverter_s: Diverter S.
-    belt_3m: Cinta 3m
+    belt_3m: Cinta 3M
     lep: LEP
 admin:
   common:
