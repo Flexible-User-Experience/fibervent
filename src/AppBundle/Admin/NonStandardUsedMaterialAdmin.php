@@ -36,11 +36,18 @@ class NonStandardUsedMaterialAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'admin.deliverynote.title',
                 )
+                // TODO apply query builder to improve filter selector
             )
             ->add('item',
                 null,
                 array(
                     'label' => 'admin.nonstandardusedmaterial.item',
+                ),
+                'choice',
+                array(
+                    'expanded' => false,
+                    'multiple' => false,
+                    'choices' => NonStandardUsedMaterialItemEnum::getEnumArray(),
                 )
             )
             ->add('quantity',
@@ -122,6 +129,7 @@ class NonStandardUsedMaterialAdmin extends AbstractBaseAdmin
                     null,
                     array(
                         'label' => 'admin.deliverynote.title',
+                        // TODO apply query builder strategy
                     )
                 )
                 ->end()
@@ -134,6 +142,7 @@ class NonStandardUsedMaterialAdmin extends AbstractBaseAdmin
                     null,
                     array(
                         'label' => 'admin.deliverynote.title',
+                        // TODO apply query builder strategy
                         'attr' => array(
                             'hidden' => true,
                         ),
