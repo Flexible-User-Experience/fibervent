@@ -186,6 +186,7 @@ admin:
   audit:
     title: Inspección
     title_list: Inspección
+    title_create: Crear
     title_show: Mostrar
     title_delete: Borrar
     windmill: Aerogenerador
@@ -212,6 +213,7 @@ admin:
   auditwindmillblade:
     title: Auditoría Pala Aerogenerador
     title_list: Auditoría Pala Aerogenerador
+    title_create: Crear
     audit: Auditoría
     windmillblade: Pala
     damages: Daños
@@ -224,11 +226,13 @@ admin:
   blade:
     title: Pala
     title_list: Pala
+    title_create: Crear
     model: Modelo
     length: Longitud
   bladedamage:
     title: Daño Pala
     title_list: Daño Pala
+    title_create: Crear
     number: Núm.
     damage: Código
     position: Posición
@@ -241,10 +245,12 @@ admin:
   bladephoto:
     title: Foto Pala
     title_list: Foto Pala
+    title_create: Crear
     imagefile: Foto
   customer:
     title: Cliente
     title_list: Cliente
+    title_create: Crear
     title_show: Mapa
     image: Logo
     code: CIF
@@ -264,6 +270,7 @@ admin:
   damage:
     title: Tipo Daño
     title_list: Tipo Daño
+    title_create: Crear
     section: Sección
     code: Código
     description: Descripción
@@ -271,6 +278,7 @@ admin:
   damagecategory:
     title: Categoría Daño
     title_list: Categoría Daño
+    title_create: Crear
     category: Categoría
     priority: Prioridad
     description: Descripción
@@ -279,26 +287,31 @@ admin:
   observation:
     title: Observaciones Daños Pala
     title_list: Observaciones Daños Pala
+    title_create: Crear
     position: Orden
     damage_number: Número Daño
   photo:
     title: Foto
     title_list: Foto
+    title_create: Crear
     imagename: Nombre
     help: 'hasta 10MB con formato PNG, JPG o GIF y anchura mínima de %width%px.'
   state:
     title: Provincia
     title_list: Provincia
+    title_create: Crear
     country: País
   turbine:
     title: Turbina
     title_list: Turbina
+    title_create: Crear
     height: Altura (m)
     diameter: Diámetro (m)
     power: Potencia (MW)
   user:
     title: Usuario
     title_list: Usuario
+    title_create: Crear
     username: Nombre Usuario
     username_help: utilizar sólo letras en minúscula sin espacios en blanco.
     password: Password
@@ -315,6 +328,7 @@ admin:
   windfarm:
     title: Parque Eólico
     title_list: Parque Eólico
+    title_create: Crear
     title_show: Mostrar
     customer: Cliente
     manager: 'O&M Regional Manager'
@@ -334,6 +348,7 @@ admin:
   windmill:
      title: Aerogenerador
      title_list: Aerogenerador
+     title_create: Crear
      windfarm: Parque Eólico
      code: Número
      turbine: Turbina
@@ -343,10 +358,12 @@ admin:
   windmillblade:
     title: Palas Aerogenerador
     title_list: Palas Aerogenerador
+    title_create: Crear
     sn: 'S/N'
   workorder:
     title: Proyecto
     title_list: Proyecto
+    title_create: Crear
     project_number: Número de proyecto
     certifying_company_name: Compañía certificadora
     certifying_company_contact_person: Persona de contacto (certificadora)
@@ -357,16 +374,19 @@ admin:
   workordertask:
     title: Tareas
     title_list: Tareas
+    title_create: Crear
     is_completed: Completada
     description: Descripción
   vehicle:
     title: Vehículo
+    title_create: Crear
     name: Nombre
     licence_plate: Matrícula
     active: Activo
   deliverynote:
     title: Albarán
     title_list: Albarán
+    title_create: Crear
     date: Fecha
     repair_windmill_sections: Secciones reparación aerogenerador
     crane_company: Empresa grua
@@ -383,6 +403,7 @@ admin:
   deliverynotetimeregister:
     title: Fichajes
     title_list: Fichajes
+    title_create: Crear
     type: Tipo
     shift: Turno
     begin: Inicio
@@ -398,6 +419,7 @@ admin:
   workertimesheet:
     title: Partes de trabajo
     title_list: Partes de trabajo
+    title_create: Crear
     worker: Empleado
     work_description: Descripción del trabajo
     total_normal_hours: Total horas normales
@@ -407,6 +429,7 @@ admin:
   presencemonitoring:
     title: Registro horario
     title_list: Registro horario
+    title_create: Crear
     worker: Empleado
     morning_hour_begin: Hora entrado mañana
     morning_hour_end: Hora salida mañana
