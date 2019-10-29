@@ -106,17 +106,17 @@ class DeliveryNoteTimeRegisterAdmin extends AbstractBaseAdmin
                 )
             )
             ->add('begin',
-                null,
+                'date',
                 array(
                     'label' => 'admin.deliverynotetimeregister.begin',
-                    'format' => 'h:m:s',
+                    'format' => 'H:i',
                 )
             )
             ->add('end',
-                null,
+                'date',
                 array(
                     'label' => 'admin.deliverynotetimeregister.end',
-                    'format' => 'h:m:s',
+                    'format' => 'H:i',
                 )
             )
             ->add('totalHours',
@@ -152,6 +152,7 @@ class DeliveryNoteTimeRegisterAdmin extends AbstractBaseAdmin
                     null,
                     array(
                         'label' => 'admin.deliverynote.title',
+                        // TODO apply query builder strategy
                     )
                 )
                 ->end()
@@ -164,6 +165,7 @@ class DeliveryNoteTimeRegisterAdmin extends AbstractBaseAdmin
                     null,
                     array(
                         'label' => 'admin.deliverynote.title',
+                        // TODO apply query builder strategy
                         'attr' => array(
                             'hidden' => true,
                         ),
@@ -180,7 +182,6 @@ class DeliveryNoteTimeRegisterAdmin extends AbstractBaseAdmin
                     'label' => 'admin.deliverynotetimeregister.type',
                     'choices' => TimeRegisterTypeEnum::getEnumArray(),
                     'multiple' => false,
-                    'expanded' => false,
                 )
             )
             ->add('shift',
@@ -189,20 +190,13 @@ class DeliveryNoteTimeRegisterAdmin extends AbstractBaseAdmin
                     'label' => 'admin.deliverynotetimeregister.shift',
                     'choices' => TimeRegisterShiftEnum::getEnumArray(),
                     'multiple' => false,
-                    'expanded' => false,
                 )
             )
             ->add('begin',
                 TimeType::class,
                 array(
                     'label' => 'admin.deliverynotetimeregister.begin',
-                    'widget' => 'choice',
-                    'minutes' => array(
-                        0 => '0',
-                        15 => '15',
-                        30 => '30',
-                        45 => '45',
-                    ),
+                    'minutes' => array(0, 15, 30, 45),
                 )
             )
             ->add('end',
