@@ -1,0 +1,31 @@
+{% extends "::Admin/edit.html.twig" %}
+
+{# override javascript includes #}
+{% block javascripts %}
+    {{ parent() }}
+{#    <script src="{{ asset('bundles/fosjsrouting/js/router.min.js') }}"></script>#}
+{#    <script src="{{ path('fos_js_routing_js', {callback: 'fos.Router.setData'}) }}"></script>#}
+    <script type="text/javascript">
+        jQuery(document).ready(function() {
+            var customerNode = jQuery('#sonata-ba-field-container-{{ form.customer.vars.id }}');
+            var auditNode = jQuery('#sonata-ba-field-container-{{ form.audit.vars.id }}');
+            var isFromAuditNode = jQuery('#{{ form.isFromAudit.vars.id }}');
+            // on Customer change
+            customerNode.change(function(event) {
+                var customerId = event.val;
+                console.log('customerNode.change', customerId);
+                // jQuery.get(Routing.generate('admin_app_partner_partner_getJsonDeliveryNotesById', {id: partnerId}), function() {
+                // }).done(function (response) {
+                //     console.log(response);
+                //     updateNodesInfo(response);
+                // });
+            });
+            $(isFromAuditNode).on('ifChecked', function() {
+                auditNode.addClass('hidden');
+            });
+            $(isFromAuditNode).on('ifUnchecked', function() {
+                auditNode.removeClass('hidden');
+            });
+        });
+    </script>
+{% endblock %}
