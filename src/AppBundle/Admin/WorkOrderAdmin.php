@@ -11,6 +11,11 @@ use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\Form\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
+/**
+ * Class WorkOrderAdmin.
+ *
+ * @category Admin
+ */
 class WorkOrderAdmin extends AbstractBaseAdmin
 {
     protected $classnameLabel = 'admin.workorder.title';
@@ -27,10 +32,7 @@ class WorkOrderAdmin extends AbstractBaseAdmin
      */
     protected function configureRoutes(RouteCollection $collection)
     {
-        $collection
-            ->remove('batch');
-//            ->add('pdf', $this->getRouterIdParameter().'/pdf')
-//            ->add('email', $this->getRouterIdParameter().'/email');
+        $collection->remove('batch');
     }
 
     /**
@@ -111,6 +113,7 @@ class WorkOrderAdmin extends AbstractBaseAdmin
      */
     protected function configureListFields(ListMapper $listMapper)
     {
+        unset($this->listModes['mosaic']);
         $listMapper
             ->add('projectNumber',
                 null,
@@ -191,8 +194,6 @@ class WorkOrderAdmin extends AbstractBaseAdmin
                     'actions' => array(
                         'edit' => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
                         'show' => array('template' => '::Admin/Buttons/list__action_show_button.html.twig'),
- //                       'excel' => array('template' => '::Admin/Buttons/list__action_excel_button.html.twig'),
- //                       'pdf' => array('template' => '::Admin/Buttons/list__action_pdf_windfarm_button.html.twig'),
                     ),
                 )
             )
