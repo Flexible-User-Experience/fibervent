@@ -6,6 +6,8 @@ use AppBundle\Enum\TimeRegisterShiftEnum;
 use AppBundle\Enum\TimeRegisterTypeEnum;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * DeliveryNoteTimeRegister.
@@ -171,11 +173,40 @@ class DeliveryNoteTimeRegister extends AbstractBase
     }
 
     /**
-     * @param float $totalHours
+     * @return string
+     *
+     * @throws \Exception
+     */
+    public function getTotalHoursString()
+    {
+        $result = '---';
+        $hours = $this->getTotalHours();
+        if (!is_null($hours)) {
+            if (is_integer($hours) || is_float($hours)) {
+                $whole = floor($hours);
+                $fraction = $hours - $whole;
+                $minutes = 0;
+                if (0.25 == $fraction) {
+                    $minutes = 15;
+                } elseif (0.5 == $fraction) {
+                    $minutes = 30;
+                } elseif (0.75 == $fraction) {
+                    $minutes = 45;
+                }
+                $interval = new \DateInterval(sprintf('PT%dH%dM', intval($hours), $minutes));
+                $result = $interval->format('%H:%I');
+            }
+        }
+
+        return $result;
+    }
+
+    /**
+     * @param float|null $totalHours
      *
      * @return DeliveryNoteTimeRegister
      */
-    public function setTotalHours(float $totalHours): DeliveryNoteTimeRegister
+    public function setTotalHours(?float $totalHours): DeliveryNoteTimeRegister
     {
         $this->totalHours = $totalHours;
 
@@ -200,5 +231,34 @@ class DeliveryNoteTimeRegister extends AbstractBase
         $this->deliveryNote = $deliveryNote;
 
         return $this;
+    }
+
+    /**
+     * @Assert\Callback
+     *
+     * @param ExecutionContextInterface $context
+     */
+    public function validate(ExecutionContextInterface $context)
+    {
+        if (!is_null($this->getBegin()) && !is_null($this->getEnd())) {
+            if ($this->getBegin() instanceof \DateTime && $this->getEnd() instanceof \DateTime) {
+                if ($this->getBegin()->format('H:i') >= $this->getEnd()->format('H:i')) {
+                    $context->buildViolation('Hora inicial mayor o igual que hora final!')
+                        ->atPath('begin')
+                        ->addViolation()
+                    ;
+                }
+            }
+        }
+    }
+
+    /**
+     * @return string
+     *
+     * @throws \Exception
+     */
+    public function __toString()
+    {
+        return $this->id ? $this->getId().' · '.($this->getDeliveryNote() ? $this->getDeliveryNote().' · ' : '').$this->getType().' · '.$this->getShift().' · '.$this->getTotalHoursString() : '---';
     }
 }

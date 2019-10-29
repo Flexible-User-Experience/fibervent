@@ -431,7 +431,7 @@ admin:
     title_list: Registro horario
     title_create: Crear
     worker: Empleado
-    morning_hour_begin: Hora entrado mañana
+    morning_hour_begin: Hora entrada mañana
     morning_hour_end: Hora salida mañana
     afternoon_hour_begin: Hora entrada tarde
     afternoon_hour_end: Hora salida tarde

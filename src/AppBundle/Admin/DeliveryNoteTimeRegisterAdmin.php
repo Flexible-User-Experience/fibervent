@@ -2,13 +2,12 @@
 
 namespace AppBundle\Admin;
 
+use AppBundle\Entity\DeliveryNoteTimeRegister;
 use AppBundle\Enum\TimeRegisterShiftEnum;
 use AppBundle\Enum\TimeRegisterTypeEnum;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
-use Sonata\AdminBundle\Route\RouteCollection;
-use Sonata\AdminBundle\Show\ShowMapper;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TimeType;
 
@@ -29,14 +28,6 @@ class DeliveryNoteTimeRegisterAdmin extends AbstractBaseAdmin
     );
 
     /**
-     * @param RouteCollection $collection
-     */
-    protected function configureRoutes(RouteCollection $collection)
-    {
-        $collection->remove('batch');
-    }
-
-    /**
      * @param DatagridMapper $datagridMapper
      */
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
@@ -48,17 +39,30 @@ class DeliveryNoteTimeRegisterAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'admin.deliverynote.title',
                 )
+                // TODO apply query builder to improve filter selector
             )
             ->add('type',
                 null,
                 array(
                     'label' => 'admin.deliverynotetimeregister.type',
+                ),
+                ChoiceType::class,
+                array(
+                    'expanded' => false,
+                    'multiple' => false,
+                    'choices' => TimeRegisterTypeEnum::getEnumArray(),
                 )
             )
             ->add('shift',
                 null,
                 array(
                     'label' => 'admin.deliverynotetimeregister.shift',
+                ),
+                ChoiceType::class,
+                array(
+                    'expanded' => false,
+                    'multiple' => false,
+                    'choices' => TimeRegisterShiftEnum::getEnumArray(),
                 )
             )
             ->add('begin',
@@ -66,6 +70,10 @@ class DeliveryNoteTimeRegisterAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'admin.deliverynotetimeregister.begin',
                     'format' => 'h:m:s',
+                ),
+                TimeType::class,
+                array(
+                    'minutes' => array(0, 15, 30, 45),
                 )
             )
             ->add('end',
@@ -73,12 +81,10 @@ class DeliveryNoteTimeRegisterAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'admin.deliverynotetimeregister.end',
                     'format' => 'h:m:s',
-                )
-            )
-            ->add('totalHours',
-                null,
+                ),
+                TimeType::class,
                 array(
-                    'label' => 'admin.deliverynotetimeregister.total_hours',
+                    'minutes' => array(0, 15, 30, 45),
                 )
             )
         ;
@@ -89,6 +95,7 @@ class DeliveryNoteTimeRegisterAdmin extends AbstractBaseAdmin
      */
     protected function configureListFields(ListMapper $listMapper)
     {
+        unset($this->listModes['mosaic']);
         $listMapper
             ->add(
                 'deliveryNote',
@@ -101,37 +108,38 @@ class DeliveryNoteTimeRegisterAdmin extends AbstractBaseAdmin
                 )
             )
             ->add('type',
-                null,
+                'string',
                 array(
                     'label' => 'admin.deliverynotetimeregister.type',
                     'template' => '::Admin/Cells/list__cell_delivery_note_time_register_type.html.twig',
                 )
             )
             ->add('shift',
-                null,
+                'string',
                 array(
                     'label' => 'admin.deliverynotetimeregister.shift',
                     'template' => '::Admin/Cells/list__cell_delivery_note_time_register_shift.html.twig',
                 )
             )
             ->add('begin',
-                null,
+                'date',
                 array(
                     'label' => 'admin.deliverynotetimeregister.begin',
-                    'format' => 'h:m:s',
+                    'format' => 'H:i',
                 )
             )
             ->add('end',
-                null,
+                'date',
                 array(
                     'label' => 'admin.deliverynotetimeregister.end',
-                    'format' => 'h:m:s',
+                    'format' => 'H:i',
                 )
             )
             ->add('totalHours',
                 null,
                 array(
                     'label' => 'admin.deliverynotetimeregister.total_hours',
+                    'template' => '::Admin/Cells/list__cell_delivery_note_time_register_total_hours.html.twig',
                 )
             )
             ->add(
@@ -141,10 +149,7 @@ class DeliveryNoteTimeRegisterAdmin extends AbstractBaseAdmin
                     'label' => 'admin.common.action',
                     'actions' => array(
                         'edit' => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
-                        'show' => array('template' => '::Admin/Buttons/list__action_show_button.html.twig'),
                         'delete' => array('template' => '::Admin/Buttons/list__action_delete_button.html.twig'),
- //                       'excel' => array('template' => '::Admin/Buttons/list__action_excel_button.html.twig'),
- //                       'pdf' => array('template' => '::Admin/Buttons/list__action_pdf_windfarm_button.html.twig'),
                     ),
                 )
             )
@@ -164,6 +169,7 @@ class DeliveryNoteTimeRegisterAdmin extends AbstractBaseAdmin
                     null,
                     array(
                         'label' => 'admin.deliverynote.title',
+                        // TODO apply query builder strategy
                     )
                 )
                 ->end()
@@ -176,6 +182,7 @@ class DeliveryNoteTimeRegisterAdmin extends AbstractBaseAdmin
                     null,
                     array(
                         'label' => 'admin.deliverynote.title',
+                        // TODO apply query builder strategy
                         'attr' => array(
                             'hidden' => true,
                         ),
@@ -184,7 +191,6 @@ class DeliveryNoteTimeRegisterAdmin extends AbstractBaseAdmin
                 ->end()
             ;
         }
-
         $formMapper
             ->with('admin.common.general', $this->getFormMdSuccessBoxArray(3))
             ->add('type',
@@ -193,7 +199,6 @@ class DeliveryNoteTimeRegisterAdmin extends AbstractBaseAdmin
                     'label' => 'admin.deliverynotetimeregister.type',
                     'choices' => TimeRegisterTypeEnum::getEnumArray(),
                     'multiple' => false,
-                    'expanded' => false,
                 )
             )
             ->add('shift',
@@ -202,25 +207,29 @@ class DeliveryNoteTimeRegisterAdmin extends AbstractBaseAdmin
                     'label' => 'admin.deliverynotetimeregister.shift',
                     'choices' => TimeRegisterShiftEnum::getEnumArray(),
                     'multiple' => false,
-                    'expanded' => false,
                 )
             )
             ->add('begin',
                 TimeType::class,
                 array(
                     'label' => 'admin.deliverynotetimeregister.begin',
+                    'minutes' => array(0, 15, 30, 45),
                 )
             )
             ->add('end',
                 TimeType::class,
                 array(
                     'label' => 'admin.deliverynotetimeregister.end',
+                    'minutes' => array(0, 15, 30, 45),
                 )
             )
             ->add('totalHours',
                 null,
                 array(
                     'label' => 'admin.deliverynotetimeregister.total_hours',
+                    'attr' => array(
+                        'disabled' => true,
+                    ),
                 )
             )
             ->end()
@@ -228,54 +237,34 @@ class DeliveryNoteTimeRegisterAdmin extends AbstractBaseAdmin
     }
 
     /**
-     * @param ShowMapper $showMapper
+     * @param DeliveryNoteTimeRegister $object
      */
-    protected function configureShowFields(ShowMapper $showMapper)
+    public function prePersist($object)
     {
-        $showMapper
-            ->with('admin.common.general', $this->getFormMdSuccessBoxArray(3))
-            ->add(
-                'deliveryNote',
-                null,
-                array(
-                    'label' => 'admin.deliverynote.title',
-                )
-            )
-            ->add('type',
-                null,
-                array(
-                    'label' => 'admin.deliverynotetimeregister.type',
-                    'template' => '::Admin/Cells/list__delivery_note_time_register_type.html.twig',
-                )
-            )
-            ->add('shift',
-                null,
-                array(
-                    'label' => 'admin.deliverynotetimeregister.shift',
-                    'template' => '::Admin/Cells/list__delivery_note_time_register_shift.html.twig',
-                )
-            )
-            ->add('begin',
-                null,
-                array(
-                    'label' => 'admin.deliverynotetimeregister.begin',
-                    'format' => 'h:m:s',
-                )
-            )
-            ->add('end',
-                null,
-                array(
-                    'label' => 'admin.deliverynotetimeregister.end',
-                    'format' => 'h:m:s',
-                )
-            )
-            ->add('totalHours',
-                null,
-                array(
-                    'label' => 'admin.deliverynotetimeregister.total_hours',
-                )
-            )
-            ->end()
-        ;
+        $this->commonPreEvent($object);
+    }
+
+    /**
+     * @param DeliveryNoteTimeRegister $object
+     */
+    public function preUpdate($object)
+    {
+        $this->commonPreEvent($object);
+    }
+
+    /**
+     * @param DeliveryNoteTimeRegister $object
+     */
+    private function commonPreEvent($object)
+    {
+        if (!is_null($object->getBegin()) && !is_null($object->getEnd())) {
+            if ($object->getBegin() instanceof \DateTime && $object->getEnd() instanceof \DateTime) {
+                if ($object->getBegin()->format('H:i') < $object->getEnd()->format('H:i')) {
+                    $time1 = strtotime($object->getBegin()->format('H:i:s'));
+                    $time2 = strtotime($object->getEnd()->format('H:i:s'));
+                    $object->setTotalHours(round(abs($time2 - $time1) / 3600, 2));
+                }
+            }
+        }
     }
 }
