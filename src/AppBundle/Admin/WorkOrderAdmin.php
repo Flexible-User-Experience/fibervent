@@ -6,6 +6,7 @@ use AppBundle\Enum\RepairAccessTypeEnum;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Form\Type\ModelType;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\Form\Type\CollectionType;
@@ -33,6 +34,132 @@ class WorkOrderAdmin extends AbstractBaseAdmin
     protected function configureRoutes(RouteCollection $collection)
     {
         $collection->remove('batch');
+    }
+
+    /**
+     * @param FormMapper $formMapper
+     */
+    protected function configureFormFields(FormMapper $formMapper)
+    {
+        $formMapper
+            ->with('admin.common.general', $this->getFormMdSuccessBoxArray(4))
+            ->add('projectNumber',
+                null,
+                array(
+                    'label' => 'admin.workorder.project_number',
+                )
+            )
+            ->add(
+                'customer',
+                ModelType::class,
+                array(
+                    'label' => 'admin.windfarm.customer',
+                    'required' => true,
+                    'multiple' => false,
+                    'btn_add' => false,
+                    'query' => $this->cr->findEnabledSortedByNameQ(),
+                    'choices_as_values' => true,
+                )
+            )
+            ->add('audit',
+                null,
+                array(
+                    'label' => 'admin.audit.title',
+                )
+            )
+            ->add('isFromAudit',
+                null,
+                array(
+                    'label' => 'admin.workorder.is_from_audit',
+                )
+            )
+            ->end()
+            ->with('admin.windfarm.title', $this->getFormMdSuccessBoxArray(4))
+            ->add('windfarm',
+                null,
+                array(
+                    'label' => 'admin.windfarm.title',
+                )
+            )
+            ->add(
+                'repairAccessTypes',
+                ChoiceType::class,
+                array(
+                    'label' => 'admin.workorder.repair_access_types',
+                    'choices' => RepairAccessTypeEnum::getEnumArray(),
+                    'multiple' => true,
+                    'expanded' => false,
+                    'required' => true,
+                )
+            )
+            ->end()
+            ->with('admin.workorder.certifying_company_name', $this->getFormMdSuccessBoxArray(4))
+            ->add('certifyingCompanyName',
+                null,
+                array(
+                    'label' => 'admin.workorder.certifying_company_name',
+                )
+            )
+            ->add('certifyingCompanyContactPerson',
+                null,
+                array(
+                    'label' => 'admin.workorder.certifying_company_contact_person',
+                )
+            )
+            ->add('certifyingCompanyPhone',
+                null,
+                array(
+                    'label' => 'admin.workorder.certifying_company_phone',
+                )
+            )
+            ->add('certifyingCompanyEmail',
+                null,
+                array(
+                    'label' => 'admin.workorder.certifying_company_email',
+                )
+            )
+            ->end()
+            ->with('admin.workordertask.title', $this->getFormMdSuccessBoxArray(12))
+            ->add(
+                'workOrderTasks',
+                CollectionType::class,
+                array(
+                    'label' => ' ',
+                    'required' => false,
+                    'btn_add' => true,
+                    'cascade_validation' => true,
+                    'error_bubbling' => true,
+                    'type_options' => array(
+                        'delete' => true,
+                    ),
+                ),
+                array(
+                    'edit' => 'inline',
+                    'inline' => 'table',
+                )
+            )
+            ->end()
+            ->with('admin.deliverynote.title', $this->getFormMdSuccessBoxArray(12))
+            ->add(
+                'deliveryNotes',
+                CollectionType::class,
+                array(
+                    'label' => ' ',
+                    'required' => false,
+                    'btn_add' => false,
+                    'cascade_validation' => true,
+                    'error_bubbling' => true,
+                    'type_options' => array(
+                        'delete' => false,
+                    ),
+                ),
+                array(
+                    'edit' => 'inline',
+                    'inline' => 'table',
+                )
+            )
+            ->end()
+        ;
     }
 
     /**
@@ -201,126 +328,8 @@ class WorkOrderAdmin extends AbstractBaseAdmin
     }
 
     /**
-     * @param FormMapper $formMapper
+     * @param ShowMapper $showMapper
      */
-    protected function configureFormFields(FormMapper $formMapper)
-    {
-        $formMapper
-            ->with('admin.common.general', $this->getFormMdSuccessBoxArray(4))
-            ->add('projectNumber',
-                null,
-                array(
-                    'label' => 'admin.workorder.project_number',
-                )
-            )
-            ->add(
-                'customer',
-                null,
-                array(
-                    'label' => 'admin.windfarm.customer',
-                )
-            )
-            ->add('isFromAudit',
-                null,
-                array(
-                    'label' => 'admin.workorder.is_from_audit',
-                )
-            )
-            ->add('audit',
-                null,
-                array(
-                    'label' => 'admin.audit.title',
-                )
-            )
-            ->end()
-            ->with('admin.windfarm.title', $this->getFormMdSuccessBoxArray(4))
-            ->add('windfarm',
-                null,
-                array(
-                    'label' => 'admin.windfarm.title',
-                )
-            )
-            ->add(
-                'repairAccessTypes',
-                ChoiceType::class,
-                array(
-                    'label' => 'admin.workorder.repair_access_types',
-                    'choices' => RepairAccessTypeEnum::getEnumArray(),
-                    'multiple' => true,
-                    'expanded' => false,
-                    'required' => true,
-                )
-            )
-            ->end()
-            ->with('admin.workorder.certifying_company_name', $this->getFormMdSuccessBoxArray(4))
-            ->add('certifyingCompanyName',
-                null,
-                array(
-                    'label' => 'admin.workorder.certifying_company_name',
-                )
-            )
-            ->add('certifyingCompanyContactPerson',
-                null,
-                array(
-                    'label' => 'admin.workorder.certifying_company_contact_person',
-                )
-            )
-            ->add('certifyingCompanyPhone',
-                null,
-                array(
-                    'label' => 'admin.workorder.certifying_company_phone',
-                )
-            )
-            ->add('certifyingCompanyEmail',
-                null,
-                array(
-                    'label' => 'admin.workorder.certifying_company_email',
-                )
-            )
-            ->end()
-            ->with('admin.workordertask.title', $this->getFormMdSuccessBoxArray(12))
-            ->add(
-                'workOrderTasks',
-                CollectionType::class,
-                array(
-                    'label' => ' ',
-                    'required' => false,
-                    'btn_add' => true,
-                    'cascade_validation' => true,
-                    'error_bubbling' => true,
-                    'type_options' => array(
-                        'delete' => true,
-                    ),
-                ),
-                array(
-                    'edit' => 'inline',
-                    'inline' => 'table',
-                )
-            )
-            ->end()
-            ->with('admin.deliverynote.title', $this->getFormMdSuccessBoxArray(12))
-            ->add(
-                'deliveryNotes',
-                CollectionType::class,
-                array(
-                    'label' => ' ',
-                    'required' => false,
-                    'btn_add' => false,
-                    'cascade_validation' => true,
-                    'error_bubbling' => true,
-                    'type_options' => array(
-                        'delete' => false,
-                    ),
-                ),
-                array(
-                    'edit' => 'inline',
-                    'inline' => 'table',
-                )
-            )
-            ->end()
-        ;
-    }
-
     protected function configureShowFields(ShowMapper $showMapper)
     {
         $showMapper

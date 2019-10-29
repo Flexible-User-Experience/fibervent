@@ -86,7 +86,6 @@ class WindfarmAdmin extends AbstractBaseAdmin
         if (null !== $this->getSubject()) {
             $customer = $this->getSubject()->getCustomer();
         }
-
         $formMapper
             ->with('admin.common.general', $this->getFormMdSuccessBoxArray(4))
             ->add(
