@@ -6,6 +6,8 @@ use AppBundle\Enum\TimeRegisterShiftEnum;
 use AppBundle\Enum\TimeRegisterTypeEnum;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * DeliveryNoteTimeRegister.
@@ -232,7 +234,28 @@ class DeliveryNoteTimeRegister extends AbstractBase
     }
 
     /**
+     * @Assert\Callback
+     *
+     * @param ExecutionContextInterface $context
+     */
+    public function validate(ExecutionContextInterface $context)
+    {
+        if (!is_null($this->getBegin()) && !is_null($this->getEnd())) {
+            if ($this->getBegin() instanceof \DateTime && $this->getEnd() instanceof \DateTime) {
+                if ($this->getBegin()->format('H:i') >= $this->getEnd()->format('H:i')) {
+                    $context->buildViolation('Hora inicial mayor o igual que hora final!')
+                        ->atPath('begin')
+                        ->addViolation()
+                    ;
+                }
+            }
+        }
+    }
+
+    /**
      * @return string
+     *
+     * @throws \Exception
      */
     public function __toString()
     {
