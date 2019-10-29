@@ -108,11 +108,11 @@ class NonStandardUsedMaterial extends AbstractBase
     }
 
     /**
-     * @param string $description
+     * @param string|null $description
      *
      * @return NonStandardUsedMaterial
      */
-    public function setDescription(string $description): NonStandardUsedMaterial
+    public function setDescription(?string $description): NonStandardUsedMaterial
     {
         $this->description = $description;
 
@@ -128,11 +128,11 @@ class NonStandardUsedMaterial extends AbstractBase
     }
 
     /**
-     * @param DeliveryNote $deliveryNote
+     * @param DeliveryNote|null $deliveryNote
      *
      * @return NonStandardUsedMaterial
      */
-    public function setDeliveryNote(DeliveryNote $deliveryNote): NonStandardUsedMaterial
+    public function setDeliveryNote(?DeliveryNote $deliveryNote): NonStandardUsedMaterial
     {
         $this->deliveryNote = $deliveryNote;
 

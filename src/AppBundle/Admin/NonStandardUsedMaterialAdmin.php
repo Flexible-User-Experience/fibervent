@@ -76,7 +76,7 @@ class NonStandardUsedMaterialAdmin extends AbstractBaseAdmin
                 )
             )
             ->add('item',
-                null,
+                'string',
                 array(
                     'label' => 'admin.nonstandardusedmaterial.item',
                     'template' => '::Admin/Cells/list__cell_non_standard_used_material_item.html.twig',
@@ -86,12 +86,14 @@ class NonStandardUsedMaterialAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'admin.nonstandardusedmaterial.quantity',
+                    'editable' => true,
                 )
             )
             ->add('description',
                 null,
                 array(
                     'label' => 'admin.nonstandardusedmaterial.description',
+                    'editable' => true,
                 )
             )
             ->add(
