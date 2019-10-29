@@ -106,18 +106,21 @@ class VehicleAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'admin.vehicle.name',
+                    'editable' => true,
                 )
             )
             ->add('licensePlate',
                 null,
                 array(
                     'label' => 'admin.vehicle.licence_plate',
+                    'editable' => true,
                 )
             )
             ->add('active',
                 null,
                 array(
                     'label' => 'admin.vehicle.active',
+                    'editable' => true,
                 )
             )
             ->add(
