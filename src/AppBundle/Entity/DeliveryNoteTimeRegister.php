@@ -171,11 +171,11 @@ class DeliveryNoteTimeRegister extends AbstractBase
     }
 
     /**
-     * @param float $totalHours
+     * @param float|null $totalHours
      *
      * @return DeliveryNoteTimeRegister
      */
-    public function setTotalHours(float $totalHours): DeliveryNoteTimeRegister
+    public function setTotalHours(?float $totalHours): DeliveryNoteTimeRegister
     {
         $this->totalHours = $totalHours;
 

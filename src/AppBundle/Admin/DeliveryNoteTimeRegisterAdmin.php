@@ -124,6 +124,7 @@ class DeliveryNoteTimeRegisterAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'admin.deliverynotetimeregister.total_hours',
+                    'template' => '::Admin/Cells/list__cell_delivery_note_time_register_total_hours.html.twig',
                 )
             )
             ->add(

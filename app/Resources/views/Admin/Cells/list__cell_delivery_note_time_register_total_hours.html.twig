@@ -1,0 +1,7 @@
+{% extends 'SonataAdminBundle:CRUD:base_list_field.html.twig' %}
+
+{% block field %}
+    {% spaceless %}
+        {{ object.totalHours | get_humanized_total_hours | raw }}
+    {% endspaceless %}
+{% endblock %}

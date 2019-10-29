@@ -55,6 +55,7 @@ class AppExtension extends \Twig_Extension
     {
         return array(
             new \Twig_SimpleFilter('humanized_audit_type', array($this, 'filterHumanizedAuditType')),
+            new \Twig_SimpleFilter('get_humanized_total_hours', array($this, 'getHumanizedTotalHours')),
         );
     }
 
@@ -68,6 +69,36 @@ class AppExtension extends \Twig_Extension
     public function filterHumanizedAuditType($type)
     {
         return AuditTypeEnum::getEnumArray()[$type];
+    }
+
+    /**
+     * @param int|float|null $hours
+     *
+     * @return string
+     *
+     * @throws \Exception
+     */
+    public function getHumanizedTotalHours($hours)
+    {
+        $result = '---';
+        if (!is_null($hours)) {
+            if (is_integer($hours) || is_float($hours)) {
+                $whole = floor($hours);
+                $fraction = $hours - $whole;
+                $minutes = 0;
+                if (0.25 == $fraction) {
+                    $minutes = 15;
+                } elseif (0.5 == $fraction) {
+                    $minutes = 30;
+                } elseif (0.75 == $fraction) {
+                    $minutes = 45;
+                }
+                $interval = new \DateInterval(sprintf('PT%dH%dM', intval($hours), $minutes));
+                $result = $interval->format('%H:%I');
+            }
+        }
+
+        return $result;
     }
 
     /**
