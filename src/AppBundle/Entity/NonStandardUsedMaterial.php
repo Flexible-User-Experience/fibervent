@@ -138,4 +138,12 @@ class NonStandardUsedMaterial extends AbstractBase
 
         return $this;
     }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->id ? $this->getId().' · '.($this->getDeliveryNote() ? $this->getDeliveryNote().' · ' : '').$this->getItem().' · '.$this->getQuantity().' · '.$this->getDescription() : '---';
+    }
 }
