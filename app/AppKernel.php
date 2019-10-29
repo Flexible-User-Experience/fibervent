@@ -27,6 +27,7 @@ class AppKernel extends Kernel
             // vendors
             new A2lix\TranslationFormBundle\A2lixTranslationFormBundle(),
             new Fenrizbes\ColorPickerTypeBundle\FenrizbesColorPickerTypeBundle(),
+            new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
             new FOS\UserBundle\FOSUserBundle(),
             new Hautelook\AliceBundle\HautelookAliceBundle(),
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),

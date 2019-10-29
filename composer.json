@@ -23,6 +23,7 @@
         "doctrine/migrations": "^1.0",
         "doctrine/orm": "^2.4.8",
         "egulias/email-validator": "^1.2",
+        "friendsofsymfony/jsrouting-bundle": "^2.0",
         "hautelook/alice-bundle": "^1.0",
         "incenteev/composer-parameter-handler": "~2.0",
         "ircmaxell/password-compat": "~1.0",

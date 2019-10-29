@@ -24,6 +24,9 @@ fos_user_resetting:
     prefix:   /admin/resetting
     options:  { i18n: false }
 
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
+
 app_front:
     resource: '@AppBundle/Controller'
     type:     annotation
