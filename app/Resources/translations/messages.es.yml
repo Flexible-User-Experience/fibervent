@@ -71,7 +71,7 @@ pdf:
     10_blade: PALA
     damage_class: Categoria de daño
   damage_table_body:
-    none: -
+    none: '-'
     BA_dist_cm: '%dist%cm BA'
     BS_dist_cm: '%dist%cm BS'
     BA_dist_m: '%dist%m BA'
@@ -170,7 +170,7 @@ enum:
     vortex: Vortex
     stall_strip: Stall strip
     diverter_s: Diverter S.
-    belt_3m: Cinta 3m
+    belt_3m: Cinta 3M
     lep: LEP
 admin:
   common:
@@ -391,6 +391,7 @@ admin:
   nonstandardusedmaterial:
     title: Materiales no estándar utilizados
     title_list: Materiales no estándar utilizados
+    title_create: Crear
     quantity: Cantidad
     item: Artículo
     description: Descripción
