@@ -28,6 +28,88 @@ class DeliveryNoteTimeRegisterAdmin extends AbstractBaseAdmin
     );
 
     /**
+     * @param FormMapper $formMapper
+     */
+    protected function configureFormFields(FormMapper $formMapper)
+    {
+        if ($this->getRootCode() == $this->getCode()) {
+            $formMapper
+                ->with('admin.common.general', $this->getFormMdSuccessBoxArray(3))
+                ->add(
+                    'deliveryNote',
+                    null,
+                    array(
+                        'label' => 'admin.deliverynote.title',
+                        // TODO apply query builder strategy
+                    )
+                )
+                ->end()
+            ;
+        } else {
+            $formMapper
+                ->with('admin.common.general', $this->getFormMdSuccessBoxArray(3))
+                ->add(
+                    'deliveryNote',
+                    null,
+                    array(
+                        'label' => 'admin.deliverynote.title',
+                        // TODO apply query builder strategy
+                        'attr' => array(
+                            'hidden' => true,
+                        ),
+                    )
+                )
+                ->end()
+            ;
+        }
+        $formMapper
+            ->with('admin.common.general', $this->getFormMdSuccessBoxArray(3))
+            ->add('type',
+                ChoiceType::class,
+                array(
+                    'label' => 'admin.deliverynotetimeregister.type',
+                    'choices' => TimeRegisterTypeEnum::getEnumArray(),
+                    'multiple' => false,
+                )
+            )
+            ->add('shift',
+                ChoiceType::class,
+                array(
+                    'label' => 'admin.deliverynotetimeregister.shift',
+                    'choices' => TimeRegisterShiftEnum::getEnumArray(),
+                    'multiple' => false,
+                )
+            )
+            ->end()
+            ->with('admin.common.controls', $this->getFormMdSuccessBoxArray(3))
+            ->add('begin',
+                TimeType::class,
+                array(
+                    'label' => 'admin.deliverynotetimeregister.begin',
+                    'minutes' => array(0, 15, 30, 45),
+                )
+            )
+            ->add('end',
+                TimeType::class,
+                array(
+                    'label' => 'admin.deliverynotetimeregister.end',
+                    'minutes' => array(0, 15, 30, 45),
+                )
+            )
+            ->add('totalHours',
+                null,
+                array(
+                    'label' => 'admin.deliverynotetimeregister.total_hours',
+                    'attr' => array(
+                        'disabled' => true,
+                    ),
+                )
+            )
+            ->end()
+        ;
+    }
+
+    /**
      * @param DatagridMapper $datagridMapper
      */
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
@@ -153,86 +235,6 @@ class DeliveryNoteTimeRegisterAdmin extends AbstractBaseAdmin
                     ),
                 )
             )
-        ;
-    }
-
-    /**
-     * @param FormMapper $formMapper
-     */
-    protected function configureFormFields(FormMapper $formMapper)
-    {
-        if ($this->getRootCode() == $this->getCode()) {
-            $formMapper
-                ->with('admin.common.general', $this->getFormMdSuccessBoxArray(3))
-                ->add(
-                    'deliveryNote',
-                    null,
-                    array(
-                        'label' => 'admin.deliverynote.title',
-                        // TODO apply query builder strategy
-                    )
-                )
-                ->end()
-            ;
-        } else {
-            $formMapper
-                ->with('admin.common.general', $this->getFormMdSuccessBoxArray(3))
-                ->add(
-                    'deliveryNote',
-                    null,
-                    array(
-                        'label' => 'admin.deliverynote.title',
-                        // TODO apply query builder strategy
-                        'attr' => array(
-                            'hidden' => true,
-                        ),
-                    )
-                )
-                ->end()
-            ;
-        }
-        $formMapper
-            ->with('admin.common.general', $this->getFormMdSuccessBoxArray(3))
-            ->add('type',
-                ChoiceType::class,
-                array(
-                    'label' => 'admin.deliverynotetimeregister.type',
-                    'choices' => TimeRegisterTypeEnum::getEnumArray(),
-                    'multiple' => false,
-                )
-            )
-            ->add('shift',
-                ChoiceType::class,
-                array(
-                    'label' => 'admin.deliverynotetimeregister.shift',
-                    'choices' => TimeRegisterShiftEnum::getEnumArray(),
-                    'multiple' => false,
-                )
-            )
-            ->add('begin',
-                TimeType::class,
-                array(
-                    'label' => 'admin.deliverynotetimeregister.begin',
-                    'minutes' => array(0, 15, 30, 45),
-                )
-            )
-            ->add('end',
-                TimeType::class,
-                array(
-                    'label' => 'admin.deliverynotetimeregister.end',
-                    'minutes' => array(0, 15, 30, 45),
-                )
-            )
-            ->add('totalHours',
-                null,
-                array(
-                    'label' => 'admin.deliverynotetimeregister.total_hours',
-                    'attr' => array(
-                        'disabled' => true,
-                    ),
-                )
-            )
-            ->end()
         ;
     }
 

@@ -23,6 +23,38 @@ class VehicleAdmin extends AbstractBaseAdmin
     );
 
     /**
+     * @param FormMapper $formMapper
+     */
+    protected function configureFormFields(FormMapper $formMapper)
+    {
+        $formMapper
+            ->with('admin.vehicle.title', $this->getFormMdSuccessBoxArray(4))
+            ->add(
+                'name',
+                null,
+                array(
+                    'label' => 'admin.vehicle.name',
+                )
+            )
+            ->add('licensePlate',
+                null,
+                array(
+                    'label' => 'admin.vehicle.licence_plate',
+                )
+            )
+            ->end()
+            ->with('admin.common.controls', $this->getFormMdSuccessBoxArray(3))
+            ->add('active',
+                null,
+                array(
+                    'label' => 'admin.vehicle.active',
+                )
+            )
+            ->end()
+        ;
+    }
+
+    /**
      * @param DatagridMapper $datagridMapper
      */
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
@@ -86,36 +118,6 @@ class VehicleAdmin extends AbstractBaseAdmin
                     ),
                 )
             )
-        ;
-    }
-
-    /**
-     * @param FormMapper $formMapper
-     */
-    protected function configureFormFields(FormMapper $formMapper)
-    {
-        $formMapper
-            ->with('admin.vehicle.title', $this->getFormMdSuccessBoxArray(4))
-            ->add(
-                'name',
-                null,
-                array(
-                    'label' => 'admin.vehicle.name',
-                )
-            )
-            ->add('licensePlate',
-                null,
-                array(
-                    'label' => 'admin.vehicle.licence_plate',
-                )
-            )
-            ->add('active',
-                null,
-                array(
-                    'label' => 'admin.vehicle.active',
-                )
-            )
-            ->end()
         ;
     }
 }

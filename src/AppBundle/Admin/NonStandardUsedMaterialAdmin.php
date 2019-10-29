@@ -25,6 +25,67 @@ class NonStandardUsedMaterialAdmin extends AbstractBaseAdmin
     );
 
     /**
+     * @param FormMapper $formMapper
+     */
+    protected function configureFormFields(FormMapper $formMapper)
+    {
+        if ($this->getRootCode() == $this->getCode()) {
+            $formMapper
+                ->with('admin.common.general', $this->getFormMdSuccessBoxArray(3))
+                ->add(
+                    'deliveryNote',
+                    null,
+                    array(
+                        'label' => 'admin.deliverynote.title',
+                        // TODO apply query builder strategy
+                    )
+                )
+                ->end()
+            ;
+        } else {
+            $formMapper
+                ->with('admin.common.general', $this->getFormMdSuccessBoxArray(3))
+                ->add(
+                    'deliveryNote',
+                    null,
+                    array(
+                        'label' => 'admin.deliverynote.title',
+                        // TODO apply query builder strategy
+                        'attr' => array(
+                            'hidden' => true,
+                        ),
+                    )
+                )
+                ->end()
+            ;
+        }
+        $formMapper
+            ->with('admin.common.general', $this->getFormMdSuccessBoxArray(3))
+            ->add('item',
+                ChoiceType::class,
+                array(
+                    'label' => 'admin.nonstandardusedmaterial.item',
+                    'choices' => NonStandardUsedMaterialItemEnum::getEnumArray(),
+                    'multiple' => false,
+                )
+            )
+            ->add('quantity',
+                null,
+                array(
+                    'label' => 'admin.nonstandardusedmaterial.quantity',
+                )
+            )
+            ->add('description',
+                null,
+                array(
+                    'label' => 'admin.nonstandardusedmaterial.description',
+                )
+            )
+            ->end()
+        ;
+    }
+
+    /**
      * @param DatagridMapper $datagridMapper
      */
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
@@ -113,67 +174,6 @@ class NonStandardUsedMaterialAdmin extends AbstractBaseAdmin
                     ),
                 )
             )
-        ;
-    }
-
-    /**
-     * @param FormMapper $formMapper
-     */
-    protected function configureFormFields(FormMapper $formMapper)
-    {
-        if ($this->getRootCode() == $this->getCode()) {
-            $formMapper
-                ->with('admin.common.general', $this->getFormMdSuccessBoxArray(3))
-                ->add(
-                    'deliveryNote',
-                    null,
-                    array(
-                        'label' => 'admin.deliverynote.title',
-                        // TODO apply query builder strategy
-                    )
-                )
-                ->end()
-            ;
-        } else {
-            $formMapper
-                ->with('admin.common.general', $this->getFormMdSuccessBoxArray(3))
-                ->add(
-                    'deliveryNote',
-                    null,
-                    array(
-                        'label' => 'admin.deliverynote.title',
-                        // TODO apply query builder strategy
-                        'attr' => array(
-                            'hidden' => true,
-                        ),
-                    )
-                )
-                ->end()
-            ;
-        }
-        $formMapper
-            ->with('admin.common.general', $this->getFormMdSuccessBoxArray(3))
-            ->add('item',
-                ChoiceType::class,
-                array(
-                    'label' => 'admin.nonstandardusedmaterial.item',
-                    'choices' => NonStandardUsedMaterialItemEnum::getEnumArray(),
-                    'multiple' => false,
-                )
-            )
-            ->add('quantity',
-                null,
-                array(
-                    'label' => 'admin.nonstandardusedmaterial.quantity',
-                )
-            )
-            ->add('description',
-                null,
-                array(
-                    'label' => 'admin.nonstandardusedmaterial.description',
-                )
-            )
-            ->end()
         ;
     }
 }
