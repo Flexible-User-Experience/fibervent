@@ -18,8 +18,8 @@ class VehicleAdmin extends AbstractBaseAdmin
     protected $classnameLabel = 'admin.vehicle.title';
     protected $baseRoutePattern = 'workorders/vehicle';
     protected $datagridValues = array(
-        '_sort_by' => 'id',
-        '_sort_order' => 'desc',
+        '_sort_by' => 'name',
+        '_sort_order' => 'asc',
     );
 
     /**
