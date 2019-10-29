@@ -3,8 +3,8 @@
 {# override javascript includes #}
 {% block javascripts %}
     {{ parent() }}
-{#    <script src="{{ asset('bundles/fosjsrouting/js/router.min.js') }}"></script>#}
-{#    <script src="{{ path('fos_js_routing_js', {callback: 'fos.Router.setData'}) }}"></script>#}
+    <script src="{{ asset('bundles/fosjsrouting/js/router.min.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', {callback: 'fos.Router.setData'}) }}"></script>
     <script type="text/javascript">
         jQuery(document).ready(function() {
             var customerNode = jQuery('#sonata-ba-field-container-{{ form.customer.vars.id }}');
