@@ -379,6 +379,7 @@ admin:
     description: Descripción
   vehicle:
     title: Vehículo
+    title_list: Vehículos
     title_create: Crear
     name: Nombre
     licence_plate: Matrícula
