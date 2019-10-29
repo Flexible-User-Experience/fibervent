@@ -39,17 +39,30 @@ class DeliveryNoteTimeRegisterAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'admin.deliverynote.title',
                 )
+                // TODO apply query builder to improve filter selector
             )
             ->add('type',
                 null,
                 array(
                     'label' => 'admin.deliverynotetimeregister.type',
+                ),
+                ChoiceType::class,
+                array(
+                    'expanded' => false,
+                    'multiple' => false,
+                    'choices' => TimeRegisterTypeEnum::getEnumArray(),
                 )
             )
             ->add('shift',
                 null,
                 array(
                     'label' => 'admin.deliverynotetimeregister.shift',
+                ),
+                ChoiceType::class,
+                array(
+                    'expanded' => false,
+                    'multiple' => false,
+                    'choices' => TimeRegisterShiftEnum::getEnumArray(),
                 )
             )
             ->add('begin',
@@ -57,6 +70,10 @@ class DeliveryNoteTimeRegisterAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'admin.deliverynotetimeregister.begin',
                     'format' => 'h:m:s',
+                ),
+                TimeType::class,
+                array(
+                    'minutes' => array(0, 15, 30, 45),
                 )
             )
             ->add('end',
@@ -64,12 +81,10 @@ class DeliveryNoteTimeRegisterAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'admin.deliverynotetimeregister.end',
                     'format' => 'h:m:s',
-                )
-            )
-            ->add('totalHours',
-                null,
+                ),
+                TimeType::class,
                 array(
-                    'label' => 'admin.deliverynotetimeregister.total_hours',
+                    'minutes' => array(0, 15, 30, 45),
                 )
             )
         ;
