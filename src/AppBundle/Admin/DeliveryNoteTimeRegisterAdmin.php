@@ -2,6 +2,7 @@
 
 namespace AppBundle\Admin;
 
+use AppBundle\Entity\DeliveryNoteTimeRegister;
 use AppBundle\Enum\TimeRegisterShiftEnum;
 use AppBundle\Enum\TimeRegisterTypeEnum;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
@@ -210,9 +211,44 @@ class DeliveryNoteTimeRegisterAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'admin.deliverynotetimeregister.total_hours',
+                    'attr' => array(
+                        'disabled' => true,
+                    ),
                 )
             )
             ->end()
         ;
+    }
+
+    /**
+     * @param DeliveryNoteTimeRegister $object
+     */
+    public function prePersist($object)
+    {
+        $this->commonPreEvent($object);
+    }
+
+    /**
+     * @param DeliveryNoteTimeRegister $object
+     */
+    public function preUpdate($object)
+    {
+        $this->commonPreEvent($object);
+    }
+
+    /**
+     * @param DeliveryNoteTimeRegister $object
+     */
+    private function commonPreEvent($object)
+    {
+        if (!is_null($object->getBegin()) && !is_null($object->getEnd())) {
+            if ($object->getBegin() instanceof \DateTime && $object->getEnd() instanceof \DateTime) {
+                if ($object->getBegin()->format('H:i') < $object->getEnd()->format('H:i')) {
+                    $time1 = strtotime($object->getBegin()->format('H:i:s'));
+                    $time2 = strtotime($object->getEnd()->format('H:i:s'));
+                    $object->setTotalHours(round(abs($time2 - $time1) / 3600, 2));
+                }
+            }
+        }
     }
 }
