@@ -16,7 +16,7 @@
                 console.log('customerNode.change', customerId);
                 jQuery.get(Routing.generate('admin_app_customer_getAuditsFromCustomerId', {id: customerId}), function() {
                 }).done(function (response) {
-                    console.log('customerNode.response', response);
+                    console.log('customerNode.response', jQuery.parseJSON(response));
                     // updateNodesInfo(response);
                 });
             });

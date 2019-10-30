@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Customer;
+use AppBundle\Model\AjaxResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -60,9 +61,14 @@ class CustomerAdminController extends AbstractBaseAdminController
      */
     public function getAuditsFromCustomerIdAction($id)
     {
-        $result = '---'.$id.'---';
-        $response = new JsonResponse($result);
+        $result = new AjaxResponse();
+        $result
+            ->setCode(Response::HTTP_OK)
+            ->setData([
+                'value' => '---'.$id.'---',
+            ])
+        ;
 
-        return $response;
+        return new JsonResponse($result->getJsonEncodedResult());
     }
 }
