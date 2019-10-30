@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Enum\PresenceMonitoringCategoryEnum;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
@@ -81,6 +82,13 @@ class PresenceMonitoring extends AbstractBase
      * @ORM\Column(type="float", nullable=true)
      */
     private $extraHours;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(type="integer")
+     */
+    private $category;
 
     /**
      * Methods.
@@ -262,6 +270,34 @@ class PresenceMonitoring extends AbstractBase
     public function setExtraHours(?float $extraHours): PresenceMonitoring
     {
         $this->extraHours = $extraHours;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCategoryString()
+    {
+        return PresenceMonitoringCategoryEnum::getDecodedString($this->category);
+    }
+
+    /**
+     * @param int $category
+     *
+     * @return PresenceMonitoring
+     */
+    public function setCategory(int $category): PresenceMonitoring
+    {
+        $this->category = $category;
 
         return $this;
     }
