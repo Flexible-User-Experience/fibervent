@@ -71,7 +71,7 @@ pdf:
     10_blade: BLADE
     damage_class: DAMAGE CLASS
   damage_table_body:
-    none: -
+    none: '-'
     BA_dist_cm: '%dist%cm LE'
     BS_dist_cm: '%dist%cm TE'
     BA_dist_m: '%dist%m LE'

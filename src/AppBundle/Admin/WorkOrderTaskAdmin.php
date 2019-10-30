@@ -6,7 +6,6 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Form\Type\ModelType;
-use Sonata\AdminBundle\Show\ShowMapper;
 
 /**
  * Class WorkOrderTaskAdmin.
@@ -23,6 +22,120 @@ class WorkOrderTaskAdmin extends AbstractBaseAdmin
         '_sort_by' => 'id',
         '_sort_order' => 'desc',
     );
+
+    /**
+     * @param FormMapper $formMapper
+     */
+    protected function configureFormFields(FormMapper $formMapper)
+    {
+        if ($this->getRootCode() == $this->getCode()) {
+            $formMapper
+                ->with('admin.common.general', $this->getFormMdSuccessBoxArray(3))
+                ->add(
+                    'workOrder',
+                    null,
+                    array(
+                        'label' => 'admin.workorder.title',
+                    )
+                )
+                ->end()
+            ;
+        } else {
+            $formMapper
+                ->with('admin.common.general', $this->getFormMdSuccessBoxArray(3))
+                ->add(
+                    'workOrder',
+                    null,
+                    array(
+                        'label' => 'admin.workorder.title',
+                        'attr' => array(
+                            'hidden' => true,
+                        ),
+                    )
+                )
+                ->end()
+            ;
+        }
+        $formMapper
+            ->with('admin.common.general', $this->getFormMdSuccessBoxArray(7))
+            ->add('description',
+                null,
+                array(
+                    'label' => 'admin.workordertask.description',
+                )
+            )
+            ->add('isCompleted',
+                null,
+                array(
+                    'label' => 'admin.workordertask.is_completed',
+                )
+            )
+            ->add('isFromAudit',
+                null,
+                array(
+                    'label' => 'admin.workorder.is_from_audit',
+                )
+            )
+            ->add('windmill',
+                ModelType::class,
+                array(
+                    'label' => 'admin.windmill.title',
+                    'btn_add' => false,
+                    'required' => false,
+                )
+            )
+            ->add('windmillBlade',
+                ModelType::class,
+                array(
+                    'label' => 'admin.windmillblade.title',
+                    'btn_add' => false,
+                    'required' => false,
+                )
+            )
+            ->end()
+            ->with('admin.bladedamage.title', $this->getFormMdSuccessBoxArray(5))
+            ->add(
+                'bladeDamage',
+                ModelType::class,
+                array(
+                    'label' => 'admin.bladedamage.title',
+                    'btn_add' => false,
+                    'required' => true,
+                    // 'query' => $this->bdr->findAll(),
+                    'choices_as_values' => true,
+                )
+            )
+            ->add(
+                'position',
+                null,
+                array(
+                    'label' => 'admin.bladedamage.position',
+                )
+            )
+            ->add(
+                'radius',
+                null,
+                array(
+                    'label' => 'admin.bladedamage.radius',
+                )
+            )
+            ->add(
+                'distance',
+                null,
+                array(
+                    'label' => 'admin.bladedamage.distance',
+                )
+            )
+            ->add(
+                'size',
+                null,
+                array(
+                    'label' => 'admin.bladedamage.size',
+                )
+            )
+            ->end()
+        ;
+    }
 
     /**
      * @param DatagridMapper $datagridMapper
@@ -124,15 +237,6 @@ class WorkOrderTaskAdmin extends AbstractBaseAdmin
                     'label' => 'admin.workorder.is_from_audit',
                 )
             )
-            ->add('windmill',
-                null,
-                array(
-                    'label' => 'admin.windmill.title',
-                    'sortable' => true,
-                    'sort_field_mapping' => array('fieldName' => 'code'),
-                    'sort_parent_association_mappings' => array(array('fieldName' => 'windmill')),
-                )
-            )
             ->add('windmillBlade',
                 null,
                 array(
@@ -140,6 +244,15 @@ class WorkOrderTaskAdmin extends AbstractBaseAdmin
                     'sortable' => true,
                     'sort_field_mapping' => array('fieldName' => 'code'),
                     'sort_parent_association_mappings' => array(array('fieldName' => 'windmillBlade')),
+                )
+            )
+            ->add('windmill',
+                null,
+                array(
+                    'label' => 'admin.windmill.title',
+                    'sortable' => true,
+                    'sort_field_mapping' => array('fieldName' => 'code'),
+                    'sort_parent_association_mappings' => array(array('fieldName' => 'windmill')),
                 )
             )
             ->add('bladeDamage',
@@ -192,236 +305,9 @@ class WorkOrderTaskAdmin extends AbstractBaseAdmin
                     'label' => 'admin.common.action',
                     'actions' => array(
                         'edit' => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
- //                       'show' => array('template' => '::Admin/Buttons/list__action_show_button.html.twig'),
- //                       'excel' => array('template' => '::Admin/Buttons/list__action_excel_button.html.twig'),
- //                       'pdf' => array('template' => '::Admin/Buttons/list__action_pdf_windfarm_button.html.twig'),
                     ),
                 )
             )
-        ;
-    }
-
-    /**
-     * @param FormMapper $formMapper
-     */
-    protected function configureFormFields(FormMapper $formMapper)
-    {
-        if ($this->getRootCode() == $this->getCode()) {
-            $formMapper
-                ->with('admin.common.general', $this->getFormMdSuccessBoxArray(3))
-                ->add(
-                    'workOrder',
-                    null,
-                    array(
-                        'label' => 'admin.workorder.title',
-                    )
-                )
-                ->add(
-                    'deliveryNotes',
-                    null,
-                    array(
-                        'label' => 'admin.deliverynote.title',
-                    )
-                )
-                ->end()
-            ;
-        } else {
-            $formMapper
-                ->with('admin.common.general', $this->getFormMdSuccessBoxArray(3))
-                ->add(
-                    'workOrder',
-                    null,
-                    array(
-                        'label' => 'admin.workorder.title',
-                        'attr' => array(
-                            'hidden' => true,
-                        ),
-                    )
-                )
-                ->add(
-                    'deliveryNotes',
-                    null,
-                    array(
-                        'label' => 'admin.deliverynote.title',
-                        'attr' => array(
-                            'hidden' => true,
-                        ),
-                    )
-                )
-                ->end()
-            ;
-        }
-        $formMapper
-            ->with('admin.common.general', $this->getFormMdSuccessBoxArray(7))
-            ->add('windmill',
-                ModelType::class,
-                array(
-                    'label' => 'admin.windmill.title',
-                    'btn_add' => false,
-                    'required' => false,
-                )
-            )
-            ->add('windmillBlade',
-                ModelType::class,
-                array(
-                    'label' => 'admin.windmillblade.title',
-                    'btn_add' => false,
-                    'required' => false,
-                )
-            )
-            ->end()
-            ->with('admin.bladedamage.title', $this->getFormMdSuccessBoxArray(5))
-            ->add(
-                'bladeDamage',
-                ModelType::class,
-                array(
-                    'label' => 'admin.bladedamage.title',
-                    'btn_add' => false,
-                    'required' => true,
-                    // 'query' => $this->bdr->findAll(),
-                    'choices_as_values' => true,
-                )
-            )
-            ->add(
-                'position',
-                null,
-                array(
-                    'label' => 'admin.bladedamage.position',
-                )
-            )
-            ->add(
-                'radius',
-                null,
-                array(
-                    'label' => 'admin.bladedamage.radius',
-                )
-            )
-            ->add(
-                'distance',
-                null,
-                array(
-                    'label' => 'admin.bladedamage.distance',
-                )
-            )
-            ->add(
-                'size',
-                null,
-                array(
-                    'label' => 'admin.bladedamage.size',
-                )
-            )
-            ->add('description',
-                null,
-                array(
-                    'label' => 'admin.workordertask.description',
-                )
-            )
-            ->add('isCompleted',
-                null,
-                array(
-                    'label' => 'admin.workordertask.is_completed',
-                )
-            )
-            ->add('isFromAudit',
-                null,
-                array(
-                    'label' => 'admin.workorder.is_from_audit',
-                )
-            )
-            ->end()
-        ;
-    }
-
-    /**
-     * @param ShowMapper $showMapper
-     */
-    protected function configureShowFields(ShowMapper $showMapper)
-    {
-        $showMapper
-            ->with('admin.common.general', $this->getFormMdSuccessBoxArray(7))
-            ->add(
-                'workOrder',
-                null,
-                array(
-                    'label' => 'admin.workorder.title',
-                )
-            )
-            ->add('description',
-                null,
-                array(
-                    'label' => 'admin.workordertask.description',
-                )
-            )
-            ->add('isCompleted',
-                null,
-                array(
-                    'label' => 'admin.workordertask.is_completed',
-                )
-            )
-            ->add('isFromAudit',
-                null,
-                array(
-                    'label' => 'admin.workorder.is_from_audit',
-                )
-            )
-            ->add('windmill',
-                ModelType::class,
-                array(
-                    'label' => 'admin.windmill.title',
-                    'btn_add' => false,
-                    'required' => false,
-                )
-            )
-            ->add('windmillBlade',
-                ModelType::class,
-                array(
-                    'label' => 'admin.windmillblade.title',
-                    'btn_add' => false,
-                    'required' => false,
-                )
-            )
-            ->end()
-            ->with('admin.bladedamage.title', $this->getFormMdSuccessBoxArray(5))
-            ->add(
-                'bladeDamage',
-                ModelType::class,
-                array(
-                    'label' => 'admin.bladedamage.title',
-                    'btn_add' => false,
-                    'required' => true,
-                    // 'query' => $this->bdr->findAll(),
-                    'choices_as_values' => true,
-                )
-            )
-            ->add(
-                'position',
-                null,
-                array(
-                    'label' => 'admin.bladedamage.position',
-                )
-            )
-            ->add(
-                'radius',
-                null,
-                array(
-                    'label' => 'admin.bladedamage.radius',
-                )
-            )
-            ->add(
-                'distance',
-                null,
-                array(
-                    'label' => 'admin.bladedamage.distance',
-                )
-            )
-            ->add(
-                'size',
-                null,
-                array(
-                    'label' => 'admin.bladedamage.size',
-                )
-            )
-            ->end()
         ;
     }
 }

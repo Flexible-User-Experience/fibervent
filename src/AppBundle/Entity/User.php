@@ -175,6 +175,14 @@ class User extends BaseUser
     /**
      * @return string
      */
+    public function getFullnameCanonical()
+    {
+        return $this->getLastname().', '.$this->getFirstname();
+    }
+
+    /**
+     * @return string
+     */
     public function __toString()
     {
         return $this->getUsername() ? $this->getFullname() : '---';

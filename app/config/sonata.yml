@@ -42,13 +42,13 @@ sonata_admin:
                 icon:  "<i class='fa fa-recycle' aria-hidden='true'></i>"
                 label: "Parques Eólicos"
             Audit:
-                icon:  "<i class='fa fa-list-alt' aria-hidden='true'></i>"
+                icon:  "<i class='fa fa-eye' aria-hidden='true'></i>"
                 label: "Inspecciones"
             WorkOrder:
                 icon:  "<i class='fa fa-list-alt' aria-hidden='true'></i>"
                 label: "Proyectos"
             PresenceMonitoring:
-                icon:  "<i class='fa fa-hourglass' aria-hidden='true'></i>"
+                icon:  "<i class='fa fa-clock-o' aria-hidden='true'></i>"
                 label: "Registro horario"
         blocks:
             -
@@ -91,4 +91,4 @@ sonata_admin:
             -
                 position: top
                 type: admin.block.audits
-                class: "col-lg-4 col-lg-offset-8 col-md-6 col-sm-12"
+                class: "col-lg-4 col-md-6 col-sm-12"

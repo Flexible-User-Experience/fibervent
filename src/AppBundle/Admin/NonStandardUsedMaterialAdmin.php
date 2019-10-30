@@ -6,7 +6,6 @@ use AppBundle\Enum\NonStandardUsedMaterialItemEnum;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
-use Sonata\AdminBundle\Show\ShowMapper;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 /**
@@ -26,90 +25,6 @@ class NonStandardUsedMaterialAdmin extends AbstractBaseAdmin
     );
 
     /**
-     * @param DatagridMapper $datagridMapper
-     */
-    protected function configureDatagridFilters(DatagridMapper $datagridMapper)
-    {
-        $datagridMapper
-            ->add(
-                'deliveryNote',
-                null,
-                array(
-                    'label' => 'admin.deliverynote.title',
-                )
-            )
-            ->add('item',
-                null,
-                array(
-                    'label' => 'admin.nonstandardusedmaterial.item',
-                )
-            )
-            ->add('quantity',
-                null,
-                array(
-                    'label' => 'admin.nonstandardusedmaterial.quantity',
-                )
-            )
-            ->add('description',
-                null,
-                array(
-                    'label' => 'admin.nonstandardusedmaterial.description',
-                )
-            )
-        ;
-    }
-
-    /**
-     * @param ListMapper $listMapper
-     */
-    protected function configureListFields(ListMapper $listMapper)
-    {
-        unset($this->listModes['mosaic']);
-        $listMapper
-            ->add(
-                'deliveryNote',
-                null,
-                array(
-                    'label' => 'admin.deliverynote.title',
-                    'sortable' => true,
-                    'sort_field_mapping' => array('fieldName' => 'id'),
-                    'sort_parent_association_mappings' => array(array('fieldName' => 'deliveryNote')),
-                )
-            )
-            ->add('item',
-                null,
-                array(
-                    'label' => 'admin.nonstandardusedmaterial.item',
-                    'template' => '::Admin/Cells/list__cell_non_standard_used_material_item.html.twig',
-                )
-            )
-            ->add('quantity',
-                null,
-                array(
-                    'label' => 'admin.nonstandardusedmaterial.quantity',
-                )
-            )
-            ->add('description',
-                null,
-                array(
-                    'label' => 'admin.nonstandardusedmaterial.description',
-                )
-            )
-            ->add(
-                '_action',
-                'actions',
-                array(
-                    'label' => 'admin.common.action',
-                    'actions' => array(
-                        'edit' => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
-//                        'show' => array('template' => '::Admin/Buttons/list__action_show_button.html.twig'),
-                    ),
-                )
-            )
-        ;
-    }
-
-    /**
      * @param FormMapper $formMapper
      */
     protected function configureFormFields(FormMapper $formMapper)
@@ -122,6 +37,7 @@ class NonStandardUsedMaterialAdmin extends AbstractBaseAdmin
                     null,
                     array(
                         'label' => 'admin.deliverynote.title',
+                        // TODO apply query builder strategy
                     )
                 )
                 ->end()
@@ -134,6 +50,7 @@ class NonStandardUsedMaterialAdmin extends AbstractBaseAdmin
                     null,
                     array(
                         'label' => 'admin.deliverynote.title',
+                        // TODO apply query builder strategy
                         'attr' => array(
                             'hidden' => true,
                         ),
@@ -169,24 +86,29 @@ class NonStandardUsedMaterialAdmin extends AbstractBaseAdmin
     }
 
     /**
-     * @param ShowMapper $showMapper
+     * @param DatagridMapper $datagridMapper
      */
-    protected function configureShowFields(ShowMapper $showMapper)
+    protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
-        $showMapper
-            ->with('admin.common.general', $this->getFormMdSuccessBoxArray(3))
+        $datagridMapper
             ->add(
                 'deliveryNote',
                 null,
                 array(
                     'label' => 'admin.deliverynote.title',
                 )
+                // TODO apply query builder to improve filter selector
             )
             ->add('item',
                 null,
                 array(
-                    'label' => 'admin.nonstandardusedmaterial.type',
-                    'template' => '::Admin/Cells/list__non_standard_used_material_item.html.twig',
+                    'label' => 'admin.nonstandardusedmaterial.item',
+                ),
+                'choice',
+                array(
+                    'expanded' => false,
+                    'multiple' => false,
+                    'choices' => NonStandardUsedMaterialItemEnum::getEnumArray(),
                 )
             )
             ->add('quantity',
@@ -201,7 +123,58 @@ class NonStandardUsedMaterialAdmin extends AbstractBaseAdmin
                     'label' => 'admin.nonstandardusedmaterial.description',
                 )
             )
-            ->end()
+        ;
+    }
+
+    /**
+     * @param ListMapper $listMapper
+     */
+    protected function configureListFields(ListMapper $listMapper)
+    {
+        unset($this->listModes['mosaic']);
+        $listMapper
+            ->add(
+                'deliveryNote',
+                null,
+                array(
+                    'label' => 'admin.deliverynote.title',
+                    'sortable' => true,
+                    'sort_field_mapping' => array('fieldName' => 'id'),
+                    'sort_parent_association_mappings' => array(array('fieldName' => 'deliveryNote')),
+                )
+            )
+            ->add('item',
+                'string',
+                array(
+                    'label' => 'admin.nonstandardusedmaterial.item',
+                    'template' => '::Admin/Cells/list__cell_non_standard_used_material_item.html.twig',
+                )
+            )
+            ->add('quantity',
+                null,
+                array(
+                    'label' => 'admin.nonstandardusedmaterial.quantity',
+                    'editable' => true,
+                )
+            )
+            ->add('description',
+                null,
+                array(
+                    'label' => 'admin.nonstandardusedmaterial.description',
+                    'editable' => true,
+                )
+            )
+            ->add(
+                '_action',
+                'actions',
+                array(
+                    'label' => 'admin.common.action',
+                    'actions' => array(
+                        'edit' => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
+                        'delete' => array('template' => '::Admin/Buttons/list__action_delete_button.html.twig'),
+                    ),
+                )
+            )
         ;
     }
 }
