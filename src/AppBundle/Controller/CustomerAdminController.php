@@ -3,7 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Customer;
-use AppBundle\Model\AjaxResponse;
+use AppBundle\Manager\CustomerAjaxResponseManager;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -61,14 +61,20 @@ class CustomerAdminController extends AbstractBaseAdminController
      */
     public function getAuditsFromCustomerIdAction($id)
     {
-        $result = new AjaxResponse();
-        $result
-            ->setCode(Response::HTTP_OK)
-            ->setData([
-                'value' => '---'.$id.'---',
-            ])
-        ;
+        /** @var CustomerAjaxResponseManager $carm */
+        $carm = $this->get('app.manager_customer_ajax_response');
 
-        return new JsonResponse($result->getJsonEncodedResult());
+        /** @var Customer $object */
+        $object = $this->admin->getObject($id);
+        if (!$object) {
+            throw $this->createNotFoundException(sprintf('Unable to find customer record with id: %s', $id));
+        }
+
+        // Customer filter
+        if ($this->get('app.auth_customer')->isCustomerUser()) {
+            throw new AccessDeniedHttpException();
+        }
+
+        return new JsonResponse($carm->getAuditsAjaxResponseFromCustomerId($id));
     }
 }

@@ -232,6 +232,10 @@ services:
         class: AppBundle\Manager\ObservationManager
         arguments:
             - "@app.blade_damage_repository"
+    app.manager_customer_ajax_response:
+        class: AppBundle\Manager\CustomerAjaxResponseManager
+        arguments:
+            - "@app.audit_repository"
 
 # Twig
     app.twig_extension:
