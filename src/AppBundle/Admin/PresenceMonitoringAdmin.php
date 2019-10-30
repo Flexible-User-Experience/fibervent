@@ -2,12 +2,14 @@
 
 namespace AppBundle\Admin;
 
+use AppBundle\Enum\PresenceMonitoringCategoryEnum;
 use AppBundle\Entity\User;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\Form\Type\DatePickerType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 /**
  * Class WorkOrderTaskAdmin.
@@ -82,6 +84,13 @@ class PresenceMonitoringAdmin extends AbstractBaseAdmin
                     'sortable' => true,
                     'sort_field_mapping' => array('fieldName' => 'firstname'),
                     'sort_parent_association_mappings' => array(array('fieldName' => 'worker')),
+                )
+            )
+            ->add('category',
+                null,
+                array(
+                    'label' => 'admin.presencemonitoring.category',
+                    'template' => '::Admin/Cells/list__cell_presence_monitoring_category.html.twig',
                 )
             )
             ->add('morningHourBegin',
@@ -165,6 +174,16 @@ class PresenceMonitoringAdmin extends AbstractBaseAdmin
                     'class' => User::class,
                     'query_builder' => $this->ur->findAllSortedByNameQB(),
                     'choice_label' => 'fullnameCanonical',
+                )
+            )
+            ->add('category',
+                ChoiceType::class,
+                array(
+                    'label' => 'admin.presencemonitoring.category',
+                    'choices' => PresenceMonitoringCategoryEnum::getEnumArray(),
+                    'multiple' => false,
+                    'expanded' => false,
+                    'required' => true,
                 )
             )
             ->end()

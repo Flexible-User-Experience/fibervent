@@ -172,6 +172,11 @@ enum:
     diverter_s: Diverter S.
     belt_3m: Cinta 3M
     lep: LEP
+  presence_monitoring_category:
+    workday: Laborable
+    dayoff: Vacaciones
+    permits: Permiso
+    leave: Baja
 admin:
   common:
     general: General
@@ -401,6 +406,8 @@ admin:
     team_leader: Jefe equipo
     team_technician_1: Técnico 1
     team_technician_2: Técnico 2
+    team_technician_3: Técnico 3
+    team_technician_4: Técnico 4
   deliverynotetimeregister:
     title: Fichajes
     title_list: Fichajes
@@ -439,6 +446,7 @@ admin:
     total_hours: Total horas
     normal_hours: Total horas ordinarias
     extra_hours: Total horas extra
+    category: Categoría
 gmap:
   general: ubicación general
 # Admin defaults

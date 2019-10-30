@@ -172,6 +172,11 @@ enum:
     diverter_s:
     belt_3m:
     lep:
+  presence_monitoring_category:
+    workday:
+    dayoff:
+    permits:
+    leave:
 admin:
   common:
     general:
@@ -380,6 +385,8 @@ admin:
     team_leader:
     team_technician_1:
     team_technician_2:
+    team_technician_3:
+    team_technician_4:
   deliverynotetimeregister:
     title:
     title_list:
@@ -414,6 +421,7 @@ admin:
     total_hours:
     normal_hours:
     extra_hours:
+    category:
 gmap:
   general: emplacement général
 # Admin defaults

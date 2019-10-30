@@ -7,11 +7,13 @@ use AppBundle\Enum\RepairWindmillSectionEnum;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Form\Type\ModelType;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\Form\Type\CollectionType;
 use Sonata\Form\Type\DatePickerType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class DeliveryNoteAdmin extends AbstractBaseAdmin
 {
@@ -117,6 +119,7 @@ class DeliveryNoteAdmin extends AbstractBaseAdmin
      */
     protected function configureListFields(ListMapper $listMapper)
     {
+        unset($this->listModes['mosaic']);
         $listMapper
             ->add('workOrder',
                 null,
@@ -268,6 +271,18 @@ class DeliveryNoteAdmin extends AbstractBaseAdmin
                     'label' => 'admin.deliverynote.team_technician_2',
                 )
             )
+            ->add('teamTechnician3',
+                null,
+                array(
+                    'label' => 'admin.deliverynote.team_technician_3',
+                )
+            )
+            ->add('teamTechnician4',
+                null,
+                array(
+                    'label' => 'admin.deliverynote.team_technician_4',
+                )
+            )
             ->add('vehicle',
                 null,
                 array(
@@ -300,7 +315,7 @@ class DeliveryNoteAdmin extends AbstractBaseAdmin
                 )
             )
             ->end()
-            ->with('admin.deliverynotetimeregister.title', $this->getFormMdSuccessBoxArray(8))
+            ->with('admin.deliverynotetimeregister.title', $this->getFormMdSuccessBoxArray(12))
             ->add(
                 'timeRegisters',
                 CollectionType::class,
@@ -320,7 +335,20 @@ class DeliveryNoteAdmin extends AbstractBaseAdmin
                 )
             )
             ->end()
-            ->with('admin.nonstandardusedmaterial.title', $this->getFormMdSuccessBoxArray(4))
+            ->with('admin.workordertask.title', $this->getFormMdSuccessBoxArray(12))
+            ->add(
+                'workOrderTasks',
+                ModelType::class,
+                array(
+                    'label' => 'admin.workordertask.title',
+                    'multiple' => true,
+                    'expanded' => false,
+                    'required' => false,
+                    'btn_add' => false,
+                )
+            )
+            ->end()
+            ->with('admin.nonstandardusedmaterial.title', $this->getFormMdSuccessBoxArray(6))
             ->add(
                 'nonStandardUsedMaterials',
                 CollectionType::class,
@@ -340,11 +368,15 @@ class DeliveryNoteAdmin extends AbstractBaseAdmin
                 )
             )
             ->end()
-            ->with('admin.deliverynote.observations', $this->getFormMdSuccessBoxArray(8))
+            ->with('admin.deliverynote.observations', $this->getFormMdSuccessBoxArray(6))
             ->add('observations',
-                null,
+                TextareaType::class,
                 array(
                     'label' => 'admin.deliverynote.observations',
+                    'required' => false,
+                    'attr' => array(
+                        'rows' => 6,
+                    ),
                 )
             )
             ->end()
@@ -395,6 +427,18 @@ class DeliveryNoteAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'admin.deliverynote.team_technician_2',
+                )
+            )
+            ->add('teamTechnician3',
+                null,
+                array(
+                    'label' => 'admin.deliverynote.team_technician_3',
+                )
+            )
+            ->add('teamTechnician4',
+                null,
+                array(
+                    'label' => 'admin.deliverynote.team_technician_4',
                 )
             )
             ->add('vehicle',
