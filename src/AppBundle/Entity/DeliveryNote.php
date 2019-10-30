@@ -164,7 +164,7 @@ class DeliveryNote extends AbstractBase
      */
 
     /**
-     * @return WorkOrder
+     * @return $this
      */
     public function getWorkOrder()
     {
@@ -436,7 +436,7 @@ class DeliveryNote extends AbstractBase
     /**
      * @param array $repairAccessTypes
      *
-     * @return WorkOrder
+     * @return $this
      */
     public function setRepairAccessTypes(array $repairAccessTypes): DeliveryNote
     {
@@ -448,7 +448,7 @@ class DeliveryNote extends AbstractBase
     /**
      * @param int $repairAccessType
      *
-     * @return WorkOrder
+     * @return $this
      */
     public function addRepairAccessType(int $repairAccessType): DeliveryNote
     {
@@ -462,7 +462,7 @@ class DeliveryNote extends AbstractBase
     /**
      * @param int $repairAccessType
      *
-     * @return WorkOrder
+     * @return $this
      */
     public function removeRepairAccessType(int $repairAccessType): DeliveryNote
     {
@@ -516,7 +516,7 @@ class DeliveryNote extends AbstractBase
     }
 
     /**
-     * @param DeliveryNoteTimeRegister $deliveryNoteTimeRegister
+     * @param DeliveryNoteTimeRegister $timeRegister
      *
      * @return $this
      */

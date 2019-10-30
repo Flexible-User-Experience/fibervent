@@ -20,10 +20,10 @@
                 //     updateNodesInfo(response);
                 // });
             });
-            $(isFromAuditNode).on('ifChecked', function() {
+            $(isFromAuditNode).on('ifUnchecked', function() {
                 auditNode.addClass('hidden');
             });
-            $(isFromAuditNode).on('ifUnchecked', function() {
+            $(isFromAuditNode).on('ifChecked', function() {
                 auditNode.removeClass('hidden');
             });
         });

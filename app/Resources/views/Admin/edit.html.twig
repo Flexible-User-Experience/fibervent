@@ -2,9 +2,9 @@
 
 {% block title %}
     {% if admin.id(object) is not null %}
-        {{ "title_edit"|trans({'%name%': admin.toString(object) }, 'SonataAdminBundle') }}
+        {{ "title_edit" | trans({'%name%': admin.toString(object) }, 'SonataAdminBundle') }}
     {% else %}
-        {{ "title_create"|trans({}, 'SonataAdminBundle') }}
+        {{ "title_create" | trans({}, 'SonataAdminBundle') }}
     {% endif %}
 {% endblock%}
 
