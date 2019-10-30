@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Customer;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
@@ -53,14 +54,15 @@ class CustomerAdminController extends AbstractBaseAdminController
     }
 
     /**
-     * @param int $cid
+     * @param int $id Customer ID
      *
-     * @return string
+     * @return JsonResponse
      */
-    public function getAuditsFromCustomerIdAction($cid)
+    public function getAuditsFromCustomerIdAction($id)
     {
-        $result = '---';
+        $result = '---'.$id.'---';
+        $response = new JsonResponse($result);
 
-        return $result;
+        return $response;
     }
 }

@@ -109,6 +109,11 @@ fos_user:
         address:     "%private_editor_test_email%"
         sender_name: "%project_web_title%"
 
+# FOS JS Routing
+fos_js_routing:
+    routes_to_expose:
+        - "admin_app_customer_getAuditsFromCustomerId"
+
 # A2lix Translations
 a2lix_translation_form:
     locales:          "%locale_i18n%"

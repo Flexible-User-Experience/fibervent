@@ -14,11 +14,11 @@
             customerNode.change(function(event) {
                 var customerId = event.val;
                 console.log('customerNode.change', customerId);
-                // jQuery.get(Routing.generate('admin_app_partner_partner_getJsonDeliveryNotesById', {id: partnerId}), function() {
-                // }).done(function (response) {
-                //     console.log(response);
-                //     updateNodesInfo(response);
-                // });
+                jQuery.get(Routing.generate('admin_app_customer_getAuditsFromCustomerId', {id: customerId}), function() {
+                }).done(function (response) {
+                    console.log('customerNode.response', response);
+                    // updateNodesInfo(response);
+                });
             });
             $(isFromAuditNode).on('ifUnchecked', function() {
                 auditNode.addClass('hidden');
