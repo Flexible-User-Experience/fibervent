@@ -38,6 +38,7 @@ class CustomerAdmin extends AbstractBaseAdmin
         parent::configureRoutes($collection);
         $collection
             ->add('map', $this->getRouterIdParameter().'/map')
+            ->add('getAuditsFromCustomerId', $this->getRouterIdParameter().'/get-audits-from-customer-id')
             ->remove('delete')
         ;
     }

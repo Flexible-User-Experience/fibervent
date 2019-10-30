@@ -26,6 +26,12 @@
             $(isFromAuditNode).on('ifChecked', function() {
                 auditNode.removeClass('hidden');
             });
+            // initializing
+            if (isFromAuditNode.prop('checked')) {
+                auditNode.removeClass('hidden');
+            } else {
+                auditNode.addClass('hidden');
+            }
         });
     </script>
 {% endblock %}

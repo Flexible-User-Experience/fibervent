@@ -51,4 +51,16 @@ class CustomerAdminController extends AbstractBaseAdminController
             )
         );
     }
+
+    /**
+     * @param int $cid
+     *
+     * @return string
+     */
+    public function getAuditsFromCustomerIdAction($cid)
+    {
+        $result = '---';
+
+        return $result;
+    }
 }
