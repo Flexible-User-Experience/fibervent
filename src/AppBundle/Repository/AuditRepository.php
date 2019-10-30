@@ -7,6 +7,7 @@ use AppBundle\Entity\Customer;
 use AppBundle\Entity\User;
 use AppBundle\Entity\Windfarm;
 use AppBundle\Enum\AuditStatusEnum;
+use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
@@ -215,12 +216,12 @@ class AuditRepository extends EntityRepository
     {
         $query = $this->getAuditsByWindfarmByStatusesAndYearQB($windfarm, $statuses, $year);
         if (is_array($range)) {
-            if ($range['start'] != '') {
+            if ('' != $range['start']) {
                 $query
                     ->andWhere('a.beginDate >= :start')
                     ->setParameter('start', $this->transformReverseDateString($range['start']));
             }
-            if ($range['end'] != '') {
+            if ('' != $range['end']) {
                 $query
                     ->andWhere('a.beginDate <= :end')
                     ->setParameter('end', $this->transformReverseDateString($range['end']));
@@ -455,7 +456,7 @@ class AuditRepository extends EntityRepository
             ->setMaxResults(1);
 
         $audits = $query->getQuery()->getResult();
-        if (count($audits) === 0) {
+        if (0 === count($audits)) {
             return array('2016' => 2016);
         }
 
@@ -479,6 +480,43 @@ class AuditRepository extends EntityRepository
         }
 
         return $yearsArray;
+    }
+
+    /**
+     * @param int $cid
+     *
+     * @return QueryBuilder
+     */
+    public function getAuditsFromCustomerIdQB($cid)
+    {
+        return $this->createQueryBuilder('a')
+            ->select('a.id')
+            ->addSelect('a.tools')
+            ->where('a.customer = :cid')
+            ->andWhere('a.enabled = :status')
+            ->setParameter('cid', $cid)
+            ->setParameter('status', true)
+        ;
+    }
+
+    /**
+     * @param int $cid
+     *
+     * @return Query
+     */
+    public function getAuditsFromCustomerIdQ($cid)
+    {
+        return $this->getAuditsFromCustomerIdQB($cid)->getQuery();
+    }
+
+    /**
+     * @param int $cid
+     *
+     * @return array
+     */
+    public function getAuditsFromCustomerId($cid)
+    {
+        return $this->getAuditsFromCustomerIdQ($cid)->getResult(AbstractQuery::HYDRATE_ARRAY);
     }
 
     /**
