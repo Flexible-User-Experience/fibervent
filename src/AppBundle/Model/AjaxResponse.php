@@ -25,6 +25,11 @@ class AjaxResponse
     private $data;
 
     /**
+     * @var string
+     */
+    private $htmlOptionStringData;
+
+    /**
      * Methods.
      */
 
@@ -36,6 +41,7 @@ class AjaxResponse
         $this->code = 0;
         $this->error = '---';
         $this->data = [];
+        $this->htmlOptionStringData = '';
     }
 
     /**
@@ -99,14 +105,47 @@ class AjaxResponse
     }
 
     /**
+     * @return string
+     */
+    public function getHtmlOptionStringData(): string
+    {
+        return $this->htmlOptionStringData;
+    }
+
+    /**
+     * @param string $htmlOptionStringData
+     *
+     * @return $this
+     */
+    public function setHtmlOptionStringData(?string $htmlOptionStringData): AjaxResponse
+    {
+        $this->htmlOptionStringData = $htmlOptionStringData;
+
+        return $this;
+    }
+
+    /**
      * @return false|string
      */
     public function getJsonEncodedResult()
     {
+        if (is_array($this->getData()) && count($this->getData()) > 0) {
+            /** @var array $data */
+            foreach ($this->getData() as $data) {
+                if (is_array($data) && array_key_exists('id', $data) && array_key_exists('text', $data)) {
+                    $this->htmlOptionStringData .= sprintf('<option value="%s">%s</option>', (string) $data['id'], $data['text']);
+                }
+            }
+            $pos = strpos($this->getHtmlOptionStringData(), '<option value="');
+            if (false !== $pos) {
+                $this->htmlOptionStringData = substr_replace($this->htmlOptionStringData, '<option selected="selected" value="', $pos, 15);
+            }
+        }
         $result = array(
             'code' => $this->getCode(),
             'error' => $this->getError(),
             'data' => $this->getData(),
+            'htmlOptionStringData' => $this->getHtmlOptionStringData(),
         );
 
         return json_encode($result);

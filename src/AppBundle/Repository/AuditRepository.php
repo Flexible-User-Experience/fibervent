@@ -491,7 +491,8 @@ class AuditRepository extends EntityRepository
     {
         return $this->createQueryBuilder('a')
             ->select('a.id')
-            ->addSelect('a.tools')
+            ->addSelect('c.name AS text')
+            ->leftJoin('a.customer', 'c')
             ->where('a.customer = :cid')
             ->andWhere('a.enabled = :status')
             ->setParameter('cid', $cid)

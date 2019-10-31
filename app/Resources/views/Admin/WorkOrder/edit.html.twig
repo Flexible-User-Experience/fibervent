@@ -9,6 +9,7 @@
         jQuery(document).ready(function() {
             var customerNode = jQuery('#sonata-ba-field-container-{{ form.customer.vars.id }}');
             var auditNode = jQuery('#sonata-ba-field-container-{{ form.audit.vars.id }}');
+            var auditTrueSelectNode = jQuery('#{{ form.audit.vars.id }}');
             var isFromAuditNode = jQuery('#{{ form.isFromAudit.vars.id }}');
             // on Customer change
             customerNode.change(function(event) {
@@ -16,8 +17,12 @@
                 console.log('customerNode.change', customerId);
                 jQuery.get(Routing.generate('admin_app_customer_getAuditsFromCustomerId', {id: customerId}), function() {
                 }).done(function (response) {
-                    console.log('customerNode.response', jQuery.parseJSON(response));
-                    // updateNodesInfo(response);
+                    var jsonResonse = jQuery.parseJSON(response);
+                    console.log('customerNode.response', jsonResonse);
+                    auditTrueSelectNode.html(jsonResonse.htmlOptionStringData);
+                    if (jsonResonse.data.length > 0) {
+                        auditTrueSelectNode.val(jsonResonse.data[0].id).trigger('change.select2');
+                    }
                 });
             });
             $(isFromAuditNode).on('ifUnchecked', function() {
@@ -32,6 +37,7 @@
             } else {
                 auditNode.addClass('hidden');
             }
+            // TODO manage audit node on ready selected (edit view)
         });
     </script>
 {% endblock %}
