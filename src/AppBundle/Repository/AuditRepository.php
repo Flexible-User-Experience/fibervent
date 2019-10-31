@@ -131,8 +131,8 @@ class AuditRepository extends EntityRepository
     {
         $query = $this->createQueryBuilder('a')
             ->where('a.windfarm = :windfarm')
-            ->setParameter('windfarm', $windfarm)
             ->andWhere('YEAR(a.beginDate) = :year')
+            ->setParameter('windfarm', $windfarm)
             ->setParameter('year', $year)
             ->orderBy('a.beginDate', 'DESC')
         ;
@@ -487,14 +487,18 @@ class AuditRepository extends EntityRepository
      *
      * @return QueryBuilder
      */
-    public function getAuditsFromCustomerIdQB($cid)
+    public function getAuditsFromCustomerIdForAjaxSelectLoadQB($cid)
     {
         return $this->createQueryBuilder('a')
             ->select('a.id')
-            ->addSelect('c.name AS text')
+            ->addSelect('CONCAT(DATE_FORMAT(a.beginDate, :format), :separator, wf.name, :separator, wm.code) AS text')
             ->leftJoin('a.customer', 'c')
+            ->leftJoin('a.windfarm', 'wf')
+            ->leftJoin('a.windmill', 'wm')
             ->where('a.customer = :cid')
             ->andWhere('a.enabled = :status')
+            ->setParameter('format', '%d/%m/%Y')
+            ->setParameter('separator', ' · ')
             ->setParameter('cid', $cid)
             ->setParameter('status', true)
         ;
@@ -505,9 +509,9 @@ class AuditRepository extends EntityRepository
      *
      * @return Query
      */
-    public function getAuditsFromCustomerIdQ($cid)
+    public function getAuditsFromCustomerIdForAjaxSelectLoadQ($cid)
     {
-        return $this->getAuditsFromCustomerIdQB($cid)->getQuery();
+        return $this->getAuditsFromCustomerIdForAjaxSelectLoadQB($cid)->getQuery();
     }
 
     /**
@@ -515,9 +519,33 @@ class AuditRepository extends EntityRepository
      *
      * @return array
      */
-    public function getAuditsFromCustomerId($cid)
+    public function getAuditsFromCustomerIdForAjaxSelectLoad($cid)
     {
-        return $this->getAuditsFromCustomerIdQ($cid)->getResult(AbstractQuery::HYDRATE_ARRAY);
+        return $this->getAuditsFromCustomerIdForAjaxSelectLoadQ($cid)->getResult(AbstractQuery::HYDRATE_ARRAY);
+    }
+
+    /**
+     * @return QueryBuilder
+     */
+    public function buildEmptyListQB()
+    {
+        return $this->createQueryBuilder('a')->where('a.id < 0');
+    }
+
+    /**
+     * @return Query
+     */
+    public function buildEmptyListQ()
+    {
+        return $this->buildEmptyListQB()->getQuery();
+    }
+
+    /**
+     * @return array
+     */
+    public function buildEmptyList()
+    {
+        return $this->buildEmptyListQ()->getResult();
     }
 
     /**

@@ -76,6 +76,7 @@ doctrine:
         dql:
             datetime_functions:
                 year: DoctrineExtensions\Query\Mysql\Year
+                date_format: DoctrineExtensions\Query\Mysql\DateFormat
 
 # Stof Doctrine Extensions
 stof_doctrine_extensions:

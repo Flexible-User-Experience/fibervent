@@ -61,10 +61,16 @@ class WorkOrderAdmin extends AbstractBaseAdmin
                     'choices_as_values' => true,
                 )
             )
-            ->add('audit',
-                null,
+            ->add(
+                'audit',
+                ModelType::class,
                 array(
                     'label' => 'admin.audit.title',
+                    'required' => true,
+                    'multiple' => false,
+                    'btn_add' => false,
+                    'query' => $this->ar->buildEmptyListQ(),
+                    'choices_as_values' => true,
                 )
             )
             ->add('isFromAudit',

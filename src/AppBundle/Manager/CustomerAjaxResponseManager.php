@@ -41,7 +41,7 @@ class CustomerAjaxResponseManager
     public function getAuditsAjaxResponseFromCustomerId($cid)
     {
         $ajaxResponse = new AjaxResponse();
-        $ajaxResponse->setData($this->ar->getAuditsFromCustomerId($cid));
+        $ajaxResponse->setData($this->ar->getAuditsFromCustomerIdForAjaxSelectLoad($cid));
 
         return $ajaxResponse->getJsonEncodedResult();
     }

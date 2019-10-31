@@ -22,6 +22,9 @@
                     auditTrueSelectNode.html(jsonResonse.htmlOptionStringData);
                     if (jsonResonse.data.length > 0) {
                         auditTrueSelectNode.val(jsonResonse.data[0].id).trigger('change.select2');
+                    } else {
+                        auditTrueSelectNode.html('<option value="-1">---</option>');
+                        auditTrueSelectNode.val(-1).trigger('change.select2');
                     }
                 });
             });
