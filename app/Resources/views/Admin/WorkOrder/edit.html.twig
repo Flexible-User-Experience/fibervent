@@ -8,25 +8,14 @@
     <script type="text/javascript">
         jQuery(document).ready(function() {
             var customerNode = jQuery('#sonata-ba-field-container-{{ form.customer.vars.id }}');
+            var customerTrueSelectNode = jQuery('#{{ form.customer.vars.id }}');
             var auditNode = jQuery('#sonata-ba-field-container-{{ form.audit.vars.id }}');
             var auditTrueSelectNode = jQuery('#{{ form.audit.vars.id }}');
             var isFromAuditNode = jQuery('#{{ form.isFromAudit.vars.id }}');
             // on Customer change
             customerNode.change(function(event) {
                 var customerId = event.val;
-                console.log('customerNode.change', customerId);
-                jQuery.get(Routing.generate('admin_app_customer_getAuditsFromCustomerId', {id: customerId}), function() {
-                }).done(function (response) {
-                    var jsonResonse = jQuery.parseJSON(response);
-                    console.log('customerNode.response', jsonResonse);
-                    auditTrueSelectNode.html(jsonResonse.htmlOptionStringData);
-                    if (jsonResonse.data.length > 0) {
-                        auditTrueSelectNode.val(jsonResonse.data[0].id).trigger('change.select2');
-                    } else {
-                        auditTrueSelectNode.html('<option value="-1">---</option>');
-                        auditTrueSelectNode.val(-1).trigger('change.select2');
-                    }
-                });
+                updateAuditNodeByCustomer(customerId, auditTrueSelectNode);
             });
             $(isFromAuditNode).on('ifUnchecked', function() {
                 auditNode.addClass('hidden');
@@ -40,7 +29,23 @@
             } else {
                 auditNode.addClass('hidden');
             }
-            // TODO manage audit node on ready selected (edit view)
+            if (customerTrueSelectNode.val() > 0) {
+                updateAuditNodeByCustomer(customerTrueSelectNode.val(), auditTrueSelectNode);
+            }
         });
+        function updateAuditNodeByCustomer(customerId, auditTrueSelectNode) {
+            jQuery.get(Routing.generate('admin_app_customer_getAuditsFromCustomerId', {id: customerId}), function() {
+            }).done(function (response) {
+                var jsonResonse = jQuery.parseJSON(response);
+                auditTrueSelectNode.html(jsonResonse.htmlOptionStringData);
+                // TODO be careful in EDIT mode (previously Audit maybe selected when WorkOrder is from Audit)
+                if (jsonResonse.data.length > 0) {
+                    auditTrueSelectNode.val(jsonResonse.data[0].id).trigger('change.select2');
+                } else {
+                    auditTrueSelectNode.html('<option value="-1">---</option>');
+                    auditTrueSelectNode.val(-1).trigger('change.select2');
+                }
+            });
+        }
     </script>
 {% endblock %}

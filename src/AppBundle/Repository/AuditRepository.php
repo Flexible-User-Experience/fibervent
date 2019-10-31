@@ -496,11 +496,14 @@ class AuditRepository extends EntityRepository
             ->leftJoin('a.windfarm', 'wf')
             ->leftJoin('a.windmill', 'wm')
             ->where('a.customer = :cid')
-            ->andWhere('a.enabled = :status')
+            ->andWhere('(a.status = :done OR a.status = :invoiced)')
+            ->andWhere('a.enabled = :enabled')
             ->setParameter('format', '%d/%m/%Y')
             ->setParameter('separator', ' · ')
             ->setParameter('cid', $cid)
-            ->setParameter('status', true)
+            ->setParameter('done', AuditStatusEnum::DONE)
+            ->setParameter('invoiced', AuditStatusEnum::INVOICED)
+            ->setParameter('enabled', true)
         ;
     }
 
