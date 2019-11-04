@@ -2,6 +2,9 @@
 
 namespace AppBundle\Admin;
 
+use AppBundle\Entity\Audit;
+use AppBundle\Entity\Customer;
+use AppBundle\Entity\Windfarm;
 use AppBundle\Enum\RepairAccessTypeEnum;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -185,9 +188,11 @@ class WorkOrderAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'admin.windfarm.customer',
-                    'sortable' => true,
-                    'sort_field_mapping' => array('fieldName' => 'name'),
-                    'sort_parent_association_mappings' => array(array('fieldName' => 'customer')),
+                ),
+                'entity',
+                array(
+                    'class' => Customer::class,
+                    'query_builder' => $this->cr->findAllSortedByNameQB(),
                 )
             )
             ->add('isFromAudit',
@@ -200,12 +205,24 @@ class WorkOrderAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'admin.windfarm.title',
+                ),
+                'entity',
+                array(
+                    'class' => Windfarm::class,
+                    'query_builder' => $this->wfr->findAllSortedByNameQB(),
                 )
             )
             ->add('audit',
                 null,
                 array(
                     'label' => 'admin.audit.title',
+                ),
+                'entity',
+                array(
+                    'class' => Audit::class,
+                    'query_builder' => $this->ar->getAllAuditsJoinedSortedByBeginDateQB(),
+//                    'choices' => $this->ar->getAuditsFromCustomerIdForAjaxSelectLoadQB(1),
+                    'choice_label' => 'toStringWithoutJoins',
                 )
             )
             ->add('certifyingCompanyName',

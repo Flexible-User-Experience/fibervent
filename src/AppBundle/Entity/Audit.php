@@ -69,6 +69,7 @@ class Audit extends AbstractBase
      * @var Windmill
      *
      * @ORM\ManyToOne(targetEntity="Windmill", inversedBy="audits")
+     * @ORM\JoinColumn(name="windmill_id", referencedColumnName="id")
      */
     private $windmill;
 
@@ -441,6 +442,14 @@ class Audit extends AbstractBase
         $this->language = $language;
 
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function toStringWithoutJoins()
+    {
+        return $this->id ? $this->getBeginDate()->format('d/m/Y').' · '.$this->getWindfarm()->getCustomer()->getName().' · '.$this->getWindfarm()->getName().' · ' : '---';
     }
 
     /**

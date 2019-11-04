@@ -552,6 +552,19 @@ class AuditRepository extends EntityRepository
     }
 
     /**
+     * @return QueryBuilder
+     */
+    public function getAllAuditsJoinedSortedByBeginDateQB()
+    {
+        return $this->createQueryBuilder('a')
+//            ->leftJoin('a.customer', 'c')
+            ->join('a.windmill', 'windmill')
+//            ->leftJoin('wm.windfarm', 'wf')
+//            ->orderBy('a.beginDate', 'ASC')
+       ;
+    }
+
+    /**
      * Transform string date format from 'd-m-Y' to 'Y-m-d'.
      *
      * @param string $dateString
