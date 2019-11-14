@@ -218,6 +218,8 @@ AppBundle\Entity\Audit:
     tools: <sentence()>
     observations: <sentence()>
     windmill: @windmill<numberBetween(1, 50)>
+    windfarm: @windfarm<numberBetween(1, 20)>
+    customer: @customer<numberBetween(1, 10)>
 
 # AuditWindmillBlade
 AppBundle\Entity\AuditWindmillBlade:
