@@ -57,25 +57,7 @@ class WorkOrderTaskAdmin extends AbstractBaseAdmin
             ;
         }
         $formMapper
-            ->with('admin.common.general', $this->getFormMdSuccessBoxArray(7))
-            ->add('description',
-                null,
-                array(
-                    'label' => 'admin.workordertask.description',
-                )
-            )
-            ->add('isCompleted',
-                null,
-                array(
-                    'label' => 'admin.workordertask.is_completed',
-                )
-            )
-            ->add('isFromAudit',
-                null,
-                array(
-                    'label' => 'admin.workorder.is_from_audit',
-                )
-            )
+            ->with('admin.bladedamage.title', $this->getFormMdSuccessBoxArray(5))
             ->add('windmill',
                 ModelType::class,
                 array(
@@ -92,8 +74,6 @@ class WorkOrderTaskAdmin extends AbstractBaseAdmin
                     'required' => false,
                 )
             )
-            ->end()
-            ->with('admin.bladedamage.title', $this->getFormMdSuccessBoxArray(5))
             ->add(
                 'bladeDamage',
                 ModelType::class,
@@ -131,6 +111,26 @@ class WorkOrderTaskAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'admin.bladedamage.size',
+                )
+            )
+            ->end()
+            ->with('admin.common.general', $this->getFormMdSuccessBoxArray(7))
+            ->add('description',
+                null,
+                array(
+                    'label' => 'admin.workordertask.description',
+                )
+            )
+            ->add('isCompleted',
+                null,
+                array(
+                    'label' => 'admin.workordertask.is_completed',
+                )
+            )
+            ->add('isFromAudit',
+                null,
+                array(
+                    'label' => 'admin.workorder.is_from_audit',
                 )
             )
             ->end()
