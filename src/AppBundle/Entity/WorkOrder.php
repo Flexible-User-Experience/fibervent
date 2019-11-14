@@ -6,7 +6,6 @@ use AppBundle\Enum\RepairAccessTypeEnum;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * WorkOrder.
@@ -17,7 +16,6 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="AppBundle\Repository\WorkOrderRepository")
- * @UniqueEntity("projectNumber")
  * @Gedmo\SoftDeleteable(fieldName="removedAt", timeAware=false)
  */
 class WorkOrder extends AbstractBase
@@ -25,7 +23,7 @@ class WorkOrder extends AbstractBase
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=45, unique=true)
+     * @ORM\Column(type="string", length=45, nullable=true)
      */
     private $projectNumber;
 
@@ -118,7 +116,7 @@ class WorkOrder extends AbstractBase
      */
     public function getProjectNumber()
     {
-        return $this->projectNumber;
+        return $this->getId();
     }
 
     /**
@@ -413,6 +411,6 @@ class WorkOrder extends AbstractBase
      */
     public function __toString()
     {
-        return $this->getProjectNumber() ? $this->getProjectNumber() : '';
+        return $this->getProjectNumber() ? (string) $this->getProjectNumber() : '';
     }
 }
