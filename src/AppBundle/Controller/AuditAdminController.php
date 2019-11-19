@@ -165,6 +165,14 @@ class AuditAdminController extends AbstractBaseAdminController
         if (!$this->get('app.auth_customer')->isAuditOwnResource($object)) {
             throw new AccessDeniedHttpException();
         }
+
+        return $this->render(
+            ':Admin/Audit:create_work_order.html.twig',
+            array(
+                'action' => 'show',
+                'object' => $object,
+            )
+        );
     }
 
     /**
