@@ -50,7 +50,8 @@ class AuditAdmin extends AbstractBaseAdmin
         $collection
             ->remove('batch')
             ->add('pdf', $this->getRouterIdParameter().'/pdf')
-            ->add('email', $this->getRouterIdParameter().'/email');
+            ->add('email', $this->getRouterIdParameter().'/email')
+            ->add('createWorkOrder', $this->getRouterIdParameter().'/createWorkOrder');
     }
 
     /**
@@ -454,6 +455,7 @@ class AuditAdmin extends AbstractBaseAdmin
                         'show' => array('template' => '::Admin/Buttons/list__action_show_button.html.twig'),
                         'pdf' => array('template' => '::Admin/Buttons/list__action_pdf_button.html.twig'),
                         'email' => array('template' => '::Admin/Buttons/list__action_email_button.html.twig'),
+                        'createWorkOrder' => array('template' => '::Admin/Buttons/list__action_create_work_order_button.html.twig'),
                         'delete' => array('template' => '::Admin/Buttons/list__action_delete_button.html.twig'),
                     ),
                 )

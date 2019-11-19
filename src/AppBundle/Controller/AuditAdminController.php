@@ -141,6 +141,33 @@ class AuditAdminController extends AbstractBaseAdminController
     }
 
     /**
+     * Custom show action redirect to public frontend view.
+     *
+     * @param null $id
+     *
+     * @return Response
+     *
+     * @throws NotFoundHttpException     If the object does not exist
+     * @throws AccessDeniedHttpException If access is not granted
+     */
+    public function createWorkOrderAction($id = null)
+    {
+        $request = $this->resolveRequest();
+        $id = $request->get($this->admin->getIdParameter());
+
+        /** @var Audit $object */
+        $object = $this->admin->getObject($id);
+        if (!$object) {
+            throw $this->createNotFoundException(sprintf('Unable to find audit record with id: %s', $id));
+        }
+
+        // Customer filter
+        if (!$this->get('app.auth_customer')->isAuditOwnResource($object)) {
+            throw new AccessDeniedHttpException();
+        }
+    }
+
+    /**
      * @param Audit $audit
      *
      * @return string

@@ -1,0 +1,3 @@
+{% if admin.hasRoute('createWorkOrder') %}
+    <a href="{{ admin.generateObjectUrl('createWorkOrder', object) }}" class="btn btn-sm btn-default edit_link" title="Crear proyecto"><i class="fa fa-list-alt"></i></a>
+{% endif %}
