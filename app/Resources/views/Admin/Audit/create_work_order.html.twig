@@ -107,8 +107,8 @@
                                         <tr class="sonata-ba-view-container">
                                             <th>{{ 'admin.bladedamage.number' | trans }}</th>
                                             <th>{{ 'admin.bladedamage.damagecategory_long' | trans }}</th>
-                                            <th>{{ 'admin.damagecategory.recomended_action' | trans }}</th>
                                             <th>{{ 'admin.bladedamage.damage' | trans }}</th>
+                                            <th>{{ 'admin.damage.title_list' | trans }}</th>
                                             <th>{{ 'admin.bladedamage.position' | trans }}</th>
                                             <th>{{ 'admin.bladedamage.radius' | trans }}</th>
                                             <th>{{ 'admin.bladedamage.distance' | trans }}</th>
@@ -121,13 +121,16 @@
                                             <tr class="sonata-ba-view-container">
                                                 <td>{{ bladeDamage.id }}</td>
                                                 <td>{{ bladeDamage.damageCategory.category }}</td>
-                                                <td>{{ bladeDamage.damageCategory.description }}</td>
                                                 <td>{{ bladeDamage.damage.code }}</td>
+                                                <td>{{ bladeDamage.damage.description }}</td>
                                                 <td>{{ bladeDamage.position }}</td>
                                                 <td>{{ bladeDamage.radius }}</td>
                                                 <td>{{ bladeDamage.distance }}</td>
                                                 <td>{{ bladeDamage.edge }}</td>
                                                 <td>{{ bladeDamage.size }}</td>
+                                                <th class="sonata-ba-list-field-header sonata-ba-list-field-header-batch">
+                                                    <input type="checkbox" id="list_batch_checkbox">
+                                                </th>
                                             </tr>
                                         {% endfor %}
                                         </tbody>
