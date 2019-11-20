@@ -48,10 +48,28 @@ class AuditAdmin extends AbstractBaseAdmin
     protected function configureRoutes(RouteCollection $collection)
     {
         $collection
-            ->remove('batch')
+//            ->remove('batch')
             ->add('pdf', $this->getRouterIdParameter().'/pdf')
             ->add('email', $this->getRouterIdParameter().'/email')
             ->add('createWorkOrder', $this->getRouterIdParameter().'/createWorkOrder');
+    }
+
+    /**
+     * @param array $actions
+     *
+     * @return array
+     */
+    public function configureBatchActions($actions)
+    {
+        if ($this->hasRoute('edit') && $this->hasAccess('edit')) {
+            $actions['createWorkorder'] = array(
+                'label' => 'backend.admin.receipt_reminder.batch_action',
+                'translation_domain' => 'messages',
+                'ask_confirmation' => false,
+            );
+        }
+
+        return $actions;
     }
 
     /**

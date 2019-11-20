@@ -215,6 +215,7 @@ admin:
       subject_placeholder: Resultado inspección Fibervent
       message: Mensaje
       send: Enviar email
+    create_workoder: Crear proyecto
   auditwindmillblade:
     title: Auditoría Pala Aerogenerador
     title_list: Auditoría Pala Aerogenerador
