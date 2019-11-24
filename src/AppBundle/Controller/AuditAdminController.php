@@ -7,6 +7,7 @@ use AppBundle\Entity\User;
 use AppBundle\Form\Type\AuditEmailSendFormType;
 use AppBundle\Manager\WorkOrderManager;
 use AppBundle\Service\AuditPdfBuilderService;
+use Doctrine\ORM\EntityManager;
 use Sonata\AdminBundle\Datagrid\ProxyQueryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -185,6 +186,7 @@ class AuditAdminController extends AbstractBaseAdminController
     public function batchActioncreateWorkorder(ProxyQueryInterface $selectedModelQuery)
     {
         $this->admin->checkAccess('edit');
+        /** @var EntityManager $em */
         $em = $this->container->get('doctrine')->getManager();
         $selectedModels = $selectedModelQuery->execute();
         try {
@@ -193,6 +195,8 @@ class AuditAdminController extends AbstractBaseAdminController
             $workOrderManager = $this->container->get('app.manager_work_order');
             if ($workOrderManager->checkIfAllAuditsBelongToOneWindfarm($selectedModels)) {
                 $workOrder = $workOrderManager->createWorkOrderFromAudits($selectedModels);
+                $em->persist($workOrder);
+                $em->flush();
             } else {
                 $this->addFlash('error', 'Error al generar el proyecto. Las auditorias no pertenecen a un mismo parque eólico.');
 
@@ -204,10 +208,9 @@ class AuditAdminController extends AbstractBaseAdminController
             }
 
             return new RedirectResponse(
-                $this->admin->generateUrl('list', [
-                    'filter' => $this->admin->getFilterParameters(),
-                ])
+                '/admin/workorders/workorder/{'.$workOrder->getId().'}/edit'
             );
+
         } catch (\Exception $e) {
             $this->addFlash('error', 'Error al generar el proyecto.');
             $this->addFlash('error', $e->getMessage());
