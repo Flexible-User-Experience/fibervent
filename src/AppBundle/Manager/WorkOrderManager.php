@@ -33,9 +33,15 @@ class WorkOrderManager
      */
     public function checkIfAllAuditsBelongToOneWindfarm($audits)
     {
-        //TODO make method
+        $check = true;
+        $windfarm = $audits[0]->getWindfarm();
+        foreach ($audits as $audit) {
+            if ($audit->getWindfarm() != $windfarm) {
+                $check = false;
+            }
+        }
 
-        return true;
+        return $check;
     }
 
     /**
