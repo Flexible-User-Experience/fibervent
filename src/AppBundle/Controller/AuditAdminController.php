@@ -191,8 +191,17 @@ class AuditAdminController extends AbstractBaseAdminController
             $this->addFlash('success', 'S\'han escollit '.count($selectedModels).' models');
             /** @var WorkOrderManager $workOrderManager */
             $workOrderManager = $this->container->get('app.manager_work_order');
-            $workOrder = $workOrderManager->createWorkOrderFromAudits($selectedModels);
+            if ($workOrderManager->checkIfAllAuditsBelongToOneWindfarm($selectedModels)) {
+                $workOrder = $workOrderManager->createWorkOrderFromAudits($selectedModels);
+            } else {
+                $this->addFlash('error', 'Error al generar el proyecto. Las auditorias no pertenecen a un mismo parque eólico.');
 
+                return new RedirectResponse(
+                    $this->admin->generateUrl('list', [
+                        'filter' => $this->admin->getFilterParameters(),
+                    ])
+                );
+            }
 
             return new RedirectResponse(
                 $this->admin->generateUrl('list', [
