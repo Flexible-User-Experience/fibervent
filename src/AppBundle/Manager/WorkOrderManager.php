@@ -1,31 +1,29 @@
 <?php
 
-
 namespace AppBundle\Manager;
-
 
 use AppBundle\Entity\Audit;
 use AppBundle\Entity\AuditWindmillBlade;
 use AppBundle\Entity\BladeDamage;
 use AppBundle\Entity\WorkOrder;
 use AppBundle\Entity\WorkOrderTask;
-use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\EntityManager;
 
 class WorkOrderManager
 {
     /**
-     * @var EntityManagerInterface
+     * @var EntityManager
      */
     private $em;
 
     /**
      * ObservationManager constructor.
      *
-     * @param EntityManagerInterface $em
+     * @param EntityManager $entityManager
      */
-    public function __construct($em)
+    public function __construct(EntityManager $entityManager)
     {
-        $this->em = $em;
+        $this->em = $entityManager;
     }
 
     /**
@@ -39,6 +37,7 @@ class WorkOrderManager
 
         return true;
     }
+
     /**
      * @param $audits Audit[]
      *
@@ -50,15 +49,16 @@ class WorkOrderManager
         $workOrder->setCustomer($audits[0]->getCustomer());
         $workOrder->setIsFromAudit(true);
         $workOrder->setWindfarm($audits[0]->getWindfarm());
+        $this->em->persist($workOrder);
         /** @var Audit $audit */
         foreach ($audits as $audit) {
             $auditWindmillBlades = $audit->getAuditWindmillBlades();
             //TODO set each audit as realted entity in $workOrder after making relation ManyToMany
-            if ($auditWindmillBlades->count()>0) {
+            if ($auditWindmillBlades->count() > 0) {
                 /** @var AuditWindmillBlade $auditWindmillBlade */
                 foreach ($auditWindmillBlades as $auditWindmillBlade) {
                     $bladeDamages = $auditWindmillBlade->getBladeDamages();
-                    if ($bladeDamages->count()>0) {
+                    if ($bladeDamages->count() > 0) {
                         /** @var BladeDamage $bladeDamage */
                         foreach ($bladeDamages as $bladeDamage) {
                             $workOrderTask = new WorkOrderTask();
@@ -73,6 +73,8 @@ class WorkOrderManager
                             $workOrderTask->setDistance($bladeDamage->getDistance());
                             $workOrderTask->setSize($bladeDamage->getSize());
                             $workOrderTask->setEdge($bladeDamage->getEdge());
+                            $workOrderTask->setIsCompleted(false);
+                            $this->em->persist($workOrderTask);
                         }
                     }
                 }

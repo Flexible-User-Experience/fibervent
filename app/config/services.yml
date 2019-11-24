@@ -109,7 +109,7 @@ services:
     app.manager_work_order:
         class: AppBundle\Manager\WorkOrderManager
         arguments:
-            - "doctrine.orm.default_entity_manager"
+            - "@doctrine.orm.entity_manager"
 
 # Twig
     app.twig_extension:

@@ -195,7 +195,6 @@ class AuditAdminController extends AbstractBaseAdminController
             $workOrderManager = $this->container->get('app.manager_work_order');
             if ($workOrderManager->checkIfAllAuditsBelongToOneWindfarm($selectedModels)) {
                 $workOrder = $workOrderManager->createWorkOrderFromAudits($selectedModels);
-                $em->persist($workOrder);
                 $em->flush();
             } else {
                 $this->addFlash('error', 'Error al generar el proyecto. Las auditorias no pertenecen a un mismo parque eólico.');
@@ -208,9 +207,8 @@ class AuditAdminController extends AbstractBaseAdminController
             }
 
             return new RedirectResponse(
-                '/admin/workorders/workorder/{'.$workOrder->getId().'}/edit'
+                '/admin/workorders/workorder/'.$workOrder->getId().'/edit'
             );
-
         } catch (\Exception $e) {
             $this->addFlash('error', 'Error al generar el proyecto.');
             $this->addFlash('error', $e->getMessage());
