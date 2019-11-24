@@ -106,6 +106,10 @@ services:
         class: AppBundle\Manager\CustomerAjaxResponseManager
         arguments:
             - "@app.audit_repository"
+    app.manager_work_order:
+        class: AppBundle\Manager\WorkOrderManager
+        arguments:
+            - "doctrine.orm.default_entity_manager"
 
 # Twig
     app.twig_extension:

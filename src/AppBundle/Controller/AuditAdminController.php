@@ -5,7 +5,9 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Audit;
 use AppBundle\Entity\User;
 use AppBundle\Form\Type\AuditEmailSendFormType;
+use AppBundle\Manager\WorkOrderManager;
 use AppBundle\Service\AuditPdfBuilderService;
+use Sonata\AdminBundle\Datagrid\ProxyQueryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -173,6 +175,40 @@ class AuditAdminController extends AbstractBaseAdminController
                 'object' => $object,
             )
         );
+    }
+
+    /**
+     * @param ProxyQueryInterface $selectedModelQuery
+     *
+     * @return Response|RedirectResponse
+     */
+    public function batchActioncreateWorkorder(ProxyQueryInterface $selectedModelQuery)
+    {
+        $this->admin->checkAccess('edit');
+        $em = $this->container->get('doctrine')->getManager();
+        $selectedModels = $selectedModelQuery->execute();
+        try {
+            $this->addFlash('success', 'S\'han escollit '.count($selectedModels).' models');
+            /** @var WorkOrderManager $workOrderManager */
+            $workOrderManager = $this->container->get('app.manager_work_order');
+            $workOrder = $workOrderManager->createWorkOrderFromAudits($selectedModels);
+
+
+            return new RedirectResponse(
+                $this->admin->generateUrl('list', [
+                    'filter' => $this->admin->getFilterParameters(),
+                ])
+            );
+        } catch (\Exception $e) {
+            $this->addFlash('error', 'Error al generar el proyecto.');
+            $this->addFlash('error', $e->getMessage());
+
+            return new RedirectResponse(
+                $this->admin->generateUrl('list', [
+                    'filter' => $this->admin->getFilterParameters(),
+                ])
+            );
+        }
     }
 
     /**
