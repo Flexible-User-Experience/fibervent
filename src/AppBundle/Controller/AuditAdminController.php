@@ -7,13 +7,13 @@ use AppBundle\Entity\User;
 use AppBundle\Form\Type\AuditEmailSendFormType;
 use AppBundle\Manager\WorkOrderManager;
 use AppBundle\Service\AuditPdfBuilderService;
-use Doctrine\ORM\EntityManager;
 use Sonata\AdminBundle\Datagrid\ProxyQueryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Routing\Router;
 
 /**
  * Class AuditAdminController.
@@ -186,8 +186,6 @@ class AuditAdminController extends AbstractBaseAdminController
     public function batchActioncreateWorkorder(ProxyQueryInterface $selectedModelQuery)
     {
         $this->admin->checkAccess('edit');
-        /** @var EntityManager $em */
-        $em = $this->container->get('doctrine')->getManager();
         $selectedModels = $selectedModelQuery->execute();
         try {
             $this->addFlash('success', 'S\'han escollit '.count($selectedModels).' models');
@@ -195,7 +193,6 @@ class AuditAdminController extends AbstractBaseAdminController
             $workOrderManager = $this->container->get('app.manager_work_order');
             if ($workOrderManager->checkIfAllAuditsBelongToOneWindfarm($selectedModels)) {
                 $workOrder = $workOrderManager->createWorkOrderFromAudits($selectedModels);
-                $em->flush();
             } else {
                 $this->addFlash('error', 'Error al generar el proyecto. Las auditorias no pertenecen a un mismo parque eólico.');
 
@@ -205,9 +202,11 @@ class AuditAdminController extends AbstractBaseAdminController
                     ])
                 );
             }
+            /** @var Router $routing */
+            $routing = $this->container->get('routing');
 
             return new RedirectResponse(
-                '/admin/workorders/workorder/'.$workOrder->getId().'/edit'
+                $routing->generate('admin_app_workorder_edit', ['id' => $workOrder->getId()])
             );
         } catch (\Exception $e) {
             $this->addFlash('error', 'Error al generar el proyecto.');

@@ -87,6 +87,7 @@ class WorkOrderManager
             }
         }
         $this->em->persist($workOrder);
+        $this->em->flush();
 
         return $workOrder;
     }
