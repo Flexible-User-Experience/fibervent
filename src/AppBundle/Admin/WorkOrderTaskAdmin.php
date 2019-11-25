@@ -5,6 +5,7 @@ namespace AppBundle\Admin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Form\Type\ModelAutocompleteType;
 use Sonata\AdminBundle\Form\Type\ModelType;
 
 /**
@@ -59,11 +60,12 @@ class WorkOrderTaskAdmin extends AbstractBaseAdmin
         $formMapper
             ->with('admin.bladedamage.title', $this->getFormMdSuccessBoxArray(5))
             ->add('windmill',
-                ModelType::class,
+                ModelAutocompleteType::class,
                 array(
                     'label' => 'admin.windmill.title',
                     'btn_add' => false,
                     'required' => false,
+                    'property' => 'code',
                 )
             )
             ->add('windmillBlade',
@@ -76,13 +78,15 @@ class WorkOrderTaskAdmin extends AbstractBaseAdmin
             )
             ->add(
                 'bladeDamage',
-                ModelType::class,
+                ModelAutocompleteType::class,
                 array(
                     'label' => 'admin.bladedamage.title',
-                    'btn_add' => false,
-                    'required' => true,
-                    // 'query' => $this->bdr->findAll(),
-                    'choices_as_values' => true,
+                    'read_only' => true,
+                    'disabled' => true,
+//                    'btn_add' => false,
+//                    'required' => true,
+//                    // 'query' => $this->bdr->findAll(),
+                    'property' => 'damage.code',
                 )
             )
             ->add(

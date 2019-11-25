@@ -75,14 +75,14 @@ class WorkOrderAdmin extends AbstractBaseAdmin
                     )
                 )
                 ->add(
-                    'audit',
+                    'audits',
                     ModelType::class,
                     array(
                         'label' => 'admin.audit.title',
                         'required' => true,
-                        'multiple' => false,
+                        'multiple' => true,
                         'btn_add' => false,
-                        'query' => $this->ar->buildEmptyListQ(),
+//                        'query' => $this->ar->buildEmptyListQ(),
                         'choices_as_values' => true,
                     )
                 )
@@ -284,7 +284,7 @@ class WorkOrderAdmin extends AbstractBaseAdmin
                     'query_builder' => $this->wfr->findAllSortedByNameQB(),
                 )
             )
-            ->add('audit',
+            ->add('audits',
                 null,
                 array(
                     'label' => 'admin.audit.title',
@@ -293,7 +293,6 @@ class WorkOrderAdmin extends AbstractBaseAdmin
                 array(
                     'class' => Audit::class,
                     'query_builder' => $this->ar->getAllAuditsJoinedSortedByBeginDateQB(),
-//                    'choices' => $this->ar->getAuditsFromCustomerIdForAjaxSelectLoadQB(1),
                     'choice_label' => 'toStringWithoutJoins',
                 )
             )
@@ -368,13 +367,13 @@ class WorkOrderAdmin extends AbstractBaseAdmin
                     'sort_parent_association_mappings' => array(array('fieldName' => 'windfarm')),
                 )
             )
-            ->add('audit',
+            ->add('audits',
                 null,
                 array(
                     'label' => 'admin.audit.title',
                     'sortable' => true,
                     'sort_field_mapping' => array('fieldName' => 'name'),
-                    'sort_parent_association_mappings' => array(array('fieldName' => 'audit')),
+                    'sort_parent_association_mappings' => array(array('fieldName' => 'audits')),
                 )
             )
             ->add('certifyingCompanyName',
@@ -448,7 +447,7 @@ class WorkOrderAdmin extends AbstractBaseAdmin
                     'label' => 'admin.workorder.is_from_audit',
                 )
             )
-            ->add('audit',
+            ->add('audits',
                 null,
                 array(
                     'label' => 'admin.audit.title',

@@ -234,7 +234,15 @@ class BladeDamageAdmin extends AbstractBaseAdmin
                     'label' => 'admin.common.enabled',
                     'editable' => true,
                 )
-            );
+            )
+            ->add(
+                'damage.code',
+                null,
+                array(
+                    'label' => 'admin.audit.status',
+                )
+            )
+        ;
     }
 
     /**
