@@ -51,12 +51,11 @@ class WorkOrder extends AbstractBase
     private $windfarm;
 
     /**
-     * @var Audit
+     * @var Audit[]|ArrayCollection
      *
-     * @ORM\ManyToOne(targetEntity="Audit")
-     * @ORM\JoinColumn(name="audit_id", referencedColumnName="id", nullable=true)
+     * @ORM\OneToMany(targetEntity="Audit", mappedBy="workOrder")
      */
-    private $audit;
+    private $audits;
 
     /**
      * @var string
@@ -187,26 +186,6 @@ class WorkOrder extends AbstractBase
     public function setWindfarm(Windfarm $windfarm): WorkOrder
     {
         $this->windfarm = $windfarm;
-
-        return $this;
-    }
-
-    /**
-     * @return Audit
-     */
-    public function getAudit()
-    {
-        return $this->audit;
-    }
-
-    /**
-     * @param Audit $audit
-     *
-     * @return WorkOrder
-     */
-    public function setAudit(Audit $audit): WorkOrder
-    {
-        $this->audit = $audit;
 
         return $this;
     }
@@ -402,6 +381,26 @@ class WorkOrder extends AbstractBase
     public function setDeliveryNotes($deliveryNotes)
     {
         $this->deliveryNotes = $deliveryNotes;
+
+        return $this;
+    }
+
+    /**
+     * @return Audit[]|ArrayCollection
+     */
+    public function getAudits()
+    {
+        return $this->audits;
+    }
+
+    /**
+     * @param Audit[]|ArrayCollection $audits
+     *
+     * @return WorkOrder
+     */
+    public function setAudits($audits)
+    {
+        $this->audits = $audits;
 
         return $this;
     }
