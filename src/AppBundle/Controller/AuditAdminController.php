@@ -203,7 +203,7 @@ class AuditAdminController extends AbstractBaseAdminController
                 );
             }
             /** @var Router $routing */
-            $routing = $this->container->get('routing');
+            $routing = $this->container->get('router');
 
             return new RedirectResponse(
                 $routing->generate('admin_app_workorder_edit', ['id' => $workOrder->getId()])
