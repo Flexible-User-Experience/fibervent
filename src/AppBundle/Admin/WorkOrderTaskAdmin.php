@@ -57,67 +57,141 @@ class WorkOrderTaskAdmin extends AbstractBaseAdmin
                 ->end()
             ;
         }
+        if ($this->getSubject()->isFromAudit()) {
+            $formMapper
+                ->with('admin.bladedamage.title', $this->getFormMdSuccessBoxArray(5))
+                    ->add('windmill',
+                        ModelAutocompleteType::class,
+                        array(
+                            'label' => 'admin.windmill.title',
+                            'btn_add' => false,
+                            'required' => false,
+                            'property' => 'code',
+                            'read_only' => true,
+                        )
+                    )
+                    ->add('windmillBlade',
+                        ModelAutocompleteType::class,
+                        array(
+                            'label' => 'admin.windmillblade.title',
+                            'btn_add' => false,
+                            'required' => false,
+                            'property' => 'code',
+                            'read_only' => true,
+                        )
+                    )
+                    ->add(
+                        'bladeDamage',
+                        ModelAutocompleteType::class,
+                        array(
+                            'label' => 'admin.bladedamage.title',
+                            'read_only' => true,
+                            'disabled' => true,
+    //                    'btn_add' => false,
+    //                    'required' => true,
+    //                    // 'query' => $this->bdr->findAll(),
+                            'property' => 'damage.code',
+                        )
+                    )
+                    ->add(
+                        'position',
+                        null,
+                        array(
+                            'label' => 'admin.bladedamage.position',
+                            'read_only' => true,
+                        )
+                    )
+                    ->add(
+                        'radius',
+                        null,
+                        array(
+                            'label' => 'admin.bladedamage.radius',
+                            'read_only' => true,
+                        )
+                    )
+                    ->add(
+                        'distance',
+                        null,
+                        array(
+                            'label' => 'admin.bladedamage.distance',
+                            'read_only' => true,
+                        )
+                    )
+                    ->add(
+                        'size',
+                        null,
+                        array(
+                            'label' => 'admin.bladedamage.size',
+                            'read_only' => true,
+                        )
+                    )
+                    ->end()
+                ;
+        } else {
+            $formMapper
+                ->with('admin.bladedamage.title', $this->getFormMdSuccessBoxArray(5))
+                ->add('windmill',
+                    ModelAutocompleteType::class,
+                    array(
+                        'label' => 'admin.windmill.title',
+                        'btn_add' => false,
+                        'required' => false,
+                        'property' => 'code',
+                    )
+                )
+                ->add('windmillBlade',
+                    ModelType::class,
+                    array(
+                        'label' => 'admin.windmillblade.title',
+                        'btn_add' => false,
+                        'required' => false,
+                    )
+                )
+                ->add(
+                    'bladeDamage',
+                    ModelAutocompleteType::class,
+                    array(
+                        'label' => 'admin.bladedamage.title',
+                        'read_only' => true,
+                        'disabled' => true,
+                        //                    'btn_add' => false,
+                        //                    'required' => true,
+                        //                    // 'query' => $this->bdr->findAll(),
+                        'property' => 'damage.code',
+                    )
+                )
+                ->add(
+                    'position',
+                    null,
+                    array(
+                        'label' => 'admin.bladedamage.position',
+                    )
+                )
+                ->add(
+                    'radius',
+                    null,
+                    array(
+                        'label' => 'admin.bladedamage.radius',
+                    )
+                )
+                ->add(
+                    'distance',
+                    null,
+                    array(
+                        'label' => 'admin.bladedamage.distance',
+                    )
+                )
+                ->add(
+                    'size',
+                    null,
+                    array(
+                        'label' => 'admin.bladedamage.size',
+                    )
+                )
+                ->end()
+            ;
+        }
         $formMapper
-            ->with('admin.bladedamage.title', $this->getFormMdSuccessBoxArray(5))
-            ->add('windmill',
-                ModelAutocompleteType::class,
-                array(
-                    'label' => 'admin.windmill.title',
-                    'btn_add' => false,
-                    'required' => false,
-                    'property' => 'code',
-                )
-            )
-            ->add('windmillBlade',
-                ModelType::class,
-                array(
-                    'label' => 'admin.windmillblade.title',
-                    'btn_add' => false,
-                    'required' => false,
-                )
-            )
-            ->add(
-                'bladeDamage',
-                ModelAutocompleteType::class,
-                array(
-                    'label' => 'admin.bladedamage.title',
-                    'read_only' => true,
-                    'disabled' => true,
-//                    'btn_add' => false,
-//                    'required' => true,
-//                    // 'query' => $this->bdr->findAll(),
-                    'property' => 'damage.code',
-                )
-            )
-            ->add(
-                'position',
-                null,
-                array(
-                    'label' => 'admin.bladedamage.position',
-                )
-            )
-            ->add(
-                'radius',
-                null,
-                array(
-                    'label' => 'admin.bladedamage.radius',
-                )
-            )
-            ->add(
-                'distance',
-                null,
-                array(
-                    'label' => 'admin.bladedamage.distance',
-                )
-            )
-            ->add(
-                'size',
-                null,
-                array(
-                    'label' => 'admin.bladedamage.size',
-                )
-            )
-            ->end()
             ->with('admin.common.general', $this->getFormMdSuccessBoxArray(7))
             ->add('description',
                 null,
@@ -135,6 +209,8 @@ class WorkOrderTaskAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'admin.workorder.is_from_audit',
+                    'read_only' => true,
+                    'disabled' => true,
                 )
             )
             ->end()
