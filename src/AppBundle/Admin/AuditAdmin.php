@@ -456,6 +456,13 @@ class AuditAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
+                'workOrder',
+                null,
+                array(
+                    'label' => 'admin.workorder.title',
+                )
+            )
+            ->add(
                 'status',
                 null,
                 array(
