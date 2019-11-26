@@ -59,7 +59,6 @@ class WorkOrderManager
         /** @var Audit $audit */
         foreach ($audits as $audit) {
             $auditWindmillBlades = $audit->getAuditWindmillBlades();
-            //TODO set each audit as realted entity in $workOrder after making relation ManyToMany
             $workOrder->addAudit($audit);
             if (!$audit->isHasWorkOrder()) {
                 $audit->setHasWorkOrder(true);

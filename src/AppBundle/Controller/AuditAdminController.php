@@ -188,7 +188,6 @@ class AuditAdminController extends AbstractBaseAdminController
         $this->admin->checkAccess('edit');
         $selectedModels = $selectedModelQuery->execute();
         try {
-            $this->addFlash('success', 'S\'han escollit '.count($selectedModels).' models');
             /** @var WorkOrderManager $workOrderManager */
             $workOrderManager = $this->container->get('app.manager_work_order');
             if ($workOrderManager->checkIfAllAuditsBelongToOneWindfarm($selectedModels)) {
