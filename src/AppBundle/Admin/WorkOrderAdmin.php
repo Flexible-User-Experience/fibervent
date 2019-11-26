@@ -62,11 +62,6 @@ class WorkOrderAdmin extends AbstractBaseAdmin
                     array(
                         'label' => 'admin.windfarm.customer',
                         'read_only' => true,
-//                        'required' => true,
-//                        'multiple' => false,
-//                        'btn_add' => false,
-//                        'query' => $this->cr->findEnabledSortedByNameQ(),
-//                        'choices_as_values' => true,
                     )
                 )
                 ->add('isFromAudit',
@@ -74,20 +69,7 @@ class WorkOrderAdmin extends AbstractBaseAdmin
                     array(
                         'label' => 'admin.workorder.is_from_audit',
                         'read_only' => true,
-                    )
-                )
-                ->add(
-                    'audits',
-                    ModelAutocompleteType::class,
-                    array(
-                        'label' => 'admin.audit.title',
-                        'read_only' => 'true',
-                        'required' => true,
-                        'multiple' => true,
-                        'btn_add' => false,
-//                        'query' => $this->ar->buildEmptyListQ(),
-//                        'choices_as_values' => true,
-                        'property' => 'string',
+                        'disabled' => true,
                     )
                 )
                 ->end()
@@ -178,6 +160,24 @@ class WorkOrderAdmin extends AbstractBaseAdmin
                 )
                 ->end()
             ;
+            if ($this->getSubject()->isFromAudit()) {
+                $formMapper
+                    ->with('admin.common.general', $this->getFormMdSuccessBoxArray(4))
+                    ->add(
+                        'audits',
+                        ModelAutocompleteType::class,
+                        array(
+                            'label' => 'admin.audit.title',
+                            'read_only' => 'true',
+                            'required' => true,
+                            'multiple' => true,
+                            'btn_add' => false,
+                            'property' => 'string',
+                        )
+                    )
+                    ->end()
+                    ;
+            }
         } else { // is in create mode
             $formMapper
                 ->with('admin.common.general', $this->getFormMdSuccessBoxArray(4))
