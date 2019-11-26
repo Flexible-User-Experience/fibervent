@@ -401,7 +401,6 @@ class WorkOrder extends AbstractBase
     public function addAudit(Audit $audit)
     {
         $audit->setWorkOrder($this);
-        $this->audits->add($audit);
 
         return $this;
     }

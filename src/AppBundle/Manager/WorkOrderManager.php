@@ -60,6 +60,7 @@ class WorkOrderManager
         foreach ($audits as $audit) {
             $auditWindmillBlades = $audit->getAuditWindmillBlades();
             //TODO set each audit as realted entity in $workOrder after making relation ManyToMany
+            $workOrder->addAudit($audit);
             if ($auditWindmillBlades->count() > 0) {
                 /** @var AuditWindmillBlade $auditWindmillBlade */
                 foreach ($auditWindmillBlades as $auditWindmillBlade) {
