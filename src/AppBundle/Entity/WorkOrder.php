@@ -394,6 +394,19 @@ class WorkOrder extends AbstractBase
     }
 
     /**
+     * @param Audit $audit
+     *
+     * @return $this
+     */
+    public function addAudit(Audit $audit)
+    {
+        $audit->setWorkOrder($this);
+        $this->audits->add($audit);
+
+        return $this;
+    }
+
+    /**
      * @param Audit[]|ArrayCollection $audits
      *
      * @return WorkOrder
