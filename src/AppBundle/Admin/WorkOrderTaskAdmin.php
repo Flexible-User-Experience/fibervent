@@ -57,9 +57,10 @@ class WorkOrderTaskAdmin extends AbstractBaseAdmin
                 ->end()
             ;
         }
-        if ($this->getSubject()->isFromAudit()) {
-            $formMapper
-                ->with('admin.bladedamage.title', $this->getFormMdSuccessBoxArray(5))
+        if ($this->id($this->getSubject())) { // is edit mode, disable on new subjects
+            if ($this->getSubject()->isFromAudit()) {
+                $formMapper
+                    ->with('admin.bladedamage.title', $this->getFormMdSuccessBoxArray(5))
                     ->add('windmill',
                         ModelAutocompleteType::class,
                         array(
@@ -87,9 +88,9 @@ class WorkOrderTaskAdmin extends AbstractBaseAdmin
                             'label' => 'admin.bladedamage.title',
                             'read_only' => true,
                             'disabled' => true,
-    //                    'btn_add' => false,
-    //                    'required' => true,
-    //                    // 'query' => $this->bdr->findAll(),
+                            //                    'btn_add' => false,
+                            //                    'required' => true,
+                            //                    // 'query' => $this->bdr->findAll(),
                             'property' => 'damage.code',
                         )
                     )
@@ -125,8 +126,8 @@ class WorkOrderTaskAdmin extends AbstractBaseAdmin
                             'read_only' => true,
                         )
                     )
-                    ->end()
-                ;
+                    ->end();
+            }
         } else {
             $formMapper
                 ->with('admin.bladedamage.title', $this->getFormMdSuccessBoxArray(5))
@@ -154,9 +155,6 @@ class WorkOrderTaskAdmin extends AbstractBaseAdmin
                         'label' => 'admin.bladedamage.title',
                         'read_only' => true,
                         'disabled' => true,
-                        //                    'btn_add' => false,
-                        //                    'required' => true,
-                        //                    // 'query' => $this->bdr->findAll(),
                         'property' => 'damage.code',
                     )
                 )
@@ -188,8 +186,7 @@ class WorkOrderTaskAdmin extends AbstractBaseAdmin
                         'label' => 'admin.bladedamage.size',
                     )
                 )
-                ->end()
-            ;
+                ->end();
         }
         $formMapper
             ->with('admin.common.general', $this->getFormMdSuccessBoxArray(7))

@@ -14,8 +14,8 @@ use Sonata\AdminBundle\Form\Type\ModelType;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\Form\Type\CollectionType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 /**
  * Class WorkOrderAdmin.
@@ -58,10 +58,12 @@ class WorkOrderAdmin extends AbstractBaseAdmin
                 )
                 ->add(
                     'customer',
-                    TextType::class,
+                    EntityType::class,
                     array(
+                        'class' => Customer::class,
                         'label' => 'admin.windfarm.customer',
                         'read_only' => true,
+                        'disabled' => true,
                     )
                 )
                 ->add('isFromAudit',
@@ -75,10 +77,12 @@ class WorkOrderAdmin extends AbstractBaseAdmin
                 ->end()
                 ->with('admin.windfarm.title', $this->getFormMdSuccessBoxArray(4))
                 ->add('windfarm',
-                    TextType::class,
+                    EntityType::class,
                     array(
+                        'class' => Windfarm::class,
                         'label' => 'admin.windfarm.title',
                         'read_only' => true,
+                        'disabled' => true,
                     )
                 )
                 ->add(
