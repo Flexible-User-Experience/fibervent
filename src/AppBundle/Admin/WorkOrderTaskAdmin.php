@@ -127,6 +127,66 @@ class WorkOrderTaskAdmin extends AbstractBaseAdmin
                         )
                     )
                     ->end();
+            } else {
+                $formMapper
+                    ->with('admin.bladedamage.title', $this->getFormMdSuccessBoxArray(5))
+                    ->add('windmill',
+                        ModelAutocompleteType::class,
+                        array(
+                            'label' => 'admin.windmill.title',
+                            'btn_add' => false,
+                            'required' => false,
+                            'property' => 'code',
+                        )
+                    )
+                    ->add('windmillBlade',
+                        ModelType::class,
+                        array(
+                            'label' => 'admin.windmillblade.title',
+                            'btn_add' => false,
+                            'required' => false,
+                        )
+                    )
+                    ->add(
+                        'bladeDamage',
+                        ModelAutocompleteType::class,
+                        array(
+                            'label' => 'admin.bladedamage.title',
+                            'read_only' => true,
+                            'disabled' => true,
+                            'property' => 'damage.code',
+                        )
+                    )
+                    ->add(
+                        'position',
+                        null,
+                        array(
+                            'label' => 'admin.bladedamage.position',
+                        )
+                    )
+                    ->add(
+                        'radius',
+                        null,
+                        array(
+                            'label' => 'admin.bladedamage.radius',
+                        )
+                    )
+                    ->add(
+                        'distance',
+                        null,
+                        array(
+                            'label' => 'admin.bladedamage.distance',
+                        )
+                    )
+                    ->add(
+                        'size',
+                        null,
+                        array(
+                            'label' => 'admin.bladedamage.size',
+                        )
+                    )
+                    ->end()
+                ;
             }
         } else {
             $formMapper
@@ -207,7 +267,6 @@ class WorkOrderTaskAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'admin.workorder.is_from_audit',
                     'read_only' => true,
-                    'disabled' => true,
                 )
             )
             ->end()
