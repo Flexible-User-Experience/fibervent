@@ -9,6 +9,7 @@ use AppBundle\Enum\RepairAccessTypeEnum;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Form\Type\ModelAutocompleteType;
 use Sonata\AdminBundle\Form\Type\ModelType;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\AdminBundle\Show\ShowMapper;
@@ -72,18 +73,21 @@ class WorkOrderAdmin extends AbstractBaseAdmin
                     null,
                     array(
                         'label' => 'admin.workorder.is_from_audit',
+                        'read_only' => true,
                     )
                 )
                 ->add(
                     'audits',
-                    ModelType::class,
+                    ModelAutocompleteType::class,
                     array(
                         'label' => 'admin.audit.title',
+                        'read_only' => 'true',
                         'required' => true,
                         'multiple' => true,
                         'btn_add' => false,
 //                        'query' => $this->ar->buildEmptyListQ(),
-                        'choices_as_values' => true,
+//                        'choices_as_values' => true,
+                        'property' => 'string',
                     )
                 )
                 ->end()
