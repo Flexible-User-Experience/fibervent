@@ -267,6 +267,7 @@ class WorkOrderTaskAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'admin.workorder.is_from_audit',
                     'read_only' => true,
+                    'disabled' => true,
                 )
             )
             ->end()

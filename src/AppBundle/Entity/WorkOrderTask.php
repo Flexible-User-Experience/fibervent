@@ -32,7 +32,7 @@ class WorkOrderTask extends AbstractBase
     /**
      * @var bool
      *
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", nullable=true, options={"default"=0})
      */
     private $isFromAudit;
 
@@ -129,11 +129,11 @@ class WorkOrderTask extends AbstractBase
     }
 
     /**
-     * @param WorkOrder $workOrder
+     * @param WorkOrder|null $workOrder
      *
      * @return WorkOrderTask
      */
-    public function setWorkOrder(WorkOrder $workOrder): WorkOrderTask
+    public function setWorkOrder(?WorkOrder $workOrder): WorkOrderTask
     {
         $this->workOrder = $workOrder;
 
@@ -149,11 +149,11 @@ class WorkOrderTask extends AbstractBase
     }
 
     /**
-     * @param bool $isFromAudit
+     * @param bool|null $isFromAudit
      *
      * @return WorkOrderTask
      */
-    public function setIsFromAudit(bool $isFromAudit): WorkOrderTask
+    public function setIsFromAudit(?bool $isFromAudit): WorkOrderTask
     {
         $this->isFromAudit = $isFromAudit;
 
@@ -169,11 +169,11 @@ class WorkOrderTask extends AbstractBase
     }
 
     /**
-     * @param BladeDamage $bladeDamage
+     * @param BladeDamage|null $bladeDamage
      *
      * @return WorkOrderTask
      */
-    public function setBladeDamage(BladeDamage $bladeDamage): WorkOrderTask
+    public function setBladeDamage(?BladeDamage $bladeDamage): WorkOrderTask
     {
         $this->bladeDamage = $bladeDamage;
 
@@ -357,11 +357,11 @@ class WorkOrderTask extends AbstractBase
     }
 
     /**
-     * @param string $description
+     * @param string|null $description
      *
      * @return WorkOrderTask
      */
-    public function setDescription(string $description): WorkOrderTask
+    public function setDescription(?string $description): WorkOrderTask
     {
         $this->description = $description;
 
