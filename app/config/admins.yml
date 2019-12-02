@@ -82,11 +82,11 @@ services:
       - { name: sonata.admin, manager_type: orm, label: "Audit Daño Pala", group: "Audit", label_translator_strategy: "sonata.admin.label.strategy.noop", show_in_dashboard: false }
   admin.work_order:
     class: AppBundle\Admin\WorkOrderAdmin
-    arguments: [~, AppBundle\Entity\WorkOrder, ~, "@security.authorization_checker", "@security.token_storage", "@app.repositories_service", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
+    arguments: [~, AppBundle\Entity\WorkOrder, AppBundle:WorkOrderAdmin, "@security.authorization_checker", "@security.token_storage", "@app.repositories_service", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
     tags:
       - { name: sonata.admin, manager_type: orm, label: "Proyecto", group: "WorkOrder", label_translator_strategy: "sonata.admin.label.strategy.noop", show_in_dashboard: true }
-  #        calls:
-  #            - [ setTemplate, [ edit, "::Admin/WorkOrder/edit.html.twig" ] ]
+    calls:
+        - [ setTemplate, [ edit, "::Admin/WorkOrder/edit_new.html.twig" ] ]
   admin.work_order_task:
     class: AppBundle\Admin\WorkOrderTaskAdmin
     arguments: [~, AppBundle\Entity\WorkOrderTask, ~, "@security.authorization_checker", "@security.token_storage", "@app.repositories_service", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]

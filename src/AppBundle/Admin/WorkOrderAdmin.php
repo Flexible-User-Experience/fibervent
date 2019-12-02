@@ -38,7 +38,10 @@ class WorkOrderAdmin extends AbstractBaseAdmin
      */
     protected function configureRoutes(RouteCollection $collection)
     {
-        $collection->remove('batch');
+        $collection
+            ->remove('batch')
+            ->add('getWindfarmsFromCustomerId', $this->getRouterIdParameter().'/get-windfarms-from-customer-id')
+        ;
     }
 
     /**

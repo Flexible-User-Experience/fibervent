@@ -1,0 +1,41 @@
+{% extends "::Admin/edit.html.twig" %}
+
+{# override javascript includes #}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/fosjsrouting/js/router.min.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', {callback: 'fos.Router.setData'}) }}"></script>
+    <script type="text/javascript">
+        jQuery(document).ready(function() {
+            var customerNode = jQuery('#sonata-ba-field-container-{{ form.customer.vars.id }}');
+            customerNode.change(function(event) {
+                var customerId = event.val;
+                updateWindfarmNodeByCustomer(customerId);
+            });
+        });
+        function updateWindfarmNodeByCustomer(customerId) {
+            var windfarmNode = jQuery('#sonata-ba-field-container-{{ form.windfarm.vars.id }}');
+            var response = jQuery.get(Routing.generate('admin_app_workorder_getWindfarmsFromCustomerId', {id: customerId}), function() {
+            }).done(function (response) {
+                var jsonResponse = jQuery.parseJSON(response);
+                console.log(jsonResponse);
+                console.log(windfarmNode[0].children[1].getElementsByTagName("select")[0]);
+                var windfarmNodeSelector = windfarmNode[0].children[1].getElementsByTagName("select")[0];
+                // TODO be careful in EDIT mode (previously Audit maybe selected when WorkOrder is from Audit)
+                while (windfarmNodeSelector.firstChild) {
+                    windfarmNodeSelector.removeChild(windfarmNodeSelector.firstChild);
+                }
+                if (jsonResponse.data.length > 0) {
+                    var i;
+                    for (i = 0; i < jsonResponse.data.length; i++) {
+                        var option = document.createElement("option");
+                        option.innerText = jsonResponse.data[i].name;
+                        option.value = jsonResponse.data[i].id;
+                        windfarmNodeSelector.appendChild(option);
+                    }
+                }
+            })
+            ;
+        }
+    </script>
+{% endblock %}

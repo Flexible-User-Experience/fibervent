@@ -174,4 +174,44 @@ class WindfarmRepository extends EntityRepository
     {
         return $this->findCustomerEnabledSortedByNameQ($customer, $limit, $order)->getResult();
     }
+
+    /**
+     * @param Customer $customer
+     * @param int|null $limit
+     * @param string   $order
+     *
+     * @return QueryBuilder
+     */
+    public function findCustomerEnabledSortedByNameAjaxQB(Customer $customer, $limit = null, $order = 'ASC')
+    {
+        return $this->findEnabledSortedByNameQB($limit, $order)
+            ->select('w.name, w.id')
+            ->andWhere('w.customer = :customer')
+            ->setParameter('customer', $customer)
+        ;
+    }
+
+    /**
+     * @param Customer $customer
+     * @param int|null $limit
+     * @param string   $order
+     *
+     * @return Query
+     */
+    public function findCustomerEnabledSortedByNameAjaxQ(Customer $customer, $limit = null, $order = 'ASC')
+    {
+        return $this->findCustomerEnabledSortedByNameAjaxQB($customer, $limit, $order)->getQuery();
+    }
+
+    /**
+     * @param Customer $customer
+     * @param int|null $limit
+     * @param string   $order
+     *
+     * @return array
+     */
+    public function findCustomerEnabledSortedByNameAjax(Customer $customer, $limit = null, $order = 'ASC')
+    {
+        return $this->findCustomerEnabledSortedByNameAjaxQ($customer, $limit, $order)->getResult();
+    }
 }
