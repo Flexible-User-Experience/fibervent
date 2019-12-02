@@ -2,6 +2,8 @@
 
 namespace AppBundle\Admin;
 
+use AppBundle\Entity\Windfarm;
+use AppBundle\Entity\WorkOrder;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
@@ -56,6 +58,10 @@ class WorkOrderTaskAdmin extends AbstractBaseAdmin
                 )
                 ->end()
             ;
+            /** @var WorkOrder $workOrder */
+            $workOrder = $this->getRoot()->getSubject();
+            /** @var Windfarm $windfarm */
+            $windfarm = $workOrder->getWindfarm();
         }
         if ($this->id($this->getSubject())) { // is edit mode, disable on new subjects
             if ($this->getSubject()->isFromAudit()) {
@@ -131,12 +137,13 @@ class WorkOrderTaskAdmin extends AbstractBaseAdmin
                 $formMapper
                     ->with('admin.bladedamage.title', $this->getFormMdSuccessBoxArray(5))
                     ->add('windmill',
-                        ModelAutocompleteType::class,
+                        ModelType::class,
                         array(
                             'label' => 'admin.windmill.title',
                             'btn_add' => false,
                             'required' => false,
                             'property' => 'code',
+                            'query' => $this->wmr->findEnabledandWindfarmSortedByCustomerWindfarmAndWindmillCodeQB($windfarm),
                         )
                     )
                     ->add('windmillBlade',
@@ -192,12 +199,13 @@ class WorkOrderTaskAdmin extends AbstractBaseAdmin
             $formMapper
                 ->with('admin.bladedamage.title', $this->getFormMdSuccessBoxArray(5))
                 ->add('windmill',
-                    ModelAutocompleteType::class,
+                    ModelType::class,
                     array(
                         'label' => 'admin.windmill.title',
                         'btn_add' => false,
                         'required' => false,
                         'property' => 'code',
+                        'query' => $this->wmr->findEnabledandWindfarmSortedByCustomerWindfarmAndWindmillCodeQB($windfarm),
                     )
                 )
                 ->add('windmillBlade',

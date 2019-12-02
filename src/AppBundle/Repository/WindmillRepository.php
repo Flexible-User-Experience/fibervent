@@ -3,6 +3,7 @@
 namespace AppBundle\Repository;
 
 use AppBundle\Entity\Customer;
+use AppBundle\Entity\Windfarm;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
@@ -136,5 +137,47 @@ class WindmillRepository extends EntityRepository
     public function findCustomerSortedByCustomerWindfarmAndWindmillCode(Customer $customer, $limit = null, $order = 'ASC')
     {
         return $this->findCustomerSortedByCustomerWindfarmAndWindmillCodeQ($customer, $limit, $order)->getResult();
+    }
+
+    /**
+     * @param Windfarm $windfarm
+     * @param null     $limit
+     * @param string   $order
+     *
+     * @return QueryBuilder
+     */
+    public function findEnabledandWindfarmSortedByCustomerWindfarmAndWindmillCodeQB(Windfarm $windfarm, $limit = null, $order = 'ASC')
+    {
+        $query = $this
+            ->findAllSortedByCustomerWindfarmAndWindmillCodeQB()
+            ->where('windmill.enabled = true')
+            ->andWhere('windmill.windfarm = :windfarm')
+            ->setParameter('windfarm', $windfarm);
+
+        return $query;
+    }
+
+    /**
+     * @param Windfarm $windfarm
+     * @param null     $limit
+     * @param string   $order
+     *
+     * @return Query
+     */
+    public function findEnabledandWindfarmSortedByCustomerWindfarmAndWindmillCodeQ(Windfarm $windfarm, $limit = null, $order = 'ASC')
+    {
+        return $this->findEnabledandWindfarmSortedByCustomerWindfarmAndWindmillCodeQB($windfarm, $limit, $order)->getQuery();
+    }
+
+    /**
+     * @param Windfarm $windfarm
+     * @param null     $limit
+     * @param string   $order
+     *
+     * @return array
+     */
+    public function findEnabledandWindfarmSortedByCustomerWindfarmAndWindmillCode(Windfarm $windfarm, $limit = null, $order = 'ASC')
+    {
+        return $this->findEnabledandWindfarmSortedByCustomerWindfarmAndWindmillCodeQ($windfarm, $limit, $order)->getResult();
     }
 }
