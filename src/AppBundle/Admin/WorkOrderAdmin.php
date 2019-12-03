@@ -41,6 +41,7 @@ class WorkOrderAdmin extends AbstractBaseAdmin
         $collection
             ->remove('batch')
             ->add('getWindfarmsFromCustomerId', $this->getRouterIdParameter().'/get-windfarms-from-customer-id')
+            ->add('getWindmillbladesFromWindmillId', $this->getRouterIdParameter().'/get-windmillblades-from-windmill-id')
         ;
     }
 

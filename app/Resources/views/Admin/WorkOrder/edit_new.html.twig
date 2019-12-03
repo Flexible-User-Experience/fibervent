@@ -12,14 +12,67 @@
                 var customerId = event.val;
                 updateWindfarmNodeByCustomer(customerId);
             });
+            {% if admin.id(object) %} {# is in edit mode #}
+                var workOrderTasks = jQuery('#field_widget_{{  form.workOrderTasks.vars.id }}')[0].children[0].children[1].childElementCount;
+                var windmillNodes = [];
+                for (i = 0; i < workOrderTasks; i++) {
+                    windmillNodes[i] = jQuery('#{{ form.workOrderTasks.vars.id }}_'+i+'_windmill');
+                    windmillNodes[i].change((function() {
+                        var k = i;
+                        return function (event) {
+                            var windmillBladeId = event.val;
+                            var windmillNode = windmillNodes[k];
+                            updateWindmillBladeNodeByWindmill(windmillBladeId, windmillNode, k);
+                        }
+                    })());
+                }
+                $(document).on('sonata.add_element', function(event, elementId, objectId, uniqid) {
+                    {#console.log('trigger is fired ');#}
+                    {#console.log(event.target);#}
+                    // insert here your code
+                    //TODO Update only the new object
+                    var workOrderTasks = jQuery('#field_widget_{{  form.workOrderTasks.vars.id }}')[0].children[0].children[1].childElementCount;
+                    var windmillNodes = [];
+                    for (i = 0; i < workOrderTasks; i++) {
+                        windmillNodes[i] = jQuery('#{{ form.workOrderTasks.vars.id }}_'+i+'_windmill');
+                        windmillNodes[i].change((function() {
+                            var k = i;
+                            return function (event) {
+                                var windmillBladeId = event.val;
+                                var windmillNode = windmillNodes[k];
+                                updateWindmillBladeNodeByWindmill(windmillBladeId, windmillNode, k);
+                            }
+                        })());
+                    }
+                });
+            function updateWindmillBladeNodeByWindmill(windmillBladeId, windmillNode, i) {
+                var response = jQuery.get(Routing.generate('admin_app_workorder_getWindmillbladesFromWindmillId', {id: windmillBladeId}), function() {
+                }).done(function (response) {
+                    var jsonResponse = jQuery.parseJSON(response);
+                    var windmillBladeNode = jQuery('#{{ form.workOrderTasks.vars.id }}_'+i+'_windmillBlade');
+                    // TODO be careful in EDIT mode (previously Audit maybe selected when WorkOrder is from Audit)
+                    while (windmillBladeNode[0].firstChild) {
+                        windmillBladeNode[0].removeChild(windmillBladeNode[0].firstChild);
+                    }
+                    if (jsonResponse.data.length > 0) {
+                        var j;
+                        for (j = 0; j < jsonResponse.data.length; j++) {
+                            var option = document.createElement("option");
+                            option.innerText = jsonResponse.data[j].order + '(id: ' + jsonResponse.data[j].id + ')';
+                            option.value = jsonResponse.data[j].id;
+                            windmillBladeNode[0].appendChild(option);
+                        }
+                    }
+                })
+            }
+            {% endif %}
+
         });
         function updateWindfarmNodeByCustomer(customerId) {
             var windfarmNode = jQuery('#sonata-ba-field-container-{{ form.windfarm.vars.id }}');
             var response = jQuery.get(Routing.generate('admin_app_workorder_getWindfarmsFromCustomerId', {id: customerId}), function() {
             }).done(function (response) {
                 var jsonResponse = jQuery.parseJSON(response);
-                console.log(jsonResponse);
-                console.log(windfarmNode[0].children[1].getElementsByTagName("select")[0]);
                 var windfarmNodeSelector = windfarmNode[0].children[1].getElementsByTagName("select")[0];
                 // TODO be careful in EDIT mode (previously Audit maybe selected when WorkOrder is from Audit)
                 while (windfarmNodeSelector.firstChild) {

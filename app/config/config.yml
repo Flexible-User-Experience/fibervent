@@ -115,6 +115,7 @@ fos_js_routing:
     routes_to_expose:
         - "admin_app_customer_getAuditsFromCustomerId"
         - "admin_app_workorder_getWindfarmsFromCustomerId"
+        - "admin_app_workorder_getWindmillbladesFromWindmillId"
 
 # A2lix Translations
 a2lix_translation_form:

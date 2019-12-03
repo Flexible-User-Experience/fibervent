@@ -4,8 +4,11 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Customer;
 use AppBundle\Entity\Windfarm;
+use AppBundle\Entity\Windmill;
+use AppBundle\Entity\WindmillBlade;
 use AppBundle\Model\AjaxResponse;
 use AppBundle\Repository\WindfarmRepository;
+use AppBundle\Repository\WindmillBladeRepository;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
@@ -43,11 +46,27 @@ class WorkOrderAdminController extends AbstractBaseAdminController
         return new JsonResponse($jsonEncodedResult);
     }
 
-//    public function getAuditsAjaxResponseFromCustomerId($cid)
-//    {
-//        $ajaxResponse = new AjaxResponse();
-//        $ajaxResponse->setData($this->ar->getAuditsFromCustomerIdForAjaxSelectLoad($cid));
-//
-//        return $ajaxResponse->getJsonEncodedResult();
-//    }
+    /**
+     * @param int $id Customer ID
+     *
+     * @return JsonResponse
+     */
+    public function getWindmillbladesFromWindmillIdAction($id)
+    {
+        /** @var EntityManager $em */
+        $em = $this->container->get('doctrine.orm.entity_manager');
+        /** @var Windmill $windmill */
+        $windmill = $em->getRepository(Windmill::class)->find($id);
+        /** @var WindmillBladeRepository $wmbr */
+        $wmbr = $em->getRepository(WindmillBlade::class);
+
+        $ajaxResponse = new AjaxResponse();
+        if (!$windmill) {
+            return new JsonResponse($ajaxResponse);
+        }
+        $ajaxResponse->setData($wmbr->findWindmillSortedByCodeAjax($windmill));
+        $jsonEncodedResult = $ajaxResponse->getJsonEncodedResult();
+
+        return new JsonResponse($jsonEncodedResult);
+    }
 }

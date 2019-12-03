@@ -189,11 +189,11 @@ class WorkOrderTask extends AbstractBase
     }
 
     /**
-     * @param WindmillBlade $windmillBlade
+     * @param WindmillBlade|null $windmillBlade
      *
      * @return WorkOrderTask
      */
-    public function setWindmillBlade(WindmillBlade $windmillBlade): WorkOrderTask
+    public function setWindmillBlade(?WindmillBlade $windmillBlade): WorkOrderTask
     {
         $this->windmillBlade = $windmillBlade;
 
@@ -209,11 +209,11 @@ class WorkOrderTask extends AbstractBase
     }
 
     /**
-     * @param Windmill $windmill
+     * @param Windmill|null $windmill
      *
      * @return WorkOrderTask
      */
-    public function setWindmill(Windmill $windmill): WorkOrderTask
+    public function setWindmill(?Windmill $windmill): WorkOrderTask
     {
         $this->windmill = $windmill;
 
