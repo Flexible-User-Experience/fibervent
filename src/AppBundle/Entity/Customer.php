@@ -2,7 +2,7 @@
 
 namespace AppBundle\Entity;
 
-use AppBundle\Entity\Traits\AddresTrait;
+use AppBundle\Entity\Traits\AddressTrait;
 use AppBundle\Entity\Traits\CityTrait;
 use AppBundle\Entity\Traits\CodeTrait;
 use AppBundle\Entity\Traits\ImageTrait;
@@ -31,7 +31,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 class Customer extends AbstractBase
 {
     use NameTrait;
-    use AddresTrait;
+    use AddressTrait;
     use PostalCodeTrait;
     use StateTrait;
     use CityTrait;

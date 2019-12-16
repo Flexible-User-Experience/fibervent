@@ -2,7 +2,7 @@
 
 namespace AppBundle\Entity;
 
-use AppBundle\Entity\Traits\AddresTrait;
+use AppBundle\Entity\Traits\AddressTrait;
 use AppBundle\Entity\Traits\CityTrait;
 use AppBundle\Entity\Traits\CodeTrait;
 use AppBundle\Entity\Traits\GpsCoordinatesTrait;
@@ -30,7 +30,7 @@ class Windfarm extends AbstractBase
 {
     use NameTrait;
     use CodeTrait;
-    use AddresTrait;
+    use AddressTrait;
     use PostalCodeTrait;
     use StateTrait;
     use CityTrait;
