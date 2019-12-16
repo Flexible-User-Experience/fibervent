@@ -8,44 +8,95 @@
     <script type="text/javascript">
         jQuery(document).ready(function() {
             var customerNode = jQuery('#sonata-ba-field-container-{{ form.customer.vars.id }}');
-            var customerTrueSelectNode = jQuery('#{{ form.customer.vars.id }}');
-            {#var auditNode = jQuery('#sonata-ba-field-container-{{ form.audit.vars.id }}');#}
-            {#var auditTrueSelectNode = jQuery('#{{ form.audit.vars.id }}');#}
-            {#var isFromAuditNode = jQuery('#{{ form.isFromAudit.vars.id }}');#}
-            // on Customer change
             customerNode.change(function(event) {
                 var customerId = event.val;
-                updateAuditNodeByCustomer(customerId, auditTrueSelectNode);
+                updateWindfarmNodeByCustomer(customerId);
             });
-            // $(isFromAuditNode).on('ifUnchecked', function() {
-            //     auditNode.addClass('hidden');
-            // });
-            // $(isFromAuditNode).on('ifChecked', function() {
-            //     auditNode.removeClass('hidden');
-            // });
-            // initializing
-            if (isFromAuditNode.prop('checked')) {
-                auditNode.removeClass('hidden');
-            } else {
-                auditNode.addClass('hidden');
-            }
-            if (customerTrueSelectNode.val() > 0) {
-                updateAuditNodeByCustomer(customerTrueSelectNode.val(), auditTrueSelectNode);
-            }
-        });
-        function updateAuditNodeByCustomer(customerId, auditTrueSelectNode) {
-            jQuery.get(Routing.generate('admin_app_customer_getAuditsFromCustomerId', {id: customerId}), function() {
-            }).done(function (response) {
-                var jsonResonse = jQuery.parseJSON(response);
-                auditTrueSelectNode.html(jsonResonse.htmlOptionStringData);
-                // TODO be careful in EDIT mode (previously Audit maybe selected when WorkOrder is from Audit)
-                if (jsonResonse.data.length > 0) {
-                    auditTrueSelectNode.val(jsonResonse.data[0].id).trigger('change.select2');
-                } else {
-                    auditTrueSelectNode.html('<option value="-1">---</option>');
-                    auditTrueSelectNode.val(-1).trigger('change.select2');
+            {% if admin.id(object) %} {# is in edit mode #}
+                jQuery('#field_widget_{{  form.workOrderTasks.vars.id }}')[0].children[0].children[0].children[0].children[1].width = '30%';
+                jQuery('#field_widget_{{  form.workOrderTasks.vars.id }}')[0].children[0].children[0].children[0].children[2].width = '5%';
+                jQuery('#field_widget_{{  form.workOrderTasks.vars.id }}')[0].children[0].children[0].children[0].children[3].width = '5%';
+                jQuery('#field_widget_{{  form.workOrderTasks.vars.id }}')[0].children[0].children[0].children[0].children[4].width = '5%';
+                jQuery('#field_widget_{{  form.workOrderTasks.vars.id }}')[0].children[0].children[0].children[0].children[5].width = '5%';
+                jQuery('#field_widget_{{  form.workOrderTasks.vars.id }}')[0].children[0].children[0].children[0].children[6].width = '5%';
+                jQuery('#field_widget_{{  form.workOrderTasks.vars.id }}')[0].children[0].children[0].children[0].children[7].width = '5%';
+                jQuery('#field_widget_{{  form.workOrderTasks.vars.id }}')[0].children[0].children[0].children[0].children[9].width = '30%';
+                var workOrderTasks = jQuery('#field_widget_{{  form.workOrderTasks.vars.id }}')[0].children[0].children[1].childElementCount;
+                var windmillNodes = [];
+                for (i = 0; i < workOrderTasks; i++) {
+                    windmillNodes[i] = jQuery('#{{ form.workOrderTasks.vars.id }}_'+i+'_windmill');
+                    windmillNodes[i].change((function() {
+                        var k = i;
+                        return function (event) {
+                            var windmillBladeId = event.val;
+                            var windmillNode = windmillNodes[k];
+                            updateWindmillBladeNodeByWindmill(windmillBladeId, windmillNode, k);
+                        }
+                    })());
                 }
-            });
+                $(document).on('sonata.add_element', function(event, elementId, objectId, uniqid) {
+                    {#console.log('trigger is fired ');#}
+                    {#console.log(event.target);#}
+                    // insert here your code
+                    //TODO Update only the new object
+                    var workOrderTasks = jQuery('#field_widget_{{  form.workOrderTasks.vars.id }}')[0].children[0].children[1].childElementCount;
+                    var windmillNodes = [];
+                    for (i = 0; i < workOrderTasks; i++) {
+                        windmillNodes[i] = jQuery('#{{ form.workOrderTasks.vars.id }}_'+i+'_windmill');
+                        windmillNodes[i].change((function() {
+                            var k = i;
+                            return function (event) {
+                                var windmillBladeId = event.val;
+                                var windmillNode = windmillNodes[k];
+                                updateWindmillBladeNodeByWindmill(windmillBladeId, windmillNode, k);
+                            }
+                        })());
+                    }
+                });
+            function updateWindmillBladeNodeByWindmill(windmillBladeId, windmillNode, i) {
+                var response = jQuery.get(Routing.generate('admin_app_workorder_getWindmillbladesFromWindmillId', {id: windmillBladeId}), function() {
+                }).done(function (response) {
+                    var jsonResponse = jQuery.parseJSON(response);
+                    var windmillBladeNode = jQuery('#{{ form.workOrderTasks.vars.id }}_'+i+'_windmillBlade');
+                    // TODO be careful in EDIT mode (previously Audit maybe selected when WorkOrder is from Audit)
+                    while (windmillBladeNode[0].firstChild) {
+                        windmillBladeNode[0].removeChild(windmillBladeNode[0].firstChild);
+                    }
+                    if (jsonResponse.data.length > 0) {
+                        var j;
+                        for (j = 0; j < jsonResponse.data.length; j++) {
+                            var option = document.createElement("option");
+                            option.innerText = jsonResponse.data[j].order + '(id: ' + jsonResponse.data[j].id + ')';
+                            option.value = jsonResponse.data[j].id;
+                            windmillBladeNode[0].appendChild(option);
+                        }
+                    }
+                })
+            }
+            {% endif %}
+
+        });
+        function updateWindfarmNodeByCustomer(customerId) {
+            var windfarmNode = jQuery('#sonata-ba-field-container-{{ form.windfarm.vars.id }}');
+            var response = jQuery.get(Routing.generate('admin_app_workorder_getWindfarmsFromCustomerId', {id: customerId}), function() {
+            }).done(function (response) {
+                var jsonResponse = jQuery.parseJSON(response);
+                var windfarmNodeSelector = windfarmNode[0].children[1].getElementsByTagName("select")[0];
+                // TODO be careful in EDIT mode (previously Audit maybe selected when WorkOrder is from Audit)
+                while (windfarmNodeSelector.firstChild) {
+                    windfarmNodeSelector.removeChild(windfarmNodeSelector.firstChild);
+                }
+                if (jsonResponse.data.length > 0) {
+                    var i;
+                    for (i = 0; i < jsonResponse.data.length; i++) {
+                        var option = document.createElement("option");
+                        option.innerText = jsonResponse.data[i].name;
+                        option.value = jsonResponse.data[i].id;
+                        windfarmNodeSelector.appendChild(option);
+                    }
+                }
+            })
+            ;
         }
     </script>
 {% endblock %}

@@ -86,7 +86,7 @@ services:
     tags:
       - { name: sonata.admin, manager_type: orm, label: "Proyecto", group: "WorkOrder", label_translator_strategy: "sonata.admin.label.strategy.noop", show_in_dashboard: true }
     calls:
-        - [ setTemplate, [ edit, "::Admin/WorkOrder/edit_new.html.twig" ] ]
+        - [ setTemplate, [ edit, "::Admin/WorkOrder/edit.html.twig" ] ]
   admin.work_order_task:
     class: AppBundle\Admin\WorkOrderTaskAdmin
     arguments: [~, AppBundle\Entity\WorkOrderTask, ~, "@security.authorization_checker", "@security.token_storage", "@app.repositories_service", "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
