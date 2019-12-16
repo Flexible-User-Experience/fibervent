@@ -13,6 +13,14 @@
                 updateWindfarmNodeByCustomer(customerId);
             });
             {% if admin.id(object) %} {# is in edit mode #}
+                jQuery('#field_widget_{{  form.workOrderTasks.vars.id }}')[0].children[0].children[0].children[0].children[1].width = '30%';
+                jQuery('#field_widget_{{  form.workOrderTasks.vars.id }}')[0].children[0].children[0].children[0].children[2].width = '5%';
+                jQuery('#field_widget_{{  form.workOrderTasks.vars.id }}')[0].children[0].children[0].children[0].children[3].width = '5%';
+                jQuery('#field_widget_{{  form.workOrderTasks.vars.id }}')[0].children[0].children[0].children[0].children[4].width = '5%';
+                jQuery('#field_widget_{{  form.workOrderTasks.vars.id }}')[0].children[0].children[0].children[0].children[5].width = '5%';
+                jQuery('#field_widget_{{  form.workOrderTasks.vars.id }}')[0].children[0].children[0].children[0].children[6].width = '5%';
+                jQuery('#field_widget_{{  form.workOrderTasks.vars.id }}')[0].children[0].children[0].children[0].children[7].width = '5%';
+                jQuery('#field_widget_{{  form.workOrderTasks.vars.id }}')[0].children[0].children[0].children[0].children[9].width = '30%';
                 var workOrderTasks = jQuery('#field_widget_{{  form.workOrderTasks.vars.id }}')[0].children[0].children[1].childElementCount;
                 var windmillNodes = [];
                 for (i = 0; i < workOrderTasks; i++) {
