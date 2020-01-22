@@ -22,7 +22,7 @@ pdf:
   intro:
     1_title: '1. INTRODUCTION'
     2_description: 'Ce rapport est le résultat de l’inspection visuelle réalisée avec télescope depuis le sol dans le parc éolien  "%windfarm%". L’équipement, propriété de FIBERVENT, et utilisé par l’inspection, est le suivant:'
-    3_list: 'APPAREIL PHOTO<ul><li>Canon Eos 5D MARK II // Canon Eos 70D</li></ul>OBJECTIF<ul><li>Canon zoom lens EF 24-105 mm. 1:4 L IS USM</li><li>Canon zoom lens EF 100-400 mm. 1:4.5-5.6 L IS USM</li><li>Canon lens EF 500 mm. F4 L IS USM</li><li>Canon extender EF 1.4x II // EF 2x II</li></ul>TRÉPIED<ul><li>Trípode Feisol Tournament Carbon CT-3342</li></ul>'
+    3_list: 'APPAREIL PHOTO<ul><li>Canon Eos 5D MARK II // Canon Eos 70D // Canon Eos 5DS</li></ul>OBJECTIF<ul><li>Canon zoom lens EF 24-105 mm. 1:4 L IS USM</li><li>Canon zoom lens EF 100-400 mm. 1:4.5-5.6 L IS USM</li><li>Canon lens EF 500 mm. F4 L IS USM</li><li>Canon extender EF 1.4x II // EF 2x II</li></ul>TRÉPIED<ul><li>Trípode Feisol Tournament Carbon CT-3342</li></ul>'
   damage_catalog:
     1_title: '2. RECENSEMENT DE DOMMAGES'
     2_subtitle: 'La détection de dommages a été classée selon les critères suivants :'
