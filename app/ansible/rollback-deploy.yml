@@ -3,7 +3,7 @@
   hosts: s6
   gather_facts: false
   roles:
-    - { role: "carlosbuenosvinos.ansistrano-rollback" }
+    - { role: "ansistrano.rollback" }
   vars_files:
     - "{{ playbook_dir }}/vars/config.yml"
   vars:

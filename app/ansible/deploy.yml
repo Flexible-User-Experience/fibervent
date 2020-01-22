@@ -3,7 +3,6 @@
   hosts: s6
   gather_facts: false
   roles:
-    - { role: "carlosbuenosvinos.ansistrano-deploy" }
     - { role: "cbrunnkvist.ansistrano-symfony-deploy" }
   vars_files:
     - "{{ playbook_dir }}/vars/config.yml"
